@@ -20,4 +20,4 @@ from __future__ import division, absolute_import, print_function
 from .version import __version__, __author__
 
 # Function wrappers to be used with partial from functools
-from .ncvuew import ncvue
+from .ncvue import ncvue
