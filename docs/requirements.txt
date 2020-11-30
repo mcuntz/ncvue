@@ -1,0 +1,5 @@
+# required for readthedocs.org
+numpydoc
+numpy
+netcdf4
+matplotlib

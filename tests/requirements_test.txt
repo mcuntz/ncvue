@@ -1,0 +1,9 @@
+cibuildwheel
+setuptools
+coverage
+coveralls
+pytest-cov
+numpy
+cftime
+netcdf4
+matplotlib

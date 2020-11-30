@@ -1,0 +1,14 @@
+[run]
+source = ncvue
+omit =
+    *docs*
+    *examples*
+    *tests*
+    
+[report]
+exclude_lines =
+    pragma: no cover
+    if __name__ == '__main__':
+    if verbose:
+    def __repr__
+    def __str__

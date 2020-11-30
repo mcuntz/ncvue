@@ -1,0 +1,13 @@
+include AUTHORS.md
+include CHANGELOG.md
+include CONTRIBUTING.md
+include LICENSE
+include MANIFEST.in
+include README.md
+include setup.py setup.cfg
+recursive-include ncvue *.py
+recursive-include docs/source *
+recursive-include docs/examples_userguide *
+include docs/Makefile docs/requirements.txt
+recursive-include tests *.py
+include tests/requirements_test.txt
