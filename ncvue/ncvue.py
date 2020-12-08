@@ -357,6 +357,30 @@ def add_spinbox(frame, label="", values=[], command=None, **kwargs):
     return sb_label, sb_val, sb
 
 
+def clone_ncvmain(widget, fi, miss):
+    # parent = widget.nametowidget(widget.winfo_parent())
+    if widget.name != 'ncvMain':
+        print('clone_ncvmain failed. Widget should be ncvMain.')
+        print('widget.name is: ', widget.name)
+        import sys
+        sys.exit()
+
+    self = tk.Toplevel()
+    self.name = 'ncvClone'
+    self.title("Secondary ncvue window")
+    self.geometry('1000x800')
+    self.miss = miss
+
+    # https://stackoverflow.com/questions/46505982/is-there-a-way-to-clone-a-tkinter-widget
+    cls = widget.__class__
+    clone = cls(fi, master=self, miss=miss)
+    for key in widget.configure():
+        if key != 'class':
+            clone.configure({key: widget.cget(key)})
+
+    return clone
+
+
 # --------------------------------------------------------------------
 # Contour plot panel
 #
@@ -394,18 +418,9 @@ class ncvContour(ttk.Frame):
         # new window
         self.rowwin = ttk.Frame(self)
         self.rowwin.pack(side=tk.TOP, fill=tk.X)
-        # self                      = .!toplevel.!ncvmain.!scatterplot,
-        # self.master               = .!toplevel.!ncvmain
-        # self.master.master        = .!toplevel
-        # self.master.master.master = .
-        # toplevel is changing with each new window, e.g. .!toplevel2
-        # first window has no top level
-        if self.master.master.master is None:
-            rot = self.master.master
-        else:
-            rot = self.master.master.master
-        self.newwin = ttk.Button(self.rowwin, text="New Window",
-                                 command=partial(ncvWin, self.fi, rot))
+        self.newwin = ttk.Button(
+            self.rowwin, text="New Window",
+            command=partial(clone_ncvmain, self.master, self.fi, self.miss))
         self.newwin.pack(side=tk.RIGHT)
 
         # plotting canvas
@@ -1373,18 +1388,9 @@ class ncvScatter(ttk.Frame):
         # new window
         self.rowwin = ttk.Frame(self)
         self.rowwin.pack(side=tk.TOP, fill=tk.X)
-        # self                      = .!toplevel.!ncvmain.!scatterplot,
-        # self.master               = .!toplevel.!ncvmain
-        # self.master.master        = .!toplevel
-        # self.master.master.master = .
-        # toplevel is changing with each new window, e.g. .!toplevel2
-        # first window has no top level
-        if self.master.master.master is None:
-            rot = self.master.master
-        else:
-            rot = self.master.master.master
-        self.newwin = ttk.Button(self.rowwin, text="New Window",
-                                 command=partial(ncvWin, self.fi, rot))
+        self.newwin = ttk.Button(
+            self.rowwin, text="New Window",
+            command=partial(clone_ncvmain, self.master, self.fi, self.miss))
         self.newwin.pack(side=tk.RIGHT)
 
         # plotting canvas
@@ -2668,25 +2674,6 @@ class ncvMain(ttk.Frame):
             self.maxdim = max(self.maxdim, len(ss))
             ivars.append((vv, ss, len(ss)))
         self.cols  += sorted([ vv[0] + ' ' + str(vv[1]) for vv in ivars ])
-
-
-# --------------------------------------------------------------------
-# Secondary creation of new window with panels
-#
-
-class ncvWin(tk.Toplevel):
-    """
-    Call ncvMain for a new plotting window.
-    """
-    def __init__(self, fi, master=None, **kwargs):
-        super().__init__(master, **kwargs)
-
-        self.name = 'ncvWin'
-        self.title("Secondary ncvue window")
-        self.geometry('1000x800')
-        self.miss = master.miss
-
-        secondary_frame = ncvMain(fi, master=self)
 
 
 # --------------------------------------------------------------------
