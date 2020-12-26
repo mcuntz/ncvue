@@ -2,6 +2,9 @@
 
 All notable changes after its initial development up to November 2020 (v1.0) are documented in this file.
 
+### v1.3 (Dec 2020)
+    - Invert x-axis.
+
 ### v1.2 (Dec 2020)
     - Put common methods in ncvmethods (first arg is self).
     - Make lists of labels, spinboxes and values of dimensions

@@ -48,7 +48,7 @@ class ncvScatter(ttk.Frame):
 
         super().__init__(master, **kwargs)
 
-        self.name   = 'Scatter'
+        self.name   = 'Scatter/Line'
         self.master = master
         self.root   = master.root
         self.fi     = master.fi
@@ -101,6 +101,10 @@ class ncvScatter(ttk.Frame):
                                          values=columns,
                                          command=self.selected_x)
         self.x0 = ''
+        self.line_x = []
+        self.inv_xlbl, self.inv_x = add_checkbutton(
+            self.rowxy, label="invert x", value=False,
+            command=self.checked_x)
         spacex = ttk.Label(self.rowxy, text=" "*3)
         spacex.pack(side=tk.LEFT)
         # self.ylbl, self.y = add_combobox(self.rowxy, label="y",
@@ -203,6 +207,8 @@ class ncvScatter(ttk.Frame):
         self.inv_y2lbl, self.inv_y2 = add_checkbutton(
             self.rowy2, label="invert y2", value=False,
             command=self.checked_y2)
+        spacey2 = ttk.Label(self.rowy2, text=" "*1)
+        spacey2.pack(side=tk.LEFT)
         self.same_ylbl, self.same_y = add_checkbutton(
             self.rowy2, label="same y-axes", value=False,
             command=self.checked_yy2)
@@ -255,6 +261,10 @@ class ncvScatter(ttk.Frame):
     #
     # Event bindings
     #
+
+    def checked_x(self):
+        self.redraw_y()
+        self.redraw_y2()
 
     def checked_y(self):
         self.redraw_y()
@@ -407,6 +417,20 @@ class ncvScatter(ttk.Frame):
                 if ylim[1] < ylim[0]:
                     ylim = ylim[::-1]
                     self.axes.set_ylim(ylim)
+
+            # invert x-axis
+            inv_x = self.inv_x.get()
+            xlim  = self.axes.get_xlim()
+            if inv_x and (xlim[0] is not None):
+                if xlim[0] < xlim[1]:
+                    xlim = xlim[::-1]
+                    self.axes.set_xlim(xlim)
+            else:
+                if xlim[1] < xlim[0]:
+                    xlim = xlim[::-1]
+                    self.axes.set_xlim(xlim)
+
+            # redraw
             self.canvas.draw()
             self.toolbar.update()
 
@@ -501,6 +525,20 @@ class ncvScatter(ttk.Frame):
                 if ylim[1] < ylim[0]:
                     ylim = ylim[::-1]
                     self.axes2.set_ylim(ylim)
+
+            # invert x-axis
+            inv_x = self.inv_x.get()
+            xlim  = self.axes.get_xlim()
+            if inv_x and (xlim[0] is not None):
+                if xlim[0] < xlim[1]:
+                    xlim = xlim[::-1]
+                    self.axes.set_xlim(xlim)
+            else:
+                if xlim[1] < xlim[0]:
+                    xlim = xlim[::-1]
+                    self.axes.set_xlim(xlim)
+
+            # redraw
             self.canvas.draw()
             self.toolbar.update()
 

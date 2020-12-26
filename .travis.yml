@@ -23,12 +23,14 @@ install:
   - python3 -m pip install -U coveralls
   - python3 -m pip install -r tests/requirements_test.txt
   - python3 -m pip install -r docs/requirements.txt
-  - python3 -m pip install cibuildwheel
+  # - python3 -m pip install cibuildwheel
+  - python3 -m pip install build
   - python3 -m pip install twine
 
 script:
   # create wheels
-  - python3 -m cibuildwheel --output-dir wheelhouse
+  # - python3 -m cibuildwheel --output-dir wheelhouse
+  - python3 -m build --wheel --outdir wheelhouse
   # create source dist for pypi and create coverage
   - |
     if [[ $COVER == "on" ]] ; then
