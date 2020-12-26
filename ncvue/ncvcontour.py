@@ -14,7 +14,10 @@ except Exception:
     print('Try to use mcview.py, which uses wxpython instead.')
     sys.exit()
 import numpy as np
-from .ncvutils   import get_miss, set_miss, spinbox_values
+from .ncvutils   import set_miss
+from .ncvmethods import get_miss
+from .ncvmethods import get_slice_x, get_slice_y, get_slice_z
+from .ncvmethods import set_dim_x, set_dim_y, set_dim_z
 from .ncvwidgets import add_checkbutton, add_combobox
 from .ncvwidgets import add_spinbox
 from .ncvclone   import clone_ncvmain
@@ -118,38 +121,16 @@ class ncvContour(ttk.Frame):
         # levels z
         self.rowzlev = ttk.Frame(self)
         self.rowzlev.pack(side=tk.TOP, fill=tk.X)
-        if self.maxdim > 0:
-            self.zd0lbl, self.zd0val, self.zd0 = add_spinbox(
-                self.rowzlev, label="0", values=(0,), wrap=True,
+        self.zdlbl = []
+        self.zdval = []
+        self.zd    = []
+        for i in range(self.maxdim):
+            zdlbl, zdval, zd = add_spinbox(
+                self.rowzlev, label=str(i), values=(0,), wrap=True,
                 command=self.spinned_z)
-        if self.maxdim > 1:
-            self.zd1lbl, self.zd1val, self.zd1 = add_spinbox(
-                self.rowzlev, label="1", values=(0,), wrap=True,
-                command=self.spinned_z)
-        if self.maxdim > 2:
-            self.zd2lbl, self.zd2val, self.zd2 = add_spinbox(
-                self.rowzlev, label="2", values=(0,), wrap=True,
-                command=self.spinned_z)
-        if self.maxdim > 3:
-            self.zd3lbl, self.zd3val, self.zd3 = add_spinbox(
-                self.rowzlev, label="3", values=(0,), wrap=True,
-                command=self.spinned_z)
-        if self.maxdim > 4:
-            self.zd4lbl, self.zd4val, self.zd4 = add_spinbox(
-                self.rowzlev, label="4", values=(0,), wrap=True,
-                command=self.spinned_z)
-        if self.maxdim > 5:
-            self.zd5lbl, self.zd5val, self.zd5 = add_spinbox(
-                self.rowzlev, label="5", values=(0,), wrap=True,
-                command=self.spinned_z)
-        if self.maxdim > 6:
-            self.zd6lbl, self.zd6val, self.zd6 = add_spinbox(
-                self.rowzlev, label="6", values=(0,), wrap=True,
-                command=self.spinned_z)
-        if self.maxdim > 7:
-            self.zd7lbl, self.zd7val, self.zd7 = add_spinbox(
-                self.rowzlev, label="7", values=(0,), wrap=True,
-                command=self.spinned_z)
+            self.zdlbl.append(zdlbl)
+            self.zdval.append(zdval)
+            self.zd.append(zd)
 
         # 3. row
         # x- and y-axis selection
@@ -172,72 +153,28 @@ class ncvContour(ttk.Frame):
         # levels x and y
         self.rowxylev = ttk.Frame(self)
         self.rowxylev.pack(side=tk.TOP, fill=tk.X)
-        if self.maxdim > 0:
-            self.xd0lbl, self.xd0val, self.xd0 = add_spinbox(
-                self.rowxylev, label="0", values=(0,), wrap=True,
+        self.xdlbl = []
+        self.xdval = []
+        self.xd    = []
+        for i in range(self.maxdim):
+            xdlbl, xdval, xd = add_spinbox(
+                self.rowxylev, label=str(i), values=(0,), wrap=True,
                 command=self.spinned_x)
-        if self.maxdim > 1:
-            self.xd1lbl, self.xd1val, self.xd1 = add_spinbox(
-                self.rowxylev, label="1", values=(0,), wrap=True,
-                command=self.spinned_x)
-        if self.maxdim > 2:
-            self.xd2lbl, self.xd2val, self.xd2 = add_spinbox(
-                self.rowxylev, label="2", values=(0,), wrap=True,
-                command=self.spinned_x)
-        if self.maxdim > 3:
-            self.xd3lbl, self.xd3val, self.xd3 = add_spinbox(
-                self.rowxylev, label="3", values=(0,), wrap=True,
-                command=self.spinned_x)
-        if self.maxdim > 4:
-            self.xd4lbl, self.xd4val, self.xd4 = add_spinbox(
-                self.rowxylev, label="4", values=(0,), wrap=True,
-                command=self.spinned_x)
-        if self.maxdim > 5:
-            self.xd5lbl, self.xd5val, self.xd5 = add_spinbox(
-                self.rowxylev, label="5", values=(0,), wrap=True,
-                command=self.spinned_x)
-        if self.maxdim > 6:
-            self.xd6lbl, self.xd6val, self.xd6 = add_spinbox(
-                self.rowxylev, label="6", values=(0,), wrap=True,
-                command=self.spinned_x)
-        if self.maxdim > 7:
-            self.xd7lbl, self.xd7val, self.xd7 = add_spinbox(
-                self.rowxylev, label="7", values=(0,), wrap=True,
-                command=self.spinned_x)
+            self.xdlbl.append(xdlbl)
+            self.xdval.append(xdval)
+            self.xd.append(xd)
         spacexy = ttk.Label(self.rowxylev, text=" "*10)
         spacexy.pack(side=tk.LEFT)
-        if self.maxdim > 0:
-            self.yd0lbl, self.yd0val, self.yd0 = add_spinbox(
-                self.rowxylev, label="0", values=(0,), wrap=True,
+        self.ydlbl = []
+        self.ydval = []
+        self.yd    = []
+        for i in range(self.maxdim):
+            ydlbl, ydval, yd = add_spinbox(
+                self.rowxylev, label=str(i), values=(0,), wrap=True,
                 command=self.spinned_y)
-        if self.maxdim > 1:
-            self.yd1lbl, self.yd1val, self.yd1 = add_spinbox(
-                self.rowxylev, label="1", values=(0,), wrap=True,
-                command=self.spinned_y)
-        if self.maxdim > 2:
-            self.yd2lbl, self.yd2val, self.yd2 = add_spinbox(
-                self.rowxylev, label="2", values=(0,), wrap=True,
-                command=self.spinned_y)
-        if self.maxdim > 3:
-            self.yd3lbl, self.yd3val, self.yd3 = add_spinbox(
-                self.rowxylev, label="3", values=(0,), wrap=True,
-                command=self.spinned_y)
-        if self.maxdim > 4:
-            self.yd4lbl, self.yd4val, self.yd4 = add_spinbox(
-                self.rowxylev, label="4", values=(0,), wrap=True,
-                command=self.spinned_y)
-        if self.maxdim > 5:
-            self.yd5lbl, self.yd5val, self.yd5 = add_spinbox(
-                self.rowxylev, label="5", values=(0,), wrap=True,
-                command=self.spinned_y)
-        if self.maxdim > 6:
-            self.yd6lbl, self.yd6val, self.yd6 = add_spinbox(
-                self.rowxylev, label="6", values=(0,), wrap=True,
-                command=self.spinned_y)
-        if self.maxdim > 7:
-            self.yd7lbl, self.yd7val, self.yd7 = add_spinbox(
-                self.rowxylev, label="7", values=(0,), wrap=True,
-                command=self.spinned_y)
+            self.ydlbl.append(ydlbl)
+            self.ydval.append(ydval)
+            self.yd.append(yd)
 
         # 5. row
         # options
@@ -268,11 +205,11 @@ class ncvContour(ttk.Frame):
         idx += 1
         if idx < len(cols):
             self.z.set(cols[idx])
-            self.set_dim_z()
+            set_dim_z(self)
             self.x.set('')
             self.y.set('')
-            self.set_dim_x()
-            self.set_dim_y()
+            set_dim_x(self)
+            set_dim_y(self)
             self.redraw()
 
     def prev_z(self):
@@ -282,30 +219,30 @@ class ncvContour(ttk.Frame):
         idx -= 1
         if idx > 0:
             self.z.set(cols[idx])
-            self.set_dim_z()
+            set_dim_z(self)
             self.x.set('')
             self.y.set('')
-            self.set_dim_x()
-            self.set_dim_y()
+            set_dim_x(self)
+            set_dim_y(self)
             self.redraw()
 
     def selected(self, event=None):
         self.redraw()
 
     def selected_x(self, event=None):
-        self.set_dim_x()
+        set_dim_x(self)
         self.redraw()
 
     def selected_y(self, event=None):
-        self.set_dim_y()
+        set_dim_y(self)
         self.redraw()
 
     def selected_z(self, event=None):
         self.x.set('')
         self.y.set('')
-        self.set_dim_x()
-        self.set_dim_y()
-        self.set_dim_z()
+        set_dim_x(self)
+        set_dim_y(self)
+        set_dim_z(self)
         self.redraw()
 
     def spinned_x(self, event=None):
@@ -316,515 +253,6 @@ class ncvContour(ttk.Frame):
 
     def spinned_z(self, event=None):
         self.redraw()
-
-    #
-    # Set dimensions
-    #
-
-    def set_dim_x(self):
-        """
-        Set dimensions to the dimensions of the x-variable
-        """
-        # reset dimensions
-        if self.maxdim > 0:
-            self.xd0.config(values=(0,), width=1)
-            self.xd0lbl.set('0')
-        if self.maxdim > 1:
-            self.xd1.config(values=(0,), width=1)
-            self.xd1lbl.set('1')
-        if self.maxdim > 2:
-            self.xd2.config(values=(0,), width=1)
-            self.xd2lbl.set('2')
-        if self.maxdim > 3:
-            self.xd3.config(values=(0,), width=1)
-            self.xd3lbl.set('3')
-        if self.maxdim > 4:
-            self.xd4.config(values=(0,), width=1)
-            self.xd4lbl.set('4')
-        if self.maxdim > 5:
-            self.xd5.config(values=(0,), width=1)
-            self.xd5lbl.set('5')
-        if self.maxdim > 6:
-            self.xd6.config(values=(0,), width=1)
-            self.xd6lbl.set('6')
-        if self.maxdim > 7:
-            self.xd7.config(values=(0,), width=1)
-            self.xd7lbl.set('7')
-        x = self.x.get()
-        if x != '':
-            # set real dimensions
-            vx = x.split()[0]
-            if vx == self.tname:
-                vx = self.tvar
-            xx = self.fi.variables[vx]
-            nall = 0
-            if xx.ndim > 0:
-                self.xd0.config(values=spinbox_values(xx.shape[0]), width=4)
-                if (nall == 0) and (xx.shape[0] > 1):
-                    nall += 1
-                    self.xd0val.set('all')
-                else:
-                    self.xd0val.set(0)
-                self.xd0lbl.set(xx.dimensions[0])
-            if xx.ndim > 1:
-                self.xd1.config(values=spinbox_values(xx.shape[1]), width=4)
-                if (nall == 0) and (xx.shape[1] > 1):
-                    nall += 1
-                    self.xd1val.set('all')
-                else:
-                    self.xd1val.set(0)
-                self.xd1lbl.set(xx.dimensions[1])
-            if xx.ndim > 2:
-                self.xd2.config(values=spinbox_values(xx.shape[2]), width=4)
-                if (nall == 0) and (xx.shape[2] > 1):
-                    nall += 1
-                    self.xd2val.set('all')
-                else:
-                    self.xd2val.set(0)
-                self.xd2lbl.set(xx.dimensions[2])
-            if xx.ndim > 3:
-                self.xd3.config(values=spinbox_values(xx.shape[3]), width=4)
-                if (nall == 0) and (xx.shape[3] > 1):
-                    nall += 1
-                    self.xd3val.set('all')
-                else:
-                    self.xd3val.set(0)
-                self.xd3lbl.set(xx.dimensions[3])
-            if xx.ndim > 4:
-                self.xd4.config(values=spinbox_values(xx.shape[4]), width=4)
-                if (nall == 0) and (xx.shape[4] > 1):
-                    nall += 1
-                    self.xd4val.set('all')
-                else:
-                    self.xd4val.set(0)
-                self.xd4lbl.set(xx.dimensions[4])
-            if xx.ndim > 5:
-                self.xd5.config(values=spinbox_values(xx.shape[5]), width=4)
-                if (nall == 0) and (xx.shape[5] > 1):
-                    nall += 1
-                    self.xd5val.set('all')
-                else:
-                    self.xd5val.set(0)
-                self.xd5lbl.set(xx.dimensions[5])
-            if xx.ndim > 6:
-                self.xd6.config(values=spinbox_values(xx.shape[6]), width=4)
-                if (nall == 0) and (xx.shape[6] > 1):
-                    nall += 1
-                    self.xd6val.set('all')
-                else:
-                    self.xd6val.set(0)
-                self.xd6lbl.set(xx.dimensions[6])
-            if xx.ndim > 7:
-                self.xd7.config(values=spinbox_values(xx.shape[7]), width=4)
-                if (nall == 0) and (xx.shape[7] > 1):
-                    nall += 1
-                    self.xd7val.set('all')
-                else:
-                    self.xd7val.set(0)
-                self.xd7lbl.set(xx.dimensions[7])
-
-    def set_dim_y(self):
-        """
-        Set dimensions to the dimensions of the y-variable
-        """
-        # reset dimensions
-        if self.maxdim > 0:
-            self.yd0.config(values=(0,), width=1)
-            self.yd0lbl.set('0')
-        if self.maxdim > 1:
-            self.yd1.config(values=(0,), width=1)
-            self.yd1lbl.set('1')
-        if self.maxdim > 2:
-            self.yd2.config(values=(0,), width=1)
-            self.yd2lbl.set('2')
-        if self.maxdim > 3:
-            self.yd3.config(values=(0,), width=1)
-            self.yd3lbl.set('3')
-        if self.maxdim > 4:
-            self.yd4.config(values=(0,), width=1)
-            self.yd4lbl.set('4')
-        if self.maxdim > 5:
-            self.yd5.config(values=(0,), width=1)
-            self.yd5lbl.set('5')
-        if self.maxdim > 6:
-            self.yd6.config(values=(0,), width=1)
-            self.yd6lbl.set('6')
-        if self.maxdim > 7:
-            self.yd7.config(values=(0,), width=1)
-            self.yd7lbl.set('7')
-        y = self.y.get()
-        if y != '':
-            # set real dimensions
-            vy = y.split()[0]
-            if vy == self.tname:
-                vy = self.tvar
-            yy = self.fi.variables[vy]
-            nall = 0
-            if yy.ndim > 0:
-                self.yd0.config(values=spinbox_values(yy.shape[0]), width=4)
-                if (nall == 0) and (yy.shape[0] > 1):
-                    nall += 1
-                    self.yd0val.set('all')
-                else:
-                    self.yd0val.set(0)
-                self.yd0lbl.set(yy.dimensions[0])
-            if yy.ndim > 1:
-                self.yd1.config(values=spinbox_values(yy.shape[1]), width=4)
-                if (nall == 0) and (yy.shape[1] > 1):
-                    nall += 1
-                    self.yd1val.set('all')
-                else:
-                    self.yd1val.set(0)
-                self.yd1lbl.set(yy.dimensions[1])
-            if yy.ndim > 2:
-                self.yd2.config(values=spinbox_values(yy.shape[2]), width=4)
-                if (nall == 0) and (yy.shape[2] > 1):
-                    nall += 1
-                    self.yd2val.set('all')
-                else:
-                    self.yd2val.set(0)
-                self.yd2lbl.set(yy.dimensions[2])
-            if yy.ndim > 3:
-                self.yd3.config(values=spinbox_values(yy.shape[3]), width=4)
-                if (nall == 0) and (yy.shape[3] > 1):
-                    nall += 1
-                    self.yd3val.set('all')
-                else:
-                    self.yd3val.set(0)
-                self.yd3lbl.set(yy.dimensions[3])
-            if yy.ndim > 4:
-                self.yd4.config(values=spinbox_values(yy.shape[4]), width=4)
-                if (nall == 0) and (yy.shape[4] > 1):
-                    nall += 1
-                    self.yd4val.set('all')
-                else:
-                    self.yd4val.set(0)
-                self.yd4lbl.set(yy.dimensions[4])
-            if yy.ndim > 5:
-                self.yd5.config(values=spinbox_values(yy.shape[5]), width=4)
-                if (nall == 0) and (yy.shape[5] > 1):
-                    nall += 1
-                    self.yd5val.set('all')
-                else:
-                    self.yd5val.set(0)
-                self.yd5lbl.set(yy.dimensions[5])
-            if yy.ndim > 6:
-                self.yd6.config(values=spinbox_values(yy.shape[6]), width=4)
-                if (nall == 0) and (yy.shape[6] > 1):
-                    nall += 1
-                    self.yd6val.set('all')
-                else:
-                    self.yd6val.set(0)
-                self.yd6lbl.set(yy.dimensions[6])
-            if yy.ndim > 7:
-                self.yd7.config(values=spinbox_values(yy.shape[7]), width=4)
-                if (nall == 0) and (yy.shape[7] > 1):
-                    nall += 1
-                    self.yd7val.set('all')
-                else:
-                    self.yd7val.set(0)
-                self.yd7lbl.set(yy.dimensions[7])
-
-    def set_dim_z(self):
-        """
-        Set dimensions to the dimensions of the z-variable
-        """
-        # reset dimensions
-        if self.maxdim > 0:
-            self.zd0.config(values=(0,), width=1)
-            self.zd0lbl.set('0')
-        if self.maxdim > 1:
-            self.zd1.config(values=(0,), width=1)
-            self.zd1lbl.set('1')
-        if self.maxdim > 2:
-            self.zd2.config(values=(0,), width=1)
-            self.zd2lbl.set('2')
-        if self.maxdim > 3:
-            self.zd3.config(values=(0,), width=1)
-            self.zd3lbl.set('3')
-        if self.maxdim > 4:
-            self.zd4.config(values=(0,), width=1)
-            self.zd4lbl.set('4')
-        if self.maxdim > 5:
-            self.zd5.config(values=(0,), width=1)
-            self.zd5lbl.set('5')
-        if self.maxdim > 6:
-            self.zd6.config(values=(0,), width=1)
-            self.zd6lbl.set('6')
-        if self.maxdim > 7:
-            self.zd7.config(values=(0,), width=1)
-            self.zd7lbl.set('7')
-        z = self.z.get()
-        if z != '':
-            # set real dimensions
-            vz = z.split()[0]
-            if vz == self.tname:
-                vz = self.tvar
-            zz = self.fi.variables[vz]
-            nall = 0
-            if zz.ndim > 0:
-                self.zd0.config(values=spinbox_values(zz.shape[0]), width=4)
-                if (nall < 2) and (zz.shape[0] > 1):
-                    nall += 1
-                    self.zd0val.set('all')
-                else:
-                    self.zd0val.set(0)
-                self.zd0lbl.set(zz.dimensions[0])
-            if zz.ndim > 1:
-                self.zd1.config(values=spinbox_values(zz.shape[1]), width=4)
-                if (nall < 2) and (zz.shape[1] > 1):
-                    nall += 1
-                    self.zd1val.set('all')
-                else:
-                    self.zd1val.set(0)
-                self.zd1lbl.set(zz.dimensions[1])
-            if zz.ndim > 2:
-                self.zd2.config(values=spinbox_values(zz.shape[2]), width=4)
-                if (nall < 2) and (zz.shape[2] > 1):
-                    nall += 1
-                    self.zd2val.set('all')
-                else:
-                    self.zd2val.set(0)
-                self.zd2lbl.set(zz.dimensions[2])
-            if zz.ndim > 3:
-                self.zd3.config(values=spinbox_values(zz.shape[3]), width=4)
-                if (nall < 2) and (zz.shape[3] > 1):
-                    nall += 1
-                    self.zd3val.set('all')
-                else:
-                    self.zd3val.set(0)
-                self.zd3lbl.set(zz.dimensions[3])
-            if zz.ndim > 4:
-                self.zd4.config(values=spinbox_values(zz.shape[4]), width=4)
-                if (nall < 2) and (zz.shape[4] > 1):
-                    nall += 1
-                    self.zd4val.set('all')
-                else:
-                    self.zd4val.set(0)
-                self.zd4lbl.set(zz.dimensions[4])
-            if zz.ndim > 5:
-                self.zd5.config(values=spinbox_values(zz.shape[5]), width=4)
-                if (nall < 2) and (zz.shape[5] > 1):
-                    nall += 1
-                    self.zd5val.set('all')
-                else:
-                    self.zd5val.set(0)
-                self.zd5lbl.set(zz.dimensions[5])
-            if zz.ndim > 6:
-                self.zd6.config(values=spinbox_values(zz.shape[6]), width=4)
-                if (nall < 2) and (zz.shape[6] > 1):
-                    nall += 1
-                    self.zd6val.set('all')
-                else:
-                    self.zd6val.set(0)
-                self.zd6lbl.set(zz.dimensions[6])
-            if zz.ndim > 7:
-                self.zd7.config(values=spinbox_values(zz.shape[7]), width=4)
-                if (nall < 2) and (zz.shape[7] > 1):
-                    nall += 1
-                    self.zd7val.set('all')
-                else:
-                    self.zd7val.set(0)
-                self.zd7lbl.set(zz.dimensions[7])
-
-    #
-    # Get variable slices
-    #
-
-    def get_slice_x(self, x):
-        """
-        Get the slice from x-variable selected in the level row
-        """
-        if x.ndim > 0:
-            dim = self.xd0.get()
-            if dim == 'all':
-                s = range(0, x.shape[0])
-            else:
-                s = (int(dim),)
-            xout = np.take(x, s, axis=0)
-        else:
-            xout = x
-        if x.ndim > 1:
-            dim = self.xd1.get()
-            if dim == 'all':
-                s = range(0, x.shape[1])
-            else:
-                s = (int(dim),)
-            xout = np.take(xout, s, axis=1)
-        if x.ndim > 2:
-            dim = self.xd2.get()
-            if dim == 'all':
-                s = range(0, x.shape[2])
-            else:
-                s = (int(dim),)
-            xout = np.take(xout, s, axis=2)
-        if x.ndim > 3:
-            dim = self.xd3.get()
-            if dim == 'all':
-                s = range(0, x.shape[3])
-            else:
-                s = (int(dim),)
-            xout = np.take(xout, s, axis=3)
-        if x.ndim > 4:
-            dim = self.xd4.get()
-            if dim == 'all':
-                s = range(0, x.shape[4])
-            else:
-                s = (int(dim),)
-            xout = np.take(xout, s, axis=4)
-        if x.ndim > 5:
-            dim = self.xd5.get()
-            if dim == 'all':
-                s = range(0, x.shape[5])
-            else:
-                s = (int(dim),)
-            xout = np.take(xout, s, axis=5)
-        if x.ndim > 6:
-            dim = self.xd6.get()
-            if dim == 'all':
-                s = range(0, x.shape[6])
-            else:
-                s = (int(dim),)
-            xout = np.take(xout, s, axis=6)
-        if x.ndim > 7:
-            dim = self.xd7.get()
-            if dim == 'all':
-                s = range(0, x.shape[7])
-            else:
-                s = (int(dim),)
-            xout = np.take(xout, s, axis=7)
-
-        return xout
-
-    def get_slice_y(self, y):
-        """
-        Get the slice from lhs y-variable selected in the level row
-        """
-        if y.ndim > 0:
-            dim = self.yd0.get()
-            if dim == 'all':
-                s = range(0, y.shape[0])
-            else:
-                s = (int(dim),)
-            yout = np.take(y, s, axis=0)
-        else:
-            yout = y
-        if y.ndim > 1:
-            dim = self.yd1.get()
-            if dim == 'all':
-                s = range(0, y.shape[1])
-            else:
-                s = (int(dim),)
-            yout = np.take(yout, s, axis=1)
-        if y.ndim > 2:
-            dim = self.yd2.get()
-            if dim == 'all':
-                s = range(0, y.shape[2])
-            else:
-                s = (int(dim),)
-            yout = np.take(yout, s, axis=2)
-        if y.ndim > 3:
-            dim = self.yd3.get()
-            if dim == 'all':
-                s = range(0, y.shape[3])
-            else:
-                s = (int(dim),)
-            yout = np.take(yout, s, axis=3)
-        if y.ndim > 4:
-            dim = self.yd4.get()
-            if dim == 'all':
-                s = range(0, y.shape[4])
-            else:
-                s = (int(dim),)
-            yout = np.take(yout, s, axis=4)
-        if y.ndim > 5:
-            dim = self.yd5.get()
-            if dim == 'all':
-                s = range(0, y.shape[5])
-            else:
-                s = (int(dim),)
-            yout = np.take(yout, s, axis=5)
-        if y.ndim > 6:
-            dim = self.yd6.get()
-            if dim == 'all':
-                s = range(0, y.shape[6])
-            else:
-                s = (int(dim),)
-            yout = np.take(yout, s, axis=6)
-        if y.ndim > 7:
-            dim = self.yd7.get()
-            if dim == 'all':
-                s = range(0, y.shape[7])
-            else:
-                s = (int(dim),)
-            yout = np.take(yout, s, axis=7)
-
-        return yout
-
-    def get_slice_z(self, z):
-        """
-        Get the slice from rhs y-variable selected in the level row
-        """
-        if z.ndim > 0:
-            dim = self.zd0.get()
-            if dim == 'all':
-                s = range(0, z.shape[0])
-            else:
-                s = (int(dim),)
-            zout = np.take(z, s, axis=0)
-        else:
-            zout = z
-        if z.ndim > 1:
-            dim = self.zd1.get()
-            if dim == 'all':
-                s = range(0, z.shape[1])
-            else:
-                s = (int(dim),)
-            zout = np.take(zout, s, axis=1)
-        if z.ndim > 2:
-            dim = self.zd2.get()
-            if dim == 'all':
-                s = range(0, z.shape[2])
-            else:
-                s = (int(dim),)
-            zout = np.take(zout, s, axis=2)
-        if z.ndim > 3:
-            dim = self.zd3.get()
-            if dim == 'all':
-                s = range(0, z.shape[3])
-            else:
-                s = (int(dim),)
-            zout = np.take(zout, s, axis=3)
-        if z.ndim > 4:
-            dim = self.zd4.get()
-            if dim == 'all':
-                s = range(0, z.shape[4])
-            else:
-                s = (int(dim),)
-            zout = np.take(zout, s, axis=4)
-        if z.ndim > 5:
-            dim = self.zd5.get()
-            if dim == 'all':
-                s = range(0, z.shape[5])
-            else:
-                s = (int(dim),)
-            zout = np.take(zout, s, axis=5)
-        if z.ndim > 6:
-            dim = self.zd6.get()
-            if dim == 'all':
-                s = range(0, z.shape[6])
-            else:
-                s = (int(dim),)
-            zout = np.take(zout, s, axis=6)
-        if z.ndim > 7:
-            dim = self.zd7.get()
-            if dim == 'all':
-                s = range(0, z.shape[7])
-            else:
-                s = (int(dim),)
-            zout = np.take(zout, s, axis=7)
-
-        return zout
 
     #
     # Plotting
@@ -873,7 +301,7 @@ class ncvContour(ttk.Frame):
                 except AttributeError:
                     pass
                 miss = get_miss(self, zz)
-                zz = self.get_slice_z(zz).squeeze()
+                zz = get_slice_z(self, zz).squeeze()
                 zz = set_miss(zz, miss)
                 if trans_z:
                     zz = zz.T
@@ -894,7 +322,7 @@ class ncvContour(ttk.Frame):
                 except AttributeError:
                     pass
             miss = get_miss(self, yy)
-            yy = self.get_slice_y(yy).squeeze()
+            yy = get_slice_y(self, yy).squeeze()
             yy = set_miss(yy, miss)
         if (x != ''):
             # x axis
@@ -913,7 +341,7 @@ class ncvContour(ttk.Frame):
                 except AttributeError:
                     pass
             miss = get_miss(self, xx)
-            xx = self.get_slice_x(xx).squeeze()
+            xx = get_slice_x(self, xx).squeeze()
             xx = set_miss(xx, miss)
         # set z to nan if not selected
         if (z == ''):

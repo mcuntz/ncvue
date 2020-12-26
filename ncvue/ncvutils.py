@@ -1,59 +1,17 @@
 #!/usr/bin/env python
 """
-Utility functions for ncvue
+Utility functions for ncvue.
+
+The utility functions do not depend on the ncvue class.
+Functions depending on the class are in ncvmethods.
 
 Written  Matthias Cuntz, Nov-Dec 2020
 """
 from __future__ import absolute_import, division, print_function
 import numpy as np
-import netCDF4 as nc
-# nc.default_fillvals but with keys as variables['var'].dtype
-nctypes = [ np.dtype(i) for i in nc.default_fillvals ]
-ncfill  = dict(zip(nctypes, list(nc.default_fillvals.values())))
-ncfill.update({np.dtype('O'): np.nan})
 
 
-__all__ = ['get_miss', 'set_miss', 'spinbox_values',
-           'zip_dim_name_length']
-
-
-def get_miss(self, x):
-    """
-    Get list of missing values, i.e. self.miss, x._FillValue,
-    x.missing_value, and from netcdf4.default_fillvals.
-
-    Parameters
-    ----------
-    self : class
-        ncvue class
-    x : netCDF4._netCDF4.Variable
-        netcdf variable
-
-    Returns
-    -------
-    list
-        List with missing values self.miss, x._FillValue,
-        x.missing_value if present,  and from netcdf4.default_fillvals
-
-    Examples
-    --------
-    >>> x = fi.variables['time']
-    >>> miss = get_miss(self, x)
-    """
-    out = [ncfill[x.dtype]]
-    try:
-        out += [self.miss]
-    except AttributeError:
-        pass
-    try:
-        out += [x._FillValue]
-    except AttributeError:
-        pass
-    try:
-        out += [x.missing_value]
-    except AttributeError:
-        pass
-    return out
+__all__ = ['set_miss', 'spinbox_values', 'zip_dim_name_length']
 
 
 def set_miss(x, miss):

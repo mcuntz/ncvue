@@ -26,10 +26,14 @@ from .ncvclone   import clone_ncvmain
 from .ncvcontour import ncvContour
 # main window with panels
 from .ncvmain    import ncvMain
+# common methods of all panels
+from .ncvmethods import get_miss
+from .ncvmethods import get_slice_x, get_slice_y, get_slice_y2, get_slice_z
+from .ncvmethods import set_dim_x, set_dim_y, set_dim_y2, set_dim_z
 # scatter/line panel
 from .ncvscatter import ncvScatter
 # general helper function
-from .ncvutils   import get_miss, set_miss, spinbox_values, zip_dim_name_length
+from .ncvutils   import set_miss, spinbox_values, zip_dim_name_length
 # adding widgets with labels, etc.
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry, add_spinbox
 
