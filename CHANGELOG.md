@@ -4,6 +4,8 @@ All notable changes after its initial development up to November 2020 (v1.0) are
 
 ### v1.3 (Dec 2020)
     - Invert x-axis.
+    - Use build instead of cibuildwheel to make pure Python wheels.
+    - Rename Scatter to Scatter/Line.
 
 ### v1.2 (Dec 2020)
     - Put common methods in ncvmethods (first arg is self).
