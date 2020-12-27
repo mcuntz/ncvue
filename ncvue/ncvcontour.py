@@ -190,6 +190,9 @@ class ncvContour(ttk.Frame):
         self.meshlbl, self.mesh = add_checkbutton(
             self.rowcmap, label="mesh", value=False,
             command=self.checked)
+        self.gridlbl, self.grid = add_checkbutton(
+            self.rowcmap, label="grid", value=False,
+            command=self.checked)
 
     #
     # Bindings
@@ -272,6 +275,7 @@ class ncvContour(ttk.Frame):
         cmap = self.cmap.get()
         rev_cmap = self.rev_cmap.get()
         mesh = self.mesh.get()
+        grid = self.grid.get()
 
         # Clear figure instead of axes because colorbar is on figure
         # Have to add axes again.
@@ -417,5 +421,20 @@ class ncvContour(ttk.Frame):
             if (ylim[0] is not None):
                 ylim = ylim[::-1]
                 self.axes.set_ylim(ylim)
+        # draw grid lines
+        xticks = np.array(self.axes.get_xticks())
+        yticks = np.array(self.axes.get_yticks())
+        if grid:
+            ii = np.where((xticks > min(xlim)) & (xticks < max(xlim)))[0]
+            if ii.size > 0:
+                ggx = self.axes.vlines(xticks[ii], ylim[0], ylim[1],
+                                       colors='w', linestyles='solid',
+                                       linewidth=0.5)
+            ii = np.where((yticks > min(ylim)) & (yticks < max(ylim)))[0]
+            if ii.size > 0:
+                ggy = self.axes.hlines(yticks[ii], xlim[0], xlim[1],
+                                       colors='w', linestyles='solid',
+                                       linewidth=0.5)
+        # redraw
         self.canvas.draw()
         self.toolbar.update()

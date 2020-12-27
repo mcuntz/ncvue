@@ -348,7 +348,6 @@ class ncvScatter(ttk.Frame):
             # rowy2
             y2  = self.y2.get()
             same_y = self.same_y.get()
-
             # y plotting styles
             pargs = {'linestyle': ls,
                      'linewidth': lw,
@@ -372,7 +371,6 @@ class ncvScatter(ttk.Frame):
                     # set color only if single line,
                     # None and 'None' do not work for multiple lines
                     pargs['color'] = c
-
             # set style
             for ll in self.line_y:
                 plt.setp(ll, **pargs)
@@ -383,7 +381,6 @@ class ncvScatter(ttk.Frame):
                     self.axes.tick_params(axis='y', colors=ic)
                     self.axes.yaxis.label.set_color(ic)
             self.axes.yaxis.set_label_text(ylab)
-
             # same y-axes
             ylim  = self.axes.get_ylim()
             ylim2 = self.axes2.get_ylim()
@@ -407,7 +404,6 @@ class ncvScatter(ttk.Frame):
                     ylim2 = [ymin, ymax]
                     self.axes.set_ylim(ylim)
                     self.axes2.set_ylim(ylim2)
-
             # invert y-axis
             if inv_y and (ylim[0] is not None):
                 if ylim[0] < ylim[1]:
@@ -417,7 +413,6 @@ class ncvScatter(ttk.Frame):
                 if ylim[1] < ylim[0]:
                     ylim = ylim[::-1]
                     self.axes.set_ylim(ylim)
-
             # invert x-axis
             inv_x = self.inv_x.get()
             xlim  = self.axes.get_xlim()
@@ -429,7 +424,6 @@ class ncvScatter(ttk.Frame):
                 if xlim[1] < xlim[0]:
                     xlim = xlim[::-1]
                     self.axes.set_xlim(xlim)
-
             # redraw
             self.canvas.draw()
             self.toolbar.update()
@@ -456,7 +450,6 @@ class ncvScatter(ttk.Frame):
             mfc = self.mfc2.get()
             mec = self.mec2.get()
             mew = float(self.mew2.get())
-
             # y plotting styles
             pargs = {'linestyle': ls,
                      'linewidth': lw,
@@ -479,7 +472,6 @@ class ncvScatter(ttk.Frame):
                     # set color only if single line,
                     # None and 'None' do not work for multiple lines
                     pargs['color'] = c
-
             # set style
             for ll in self.line_y2:
                 plt.setp(ll, **pargs)
@@ -490,7 +482,6 @@ class ncvScatter(ttk.Frame):
                     self.axes2.tick_params(axis='y', colors=ic)
                     self.axes2.yaxis.label.set_color(ic)
             self.axes2.yaxis.set_label_text(ylab)
-
             # same y-axes
             ylim  = self.axes.get_ylim()
             ylim2 = self.axes2.get_ylim()
@@ -514,7 +505,6 @@ class ncvScatter(ttk.Frame):
                     ylim2 = [ymin, ymax]
                     self.axes.set_ylim(ylim)
                     self.axes2.set_ylim(ylim2)
-
             # invert y-axis
             ylim = ylim2
             if inv_y2 and (ylim[0] is not None):
@@ -525,7 +515,6 @@ class ncvScatter(ttk.Frame):
                 if ylim[1] < ylim[0]:
                     ylim = ylim[::-1]
                     self.axes2.set_ylim(ylim)
-
             # invert x-axis
             inv_x = self.inv_x.get()
             xlim  = self.axes.get_xlim()
@@ -537,7 +526,6 @@ class ncvScatter(ttk.Frame):
                 if xlim[1] < xlim[0]:
                     xlim = xlim[::-1]
                     self.axes.set_xlim(xlim)
-
             # redraw
             self.canvas.draw()
             self.toolbar.update()
@@ -561,7 +549,6 @@ class ncvScatter(ttk.Frame):
         self.axes2.clear()
         ylim  = [None, None]
         ylim2 = [None, None]
-
         # set x, y, axes labels
         vx  = 'None'
         vy  = 'None'
@@ -632,7 +619,6 @@ class ncvScatter(ttk.Frame):
             if (y2 == ''):
                 yy2   = np.ones_like(xx)*np.nan
                 ylab2 = ''
-
             # plot
             # y-axis
             try:
@@ -657,7 +643,7 @@ class ncvScatter(ttk.Frame):
             # styles, invert, same axes, etc.
             self.redraw_y()
             self.redraw_y2()
-
+            # redraw
             self.x0  = x
             self.y0  = y
             self.y20 = y2
