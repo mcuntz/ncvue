@@ -18,7 +18,7 @@ from .ncvutils   import set_miss
 from .ncvmethods import get_miss
 from .ncvmethods import get_slice_x, get_slice_y, get_slice_z
 from .ncvmethods import set_dim_x, set_dim_y, set_dim_z
-from .ncvwidgets import add_checkbutton, add_combobox
+from .ncvwidgets import add_checkbutton, add_combobox, add_entry
 from .ncvwidgets import add_spinbox
 from .ncvclone   import clone_ncvmain
 import matplotlib
@@ -116,6 +116,14 @@ class ncvContour(ttk.Frame):
         self.z.pack(side=tk.LEFT)
         self.trans_zlbl, self.trans_z = add_checkbutton(
             self.rowz, label="transpose z", value=False, command=self.checked)
+        spacez = ttk.Label(self.rowz, text=" "*1)
+        spacez.pack(side=tk.LEFT)
+        self.zminlbl, self.zmin = add_entry(self.rowz, label="zmin",
+                                            text='None', width=7,
+                                            command=self.entered_z)
+        self.zmaxlbl, self.zmax = add_entry(self.rowz, label="zmax",
+                                            text='None', width=7,
+                                            command=self.entered_z)
 
         # 2. row
         # levels z
@@ -201,6 +209,9 @@ class ncvContour(ttk.Frame):
     def checked(self):
         self.redraw()
 
+    def entered_z(self, event):
+        self.redraw()
+
     def next_z(self):
         z = self.z.get()
         cols = self.z["values"]
@@ -208,9 +219,13 @@ class ncvContour(ttk.Frame):
         idx += 1
         if idx < len(cols):
             self.z.set(cols[idx])
+            self.zmin.set('None')
+            self.zmax.set('None')
             set_dim_z(self)
             self.x.set('')
             self.y.set('')
+            self.inv_x.set(0)
+            self.inv_y.set(0)
             set_dim_x(self)
             set_dim_y(self)
             self.redraw()
@@ -222,9 +237,13 @@ class ncvContour(ttk.Frame):
         idx -= 1
         if idx > 0:
             self.z.set(cols[idx])
+            self.zmin.set('None')
+            self.zmax.set('None')
             set_dim_z(self)
             self.x.set('')
             self.y.set('')
+            self.inv_x.set(0)
+            self.inv_y.set(0)
             set_dim_x(self)
             set_dim_y(self)
             self.redraw()
@@ -243,6 +262,10 @@ class ncvContour(ttk.Frame):
     def selected_z(self, event=None):
         self.x.set('')
         self.y.set('')
+        self.inv_x.set(0)
+        self.inv_y.set(0)
+        self.zmin.set('None')
+        self.zmax.set('None')
         set_dim_x(self)
         set_dim_y(self)
         set_dim_z(self)
@@ -266,6 +289,16 @@ class ncvContour(ttk.Frame):
         # rowz
         z = self.z.get()
         trans_z = self.trans_z.get()
+        zmin = self.zmin.get()
+        if zmin == 'None':
+            zmin = None
+        else:
+            zmin = float(zmin)
+        zmax = self.zmax.get()
+        if zmax == 'None':
+            zmax = None
+        else:
+            zmax = float(zmax)
         # rowxy
         x = self.x.get()
         y = self.y.get()
@@ -380,10 +413,25 @@ class ncvContour(ttk.Frame):
         #                       interpolation='none')
         # cc = self.axes.matshow(zz[:, ::-1].T, aspect='auto', cmap=cmap,
         #                        interpolation='none')
+        extend = 'neither'
+        if zmin is not None:
+            zz = np.maximum(zz, zmin)
+            if zmax is None:
+                extend = 'min'
+            else:
+                extend = 'both'
+        if zmax is not None:
+            zz = np.minimum(zz, zmax)
+            if zmin is None:
+                extend = 'max'
+            else:
+                extend = 'both'
         if mesh:
             try:
-                cc = self.axes.pcolormesh(xx, yy, zz.T, cmap=cmap,
-                                          shading='nearest')
+                cc = self.axes.pcolormesh(xx, yy, zz.T, vmin=zmin, vmax=zmax,
+                                          cmap=cmap, shading='nearest')
+                cb = self.figure.colorbar(cc, fraction=0.05, shrink=0.75,
+                                          extend=extend)
             except Exception:
                 estr  = 'Contour: x (' + vx + '), y (' + vy + '),'
                 estr += ' z (' + vz + ') shapes do not match for'
@@ -392,7 +440,9 @@ class ncvContour(ttk.Frame):
                 return
         else:
             try:
-                cc = self.axes.contourf(xx, yy, zz.T, cmap=cmap)
+                cc = self.axes.contourf(xx, yy, zz.T, vmin=zmin, vmax=zmax,
+                                        cmap=cmap, extend=extend)
+                cb = self.figure.colorbar(cc, fraction=0.05, shrink=0.75)
             except Exception:
                 estr  = 'Contour: x (' + vx + '), y (' + vy + '),'
                 estr += ' z (' + vz + ') shapes do not match for'
@@ -400,7 +450,6 @@ class ncvContour(ttk.Frame):
                 print(estr, xx.shape, yy.shape, zz.shape)
                 return
         # help(self.figure)
-        cb = self.figure.colorbar(cc, fraction=0.05, shrink=0.75)
         cb.set_label(zlab)
         self.axes.xaxis.set_label_text(xlab)
         self.axes.yaxis.set_label_text(ylab)
