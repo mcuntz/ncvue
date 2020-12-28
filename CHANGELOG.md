@@ -2,6 +2,9 @@
 
 All notable changes after its initial development up to November 2020 (v1.0) are documented in this file.
 
+### v1.4 (Dec 2020)
+    - Enhanced documentation with automatic API generation.
+
 ### v1.3 (Dec 2020)
     - Use zmin/zmax to fix colorbar for different dimensions in Contour panel.
     - Optional grid lines in Contour panel.

@@ -1,14 +1,17 @@
+==========
+Quickstart
+==========
+
 # ncvue -- A GUI to view netCDF files
 <!-- pandoc -f gfm -o README.html -t html README.md -->
 
 A minimal GUI for a quick view of netCDF files.
 Aiming to be a drop-in replacement for ncview.
 
-<!-- [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3893705.svg)](https://doi.org/10.5281/zenodo.3893705)
-[![PyPI version](https://badge.fury.io/py/ncvue.svg)](https://badge.fury.io/py/ncvue) -->
+<!-- [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3893705.svg)](https://doi.org/10.5281/zenodo.3893705) -->
+[![PyPI version](https://badge.fury.io/py/ncvue.svg)](https://badge.fury.io/py/ncvue)
 [![License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/mcuntz/ncvue/blob/master/LICENSE)
-<!-- [![Build Status](https://travis-ci.org/mcuntz/ncvue.svg?branch=master)](https://travis-ci.org/mcuntz/ncvue)
-[![Documentation Status](https://readthedocs.org/projects/ncvue/badge/?version=latest)](https://ncvue.readthedocs.io/en/latest/?badge=latest) -->
+[![Build Status](https://travis-ci.org/mcuntz/ncvue.svg?branch=master)](https://travis-ci.org/mcuntz/ncvue)
 
 ## About ncvue
 
@@ -19,13 +22,6 @@ more general than ncview, which targets maps.
 
 *ncvue* is a Python script that can be called from within Python and as a command
 line tool.
-
-
-## Documentation - NOT YET ON ReadTheDocs
-
-The complete documentation for *ncvue* is available from Read The Docs.
-
-   http://ncvue.readthedocs.org/en/latest/
 
 
 ## Quick usage guide

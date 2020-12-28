@@ -1,0 +1,21 @@
+===
+API
+===
+
+.. automodule:: ncvue
+
+.. raw:: latex
+
+   \clearpage
+
+.. toctree::
+
+   ncvclone.rst
+   ncvcontour.rst
+   ncvmain.rst
+   ncvmethods.rst
+   ncvscatter.rst
+   ncvue.rst
+   ncvutils.rst
+   ncvwidgets.rst
+   version.rst
