@@ -53,6 +53,7 @@ class ncvScatter(ttk.Frame):
         self.root   = master.root
         self.fi     = master.fi
         self.miss   = master.miss
+        self.dunlim = master.dunlim
         self.time   = master.time
         self.tname  = master.tname
         self.tvar   = master.tvar

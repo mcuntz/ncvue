@@ -53,6 +53,7 @@ class ncvContour(ttk.Frame):
         self.root   = master.root
         self.fi     = master.fi
         self.miss   = master.miss
+        self.dunlim = master.dunlim
         self.time   = master.time
         self.tname  = master.tname
         self.tvar   = master.tvar
@@ -327,9 +328,10 @@ class ncvContour(ttk.Frame):
                 # should throw an error later
                 if mesh:
                     zz = self.dtime
+                    zlab = 'Year'
                 else:
                     zz = self.time
-                zlab = 'Date'
+                    zlab = 'Date'
             else:
                 zz = self.fi.variables[vz]
                 zlab = zz.name
@@ -348,9 +350,10 @@ class ncvContour(ttk.Frame):
             if vy == self.tname:
                 if mesh:
                     yy = self.dtime
+                    ylab = 'Year'
                 else:
                     yy = self.time
-                ylab = 'Date'
+                    ylab = 'Date'
             else:
                 yy   = self.fi.variables[vy]
                 ylab = yy.name
@@ -367,9 +370,10 @@ class ncvContour(ttk.Frame):
             if vx == self.tname:
                 if mesh:
                     xx = self.dtime
+                    xlab = 'Year'
                 else:
                     xx = self.time
-                xlab = 'Date'
+                    xlab = 'Date'
             else:
                 xx   = self.fi.variables[vx]
                 xlab = xx.name

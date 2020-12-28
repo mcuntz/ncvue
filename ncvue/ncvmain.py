@@ -44,6 +44,7 @@ class ncvMain(ttk.Frame):
         self.master = master  # master window = root
         self.root   = master  # root window
         self.miss   = master.miss
+        self.dunlim = ''      # name of unlimited dimension
         self.time   = None    # datetime variable
         self.tname  = ''      # datetime variable name
         self.tvar   = ''      # datetime variable name in netcdf file
@@ -74,12 +75,12 @@ class ncvMain(ttk.Frame):
             import cftime as cf
         except ModuleNotFoundError:
             import netCDF4 as cf
-        # # search unlimited dimension
-        # udim = None
-        # for dd in self.fi.dimensions:
-        #     if self.fi.dimensions[dd].isunlimited():
-        #         udim = dd
-        #         break
+        # search unlimited dimension
+        self.dunlimited = ''
+        for dd in self.fi.dimensions:
+            if self.fi.dimensions[dd].isunlimited():
+                self.dunlimited = dd
+                break
         # search for time variable
         self.time  = None
         self.tname = ''
@@ -161,11 +162,11 @@ class ncvMain(ttk.Frame):
             addt = [
                 self.tname + ' ' +
                 str(tuple(zip_dim_name_length(self.fi.variables[self.tvar]))) ]
-            self.cols  += addt
+            self.cols += addt
         ivars = []
         for vv in self.fi.variables:
             # ss = self.fi.variables[vv].shape
             ss = tuple(zip_dim_name_length(self.fi.variables[vv]))
             self.maxdim = max(self.maxdim, len(ss))
             ivars.append((vv, ss, len(ss)))
-        self.cols  += sorted([ vv[0] + ' ' + str(vv[1]) for vv in ivars ])
+        self.cols += sorted([ vv[0] + ' ' + str(vv[1]) for vv in ivars ])

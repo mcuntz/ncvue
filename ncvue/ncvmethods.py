@@ -263,8 +263,9 @@ def get_slice_z(self, z):
 def set_dim_x(self):
     """
     Set spinboxes of x-dimensions. Set labels and value lists,
-    including 'all' to select all entries. Select 'all' for first
-    dimension and the first entry for all other dimensions.
+    including 'all' to select all entries. Select 'all' for the
+    unlimited dimension if it exists, otherwise for the first
+    dimension, and select 0 for all other dimensions.
 
     Parameters
     ----------
@@ -292,22 +293,29 @@ def set_dim_x(self):
             vx = self.tvar
         xx = self.fi.variables[vx]
         nall = 0
-        for i in range(xx.ndim):
+        if self.dunlim in xx.dimensions:
+            i = xx.dimensions.index(self.dunlim)
             self.xd[i].config(values=spinbox_values(xx.shape[i]), width=4)
-            if (nall == 0) and (xx.shape[i] > 1):
-                nall += 1
-                self.xdval[i].set('all')
-            else:
-                self.xdval[i].set(0)
+            nall += 1
+            self.xdval[i].set('all')
             self.xdlbl[i].set(xx.dimensions[i])
+        for i in range(xx.ndim):
+            if xx.dimensions[i] != self.dunlim:
+                self.xd[i].config(values=spinbox_values(xx.shape[i]), width=4)
+                if (nall == 0) and (xx.shape[i] > 1):
+                    nall += 1
+                    self.xdval[i].set('all')
+                else:
+                    self.xdval[i].set(0)
+                self.xdlbl[i].set(xx.dimensions[i])
 
 
 def set_dim_y(self):
     """
     Set spinboxes of y-dimensions of left-hand-side (lhs).
-    Set labels and value lists, including 'all' to select all entries.
-    Select 'all' for first dimension and the first entry for all other
-    dimensions.
+    Set labels and value lists, including 'all' to select all entries. Select
+    'all' for the unlimited dimension if it exists, otherwise for the first
+    dimension, and select 0 for all other dimensions.
 
     Parameters
     ----------
@@ -335,22 +343,29 @@ def set_dim_y(self):
             vy = self.tvar
         yy = self.fi.variables[vy]
         nall = 0
-        for i in range(yy.ndim):
+        if self.dunlim in yy.dimensions:
+            i = yy.dimensions.index(self.dunlim)
             self.yd[i].config(values=spinbox_values(yy.shape[i]), width=4)
-            if (nall == 0) and (yy.shape[i] > 1):
-                nall += 1
-                self.ydval[i].set('all')
-            else:
-                self.ydval[i].set(0)
+            nall += 1
+            self.ydval[i].set('all')
             self.ydlbl[i].set(yy.dimensions[i])
+        for i in range(yy.ndim):
+            if yy.dimensions[i] != self.dunlim:
+                self.yd[i].config(values=spinbox_values(yy.shape[i]), width=4)
+                if (nall == 0) and (yy.shape[i] > 1):
+                    nall += 1
+                    self.ydval[i].set('all')
+                else:
+                    self.ydval[i].set(0)
+                self.ydlbl[i].set(yy.dimensions[i])
 
 
 def set_dim_y2(self):
     """
-    Set spinboxes of y-dimensions of right-hand-side (rhs).
-    Set labels and value lists, including 'all' to select all entries.
-    Select 'all' for first dimension and the first entry for all other
-    dimensions.
+    Set spinboxes of y2-dimensions of right-hand-side (rhs).
+    Set labels and value lists, including 'all' to select all entries. Select
+    'all' for the unlimited dimension if it exists, otherwise for the first
+    dimension, and select 0 for all other dimensions.
 
     Parameters
     ----------
@@ -378,21 +393,29 @@ def set_dim_y2(self):
             vy2 = self.tvar
         yy2 = self.fi.variables[vy2]
         nall = 0
-        for i in range(yy2.ndim):
+        if self.dunlim in yy2.dimensions:
+            i = yy2.dimensions.index(self.dunlim)
             self.y2d[i].config(values=spinbox_values(yy2.shape[i]), width=4)
-            if (nall == 0) and (yy2.shape[i] > 1):
-                nall += 1
-                self.y2dval[i].set('all')
-            else:
-                self.y2dval[i].set(0)
+            nall += 1
+            self.y2dval[i].set('all')
             self.y2dlbl[i].set(yy2.dimensions[i])
+        for i in range(yy2.ndim):
+            if yy2.dimensions[i] != self.dunlim:
+                self.y2d[i].config(values=spinbox_values(yy2.shape[i]), width=4)
+                if (nall == 0) and (yy2.shape[i] > 1):
+                    nall += 1
+                    self.y2dval[i].set('all')
+                else:
+                    self.y2dval[i].set(0)
+                self.y2dlbl[i].set(yy2.dimensions[i])
 
 
 def set_dim_z(self):
     """
-    Set spinboxes of z-dimensions of. Set labels and value lists,
-    including 'all' to select all entries. Select 'all' for first
-    two dimensions and the first entry for all other dimensions.
+    Set spinboxes of z-dimensions. Set labels and value lists, including 'all'
+    to select all entries. Select 'all' for the unlimited dimension if it
+    exists, otherwise for the first dimension, as well as for a second
+    dimension, and select 0 for all other dimensions.
 
     Parameters
     ----------
@@ -420,11 +443,18 @@ def set_dim_z(self):
             vz = self.tvar
         zz = self.fi.variables[vz]
         nall = 0
-        for i in range(zz.ndim):
+        if self.dunlim in zz.dimensions:
+            i = zz.dimensions.index(self.dunlim)
             self.zd[i].config(values=spinbox_values(zz.shape[i]), width=4)
-            if (nall <= 1) and (zz.shape[i] > 1):
-                nall += 1
-                self.zdval[i].set('all')
-            else:
-                self.zdval[i].set(0)
+            nall += 1
+            self.zdval[i].set('all')
             self.zdlbl[i].set(zz.dimensions[i])
+        for i in range(zz.ndim):
+            if zz.dimensions[i] != self.dunlim:
+                self.zd[i].config(values=spinbox_values(zz.shape[i]), width=4)
+                if (nall <= 1) and (zz.shape[i] > 1):
+                    nall += 1
+                    self.zdval[i].set('all')
+                else:
+                    self.zdval[i].set(0)
+                self.zdlbl[i].set(zz.dimensions[i])
