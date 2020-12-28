@@ -3,10 +3,38 @@
 Common methods for panels of ncvue.
 
 Methods normally belong to a class and be called like self.method(args).
-Here we have several panels that would have the same methods such as setting
-dimensions. They start hence with self and are called like method(self, args).
+We have several panels in ncvue that would have the same methods such as
+getting slices from arrays. These are hence gathered here, all start with
+the first argument self, which is the class instance, and are called like
+method(self, args).
 
-Written  Matthias Cuntz, Nov-Dec 2020
+This module was written by Matthias Cuntz while at Institut National de
+Recherche pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy,
+France.
+
+Copyright (c) 2020 Matthias Cuntz - mc (at) macu (dot) de
+
+Released under the MIT License; see LICENSE file for details.
+
+History:
+
+* Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
+* Slice arrays with slice function rather than numpy.take, Dec 2020, Matthias Cuntz
+
+.. moduleauthor:: Matthias Cuntz
+
+The following methods are provided:
+
+.. autosummary::
+   get_miss
+   get_slice_x
+   get_slice_y
+   get_slice_y2
+   get_slice_z
+   set_dim_x
+   set_dim_y
+   set_dim_y2
+   set_dim_z
 """
 from __future__ import absolute_import, division, print_function
 import numpy as np
@@ -94,16 +122,19 @@ def get_slice_x(self, x):
     >>> xx = get_slice_x(self, xx).squeeze()
     >>> xx = set_miss(xx, miss)
     """
-    xout = x
+    ss = []
     for i in range(x.ndim):
         dim = self.xd[i].get()
         if dim == 'all':
-            s = range(0, x.shape[i])
+            s = slice(0, x.shape[i])
         else:
-            s = (int(dim),)
-        xout = np.take(xout, s, axis=i)
-
-    return xout
+            idim = int(dim)
+            s = slice(idim, idim+1)
+        ss.append(s)
+    if len(ss) > 0:
+        return x[tuple(ss)]
+    else:
+        return np.array([], dtype=x.dtype)
 
 
 def get_slice_y(self, y):
@@ -131,22 +162,25 @@ def get_slice_y(self, y):
     >>> yy = get_slice_y(self, yy).squeeze()
     >>> yy = set_miss(yy, miss)
     """
-    yout = y
+    ss = []
     for i in range(y.ndim):
         dim = self.yd[i].get()
         if dim == 'all':
-            s = range(0, y.shape[i])
+            s = slice(0, y.shape[i])
         else:
-            s = (int(dim),)
-        yout = np.take(yout, s, axis=i)
-
-    return yout
+            idim = int(dim)
+            s = slice(idim, idim+1)
+        ss.append(s)
+    if len(ss) > 0:
+        return y[tuple(ss)]
+    else:
+        return np.array([], dtype=y.dtype)
 
 
 def get_slice_y2(self, y2):
     """
     Get slice of right-hand-side (rhs) y-variable inquiring the spinboxes of
-    the lhs y-dimensions.
+    the rhs y-dimensions.
 
     Parameters
     ----------
@@ -168,16 +202,19 @@ def get_slice_y2(self, y2):
     >>> yy2 = get_slice_y2(self, yy2).squeeze()
     >>> yy2 = set_miss(yy2, miss)
     """
-    y2out = y2
+    ss = []
     for i in range(y2.ndim):
         dim = self.y2d[i].get()
         if dim == 'all':
-            s = range(0, y2.shape[i])
+            s = slice(0, y2.shape[i])
         else:
-            s = (int(dim),)
-        y2out = np.take(y2out, s, axis=i)
-
-    return y2out
+            idim = int(dim)
+            s = slice(idim, idim+1)
+        ss.append(s)
+    if len(ss) > 0:
+        return y2[tuple(ss)]
+    else:
+        return np.array([], dtype=y2.dtype)
 
 
 def get_slice_z(self, z):
@@ -204,16 +241,19 @@ def get_slice_z(self, z):
     >>> zz = get_slice_z(self, zz).squeeze()
     >>> zz = set_miss(zz, miss)
     """
-    zout = z
+    ss = []
     for i in range(z.ndim):
         dim = self.zd[i].get()
         if dim == 'all':
-            s = range(0, z.shape[i])
+            s = slice(0, z.shape[i])
         else:
-            s = (int(dim),)
-        zout = np.take(zout, s, axis=i)
-
-    return zout
+            idim = int(dim)
+            s = slice(idim, idim+1)
+        ss.append(s)
+    if len(ss) > 0:
+        return z[tuple(ss)]
+    else:
+        return np.array([], dtype=z.dtype)
 
 
 #

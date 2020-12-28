@@ -3,6 +3,7 @@
 All notable changes after its initial development up to November 2020 (v1.0) are documented in this file.
 
 ### v1.4 (Dec 2020)
+    - Use slice function rather than numpy.take to extract slices of arrays.
     - Enhanced documentation with automatic API generation.
 
 ### v1.3 (Dec 2020)
