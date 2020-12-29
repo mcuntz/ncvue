@@ -13,6 +13,7 @@ except Exception:
     print('Using the themed widget set introduced in Tk 8.5.')
     print('Try to use mcview.py, which uses wxpython instead.')
     sys.exit()
+# import os
 import numpy as np
 from .ncvutils   import set_miss
 from .ncvmethods import get_miss
@@ -92,6 +93,9 @@ class ncvContour(ttk.Frame):
 
         acmaps = plt.colormaps()
         cmaps  = [ i for i in acmaps if not i.endswith('_r') ]
+        cmaps.sort()
+        # cmaps  = [ tk.PhotoImage(file=os.path.dirname(__file__) +
+        #                          '/images/' + i + '.png') for i in cmaps ]
 
         # 1. row
         # z-axis selection
