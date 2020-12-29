@@ -13,13 +13,13 @@ except Exception:
     print('Using the themed widget set introduced in Tk 8.5.')
     print('Try to use mcview.py, which uses wxpython instead.')
     sys.exit()
-# import os
+import os
 import numpy as np
 from .ncvutils   import set_miss
 from .ncvmethods import get_miss
 from .ncvmethods import get_slice_x, get_slice_y, get_slice_z
 from .ncvmethods import set_dim_x, set_dim_y, set_dim_z
-from .ncvwidgets import add_checkbutton, add_combobox, add_entry
+from .ncvwidgets import add_checkbutton, add_combobox, add_entry, add_imagemenu
 from .ncvwidgets import add_spinbox
 from .ncvclone   import clone_ncvmain
 import matplotlib
@@ -91,11 +91,12 @@ class ncvContour(ttk.Frame):
         # selections and options
         columns = [''] + self.cols
 
-        acmaps = plt.colormaps()
-        cmaps  = [ i for i in acmaps if not i.endswith('_r') ]
-        cmaps.sort()
-        # cmaps  = [ tk.PhotoImage(file=os.path.dirname(__file__) +
-        #                          '/images/' + i + '.png') for i in cmaps ]
+        allcmaps = plt.colormaps()
+        self.cmaps  = [ i for i in allcmaps if not i.endswith('_r') ]
+        self.cmaps.sort()
+        self.imaps  = [ tk.PhotoImage(file=os.path.dirname(__file__) +
+                                      '/images/' + i + '.png')
+                        for i in self.cmaps ]
 
         # 1. row
         # z-axis selection
@@ -193,10 +194,11 @@ class ncvContour(ttk.Frame):
         # options
         self.rowcmap = ttk.Frame(self)
         self.rowcmap.pack(side=tk.TOP, fill=tk.X)
-        self.cmaplbl, self.cmap = add_combobox(
-            self.rowcmap, label="cmap", values=cmaps,
-            command=self.selected, width=10)
-        self.cmap.set('RdYlBu')
+        self.cmaplbl, self.cmap = add_imagemenu(
+            self.rowcmap, label="cmap", values=self.cmaps,
+            images=self.imaps, command=self.selected_cmap)
+        self.cmap['text']  = 'RdYlBu'
+        self.cmap['image'] = self.imaps[self.cmaps.index('RdYlBu')]
         self.rev_cmaplbl, self.rev_cmap = add_checkbutton(
             self.rowcmap, label="inverse cmap", value=False,
             command=self.checked)
@@ -253,7 +255,10 @@ class ncvContour(ttk.Frame):
             set_dim_y(self)
             self.redraw()
 
-    def selected(self, event=None):
+
+    def selected_cmap(self, value):
+        self.cmap['text']  = value
+        self.cmap['image'] = self.imaps[self.cmaps.index(value)]
         self.redraw()
 
     def selected_x(self, event=None):
@@ -310,7 +315,7 @@ class ncvContour(ttk.Frame):
         inv_x = self.inv_x.get()
         inv_y = self.inv_y.get()
         # rowcmap
-        cmap = self.cmap.get()
+        cmap = self.cmap['text']
         rev_cmap = self.rev_cmap.get()
         mesh = self.mesh.get()
         grid = self.grid.get()

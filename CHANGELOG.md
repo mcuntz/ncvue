@@ -4,9 +4,11 @@ All notable changes after its initial development up to November 2020 (v1.0)
 are documented in this file.
 
 ### v1.4 (Dec 2020)
+    - Colorbar menu with images of colorbars. 
     - Use unlimited dimension instead of first dimension in Scatter and Contour
       panels as default for 'all'.
-    - Use slice function rather than numpy.take to extract slices of arrays.
+    - Use slice function rather than numpy.take to extract slices of arrays, i.e.
+      reads only the current slice from disk.
     - Enhanced documentation with automatic API generation.
 
 ### v1.3 (Dec 2020)

@@ -12,12 +12,17 @@ Released under the MIT License; see LICENSE file for details.
 
 * Written Nov 2020 by Matthias Cuntz (mc (at) macu (dot) de)
 * v1.0, initial PyPI commit, Nov 2020, Matthias Cuntz
-* v1.1, modularised having utilities and panels in individual files, Dec 2020, Matthias Cuntz
-* v1.2, Make lists of spinbox labels and values, outsource common methods, Dec 2020, Matthias Cuntz
-* v1.3, fix colorbar and gridlines in contour, invert x in scatter, Dec 2020, Matthias Cuntz
+* v1.1, modularised, having utilities and panels in individual files,
+  Dec 2020, Matthias Cuntz
+* v1.2, Make lists of spinbox labels and values, outsource common methods,
+  Dec 2020, Matthias Cuntz
+* v1.3, fix colorbar and gridlines in contour, invert x in scatter,
+  Dec 2020, Matthias Cuntz
+* v1.4, Read only slice from disk, respect unlimited dimension,
+  visual colorbar chooser, Dec 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 """
 
 __author__  = "Matthias Cuntz"
-__version__ = "1.3"
+__version__ = "1.4"

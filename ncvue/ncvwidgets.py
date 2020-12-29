@@ -15,7 +15,8 @@ except Exception:
     sys.exit()
 
 
-__all__ = ['add_checkbutton', 'add_combobox', 'add_entry', 'add_spinbox']
+__all__ = ['add_checkbutton', 'add_combobox', 'add_entry',
+           'add_imagemenu', 'add_spinbox']
 
 
 def add_checkbutton(frame, label="", value=False, command=None, **kwargs):
@@ -148,6 +149,61 @@ def add_entry(frame, label="", text="", command=None, **kwargs):
         entry.bind('<FocusOut>', command)    # tab or click
     entry.pack(side=tk.LEFT)
     return entry_label, entry_text
+
+
+def add_imagemenu(frame, label="", values=[], images=[], command=None,
+                  **kwargs):
+    """
+    Add a left-aligned menu with menubuttons having text and images
+    with a ttk.Label before.
+
+    Parameters
+    ----------
+    frame : tk widget
+        Parent widget
+    label : str, optional
+        Text that appears in front of the menu (default: "")
+    values : list of str, optional
+        The choices that will appear in the drop-down menu (default: [])
+    images : list of str, optional
+        The images before the choices that will appear in the drop-down menu
+        (default: [])
+    command : function, optional
+        Handler function to be called if new menu entry chosen (default: None).
+    **kwargs : option=value pairs, optional
+        All other options will be passed to the main ttk.Menubutton
+
+    Returns
+    -------
+    tk.StringVar, ttk.Menubutton
+        variable for the text before the menu, main tt.Menubutton widget
+
+    Examples
+    --------
+    >>> self.rowzxy = ttk.Frame(self)
+    >>> self.rowzxy.pack(side=tk.TOP, fill=tk.X)
+    >>> self.xlbl, self.x = add_combobox(
+    ...     self.rowzxy, label="x", values=columns, command=self.selected)
+    """
+    from functools import partial
+    estr  = 'Same number of values and images needed for add_imagemenu.'
+    estr += ' values (' + str(len(values)) + '): ' + str(values)
+    estr += ', images (' + str(len(images)) + '): ' + str(images)
+    assert len(values) == len(images), estr
+    width = kwargs.pop('width', 25)
+    mb_label = tk.StringVar()
+    mb_label.set(label)
+    label = ttk.Label(frame, textvariable=mb_label)
+    label.pack(side=tk.LEFT)
+    mb = ttk.Menubutton(frame, image=images[0], text=values[0],
+                        compound=tk.LEFT)
+    sb = tk.Menu(mb, tearoff=False)
+    mb.config(menu=sb)
+    for i, v in enumerate(values):
+        sb.add_command(label=v, image=images[i], compound=tk.LEFT,
+                       command=partial(command, v))
+    mb.pack(side=tk.LEFT)
+    return mb_label, mb
 
 
 def add_spinbox(frame, label="", values=[], command=None, **kwargs):
