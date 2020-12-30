@@ -16,7 +16,7 @@ except Exception:
 
 
 __all__ = ['add_checkbutton', 'add_combobox', 'add_entry',
-           'add_imagemenu', 'add_spinbox']
+           'add_imagemenu', 'add_scale', 'add_spinbox']
 
 
 def add_checkbutton(frame, label="", value=False, command=None, **kwargs):
@@ -204,6 +204,46 @@ def add_imagemenu(frame, label="", values=[], images=[], command=None,
                        command=partial(command, v))
     mb.pack(side=tk.LEFT)
     return mb_label, mb
+
+
+def add_scale(frame, label="", ini=0, **kwargs):
+    """
+    Add a left-aligned ttk.Scale with a ttk.Label before.
+
+    Parameters
+    ----------
+    frame : tk widget
+        Parent widget
+    label : str, optional
+        Text that appears in front of the scale (default: "")
+    ini : float, optional
+        Initial value of scale (default: 0)
+    **kwargs : option=value pairs, optional
+        All other options will be passed to ttk.Scale
+
+    Returns
+    -------
+    tk.StringVar, tk.DoubleVar, ttk.Scale
+        variable for the text before the scale,
+        value of scale,
+        scale widget
+
+    Examples
+    --------
+    >>> self.rowzxy = ttk.Frame(self)
+    >>> self.rowzxy.pack(side=tk.TOP, fill=tk.X)
+    >>> self.xlbl, self.x = add_scale(
+    ...     self.rowzxy, label="x", values=columns, command=self.selected)
+    """
+    s_label = tk.StringVar()
+    s_label.set(label)
+    label = ttk.Label(frame, textvariable=s_label)
+    label.pack(side=tk.LEFT)
+    s_val = tk.DoubleVar()
+    s_val.set(ini)
+    s = ttk.Scale(frame, variable=s_val, **kwargs)
+    s.pack(side=tk.LEFT)
+    return s_label, s_val, s
 
 
 def add_spinbox(frame, label="", values=[], command=None, **kwargs):

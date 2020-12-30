@@ -15,8 +15,9 @@ except Exception:
     sys.exit()
 import numpy as np
 from .ncvutils   import zip_dim_name_length
-from .ncvcontour import ncvContour
 from .ncvscatter import ncvScatter
+from .ncvcontour import ncvContour
+from .ncvmap     import ncvMap
 
 
 __all__ = ['ncvMain']
@@ -61,8 +62,10 @@ class ncvMain(ttk.Frame):
 
         self.tab_scatter = ncvScatter(self)
         self.tab_contour = ncvContour(self)
+        self.tab_map     = ncvMap(self)
         self.tabs.add(self.tab_scatter, text=self.tab_scatter.name)
         self.tabs.add(self.tab_contour, text=self.tab_contour.name)
+        self.tabs.add(self.tab_map, text=self.tab_map.name)
 
     #
     # Methods

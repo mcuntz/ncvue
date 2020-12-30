@@ -8,6 +8,9 @@ getting slices from arrays. These are hence gathered here, all start with
 the first argument self, which is the class instance, and are called like
 method(self, args).
 
+The methods could also be put onto a common class (based on ttk.Frame) on
+which ncvContour, etc. would then be based.
+
 This module was written by Matthias Cuntz while at Institut National de
 Recherche pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy,
 France.

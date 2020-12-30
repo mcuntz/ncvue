@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 """
-Contour panel of ncvue
+Map panel of ncvue
 
-Written  Matthias Cuntz, Nov-Dec 2020
+Written  Matthias Cuntz, Dec 2020-Jan 2021
 """
 from __future__ import absolute_import, division, print_function
 import tkinter as tk
@@ -20,7 +20,7 @@ from .ncvmethods import get_miss
 from .ncvmethods import get_slice_x, get_slice_y, get_slice_z
 from .ncvmethods import set_dim_x, set_dim_y, set_dim_z
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry, add_imagemenu
-from .ncvwidgets import add_spinbox
+from .ncvwidgets import add_scale, add_spinbox
 from .ncvclone   import clone_ncvmain
 import matplotlib
 matplotlib.use('TkAgg')
@@ -28,12 +28,12 @@ from matplotlib import pyplot as plt
 plt.style.use('seaborn-darkgrid')
 
 
-__all__ = ['ncvContour']
+__all__ = ['ncvMap']
 
 
-class ncvContour(ttk.Frame):
+class ncvMap(ttk.Frame):
     """
-    Panel for contour plots.
+    Panel for maps.
     """
 
     #
@@ -48,7 +48,7 @@ class ncvContour(ttk.Frame):
 
         super().__init__(master, **kwargs)
 
-        self.name   = 'Contour'
+        self.name   = 'Map'
         self.master = master
         self.root   = master.root
         self.fi     = master.fi
@@ -98,6 +98,56 @@ class ncvContour(ttk.Frame):
                         for i in self.cmaps ]
 
         # 1. row
+        # controls
+        self.rowt = ttk.Frame(self)
+        self.rowt.pack(side=tk.TOP, fill=tk.X)
+        spacet = ttk.Label(self.rowt, text=" "*15)
+        spacet.pack(side=tk.LEFT)
+        # first t
+        self.first_t = ttk.Button(self.rowt, text="|<<", width=3,
+                                  command=self.first_t)
+        self.first_t.pack(side=tk.LEFT)
+        # previous t
+        self.prev_t = ttk.Button(self.rowt, text="|<", width=3,
+                                 command=self.prev_t)
+        self.prev_t.pack(side=tk.LEFT)
+        # run t backwards
+        self.prun_t = ttk.Button(self.rowt, text="<", width=3,
+                                 command=self.prun_t)
+        self.prun_t.pack(side=tk.LEFT)
+        # pause t
+        self.pause_t = ttk.Button(self.rowt, text="||", width=3,
+                                 command=self.pause_t)
+        self.pause_t.pack(side=tk.LEFT)
+        # run t forward
+        self.nrun_t = ttk.Button(self.rowt, text=">", width=3,
+                                 command=self.nrun_t)
+        self.nrun_t.pack(side=tk.LEFT)
+        # next t
+        self.next_t = ttk.Button(self.rowt, text=">|", width=3,
+                                 command=self.next_t)
+        self.next_t.pack(side=tk.LEFT)
+        # last t
+        self.last_t = ttk.Button(self.rowt, text=">>|", width=3,
+                                 command=self.last_t)
+        self.last_t.pack(side=tk.LEFT)
+        # repeat
+        spacer = ttk.Label(self.rowt, text=" "*1)
+        spacer.pack(side=tk.LEFT)
+        reps = ['once', 'repeat', 'reflect']
+        self.repeatlbl, self.repeat = add_combobox(
+            self.rowt, label="repeat", values=reps, width=5,
+            command=self.repeat_t)
+        self.repeat.set('repeat')
+        self.last_t.pack(side=tk.LEFT)
+        # delay
+        spaced = ttk.Label(self.rowt, text=" "*1)
+        spaced.pack(side=tk.LEFT)
+        self.delaylbl, self.delayval, self.delay = add_scale(
+            self.rowt, label="delay (ms)", ini=200, from_=0, to=2000,
+            length=100, orient=tk.HORIZONTAL, command=self.delay_t)
+
+        # 2. row
         # z-axis selection
         self.rowz = ttk.Frame(self)
         self.rowz.pack(side=tk.TOP, fill=tk.X)
@@ -130,7 +180,7 @@ class ncvContour(ttk.Frame):
                                             text='None', width=7,
                                             command=self.entered_z)
 
-        # 2. row
+        # 3. row
         # levels z
         self.rowzlev = ttk.Frame(self)
         self.rowzlev.pack(side=tk.TOP, fill=tk.X)
@@ -145,7 +195,7 @@ class ncvContour(ttk.Frame):
             self.zdval.append(zdval)
             self.zd.append(zd)
 
-        # 3. row
+        # 4. row
         # x- and y-axis selection
         self.rowxy = ttk.Frame(self)
         self.rowxy.pack(side=tk.TOP, fill=tk.X)
@@ -162,7 +212,7 @@ class ncvContour(ttk.Frame):
         self.inv_ylbl, self.inv_y = add_checkbutton(
             self.rowxy, label="invert y", value=False, command=self.checked)
 
-        # 4. row
+        # 5. row
         # levels x and y
         self.rowxylev = ttk.Frame(self)
         self.rowxylev.pack(side=tk.TOP, fill=tk.X)
@@ -189,7 +239,7 @@ class ncvContour(ttk.Frame):
             self.ydval.append(ydval)
             self.yd.append(yd)
 
-        # 5. row
+        # 6. row
         # options
         self.rowcmap = ttk.Frame(self)
         self.rowcmap.pack(side=tk.TOP, fill=tk.X)
@@ -220,6 +270,14 @@ class ncvContour(ttk.Frame):
         """
         self.redraw()
 
+    def delay_t(self, delay):
+        """
+        Command called if delay scale was changed.
+
+        `delay` is the chosen value on the scale slider.
+        """
+        pass
+
     def entered_z(self, event):
         """
         Command called if values for `zmin`/`zmax` were entered.
@@ -229,6 +287,30 @@ class ncvContour(ttk.Frame):
         Redraws plot.
         """
         self.redraw()
+
+    def first_t(self):
+        """
+        Command called if first frame button was pressed.
+        """
+        pass
+
+    def last_t(self):
+        """
+        Command called if last frame button was pressed.
+        """
+        pass
+
+    def nrun_t(self):
+        """
+        Command called if forward run button was pressed.
+        """
+        pass
+
+    def next_t(self):
+        """
+        Command called if next frame button was pressed.
+        """
+        pass
 
     def next_z(self):
         """
@@ -254,6 +336,18 @@ class ncvContour(ttk.Frame):
             set_dim_y(self)
             self.redraw()
 
+    def pause_t(self):
+        """
+        Command called if pause button was pressed.
+        """
+        pass
+
+    def prev_t(self):
+        """
+        Command called if previous frame button was pressed.
+        """
+        pass
+
     def prev_z(self):
         """
         Command called if previous button for the plotting variable was
@@ -278,6 +372,20 @@ class ncvContour(ttk.Frame):
             set_dim_x(self)
             set_dim_y(self)
             self.redraw()
+
+    def prun_t(self):
+        """
+        Command called if run backwards button was pressed.
+        """
+        pass
+
+    def repeat_t(self, event):
+        """
+        Command called if repeat option was chosen with combobox.
+
+        Triggering `event` was bound to the combobox.
+        """
+        pass
 
     def selected_cmap(self, value):
         """
@@ -426,6 +534,10 @@ class ncvContour(ttk.Frame):
             else:
                 zz = self.fi.variables[vz]
                 zlab = set_axis_label(zz)
+                try:
+                    zlab += ' (' + zz.units + ')'
+                except AttributeError:
+                    pass
                 miss = get_miss(self, zz)
                 zz = get_slice_z(self, zz).squeeze()
                 zz = set_miss(zz, miss)
@@ -444,6 +556,10 @@ class ncvContour(ttk.Frame):
             else:
                 yy   = self.fi.variables[vy]
                 ylab = set_axis_label(yy)
+                try:
+                    ylab += ' (' + yy.units + ')'
+                except AttributeError:
+                    pass
             miss = get_miss(self, yy)
             yy = get_slice_y(self, yy).squeeze()
             yy = set_miss(yy, miss)
@@ -460,6 +576,10 @@ class ncvContour(ttk.Frame):
             else:
                 xx   = self.fi.variables[vx]
                 xlab = set_axis_label(xx)
+                try:
+                    xlab += ' (' + xx.units + ')'
+                except AttributeError:
+                    pass
             miss = get_miss(self, xx)
             xx = get_slice_x(self, xx).squeeze()
             xx = set_miss(xx, miss)

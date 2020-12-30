@@ -11,7 +11,41 @@ from __future__ import absolute_import, division, print_function
 import numpy as np
 
 
-__all__ = ['set_miss', 'spinbox_values', 'zip_dim_name_length']
+__all__ = ['set_axis_label', 'set_miss', 'spinbox_values',
+           'zip_dim_name_length']
+
+
+def set_axis_label(ncvar):
+    """
+    Set label plotting axis from name and unit of given variable
+    `ncvar`.
+
+    Parameters
+    ----------
+    ncvar : netCDF4._netCDF4.Variable
+        netcdf variables class
+
+    Returns
+    -------
+    str
+        Label string: name (unit)
+
+    Examples
+    --------
+    >>> ylab = set_axis_label(fi.variables['w_soil'])
+    """
+    try:
+        lab = ncvar.long_name
+    except AttributeError:
+        try:
+            lab = ncvar.standard_name
+        except AttributeError:
+            lab = ncvar.name
+    try:
+        lab += ' (' + ncvar.units + ')'
+    except AttributeError:
+        pass
+    return lab
 
 
 def set_miss(x, miss):

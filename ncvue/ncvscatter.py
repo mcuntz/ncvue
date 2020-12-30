@@ -14,7 +14,7 @@ except Exception:
     print('Try to use mcview.py, which uses wxpython instead.')
     sys.exit()
 import numpy as np
-from .ncvutils   import set_miss
+from .ncvutils   import set_axis_label, set_miss
 from .ncvmethods import get_miss
 from .ncvmethods import get_slice_x, get_slice_y, get_slice_y2
 from .ncvmethods import set_dim_x, set_dim_y, set_dim_y2
@@ -44,7 +44,6 @@ class ncvScatter(ttk.Frame):
         from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
         from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
         from matplotlib.figure import Figure
-        from matplotlib import pyplot as plt
 
         super().__init__(master, **kwargs)
 
@@ -362,11 +361,7 @@ class ncvScatter(ttk.Frame):
                 ylab = 'Date'
                 pargs['color'] = c
             else:
-                ylab  = self.fi.variables[vy].name
-                try:
-                    ylab += ' (' + self.fi.variables[vy].units + ')'
-                except AttributeError:
-                    pass
+                ylab = set_axis_label(self.fi.variables[vy])
                 # ToDo with dimensions
                 if len(self.line_y) == 1:
                     # set color only if single line,
@@ -464,11 +459,7 @@ class ncvScatter(ttk.Frame):
                 ylab = 'Date'
                 pargs['color'] = c
             else:
-                ylab  = self.fi.variables[vy].name
-                try:
-                    ylab += ' (' + self.fi.variables[vy].units + ')'
-                except AttributeError:
-                    pass
+                ylab = set_axis_label(self.fi.variables[vy])
                 if len(self.line_y2) == 1:
                     # set color only if single line,
                     # None and 'None' do not work for multiple lines
@@ -563,11 +554,7 @@ class ncvScatter(ttk.Frame):
                     ylab = 'Date'
                 else:
                     yy   = self.fi.variables[vy]
-                    ylab = yy.name
-                    try:
-                        ylab += ' (' + yy.units + ')'
-                    except AttributeError:
-                        pass
+                    ylab = set_axis_label(yy)
                 miss = get_miss(self, yy)
                 yy = get_slice_y(self, yy).squeeze()
                 yy = set_miss(yy, miss)
@@ -579,11 +566,7 @@ class ncvScatter(ttk.Frame):
                     ylab2 = 'Date'
                 else:
                     yy2   = self.fi.variables[vy2]
-                    ylab2 = yy2.name
-                    try:
-                        ylab2 += ' (' + yy2.units + ')'
-                    except AttributeError:
-                        pass
+                    ylab2 = set_axis_label(yy2)
                 miss = get_miss(self, yy2)
                 yy2 = get_slice_y2(self, yy2).squeeze()
                 yy2 = set_miss(yy2, miss)
@@ -595,11 +578,7 @@ class ncvScatter(ttk.Frame):
                     xlab = 'Date'
                 else:
                     xx   = self.fi.variables[vx]
-                    xlab = xx.name
-                    try:
-                        xlab += ' (' + xx.units + ')'
-                    except AttributeError:
-                        pass
+                    xlab = set_axis_label(xx)
                 miss = get_miss(self, xx)
                 xx = get_slice_x(self, xx).squeeze()
                 xx = set_miss(xx, miss)

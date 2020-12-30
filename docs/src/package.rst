@@ -13,6 +13,7 @@ API
    ncvclone.rst
    ncvcontour.rst
    ncvmain.rst
+   ncvmap.rst
    ncvmethods.rst
    ncvscatter.rst
    ncvue.rst
