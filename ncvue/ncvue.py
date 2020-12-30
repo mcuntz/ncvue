@@ -1,8 +1,28 @@
 #!/usr/bin/env python
 """
-Calling routine ncvue.
+Calling routine of ncvue.
 
-Written  Matthias Cuntz, Nov-Dec 2020
+The calling routine sets up the toplevel root window, opens the netcdf file
+and gets an instance of the ncvMain class.
+
+This module was written by Matthias Cuntz while at Institut National de
+Recherche pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy,
+France.
+
+Copyright (c) 2020 Matthias Cuntz - mc (at) macu (dot) de
+
+Released under the MIT License; see LICENSE file for details.
+
+History:
+
+* Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
+
+.. moduleauthor:: Matthias Cuntz
+
+The following functions are provided:
+
+.. autosummary::
+   ncvue
 """
 from __future__ import absolute_import, division, print_function
 import tkinter as tk

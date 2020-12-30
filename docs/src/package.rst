@@ -10,7 +10,6 @@ API
 
 .. toctree::
 
-   ncvclone.rst
    ncvcontour.rst
    ncvmain.rst
    ncvmap.rst

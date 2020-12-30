@@ -1,8 +1,28 @@
 #!/usr/bin/env python
 """
-Map panel of ncvue
+Map panel of ncvue.
 
-Written  Matthias Cuntz, Dec 2020-Jan 2021
+The panel allows plotting contour or mesh maps of georeferenced data.
+Maps can be animated along the time axis.
+
+This module was written by Matthias Cuntz while at Institut National de
+Recherche pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy,
+France.
+
+Copyright (c) 2020-2021 Matthias Cuntz - mc (at) macu (dot) de
+
+Released under the MIT License; see LICENSE file for details.
+
+History:
+
+* Written Dec 2020-Jan 2021 by Matthias Cuntz (mc (at) macu (dot) de)
+
+.. moduleauthor:: Matthias Cuntz
+
+The following classes are provided:
+
+.. autosummary::
+   ncvMap
 """
 from __future__ import absolute_import, division, print_function
 import tkinter as tk
@@ -15,12 +35,11 @@ except Exception:
     sys.exit()
 import os
 import numpy as np
-from .ncvutils   import set_axis_label
+from .ncvutils   import clone_ncvmain, set_axis_label
 from .ncvmethods import get_slice_miss
 from .ncvmethods import set_dim_x, set_dim_y, set_dim_z
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry, add_imagemenu
 from .ncvwidgets import add_scale, add_spinbox
-from .ncvclone   import clone_ncvmain
 import matplotlib
 matplotlib.use('TkAgg')
 from matplotlib import pyplot as plt
@@ -33,6 +52,12 @@ __all__ = ['ncvMap']
 class ncvMap(ttk.Frame):
     """
     Panel for maps.
+
+    Sets up the layout with the figure canvas, variable selectors, dimension
+    spinboxes, and options in __init__.
+
+    Contains various commands that manage what will be drawn or redrawn if
+    something is selected, changed, checked, etc.
     """
 
     #
@@ -263,7 +288,7 @@ class ncvMap(ttk.Frame):
 
     def checked(self):
         """
-        Method called if any checkbutton was checked or unchecked.
+        Command called if any checkbutton was checked or unchecked.
 
         Redraws plot.
         """
@@ -508,7 +533,6 @@ class ncvMap(ttk.Frame):
         rev_cmap = self.rev_cmap.get()
         mesh = self.mesh.get()
         grid = self.grid.get()
-
         # Clear figure instead of axes because colorbar is on figure
         # Have to add axes again.
         self.figure.clear()

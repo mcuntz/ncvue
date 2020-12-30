@@ -20,12 +20,14 @@ History:
   Dec 2020, Matthias Cuntz
 * Added arithmetics to apply on axis/dimensions such as mean, std, etc.,
   Dec 2020, Matthias Cuntz
+* Added clone_ncvmain, removing its own module, Dec 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
 The following functions are provided:
 
 .. autosummary::
+   clone_ncvmain
    get_slice
    list_intersection
    set_axis_label
@@ -34,11 +36,59 @@ The following functions are provided:
    zip_dim_name_length
 """
 from __future__ import absolute_import, division, print_function
+import tkinter as tk
 import numpy as np
 
 
-__all__ = ['get_slice', 'list_intersection', 'set_axis_label', 'set_miss',
-           'spinbox_values', 'zip_dim_name_length']
+__all__ = ['clone_ncvmain', 'get_slice', 'list_intersection',
+           'set_axis_label', 'set_miss', 'spinbox_values',
+           'zip_dim_name_length']
+
+
+def clone_ncvmain(widget, fi, miss):
+    """
+    Duplicate the main ncvue window.
+
+    Parameters
+    ----------
+    widget : ncvue.ncvMain
+        widget of ncvMain class.
+    fi : netCDF4._netCDF4.Dataset
+        netcdf dataset
+    miss : float
+        Additional value that will be set to np.nan in netcdf variables.
+
+    Returns
+    -------
+    Another ncvue window will be created.
+
+    Examples
+    --------
+    >>> self.newwin = ttk.Button(
+    ...     self.rowwin, text="New Window",
+    ...     command=partial(clone_ncvmain, self.master, self.fi, self.miss))
+    """
+    # parent = widget.nametowidget(widget.winfo_parent())
+    if widget.name != 'ncvMain':
+        print('clone_ncvmain failed. Widget should be ncvMain.')
+        print('widget.name is: ', widget.name)
+        import sys
+        sys.exit()
+
+    self = tk.Toplevel()
+    self.name = 'ncvClone'
+    self.title("Secondary ncvue window")
+    self.geometry('1000x800')
+    self.miss = miss
+
+    # https://stackoverflow.com/questions/46505982/is-there-a-way-to-clone-a-tkinter-widget
+    cls = widget.__class__
+    clone = cls(fi, master=self, miss=miss)
+    for key in widget.configure():
+        if key != 'class':
+            clone.configure({key: widget.cget(key)})
+
+    return clone
 
 
 def get_slice(dimspins, y):

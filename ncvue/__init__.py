@@ -16,8 +16,9 @@ from .version import __version__, __author__
 
 # helper functions
 # general helper function
-from .ncvutils   import get_slice, list_intersection, set_axis_label, set_miss
-from .ncvutils   import spinbox_values, zip_dim_name_length
+from .ncvutils   import clone_ncvmain, get_slice, list_intersection
+from .ncvutils   import set_axis_label, set_miss, spinbox_values
+from .ncvutils   import zip_dim_name_length
 
 # common methods of all panels
 from .ncvmethods import get_miss, get_slice_miss
@@ -33,11 +34,8 @@ from .ncvscatter import ncvScatter
 from .ncvcontour import ncvContour
 # map panel
 from .ncvmap     import ncvMap
-
 # main window with panels
 from .ncvmain    import ncvMain
-# open new window with panels
-from .ncvclone   import clone_ncvmain
 
 # main calling program
 from .ncvue import ncvue

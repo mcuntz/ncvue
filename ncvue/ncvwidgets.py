@@ -2,7 +2,31 @@
 """
 Widget functions for ncvue.
 
-Written  Matthias Cuntz, Nov-Dec 2020
+Convenience functions for adding Tkinter widgets.
+
+This module was written by Matthias Cuntz while at Institut National de
+Recherche pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy,
+France.
+
+Copyright (c) 2020 Matthias Cuntz - mc (at) macu (dot) de
+
+Released under the MIT License; see LICENSE file for details.
+
+History:
+
+* Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
+
+.. moduleauthor:: Matthias Cuntz
+
+The following functions are provided:
+
+.. autosummary::
+   add_checkbutton
+   add_combobox
+   add_entry
+   add_imagemenu
+   add_scale
+   add_spinbox
 """
 from __future__ import absolute_import, division, print_function
 import tkinter as tk

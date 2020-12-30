@@ -1,8 +1,29 @@
 #!/usr/bin/env python
 """
-Main window of ncvue.
+Main ncvue window.
 
-Written  Matthias Cuntz, Nov-Dec 2020
+This sets up the main notebook window with the plotting panels and
+analyses the netcdf file, e.g. determining the unlimited dimensions,
+calculating dates, etc.
+
+This module was written by Matthias Cuntz while at Institut National de
+Recherche pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy,
+France.
+
+Copyright (c) 2020 Matthias Cuntz - mc (at) macu (dot) de
+
+Released under the MIT License; see LICENSE file for details.
+
+History:
+
+* Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
+
+.. moduleauthor:: Matthias Cuntz
+
+The following classes are provided:
+
+.. autosummary::
+   ncvMain
 """
 from __future__ import absolute_import, division, print_function
 import tkinter as tk
@@ -29,7 +50,13 @@ __all__ = ['ncvMain']
 
 class ncvMain(ttk.Frame):
     """
-    New plotting window with different plotting panels.
+    Main ncvue notebook window with the plotting panels.
+
+    Sets up the notebook layout with the panels and analyses the netcdf file,
+    e.g. determining the unlimited dimensions, calculating dates, etc. in
+    __init__.
+
+    Contains the method to analyse the netcdf file.
     """
 
     #
@@ -73,6 +100,12 @@ class ncvMain(ttk.Frame):
 
     # analyse netcdf file
     def analyse_netcdf(self):
+        """
+        Analyse the netcdf file.
+
+        Determining the unlimited dimensions, calculate dates, make list of
+        variables.
+        """
         import datetime as dt
         try:
             import cftime as cf

@@ -1,8 +1,29 @@
 #!/usr/bin/env python
 """
-Scatter/Line panel of ncvue
+Scatter/Line panel of ncvue.
 
-Written  Matthias Cuntz, Nov-Dec 2020
+The panel allows plotting variables against time or two variables against
+each other. A second variable can be plotted in the same graph using the
+right-hand-side y-axis.
+
+This module was written by Matthias Cuntz while at Institut National de
+Recherche pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy,
+France.
+
+Copyright (c) 2020 Matthias Cuntz - mc (at) macu (dot) de
+
+Released under the MIT License; see LICENSE file for details.
+
+History:
+
+* Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
+
+.. moduleauthor:: Matthias Cuntz
+
+The following classes are provided:
+
+.. autosummary::
+   ncvScatter
 """
 from __future__ import absolute_import, division, print_function
 import tkinter as tk
@@ -14,12 +35,11 @@ except Exception:
     print('Try to use mcview.py, which uses wxpython instead.')
     sys.exit()
 import numpy as np
-from .ncvutils   import set_axis_label
+from .ncvutils   import clone_ncvmain, set_axis_label
 from .ncvmethods import get_slice_miss
 from .ncvmethods import set_dim_x, set_dim_y, set_dim_y2
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry
 from .ncvwidgets import add_spinbox
-from .ncvclone   import clone_ncvmain
 import matplotlib
 matplotlib.use('TkAgg')
 from matplotlib import pyplot as plt
@@ -31,7 +51,18 @@ __all__ = ['ncvScatter']
 
 class ncvScatter(ttk.Frame):
     """
-    Panel for scatter plots.
+    Panel for scatter and line plots.
+
+    Sets up the layout with the figure canvas, variable selectors, dimension
+    spinboxes, and options in __init__.
+
+    Contains various commands that manage what will be drawn or redrawn if
+    something is selected, changed, checked, etc.
+
+    Contains three drawing routines. `redraw_y` and `redraw_y2` redraw the
+    y-axes without changing zoom level, etc. `redraw` is called if a new
+    x-variable was selected or the `Redraw`-button was pressed. It resets
+    all axes, resetting zoom, etc.
     """
 
     #
@@ -262,26 +293,66 @@ class ncvScatter(ttk.Frame):
     #
 
     def checked_x(self):
+        """
+        Command called if any checkbutton for x-axis was checked or unchecked.
+
+        Redraws left-hand-side and right-hand-side y-axes.
+        """
         self.redraw_y()
         self.redraw_y2()
 
     def checked_y(self):
+        """
+        Command called if any checkbutton for left-hand-side y-axis was checked
+        or unchecked.
+
+        Redraws left-hand-side y-axis.
+        """
         self.redraw_y()
 
     def checked_y2(self):
+        """
+        Command called if any checkbutton for right-hand-side y-axis was checked
+        or unchecked.
+
+        Redraws right-hand-side y-axis.
+        """
         self.redraw_y2()
 
     def checked_yy2(self):
+        """
+        Command called if any checkbutton was checked or unchecked that concerns
+        both, the left-hand-side and right-hand-side y-axes.
+
+        Redraws left-hand-side and right-hand-side y-axes.
+        """
         self.redraw_y()
         self.redraw_y2()
 
     def entered_y(self, event):
+        """
+        Command called if option was entered for left-hand-side y-axis.
+
+        Redraws left-hand-side y-axis.
+        """
         self.redraw_y()
 
     def entered_y2(self, event):
+        """
+        Command called if option was entered for right-hand-side y-axis.
+
+        Redraws right-hand-side y-axis.
+        """
         self.redraw_y2()
 
     def next_y(self):
+        """
+        Command called if next button for the left-hand-side y-variable was
+        pressed.
+
+        Resets dimensions of left-hand-side y-variable.
+        Redraws plot.
+        """
         y = self.y.get()
         cols = self.y["values"]
         idx  = cols.index(y)
@@ -292,6 +363,13 @@ class ncvScatter(ttk.Frame):
             self.redraw()
 
     def prev_y(self):
+        """
+        Command called if previous button for the left-hand-side y-variable was
+        pressed.
+
+        Resets dimensions of left-hand-side y-variable.
+        Redraws plot.
+        """
         y = self.y.get()
         cols = self.y["values"]
         idx  = cols.index(y)
@@ -302,24 +380,70 @@ class ncvScatter(ttk.Frame):
             self.redraw()
 
     def selected_x(self, event):
+        """
+        Command called if x-variable was selected with combobox.
+
+        Triggering `event` was bound to the combobox.
+
+        Resets `x` dimensions. Redraws plot.
+        """
         set_dim_x(self)
         self.redraw()
 
     def selected_y(self, event):
+        """
+        Command called if left-hand-side y-variable was selected with
+        combobox.
+
+        Triggering `event` was bound to the combobox.
+
+        Resets left-hand-side `y` dimensions. Redraws plot.
+        """
         set_dim_y(self)
         self.redraw()
 
     def selected_y2(self, event):
+        """
+        Command called if right-hand-side y-variable was selected with
+        combobox.
+
+        Triggering `event` was bound to the combobox.
+
+        Resets right-hand-side `y` dimensions. Redraws plot.
+        """
         set_dim_y2(self)
         self.redraw()
 
     def spinned_x(self, event=None):
+        """
+        Command called if spinbox of x-dimensions was changed.
+
+        Triggering `event` was bound to the spinbox.
+
+        Redraws plot.
+        """
         self.redraw()
 
     def spinned_y(self, event=None):
+        """
+        Command called if spinbox of any dimension of left-hand-side
+        y-variable was changed.
+
+        Triggering `event` was bound to the spinbox.
+
+        Redraws plot.
+        """
         self.redraw()
 
     def spinned_y2(self, event=None):
+        """
+        Command called if spinbox of any dimension of right-hand-side
+        y-variable was changed.
+
+        Triggering `event` was bound to the spinbox.
+
+        Redraws plot.
+        """
         self.redraw()
 
     #
@@ -327,6 +451,12 @@ class ncvScatter(ttk.Frame):
     #
 
     def minmax_ylim(self, ylim, ylim2):
+        """
+        Get minimum of first elements of lists `ylim` and `ylim2` and
+        maximum of second element of the two lists.
+
+        Returns minimum, maximum.
+        """
         if (ylim[0] is not None) and (ylim2[0] is not None):
             ymin = min(ylim[0], ylim2[0])
         else:
@@ -347,9 +477,13 @@ class ncvScatter(ttk.Frame):
     # Plot
     #
 
-    def redraw_y(self, event=None):
+    def redraw_y(self):
         """
-        Redraw the lhs y-axis
+        Redraw the left-hand-side y-axis.
+
+        Reads left-hand-side `y` variable name, the current settings of
+        its dimension spinboxes, as well as all other plotting options.
+        Then redraws the left-hand-side y-axis.
         """
         # get all states
         # rowxy
@@ -431,9 +565,13 @@ class ncvScatter(ttk.Frame):
             self.canvas.draw()
             self.toolbar.update()
 
-    def redraw_y2(self, event=None):
+    def redraw_y2(self):
         """
-        Redraw the rhs y-axis
+        Redraw the right-hand-side y-axis.
+
+        Reads right-hand-side `y` variable name, the current settings of
+        its dimension spinboxes, as well as all other plotting options.
+        Then redraws the right-hand-side y-axis.
         """
         # get all states
         # rowy2
@@ -518,7 +656,11 @@ class ncvScatter(ttk.Frame):
 
     def redraw(self, event=None):
         """
-        Redraw the lhs and rhs y-axes
+        Redraw the left-hand-side and right-hand-side y-axis.
+
+        Reads the two `y` variable names, the current settings of
+        their dimension spinboxes, as well as all other plotting options.
+        Then redraws the both y-axes.
         """
         # get all states
         # rowxy
