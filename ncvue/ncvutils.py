@@ -11,8 +11,35 @@ from __future__ import absolute_import, division, print_function
 import numpy as np
 
 
-__all__ = ['set_axis_label', 'set_miss', 'spinbox_values',
-           'zip_dim_name_length']
+__all__ = ['list_intersection', 'set_axis_label', 'set_miss',
+           'spinbox_values', 'zip_dim_name_length']
+
+
+def list_intersection(lst1, lst2):
+    """
+    Intersection of two lists.
+
+    From: https://www.geeksforgeeks.org/python-intersection-two-lists/
+    Method using set() with builtin intersection (their method 3).
+
+    Parameters
+    ----------
+    lst1, lst2 : list
+        Python lists
+
+    Returns
+    -------
+    list
+        List with common elements in both input lists.
+
+    Examples
+    --------
+    >>> lst1 = [ 4, 9, 1, 17, 11, 26, 28, 28, 26, 66, 91]
+    >>> lst2 = [9, 9, 74, 21, 45, 11, 63]
+    >>> print(Intersection(lst1, lst2))
+    [9, 11]
+    """
+    return list(set(lst1).intersection(lst2))
 
 
 def set_axis_label(ncvar):
@@ -77,8 +104,9 @@ def set_miss(x, miss):
 
 def spinbox_values(ndim):
     """
-    Tuple for Spinbox values with 'all' before range(ndim) if ndim>1,
-    otherwise single entry (0,)
+    Tuple for Spinbox values with 'all' before range(`ndim`) and
+    'mean', 'std', etc. after range(`ndim`) if `ndim`>1,
+    otherwise single entry (0,).
 
     Parameters
     ----------
@@ -88,7 +116,7 @@ def spinbox_values(ndim):
     Returns
     -------
     tuple
-        (('all',) + tuple(range(ndim))) if ndim > 1
+        (('all',) + tuple(range(ndim)) + ('mean','std',...)) if ndim > 1
         (0,) else
 
     Examples
@@ -96,7 +124,7 @@ def spinbox_values(ndim):
     >>> self.xd0.config(values=spinbox_values(xx.shape[0]))
     """
     if ndim > 1:
-        return (('all',) + tuple(range(ndim)))
+        return (('all',) + tuple(range(ndim)) + ('mean', 'std'))
     else:
         return (0,)
 

@@ -16,8 +16,8 @@ from .version import __version__, __author__
 
 # helper functions
 # general helper function
-from .ncvutils   import set_axis_label, set_miss, spinbox_values
-from .ncvutils   import zip_dim_name_length
+from .ncvutils   import list_intersection, set_axis_label, set_miss
+from .ncvutils   import spinbox_values, zip_dim_name_length
 
 # common methods of all panels
 from .ncvmethods import get_miss

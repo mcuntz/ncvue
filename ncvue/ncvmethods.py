@@ -22,7 +22,8 @@ Released under the MIT License; see LICENSE file for details.
 History:
 
 * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
-* Slice arrays with slice function rather than numpy.take, Dec 2020, Matthias Cuntz
+* Slice arrays with slice function rather than numpy.take,
+  Dec 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -42,7 +43,7 @@ The following methods are provided:
 from __future__ import absolute_import, division, print_function
 import tkinter as tk
 import numpy as np
-from .ncvutils import spinbox_values
+from .ncvutils import list_intersection, spinbox_values
 import netCDF4 as nc
 # nc.default_fillvals but with keys as variables['var'].dtype
 nctypes = [ np.dtype(i) for i in nc.default_fillvals ]
@@ -126,17 +127,31 @@ def get_slice_x(self, x):
     >>> xx = get_slice_x(self, xx).squeeze()
     >>> xx = set_miss(xx, miss)
     """
+    methods = ['all', 'mean', 'std']
+    dd = []
     ss = []
     for i in range(x.ndim):
         dim = self.xd[i].get()
-        if dim == 'all':
+        if dim in methods:
             s = slice(0, x.shape[i])
         else:
             idim = int(dim)
             s = slice(idim, idim+1)
+        dd.append(dim)
         ss.append(s)
     if len(ss) > 0:
-        return x[tuple(ss)]
+        xout = x[tuple(ss)]
+        methods = methods[1:]  # w/o 'all'
+        imeth = list_intersection(dd, methods)
+        if len(imeth) > 0:
+            ii = [ i for i, d in enumerate(dd) if d in imeth ]
+            ii.reverse()  # last axis first
+            for i in ii:
+                if dd[i] == 'mean':
+                    xout = np.ma.mean(xout, axis=i)
+                elif dd[i] == 'std':
+                    xout = np.ma.std(xout, axis=i, ddof=1)
+        return xout
     else:
         return np.array([], dtype=x.dtype)
 
@@ -166,17 +181,31 @@ def get_slice_y(self, y):
     >>> yy = get_slice_y(self, yy).squeeze()
     >>> yy = set_miss(yy, miss)
     """
+    methods = ['all', 'mean', 'std']
+    dd = []
     ss = []
     for i in range(y.ndim):
         dim = self.yd[i].get()
-        if dim == 'all':
+        if dim in methods:
             s = slice(0, y.shape[i])
         else:
             idim = int(dim)
             s = slice(idim, idim+1)
+        dd.append(dim)
         ss.append(s)
     if len(ss) > 0:
-        return y[tuple(ss)]
+        yout = y[tuple(ss)]
+        methods = methods[1:]  # w/o 'all'
+        imeth = list_intersection(dd, methods)
+        if len(imeth) > 0:
+            ii = [ i for i, d in enumerate(dd) if d in imeth ]
+            ii.reverse()  # last axis first
+            for i in ii:
+                if dd[i] == 'mean':
+                    yout = np.ma.mean(yout, axis=i)
+                elif dd[i] == 'std':
+                    yout = np.ma.std(yout, axis=i, ddof=1)
+        return yout
     else:
         return np.array([], dtype=y.dtype)
 
@@ -206,17 +235,31 @@ def get_slice_y2(self, y2):
     >>> yy2 = get_slice_y2(self, yy2).squeeze()
     >>> yy2 = set_miss(yy2, miss)
     """
+    methods = ['all', 'mean', 'std']
+    dd = []
     ss = []
     for i in range(y2.ndim):
         dim = self.y2d[i].get()
-        if dim == 'all':
+        if dim in methods:
             s = slice(0, y2.shape[i])
         else:
             idim = int(dim)
             s = slice(idim, idim+1)
+        dd.append(dim)
         ss.append(s)
     if len(ss) > 0:
-        return y2[tuple(ss)]
+        y2out = y2[tuple(ss)]
+        methods = methods[1:]  # w/o 'all'
+        imeth = list_intersection(dd, methods)
+        if len(imeth) > 0:
+            ii = [ i for i, d in enumerate(dd) if d in imeth ]
+            ii.reverse()  # last axis first
+            for i in ii:
+                if dd[i] == 'mean':
+                    y2out = np.ma.mean(y2out, axis=i)
+                elif dd[i] == 'std':
+                    y2out = np.ma.std(y2out, axis=i, ddof=1)
+        return y2out
     else:
         return np.array([], dtype=y2.dtype)
 
@@ -245,17 +288,31 @@ def get_slice_z(self, z):
     >>> zz = get_slice_z(self, zz).squeeze()
     >>> zz = set_miss(zz, miss)
     """
+    methods = ['all', 'mean', 'std']
+    dd = []
     ss = []
     for i in range(z.ndim):
         dim = self.zd[i].get()
-        if dim == 'all':
+        if dim in methods:
             s = slice(0, z.shape[i])
         else:
             idim = int(dim)
             s = slice(idim, idim+1)
+        dd.append(dim)
         ss.append(s)
     if len(ss) > 0:
-        return z[tuple(ss)]
+        zout = z[tuple(ss)]
+        methods = methods[1:]  # w/o 'all'
+        imeth = list_intersection(dd, methods)
+        if len(imeth) > 0:
+            ii = [ i for i, d in enumerate(dd) if d in imeth ]
+            ii.reverse()  # last axis first
+            for i in ii:
+                if dd[i] == 'mean':
+                    zout = np.ma.mean(zout, axis=i)
+                elif dd[i] == 'std':
+                    zout = np.ma.std(zout, axis=i, ddof=1)
+        return zout
     else:
         return np.array([], dtype=z.dtype)
 
@@ -266,10 +323,13 @@ def get_slice_z(self, z):
 
 def set_dim_x(self):
     """
-    Set spinboxes of x-dimensions. Set labels and value lists,
-    including 'all' to select all entries. Select 'all' for the
-    unlimited dimension if it exists, otherwise for the first
-    dimension, and select 0 for all other dimensions.
+    Set spinboxes of x-dimensions.
+
+    Set labels and value lists, including 'all' to select all entries,
+    as well as 'mean', 'std', etc. for common operations on the axis.
+
+    Select 'all' for the unlimited dimension if it exists, otherwise
+    for the first dimension, and select 0 for all other dimensions.
 
     Parameters
     ----------
@@ -318,10 +378,13 @@ def set_dim_x(self):
 
 def set_dim_y(self):
     """
-    Set spinboxes of y-dimensions of left-hand-side (lhs).
-    Set labels and value lists, including 'all' to select all entries. Select
-    'all' for the unlimited dimension if it exists, otherwise for the first
-    dimension, and select 0 for all other dimensions.
+    Set spinboxes of y-dimensions of the left-hand-side (lhs).
+
+    Set labels and value lists, including 'all' to select all entries,
+    as well as 'mean', 'std', etc. for common operations on the axis.
+
+    Select 'all' for the unlimited dimension if it exists, otherwise
+    for the first dimension, and select 0 for all other dimensions.
 
     Parameters
     ----------
@@ -370,10 +433,13 @@ def set_dim_y(self):
 
 def set_dim_y2(self):
     """
-    Set spinboxes of y2-dimensions of right-hand-side (rhs).
-    Set labels and value lists, including 'all' to select all entries. Select
-    'all' for the unlimited dimension if it exists, otherwise for the first
-    dimension, and select 0 for all other dimensions.
+    Set spinboxes of y2-dimensions of the right-hand-side (rhs).
+
+    Set labels and value lists, including 'all' to select all entries,
+    as well as 'mean', 'std', etc. for common operations on the axis.
+
+    Select 'all' for the unlimited dimension if it exists, otherwise
+    for the first dimension, and select 0 for all other dimensions.
 
     Parameters
     ----------
@@ -422,10 +488,14 @@ def set_dim_y2(self):
 
 def set_dim_z(self):
     """
-    Set spinboxes of z-dimensions. Set labels and value lists, including 'all'
-    to select all entries. Select 'all' for the unlimited dimension if it
-    exists, otherwise for the first dimension, as well as for a second
-    dimension, and select 0 for all other dimensions.
+    Set spinboxes of z-dimensions.
+
+    Set labels and value lists, including 'all' to select all entries,
+    as well as 'mean', 'std', etc. for common operations on the axis.
+
+    Select 'all' for the unlimited dimension if it exists, otherwise
+    for the first dimension, as well as for a second dimension and select
+    0 for all other dimensions.
 
     Parameters
     ----------

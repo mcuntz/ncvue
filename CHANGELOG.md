@@ -5,6 +5,7 @@ are documented in this file.
 
 ### v1.5 (Dec 2020)
     - Added the Map panel.
+    - Add common operations such as mean and std to dimension selection.
     - Only activate valid dimensions for chosen variable, disable others.
     - Axis labels are now the long_name attribute then the standard_name
       attribute and only if both are missing the variable name.
