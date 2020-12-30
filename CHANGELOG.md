@@ -3,6 +3,12 @@
 All notable changes after its initial development up to November 2020 (v1.0)
 are documented in this file.
 
+### v1.5 (Dec 2020)
+    - Added the Map panel.
+    - Only activate valid dimensions for chosen variable, disable others.
+    - Axis labels are now the long_name attribute then the standard_name
+      attribute and only if both are missing the variable name.
+
 ### v1.4 (Dec 2020)
     - Colorbar menu with images of colorbars. 
     - Use unlimited dimension instead of first dimension in Scatter and Contour

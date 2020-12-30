@@ -190,7 +190,7 @@ class ncvMap(ttk.Frame):
         for i in range(self.maxdim):
             zdlbl, zdval, zd = add_spinbox(
                 self.rowzlev, label=str(i), values=(0,), wrap=True,
-                command=self.spinned_z)
+                command=self.spinned_z, state=tk.DISABLED)
             self.zdlbl.append(zdlbl)
             self.zdval.append(zdval)
             self.zd.append(zd)
@@ -222,7 +222,7 @@ class ncvMap(ttk.Frame):
         for i in range(self.maxdim):
             xdlbl, xdval, xd = add_spinbox(
                 self.rowxylev, label=str(i), values=(0,), wrap=True,
-                command=self.spinned_x)
+                command=self.spinned_x, state=tk.DISABLED)
             self.xdlbl.append(xdlbl)
             self.xdval.append(xdval)
             self.xd.append(xd)
@@ -234,7 +234,7 @@ class ncvMap(ttk.Frame):
         for i in range(self.maxdim):
             ydlbl, ydval, yd = add_spinbox(
                 self.rowxylev, label=str(i), values=(0,), wrap=True,
-                command=self.spinned_y)
+                command=self.spinned_y, state=tk.DISABLED)
             self.ydlbl.append(ydlbl)
             self.ydval.append(ydval)
             self.yd.append(yd)
@@ -443,31 +443,31 @@ class ncvMap(ttk.Frame):
         set_dim_z(self)
         self.redraw()
 
-    def spinned_x(self, event):
+    def spinned_x(self, event=None):
         """
         Command called if spinbox of x-dimensions was changed.
 
-        Triggering `event` was bound to the combobox.
+        Triggering `event` was bound to the spinbox.
 
         Redraws plot.
         """
         self.redraw()
 
-    def spinned_y(self, event):
+    def spinned_y(self, event=None):
         """
         Command called if spinbox of y-dimensions was changed.
 
-        Triggering `event` was bound to the combobox.
+        Triggering `event` was bound to the spinbox.
 
         Redraws plot.
         """
         self.redraw()
 
-    def spinned_z(self, event):
+    def spinned_z(self, event=None):
         """
         Command called if spinbox of z-dimensions was changed.
 
-        Triggering `event` was bound to the combobox.
+        Triggering `event` was bound to the spinbox.
 
         Redraws plot.
         """

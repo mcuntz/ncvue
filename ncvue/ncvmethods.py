@@ -40,6 +40,7 @@ The following methods are provided:
    set_dim_z
 """
 from __future__ import absolute_import, division, print_function
+import tkinter as tk
 import numpy as np
 from .ncvutils import spinbox_values
 import netCDF4 as nc
@@ -286,8 +287,8 @@ def set_dim_x(self):
     """
     # reset dimensions
     for i in range(self.maxdim):
-        self.xd[i].config(values=(0,), width=1)
-        self.xdlbl[i].set('0')
+        self.xd[i].config(values=(0,), width=1, state=tk.DISABLED)
+        self.xdlbl[i].set(str(i))
     x = self.x.get()
     if x != '':
         # set real dimensions
@@ -298,13 +299,15 @@ def set_dim_x(self):
         nall = 0
         if self.dunlim in xx.dimensions:
             i = xx.dimensions.index(self.dunlim)
-            self.xd[i].config(values=spinbox_values(xx.shape[i]), width=4)
+            self.xd[i].config(values=spinbox_values(xx.shape[i]), width=4,
+                              state=tk.NORMAL)
             nall += 1
             self.xdval[i].set('all')
             self.xdlbl[i].set(xx.dimensions[i])
         for i in range(xx.ndim):
             if xx.dimensions[i] != self.dunlim:
-                self.xd[i].config(values=spinbox_values(xx.shape[i]), width=4)
+                self.xd[i].config(values=spinbox_values(xx.shape[i]), width=4,
+                                  state=tk.NORMAL)
                 if (nall == 0) and (xx.shape[i] > 1):
                     nall += 1
                     self.xdval[i].set('all')
@@ -336,8 +339,8 @@ def set_dim_y(self):
     """
     # reset dimensions
     for i in range(self.maxdim):
-        self.yd[i].config(values=(0,), width=1)
-        self.ydlbl[i].set('0')
+        self.yd[i].config(values=(0,), width=1, state=tk.DISABLED)
+        self.ydlbl[i].set(str(i))
     y = self.y.get()
     if y != '':
         # set real dimensions
@@ -348,13 +351,15 @@ def set_dim_y(self):
         nall = 0
         if self.dunlim in yy.dimensions:
             i = yy.dimensions.index(self.dunlim)
-            self.yd[i].config(values=spinbox_values(yy.shape[i]), width=4)
+            self.yd[i].config(values=spinbox_values(yy.shape[i]), width=4,
+                              state=tk.NORMAL)
             nall += 1
             self.ydval[i].set('all')
             self.ydlbl[i].set(yy.dimensions[i])
         for i in range(yy.ndim):
             if yy.dimensions[i] != self.dunlim:
-                self.yd[i].config(values=spinbox_values(yy.shape[i]), width=4)
+                self.yd[i].config(values=spinbox_values(yy.shape[i]), width=4,
+                                  state=tk.NORMAL)
                 if (nall == 0) and (yy.shape[i] > 1):
                     nall += 1
                     self.ydval[i].set('all')
@@ -386,8 +391,8 @@ def set_dim_y2(self):
     """
     # reset dimensions
     for i in range(self.maxdim):
-        self.y2d[i].config(values=(0,), width=1)
-        self.y2dlbl[i].set('0')
+        self.y2d[i].config(values=(0,), width=1, state=tk.DISABLED)
+        self.y2dlbl[i].set(str(i))
     y2 = self.y2.get()
     if y2 != '':
         # set real dimensions
@@ -398,13 +403,15 @@ def set_dim_y2(self):
         nall = 0
         if self.dunlim in yy2.dimensions:
             i = yy2.dimensions.index(self.dunlim)
-            self.y2d[i].config(values=spinbox_values(yy2.shape[i]), width=4)
+            self.y2d[i].config(values=spinbox_values(yy2.shape[i]), width=4,
+                               state=tk.NORMAL)
             nall += 1
             self.y2dval[i].set('all')
             self.y2dlbl[i].set(yy2.dimensions[i])
         for i in range(yy2.ndim):
             if yy2.dimensions[i] != self.dunlim:
-                self.y2d[i].config(values=spinbox_values(yy2.shape[i]), width=4)
+                self.y2d[i].config(values=spinbox_values(yy2.shape[i]),
+                                   width=4, state=tk.NORMAL)
                 if (nall == 0) and (yy2.shape[i] > 1):
                     nall += 1
                     self.y2dval[i].set('all')
@@ -436,8 +443,8 @@ def set_dim_z(self):
     """
     # reset dimensions
     for i in range(self.maxdim):
-        self.zd[i].config(values=(0,), width=1)
-        self.zdlbl[i].set('0')
+        self.zd[i].config(values=(0,), width=1, state=tk.DISABLED)
+        self.zdlbl[i].set(str(i))
     z = self.z.get()
     if z != '':
         # set real dimensions
@@ -448,13 +455,15 @@ def set_dim_z(self):
         nall = 0
         if self.dunlim in zz.dimensions:
             i = zz.dimensions.index(self.dunlim)
-            self.zd[i].config(values=spinbox_values(zz.shape[i]), width=4)
+            self.zd[i].config(values=spinbox_values(zz.shape[i]), width=4,
+                              state=tk.NORMAL)
             nall += 1
             self.zdval[i].set('all')
             self.zdlbl[i].set(zz.dimensions[i])
         for i in range(zz.ndim):
             if zz.dimensions[i] != self.dunlim:
-                self.zd[i].config(values=spinbox_values(zz.shape[i]), width=4)
+                self.zd[i].config(values=spinbox_values(zz.shape[i]), width=4,
+                                  state=tk.NORMAL)
                 if (nall <= 1) and (zz.shape[i] > 1):
                     nall += 1
                     self.zdval[i].set('all')

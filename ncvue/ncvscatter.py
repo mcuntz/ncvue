@@ -147,7 +147,7 @@ class ncvScatter(ttk.Frame):
         for i in range(self.maxdim):
             xdlbl, xdval, xd = add_spinbox(
                 self.rowxylev, label=str(i), values=(0,), wrap=True,
-                command=self.spinned_x)
+                command=self.spinned_x, state=tk.DISABLED)
             self.xdlbl.append(xdlbl)
             self.xdval.append(xdval)
             self.xd.append(xd)
@@ -159,7 +159,7 @@ class ncvScatter(ttk.Frame):
         for i in range(self.maxdim):
             ydlbl, ydval, yd = add_spinbox(
                 self.rowxylev, label=str(i), values=(0,), wrap=True,
-                command=self.spinned_y)
+                command=self.spinned_y, state=tk.DISABLED)
             self.ydlbl.append(ydlbl)
             self.ydval.append(ydval)
             self.yd.append(yd)
@@ -223,7 +223,7 @@ class ncvScatter(ttk.Frame):
         for i in range(self.maxdim):
             y2dlbl, y2dval, y2d = add_spinbox(
                 self.rowxy2lev, label=str(i), values=(0,), wrap=True,
-                command=self.spinned_y2)
+                command=self.spinned_y2, state=tk.DISABLED)
             self.y2dlbl.append(y2dlbl)
             self.y2dval.append(y2dval)
             self.y2d.append(y2d)
