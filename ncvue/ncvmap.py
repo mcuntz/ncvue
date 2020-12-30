@@ -15,8 +15,8 @@ except Exception:
     sys.exit()
 import os
 import numpy as np
-from .ncvutils   import get_slice, set_axis_label, set_miss
-from .ncvmethods import get_miss
+from .ncvutils   import set_axis_label
+from .ncvmethods import get_slice_miss
 from .ncvmethods import set_dim_x, set_dim_y, set_dim_z
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry, add_imagemenu
 from .ncvwidgets import add_scale, add_spinbox
@@ -537,9 +537,7 @@ class ncvMap(ttk.Frame):
                     zlab += ' (' + zz.units + ')'
                 except AttributeError:
                     pass
-                miss = get_miss(self, zz)
-                zz = get_slice(self.zd, zz).squeeze()
-                zz = set_miss(miss, zz)
+                zz = get_slice_miss(self, self.zd, zz)
                 if trans_z:
                     zz = zz.T
         if (y != ''):
@@ -559,9 +557,7 @@ class ncvMap(ttk.Frame):
                     ylab += ' (' + yy.units + ')'
                 except AttributeError:
                     pass
-            miss = get_miss(self, yy)
-            yy = get_slice(self.yd, yy).squeeze()
-            yy = set_miss(miss, yy)
+            yy = get_slice_miss(self, self.yd, yy)
         if (x != ''):
             # x axis
             vx = x.split()[0]
@@ -579,9 +575,7 @@ class ncvMap(ttk.Frame):
                     xlab += ' (' + xx.units + ')'
                 except AttributeError:
                     pass
-            miss = get_miss(self, xx)
-            xx = get_slice(self.xd, xx).squeeze()
-            xx = set_miss(miss, xx)
+            xx = get_slice_miss(self, self.xd, xx)
         # set z to nan if not selected
         if (z == ''):
             if (x != ''):

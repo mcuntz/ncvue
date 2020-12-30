@@ -20,7 +20,7 @@ from .ncvutils   import get_slice, list_intersection, set_axis_label, set_miss
 from .ncvutils   import spinbox_values, zip_dim_name_length
 
 # common methods of all panels
-from .ncvmethods import get_miss
+from .ncvmethods import get_miss, get_slice_miss
 from .ncvmethods import set_dim_x, set_dim_y, set_dim_y2, set_dim_z
 
 # adding widgets with labels, etc.

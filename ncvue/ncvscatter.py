@@ -14,8 +14,8 @@ except Exception:
     print('Try to use mcview.py, which uses wxpython instead.')
     sys.exit()
 import numpy as np
-from .ncvutils   import get_slice, set_axis_label, set_miss
-from .ncvmethods import get_miss
+from .ncvutils   import set_axis_label
+from .ncvmethods import get_slice_miss
 from .ncvmethods import set_dim_x, set_dim_y, set_dim_y2
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry
 from .ncvwidgets import add_spinbox
@@ -323,6 +323,27 @@ class ncvScatter(ttk.Frame):
         self.redraw()
 
     #
+    # Methods
+    #
+
+    def minmax_ylim(self, ylim, ylim2):
+        if (ylim[0] is not None) and (ylim2[0] is not None):
+            ymin = min(ylim[0], ylim2[0])
+        else:
+            if (ylim[0] is not None):
+                ymin = ylim[0]
+            else:
+                ymin = ylim2[0]
+        if (ylim[1] is not None) and (ylim2[1] is not None):
+            ymax = max(ylim[1], ylim2[1])
+        else:
+            if (ylim[1] is not None):
+                ymax = ylim[1]
+            else:
+                ymax = ylim2[1]
+        return ymin, ymax
+
+    #
     # Plot
     #
 
@@ -380,20 +401,7 @@ class ncvScatter(ttk.Frame):
             ylim  = self.axes.get_ylim()
             ylim2 = self.axes2.get_ylim()
             if same_y and (y2 != ''):
-                if (ylim[0] is not None) and (ylim2[0] is not None):
-                    ymin = min(ylim[0], ylim2[0])
-                else:
-                    if (ylim[0] is not None):
-                        ymin = ylim[0]
-                    else:
-                        ymin = ylim2[0]
-                if (ylim[1] is not None) and (ylim2[1] is not None):
-                    ymax = max(ylim[1], ylim2[1])
-                else:
-                    if (ylim[1] is not None):
-                        ymax = ylim[1]
-                    else:
-                        ymax = ylim2[1]
+                ymin, ymax = self.minmax_ylim(ylim, ylim2)
                 if (ymin is not None) and (ymax is not None):
                     ylim  = [ymin, ymax]
                     ylim2 = [ymin, ymax]
@@ -477,20 +485,7 @@ class ncvScatter(ttk.Frame):
             ylim  = self.axes.get_ylim()
             ylim2 = self.axes2.get_ylim()
             if same_y and (y2 != ''):
-                if (ylim[0] is not None) and (ylim2[0] is not None):
-                    ymin = min(ylim[0], ylim2[0])
-                else:
-                    if (ylim[0] is not None):
-                        ymin = ylim[0]
-                    else:
-                        ymin = ylim2[0]
-                if (ylim[1] is not None) and (ylim2[1] is not None):
-                    ymax = max(ylim[1], ylim2[1])
-                else:
-                    if (ylim[1] is not None):
-                        ymax = ylim[1]
-                    else:
-                        ymax = ylim2[1]
+                ymin, ymax = self.minmax_ylim(ylim, ylim2)
                 if (ymin is not None) and (ymax is not None):
                     ylim  = [ymin, ymax]
                     ylim2 = [ymin, ymax]
@@ -554,9 +549,7 @@ class ncvScatter(ttk.Frame):
                 else:
                     yy   = self.fi.variables[vy]
                     ylab = set_axis_label(yy)
-                miss = get_miss(self, yy)
-                yy = get_slice(self.yd, yy).squeeze()
-                yy = set_miss(miss, yy)
+                yy = get_slice_miss(self, self.yd, yy)
             # y2 axis
             if y2 != '':
                 vy2 = y2.split()[0]
@@ -566,9 +559,7 @@ class ncvScatter(ttk.Frame):
                 else:
                     yy2   = self.fi.variables[vy2]
                     ylab2 = set_axis_label(yy2)
-                miss = get_miss(self, yy2)
-                yy2 = get_slice(self.y2d, yy2).squeeze()
-                yy2 = set_miss(miss, yy2)
+                yy2 = get_slice_miss(self, self.y2d, yy2)
             if (x != ''):
                 # x axis
                 vx = x.split()[0]
@@ -578,9 +569,7 @@ class ncvScatter(ttk.Frame):
                 else:
                     xx   = self.fi.variables[vx]
                     xlab = set_axis_label(xx)
-                miss = get_miss(self, xx)
-                xx = get_slice(self.xd, xx).squeeze()
-                xx = set_miss(miss, xx)
+                xx = get_slice_miss(self, self.xd, xx)
             else:
                 # set x to index if not selected
                 if (y != ''):

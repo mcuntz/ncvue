@@ -26,6 +26,7 @@ History:
   Dec 2020, Matthias Cuntz
 * Moved individual get_slice_? methods for x, y, y2, z as general get_slice
   function to ncvutils, Dec 2020, Matthias Cuntz
+* Added convenience method get_slice_miss, Dec 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -33,6 +34,7 @@ The following methods are provided:
 
 .. autosummary::
    get_miss
+   get_slice_miss
    set_dim_x
    set_dim_y
    set_dim_y2
@@ -41,7 +43,7 @@ The following methods are provided:
 from __future__ import absolute_import, division, print_function
 import tkinter as tk
 import numpy as np
-from .ncvutils import list_intersection, spinbox_values
+from .ncvutils import get_slice, set_miss, spinbox_values
 import netCDF4 as nc
 # nc.default_fillvals but with keys as variables['var'].dtype
 nctypes = [ np.dtype(i) for i in nc.default_fillvals ]
@@ -49,7 +51,7 @@ ncfill  = dict(zip(nctypes, list(nc.default_fillvals.values())))
 ncfill.update({np.dtype('O'): np.nan})
 
 
-__all__ = ['get_miss',
+__all__ = ['get_miss', 'get_slice_miss',
            'set_dim_x', 'set_dim_y', 'set_dim_y2', 'set_dim_z']
 
 
@@ -94,6 +96,41 @@ def get_miss(self, x):
     except AttributeError:
         pass
     return out
+
+
+#
+# Get slice and set missing value
+#
+
+def get_slice_miss(self, dimspins, x):
+    """
+    Convenience method to get list of missing values (get_miss),
+    choose slice of array (get_slice), and set missing values to
+    NaN in slice (set_miss).
+
+    Parameters
+    ----------
+    self : class
+        ncvue class
+    dimspins : list
+        List of tk.Spinbox widgets of dimensions
+    x : netCDF4._netCDF4.Variable
+        netcdf variable
+
+    Returns
+    -------
+    ndarray
+        Extracted array slice with missing values set to np.NaN
+
+    Examples
+    --------
+    >>> x = fi.variables['time']
+    >>> xx = get_slice_miss(self, x)
+    """
+    miss = get_miss(self, x)
+    xx   = get_slice(dimspins, x).squeeze()
+    xx   = set_miss(miss, xx)
+    return xx
 
 
 #
