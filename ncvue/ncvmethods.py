@@ -24,6 +24,8 @@ History:
 * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
 * Slice arrays with slice function rather than numpy.take,
   Dec 2020, Matthias Cuntz
+* Moved individual get_slice_? methods for x, y, y2, z as general get_slice
+  function to ncvutils, Dec 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 

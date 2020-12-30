@@ -5,8 +5,9 @@ are documented in this file.
 
 ### v1.5 (Dec 2020)
     - Added the Map panel.
-    - General get_slice function.
-    - Add common operations such as mean and std to dimension selection.
+    - Common arithmetic operations on axes: mean, std, min, max, ptp, sum,
+      median, var.
+    - General get_slice function for x, y, y2, and z.
     - Only activate valid dimensions for chosen variable, disable others.
     - Axis labels are now the long_name attribute then the standard_name
       attribute and only if both are missing the variable name.
@@ -15,8 +16,8 @@ are documented in this file.
     - Colorbar menu with images of colorbars. 
     - Use unlimited dimension instead of first dimension in Scatter and Contour
       panels as default for 'all'.
-    - Use slice function rather than numpy.take to extract slices of arrays, i.e.
-      reads only the current slice from disk.
+    - Use slice function rather than numpy.take to extract slices of arrays,
+      i.e. reads only the current slice from disk.
     - Enhanced documentation with automatic API generation.
 
 ### v1.3 (Dec 2020)
@@ -34,8 +35,8 @@ are documented in this file.
 ### v1.1 (Dec 2020)
     - Modularised ncvue to have utilities and different panels in individual
       files.
-    - Open new window without helper class ncvWin to avoid circular import when
-      modularised.
+    - Open new window without helper class ncvWin to avoid circular import
+      when modularised.
 
 ### v1.0 (Nov 2020)
     - Initial release on PyPI.

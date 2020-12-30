@@ -5,7 +5,33 @@ Utility functions for ncvue.
 The utility functions do not depend on the ncvue class.
 Functions depending on the class are in ncvmethods.
 
-Written  Matthias Cuntz, Nov-Dec 2020
+This module was written by Matthias Cuntz while at Institut National de
+Recherche pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy,
+France.
+
+Copyright (c) 2020 Matthias Cuntz - mc (at) macu (dot) de
+
+Released under the MIT License; see LICENSE file for details.
+
+History:
+
+* Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
+* General get_slice function from individual methods for x, y, y2, z,
+  Dec 2020, Matthias Cuntz
+* Added arithmetics to apply on axis/dimensions such as mean, std, etc.,
+  Dec 2020, Matthias Cuntz
+
+.. moduleauthor:: Matthias Cuntz
+
+The following functions are provided:
+
+.. autosummary::
+   get_slice
+   list_intersection
+   set_axis_label
+   set_miss
+   spinbox_values
+   zip_dim_name_length
 """
 from __future__ import absolute_import, division, print_function
 import numpy as np
@@ -39,7 +65,10 @@ def get_slice(dimspins, y):
     >>> yy = get_slice_y(self.yd, yy).squeeze()
     >>> yy = set_miss(miss, yy)
     """
-    methods = ['all', 'mean', 'std']
+    methods = ['all',
+               'mean', 'std',
+               'min', 'max', 'ptp',
+               'sum', 'median', 'var']
     dd = []
     ss = []
     for i in range(y.ndim):
@@ -62,7 +91,19 @@ def get_slice(dimspins, y):
                 if dd[i] == 'mean':
                     yout = np.ma.mean(yout, axis=i)
                 elif dd[i] == 'std':
-                    yout = np.ma.std(yout, axis=i, ddof=1)
+                    yout = np.ma.std(yout, axis=i)
+                elif dd[i] == 'min':
+                    yout = np.ma.min(yout, axis=i)
+                elif dd[i] == 'max':
+                    yout = np.ma.max(yout, axis=i)
+                elif dd[i] == 'ptp':
+                    yout = np.ma.ptp(yout, axis=i)
+                elif dd[i] == 'sum':
+                    yout = np.ma.sum(yout, axis=i)
+                elif dd[i] == 'median':
+                    yout = np.ma.median(yout, axis=i)
+                elif dd[i] == 'var':
+                    yout = np.ma.var(yout, axis=i)
             return yout
         else:
             return y[tuple(ss)]
@@ -184,7 +225,8 @@ def spinbox_values(ndim):
     >>> self.xd0.config(values=spinbox_values(xx.shape[0]))
     """
     if ndim > 1:
-        return (('all',) + tuple(range(ndim)) + ('mean', 'std'))
+        methods = ('mean', 'std', 'min', 'max', 'ptp', 'sum', 'median', 'var')
+        return (('all',) + tuple(range(ndim)) + methods)
     else:
         return (0,)
 
