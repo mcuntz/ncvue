@@ -16,12 +16,11 @@ from .version import __version__, __author__
 
 # helper functions
 # general helper function
-from .ncvutils   import list_intersection, set_axis_label, set_miss
+from .ncvutils   import get_slice, list_intersection, set_axis_label, set_miss
 from .ncvutils   import spinbox_values, zip_dim_name_length
 
 # common methods of all panels
 from .ncvmethods import get_miss
-from .ncvmethods import get_slice_x, get_slice_y, get_slice_y2, get_slice_z
 from .ncvmethods import set_dim_x, set_dim_y, set_dim_y2, set_dim_z
 
 # adding widgets with labels, etc.

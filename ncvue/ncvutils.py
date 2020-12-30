@@ -11,16 +11,73 @@ from __future__ import absolute_import, division, print_function
 import numpy as np
 
 
-__all__ = ['list_intersection', 'set_axis_label', 'set_miss',
+__all__ = ['get_slice', 'list_intersection', 'set_axis_label', 'set_miss',
            'spinbox_values', 'zip_dim_name_length']
+
+
+def get_slice(dimspins, y):
+    """
+    Get slice of variable `y` inquiring the spinboxes `dimspins`.
+
+    Parameters
+    ----------
+    dimspins : list
+        List of tk.Spinbox widgets of dimensions
+    y : ndarray
+        numpy array
+
+    Returns
+    -------
+    ndarray
+        Slice of `y` chosen by with spinboxes.
+
+    Examples
+    --------
+    >>> vy = y.split()[0]
+    >>> yy = self.fi.variables[vy]
+    >>> miss = get_miss(self, yy)
+    >>> yy = get_slice_y(self.yd, yy).squeeze()
+    >>> yy = set_miss(yy, miss)
+    """
+    methods = ['all', 'mean', 'std']
+    dd = []
+    ss = []
+    for i in range(y.ndim):
+        dim = dimspins[i].get()
+        if dim in methods:
+            s = slice(0, y.shape[i])
+        else:
+            idim = int(dim)
+            s = slice(idim, idim+1)
+        dd.append(dim)
+        ss.append(s)
+    if len(ss) > 0:
+        methods = methods[1:]  # w/o 'all'
+        imeth = list_intersection(dd, methods)
+        if len(imeth) > 0:
+            yout = y[tuple(ss)]
+            ii = [ i for i, d in enumerate(dd) if d in imeth ]
+            ii.reverse()  # last axis first
+            for i in ii:
+                if dd[i] == 'mean':
+                    yout = np.ma.mean(yout, axis=i)
+                elif dd[i] == 'std':
+                    yout = np.ma.std(yout, axis=i, ddof=1)
+            return yout
+        else:
+            return y[tuple(ss)]
+    else:
+        return np.array([], dtype=y.dtype)
 
 
 def list_intersection(lst1, lst2):
     """
     Intersection of two lists.
 
-    From: https://www.geeksforgeeks.org/python-intersection-two-lists/
-    Method using set() with builtin intersection (their method 3).
+    From:
+    https://stackoverflow.com/questions/3697432/how-to-find-list-intersection
+    Using list comprehension for small lists and set() method with builtin
+    intersection for longer lists.
 
     Parameters
     ----------
@@ -39,7 +96,10 @@ def list_intersection(lst1, lst2):
     >>> print(Intersection(lst1, lst2))
     [9, 11]
     """
-    return list(set(lst1).intersection(lst2))
+    if (len(lst1) > 10) or (len(lst2) > 10):
+        return list(set(lst1).intersection(lst2))
+    else:
+        return [ ll for ll in lst1 if ll in lst2 ]
 
 
 def set_axis_label(ncvar):

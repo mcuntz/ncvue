@@ -14,9 +14,8 @@ except Exception:
     print('Try to use mcview.py, which uses wxpython instead.')
     sys.exit()
 import numpy as np
-from .ncvutils   import set_axis_label, set_miss
+from .ncvutils   import get_slice, set_axis_label, set_miss
 from .ncvmethods import get_miss
-from .ncvmethods import get_slice_x, get_slice_y, get_slice_y2
 from .ncvmethods import set_dim_x, set_dim_y, set_dim_y2
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry
 from .ncvwidgets import add_spinbox
@@ -556,7 +555,7 @@ class ncvScatter(ttk.Frame):
                     yy   = self.fi.variables[vy]
                     ylab = set_axis_label(yy)
                 miss = get_miss(self, yy)
-                yy = get_slice_y(self, yy).squeeze()
+                yy = get_slice(self.yd, yy).squeeze()
                 yy = set_miss(yy, miss)
             # y2 axis
             if y2 != '':
@@ -568,7 +567,7 @@ class ncvScatter(ttk.Frame):
                     yy2   = self.fi.variables[vy2]
                     ylab2 = set_axis_label(yy2)
                 miss = get_miss(self, yy2)
-                yy2 = get_slice_y2(self, yy2).squeeze()
+                yy2 = get_slice(self.y2d, yy2).squeeze()
                 yy2 = set_miss(yy2, miss)
             if (x != ''):
                 # x axis
@@ -580,7 +579,7 @@ class ncvScatter(ttk.Frame):
                     xx   = self.fi.variables[vx]
                     xlab = set_axis_label(xx)
                 miss = get_miss(self, xx)
-                xx = get_slice_x(self, xx).squeeze()
+                xx = get_slice(self.xd, xx).squeeze()
                 xx = set_miss(xx, miss)
             else:
                 # set x to index if not selected

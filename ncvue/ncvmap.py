@@ -15,9 +15,8 @@ except Exception:
     sys.exit()
 import os
 import numpy as np
-from .ncvutils   import set_axis_label, set_miss
+from .ncvutils   import get_slice, set_axis_label, set_miss
 from .ncvmethods import get_miss
-from .ncvmethods import get_slice_x, get_slice_y, get_slice_z
 from .ncvmethods import set_dim_x, set_dim_y, set_dim_z
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry, add_imagemenu
 from .ncvwidgets import add_scale, add_spinbox
@@ -539,7 +538,7 @@ class ncvMap(ttk.Frame):
                 except AttributeError:
                     pass
                 miss = get_miss(self, zz)
-                zz = get_slice_z(self, zz).squeeze()
+                zz = get_slice(self.zd, zz).squeeze()
                 zz = set_miss(zz, miss)
                 if trans_z:
                     zz = zz.T
@@ -561,7 +560,7 @@ class ncvMap(ttk.Frame):
                 except AttributeError:
                     pass
             miss = get_miss(self, yy)
-            yy = get_slice_y(self, yy).squeeze()
+            yy = get_slice(self.yd, yy).squeeze()
             yy = set_miss(yy, miss)
         if (x != ''):
             # x axis
@@ -581,7 +580,7 @@ class ncvMap(ttk.Frame):
                 except AttributeError:
                     pass
             miss = get_miss(self, xx)
-            xx = get_slice_x(self, xx).squeeze()
+            xx = get_slice(self.xd, xx).squeeze()
             xx = set_miss(xx, miss)
         # set z to nan if not selected
         if (z == ''):
