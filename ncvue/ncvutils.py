@@ -37,7 +37,7 @@ def get_slice(dimspins, y):
     >>> yy = self.fi.variables[vy]
     >>> miss = get_miss(self, yy)
     >>> yy = get_slice_y(self.yd, yy).squeeze()
-    >>> yy = set_miss(yy, miss)
+    >>> yy = set_miss(miss, yy)
     """
     methods = ['all', 'mean', 'std']
     dd = []
@@ -135,16 +135,16 @@ def set_axis_label(ncvar):
     return lab
 
 
-def set_miss(x, miss):
+def set_miss(miss, x):
     """
     Set `x` to NaN for all values in miss.
 
     Parameters
     ----------
-    x : ndarray
-        numpy array
     miss : iterable
         values which shall be set to np.nan in `x`
+    x : ndarray
+        numpy array
 
     Returns
     -------
@@ -155,7 +155,7 @@ def set_miss(x, miss):
     --------
     >>> x = fi.variables['time']
     >>> miss = get_miss(self, x)
-    >>> x = set_miss(x, miss)
+    >>> x = set_miss(miss, x)
     """
     for mm in miss:
         x = np.where(x == mm, np.nan, x)

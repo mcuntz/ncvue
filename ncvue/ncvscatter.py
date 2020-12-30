@@ -556,7 +556,7 @@ class ncvScatter(ttk.Frame):
                     ylab = set_axis_label(yy)
                 miss = get_miss(self, yy)
                 yy = get_slice(self.yd, yy).squeeze()
-                yy = set_miss(yy, miss)
+                yy = set_miss(miss, yy)
             # y2 axis
             if y2 != '':
                 vy2 = y2.split()[0]
@@ -568,7 +568,7 @@ class ncvScatter(ttk.Frame):
                     ylab2 = set_axis_label(yy2)
                 miss = get_miss(self, yy2)
                 yy2 = get_slice(self.y2d, yy2).squeeze()
-                yy2 = set_miss(yy2, miss)
+                yy2 = set_miss(miss, yy2)
             if (x != ''):
                 # x axis
                 vx = x.split()[0]
@@ -580,7 +580,7 @@ class ncvScatter(ttk.Frame):
                     xlab = set_axis_label(xx)
                 miss = get_miss(self, xx)
                 xx = get_slice(self.xd, xx).squeeze()
-                xx = set_miss(xx, miss)
+                xx = set_miss(miss, xx)
             else:
                 # set x to index if not selected
                 if (y != ''):

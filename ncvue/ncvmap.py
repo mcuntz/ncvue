@@ -539,7 +539,7 @@ class ncvMap(ttk.Frame):
                     pass
                 miss = get_miss(self, zz)
                 zz = get_slice(self.zd, zz).squeeze()
-                zz = set_miss(zz, miss)
+                zz = set_miss(miss, zz)
                 if trans_z:
                     zz = zz.T
         if (y != ''):
@@ -561,7 +561,7 @@ class ncvMap(ttk.Frame):
                     pass
             miss = get_miss(self, yy)
             yy = get_slice(self.yd, yy).squeeze()
-            yy = set_miss(yy, miss)
+            yy = set_miss(miss, yy)
         if (x != ''):
             # x axis
             vx = x.split()[0]
@@ -581,7 +581,7 @@ class ncvMap(ttk.Frame):
                     pass
             miss = get_miss(self, xx)
             xx = get_slice(self.xd, xx).squeeze()
-            xx = set_miss(xx, miss)
+            xx = set_miss(miss, xx)
         # set z to nan if not selected
         if (z == ''):
             if (x != ''):
