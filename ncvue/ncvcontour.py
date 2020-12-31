@@ -448,9 +448,11 @@ class ncvContour(ttk.Frame):
             else:
                 zz = self.fi.variables[vz]
                 zlab = set_axis_label(zz)
-                zz = get_slice_miss(self, self.zd, zz)
-                if trans_z:
-                    zz = zz.T
+            zz = get_slice_miss(self, self.zd, zz)
+            # both contourf and pcolormesh assume (row,col),
+            # so transpose by default
+            if not trans_z:
+                zz = zz.T
         if (y != ''):
             # y axis
             vy = y.split()[0]
@@ -489,7 +491,7 @@ class ncvContour(ttk.Frame):
                 ny = yy.shape[0]
             else:
                 ny = 1
-            zz = np.ones((nx, ny)) * np.nan
+            zz = np.ones((ny, nx)) * np.nan
             zlab = ''
         if zz.ndim < 2:
             estr  = 'Contour: z (' + vz + ') is not 2-dimensional:'
@@ -497,20 +499,20 @@ class ncvContour(ttk.Frame):
             return
         # set x and y to index if not selected
         if (x == ''):
-            nx = zz.shape[0]
+            nx = zz.shape[1]
             xx = np.arange(nx)
             xlab = ''
         if (y == ''):
-            ny = zz.shape[1]
+            ny = zz.shape[0]
             yy = np.arange(ny)
             ylab = ''
         # plot options
         if rev_cmap:
             cmap = cmap + '_r'
         # plot
-        # cc = self.axes.imshow(zz[:, ::-1].T, aspect='auto', cmap=cmap,
+        # cc = self.axes.imshow(zz[:, ::-1], aspect='auto', cmap=cmap,
         #                       interpolation='none')
-        # cc = self.axes.matshow(zz[:, ::-1].T, aspect='auto', cmap=cmap,
+        # cc = self.axes.matshow(zz[:, ::-1], aspect='auto', cmap=cmap,
         #                        interpolation='none')
         extend = 'neither'
         if zmin is not None:
@@ -527,7 +529,8 @@ class ncvContour(ttk.Frame):
                 extend = 'both'
         if mesh:
             try:
-                cc = self.axes.pcolormesh(xx, yy, zz.T, vmin=zmin, vmax=zmax,
+                # zz is matrix notation: (row, col)
+                cc = self.axes.pcolormesh(xx, yy, xx, vmin=zmin, vmax=zmax,
                                           cmap=cmap, shading='nearest')
                 cb = self.figure.colorbar(cc, fraction=0.05, shrink=0.75,
                                           extend=extend)
@@ -539,7 +542,8 @@ class ncvContour(ttk.Frame):
                 return
         else:
             try:
-                cc = self.axes.contourf(xx, yy, zz.T, vmin=zmin, vmax=zmax,
+                # if 1-D then len(x)==m (columns) and len(y)==n (rows): z(n,m)
+                cc = self.axes.contourf(xx, yy, zz, vmin=zmin, vmax=zmax,
                                         cmap=cmap, extend=extend)
                 cb = self.figure.colorbar(cc, fraction=0.05, shrink=0.75)
             except Exception:
