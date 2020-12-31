@@ -112,10 +112,10 @@ class ncvMain(ttk.Frame):
         except ModuleNotFoundError:
             import netCDF4 as cf
         # search unlimited dimension
-        self.dunlimited = ''
+        self.dunlim = ''
         for dd in self.fi.dimensions:
             if self.fi.dimensions[dd].isunlimited():
-                self.dunlimited = dd
+                self.dunlim = dd
                 break
         # search for time variable
         self.time  = None
