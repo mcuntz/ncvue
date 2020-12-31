@@ -37,7 +37,7 @@ import os
 import numpy as np
 from .ncvutils   import clone_ncvmain, set_axis_label
 from .ncvmethods import get_slice_miss
-from .ncvmethods import set_dim_x, set_dim_y, set_dim_z
+from .ncvmethods import set_dim_x, set_dim_y, set_dim_zmap
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry, add_imagemenu
 from .ncvwidgets import add_scale, add_spinbox
 import matplotlib
@@ -69,6 +69,7 @@ class ncvMap(ttk.Frame):
         from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
         from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
         from matplotlib.figure import Figure
+        from matplotlib import animation
 
         super().__init__(master, **kwargs)
 
@@ -84,6 +85,10 @@ class ncvMap(ttk.Frame):
         self.dtime  = master.dtime
         self.maxdim = master.maxdim
         self.cols   = master.cols
+
+        # unlimited dimension control
+        self.iunlim = -1  # index of dunlim in dimensions of current var
+        self.nunlim = 0   # length of dunlim of current plot variable
 
         # new window
         self.rowwin = ttk.Frame(self)
@@ -125,30 +130,34 @@ class ncvMap(ttk.Frame):
         # controls
         self.rowt = ttk.Frame(self)
         self.rowt.pack(side=tk.TOP, fill=tk.X)
-        spacet = ttk.Label(self.rowt, text=" "*15)
+        ntime = 1
+        self.tsteplbl, self.tstepval, self.tstep = add_scale(
+            self.rowt, label="step", ini=0, from_=0, to=ntime,
+            length=100, orient=tk.HORIZONTAL, command=self.tstep_t)
+        spacet = ttk.Label(self.rowt, text=" "*1)
         spacet.pack(side=tk.LEFT)
         # first t
         self.first_t = ttk.Button(self.rowt, text="|<<", width=3,
                                   command=self.first_t)
         self.first_t.pack(side=tk.LEFT)
         # previous t
-        self.prev_t = ttk.Button(self.rowt, text="|<", width=3,
+        self.prev_t = ttk.Button(self.rowt, text="|<", width=2,
                                  command=self.prev_t)
         self.prev_t.pack(side=tk.LEFT)
         # run t backwards
-        self.prun_t = ttk.Button(self.rowt, text="<", width=3,
+        self.prun_t = ttk.Button(self.rowt, text="<", width=1,
                                  command=self.prun_t)
         self.prun_t.pack(side=tk.LEFT)
         # pause t
-        self.pause_t = ttk.Button(self.rowt, text="||", width=3,
+        self.pause_t = ttk.Button(self.rowt, text="||", width=1,
                                  command=self.pause_t)
         self.pause_t.pack(side=tk.LEFT)
         # run t forward
-        self.nrun_t = ttk.Button(self.rowt, text=">", width=3,
+        self.nrun_t = ttk.Button(self.rowt, text=">", width=1,
                                  command=self.nrun_t)
         self.nrun_t.pack(side=tk.LEFT)
         # next t
-        self.next_t = ttk.Button(self.rowt, text=">|", width=3,
+        self.next_t = ttk.Button(self.rowt, text=">|", width=2,
                                  command=self.next_t)
         self.next_t.pack(side=tk.LEFT)
         # last t
@@ -168,7 +177,7 @@ class ncvMap(ttk.Frame):
         spaced = ttk.Label(self.rowt, text=" "*1)
         spaced.pack(side=tk.LEFT)
         self.delaylbl, self.delayval, self.delay = add_scale(
-            self.rowt, label="delay (ms)", ini=200, from_=0, to=2000,
+            self.rowt, label="delay (ms)", ini=200, from_=0, to=1000,
             length=100, orient=tk.HORIZONTAL, command=self.delay_t)
 
         # 2. row
@@ -282,6 +291,21 @@ class ncvMap(ttk.Frame):
             self.rowcmap, label="grid", value=False,
             command=self.checked)
 
+        # animation
+        rep = self.repeat.get()
+        if rep == 'repeat':
+            irepeat = True
+        else:
+            irepeat = False
+        self.anim_running = True
+        self.anim_inc     = 1      # 1/-1: forward or backward run
+        self.anim = animation.FuncAnimation(self.figure, self.update,
+                                            init_func=self.redraw,
+                                            interval=self.delayval.get(),
+                                            repeat=irepeat)
+        # self.anim.event_source.stop()
+        # self.anim_running = False  # True/False: running or paused animation
+
     #
     # Bindings
     #
@@ -300,7 +324,7 @@ class ncvMap(ttk.Frame):
 
         `delay` is the chosen value on the scale slider.
         """
-        pass
+        self.anim.event_source.interval = int(float(delay)) + 1  # avoid 0
 
     def entered_z(self, event):
         """
@@ -316,25 +340,37 @@ class ncvMap(ttk.Frame):
         """
         Command called if first frame button was pressed.
         """
-        pass
+        it = 0
+        self.zdval[self.iunlim].set(it)
+        self.tstepval.set(it)
+        self.update(it, isframe=True)
 
     def last_t(self):
         """
         Command called if last frame button was pressed.
         """
-        pass
+        it = self.nunlim - 1
+        self.zdval[self.iunlim].set(it)
+        self.tstepval.set(it)
+        self.update(it, isframe=True)
 
     def nrun_t(self):
         """
         Command called if forward run button was pressed.
         """
-        pass
+        if not self.anim_running:
+            self.anim_inc = 1
+            self.anim.event_source.start()
+            self.anim_running = True
 
     def next_t(self):
         """
         Command called if next frame button was pressed.
         """
-        pass
+        it = int(self.zdval[self.iunlim].get()) + 1
+        self.zdval[self.iunlim].set(it)
+        self.tstepval.set(it)
+        self.update(it, isframe=True)
 
     def next_z(self):
         """
@@ -349,9 +385,11 @@ class ncvMap(ttk.Frame):
         idx += 1
         if idx < len(cols):
             self.z.set(cols[idx])
+            self.set_unlim(cols[idx])
+            self.tstep['to'] = self.nunlim - 1
             self.zmin.set('None')
             self.zmax.set('None')
-            set_dim_z(self)
+            set_dim_zmap(self)
             self.x.set('')
             self.y.set('')
             self.inv_x.set(0)
@@ -364,13 +402,18 @@ class ncvMap(ttk.Frame):
         """
         Command called if pause button was pressed.
         """
-        pass
+        if self.anim_running:
+            self.anim.event_source.stop()
+            self.anim_running = False
 
     def prev_t(self):
         """
         Command called if previous frame button was pressed.
         """
-        pass
+        it = int(self.zdval[self.iunlim].get()) - 1
+        self.zdval[self.iunlim].set(it)
+        self.tstepval.set(it)
+        self.update(it, isframe=True)
 
     def prev_z(self):
         """
@@ -386,9 +429,11 @@ class ncvMap(ttk.Frame):
         idx -= 1
         if idx > 0:
             self.z.set(cols[idx])
+            self.set_unlim(cols[idx])
+            self.tstep['to'] = self.nunlim - 1
             self.zmin.set('None')
             self.zmax.set('None')
-            set_dim_z(self)
+            set_dim_zmap(self)
             self.x.set('')
             self.y.set('')
             self.inv_x.set(0)
@@ -401,7 +446,10 @@ class ncvMap(ttk.Frame):
         """
         Command called if run backwards button was pressed.
         """
-        pass
+        if not self.anim_running:
+            self.anim_inc = -1
+            self.anim.event_source.start()
+            self.anim_running = True
 
     def repeat_t(self, event):
         """
@@ -409,7 +457,12 @@ class ncvMap(ttk.Frame):
 
         Triggering `event` was bound to the combobox.
         """
-        pass
+        rep = self.repeat.get()
+        if rep == 'repeat':
+            irepeat = True
+        else:
+            irepeat = False
+        self.anim.repeat = irepeat
 
     def selected_cmap(self, value):
         """
@@ -460,11 +513,14 @@ class ncvMap(ttk.Frame):
         self.y.set('')
         self.inv_x.set(0)
         self.inv_y.set(0)
+        z = self.z.get()
+        self.set_unlim(z)
+        self.tstep['to'] = self.nunlim - 1
         self.zmin.set('None')
         self.zmax.set('None')
         set_dim_x(self)
         set_dim_y(self)
-        set_dim_z(self)
+        set_dim_zmap(self)
         self.redraw()
 
     def spinned_x(self, event=None):
@@ -496,6 +552,50 @@ class ncvMap(ttk.Frame):
         Redraws plot.
         """
         self.redraw()
+
+    def tstep_t(self, step):
+        """
+        Command called if tstep was changed.
+
+        `step` is the chosen value on the scale slider.
+        """
+        it = int(float(step))
+        self.zdval[self.iunlim].set(it)
+        # self.tstepval.set(it)
+        self.update(it, isframe=True)
+
+    #
+    # Methods
+    #
+
+    def set_unlim(self, z):
+        """
+        Set index and length of unlimited dimension of variable `z`.
+
+        `z` (str) is the variable name as in the selection comboboxes, i.e.
+        `var = self.fi.variables[z.split()[0]]`.
+
+        Sets `self.nunlim` to the length of the unlimited dimension and
+        `self.iunlim` to the index in variable.dimensions if
+        `self.dunlim ~= ''` and `self.dunlim` in var.dimensions.
+
+        Takes `self.iunlim=0` and `self.nunlim=variable.shape[0]` if
+        self.dunlim == ''` or `self.dunlim` not in var.dimensions.
+        """
+        vz = z.split()[0]
+        if vz == self.tname:
+            self.iunlim = 0
+            self.nunlim = self.time.size
+        else:
+            if self.dunlim:
+                if self.dunlim in self.fi.variables[vz].dimensions:
+                    self.iunlim = (
+                        self.fi.variables[vz].dimensions.index(self.dunlim))
+                else:
+                    self.iunlim = 0
+            else:
+                self.iunlim = 0
+            self.nunlim = self.fi.variables[vz].shape[self.iunlim]
 
     #
     # Plotting
@@ -557,13 +657,9 @@ class ncvMap(ttk.Frame):
             else:
                 zz = self.fi.variables[vz]
                 zlab = set_axis_label(zz)
-                try:
-                    zlab += ' (' + zz.units + ')'
-                except AttributeError:
-                    pass
-                zz = get_slice_miss(self, self.zd, zz)
-                if trans_z:
-                    zz = zz.T
+            zz = get_slice_miss(self, self.zd, zz)
+            if trans_z:
+                zz = zz.T
         if (y != ''):
             # y axis
             vy = y.split()[0]
@@ -577,10 +673,6 @@ class ncvMap(ttk.Frame):
             else:
                 yy   = self.fi.variables[vy]
                 ylab = set_axis_label(yy)
-                try:
-                    ylab += ' (' + yy.units + ')'
-                except AttributeError:
-                    pass
             yy = get_slice_miss(self, self.yd, yy)
         if (x != ''):
             # x axis
@@ -595,22 +687,18 @@ class ncvMap(ttk.Frame):
             else:
                 xx   = self.fi.variables[vx]
                 xlab = set_axis_label(xx)
-                try:
-                    xlab += ' (' + xx.units + ')'
-                except AttributeError:
-                    pass
             xx = get_slice_miss(self, self.xd, xx)
         # set z to nan if not selected
         if (z == ''):
             if (x != ''):
                 nx = xx.shape[0]
             else:
-                nx = 1
+                nx = 2
             if (y != ''):
                 ny = yy.shape[0]
             else:
-                ny = 1
-            zz = np.ones((nx, ny)) * np.nan
+                ny = 2
+            zz = np.ones((ny, nx)) * np.nan
             zlab = ''
         if zz.ndim < 2:
             estr  = 'Contour: z (' + vz + ') is not 2-dimensional:'
@@ -618,11 +706,11 @@ class ncvMap(ttk.Frame):
             return
         # set x and y to index if not selected
         if (x == ''):
-            nx = zz.shape[0]
+            nx = zz.shape[1]
             xx = np.arange(nx)
             xlab = ''
         if (y == ''):
-            ny = zz.shape[1]
+            ny = zz.shape[0]
             yy = np.arange(ny)
             ylab = ''
         # plot options
@@ -646,12 +734,21 @@ class ncvMap(ttk.Frame):
                 extend = 'max'
             else:
                 extend = 'both'
+        self.ixx     = xx
+        self.iyy     = yy
+        self.izz     = zz
+        self.izmin   = zmin
+        self.izmax   = zmax
+        self.icmap   = cmap
+        self.iextend = extend
         if mesh:
             try:
-                cc = self.axes.pcolormesh(xx, yy, zz.T, vmin=zmin, vmax=zmax,
-                                          cmap=cmap, shading='nearest')
-                cb = self.figure.colorbar(cc, fraction=0.05, shrink=0.75,
-                                          extend=extend)
+                # zz is matrix notation: (row, col)
+                self.cc = self.axes.pcolormesh(xx, yy, zz, vmin=zmin,
+                                               vmax=zmax, cmap=cmap,
+                                               shading='nearest')
+                self.cb = self.figure.colorbar(self.cc, fraction=0.05,
+                                               shrink=0.75, extend=extend)
             except Exception:
                 estr  = 'Contour: x (' + vx + '), y (' + vy + '),'
                 estr += ' z (' + vz + ') shapes do not match for'
@@ -660,9 +757,13 @@ class ncvMap(ttk.Frame):
                 return
         else:
             try:
-                cc = self.axes.contourf(xx, yy, zz.T, vmin=zmin, vmax=zmax,
-                                        cmap=cmap, extend=extend)
-                cb = self.figure.colorbar(cc, fraction=0.05, shrink=0.75)
+                # if 1-D then len(x)==m (columns) and len(y)==n (rows): z(n,m)
+                self.cc = self.axes.contourf(xx, yy, zz, vmin=zmin,
+                                             vmax=zmax, cmap=cmap,
+                                             extend=extend)
+                self.cb = self.figure.colorbar(self.cc, fraction=0.05,
+                                               shrink=0.75)
+                # self.cc, = self.axes.plot(yy, zz[0,:])
             except Exception:
                 estr  = 'Contour: x (' + vx + '), y (' + vy + '),'
                 estr += ' z (' + vz + ') shapes do not match for'
@@ -670,7 +771,7 @@ class ncvMap(ttk.Frame):
                 print(estr, xx.shape, yy.shape, zz.shape)
                 return
         # help(self.figure)
-        cb.set_label(zlab)
+        self.cb.set_label(zlab)
         self.axes.xaxis.set_label_text(xlab)
         self.axes.yaxis.set_label_text(ylab)
         # # Does not work
@@ -707,3 +808,44 @@ class ncvMap(ttk.Frame):
         # redraw
         self.canvas.draw()
         self.toolbar.update()
+        self.anim.event_source.stop()
+        self.anim_running = False
+
+    def update(self, frame, isframe=False):
+        """
+        Updates data of the current the plot.
+        """
+        # variable
+        z = self.z.get()
+        if (z != ''):
+            trans_z = self.trans_z.get()
+            mesh    = self.mesh.get()
+            vz = z.split()[0]
+            zz = self.fi.variables[vz]
+            # slice
+            try:
+                it = int(self.zdval[self.iunlim].get())
+                if not isframe:
+                    it += self.anim_inc
+            except ValueError:
+                it = 0
+            self.zdval[self.iunlim].set(it)
+            self.tstepval.set(it)
+            zz = get_slice_miss(self, self.zd, zz)
+            if trans_z:
+                zz = zz.T
+            # set data
+            if mesh:
+                self.cc.set_array(zz)
+            else:
+                # http://matplotlib.1069221.n5.nabble.com/update-an-existing-contour-plot-with-new-data-td23889.html
+                for coll in self.cc.collections:
+                    self.axes.collections.remove(coll)
+                self.cc = self.axes.contourf(self.ixx, self.iyy, zz,
+                                             vmin=self.izmin, vmax=self.izmax,
+                                             cmap=self.icmap,
+                                             extend=self.iextend)
+                self.izz = zz
+            # self.cc.set_ydata(zz[0,:])
+            self.canvas.draw()
+            return self.cc,

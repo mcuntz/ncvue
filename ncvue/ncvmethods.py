@@ -39,6 +39,7 @@ The following methods are provided:
    set_dim_y
    set_dim_y2
    set_dim_z
+   set_dim_zmap
 """
 from __future__ import absolute_import, division, print_function
 import tkinter as tk
@@ -52,7 +53,8 @@ ncfill.update({np.dtype('O'): np.nan})
 
 
 __all__ = ['get_miss', 'get_slice_miss',
-           'set_dim_x', 'set_dim_y', 'set_dim_y2', 'set_dim_z']
+           'set_dim_x', 'set_dim_y', 'set_dim_y2',
+           'set_dim_z', 'set_dim_zmap']
 
 
 #
@@ -175,14 +177,16 @@ def set_dim_x(self):
         nall = 0
         if self.dunlim in xx.dimensions:
             i = xx.dimensions.index(self.dunlim)
-            self.xd[i].config(values=spinbox_values(xx.shape[i]), width=4,
+            ww = max(5, int(np.ceil(np.log10(xx.shape[i]))))  # 5~median
+            self.xd[i].config(values=spinbox_values(xx.shape[i]), width=ww,
                               state=tk.NORMAL)
             nall += 1
             self.xdval[i].set('all')
             self.xdlbl[i].set(xx.dimensions[i])
         for i in range(xx.ndim):
             if xx.dimensions[i] != self.dunlim:
-                self.xd[i].config(values=spinbox_values(xx.shape[i]), width=4,
+                ww = max(5, int(np.ceil(np.log10(xx.shape[i]))))
+                self.xd[i].config(values=spinbox_values(xx.shape[i]), width=ww,
                                   state=tk.NORMAL)
                 if (nall == 0) and (xx.shape[i] > 1):
                     nall += 1
@@ -230,14 +234,16 @@ def set_dim_y(self):
         nall = 0
         if self.dunlim in yy.dimensions:
             i = yy.dimensions.index(self.dunlim)
-            self.yd[i].config(values=spinbox_values(yy.shape[i]), width=4,
+            ww = max(5, int(np.ceil(np.log10(yy.shape[i]))))  # 5~median
+            self.yd[i].config(values=spinbox_values(yy.shape[i]), width=ww,
                               state=tk.NORMAL)
             nall += 1
             self.ydval[i].set('all')
             self.ydlbl[i].set(yy.dimensions[i])
         for i in range(yy.ndim):
             if yy.dimensions[i] != self.dunlim:
-                self.yd[i].config(values=spinbox_values(yy.shape[i]), width=4,
+                ww = max(5, int(np.ceil(np.log10(yy.shape[i]))))
+                self.yd[i].config(values=spinbox_values(yy.shape[i]), width=ww,
                                   state=tk.NORMAL)
                 if (nall == 0) and (yy.shape[i] > 1):
                     nall += 1
@@ -285,15 +291,17 @@ def set_dim_y2(self):
         nall = 0
         if self.dunlim in yy2.dimensions:
             i = yy2.dimensions.index(self.dunlim)
-            self.y2d[i].config(values=spinbox_values(yy2.shape[i]), width=4,
+            ww = max(5, int(np.ceil(np.log10(yy2.shape[i]))))  # 5~median
+            self.y2d[i].config(values=spinbox_values(yy2.shape[i]), width=ww,
                                state=tk.NORMAL)
             nall += 1
             self.y2dval[i].set('all')
             self.y2dlbl[i].set(yy2.dimensions[i])
         for i in range(yy2.ndim):
             if yy2.dimensions[i] != self.dunlim:
+                ww = max(5, int(np.ceil(np.log10(yy2.shape[i]))))
                 self.y2d[i].config(values=spinbox_values(yy2.shape[i]),
-                                   width=4, state=tk.NORMAL)
+                                   width=ww, state=tk.NORMAL)
                 if (nall == 0) and (yy2.shape[i] > 1):
                     nall += 1
                     self.y2dval[i].set('all')
@@ -341,14 +349,16 @@ def set_dim_z(self):
         nall = 0
         if self.dunlim in zz.dimensions:
             i = zz.dimensions.index(self.dunlim)
-            self.zd[i].config(values=spinbox_values(zz.shape[i]), width=4,
+            ww = max(5, int(np.ceil(np.log10(zz.shape[i]))))  # 5~median
+            self.zd[i].config(values=spinbox_values(zz.shape[i]), width=ww,
                               state=tk.NORMAL)
             nall += 1
             self.zdval[i].set('all')
             self.zdlbl[i].set(zz.dimensions[i])
         for i in range(zz.ndim):
             if zz.dimensions[i] != self.dunlim:
-                self.zd[i].config(values=spinbox_values(zz.shape[i]), width=4,
+                ww = max(5, int(np.ceil(np.log10(zz.shape[i]))))
+                self.zd[i].config(values=spinbox_values(zz.shape[i]), width=ww,
                                   state=tk.NORMAL)
                 if (nall <= 1) and (zz.shape[i] > 1):
                     nall += 1
@@ -356,3 +366,52 @@ def set_dim_z(self):
                 else:
                     self.zdval[i].set(0)
                 self.zdlbl[i].set(zz.dimensions[i])
+
+
+def set_dim_zmap(self):
+    """
+    Set spinboxes of z-dimensions in Map panel.
+
+    Set labels and value lists, including 'all' to select all entries,
+    as well as 'mean', 'std', etc. for common operations on the axis.
+
+    Select 'all' for the first two limited dimensions and select
+    0 for all other dimensions.
+
+    Parameters
+    ----------
+    self : class
+        ncvue class
+
+    Returns
+    -------
+    None
+        Labels and values of spinboxes of z-dimensions set.
+
+    Examples
+    --------
+    >>> set_dim_zmap(self)
+    """
+    # reset dimensions
+    for i in range(self.maxdim):
+        self.zd[i].config(values=(0,), width=1, state=tk.DISABLED)
+        self.zdlbl[i].set(str(i))
+    z = self.z.get()
+    if z != '':
+        # set real dimensions
+        vz = z.split()[0]
+        if vz == self.tname:
+            vz = self.tvar
+        zz = self.fi.variables[vz]
+        nall = 0
+        for i in range(zz.ndim):
+            ww = max(5, int(np.ceil(np.log10(zz.shape[i]))))  # 5~median
+            self.zd[i].config(values=spinbox_values(zz.shape[i]), width=ww,
+                              state=tk.NORMAL)
+            if ((zz.dimensions[i] != self.dunlim) and (nall <= 1) and
+                (zz.shape[i] > 1)):
+                nall += 1
+                self.zdval[i].set('all')
+            else:
+                self.zdval[i].set(0)
+            self.zdlbl[i].set(zz.dimensions[i])
