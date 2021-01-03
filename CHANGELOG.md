@@ -3,8 +3,10 @@
 All notable changes after its initial development up to November 2020 (v1.0)
 are documented in this file.
 
-### v1.5 (Dec 2020)
+### v2.0 (Jan 2021)
     - Added the Map panel.
+    - Transpose array by default in Contour panel so that first dimension
+      (time) is on x-axis (col) because contourf/pcolormesh use (row,col).
     - Common arithmetic operations on axes: mean, std, min, max, ptp, sum,
       median, var.
     - General get_slice function for x, y, y2, and z.

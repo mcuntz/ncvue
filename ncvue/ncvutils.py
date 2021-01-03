@@ -99,8 +99,8 @@ def get_slice(dimspins, y):
     ----------
     dimspins : list
         List of tk.Spinbox widgets of dimensions
-    y : ndarray
-        numpy array
+    y : ndarray or netCDF4._netCDF4.Variable
+        Input array or netcdf variable
 
     Returns
     -------
