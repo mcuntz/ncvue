@@ -122,20 +122,19 @@ class ncvContour(ttk.Frame):
 
         # 1. row
         # z-axis selection
-        self.rowz = ttk.Frame(self)
+        self.rowzz = ttk.Frame(self)
+        self.rowzz.pack(side=tk.TOP, fill=tk.X)
+        self.blockz = ttk.Frame(self.rowzz)
+        self.blockz.pack(side=tk.LEFT)
+        self.rowz = ttk.Frame(self.blockz)
         self.rowz.pack(side=tk.TOP, fill=tk.X)
-        # self.zlbl, self.z = add_combobox(self.rowz, label="z",
-        #                                  values=columns,
-        #                                  command=self.selected_z)
         self.zlbl = tk.StringVar()
         self.zlbl.set("z")
         zlab = ttk.Label(self.rowz, textvariable=self.zlbl)
         zlab.pack(side=tk.LEFT)
-        # previous z
         self.bprev_z = ttk.Button(self.rowz, text="<", width=1,
                                   command=self.prev_z)
         self.bprev_z.pack(side=tk.LEFT)
-        # next z
         self.bnext_z = ttk.Button(self.rowz, text=">", width=1,
                                   command=self.next_z)
         self.bnext_z.pack(side=tk.LEFT)
@@ -152,67 +151,71 @@ class ncvContour(ttk.Frame):
         self.zmaxlbl, self.zmax = add_entry(self.rowz, label="zmax",
                                             text='None', width=7,
                                             command=self.entered_z)
-
-        # 2. row
         # levels z
-        self.rowzlev = ttk.Frame(self)
-        self.rowzlev.pack(side=tk.TOP, fill=tk.X)
+        self.rowzd = ttk.Frame(self.blockz)
+        self.rowzd.pack(side=tk.TOP, fill=tk.X)
         self.zdlbl = []
         self.zdval = []
         self.zd    = []
         for i in range(self.maxdim):
             zdlbl, zdval, zd = add_spinbox(
-                self.rowzlev, label=str(i), values=(0,), wrap=True,
+                self.rowzd, label=str(i), values=(0,), wrap=True,
                 command=self.spinned_z, state=tk.DISABLED)
             self.zdlbl.append(zdlbl)
             self.zdval.append(zdval)
             self.zd.append(zd)
 
-        # 3. row
-        # x- and y-axis selection
+        # 2. row
+        # x-axis selection
         self.rowxy = ttk.Frame(self)
         self.rowxy.pack(side=tk.TOP, fill=tk.X)
-        self.xlbl, self.x = add_combobox(self.rowxy, label="x",
+        self.blockx = ttk.Frame(self.rowxy)
+        self.blockx.pack(side=tk.LEFT)
+        self.rowx = ttk.Frame(self.blockx)
+        self.rowx.pack(side=tk.TOP, fill=tk.X)
+        self.xlbl, self.x = add_combobox(self.rowx, label="x",
                                          values=columns,
                                          command=self.selected_x)
         self.inv_xlbl, self.inv_x = add_checkbutton(
-            self.rowxy, label="invert x", value=False, command=self.checked)
-        spacex = ttk.Label(self.rowxy, text=" "*3)
-        spacex.pack(side=tk.LEFT)
-        self.ylbl, self.y = add_combobox(self.rowxy, label="y",
-                                         values=columns,
-                                         command=self.selected_y)
-        self.inv_ylbl, self.inv_y = add_checkbutton(
-            self.rowxy, label="invert y", value=False, command=self.checked)
-
-        # 4. row
-        # levels x and y
-        self.rowxylev = ttk.Frame(self)
-        self.rowxylev.pack(side=tk.TOP, fill=tk.X)
+            self.rowx, label="invert x", value=False, command=self.checked)
+        self.rowxd = ttk.Frame(self.blockx)
+        self.rowxd.pack(side=tk.TOP, fill=tk.X)
         self.xdlbl = []
         self.xdval = []
         self.xd    = []
         for i in range(self.maxdim):
             xdlbl, xdval, xd = add_spinbox(
-                self.rowxylev, label=str(i), values=(0,), wrap=True,
+                self.rowxd, label=str(i), values=(0,), wrap=True,
                 command=self.spinned_x, state=tk.DISABLED)
             self.xdlbl.append(xdlbl)
             self.xdval.append(xdval)
             self.xd.append(xd)
-        spacexy = ttk.Label(self.rowxylev, text=" "*10)
-        spacexy.pack(side=tk.LEFT)
+        # y-axis selection
+        spacex = ttk.Label(self.rowxy, text=" "*3)
+        spacex.pack(side=tk.LEFT)
+        self.blocky = ttk.Frame(self.rowxy)
+        self.blocky.pack(side=tk.LEFT)
+        self.rowy = ttk.Frame(self.blocky)
+        self.rowy.pack(side=tk.TOP, fill=tk.X)
+        self.ylbl, self.y = add_combobox(self.rowy, label="y",
+                                         values=columns,
+                                         command=self.selected_y)
+        self.inv_ylbl, self.inv_y = add_checkbutton(
+            self.rowy, label="invert y", value=False, command=self.checked)
+        self.rowyd = ttk.Frame(self.blocky)
+        self.rowyd.pack(side=tk.TOP, fill=tk.X)
         self.ydlbl = []
         self.ydval = []
         self.yd    = []
         for i in range(self.maxdim):
             ydlbl, ydval, yd = add_spinbox(
-                self.rowxylev, label=str(i), values=(0,), wrap=True,
+                self.rowyd, label=str(i), values=(0,), wrap=True,
                 command=self.spinned_y, state=tk.DISABLED)
             self.ydlbl.append(ydlbl)
             self.ydval.append(ydval)
             self.yd.append(yd)
 
-        # 5. row
+        # 3. row
         # options
         self.rowcmap = ttk.Frame(self)
         self.rowcmap.pack(side=tk.TOP, fill=tk.X)

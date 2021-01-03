@@ -211,17 +211,19 @@ class ncvMap(ttk.Frame):
 
         # 2. row
         # variable-axis selection
-        self.rowv = ttk.Frame(self)
+        self.rowvv = ttk.Frame(self)
+        self.rowvv.pack(side=tk.TOP, fill=tk.X)
+        self.blockv = ttk.Frame(self.rowvv)
+        self.blockv.pack(side=tk.LEFT)
+        self.rowv = ttk.Frame(self.blockv)
         self.rowv.pack(side=tk.TOP, fill=tk.X)
         self.vlbl = tk.StringVar()
         self.vlbl.set("var")
         vlab = ttk.Label(self.rowv, textvariable=self.vlbl)
         vlab.pack(side=tk.LEFT)
-        # previous var
         self.bprev_v = ttk.Button(self.rowv, text="<", width=1,
                                   command=self.prev_v)
         self.bprev_v.pack(side=tk.LEFT)
-        # next var
         self.bnext_v = ttk.Button(self.rowv, text=">", width=1,
                                   command=self.next_v)
         self.bnext_v.pack(side=tk.LEFT)
@@ -240,69 +242,73 @@ class ncvMap(ttk.Frame):
                                             command=self.entered_v)
         self.valllbl, self.vall = add_checkbutton(
             self.rowv, label="all", value=False, command=self.checked_all)
-
-        # 3. row
         # levels var
-        self.rowvlev = ttk.Frame(self)
-        self.rowvlev.pack(side=tk.TOP, fill=tk.X)
+        self.rowvd = ttk.Frame(self.blockv)
+        self.rowvd.pack(side=tk.TOP, fill=tk.X)
         self.vdlbl = []
         self.vdval = []
         self.vd    = []
         for i in range(self.maxdim):
             vdlbl, vdval, vd = add_spinbox(
-                self.rowvlev, label=str(i), values=(0,), wrap=True,
+                self.rowvd, label=str(i), values=(0,), wrap=True,
                 command=self.spinned_v, state=tk.DISABLED)
             self.vdlbl.append(vdlbl)
             self.vdval.append(vdval)
             self.vd.append(vd)
 
-        # 4. row
-        # lon- and lat-axis selection
+        # 3. row
+        # lon-axis selection
         self.rowll = ttk.Frame(self)
         self.rowll.pack(side=tk.TOP, fill=tk.X)
-        self.lonlbl, self.lon = add_combobox(self.rowll, label="lon",
+        self.blocklon = ttk.Frame(self.rowll)
+        self.blocklon.pack(side=tk.LEFT)
+        self.rowlon = ttk.Frame(self.blocklon)
+        self.rowlon.pack(side=tk.TOP, fill=tk.X)
+        self.lonlbl, self.lon = add_combobox(self.rowlon, label="lon",
                                              values=columns,
                                              command=self.selected_lon)
         self.inv_lonlbl, self.inv_lon = add_checkbutton(
-            self.rowll, label="invert lon", value=False, command=self.checked)
+            self.rowlon, label="invert lon", value=False, command=self.checked)
         self.shift_lonlbl, self.shift_lon = add_checkbutton(
-            self.rowll, label="shift lon/2", value=False, command=self.checked)
-        spacex = ttk.Label(self.rowll, text=" "*3)
-        spacex.pack(side=tk.LEFT)
-        self.latlbl, self.lat = add_combobox(self.rowll, label="lat",
-                                             values=columns,
-                                             command=self.selected_lat)
-        self.inv_latlbl, self.inv_lat = add_checkbutton(
-            self.rowll, label="invert lat", value=False, command=self.checked)
-
-        # 5. row
-        # levels lon and lat
-        self.rowlllev = ttk.Frame(self)
-        self.rowlllev.pack(side=tk.TOP, fill=tk.X)
+            self.rowlon, label="shift lon/2", value=False, command=self.checked)
+        self.rowlond = ttk.Frame(self.blocklon)
+        self.rowlond.pack(side=tk.TOP, fill=tk.X)
         self.londlbl = []
         self.londval = []
         self.lond    = []
         for i in range(self.maxdim):
             londlbl, londval, lond = add_spinbox(
-                self.rowlllev, label=str(i), values=(0,), wrap=True,
+                self.rowlond, label=str(i), values=(0,), wrap=True,
                 command=self.spinned_lon, state=tk.DISABLED)
             self.londlbl.append(londlbl)
             self.londval.append(londval)
             self.lond.append(lond)
-        spacell = ttk.Label(self.rowlllev, text=" "*10)
-        spacell.pack(side=tk.LEFT)
+        # lat-axis selection
+        spacex = ttk.Label(self.rowll, text=" "*3)
+        spacex.pack(side=tk.LEFT)
+        self.blocklat = ttk.Frame(self.rowll)
+        self.blocklat.pack(side=tk.LEFT)
+        self.rowlat = ttk.Frame(self.blocklat)
+        self.rowlat.pack(side=tk.TOP, fill=tk.X)
+        self.latlbl, self.lat = add_combobox(self.rowlat, label="lat",
+                                             values=columns,
+                                             command=self.selected_lat)
+        self.inv_latlbl, self.inv_lat = add_checkbutton(
+            self.rowlat, label="invert lat", value=False, command=self.checked)
+        self.rowlatd = ttk.Frame(self.blocklat)
+        self.rowlatd.pack(side=tk.TOP, fill=tk.X)
         self.latdlbl = []
         self.latdval = []
         self.latd    = []
         for i in range(self.maxdim):
             latdlbl, latdval, latd = add_spinbox(
-                self.rowlllev, label=str(i), values=(0,), wrap=True,
+                self.rowlatd, label=str(i), values=(0,), wrap=True,
                 command=self.spinned_lat, state=tk.DISABLED)
             self.latdlbl.append(latdlbl)
             self.latdval.append(latdval)
             self.latd.append(latd)
 
-        # 6. row
+        # 4. row
         # options
         self.rowcmap = ttk.Frame(self)
         self.rowcmap.pack(side=tk.TOP, fill=tk.X)
