@@ -27,6 +27,8 @@ History:
 * Moved individual get_slice_? methods for x, y, y2, z as general get_slice
   function to ncvutils, Dec 2020, Matthias Cuntz
 * Added convenience method get_slice_miss, Dec 2020, Matthias Cuntz
+* set_dim_lon, set_dim_lat, set_dim_var for Map panel,
+  Jan 2021, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -35,11 +37,13 @@ The following methods are provided:
 .. autosummary::
    get_miss
    get_slice_miss
+   set_dim_lat
+   set_dim_lon
+   set_dim_var
    set_dim_x
    set_dim_y
    set_dim_y2
    set_dim_z
-   set_dim_zmap
 """
 from __future__ import absolute_import, division, print_function
 import tkinter as tk
@@ -53,8 +57,8 @@ ncfill.update({np.dtype('O'): np.nan})
 
 
 __all__ = ['get_miss', 'get_slice_miss',
-           'set_dim_x', 'set_dim_y', 'set_dim_y2',
-           'set_dim_z', 'set_dim_zmap']
+           'set_dim_lat', 'set_dim_lon', 'set_dim_var',
+           'set_dim_x', 'set_dim_y', 'set_dim_y2', 'set_dim_z']
 
 
 #
@@ -138,6 +142,140 @@ def get_slice_miss(self, dimspins, x):
 #
 # Set dimensions
 #
+
+
+def set_dim_lat(self):
+    """
+    Set spinboxes of latitude-dimensions.
+
+    Set labels and value lists. Select 'all' for all dimension.
+
+    Parameters
+    ----------
+    self : class
+        ncvue class
+
+    Returns
+    -------
+    None
+        Labels and values of spinboxes of latitude-dimensions set.
+
+    Examples
+    --------
+    >>> set_dim_lat(self)
+    """
+    # reset dimensions
+    for i in range(self.maxdim):
+        self.latd[i].config(values=(0,), width=1, state=tk.DISABLED)
+        self.latdlbl[i].set(str(i))
+    lat = self.lat.get()
+    if lat != '':
+        # set real dimensions
+        vl = lat.split()[0]
+        if vl == self.tname:
+            vl = self.tvar
+        ll = self.fi.variables[vl]
+        for i in range(ll.ndim):
+            ww = max(4, int(np.ceil(np.log10(ll.shape[i]))))
+            self.latd[i].config(values=spinbox_values(ll.shape[i]), width=ww,
+                                state=tk.NORMAL)
+            if (ll.shape[i] > 1):
+                self.latdval[i].set('all')
+            else:
+                self.latdval[i].set(0)
+            self.latdlbl[i].set(ll.dimensions[i])
+
+
+def set_dim_lon(self):
+    """
+    Set spinboxes of longitude-dimensions.
+
+    Set labels and value lists. Select 'all' for all dimension.
+
+    Parameters
+    ----------
+    self : class
+        ncvue class
+
+    Returns
+    -------
+    None
+        Labels and values of spinboxes of longitude-dimensions set.
+
+    Examples
+    --------
+    >>> set_dim_lon(self)
+    """
+    # reset dimensions
+    for i in range(self.maxdim):
+        self.lond[i].config(values=(0,), width=1, state=tk.DISABLED)
+        self.londlbl[i].set(str(i))
+    lon = self.lon.get()
+    if lon != '':
+        # set real dimensions
+        vl = lon.split()[0]
+        if vl == self.tname:
+            vl = self.tvar
+        ll = self.fi.variables[vl]
+        for i in range(ll.ndim):
+            ww = max(4, int(np.ceil(np.log10(ll.shape[i]))))
+            self.lond[i].config(values=spinbox_values(ll.shape[i]), width=ww,
+                                state=tk.NORMAL)
+            if (ll.shape[i] > 1):
+                self.londval[i].set('all')
+            else:
+                self.londval[i].set(0)
+            self.londlbl[i].set(ll.dimensions[i])
+
+
+def set_dim_var(self):
+    """
+    Set spinboxes of varable-dimensions in Map panel.
+
+    Set labels and value lists, including 'all' to select all entries,
+    as well as 'mean', 'std', etc. for common operations on the axis.
+
+    Select 'all' for the first two limited dimensions and select
+    0 for all other dimensions.
+
+    Parameters
+    ----------
+    self : class
+        ncvue class
+
+    Returns
+    -------
+    None
+        Labels and values of spinboxes of variable-dimensions set.
+
+    Examples
+    --------
+    >>> set_dim_var(self)
+    """
+    # reset dimensions
+    for i in range(self.maxdim):
+        self.vd[i].config(values=(0,), width=1, state=tk.DISABLED)
+        self.vdlbl[i].set(str(i))
+    v = self.v.get()
+    if v != '':
+        # set real dimensions
+        vz = v.split()[0]
+        if vz == self.tname:
+            vv = self.tvar
+        vv = self.fi.variables[vz]
+        nall = 0
+        for i in range(vv.ndim):
+            ww = max(5, int(np.ceil(np.log10(vv.shape[i]))))  # 5~median
+            self.vd[i].config(values=spinbox_values(vv.shape[i]), width=ww,
+                              state=tk.NORMAL)
+            if ((vv.dimensions[i] != self.dunlim) and (nall <= 1) and
+                (vv.shape[i] > 1)):
+                nall += 1
+                self.vdval[i].set('all')
+            else:
+                self.vdval[i].set(0)
+            self.vdlbl[i].set(vv.dimensions[i])
+
 
 def set_dim_x(self):
     """
@@ -366,52 +504,3 @@ def set_dim_z(self):
                 else:
                     self.zdval[i].set(0)
                 self.zdlbl[i].set(zz.dimensions[i])
-
-
-def set_dim_zmap(self):
-    """
-    Set spinboxes of z-dimensions in Map panel.
-
-    Set labels and value lists, including 'all' to select all entries,
-    as well as 'mean', 'std', etc. for common operations on the axis.
-
-    Select 'all' for the first two limited dimensions and select
-    0 for all other dimensions.
-
-    Parameters
-    ----------
-    self : class
-        ncvue class
-
-    Returns
-    -------
-    None
-        Labels and values of spinboxes of z-dimensions set.
-
-    Examples
-    --------
-    >>> set_dim_zmap(self)
-    """
-    # reset dimensions
-    for i in range(self.maxdim):
-        self.zd[i].config(values=(0,), width=1, state=tk.DISABLED)
-        self.zdlbl[i].set(str(i))
-    z = self.z.get()
-    if z != '':
-        # set real dimensions
-        vz = z.split()[0]
-        if vz == self.tname:
-            vz = self.tvar
-        zz = self.fi.variables[vz]
-        nall = 0
-        for i in range(zz.ndim):
-            ww = max(5, int(np.ceil(np.log10(zz.shape[i]))))  # 5~median
-            self.zd[i].config(values=spinbox_values(zz.shape[i]), width=ww,
-                              state=tk.NORMAL)
-            if ((zz.dimensions[i] != self.dunlim) and (nall <= 1) and
-                (zz.shape[i] > 1)):
-                nall += 1
-                self.zdval[i].set('all')
-            else:
-                self.zdval[i].set(0)
-            self.zdlbl[i].set(zz.dimensions[i])

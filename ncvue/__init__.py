@@ -22,8 +22,8 @@ from .ncvutils   import zip_dim_name_length
 
 # common methods of all panels
 from .ncvmethods import get_miss, get_slice_miss
-from .ncvmethods import set_dim_x, set_dim_y, set_dim_y2
-from .ncvmethods import set_dim_z, set_dim_zmap
+from .ncvmethods import set_dim_lat, set_dim_lon, set_dim_var
+from .ncvmethods import set_dim_x, set_dim_y, set_dim_y2, set_dim_z
 
 # adding widgets with labels, etc.
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry, add_imagemenu
