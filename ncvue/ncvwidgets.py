@@ -25,6 +25,7 @@ The following functions are provided:
    add_combobox
    add_entry
    add_imagemenu
+   add_menu
    add_scale
    add_spinbox
 """
@@ -40,7 +41,7 @@ except Exception:
 
 
 __all__ = ['add_checkbutton', 'add_combobox', 'add_entry',
-           'add_imagemenu', 'add_scale', 'add_spinbox']
+           'add_imagemenu', 'add_menu', 'add_scale', 'add_spinbox']
 
 
 def add_checkbutton(frame, label="", value=False, command=None, **kwargs):
@@ -204,17 +205,19 @@ def add_imagemenu(frame, label="", values=[], images=[], command=None,
 
     Examples
     --------
-    >>> self.rowzxy = ttk.Frame(self)
-    >>> self.rowzxy.pack(side=tk.TOP, fill=tk.X)
-    >>> self.xlbl, self.x = add_combobox(
-    ...     self.rowzxy, label="x", values=columns, command=self.selected)
+    >>> self.rowcmap = ttk.Frame(self)
+    >>> self.rowcmap.pack(side=tk.TOP, fill=tk.X)
+    >>> self.cmaplbl, self.cmap = add_imagemenu(
+    ...     self.rowcmap, label="cmap", values=self.cmaps,
+    ...     images=self.imaps, command=self.selected_cmap)
+    >>> self.cmap['text']  = 'RdYlBu'
+    >>> self.cmap['image'] = self.imaps[self.cmaps.index('RdYlBu')]
     """
     from functools import partial
     estr  = 'Same number of values and images needed for add_imagemenu.'
     estr += ' values (' + str(len(values)) + '): ' + str(values)
     estr += ', images (' + str(len(images)) + '): ' + str(images)
     assert len(values) == len(images), estr
-    width = kwargs.pop('width', 25)
     mb_label = tk.StringVar()
     mb_label.set(label)
     label = ttk.Label(frame, textvariable=mb_label)
@@ -225,6 +228,50 @@ def add_imagemenu(frame, label="", values=[], images=[], command=None,
     mb.config(menu=sb)
     for i, v in enumerate(values):
         sb.add_command(label=v, image=images[i], compound=tk.LEFT,
+                       command=partial(command, v))
+    mb.pack(side=tk.LEFT)
+    return mb_label, mb
+
+
+def add_menu(frame, label="", values=[], command=None, **kwargs):
+    """
+    Add a left-aligned menu with menubuttons with a ttk.Label before.
+
+    Parameters
+    ----------
+    frame : tk widget
+        Parent widget
+    label : str, optional
+        Text that appears in front of the menu (default: "")
+    values : list of str, optional
+        The choices that will appear in the drop-down menu (default: [])
+    command : function, optional
+        Handler function to be called if new menu entry chosen (default: None).
+    **kwargs : option=value pairs, optional
+        All other options will be passed to the main ttk.Menubutton
+
+    Returns
+    -------
+    tk.StringVar, ttk.Menubutton
+        variable for the text before the menu, main tt.Menubutton widget
+
+    Examples
+    --------
+    >>> self.rowzxy = ttk.Frame(self)
+    >>> self.rowzxy.pack(side=tk.TOP, fill=tk.X)
+    >>> self.xlbl, self.x = add_combobox(
+    ...     self.rowzxy, label="x", values=columns, command=self.selected)
+    """
+    from functools import partial
+    mb_label = tk.StringVar()
+    mb_label.set(label)
+    label = ttk.Label(frame, textvariable=mb_label)
+    label.pack(side=tk.LEFT)
+    mb = ttk.Menubutton(frame, text=values[0], compound=tk.LEFT)
+    sb = tk.Menu(mb, tearoff=False)
+    mb.config(menu=sb)
+    for i, v in enumerate(values):
+        sb.add_command(label=v, compound=tk.LEFT,
                        command=partial(command, v))
     mb.pack(side=tk.LEFT)
     return mb_label, mb

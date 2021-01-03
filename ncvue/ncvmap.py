@@ -39,7 +39,7 @@ from .ncvutils   import clone_ncvmain, set_axis_label, set_miss
 from .ncvmethods import get_slice_miss, get_miss
 from .ncvmethods import set_dim_lon, set_dim_lat, set_dim_var
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry, add_imagemenu
-from .ncvwidgets import add_scale, add_spinbox
+from .ncvwidgets import add_menu, add_scale, add_spinbox
 import matplotlib
 matplotlib.use('TkAgg')
 from matplotlib import pyplot as plt
@@ -135,6 +135,25 @@ class ncvMap(ttk.Frame):
         self.imaps  = [ tk.PhotoImage(file=os.path.dirname(__file__) +
                                       '/images/' + i + '.png')
                         for i in self.cmaps ]
+
+        self.projs = ['AlbersEqualArea', 'AzimuthalEquidistant', 'EckertI',
+                      'EckertII', 'EckertIII', 'EckertIV', 'EckertV',
+                      'EckertVI', 'EqualEarth', 'EquidistantConic',
+                      'InterruptedGoodeHomolosine',
+                      'LambertAzimuthalEqualArea', 'LambertConformal',
+                      'LambertCylindrical', 'Mercator', 'Miller', 'Mollweide',
+                      'NorthPolarStereo', 'PlateCarree', 'Robinson',
+                      'Sinusoidal', 'SouthPolarStereo', 'Stereographic']
+        self.iprojs = [ccrs.AlbersEqualArea, ccrs.AzimuthalEquidistant,
+                       ccrs.EckertI, ccrs.EckertII, ccrs.EckertIII,
+                       ccrs.EckertIV, ccrs.EckertV, ccrs.EckertVI,
+                       ccrs.EqualEarth, ccrs.EquidistantConic,
+                       ccrs.InterruptedGoodeHomolosine,
+                       ccrs.LambertAzimuthalEqualArea, ccrs.LambertConformal,
+                       ccrs.LambertCylindrical, ccrs.Mercator, ccrs.Miller,
+                       ccrs.Mollweide, ccrs.NorthPolarStereo, ccrs.PlateCarree,
+                       ccrs.Robinson, ccrs.Sinusoidal, ccrs.SouthPolarStereo,
+                       ccrs.Stereographic]
 
         # 1. row
         # controls
@@ -305,6 +324,18 @@ class ncvMap(ttk.Frame):
             self.rowcmap, label="grid", value=False,
             command=self.checked)
 
+        # 7. row
+        # projections
+        self.rowproj = ttk.Frame(self)
+        self.rowproj.pack(side=tk.TOP, fill=tk.X)
+        self.projlbl, self.proj = add_menu(
+            self.rowproj, label="projection", values=self.projs,
+            command=self.selected_proj, width=26)
+        self.proj['text'] = 'PlateCarree'
+        self.clonlbl, self.clon = add_entry(self.rowproj, label="central lon",
+                                            text='None', width=4,
+                                            command=self.entered_clon)
+
         # animation
         rep = self.repeat.get()
         if rep == 'repeat':
@@ -351,6 +382,16 @@ class ncvMap(ttk.Frame):
         `delay` is the chosen value on the scale slider.
         """
         self.anim.event_source.interval = int(float(delay))
+
+    def entered_clon(self, event):
+        """
+        Command called if values central longitude was entered.
+
+        Triggering `event` was bound to entry.
+
+        Redraws plot.
+        """
+        self.redraw()
 
     def entered_v(self, event):
         """
@@ -534,6 +575,17 @@ class ncvMap(ttk.Frame):
         set_dim_lon(self)
         self.redraw()
 
+    def selected_proj(self, value):
+        """
+        Command called if projection was chosen from menu.
+
+        `value` is the chosen projection.
+
+        Sets text on the menubutton.
+        """
+        self.proj['text'] = value
+        self.redraw()
+
     def selected_v(self, event):
         """
         Command called if plotting variable was selected with combobox.
@@ -713,6 +765,9 @@ class ncvMap(ttk.Frame):
         mesh     = self.mesh.get()
         grid     = self.grid.get()
         coast    = self.coast.get()
+        proj     = self.proj['text']
+        self.iproj = self.iprojs[self.projs.index(proj)]
+        clon     = self.clon.get()
         # set x, y, axes labels
         vx = 'None'
         vy = 'None'
@@ -776,6 +831,10 @@ class ncvMap(ttk.Frame):
         else:
             xlab = ''
             self.ixxmean = 0.
+        if clon != 'None':
+            self.iclon = float(clon)
+        else:
+            self.iclon = self.ixxmean
         # plot options
         if rev_cmap:
             cmap = cmap + '_r'
@@ -783,7 +842,7 @@ class ncvMap(ttk.Frame):
         self.figure.clear()
         # Have to add axes again.
         self.axes = self.figure.add_subplot(
-            111, projection=ccrs.PlateCarree(central_longitude=self.ixxmean))
+            111, projection=self.iproj(central_longitude=self.iclon))
         # plot only if variable given
         if (v != ''):
             if vv.ndim < 2:
@@ -846,7 +905,7 @@ class ncvMap(ttk.Frame):
                                   axis=1)
             self.iyyc = np.append(self.iyy, self.iyy[:, -1:], axis=1)
             self.ivv     = vv
-            self.idata_transform = ccrs.PlateCarree()
+            self.itransform = ccrs.PlateCarree()
             self.ivmin   = vmin
             self.ivmax   = vmax
             self.icmap   = cmap
@@ -862,11 +921,11 @@ class ncvMap(ttk.Frame):
                         self.ixx, self.iyy, self.ivv,
                         vmin=self.ivmin, vmax=self.ivmax,
                         cmap=self.icmap, shading='nearest',
-                        transform=self.idata_transform)
+                        transform=self.itransform)
                     # self.cc = self.axes.imshow(
                     #     vv, vmin=vmin, vmax=vmax, cmap=cmap,
                     #     origin='upper', extent=self.img_extent,
-                    #     transform=self.idata_transform)
+                    #     transform=self.itransform)
                     self.cb = self.figure.colorbar(self.cc, fraction=0.05,
                                                    shrink=0.75,
                                                    extend=self.iextend)
@@ -885,7 +944,7 @@ class ncvMap(ttk.Frame):
                         self.ixxc, self.iyyc, self.ivvc,
                         vmin=self.ivmin, vmax=self.ivmax,
                         cmap=self.icmap, extend=self.iextend,
-                        transform=self.idata_transform)
+                        transform=self.itransform)
                     self.cb = self.figure.colorbar(self.cc, fraction=0.05,
                                                    shrink=0.75)
                     # self.cc, = self.axes.plot(yy, vv[0,:])
@@ -899,11 +958,13 @@ class ncvMap(ttk.Frame):
         # help(self.figure)
         if coast:
             self.axes.coastlines()
-            self.axes.gridlines(draw_labels=True, linewidth=0)
+            self.axes.gridlines(draw_labels=True, linewidth=0,
+                                x_inline=False, y_inline=False)
         self.axes.xaxis.set_label_text(xlab)
         self.axes.yaxis.set_label_text(ylab)
         if grid:
-            self.axes.gridlines(draw_labels=False)
+            self.axes.gridlines(draw_labels=False,
+                                x_inline=False, y_inline=False)
         # redraw
         self.canvas.draw()
         self.toolbar.update()
@@ -971,12 +1032,12 @@ class ncvMap(ttk.Frame):
                     self.ixx, self.iyy, self.ivv,
                     vmin=self.ivmin, vmax=self.ivmax,
                     cmap=self.icmap, shading='nearest',
-                    transform=self.idata_transform)
+                    transform=self.itransform)
                 # self.cc.remove()
                 # self.cc = self.axes.imshow(
                 #     vv, vmin=self.ivmin, vmax=self.ivmax, cmap=self.icmap,
                 #     origin='upper', extent=self.img_extent,
-                #     transform=self.idata_transform)
+                #     transform=self.itransform)
             else:
                 # http://matplotlib.1069221.n5.nabble.com/update-an-existing-contour-plot-with-new-data-td23889.html
                 for coll in self.cc.collections:
@@ -986,6 +1047,6 @@ class ncvMap(ttk.Frame):
                     self.ixxc, self.iyyc, self.ivvc,
                     vmin=self.ivmin, vmax=self.ivmax,
                     cmap=self.icmap, extend=self.iextend,
-                    transform=self.idata_transform)
+                    transform=self.itransform)
             self.canvas.draw()
             return self.cc,

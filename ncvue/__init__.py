@@ -27,7 +27,7 @@ from .ncvmethods import set_dim_x, set_dim_y, set_dim_y2, set_dim_z
 
 # adding widgets with labels, etc.
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry, add_imagemenu
-from .ncvwidgets import add_scale, add_spinbox
+from .ncvwidgets import add_menu, add_scale, add_spinbox
 
 # scatter/line panel
 from .ncvscatter import ncvScatter
