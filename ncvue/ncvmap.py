@@ -210,7 +210,7 @@ class ncvMap(ttk.Frame):
         self.v.bind("<<ComboboxSelected>>", self.selected_v)
         self.v.pack(side=tk.LEFT)
         self.trans_vlbl, self.trans_v = add_checkbutton(
-            self.rowv, label="transpose", value=False, command=self.checked)
+            self.rowv, label="transpose var", value=False, command=self.checked)
         spacev = ttk.Label(self.rowv, text=" "*1)
         spacev.pack(side=tk.LEFT)
         self.vminlbl, self.vmin = add_entry(self.rowv, label="vmin",
@@ -246,6 +246,8 @@ class ncvMap(ttk.Frame):
                                              command=self.selected_lon)
         self.inv_lonlbl, self.inv_lon = add_checkbutton(
             self.rowll, label="invert lon", value=False, command=self.checked)
+        self.shift_lonlbl, self.shift_lon = add_checkbutton(
+            self.rowll, label="shift lon/2", value=False, command=self.checked)
         spacex = ttk.Label(self.rowll, text=" "*3)
         spacex.pack(side=tk.LEFT)
         self.latlbl, self.lat = add_combobox(self.rowll, label="lat",
@@ -528,6 +530,7 @@ class ncvMap(ttk.Frame):
         Resets `x` options and dimensions. Redraws plot.
         """
         self.inv_lon.set(0)
+        self.shift_lon.set(0)
         set_dim_lon(self)
         self.redraw()
 
@@ -701,8 +704,9 @@ class ncvMap(ttk.Frame):
         # rowll
         x = self.lon.get()
         y = self.lat.get()
-        inv_lon = self.inv_lon.get()
-        inv_lat = self.inv_lat.get()
+        inv_lon   = self.inv_lon.get()
+        inv_lat   = self.inv_lat.get()
+        shift_lon = self.shift_lon.get()
         # rowcmap
         cmap     = self.cmap['text']
         rev_cmap = self.rev_cmap.get()
@@ -730,10 +734,8 @@ class ncvMap(ttk.Frame):
             vv = get_slice_miss(self, self.vd, vv)
             if trans_v:
                 vv = vv.T
-            if inv_lon:
-                vv = np.fliplr(vv)
-            if inv_lat:
-                vv = np.flipud(vv)
+            if shift_lon:
+                vv = np.roll(vv, vv.shape[1]//2, axis=1)
         else:
             vlab = ''
         if (y != ''):
@@ -834,6 +836,10 @@ class ncvMap(ttk.Frame):
                 estr += ' dimensions not 1D or 2D:'
                 print(estr, xx.shape, yy.shape)
                 return
+            if inv_lon:
+                self.ixx = np.fliplr(self.ixx)
+            if inv_lat:
+                self.iyy = np.flipud(self.iyy)
             # cartopy.contourf needs cyclic longitude for wrap around
             self.ixxc = np.append(self.ixx, self.ixx[:, -1:] +
                                   self.ixx[:, -1:] - self.ixx[:, -2:-1],
@@ -911,11 +917,12 @@ class ncvMap(ttk.Frame):
         # variable
         v = self.v.get()
         if (v != ''):
-            trans_v = self.trans_v.get()
-            mesh    = self.mesh.get()
-            rep     = self.repeat.get()
+            trans_v   = self.trans_v.get()
+            mesh      = self.mesh.get()
+            rep       = self.repeat.get()
             inv_lon   = self.inv_lon.get()
             inv_lat   = self.inv_lat.get()
+            shift_lon = self.shift_lon.get()
             vz = v.split()[0]
             vv = self.fi.variables[vz]
             # slice
@@ -948,10 +955,8 @@ class ncvMap(ttk.Frame):
             vv = get_slice_miss(self, self.vd, vv)
             if trans_v:
                 vv = vv.T
-            if inv_lon:
-                vv = np.fliplr(vv)
-            if inv_lat:
-                vv = np.flipud(vv)
+            if shift_lon:
+                vv = np.roll(vv, vv.shape[1]//2, axis=1)
             self.ivv = vv
             # set data
             if mesh:
