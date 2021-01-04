@@ -87,6 +87,10 @@ class ncvScatter(ttk.Frame):
         self.tname  = master.tname
         self.tvar   = master.tvar
         self.dtime  = master.dtime
+        self.latvar = master.latvar
+        self.lonvar = master.lonvar
+        self.latdim = master.latdim
+        self.londim = master.londim
         self.maxdim = master.maxdim
         self.cols   = master.cols
 

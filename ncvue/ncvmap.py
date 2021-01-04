@@ -85,6 +85,10 @@ class ncvMap(ttk.Frame):
         self.tname  = master.tname
         self.tvar   = master.tvar
         self.dtime  = master.dtime
+        self.latvar = master.latvar
+        self.lonvar = master.lonvar
+        self.latdim = master.latdim
+        self.londim = master.londim
         self.maxdim = master.maxdim
         self.cols   = master.cols
 
@@ -342,6 +346,17 @@ class ncvMap(ttk.Frame):
                                             text='None', width=4,
                                             command=self.entered_clon)
 
+        # set lat/lon
+        if self.latvar:
+            self.lat.set(self.latvar)
+            self.inv_lat.set(0)
+            set_dim_lat(self)
+        if self.lonvar:
+            self.lon.set(self.lonvar)
+            self.inv_lon.set(0)
+            self.shift_lon.set(0)
+            set_dim_lon(self)
+
         # animation
         rep = self.repeat.get()
         if rep == 'repeat':
@@ -467,6 +482,7 @@ class ncvMap(ttk.Frame):
             self.v.set(cols[idx])
             self.set_unlim(cols[idx])
             self.tstep['to'] = self.nunlim - 1
+            self.set_tstep(0)
             vmin, vmax = self.get_vminmax()
             self.vmin.set(vmin)
             self.vmax.set(vmax)
@@ -515,6 +531,7 @@ class ncvMap(ttk.Frame):
             self.v.set(cols[idx])
             self.set_unlim(cols[idx])
             self.tstep['to'] = self.nunlim - 1
+            self.set_tstep(0)
             vmin, vmax = self.get_vminmax()
             self.vmin.set(vmin)
             self.vmax.set(vmax)
@@ -603,6 +620,7 @@ class ncvMap(ttk.Frame):
         v = self.v.get()
         self.set_unlim(v)
         self.tstep['to'] = self.nunlim - 1
+        self.set_tstep(0)
         vmin, vmax = self.get_vminmax()
         self.vmin.set(vmin)
         self.vmax.set(vmax)
