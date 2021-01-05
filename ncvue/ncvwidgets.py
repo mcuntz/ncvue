@@ -143,7 +143,7 @@ def add_entry(frame, label="", text="", command=None, **kwargs):
         Initial text in the entry area (default: "")
     command : function, optional
         Handler function to be bound to the entry for the events
-        <Return>, '<Key-Return>', and '<FocusOut>' (default: None).
+        <Return>, '<Key-Return>', <KP_Enter>, and '<FocusOut>' (default: None).
     **kwargs : option=value pairs, optional
         All other options will be passed to ttk.Entry
 
@@ -171,6 +171,7 @@ def add_entry(frame, label="", text="", command=None, **kwargs):
     if command is not None:
         entry.bind('<Return>', command)      # return
         entry.bind('<Key-Return>', command)  # return
+        entry.bind('<KP_Enter>', command)    # return of numeric keypad
         entry.bind('<FocusOut>', command)    # tab or click
     entry.pack(side=tk.LEFT)
     return entry_label, entry_text
@@ -330,8 +331,8 @@ def add_spinbox(frame, label="", values=[], command=None, **kwargs):
     values : list of str, optional
         The list of choices on the spinbox (default: [])
     command : function, optional
-        Handler function to be bound to the spinbox for the event
-        <<ComboboxSelected>> (default: None).
+        Handler function bound to
+        <Return>, '<Key-Return>', <KP_Enter>, and '<FocusOut>' (default: None).
     **kwargs : option=value pairs, optional
         All other options will be passed to tk.Spinbox
 
@@ -363,6 +364,7 @@ def add_spinbox(frame, label="", values=[], command=None, **kwargs):
     if command is not None:
         sb.bind('<Return>', command)      # return
         sb.bind('<Key-Return>', command)  # return
+        sb.bind('<KP_Enter>', command)    # return of numeric keypad
         sb.bind('<FocusOut>', command)    # tab or click
     sb.pack(side=tk.LEFT)
     return sb_label, sb_val, sb

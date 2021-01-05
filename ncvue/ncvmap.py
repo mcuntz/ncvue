@@ -140,6 +140,7 @@ class ncvMap(ttk.Frame):
                                       '/images/' + i + '.png')
                         for i in self.cmaps ]
 
+        # only projections with keyword: central_longitude
         self.projs = ['AlbersEqualArea', 'AzimuthalEquidistant', 'EckertI',
                       'EckertII', 'EckertIII', 'EckertIV', 'EckertV',
                       'EckertVI', 'EqualEarth', 'EquidistantConic',
@@ -235,7 +236,8 @@ class ncvMap(ttk.Frame):
         self.v.bind("<<ComboboxSelected>>", self.selected_v)
         self.v.pack(side=tk.LEFT)
         self.trans_vlbl, self.trans_v = add_checkbutton(
-            self.rowv, label="transpose var", value=False, command=self.checked)
+            self.rowv, label="transpose var", value=False,
+            command=self.checked)
         spacev = ttk.Label(self.rowv, text=" "*1)
         spacev.pack(side=tk.LEFT)
         self.vminlbl, self.vmin = add_entry(self.rowv, label="vmin",
@@ -274,7 +276,8 @@ class ncvMap(ttk.Frame):
         self.inv_lonlbl, self.inv_lon = add_checkbutton(
             self.rowlon, label="invert lon", value=False, command=self.checked)
         self.shift_lonlbl, self.shift_lon = add_checkbutton(
-            self.rowlon, label="shift lon/2", value=False, command=self.checked)
+            self.rowlon, label="shift lon/2", value=False,
+            command=self.checked)
         self.rowlond = ttk.Frame(self.blocklon)
         self.rowlond.pack(side=tk.TOP, fill=tk.X)
         self.londlbl = []
@@ -802,7 +805,7 @@ class ncvMap(ttk.Frame):
         cmap     = self.cmap['text']
         rev_cmap = self.rev_cmap.get()
         mesh     = self.mesh.get()
-        iglobal  = self.iglobal.get()
+        self.iiglobal = self.iglobal.get()
         grid     = self.grid.get()
         coast    = self.coast.get()
         proj     = self.proj['text']
@@ -939,7 +942,7 @@ class ncvMap(ttk.Frame):
                 self.ixx = np.fliplr(self.ixx)
             if inv_lat:
                 self.iyy = np.flipud(self.iyy)
-            if iglobal:
+            if self.iiglobal:
                 # cartopy.contourf needs cyclic longitude for wrap around
                 self.ixxc = np.append(self.ixx, self.ixx[:, -1:] +
                                       self.ixx[:, -1:] - self.ixx[:, -2:-1],
@@ -949,7 +952,7 @@ class ncvMap(ttk.Frame):
                 self.ixxc = self.ixx
                 self.iyyc = self.iyy
             self.ivv     = vv
-            self.itransform = ccrs.PlateCarree()
+            self.itrans  = ccrs.PlateCarree()
             self.ivmin   = vmin
             self.ivmax   = vmax
             self.icmap   = cmap
@@ -965,11 +968,11 @@ class ncvMap(ttk.Frame):
                         self.ixx, self.iyy, self.ivv,
                         vmin=self.ivmin, vmax=self.ivmax,
                         cmap=self.icmap, shading='nearest',
-                        transform=self.itransform)
+                        transform=self.itrans)
                     # self.cc = self.axes.imshow(
                     #     vv, vmin=vmin, vmax=vmax, cmap=cmap,
                     #     origin='upper', extent=self.img_extent,
-                    #     transform=self.itransform)
+                    #     transform=self.itrans)
                     self.cb = self.figure.colorbar(self.cc, fraction=0.05,
                                                    shrink=0.75,
                                                    extend=self.iextend)
@@ -983,12 +986,15 @@ class ncvMap(ttk.Frame):
                 try:
                     # if 1-D then len(x)==m (columns) and
                     #     len(y)==n (rows): v(n,m)
-                    self.ivvc = add_cyclic_point(self.ivv)
+                    if self.iiglobal:
+                        self.ivvc = add_cyclic_point(self.ivv)
+                    else:
+                        self.ivvc = self.ivv
                     self.cc = self.axes.contourf(
                         self.ixxc, self.iyyc, self.ivvc,
                         vmin=self.ivmin, vmax=self.ivmax,
                         cmap=self.icmap, extend=self.iextend,
-                        transform=self.itransform)
+                        transform=self.itrans)
                     self.cb = self.figure.colorbar(self.cc, fraction=0.05,
                                                    shrink=0.75)
                     # self.cc, = self.axes.plot(yy, vv[0,:])
@@ -1000,7 +1006,7 @@ class ncvMap(ttk.Frame):
                     return
             self.cb.set_label(vlab)
         # help(self.figure)
-        if iglobal:
+        if self.iiglobal:
             self.axes.set_global()
         if coast:
             self.axes.coastlines()
@@ -1078,21 +1084,24 @@ class ncvMap(ttk.Frame):
                     self.ixx, self.iyy, self.ivv,
                     vmin=self.ivmin, vmax=self.ivmax,
                     cmap=self.icmap, shading='nearest',
-                    transform=self.itransform)
+                    transform=self.itrans)
                 # self.cc.remove()
                 # self.cc = self.axes.imshow(
                 #     vv, vmin=self.ivmin, vmax=self.ivmax, cmap=self.icmap,
                 #     origin='upper', extent=self.img_extent,
-                #     transform=self.itransform)
+                #     transform=self.itrans)
             else:
                 # http://matplotlib.1069221.n5.nabble.com/update-an-existing-contour-plot-with-new-data-td23889.html
                 for coll in self.cc.collections:
                     self.axes.collections.remove(coll)
-                self.ivvc = add_cyclic_point(self.ivv)
+                if self.iiglobal:
+                    self.ivvc = add_cyclic_point(self.ivv)
+                else:
+                    self.ivvc = self.ivv
                 self.cc = self.axes.contourf(
                     self.ixxc, self.iyyc, self.ivvc,
                     vmin=self.ivmin, vmax=self.ivmax,
                     cmap=self.icmap, extend=self.iextend,
-                    transform=self.itransform)
+                    transform=self.itrans)
             self.canvas.draw()
             return self.cc,
