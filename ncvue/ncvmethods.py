@@ -29,6 +29,8 @@ History:
 * Added convenience method get_slice_miss, Dec 2020, Matthias Cuntz
 * set_dim_lon, set_dim_lat, set_dim_var for Map panel,
   Jan 2021, Matthias Cuntz
+* set latdim, londim to all on map var, determined in ncvMain,
+  Jan 2021, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -143,6 +145,8 @@ def get_slice_miss(self, dimspins, x):
 # Set dimensions
 #
 
+# set_dim_lat/lon/var could also be methods of ncvMap.
+# Leave them here for their concordance with set_dim_x/y/z
 
 def set_dim_lat(self):
     """
@@ -264,17 +268,38 @@ def set_dim_var(self):
             vv = self.tvar
         vv = self.fi.variables[vz]
         nall = 0
+        if self.latdim:
+            if self.latdim in vv.dimensions:
+                i = vv.dimensions.index(self.latdim)
+                ww = max(5, int(np.ceil(np.log10(vv.shape[i]))))  # 5~median
+                self.vd[i].config(values=spinbox_values(vv.shape[i]), width=ww,
+                                  state=tk.NORMAL)
+                nall += 1
+                self.vdval[i].set('all')
+                self.vdlbl[i].set(vv.dimensions[i])
+        if self.londim:
+            if self.londim in vv.dimensions:
+                i = vv.dimensions.index(self.londim)
+                ww = max(5, int(np.ceil(np.log10(vv.shape[i]))))  # 5~median
+                self.vd[i].config(values=spinbox_values(vv.shape[i]), width=ww,
+                                  state=tk.NORMAL)
+                nall += 1
+                self.vdval[i].set('all')
+                self.vdlbl[i].set(vv.dimensions[i])
         for i in range(vv.ndim):
             ww = max(5, int(np.ceil(np.log10(vv.shape[i]))))  # 5~median
             self.vd[i].config(values=spinbox_values(vv.shape[i]), width=ww,
                               state=tk.NORMAL)
-            if ((vv.dimensions[i] != self.dunlim) and (nall <= 1) and
-                (vv.shape[i] > 1)):
+            if ((vv.dimensions[i] != self.latdim) and
+                (vv.dimensions[i] != self.londim) and
+                (nall <= 1) and (vv.shape[i] > 1)):
                 nall += 1
                 self.vdval[i].set('all')
-            else:
+                self.vdlbl[i].set(vv.dimensions[i])
+            elif ((vv.dimensions[i] != self.latdim) and
+                  (vv.dimensions[i] != self.londim)):
                 self.vdval[i].set(0)
-            self.vdlbl[i].set(vv.dimensions[i])
+                self.vdlbl[i].set(vv.dimensions[i])
 
 
 def set_dim_x(self):
