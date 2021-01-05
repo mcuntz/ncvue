@@ -327,6 +327,9 @@ class ncvMap(ttk.Frame):
         self.meshlbl, self.mesh = add_checkbutton(
             self.rowcmap, label="mesh", value=False,
             command=self.checked)
+        self.igloballbl, self.iglobal = add_checkbutton(
+            self.rowcmap, label="global", value=False,
+            command=self.checked)
         self.coastlbl, self.coast = add_checkbutton(
             self.rowcmap, label="coast", value=True,
             command=self.checked)
@@ -356,6 +359,18 @@ class ncvMap(ttk.Frame):
             self.inv_lon.set(0)
             self.shift_lon.set(0)
             set_dim_lon(self)
+
+        # set global
+        x = self.lon.get()
+        if (x != ''):
+            vx = x.split()[0]
+            xx = self.fi.variables[vx]
+            xx = get_slice_miss(self, self.lond, xx)
+            xx = (xx + 360.) % 360.
+            if (xx.max() - xx.min()) > 150.:
+                self.iglobal.set(1)
+            else:
+                self.iglobal.set(0)
 
         # animation
         rep = self.repeat.get()
@@ -787,6 +802,7 @@ class ncvMap(ttk.Frame):
         cmap     = self.cmap['text']
         rev_cmap = self.rev_cmap.get()
         mesh     = self.mesh.get()
+        iglobal  = self.iglobal.get()
         grid     = self.grid.get()
         coast    = self.coast.get()
         proj     = self.proj['text']
@@ -923,11 +939,15 @@ class ncvMap(ttk.Frame):
                 self.ixx = np.fliplr(self.ixx)
             if inv_lat:
                 self.iyy = np.flipud(self.iyy)
-            # cartopy.contourf needs cyclic longitude for wrap around
-            self.ixxc = np.append(self.ixx, self.ixx[:, -1:] +
-                                  self.ixx[:, -1:] - self.ixx[:, -2:-1],
-                                  axis=1)
-            self.iyyc = np.append(self.iyy, self.iyy[:, -1:], axis=1)
+            if iglobal:
+                # cartopy.contourf needs cyclic longitude for wrap around
+                self.ixxc = np.append(self.ixx, self.ixx[:, -1:] +
+                                      self.ixx[:, -1:] - self.ixx[:, -2:-1],
+                                      axis=1)
+                self.iyyc = np.append(self.iyy, self.iyy[:, -1:], axis=1)
+            else:
+                self.ixxc = self.ixx
+                self.iyyc = self.iyy
             self.ivv     = vv
             self.itransform = ccrs.PlateCarree()
             self.ivmin   = vmin
@@ -980,6 +1000,8 @@ class ncvMap(ttk.Frame):
                     return
             self.cb.set_label(vlab)
         # help(self.figure)
+        if iglobal:
+            self.axes.set_global()
         if coast:
             self.axes.coastlines()
             self.axes.gridlines(draw_labels=True, linewidth=0,
