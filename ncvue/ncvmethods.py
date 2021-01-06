@@ -265,7 +265,7 @@ def set_dim_var(self):
         # set real dimensions
         vz = v.split()[0]
         if vz == self.tname:
-            vv = self.tvar
+            vz = self.tvar
         vv = self.fi.variables[vz]
         nall = 0
         if self.latdim:

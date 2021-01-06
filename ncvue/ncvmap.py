@@ -694,6 +694,8 @@ class ncvMap(ttk.Frame):
         v = self.v.get()
         if (v != ''):
             vz = v.split()[0]
+            if vz == self.tname:
+                return (0, 1)
             vv = self.fi.variables[vz]
             miss = get_miss(self, vv)
             all  = self.vall.get()
@@ -869,8 +871,11 @@ class ncvMap(ttk.Frame):
             # set central longitude of projection
             # round it to get 0 or 180 even if mid points are is on 0,
             # for example
-            dxx = np.diff(xx).mean()
-            self.ixxmean = np.around(xx.mean()/dxx, 0) * dxx
+            if xx.size > 1:
+                dxx = np.diff(xx).mean()
+                self.ixxmean = np.around(xx.mean()/dxx, 0) * dxx
+            else:
+                self.ixxmean = xx.mean()
         else:
             xlab = ''
             self.ixxmean = 0.
@@ -1039,6 +1044,8 @@ class ncvMap(ttk.Frame):
             inv_lat   = self.inv_lat.get()
             shift_lon = self.shift_lon.get()
             vz = v.split()[0]
+            if vz == self.tname:
+                vz = self.tvar
             vv = self.fi.variables[vz]
             # slice
             try:
@@ -1068,6 +1075,10 @@ class ncvMap(ttk.Frame):
                 it = 0
             self.set_tstep(it)
             vv = get_slice_miss(self, self.vd, vv)
+            if vv.ndim < 2:
+                self.anim.event_source.stop()
+                self.anim_running = False
+                return
             if trans_v:
                 vv = vv.T
             if shift_lon:
