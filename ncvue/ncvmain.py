@@ -144,6 +144,15 @@ class ncvMain(ttk.Frame):
                     tunit = self.fi.variables[self.tvar].units
                 except AttributeError:
                     tunit = ''
+                # assure 01, etc. if values < 10
+                if tunit.find('since') > 0:
+                    tt = tunit.split()
+                    dd = tt[2].split('-')
+                    dd[0] = ('000'+dd[0])[-4:]
+                    dd[1] = ('0'+dd[1])[-2:]
+                    dd[2] = ('0'+dd[1])[-2:]
+                    tt[2] = '-'.join(dd)
+                    tunit = ' '.join(tt)
                 try:
                     tcal = self.fi.variables[self.tvar].calendar
                 except AttributeError:
