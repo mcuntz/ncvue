@@ -40,8 +40,8 @@ from .ncvmethods import get_slice_miss, get_miss
 from .ncvmethods import set_dim_lon, set_dim_lat, set_dim_var
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry, add_imagemenu
 from .ncvwidgets import add_menu, add_scale, add_spinbox
-import matplotlib
-matplotlib.use('TkAgg')
+import matplotlib as mpl
+mpl.use('TkAgg')
 from matplotlib import pyplot as plt
 plt.style.use('seaborn-darkgrid')
 import cartopy.crs as ccrs
@@ -956,6 +956,8 @@ class ncvMap(ttk.Frame):
             self.ivmin   = vmin
             self.ivmax   = vmax
             self.icmap   = cmap
+            self.ncmap   = mpl.cm.get_cmap(self.icmap).N
+            self.ncmap   = self.ncmap if self.ncmap < 256 else 15
             self.iextend = extend
             # self.img_extent = (xx.min(), xx.max(), yy.min(), yy.max())
             if mesh:
@@ -991,7 +993,7 @@ class ncvMap(ttk.Frame):
                     else:
                         self.ivvc = self.ivv
                     self.cc = self.axes.contourf(
-                        self.ixxc, self.iyyc, self.ivvc,
+                        self.ixxc, self.iyyc, self.ivvc, self.ncmap,
                         vmin=self.ivmin, vmax=self.ivmax,
                         cmap=self.icmap, extend=self.iextend,
                         transform=self.itrans)
@@ -1099,7 +1101,7 @@ class ncvMap(ttk.Frame):
                 else:
                     self.ivvc = self.ivv
                 self.cc = self.axes.contourf(
-                    self.ixxc, self.iyyc, self.ivvc,
+                    self.ixxc, self.iyyc, self.ivvc, self.ncmap,
                     vmin=self.ivmin, vmax=self.ivmax,
                     cmap=self.icmap, extend=self.iextend,
                     transform=self.itrans)
