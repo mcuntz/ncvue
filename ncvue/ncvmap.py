@@ -35,7 +35,8 @@ except Exception:
     sys.exit()
 import os
 import numpy as np
-from .ncvutils   import add_cyclic_point, clone_ncvmain, set_axis_label, set_miss
+from .ncvutils   import add_cyclic_point, clone_ncvmain, set_axis_label
+from .ncvutils   import set_miss
 from .ncvmethods import get_slice_miss, get_miss
 from .ncvmethods import set_dim_lon, set_dim_lat, set_dim_var
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry, add_imagemenu
@@ -327,7 +328,7 @@ class ncvMap(ttk.Frame):
             self.rowcmap, label="inverse cmap", value=False,
             command=self.checked)
         self.meshlbl, self.mesh = add_checkbutton(
-            self.rowcmap, label="mesh", value=False,
+            self.rowcmap, label="mesh", value=True,
             command=self.checked)
         self.igloballbl, self.iglobal = add_checkbutton(
             self.rowcmap, label="global", value=False,
@@ -697,8 +698,8 @@ class ncvMap(ttk.Frame):
                 return (0, 1)
             vv = self.fi.variables[vz]
             miss = get_miss(self, vv)
-            all  = self.vall.get()
-            if all or (np.sum(vv.shape[:-2]) < 100):
+            iall = self.vall.get()
+            if iall or (np.sum(vv.shape[:-2]) < 50):
                 vv   = set_miss(miss, vv)
                 vmin = np.nanmin(vv)
                 vmax = np.nanmax(vv)
@@ -706,7 +707,7 @@ class ncvMap(ttk.Frame):
                 rng = default_rng()
                 vmin = np.inf
                 vmax = -np.inf
-                for nn in range(100):
+                for nn in range(50):
                     ss = []
                     for i in range(vv.ndim):
                         if i < vv.ndim-2:
@@ -868,13 +869,13 @@ class ncvMap(ttk.Frame):
                 xlab = set_axis_label(xx)
             xx = get_slice_miss(self, self.lond, xx)
             # set central longitude of projection
-            # round it to get 0 or 180 even if mid points are is on 0,
-            # for example
+            # round it to next 10 degrees to get 0 or 180
+            # even if mid points are on 0, for example
+            xx360 = (xx + 360.) % 360.
             if xx.size > 1:
-                dxx = np.diff(xx).mean()
-                self.ixxmean = np.around(xx.mean()/dxx, 0) * dxx
+                self.ixxmean = np.around(xx360.mean()/10., 0) * 10.
             else:
-                self.ixxmean = xx.mean()
+                self.ixxmean = xx360.mean()
         else:
             xlab = ''
             self.ixxmean = 0.

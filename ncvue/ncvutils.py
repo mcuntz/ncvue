@@ -202,11 +202,14 @@ def add_cyclic_point(data, coord=None, rowcoord=None, axis=-1):
                     len(coord), axis, data.shape[axis])
                 raise ValueError(estr)
             # check if cyclic point already present
-            # atol=1e-6 because coordinates often float32
+            # atol=1e-5 because coordinates often float32
             # and np.sin(np.deg2rad(np.float32(360.))) == 1.7484555e-07
+            # add a bit of tolerance, e.g. cyclic points from rotated grid
+            # I have seen differences of > 1e-5 in this case. Test is on
+            # sine so that atol=1e-5 seems sufficient because 180/pi ~ 57.
             if np.ma.allclose(np.ma.sin(np.deg2rad(coord[0])),
                               np.ma.sin(np.deg2rad(coord[-1])),
-                              atol=1.0e-6):
+                              atol=1.0e-5):
                 if rowcoord is None:
                     return data, coord
                 else:
@@ -234,11 +237,10 @@ def add_cyclic_point(data, coord=None, rowcoord=None, axis=-1):
                         coord.shape, rowcoord.shape)
                     raise ValueError(estr)
             # check if cyclic point already present
-            # atol=1e-6 because
-            # np.sin(np.deg2rad(np.float32(360.))) == 1.7484555e-07
+            # atol=1e-5 see comment above
             if np.ma.allclose(np.ma.sin(np.deg2rad(coord[:, 0])),
                               np.ma.sin(np.deg2rad(coord[:, -1])),
-                              atol=1.0e-6):
+                              atol=1.0e-5):
                 if rowcoord is None:
                     return data, coord
                 else:
