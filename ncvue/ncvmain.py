@@ -127,14 +127,19 @@ class ncvMain(ttk.Frame):
                 self.dunlim = dd
                 break
         #
-        # search for time variable
+        # search for time variable and make datetime variable
         self.time  = None
         self.tname = ''
         self.tvar  = ''
         self.dtime = None
         for vv in self.fi.variables:
-            if ((vv.lower() == 'time') or (vv.lower() == 'datetime') or
-                (vv.lower() == 'date')):
+            isunlim = False
+            if self.dunlim:
+                if vv.lower() == self.fi.dimensions[self.dunlim].name.lower():
+                    isunlim = True
+            if ( isunlim or vv.lower().startswith('time_') or
+                 (vv.lower() == 'time') or (vv.lower() == 'datetime') or
+                 (vv.lower() == 'date') ):
                 self.tvar = vv
                 if vv.lower() == 'datetime':
                     self.tname = 'date'
@@ -157,12 +162,12 @@ class ncvMain(ttk.Frame):
                     tcal = self.fi.variables[self.tvar].calendar
                 except AttributeError:
                     tcal = 'standard'
-                self.time = self.fi.variables[self.tvar][:]
+                time = self.fi.variables[self.tvar][:]
                 # time dimension "day as %Y%m%d.%f" from cdo.
                 if ' as ' in tunit:
                     itunit = tunit.split()[2]
                     dtime = []
-                    for tt in self.time:
+                    for tt in time:
                         stt = str(tt).split('.')
                         sstt = ('00'+stt[0])[-8:] + '.' + stt[1]
                         dtime.append(dt.datetime.strptime(sstt, itunit))
@@ -172,7 +177,7 @@ class ncvMain(ttk.Frame):
                                              'days since 0001-01-01 00:00:00')
                 else:
                     try:
-                        self.dtime = cf.num2date(self.time, tunit,
+                        self.dtime = cf.num2date(time, tunit,
                                                  calendar=tcal)
                     except ValueError:
                         self.dtime = None
@@ -200,17 +205,28 @@ class ncvMain(ttk.Frame):
                          t.minute / 1440 + t.second / 86400.) / ndays[i]
                         for i, t in enumerate(self.dtime) ])
                 # make datetime variable
-                try:
-                    self.time = cf.num2date(
-                        self.time, tunit, calendar=tcal,
-                        only_use_cftime_datetimes=False,
-                        only_use_python_datetimes=True)
-                except TypeError:
-                    self.time = cf.num2date(self.time, tunit,
-                                            calendar=tcal)
-                except ValueError:
+                if self.time is None:
+                    try:
+                        self.time = cf.num2date(
+                            time, tunit, calendar=tcal,
+                            only_use_cftime_datetimes=False,
+                            only_use_python_datetimes=True)
+                    except:
+                        self.time = None
+                if self.time is None:
+                    try:
+                        self.time = cf.num2date(time, tunit,
+                                                calendar=tcal)
+                    except:
+                        self.time = None
+                if self.time is None:
                     # if not possible use decimal year
                     self.time = self.dtime
+                if self.time is None:
+                    # could not interpret time at all,
+                    # e.g. if units = "months since ..."
+                    self.time  = time
+                    self.dtime = time
                 break
         #
         # construct list of variable names with dimensions

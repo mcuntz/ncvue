@@ -35,7 +35,7 @@ except Exception:
     sys.exit()
 import os
 import numpy as np
-from .ncvutils   import clone_ncvmain, set_axis_label, set_miss
+from .ncvutils   import add_cyclic_point, clone_ncvmain, set_axis_label, set_miss
 from .ncvmethods import get_slice_miss, get_miss
 from .ncvmethods import set_dim_lon, set_dim_lat, set_dim_var
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry, add_imagemenu
@@ -45,7 +45,6 @@ mpl.use('TkAgg')
 from matplotlib import pyplot as plt
 plt.style.use('seaborn-darkgrid')
 import cartopy.crs as ccrs
-from cartopy.util import add_cyclic_point
 
 
 __all__ = ['ncvMap']
@@ -947,16 +946,15 @@ class ncvMap(ttk.Frame):
                 self.ixx = np.fliplr(self.ixx)
             if inv_lat:
                 self.iyy = np.flipud(self.iyy)
+            self.ivv = vv
             if self.iiglobal:
                 # cartopy.contourf needs cyclic longitude for wrap around
-                self.ixxc = np.append(self.ixx, self.ixx[:, -1:] +
-                                      self.ixx[:, -1:] - self.ixx[:, -2:-1],
-                                      axis=1)
-                self.iyyc = np.append(self.iyy, self.iyy[:, -1:], axis=1)
+                self.ivvc, self.ixxc, self.iyyc = add_cyclic_point(
+                    self.ivv, coord=self.ixx, rowcoord=self.iyy)
             else:
+                self.ivvc = self.ivv
                 self.ixxc = self.ixx
                 self.iyyc = self.iyy
-            self.ivv     = vv
             self.itrans  = ccrs.PlateCarree()
             self.ivmin   = vmin
             self.ivmax   = vmax
@@ -993,10 +991,6 @@ class ncvMap(ttk.Frame):
                 try:
                     # if 1-D then len(x)==m (columns) and
                     #     len(y)==n (rows): v(n,m)
-                    if self.iiglobal:
-                        self.ivvc = add_cyclic_point(self.ivv)
-                    else:
-                        self.ivvc = self.ivv
                     self.cc = self.axes.contourf(
                         self.ixxc, self.iyyc, self.ivvc, self.ncmap,
                         vmin=self.ivmin, vmax=self.ivmax,
