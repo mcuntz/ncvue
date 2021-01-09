@@ -35,7 +35,7 @@ except Exception:
     print('Try to use mcview.py, which uses wxpython instead.')
     sys.exit()
 import numpy as np
-from .ncvutils   import clone_ncvmain, set_axis_label
+from .ncvutils   import clone_ncvmain, set_axis_label, vardim2var
 from .ncvmethods import get_slice_miss
 from .ncvmethods import set_dim_x, set_dim_y, set_dim_y2
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry
@@ -517,7 +517,7 @@ class ncvScatter(ttk.Frame):
                      'markerfacecolor': mec,
                      'markeredgecolor': mfc,
                      'markeredgewidth': mew}
-            vy = y.split('[(')[0].rstrip()
+            vy = vardim2var(y)
             if vy == self.tname:
                 ylab = 'Date'
                 pargs['color'] = c
@@ -606,7 +606,7 @@ class ncvScatter(ttk.Frame):
                      'markerfacecolor': mec,
                      'markeredgecolor': mfc,
                      'markeredgewidth': mew}
-            vy = y2.split('[(')[0].rstrip()
+            vy = vardim2var(y2)
             if vy == self.tname:
                 ylab = 'Date'
                 pargs['color'] = c
@@ -691,7 +691,7 @@ class ncvScatter(ttk.Frame):
         if (y != '') or (y2 != ''):
             # y axis
             if y != '':
-                vy = y.split('[(')[0].rstrip()
+                vy = vardim2var(y)
                 if vy == self.tname:
                     yy   = self.time
                     ylab = 'Date'
@@ -701,7 +701,7 @@ class ncvScatter(ttk.Frame):
                 yy = get_slice_miss(self, self.yd, yy)
             # y2 axis
             if y2 != '':
-                vy2 = y2.split('[(')[0].rstrip()
+                vy2 = vardim2var(y2)
                 if vy2 == self.tname:
                     yy2   = self.time
                     ylab2 = 'Date'
@@ -711,7 +711,7 @@ class ncvScatter(ttk.Frame):
                 yy2 = get_slice_miss(self, self.y2d, yy2)
             if (x != ''):
                 # x axis
-                vx = x.split('[(')[0].rstrip()
+                vx = vardim2var(x)
                 if vx == self.tname:
                     xx   = self.time
                     xlab = 'Date'

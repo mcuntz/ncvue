@@ -53,7 +53,7 @@ The following methods are provided:
 from __future__ import absolute_import, division, print_function
 import tkinter as tk
 import numpy as np
-from .ncvutils import get_slice, set_miss, spinbox_values
+from .ncvutils import get_slice, set_miss, spinbox_values, vardim2var
 import netCDF4 as nc
 # nc.default_fillvals but with keys as variables['var'].dtype
 nctypes = [ np.dtype(i) for i in nc.default_fillvals ]
@@ -186,7 +186,7 @@ def set_dim_lat(self):
     lat = self.lat.get()
     if lat != '':
         # set real dimensions
-        vl = lat.split('[(')[0].rstrip()
+        vl = vardim2var(lat)
         if vl == self.tname:
             vl = self.tvar
         ll = self.fi.variables[vl]
@@ -228,7 +228,7 @@ def set_dim_lon(self):
     lon = self.lon.get()
     if lon != '':
         # set real dimensions
-        vl = lon.split('[(')[0].rstrip()
+        vl = vardim2var(lon)
         if vl == self.tname:
             vl = self.tvar
         ll = self.fi.variables[vl]
@@ -274,7 +274,7 @@ def set_dim_var(self):
     v = self.v.get()
     if v != '':
         # set real dimensions
-        vz = v.split('[(')[0].rstrip()
+        vz = vardim2var(v)
         if vz == self.tname:
             vz = self.tvar
         vv = self.fi.variables[vz]
@@ -344,7 +344,7 @@ def set_dim_x(self):
     x = self.x.get()
     if x != '':
         # set real dimensions
-        vx = x.split('[(')[0].rstrip()
+        vx = vardim2var(x)
         if vx == self.tname:
             vx = self.tvar
         xx = self.fi.variables[vx]
@@ -401,7 +401,7 @@ def set_dim_y(self):
     y = self.y.get()
     if y != '':
         # set real dimensions
-        vy = y.split('[(')[0].rstrip()
+        vy = vardim2var(y)
         if vy == self.tname:
             vy = self.tvar
         yy = self.fi.variables[vy]
@@ -458,7 +458,7 @@ def set_dim_y2(self):
     y2 = self.y2.get()
     if y2 != '':
         # set real dimensions
-        vy2 = y2.split('[(')[0].rstrip()
+        vy2 = vardim2var(y2)
         if vy2 == self.tname:
             vy2 = self.tvar
         yy2 = self.fi.variables[vy2]
@@ -516,7 +516,7 @@ def set_dim_z(self):
     z = self.z.get()
     if z != '':
         # set real dimensions
-        vz = z.split('[(')[0].rstrip()
+        vz = vardim2var(z)
         if vz == self.tname:
             vz = self.tvar
         zz = self.fi.variables[vz]

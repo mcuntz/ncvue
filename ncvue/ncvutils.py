@@ -27,6 +27,7 @@ History:
 The following functions are provided:
 
 .. autosummary::
+   SEPCHAR
    add_cyclic_point
    clone_ncvmain
    get_slice
@@ -34,6 +35,7 @@ The following functions are provided:
    set_axis_label
    set_miss
    spinbox_values
+   vardim2var
    zip_dim_name_length
 """
 from __future__ import absolute_import, division, print_function
@@ -41,9 +43,18 @@ import tkinter as tk
 import numpy as np
 
 
-__all__ = ['add_cyclic_point', 'clone_ncvmain', 'get_slice',
+__all__ = ['SEPCHAR',
+           'add_cyclic_point', 'clone_ncvmain', 'get_slice',
            'list_intersection', 'set_axis_label', 'set_miss',
-           'spinbox_values', 'zip_dim_name_length']
+           'spinbox_values', 'vardim2var', 'zip_dim_name_length']
+
+
+"""
+Invisible character to split springs.
+
+ASCII character 6 = ACKNOWLEDGE (ACK)
+"""
+SEPCHAR = chr(6)
 
 
 def add_cyclic_point(data, coord=None, rowcoord=None, axis=-1):
@@ -328,7 +339,7 @@ def get_slice(dimspins, y):
 
     Examples
     --------
-    >>> vy = y.split('[(')[0].rstrip()
+    >>> vy = vardim2var(y)
     >>> yy = self.fi.variables[vy]
     >>> miss = get_miss(self, yy)
     >>> yy = get_slice_y(self.yd, yy).squeeze()
@@ -498,6 +509,28 @@ def spinbox_values(ndim):
         return (('all',) + tuple(range(ndim)) + methods)
     else:
         return (0,)
+
+
+def vardim2var(vardim):
+    """
+    Extract variable name from 'variable (dim1=ndim1,)' string.
+
+    Parameters
+    ----------
+    vardim : string
+        Variable name with dimensions, such as 'latitude (lat=32,lon=64)'.
+
+    Returns
+    -------
+    string
+        Variable name.
+
+    Examples
+    --------
+    >>> vardim2var('latitude (lat=32,lon=64)')
+    latitude
+    """
+    return vardim.split(SEPCHAR)[0].rstrip()
 
 
 def zip_dim_name_length(ncvar):

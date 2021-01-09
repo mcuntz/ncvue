@@ -35,11 +35,11 @@ except Exception:
     print('Try to use mcview.py, which uses wxpython instead.')
     sys.exit()
 import numpy as np
-from .ncvutils   import zip_dim_name_length
+import curses.ascii as ca
+from .ncvutils   import SEPCHAR, vardim2var, zip_dim_name_length
 from .ncvscatter import ncvScatter
 from .ncvcontour import ncvContour
 from .ncvmap     import ncvMap
-
 
 __all__ = ['ncvMain']
 
@@ -97,11 +97,11 @@ class ncvMain(ttk.Frame):
 
         mapfirst = False
         if self.latvar:
-            vl = self.latvar.split('[(')[0].rstrip()
+            vl = vardim2var(self.latvar)
             if np.prod(self.fi.variables[vl].shape) > 1:
                 mapfirst = True
         if self.lonvar:
-            vl = self.lonvar.split('[(')[0].rstrip()
+            vl = vardim2var(self.lonvar)
             if np.prod(self.fi.variables[vl].shape) > 1:
                 mapfirst = True
 
@@ -242,9 +242,8 @@ class ncvMain(ttk.Frame):
         # construct list of variable names with dimensions
         if self.time is not None:
             addt = [
-                self.tname + ' [' +
-                str(tuple(zip_dim_name_length(self.fi.variables[self.tvar]))) +
-                ']' ]
+                self.tname + ' ' + SEPCHAR +
+                str(tuple(zip_dim_name_length(self.fi.variables[self.tvar])))]
             self.cols += addt
         ivars = []
         for vv in self.fi.variables:
@@ -252,7 +251,7 @@ class ncvMain(ttk.Frame):
             ss = tuple(zip_dim_name_length(self.fi.variables[vv]))
             self.maxdim = max(self.maxdim, len(ss))
             ivars.append((vv, ss, len(ss)))
-        self.cols += sorted([ vv[0] + ' [' + str(vv[1]) + ']'
+        self.cols += sorted([ vv[0] + ' ' + SEPCHAR + str(vv[1])
                               for vv in ivars ])
         #
         # search for lat/lon variables
@@ -457,7 +456,7 @@ class ncvMain(ttk.Frame):
         # add units to lat/lon name
         if self.latvar:
             idim = tuple(zip_dim_name_length(self.fi.variables[self.latvar]))
-            self.latvar = self.latvar + ' [' + str(idim) + ']'
+            self.latvar = self.latvar + ' ' + SEPCHAR + str(idim)
         if self.lonvar:
             idim = tuple(zip_dim_name_length(self.fi.variables[self.lonvar]))
-            self.lonvar = self.lonvar + ' [' + str(idim) + ']'
+            self.lonvar = self.lonvar + ' ' + SEPCHAR + str(idim)

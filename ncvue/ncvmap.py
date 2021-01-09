@@ -36,7 +36,7 @@ except Exception:
 import os
 import numpy as np
 from .ncvutils   import add_cyclic_point, clone_ncvmain, set_axis_label
-from .ncvutils   import set_miss
+from .ncvutils   import set_miss, vardim2var
 from .ncvmethods import get_slice_miss, get_miss
 from .ncvmethods import set_dim_lon, set_dim_lat, set_dim_var
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry, add_imagemenu
@@ -237,7 +237,8 @@ class ncvMap(ttk.Frame):
         self.v.pack(side=tk.LEFT)
         self.trans_vlbl, self.trans_v = add_checkbutton(
             self.rowv, label="transpose var", value=False,
-            command=self.checked)
+            command=self.checked,
+            tooltip="Transpose array, i.e. exchanging lat and lon.")
         spacev = ttk.Label(self.rowv, text=" "*1)
         spacev.pack(side=tk.LEFT)
         self.vminlbl, self.vmin = add_entry(self.rowv, label="vmin",
@@ -366,7 +367,7 @@ class ncvMap(ttk.Frame):
         # set global
         x = self.lon.get()
         if (x != ''):
-            vx = x.split('[(')[0].rstrip()
+            vx = vardim2var(x)
             xx = self.fi.variables[vx]
             xx = get_slice_miss(self, self.lond, xx)
             xx = (xx + 360.) % 360.
@@ -693,7 +694,7 @@ class ncvMap(ttk.Frame):
         from numpy.random import default_rng
         v = self.v.get()
         if (v != ''):
-            vz = v.split('[(')[0].rstrip()
+            vz = vardim2var(v)
             if vz == self.tname:
                 return (0, 1)
             vv = self.fi.variables[vz]
@@ -747,7 +748,7 @@ class ncvMap(ttk.Frame):
         Set index and length of unlimited dimension of variable `v`.
 
         `v` (str) is the variable name as in the selection comboboxes, i.e.
-        `var = self.fi.variables[v.split('[(')[0].rstrip()]`.
+        `var = vardim2var(self.fi.variables[v)]`.
 
         Sets `self.nunlim` to the length of the unlimited dimension and
         `self.iunlim` to the index in variable.dimensions if
@@ -756,7 +757,7 @@ class ncvMap(ttk.Frame):
         Takes `self.iunlim=0` and `self.nunlim=variable.shape[0]` if
         self.dunlim == ''` or `self.dunlim` not in var.dimensions.
         """
-        vz = v.split('[(')[0].rstrip()
+        vz = vardim2var(v)
         if vz == self.tname:
             self.iunlim = 0
             self.nunlim = self.time.size
@@ -825,7 +826,7 @@ class ncvMap(ttk.Frame):
         vz = 'None'
         if (v != ''):
             # variable
-            vz = v.split('[(')[0].rstrip()
+            vz = vardim2var(v)
             if vz == self.tname:
                 # should throw an error later
                 if mesh:
@@ -846,7 +847,7 @@ class ncvMap(ttk.Frame):
             vlab = ''
         if (y != ''):
             # y axis
-            vy = y.split('[(')[0].rstrip()
+            vy = vardim2var(y)
             if vy == self.tname:
                 if mesh:
                     yy = self.dtime
@@ -862,7 +863,7 @@ class ncvMap(ttk.Frame):
             ylab = ''
         if (x != ''):
             # x axis
-            vx = x.split('[(')[0].rstrip()
+            vx = vardim2var(x)
             if vx == self.tname:
                 if mesh:
                     xx = self.dtime
@@ -1055,7 +1056,7 @@ class ncvMap(ttk.Frame):
             inv_lon   = self.inv_lon.get()
             inv_lat   = self.inv_lat.get()
             shift_lon = self.shift_lon.get()
-            vz = v.split('[(')[0].rstrip()
+            vz = vardim2var(v)
             if vz == self.tname:
                 vz = self.tvar
             vv = self.fi.variables[vz]

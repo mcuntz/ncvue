@@ -38,13 +38,37 @@ except Exception:
     print('Using the themed widget set introduced in Tk 8.5.')
     print('Try to use mcview.py, which uses wxpython instead.')
     sys.exit()
+from idlelib.tooltip import Hovertip
+# from idlelib.tooltip import OnHoverTooltipBase
 
 
 __all__ = ['add_checkbutton', 'add_combobox', 'add_entry',
            'add_imagemenu', 'add_menu', 'add_scale', 'add_spinbox']
 
 
-def add_checkbutton(frame, label="", value=False, command=None, **kwargs):
+# class Hovertip(OnHoverTooltipBase):
+#     "A tooltip that pops up when a mouse hovers over an anchor widget."
+#     def __init__(self, anchor_widget, text, hover_delay=1000):
+#         """Create a text tooltip with a mouse hover delay.
+#         anchor_widget: the widget next to which the tooltip will be shown
+#         hover_delay: time to delay before showing the tooltip, in milliseconds
+#         Note that a widget will only be shown when showtip() is called,
+#         e.g. after hovering over the anchor widget with the mouse for enough
+#         time.
+#         """
+#         super(Hovertip, self).__init__(anchor_widget, hover_delay=hover_delay)
+#         self.text = text
+
+#     def showcontents(self):
+#         # background = button colour of macOS dark mode: #717173
+#         label = tk.Label(self.tipwindow, text=self.text, justify=tk.LEFT,
+#                          background="#717173", relief=tk.FLAT, borderwidth=0,
+#                          padx=3, pady=1)
+#         label.pack()
+
+
+def add_checkbutton(frame, label="", value=False, command=None,
+                    tooltip="", **kwargs):
     """
     Add a left-aligned ttk.Checkbutton.
 
@@ -59,6 +83,9 @@ def add_checkbutton(frame, label="", value=False, command=None, **kwargs):
     command : function, optional
         Function to be called whenever the state of the
         checkbutton changes (default: None).
+    tooltip : str, optional
+        Tooltip appearing after one second when hovering over buttons
+        the checkbutton (default: "" = no tooltip)
     **kwargs : option=value pairs, optional
         All other options will be passed to ttk.Checkbutton
 
@@ -81,6 +108,8 @@ def add_checkbutton(frame, label="", value=False, command=None, **kwargs):
     cb = ttk.Checkbutton(frame, variable=bvar, textvariable=check_label,
                          command=command, **kwargs)
     cb.pack(side=tk.LEFT, padx=3)
+    if tooltip:
+        cbtip = Hovertip(cb, tooltip)
     return check_label, bvar
 
 

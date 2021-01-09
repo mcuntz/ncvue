@@ -16,9 +16,10 @@ from .version import __version__, __author__
 
 # helper functions
 # general helper function
+from .ncvutils   import SEPCHAR
 from .ncvutils   import add_cyclic_point, clone_ncvmain, get_slice
 from .ncvutils   import list_intersection, set_axis_label, set_miss
-from .ncvutils   import spinbox_values, zip_dim_name_length
+from .ncvutils   import spinbox_values, vardim2var, zip_dim_name_length
 
 # common methods of all panels
 from .ncvmethods import get_miss, get_slice_miss

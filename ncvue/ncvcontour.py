@@ -34,7 +34,7 @@ except Exception:
     sys.exit()
 import os
 import numpy as np
-from .ncvutils   import clone_ncvmain, set_axis_label
+from .ncvutils   import clone_ncvmain, set_axis_label, vardim2var
 from .ncvmethods import get_slice_miss
 from .ncvmethods import set_dim_x, set_dim_y, set_dim_z
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry, add_imagemenu
@@ -443,7 +443,7 @@ class ncvContour(ttk.Frame):
         vz = 'None'
         if (z != ''):
             # z axis
-            vz = z.split('[(')[0].rstrip()
+            vz = vardim2var(z)
             if vz == self.tname:
                 # should throw an error later
                 if mesh:
@@ -462,7 +462,7 @@ class ncvContour(ttk.Frame):
                 zz = zz.T
         if (y != ''):
             # y axis
-            vy = y.split('[(')[0].rstrip()
+            vy = vardim2var(y)
             if vy == self.tname:
                 if mesh:
                     yy = self.dtime
@@ -476,7 +476,7 @@ class ncvContour(ttk.Frame):
             yy = get_slice_miss(self, self.yd, yy)
         if (x != ''):
             # x axis
-            vx = x.split('[(')[0].rstrip()
+            vx = vardim2var(x)
             if vx == self.tname:
                 if mesh:
                     xx = self.dtime

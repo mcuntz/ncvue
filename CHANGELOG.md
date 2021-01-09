@@ -3,6 +3,17 @@
 All notable changes after its initial development up to November 2020 (v1.0)
 are documented in this file.
 
+### v2.1 (Jan 2021)
+    - Variable names are now separated by SEPCHAR=chr(6) because netcdf
+      variable names can have spaces, parentheses, brackets, etc.
+    - Map panel is only chosen first if either lon or lat have more than one
+      grid cell.
+    - Central longitude is now calculated in 0-360 range but set in -180 to 180
+      range. Seems to be more stable for grids that are missing for example the
+      southern hemisphere.
+    - Catch a few errors if variable is for example a simple string (e.g.
+      vegetation type, basin name or similar).
+
 ### v2.0 (Jan 2021)
     - Added Map panel.
     - Assure 2-digit month and day and 4 digit year in time unit.
