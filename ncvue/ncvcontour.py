@@ -443,7 +443,7 @@ class ncvContour(ttk.Frame):
         vz = 'None'
         if (z != ''):
             # z axis
-            vz = z.split()[0]
+            vz = z.split('[(')[0].rstrip()
             if vz == self.tname:
                 # should throw an error later
                 if mesh:
@@ -462,7 +462,7 @@ class ncvContour(ttk.Frame):
                 zz = zz.T
         if (y != ''):
             # y axis
-            vy = y.split()[0]
+            vy = y.split('[(')[0].rstrip()
             if vy == self.tname:
                 if mesh:
                     yy = self.dtime
@@ -476,7 +476,7 @@ class ncvContour(ttk.Frame):
             yy = get_slice_miss(self, self.yd, yy)
         if (x != ''):
             # x axis
-            vx = x.split()[0]
+            vx = x.split('[(')[0].rstrip()
             if vx == self.tname:
                 if mesh:
                     xx = self.dtime

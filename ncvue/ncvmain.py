@@ -95,11 +95,21 @@ class ncvMain(ttk.Frame):
         self.tab_contour = ncvContour(self)
         self.tab_map     = ncvMap(self)
 
+        mapfirst = False
         if self.latvar:
+            vl = self.latvar.split('[(')[0].rstrip()
+            if np.prod(self.fi.variables[vl].shape) > 1:
+                mapfirst = True
+        if self.lonvar:
+            vl = self.lonvar.split('[(')[0].rstrip()
+            if np.prod(self.fi.variables[vl].shape) > 1:
+                mapfirst = True
+
+        if mapfirst:
             self.tabs.add(self.tab_map, text=self.tab_map.name)
         self.tabs.add(self.tab_scatter, text=self.tab_scatter.name)
         self.tabs.add(self.tab_contour, text=self.tab_contour.name)
-        if not self.latvar:
+        if not mapfirst:
             self.tabs.add(self.tab_map, text=self.tab_map.name)
 
     #
@@ -232,8 +242,9 @@ class ncvMain(ttk.Frame):
         # construct list of variable names with dimensions
         if self.time is not None:
             addt = [
-                self.tname + ' ' +
-                str(tuple(zip_dim_name_length(self.fi.variables[self.tvar]))) ]
+                self.tname + ' [' +
+                str(tuple(zip_dim_name_length(self.fi.variables[self.tvar]))) +
+                ']' ]
             self.cols += addt
         ivars = []
         for vv in self.fi.variables:
@@ -241,7 +252,8 @@ class ncvMain(ttk.Frame):
             ss = tuple(zip_dim_name_length(self.fi.variables[vv]))
             self.maxdim = max(self.maxdim, len(ss))
             ivars.append((vv, ss, len(ss)))
-        self.cols += sorted([ vv[0] + ' ' + str(vv[1]) for vv in ivars ])
+        self.cols += sorted([ vv[0] + ' [' + str(vv[1]) + ']'
+                              for vv in ivars ])
         #
         # search for lat/lon variables
         self.latvar = ''
@@ -445,7 +457,7 @@ class ncvMain(ttk.Frame):
         # add units to lat/lon name
         if self.latvar:
             idim = tuple(zip_dim_name_length(self.fi.variables[self.latvar]))
-            self.latvar = self.latvar + ' ' + str(idim)
+            self.latvar = self.latvar + ' [' + str(idim) + ']'
         if self.lonvar:
             idim = tuple(zip_dim_name_length(self.fi.variables[self.lonvar]))
-            self.lonvar = self.lonvar + ' ' + str(idim)
+            self.lonvar = self.lonvar + ' [' + str(idim) + ']'

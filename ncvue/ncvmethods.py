@@ -31,6 +31,9 @@ History:
   Jan 2021, Matthias Cuntz
 * set latdim, londim to all on map var, determined in ncvMain,
   Jan 2021, Matthias Cuntz
+* catch non numpy.dtype in set_miss, Jan 2021, Matthias Cuntz
+* catch variables that have only one string or similar,
+  Jan 2021, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -90,7 +93,10 @@ def get_miss(self, x):
     >>> x = fi.variables['time']
     >>> miss = get_miss(self, x)
     """
-    out = [ncfill[x.dtype]]
+    try:
+        out = [ncfill[x.dtype]]
+    except KeyError:
+        out = []
     try:
         out += [self.miss]
     except AttributeError:
@@ -138,6 +144,11 @@ def get_slice_miss(self, dimspins, x):
     miss = get_miss(self, x)
     xx   = get_slice(dimspins, x).squeeze()
     xx   = set_miss(miss, xx)
+    # catch variables that have only one string or similar
+    try:
+        sx = xx.shape[0]
+    except IndexError:
+        xx = np.array([np.nan])
     return xx
 
 
@@ -175,7 +186,7 @@ def set_dim_lat(self):
     lat = self.lat.get()
     if lat != '':
         # set real dimensions
-        vl = lat.split()[0]
+        vl = lat.split('[(')[0].rstrip()
         if vl == self.tname:
             vl = self.tvar
         ll = self.fi.variables[vl]
@@ -217,7 +228,7 @@ def set_dim_lon(self):
     lon = self.lon.get()
     if lon != '':
         # set real dimensions
-        vl = lon.split()[0]
+        vl = lon.split('[(')[0].rstrip()
         if vl == self.tname:
             vl = self.tvar
         ll = self.fi.variables[vl]
@@ -263,7 +274,7 @@ def set_dim_var(self):
     v = self.v.get()
     if v != '':
         # set real dimensions
-        vz = v.split()[0]
+        vz = v.split('[(')[0].rstrip()
         if vz == self.tname:
             vz = self.tvar
         vv = self.fi.variables[vz]
@@ -333,7 +344,7 @@ def set_dim_x(self):
     x = self.x.get()
     if x != '':
         # set real dimensions
-        vx = x.split()[0]
+        vx = x.split('[(')[0].rstrip()
         if vx == self.tname:
             vx = self.tvar
         xx = self.fi.variables[vx]
@@ -390,7 +401,7 @@ def set_dim_y(self):
     y = self.y.get()
     if y != '':
         # set real dimensions
-        vy = y.split()[0]
+        vy = y.split('[(')[0].rstrip()
         if vy == self.tname:
             vy = self.tvar
         yy = self.fi.variables[vy]
@@ -447,7 +458,7 @@ def set_dim_y2(self):
     y2 = self.y2.get()
     if y2 != '':
         # set real dimensions
-        vy2 = y2.split()[0]
+        vy2 = y2.split('[(')[0].rstrip()
         if vy2 == self.tname:
             vy2 = self.tvar
         yy2 = self.fi.variables[vy2]
@@ -505,7 +516,7 @@ def set_dim_z(self):
     z = self.z.get()
     if z != '':
         # set real dimensions
-        vz = z.split()[0]
+        vz = z.split('[(')[0].rstrip()
         if vz == self.tname:
             vz = self.tvar
         zz = self.fi.variables[vz]

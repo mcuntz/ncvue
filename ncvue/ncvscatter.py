@@ -517,7 +517,7 @@ class ncvScatter(ttk.Frame):
                      'markerfacecolor': mec,
                      'markeredgecolor': mfc,
                      'markeredgewidth': mew}
-            vy = y.split()[0]
+            vy = y.split('[(')[0].rstrip()
             if vy == self.tname:
                 ylab = 'Date'
                 pargs['color'] = c
@@ -606,7 +606,7 @@ class ncvScatter(ttk.Frame):
                      'markerfacecolor': mec,
                      'markeredgecolor': mfc,
                      'markeredgewidth': mew}
-            vy = y2.split()[0]
+            vy = y2.split('[(')[0].rstrip()
             if vy == self.tname:
                 ylab = 'Date'
                 pargs['color'] = c
@@ -691,7 +691,7 @@ class ncvScatter(ttk.Frame):
         if (y != '') or (y2 != ''):
             # y axis
             if y != '':
-                vy = y.split()[0]
+                vy = y.split('[(')[0].rstrip()
                 if vy == self.tname:
                     yy   = self.time
                     ylab = 'Date'
@@ -701,7 +701,7 @@ class ncvScatter(ttk.Frame):
                 yy = get_slice_miss(self, self.yd, yy)
             # y2 axis
             if y2 != '':
-                vy2 = y2.split()[0]
+                vy2 = y2.split('[(')[0].rstrip()
                 if vy2 == self.tname:
                     yy2   = self.time
                     ylab2 = 'Date'
@@ -711,7 +711,7 @@ class ncvScatter(ttk.Frame):
                 yy2 = get_slice_miss(self, self.y2d, yy2)
             if (x != ''):
                 # x axis
-                vx = x.split()[0]
+                vx = x.split('[(')[0].rstrip()
                 if vx == self.tname:
                     xx   = self.time
                     xlab = 'Date'

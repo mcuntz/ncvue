@@ -366,7 +366,7 @@ class ncvMap(ttk.Frame):
         # set global
         x = self.lon.get()
         if (x != ''):
-            vx = x.split()[0]
+            vx = x.split('[(')[0].rstrip()
             xx = self.fi.variables[vx]
             xx = get_slice_miss(self, self.lond, xx)
             xx = (xx + 360.) % 360.
@@ -693,7 +693,7 @@ class ncvMap(ttk.Frame):
         from numpy.random import default_rng
         v = self.v.get()
         if (v != ''):
-            vz = v.split()[0]
+            vz = v.split('[(')[0].rstrip()
             if vz == self.tname:
                 return (0, 1)
             vv = self.fi.variables[vz]
@@ -747,7 +747,7 @@ class ncvMap(ttk.Frame):
         Set index and length of unlimited dimension of variable `v`.
 
         `v` (str) is the variable name as in the selection comboboxes, i.e.
-        `var = self.fi.variables[v.split()[0]]`.
+        `var = self.fi.variables[v.split('[(')[0].rstrip()]`.
 
         Sets `self.nunlim` to the length of the unlimited dimension and
         `self.iunlim` to the index in variable.dimensions if
@@ -756,7 +756,7 @@ class ncvMap(ttk.Frame):
         Takes `self.iunlim=0` and `self.nunlim=variable.shape[0]` if
         self.dunlim == ''` or `self.dunlim` not in var.dimensions.
         """
-        vz = v.split()[0]
+        vz = v.split('[(')[0].rstrip()
         if vz == self.tname:
             self.iunlim = 0
             self.nunlim = self.time.size
@@ -791,12 +791,18 @@ class ncvMap(ttk.Frame):
         if vmin == 'None':
             vmin = None
         else:
-            vmin = float(vmin)
+            try:
+                vmin = float(vmin)
+            except ValueError:
+                vmin = None
         vmax = self.vmax.get()
         if vmax == 'None':
             vmax = None
         else:
-            vmax = float(vmax)
+            try:
+                vmax = float(vmax)
+            except ValueError:
+                vmax = None
         # rowll
         x = self.lon.get()
         y = self.lat.get()
@@ -819,7 +825,7 @@ class ncvMap(ttk.Frame):
         vz = 'None'
         if (v != ''):
             # variable
-            vz = v.split()[0]
+            vz = v.split('[(')[0].rstrip()
             if vz == self.tname:
                 # should throw an error later
                 if mesh:
@@ -840,7 +846,7 @@ class ncvMap(ttk.Frame):
             vlab = ''
         if (y != ''):
             # y axis
-            vy = y.split()[0]
+            vy = y.split('[(')[0].rstrip()
             if vy == self.tname:
                 if mesh:
                     yy = self.dtime
@@ -856,7 +862,7 @@ class ncvMap(ttk.Frame):
             ylab = ''
         if (x != ''):
             # x axis
-            vx = x.split()[0]
+            vx = x.split('[(')[0].rstrip()
             if vx == self.tname:
                 if mesh:
                     xx = self.dtime
@@ -869,13 +875,20 @@ class ncvMap(ttk.Frame):
                 xlab = set_axis_label(xx)
             xx = get_slice_miss(self, self.lond, xx)
             # set central longitude of projection
-            # round it to next 10 degrees to get 0 or 180
-            # even if mid points are on 0, for example
+            # make in 0-360, otherwise always 0 if -180 to 180
             xx360 = (xx + 360.) % 360.
             if xx.size > 1:
-                self.ixxmean = np.around(xx360.mean()/10., 0) * 10.
+                if self.iiglobal:
+                    # round it to next 180 degrees to get 0 or 180
+                    self.ixxmean = np.around(xx360.mean()/180., 0) * 180.
+                else:
+                    self.ixxmean = xx360.mean()
             else:
                 self.ixxmean = xx360.mean()
+            # seems to work better if central lon in projection
+            # is set from -180 to 180 even if lon is given in 0-360
+            if self.ixxmean > 180.:
+                self.ixxmean -= 360.
         else:
             xlab = ''
             self.ixxmean = 0.
@@ -964,6 +977,7 @@ class ncvMap(ttk.Frame):
             self.ncmap   = self.ncmap if self.ncmap < 256 else 15
             self.iextend = extend
             # self.img_extent = (xx.min(), xx.max(), yy.min(), yy.max())
+            # print(self.ixx.min(), self.ixx.max(), self.iyy.min(), self.iyy.max())
             if mesh:
                 try:
                     # vv is matrix notation: (row, col)
@@ -1025,6 +1039,9 @@ class ncvMap(ttk.Frame):
         self.anim.event_source.stop()
         self.anim_running = False
 
+    # def update(self, frame, isframe=False):
+    #     pass
+
     def update(self, frame, isframe=False):
         """
         Updates data of the current the plot.
@@ -1038,7 +1055,7 @@ class ncvMap(ttk.Frame):
             inv_lon   = self.inv_lon.get()
             inv_lat   = self.inv_lat.get()
             shift_lon = self.shift_lon.get()
-            vz = v.split()[0]
+            vz = v.split('[(')[0].rstrip()
             if vz == self.tname:
                 vz = self.tvar
             vv = self.fi.variables[vz]

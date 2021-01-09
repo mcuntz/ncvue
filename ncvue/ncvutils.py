@@ -328,7 +328,7 @@ def get_slice(dimspins, y):
 
     Examples
     --------
-    >>> vy = y.split()[0]
+    >>> vy = y.split('[(')[0].rstrip()
     >>> yy = self.fi.variables[vy]
     >>> miss = get_miss(self, yy)
     >>> yy = get_slice_y(self.yd, yy).squeeze()
