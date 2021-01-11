@@ -15,12 +15,14 @@ Released under the MIT License; see LICENSE file for details.
 History:
 
 * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
+* Added tooltips to all widgets with Hovertip, Jan 2021, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
 The following functions are provided:
 
 .. autosummary::
+   Hovertip
    add_checkbutton
    add_combobox
    add_entry
@@ -28,6 +30,7 @@ The following functions are provided:
    add_menu
    add_scale
    add_spinbox
+   add_tooltip
 """
 from __future__ import absolute_import, division, print_function
 import tkinter as tk
@@ -38,37 +41,49 @@ except Exception:
     print('Using the themed widget set introduced in Tk 8.5.')
     print('Try to use mcview.py, which uses wxpython instead.')
     sys.exit()
-from idlelib.tooltip import Hovertip
-# from idlelib.tooltip import OnHoverTooltipBase
+from idlelib.tooltip import OnHoverTooltipBase
 
 
-__all__ = ['add_checkbutton', 'add_combobox', 'add_entry',
-           'add_imagemenu', 'add_menu', 'add_scale', 'add_spinbox']
+__all__ = ['Hovertip',
+           'add_checkbutton', 'add_combobox', 'add_entry',
+           'add_imagemenu', 'add_menu', 'add_scale', 'add_spinbox',
+           'add_tooltip']
 
 
-# class Hovertip(OnHoverTooltipBase):
-#     "A tooltip that pops up when a mouse hovers over an anchor widget."
-#     def __init__(self, anchor_widget, text, hover_delay=1000):
-#         """Create a text tooltip with a mouse hover delay.
-#         anchor_widget: the widget next to which the tooltip will be shown
-#         hover_delay: time to delay before showing the tooltip, in milliseconds
-#         Note that a widget will only be shown when showtip() is called,
-#         e.g. after hovering over the anchor widget with the mouse for enough
-#         time.
-#         """
-#         super(Hovertip, self).__init__(anchor_widget, hover_delay=hover_delay)
-#         self.text = text
+class Hovertip(OnHoverTooltipBase):
+    """
+    A tooltip that pops up when a mouse hovers over an anchor widget.
 
-#     def showcontents(self):
-#         # background = button colour of macOS dark mode: #717173
-#         label = tk.Label(self.tipwindow, text=self.text, justify=tk.LEFT,
-#                          background="#717173", relief=tk.FLAT, borderwidth=0,
-#                          padx=3, pady=1)
-#         label.pack()
+    This is a copy of the class Hovertip of Python's idlelib/tooltip.py.
+    It sets the foreground colour to see the tip also in dark mode, and
+    displays a textvariable rather than simple text so one can change the
+    tip during run time.
+    """
+    def __init__(self, anchor_widget, text, hover_delay=1000):
+        """Create a text tooltip with a mouse hover delay.
+        anchor_widget: the widget next to which the tooltip will be shown
+        text: tk.StringVar with text to display
+        hover_delay: time to delay before showing the tooltip, in milliseconds
+        Note that a widget will only be shown when showtip() is called,
+        e.g. after hovering over the anchor widget with the mouse for enough
+        time.
+        """
+        super(Hovertip, self).__init__(anchor_widget, hover_delay=hover_delay)
+        self.text = text
+
+    def showcontents(self):
+        # label = Label(self.tipwindow, text=self.text, justify=LEFT,
+        #               background="#ffffe0", relief=SOLID, borderwidth=1)
+        # light yellow = #ffffe0
+        label = tk.Label(self.tipwindow, textvariable=self.text,
+                         background="#ffffe0", foreground="#000000",
+                         justify=tk.LEFT, relief=tk.FLAT, borderwidth=0,
+                         padx=1, pady=1)
+        label.pack()
 
 
-def add_checkbutton(frame, label="", value=False, command=None,
-                    tooltip="", **kwargs):
+def add_checkbutton(frame, label="", value=False, command=None, tooltip="",
+                    **kwargs):
     """
     Add a left-aligned ttk.Checkbutton.
 
@@ -84,7 +99,7 @@ def add_checkbutton(frame, label="", value=False, command=None,
         Function to be called whenever the state of the
         checkbutton changes (default: None).
     tooltip : str, optional
-        Tooltip appearing after one second when hovering over buttons
+        Tooltip appearing after one second when hovering over
         the checkbutton (default: "" = no tooltip)
     **kwargs : option=value pairs, optional
         All other options will be passed to ttk.Checkbutton
@@ -94,6 +109,8 @@ def add_checkbutton(frame, label="", value=False, command=None,
     tk.StringVar, tk.BooleanVar
         variable for the text on the checkbutton,
         control variable tracking current state of checkbutton
+    tk.StringVar
+        variable for the text of the tooltip, if given.
 
     Examples
     --------
@@ -109,11 +126,16 @@ def add_checkbutton(frame, label="", value=False, command=None,
                          command=command, **kwargs)
     cb.pack(side=tk.LEFT, padx=3)
     if tooltip:
-        cbtip = Hovertip(cb, tooltip)
-    return check_label, bvar
+        ttip = tk.StringVar()
+        ttip.set(tooltip)
+        cbtip = Hovertip(cb, ttip)
+        return check_label, bvar, ttip
+    else:
+        return check_label, bvar
 
 
-def add_combobox(frame, label="", values=[], command=None, **kwargs):
+def add_combobox(frame, label="", values=[], command=None, tooltip="",
+                 **kwargs):
     """
     Add a left-aligned ttk.Combobox with a ttk.Label before.
 
@@ -128,14 +150,18 @@ def add_combobox(frame, label="", values=[], command=None, **kwargs):
     command : function, optional
         Handler function to be bound to the combobox for the event
         <<ComboboxSelected>> (default: None).
+    tooltip : str, optional
+        Tooltip appearing after one second when hovering over
+        the combobox (default: "" = no tooltip)
     **kwargs : option=value pairs, optional
         All other options will be passed to ttk.Combobox
 
     Returns
     -------
     tk.StringVar, ttk.Combobox
-        variable for the text before the combobox,
-        combobox widget
+        variable for the text before the combobox, combobox widget
+    tk.StringVar
+        variable for the text of the tooltip, if given.
 
     Examples
     --------
@@ -155,10 +181,16 @@ def add_combobox(frame, label="", values=[], command=None, **kwargs):
     if command is not None:
         cb.bind("<<ComboboxSelected>>", command)
     cb.pack(side=tk.LEFT)
-    return cb_label, cb
+    if tooltip:
+        ttip = tk.StringVar()
+        ttip.set(tooltip)
+        cbtip = Hovertip(cb, ttip)
+        return cb_label, cb, ttip
+    else:
+        return cb_label, cb
 
 
-def add_entry(frame, label="", text="", command=None, **kwargs):
+def add_entry(frame, label="", text="", command=None, tooltip="", **kwargs):
     """
     Add a left-aligned ttk.Entry with a ttk.Label before.
 
@@ -173,6 +205,9 @@ def add_entry(frame, label="", text="", command=None, **kwargs):
     command : function, optional
         Handler function to be bound to the entry for the events
         <Return>, '<Key-Return>', <KP_Enter>, and '<FocusOut>' (default: None).
+    tooltip : str, optional
+        Tooltip appearing after one second when hovering over
+        the entry (default: "" = no tooltip)
     **kwargs : option=value pairs, optional
         All other options will be passed to ttk.Entry
 
@@ -181,6 +216,8 @@ def add_entry(frame, label="", text="", command=None, **kwargs):
     tk.StringVar, tk.StringVar
         variable for the text before the entry,
         variable for the text in the entry area
+    tk.StringVar
+        variable for the text of the tooltip, if given.
 
     Examples
     --------
@@ -203,11 +240,17 @@ def add_entry(frame, label="", text="", command=None, **kwargs):
         entry.bind('<KP_Enter>', command)    # return of numeric keypad
         entry.bind('<FocusOut>', command)    # tab or click
     entry.pack(side=tk.LEFT)
-    return entry_label, entry_text
+    if tooltip:
+        ttip = tk.StringVar()
+        ttip.set(tooltip)
+        etip = Hovertip(entry, ttip)
+        return entry_label, entry_text, ttip
+    else:
+        return entry_label, entry_text
 
 
 def add_imagemenu(frame, label="", values=[], images=[], command=None,
-                  **kwargs):
+                  tooltip="", **kwargs):
     """
     Add a left-aligned menu with menubuttons having text and images
     with a ttk.Label before.
@@ -225,8 +268,13 @@ def add_imagemenu(frame, label="", values=[], images=[], command=None,
         (default: [])
     command : function, optional
         Handler function to be called if new menu entry chosen (default: None).
+    tooltip : str, optional
+        Tooltip appearing after one second when hovering over
+        the menu (default: "" = no tooltip)
     **kwargs : option=value pairs, optional
         All other options will be passed to the main ttk.Menubutton
+    tk.StringVar
+        variable for the text of the tooltip, if given.
 
     Returns
     -------
@@ -260,10 +308,16 @@ def add_imagemenu(frame, label="", values=[], images=[], command=None,
         sb.add_command(label=v, image=images[i], compound=tk.LEFT,
                        command=partial(command, v))
     mb.pack(side=tk.LEFT)
-    return mb_label, mb
+    if tooltip:
+        ttip = tk.StringVar()
+        ttip.set(tooltip)
+        mbtip = Hovertip(mb, ttip)
+        return mb_label, mb, ttip
+    else:
+        return mb_label, mb
 
 
-def add_menu(frame, label="", values=[], command=None, **kwargs):
+def add_menu(frame, label="", values=[], command=None, tooltip="", **kwargs):
     """
     Add a left-aligned menu with menubuttons with a ttk.Label before.
 
@@ -277,8 +331,13 @@ def add_menu(frame, label="", values=[], command=None, **kwargs):
         The choices that will appear in the drop-down menu (default: [])
     command : function, optional
         Handler function to be called if new menu entry chosen (default: None).
+    tooltip : str, optional
+        Tooltip appearing after one second when hovering over
+        the menu (default: "" = no tooltip)
     **kwargs : option=value pairs, optional
         All other options will be passed to the main ttk.Menubutton
+    tk.StringVar
+        variable for the text of the tooltip, if given.
 
     Returns
     -------
@@ -304,10 +363,16 @@ def add_menu(frame, label="", values=[], command=None, **kwargs):
         sb.add_command(label=v, compound=tk.LEFT,
                        command=partial(command, v))
     mb.pack(side=tk.LEFT)
-    return mb_label, mb
+    if tooltip:
+        ttip = tk.StringVar()
+        ttip.set(tooltip)
+        mbtip = Hovertip(mb, ttip)
+        return mb_label, mb, ttip
+    else:
+        return mb_label, mb
 
 
-def add_scale(frame, label="", ini=0, **kwargs):
+def add_scale(frame, label="", ini=0, tooltip="", **kwargs):
     """
     Add a left-aligned ttk.Scale with a ttk.Label before.
 
@@ -319,6 +384,9 @@ def add_scale(frame, label="", ini=0, **kwargs):
         Text that appears in front of the scale (default: "")
     ini : float, optional
         Initial value of scale (default: 0)
+    tooltip : str, optional
+        Tooltip appearing after one second when hovering over
+        the scale (default: "" = no tooltip)
     **kwargs : option=value pairs, optional
         All other options will be passed to ttk.Scale
 
@@ -328,6 +396,8 @@ def add_scale(frame, label="", ini=0, **kwargs):
         variable for the text before the scale,
         value of scale,
         scale widget
+    tk.StringVar
+        variable for the text of the tooltip, if given.
 
     Examples
     --------
@@ -344,10 +414,17 @@ def add_scale(frame, label="", ini=0, **kwargs):
     s_val.set(ini)
     s = ttk.Scale(frame, variable=s_val, **kwargs)
     s.pack(side=tk.LEFT)
-    return s_label, s_val, s
+    if tooltip:
+        ttip = tk.StringVar()
+        ttip.set(tooltip)
+        stip = Hovertip(s, ttip)
+        return s_label, s_val, s, ttip
+    else:
+        return s_label, s_val, s
 
 
-def add_spinbox(frame, label="", values=[], command=None, **kwargs):
+def add_spinbox(frame, label="", values=[], command=None, tooltip="",
+                **kwargs):
     """
     Add a left-aligned tk.Spinbox with a ttk.Label before.
 
@@ -362,6 +439,9 @@ def add_spinbox(frame, label="", values=[], command=None, **kwargs):
     command : function, optional
         Handler function bound to
         <Return>, '<Key-Return>', <KP_Enter>, and '<FocusOut>' (default: None).
+    tooltip : str, optional
+        Tooltip appearing after one second when hovering over
+        the spinbox (default: "" = no tooltip)
     **kwargs : option=value pairs, optional
         All other options will be passed to tk.Spinbox
 
@@ -371,6 +451,8 @@ def add_spinbox(frame, label="", values=[], command=None, **kwargs):
         variable for the text before the spinbox,
         variable for the text in the spinbox area,
         spinbox widget
+    tk.StringVar
+        variable for the text of the tooltip, if given.
 
     Examples
     --------
@@ -396,4 +478,44 @@ def add_spinbox(frame, label="", values=[], command=None, **kwargs):
         sb.bind('<KP_Enter>', command)    # return of numeric keypad
         sb.bind('<FocusOut>', command)    # tab or click
     sb.pack(side=tk.LEFT)
-    return sb_label, sb_val, sb
+    if tooltip:
+        ttip = tk.StringVar()
+        ttip.set(tooltip)
+        sbtip = Hovertip(sb, ttip)
+        return sb_label, sb_val, sb, ttip
+    else:
+        return sb_label, sb_val, sb
+
+
+def add_tooltip(frame, tooltip="", **kwargs):
+    """
+    Add a writeable tooltip to a widget using the class Hovertip.
+
+    Parameters
+    ----------
+    frame : tk widget
+        Parent widget
+    tooltip : str, optional
+        Tooltip appearing after one second when hovering over
+        the parent widget (default: "" = no tooltip)
+    **kwargs : option=value pairs, optional
+        All other options will be passed to tk.StringVar
+
+    Returns
+    -------
+    tk.StringVar
+        variable for the text of the tooltip.
+
+    Examples
+    --------
+    >>> self.rowlev = ttk.Frame(self)
+    >>> self.rowlev.pack(side=tk.TOP, fill=tk.X)
+    >>> self.dlbl, self.dval, self.d = add_spinbox(
+    ...     self.rowlev, label="dim", values=range(0,10),
+    ...     command=self.spinned)
+    >>> self.dtip = add_tooltip(self.d, 'Dimension')
+    """
+    ttip = tk.StringVar()
+    ttip.set(tooltip)
+    htip = Hovertip(frame, ttip)
+    return ttip

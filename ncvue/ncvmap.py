@@ -40,7 +40,7 @@ from .ncvutils   import set_miss, vardim2var
 from .ncvmethods import get_slice_miss, get_miss
 from .ncvmethods import set_dim_lon, set_dim_lat, set_dim_var
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry, add_imagemenu
-from .ncvwidgets import add_menu, add_scale, add_spinbox
+from .ncvwidgets import add_menu, add_scale, add_spinbox, add_tooltip
 import matplotlib as mpl
 mpl.use('TkAgg')
 from matplotlib import pyplot as plt
@@ -165,39 +165,47 @@ class ncvMap(ttk.Frame):
         self.rowt = ttk.Frame(self)
         self.rowt.pack(side=tk.TOP, fill=tk.X)
         ntime = 1
-        self.tsteplbl, self.tstepval, self.tstep = add_scale(
+        self.tsteplbl, self.tstepval, self.tstep, self.tsteptip = add_scale(
             self.rowt, label="step", ini=0, from_=0, to=ntime,
-            length=100, orient=tk.HORIZONTAL, command=self.tstep_t)
+            length=100, orient=tk.HORIZONTAL, command=self.tstep_t,
+            tooltip="Slide to go to time step.")
         spacet = ttk.Label(self.rowt, text=" "*1)
         spacet.pack(side=tk.LEFT)
         # first t
         self.first_t = ttk.Button(self.rowt, text="|<<", width=3,
                                   command=self.first_t)
         self.first_t.pack(side=tk.LEFT)
+        self.first_t_tip = add_tooltip(self.first_t, 'First time step.')
         # previous t
         self.prev_t = ttk.Button(self.rowt, text="|<", width=2,
                                  command=self.prev_t)
         self.prev_t.pack(side=tk.LEFT)
+        self.prev_t_tip = add_tooltip(self.prev_t, 'Previous time step.')
         # run t backwards
         self.prun_t = ttk.Button(self.rowt, text="<", width=1,
                                  command=self.prun_t)
         self.prun_t.pack(side=tk.LEFT)
+        self.prun_t_tip = add_tooltip(self.prun_t, 'Run backwards.')
         # pause t
         self.pause_t = ttk.Button(self.rowt, text="||", width=1,
                                   command=self.pause_t)
         self.pause_t.pack(side=tk.LEFT)
+        self.pause_t_tip = add_tooltip(self.pause_t, 'Pause.')
         # run t forward
         self.nrun_t = ttk.Button(self.rowt, text=">", width=1,
                                  command=self.nrun_t)
         self.nrun_t.pack(side=tk.LEFT)
+        self.nrun_t_tip = add_tooltip(self.nrun_t, 'Run forwards.')
         # next t
         self.next_t = ttk.Button(self.rowt, text=">|", width=2,
                                  command=self.next_t)
         self.next_t.pack(side=tk.LEFT)
+        self.next_t_tip = add_tooltip(self.next_t, 'Next time step.')
         # last t
         self.last_t = ttk.Button(self.rowt, text=">>|", width=3,
                                  command=self.last_t)
         self.last_t.pack(side=tk.LEFT)
+        self.last_t_tip = add_tooltip(self.last_t, 'Last time step.')
         # repeat
         spacer = ttk.Label(self.rowt, text=" "*1)
         spacer.pack(side=tk.LEFT)
@@ -235,10 +243,11 @@ class ncvMap(ttk.Frame):
         self.v = ttk.Combobox(self.rowv, values=columns, width=25)
         self.v.bind("<<ComboboxSelected>>", self.selected_v)
         self.v.pack(side=tk.LEFT)
-        self.trans_vlbl, self.trans_v = add_checkbutton(
+        self.trans_vlbl, self.trans_v, self.trans_tip = add_checkbutton(
             self.rowv, label="transpose var", value=False,
             command=self.checked,
             tooltip="Transpose array, i.e. exchanging lat and lon.")
+        self.trans_tip.set("And now?")
         spacev = ttk.Label(self.rowv, text=" "*1)
         spacev.pack(side=tk.LEFT)
         self.vminlbl, self.vmin = add_entry(self.rowv, label="vmin",
