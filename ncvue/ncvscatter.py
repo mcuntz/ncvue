@@ -39,7 +39,7 @@ from .ncvutils   import clone_ncvmain, set_axis_label, vardim2var
 from .ncvmethods import get_slice_miss
 from .ncvmethods import set_dim_x, set_dim_y, set_dim_y2
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry
-from .ncvwidgets import add_spinbox
+from .ncvwidgets import add_spinbox, add_tooltip
 import matplotlib
 matplotlib.use('TkAgg')
 from matplotlib import pyplot as plt
@@ -123,9 +123,31 @@ class ncvScatter(ttk.Frame):
 
         # selections and options
         columns = [''] + self.cols
+        # colors
         c = list(plt.rcParams['axes.prop_cycle'])
         col1 = c[0]['color']  # blue
         col2 = c[3]['color']  # red
+        # color tooltip
+        ctstr  = "color names: red, green, blue, yellow, ...\n"
+        ctstr += "single characters: b (blue), g (green), r (red), c (cyan),"
+        ctstr += " m (magenta), y (yellow), k (black), w (white)\n"
+        ctstr += "hex RGB: #rrggbb such such as #ff9300 (orange)\n"
+        ctstr += "gray level: float between 0 and 1\n"
+        ctstr += "RGA (red, green, blue) or RGBA (red, green, blue, alpha)"
+        ctstr += " tuples between 0 and 1, e.g. (1, 0.57, 0) for orange\n"
+        ctstr += "X11/CSS4 color name, e.g. orange red\n"
+        ctstr += "name from xkcd color survey, e.g. xkcd:sky blue"
+        # marker tooltip
+        mtstr  = ". (point), ',' (pixel), o (circle),\n"
+        mtstr += "v (triangle_down), ^ (triangle_up),\n"
+        mtstr += "< (triangle_left), > (triangle_right),\n"
+        mtstr += "1 (tri_down), 2 (tri_up), 3 (tri_left), 4 (tri_right),"
+        mtstr += " 8 (octagon),\n"
+        mtstr += "s (square), p (pentagon), P (plus (filled)),\n"
+        mtstr += "* (star), h (hexagon1), H (hexagon2),\n"
+        mtstr += "+ (plus), x (x), X (x (filled)),\n"
+        mtstr += "D (diamond), d (thin_diamond),\n"
+        mtstr += "| (vline), _ (hline), or None"
 
         # 1. row
         # x- and lhs y-axis selection
@@ -136,26 +158,29 @@ class ncvScatter(ttk.Frame):
         self.blockx.pack(side=tk.LEFT)
         self.rowx = ttk.Frame(self.blockx)
         self.rowx.pack(side=tk.TOP, fill=tk.X)
-        self.xlbl, self.x = add_combobox(self.rowx, label="x",
-                                         values=columns,
-                                         command=self.selected_x)
+        self.xlbl, self.x, self.xtip = add_combobox(
+            self.rowx, label="x", values=columns, command=self.selected_x,
+            tooltip="Choose variable of x-axis.\nTake index if 'None' (fast).")
         self.x0 = ''
         self.line_x = []
-        self.inv_xlbl, self.inv_x = add_checkbutton(
+        self.inv_xlbl, self.inv_x, self.inv_xtip = add_checkbutton(
             self.rowx, label="invert x", value=False,
-            command=self.checked_x)
+            command=self.checked_x,
+            tooltip="Invert x-axis.")
         self.rowxd = ttk.Frame(self.blockx)
         self.rowxd.pack(side=tk.TOP, fill=tk.X)
         self.xdlbl = []
         self.xdval = []
         self.xd    = []
+        self.xdtip = []
         for i in range(self.maxdim):
-            xdlbl, xdval, xd = add_spinbox(
+            xdlbl, xdval, xd, xdtip = add_spinbox(
                 self.rowxd, label=str(i), values=(0,), wrap=True,
-                command=self.spinned_x, state=tk.DISABLED)
+                command=self.spinned_x, state=tk.DISABLED, tooltip="None")
             self.xdlbl.append(xdlbl)
             self.xdval.append(xdval)
             self.xd.append(xd)
+            self.xdtip.append(xdtip)
         # block y with dimensions
         spacex = ttk.Label(self.rowxy, text=" "*3)
         spacex.pack(side=tk.LEFT)
@@ -170,60 +195,76 @@ class ncvScatter(ttk.Frame):
         self.bprev_y = ttk.Button(self.rowy, text="<", width=1,
                                   command=self.prev_y)
         self.bprev_y.pack(side=tk.LEFT)
+        self.bprev_ytip = add_tooltip(self.bprev_y, 'Previous variable.')
         self.bnext_y = ttk.Button(self.rowy, text=">", width=1,
                                   command=self.next_y)
         self.bnext_y.pack(side=tk.LEFT)
+        self.bnext_ytip = add_tooltip(self.bnext_y, 'Next variable.')
         self.y = ttk.Combobox(self.rowy, values=columns, width=25)
         # long = len(max(columns, key=len))
         # self.y.configure(width=(max(20, long//2)))
         self.y.bind("<<ComboboxSelected>>", self.selected_y)
         self.y.pack(side=tk.LEFT)
+        self.ytip = add_tooltip(self.y, 'Choose variable of y-axis.')
         self.y0 = ''
         self.line_y = []
-        self.inv_ylbl, self.inv_y = add_checkbutton(
+        self.inv_ylbl, self.inv_y, self.inv_ytip = add_checkbutton(
             self.rowy, label="invert y", value=False,
-            command=self.checked_y)
+            command=self.checked_y,
+            tooltip="Inert y-axis.")
         self.rowyd = ttk.Frame(self.blocky)
         self.rowyd.pack(side=tk.TOP, fill=tk.X)
         self.ydlbl = []
         self.ydval = []
         self.yd    = []
+        self.ydtip = []
         for i in range(self.maxdim):
-            ydlbl, ydval, yd = add_spinbox(
+            ydlbl, ydval, yd, ydtip = add_spinbox(
                 self.rowyd, label=str(i), values=(0,), wrap=True,
-                command=self.spinned_y, state=tk.DISABLED)
+                command=self.spinned_y, state=tk.DISABLED, tooltip="None")
             self.ydlbl.append(ydlbl)
             self.ydval.append(ydval)
             self.yd.append(yd)
+            self.ydtip.append(ydtip)
         # redraw button
         self.bredraw = ttk.Button(self.rowxy, text="Redraw",
                                   command=self.redraw)
         self.bredraw.pack(side=tk.RIGHT)
+        self.bredrawtip = add_tooltip(self.bredraw, 'Redraw, resetting zoom.')
 
         # 2. row
         # options for lhs y-axis
         self.rowxyopt = ttk.Frame(self)
         self.rowxyopt.pack(side=tk.TOP, fill=tk.X)
-        self.lslbl, self.ls = add_entry(self.rowxyopt, label="ls", text='-',
-                                        width=4, command=self.entered_y)
-        self.lwlbl, self.lw = add_entry(self.rowxyopt, label="lw", text='1',
-                                        width=2, command=self.entered_y)
-        self.lclbl, self.lc = add_entry(self.rowxyopt, label="c", text=col1,
-                                        width=7, command=self.entered_y)
-        self.markerlbl, self.marker = add_entry(self.rowxyopt, label="marker",
-                                                text='None', width=4,
-                                                command=self.entered_y)
-        self.mslbl, self.ms = add_entry(self.rowxyopt, label="ms", text='1',
-                                        width=2, command=self.entered_y)
-        self.mfclbl, self.mfc = add_entry(self.rowxyopt, label="mfc",
-                                          text=col1, width=7,
-                                          command=self.entered_y)
-        self.mfclbl, self.mec = add_entry(self.rowxyopt, label="mec",
-                                          text=col1, width=7,
-                                          command=self.entered_y)
-        self.mewlbl, self.mew = add_entry(self.rowxyopt, label="mew",
-                                          text='1', width=2,
-                                          command=self.entered_y)
+        self.lslbl, self.ls, self.lstip = add_entry(
+            self.rowxyopt, label="ls", text='-', width=4,
+            command=self.entered_y,
+            tooltip="Linestyle: -, --, -., :, or None")
+        self.lwlbl, self.lw, self.lwtip = add_entry(
+            self.rowxyopt, label="lw", text='1', width=2,
+            command=self.entered_y, tooltip="Linewidth")
+        self.lclbl, self.lc, self.lctip = add_entry(
+            self.rowxyopt, label="c", text=col1, width=7,
+            command=self.entered_y,
+            tooltip="Line color:\n"+ctstr)
+        self.markerlbl, self.marker, self.markertip = add_entry(
+            self.rowxyopt, label="marker", text='None', width=4,
+            command=self.entered_y,
+            tooltip="Marker symbol:\n"+mtstr)
+        self.mslbl, self.ms, self.mstip = add_entry(
+            self.rowxyopt, label="ms", text='1', width=2,
+            command=self.entered_y, tooltip="Marker size")
+        self.mfclbl, self.mfc, self.mfctip = add_entry(
+            self.rowxyopt, label="mfc", text=col1, width=7,
+            command=self.entered_y,
+            tooltip="Marker fill color:\n"+ctstr)
+        self.mfclbl, self.mec, self.mectip = add_entry(
+            self.rowxyopt, label="mec", text=col1, width=7,
+            command=self.entered_y,
+            tooltip="Marker edge color:\n"+ctstr)
+        self.mewlbl, self.mew, self.mewtip = add_entry(
+            self.rowxyopt, label="mew", text='1', width=2,
+            command=self.entered_y, tooltip="Marker edge width")
 
         # space
         self.rowspace = ttk.Frame(self)

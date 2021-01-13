@@ -38,7 +38,7 @@ from .ncvutils   import clone_ncvmain, set_axis_label, vardim2var
 from .ncvmethods import get_slice_miss
 from .ncvmethods import set_dim_x, set_dim_y, set_dim_z
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry, add_imagemenu
-from .ncvwidgets import add_spinbox
+from .ncvwidgets import add_spinbox, add_tooltip
 import matplotlib
 matplotlib.use('TkAgg')
 from matplotlib import pyplot as plt
@@ -139,35 +139,43 @@ class ncvContour(ttk.Frame):
         self.bprev_z = ttk.Button(self.rowz, text="<", width=1,
                                   command=self.prev_z)
         self.bprev_z.pack(side=tk.LEFT)
+        self.bprev_ztip = add_tooltip(self.bprev_z, 'Previous variable.')
         self.bnext_z = ttk.Button(self.rowz, text=">", width=1,
                                   command=self.next_z)
         self.bnext_z.pack(side=tk.LEFT)
+        self.bnext_ztip = add_tooltip(self.bnext_z, 'Next variable.')
         self.z = ttk.Combobox(self.rowz, values=columns, width=25)
         self.z.bind("<<ComboboxSelected>>", self.selected_z)
         self.z.pack(side=tk.LEFT)
-        self.trans_zlbl, self.trans_z = add_checkbutton(
-            self.rowz, label="transpose z", value=False, command=self.checked)
+        self.ztip = add_tooltip(self.z, 'Choose variable.')
+        self.trans_zlbl, self.trans_z, self.trans_ztip = add_checkbutton(
+            self.rowz, label="transpose z", value=False, command=self.checked,
+            tooltip="Transpose matrix.")
         spacez = ttk.Label(self.rowz, text=" "*1)
         spacez.pack(side=tk.LEFT)
-        self.zminlbl, self.zmin = add_entry(self.rowz, label="zmin",
-                                            text='None', width=7,
-                                            command=self.entered_z)
-        self.zmaxlbl, self.zmax = add_entry(self.rowz, label="zmax",
-                                            text='None', width=7,
-                                            command=self.entered_z)
+        self.zminlbl, self.zmin, self.zmintip = add_entry(
+            self.rowz, label="zmin", text='None', width=7,
+            command=self.entered_z,
+            tooltip="Minimal display value. Free scaling if 'None'.")
+        self.zmaxlbl, self.zmax, self.zmaxtip = add_entry(
+            self.rowz, label="zmax", text='None', width=7,
+            command=self.entered_z,
+            tooltip="Maximal display value. Free scaling if 'None'.")
         # levels z
         self.rowzd = ttk.Frame(self.blockz)
         self.rowzd.pack(side=tk.TOP, fill=tk.X)
         self.zdlbl = []
         self.zdval = []
         self.zd    = []
+        self.zdtip = []
         for i in range(self.maxdim):
-            zdlbl, zdval, zd = add_spinbox(
+            zdlbl, zdval, zd, zdtip = add_spinbox(
                 self.rowzd, label=str(i), values=(0,), wrap=True,
-                command=self.spinned_z, state=tk.DISABLED)
+                command=self.spinned_z, state=tk.DISABLED, tooltip="None")
             self.zdlbl.append(zdlbl)
             self.zdval.append(zdval)
             self.zd.append(zd)
+            self.zdtip.append(zdtip)
 
         # 2. row
         # x-axis selection
@@ -177,23 +185,26 @@ class ncvContour(ttk.Frame):
         self.blockx.pack(side=tk.LEFT)
         self.rowx = ttk.Frame(self.blockx)
         self.rowx.pack(side=tk.TOP, fill=tk.X)
-        self.xlbl, self.x = add_combobox(self.rowx, label="x",
-                                         values=columns,
-                                         command=self.selected_x)
-        self.inv_xlbl, self.inv_x = add_checkbutton(
-            self.rowx, label="invert x", value=False, command=self.checked)
+        self.xlbl, self.x, self.xtip = add_combobox(
+            self.rowx, label="x", values=columns, command=self.selected_x,
+            tooltip="Choose variable of x-axis.\nTake index if 'None'.")
+        self.inv_xlbl, self.inv_x, self.inv_xtip = add_checkbutton(
+            self.rowx, label="invert x", value=False, command=self.checked,
+            tooltip="Invert x-axis.")
         self.rowxd = ttk.Frame(self.blockx)
         self.rowxd.pack(side=tk.TOP, fill=tk.X)
         self.xdlbl = []
         self.xdval = []
         self.xd    = []
+        self.xdtip = []
         for i in range(self.maxdim):
-            xdlbl, xdval, xd = add_spinbox(
+            xdlbl, xdval, xd, xdtip = add_spinbox(
                 self.rowxd, label=str(i), values=(0,), wrap=True,
-                command=self.spinned_x, state=tk.DISABLED)
+                command=self.spinned_x, state=tk.DISABLED, tooltip="None")
             self.xdlbl.append(xdlbl)
             self.xdval.append(xdval)
             self.xd.append(xd)
+            self.xdtip.append(xdtip)
         # y-axis selection
         spacex = ttk.Label(self.rowxy, text=" "*3)
         spacex.pack(side=tk.LEFT)
@@ -201,42 +212,49 @@ class ncvContour(ttk.Frame):
         self.blocky.pack(side=tk.LEFT)
         self.rowy = ttk.Frame(self.blocky)
         self.rowy.pack(side=tk.TOP, fill=tk.X)
-        self.ylbl, self.y = add_combobox(self.rowy, label="y",
-                                         values=columns,
-                                         command=self.selected_y)
-        self.inv_ylbl, self.inv_y = add_checkbutton(
-            self.rowy, label="invert y", value=False, command=self.checked)
+        self.ylbl, self.y, self.ytip = add_combobox(
+            self.rowy, label="y", values=columns, command=self.selected_y,
+            tooltip="Choose variable of y-axis.\nTake index if 'None'.")
+        self.inv_ylbl, self.inv_y, self.inv_ytip = add_checkbutton(
+            self.rowy, label="invert y", value=False, command=self.checked,
+            tooltip="Invert y-axis.")
         self.rowyd = ttk.Frame(self.blocky)
         self.rowyd.pack(side=tk.TOP, fill=tk.X)
         self.ydlbl = []
         self.ydval = []
         self.yd    = []
+        self.ydtip = []
         for i in range(self.maxdim):
-            ydlbl, ydval, yd = add_spinbox(
+            ydlbl, ydval, yd, ydtip = add_spinbox(
                 self.rowyd, label=str(i), values=(0,), wrap=True,
-                command=self.spinned_y, state=tk.DISABLED)
+                command=self.spinned_y, state=tk.DISABLED, tooltip="None")
             self.ydlbl.append(ydlbl)
             self.ydval.append(ydval)
             self.yd.append(yd)
+            self.ydtip.append(ydtip)
 
         # 3. row
         # options
         self.rowcmap = ttk.Frame(self)
         self.rowcmap.pack(side=tk.TOP, fill=tk.X)
-        self.cmaplbl, self.cmap = add_imagemenu(
+        self.cmaplbl, self.cmap, self.cmaptip = add_imagemenu(
             self.rowcmap, label="cmap", values=self.cmaps,
-            images=self.imaps, command=self.selected_cmap)
+            images=self.imaps, command=self.selected_cmap,
+            tooltip="Choose colormap.")
         self.cmap['text']  = 'RdYlBu'
         self.cmap['image'] = self.imaps[self.cmaps.index('RdYlBu')]
-        self.rev_cmaplbl, self.rev_cmap = add_checkbutton(
-            self.rowcmap, label="inverse cmap", value=False,
-            command=self.checked)
-        self.meshlbl, self.mesh = add_checkbutton(
-            self.rowcmap, label="mesh", value=False,
-            command=self.checked)
-        self.gridlbl, self.grid = add_checkbutton(
+        self.rev_cmaplbl, self.rev_cmap, self.rev_cmaptip = add_checkbutton(
+            self.rowcmap, label="reverse cmap", value=False,
+            command=self.checked,
+            tooltip="Reverse colormap.")
+        self.meshlbl, self.mesh, self.meshtip = add_checkbutton(
+            self.rowcmap, label="mesh", value=True,
+            command=self.checked,
+            tooltip="Pseudocolor plot if checked, plot contours if unchecked.")
+        self.gridlbl, self.grid, self.gridtip = add_checkbutton(
             self.rowcmap, label="grid", value=False,
-            command=self.checked)
+            command=self.checked,
+            tooltip="Draw major grid lines.")
 
     #
     # Bindings

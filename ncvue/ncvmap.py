@@ -175,52 +175,56 @@ class ncvMap(ttk.Frame):
         self.first_t = ttk.Button(self.rowt, text="|<<", width=3,
                                   command=self.first_t)
         self.first_t.pack(side=tk.LEFT)
-        self.first_t_tip = add_tooltip(self.first_t, 'First time step.')
+        self.first_ttip = add_tooltip(self.first_t, 'First time step.')
         # previous t
         self.prev_t = ttk.Button(self.rowt, text="|<", width=2,
                                  command=self.prev_t)
         self.prev_t.pack(side=tk.LEFT)
-        self.prev_t_tip = add_tooltip(self.prev_t, 'Previous time step.')
+        self.prev_ttip = add_tooltip(self.prev_t, 'Previous time step.')
         # run t backwards
         self.prun_t = ttk.Button(self.rowt, text="<", width=1,
                                  command=self.prun_t)
         self.prun_t.pack(side=tk.LEFT)
-        self.prun_t_tip = add_tooltip(self.prun_t, 'Run backwards.')
+        self.prun_ttip = add_tooltip(self.prun_t, 'Run backwards.')
         # pause t
         self.pause_t = ttk.Button(self.rowt, text="||", width=1,
                                   command=self.pause_t)
         self.pause_t.pack(side=tk.LEFT)
-        self.pause_t_tip = add_tooltip(self.pause_t, 'Pause.')
+        self.pause_ttip = add_tooltip(self.pause_t, 'Pause/Stop.')
         # run t forward
         self.nrun_t = ttk.Button(self.rowt, text=">", width=1,
                                  command=self.nrun_t)
         self.nrun_t.pack(side=tk.LEFT)
-        self.nrun_t_tip = add_tooltip(self.nrun_t, 'Run forwards.')
+        self.nrun_ttip = add_tooltip(self.nrun_t, 'Run forwards.')
         # next t
         self.next_t = ttk.Button(self.rowt, text=">|", width=2,
                                  command=self.next_t)
         self.next_t.pack(side=tk.LEFT)
-        self.next_t_tip = add_tooltip(self.next_t, 'Next time step.')
+        self.next_ttip = add_tooltip(self.next_t, 'Next time step.')
         # last t
         self.last_t = ttk.Button(self.rowt, text=">>|", width=3,
                                  command=self.last_t)
         self.last_t.pack(side=tk.LEFT)
-        self.last_t_tip = add_tooltip(self.last_t, 'Last time step.')
+        self.last_ttip = add_tooltip(self.last_t, 'Last time step.')
         # repeat
         spacer = ttk.Label(self.rowt, text=" "*1)
         spacer.pack(side=tk.LEFT)
         reps = ['once', 'repeat', 'reflect']
-        self.repeatlbl, self.repeat = add_combobox(
+        tstr  = "Run time steps once, repeat from start,"
+        tstr += " or forwards and backwards."
+        self.repeatlbl, self.repeat, self.repeattip = add_combobox(
             self.rowt, label="repeat", values=reps, width=5,
-            command=self.repeat_t)
+            command=self.repeat_t, tooltip=tstr)
         self.repeat.set('repeat')
         self.last_t.pack(side=tk.LEFT)
         # delay
         spaced = ttk.Label(self.rowt, text=" "*1)
         spaced.pack(side=tk.LEFT)
-        self.delaylbl, self.delayval, self.delay = add_scale(
+        tstr = "Delay run between time steps from 1 to 1000 ms."
+        self.delaylbl, self.delayval, self.delay, self.delaytip = add_scale(
             self.rowt, label="delay (ms)", ini=1, from_=1, to=1000,
-            length=100, orient=tk.HORIZONTAL, command=self.delay_t)
+            length=100, orient=tk.HORIZONTAL, command=self.delay_t,
+            tooltip=tstr)
 
         # 2. row
         # variable-axis selection
@@ -237,40 +241,47 @@ class ncvMap(ttk.Frame):
         self.bprev_v = ttk.Button(self.rowv, text="<", width=1,
                                   command=self.prev_v)
         self.bprev_v.pack(side=tk.LEFT)
+        self.bprev_vtip = add_tooltip(self.bprev_v, 'Previous variable.')
         self.bnext_v = ttk.Button(self.rowv, text=">", width=1,
                                   command=self.next_v)
         self.bnext_v.pack(side=tk.LEFT)
+        self.bnext_vtip = add_tooltip(self.bnext_v, 'Next variable.')
         self.v = ttk.Combobox(self.rowv, values=columns, width=25)
         self.v.bind("<<ComboboxSelected>>", self.selected_v)
         self.v.pack(side=tk.LEFT)
-        self.trans_vlbl, self.trans_v, self.trans_tip = add_checkbutton(
+        self.vtip = add_tooltip(self.v, 'Choose variable.')
+        self.trans_vlbl, self.trans_v, self.trans_vtip = add_checkbutton(
             self.rowv, label="transpose var", value=False,
             command=self.checked,
             tooltip="Transpose array, i.e. exchanging lat and lon.")
-        self.trans_tip.set("And now?")
         spacev = ttk.Label(self.rowv, text=" "*1)
         spacev.pack(side=tk.LEFT)
-        self.vminlbl, self.vmin = add_entry(self.rowv, label="vmin",
-                                            text=0, width=11,
-                                            command=self.entered_v)
-        self.vmaxlbl, self.vmax = add_entry(self.rowv, label="vmax",
-                                            text=1, width=11,
-                                            command=self.entered_v)
-        self.valllbl, self.vall = add_checkbutton(
-            self.rowv, label="all", value=False, command=self.checked_all)
+        self.vminlbl, self.vmin, self.vmintip = add_entry(
+            self.rowv, label="vmin", text=0, width=11, command=self.entered_v,
+            tooltip="Minimal display value.")
+        self.vmaxlbl, self.vmax, self.vmaxtip = add_entry(
+            self.rowv, label="vmax", text=1, width=11, command=self.entered_v,
+            tooltip="Maximal display value.")
+        tstr  = "If checked, determine vmin/vmax from all fields,\n"
+        tstr += "otherwise from 50 random fields."
+        self.valllbl, self.vall, self.valltip = add_checkbutton(
+            self.rowv, label="all", value=False, command=self.checked_all,
+            tooltip=tstr)
         # levels var
         self.rowvd = ttk.Frame(self.blockv)
         self.rowvd.pack(side=tk.TOP, fill=tk.X)
         self.vdlbl = []
         self.vdval = []
         self.vd    = []
+        self.vdtip = []
         for i in range(self.maxdim):
-            vdlbl, vdval, vd = add_spinbox(
+            vdlbl, vdval, vd, vdtip = add_spinbox(
                 self.rowvd, label=str(i), values=(0,), wrap=True,
-                command=self.spinned_v, state=tk.DISABLED)
+                command=self.spinned_v, state=tk.DISABLED, tooltip="None")
             self.vdlbl.append(vdlbl)
             self.vdval.append(vdval)
             self.vd.append(vd)
+            self.vdtip.append(vdtip)
 
         # 3. row
         # lon-axis selection
@@ -280,26 +291,32 @@ class ncvMap(ttk.Frame):
         self.blocklon.pack(side=tk.LEFT)
         self.rowlon = ttk.Frame(self.blocklon)
         self.rowlon.pack(side=tk.TOP, fill=tk.X)
-        self.lonlbl, self.lon = add_combobox(self.rowlon, label="lon",
-                                             values=columns,
-                                             command=self.selected_lon)
-        self.inv_lonlbl, self.inv_lon = add_checkbutton(
-            self.rowlon, label="invert lon", value=False, command=self.checked)
-        self.shift_lonlbl, self.shift_lon = add_checkbutton(
+        self.lonlbl, self.lon, self.lontip = add_combobox(
+            self.rowlon, label="lon", values=columns,
+            command=self.selected_lon,
+            tooltip="Longitude variable.\nSet 'empty' for matrix plot.")
+        self.inv_lonlbl, self.inv_lon, self.inv_lontip = add_checkbutton(
+            self.rowlon, label="invert lon", value=False,
+            command=self.checked,
+            tooltip="Invert longitudes.")
+        self.shift_lonlbl, self.shift_lon, self.shift_lontip = add_checkbutton(
             self.rowlon, label="shift lon/2", value=False,
-            command=self.checked)
+            command=self.checked,
+            tooltip="Roll longitudes by half its size.")
         self.rowlond = ttk.Frame(self.blocklon)
         self.rowlond.pack(side=tk.TOP, fill=tk.X)
         self.londlbl = []
         self.londval = []
         self.lond    = []
+        self.londtip = []
         for i in range(self.maxdim):
-            londlbl, londval, lond = add_spinbox(
+            londlbl, londval, lond, londtip = add_spinbox(
                 self.rowlond, label=str(i), values=(0,), wrap=True,
-                command=self.spinned_lon, state=tk.DISABLED)
+                command=self.spinned_lon, state=tk.DISABLED, tooltip="None")
             self.londlbl.append(londlbl)
             self.londval.append(londval)
             self.lond.append(lond)
+            self.londtip.append(londtip)
         # lat-axis selection
         spacex = ttk.Label(self.rowll, text=" "*3)
         spacex.pack(side=tk.LEFT)
@@ -307,60 +324,73 @@ class ncvMap(ttk.Frame):
         self.blocklat.pack(side=tk.LEFT)
         self.rowlat = ttk.Frame(self.blocklat)
         self.rowlat.pack(side=tk.TOP, fill=tk.X)
-        self.latlbl, self.lat = add_combobox(self.rowlat, label="lat",
-                                             values=columns,
-                                             command=self.selected_lat)
-        self.inv_latlbl, self.inv_lat = add_checkbutton(
-            self.rowlat, label="invert lat", value=False, command=self.checked)
+        self.latlbl, self.lat, self.lattip = add_combobox(
+            self.rowlat, label="lat", values=columns,
+            command=self.selected_lat,
+            tooltip="Longitude variable.\nSet 'empty' for matrix plot.")
+        self.inv_latlbl, self.inv_lat, self.inv_lattip = add_checkbutton(
+            self.rowlat, label="invert lat", value=False, command=self.checked,
+            tooltip="Invert longitudes.")
         self.rowlatd = ttk.Frame(self.blocklat)
         self.rowlatd.pack(side=tk.TOP, fill=tk.X)
         self.latdlbl = []
         self.latdval = []
         self.latd    = []
+        self.latdtip = []
         for i in range(self.maxdim):
-            latdlbl, latdval, latd = add_spinbox(
+            latdlbl, latdval, latd, latdtip = add_spinbox(
                 self.rowlatd, label=str(i), values=(0,), wrap=True,
-                command=self.spinned_lat, state=tk.DISABLED)
+                command=self.spinned_lat, state=tk.DISABLED, tooltip="None")
             self.latdlbl.append(latdlbl)
             self.latdval.append(latdval)
             self.latd.append(latd)
+            self.latdtip.append(latdtip)
 
         # 4. row
         # options
         self.rowcmap = ttk.Frame(self)
         self.rowcmap.pack(side=tk.TOP, fill=tk.X)
-        self.cmaplbl, self.cmap = add_imagemenu(
+        self.cmaplbl, self.cmap, self.cmaptip = add_imagemenu(
             self.rowcmap, label="cmap", values=self.cmaps,
-            images=self.imaps, command=self.selected_cmap)
+            images=self.imaps, command=self.selected_cmap,
+            tooltip="Choose colormap.")
         self.cmap['text']  = 'RdYlBu'
         self.cmap['image'] = self.imaps[self.cmaps.index('RdYlBu')]
-        self.rev_cmaplbl, self.rev_cmap = add_checkbutton(
-            self.rowcmap, label="inverse cmap", value=False,
-            command=self.checked)
-        self.meshlbl, self.mesh = add_checkbutton(
+        self.rev_cmaplbl, self.rev_cmap, self.rev_cmaptip = add_checkbutton(
+            self.rowcmap, label="reverse cmap", value=False,
+            command=self.checked,
+            tooltip="Reverse colormap.")
+        self.meshlbl, self.mesh, self.meshtip = add_checkbutton(
             self.rowcmap, label="mesh", value=True,
-            command=self.checked)
-        self.igloballbl, self.iglobal = add_checkbutton(
+            command=self.checked,
+            tooltip="Pseudocolor plot if checked, plot contours if unchecked.")
+        self.igloballbl, self.iglobal, self.iglobaltip = add_checkbutton(
             self.rowcmap, label="global", value=False,
-            command=self.checked)
-        self.coastlbl, self.coast = add_checkbutton(
+            command=self.checked,
+            tooltip="Assume global extent.")
+        self.coastlbl, self.coast, self.coasttip = add_checkbutton(
             self.rowcmap, label="coast", value=True,
-            command=self.checked)
-        self.gridlbl, self.grid = add_checkbutton(
+            command=self.checked,
+            tooltip="Draw continental coast lines.")
+        self.gridlbl, self.grid, self.gridtip = add_checkbutton(
             self.rowcmap, label="grid", value=False,
-            command=self.checked)
+            command=self.checked,
+            tooltip="Draw major grid lines.")
 
         # 7. row
         # projections
         self.rowproj = ttk.Frame(self)
         self.rowproj.pack(side=tk.TOP, fill=tk.X)
-        self.projlbl, self.proj = add_menu(
+        self.projlbl, self.proj, self.projtip = add_menu(
             self.rowproj, label="projection", values=self.projs,
-            command=self.selected_proj, width=26)
+            command=self.selected_proj, width=26,
+            tooltip="Plot projection.")
         self.proj['text'] = 'PlateCarree'
-        self.clonlbl, self.clon = add_entry(self.rowproj, label="central lon",
-                                            text='None', width=4,
-                                            command=self.entered_clon)
+        tstr  = "Central longitude of projection.\n"
+        tstr += "Determined from longitude variable if None."
+        self.clonlbl, self.clon, self.clontip = add_entry(
+            self.rowproj, label="central lon", text='None', width=4,
+            command=self.entered_clon, tooltip=tstr)
 
         # set lat/lon
         if self.latvar:
