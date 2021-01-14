@@ -16,6 +16,7 @@ History:
 
 * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
 * Added tooltips to all widgets with Hovertip, Jan 2021, Matthias Cuntz
+* Added add_tooltip widget, Jan 2021, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -55,9 +56,9 @@ class Hovertip(OnHoverTooltipBase):
     A tooltip that pops up when a mouse hovers over an anchor widget.
 
     This is a copy of the class Hovertip of Python's idlelib/tooltip.py.
-    It sets the foreground colour to see the tip also in dark mode, and
-    displays a textvariable rather than simple text so one can change the
-    tip during run time.
+    It sets the foreground colour to see the tip also in macOS dark mode,
+    and displays a textvariable rather than simple text so one can change
+    the tip during run time.
     """
     def __init__(self, anchor_widget, text, hover_delay=1000):
         """Create a text tooltip with a mouse hover delay.

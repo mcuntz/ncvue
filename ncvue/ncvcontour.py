@@ -95,6 +95,8 @@ class ncvContour(ttk.Frame):
             self.rowwin, text="New Window",
             command=partial(clone_ncvmain, self.master, self.fi, self.miss))
         self.newwin.pack(side=tk.RIGHT)
+        self.newwintip = add_tooltip(self.newwin,
+                                     'Open secondary ncvue window')
 
         # plotting canvas
         self.figure = Figure(facecolor="white", figsize=(1, 1))
@@ -139,18 +141,18 @@ class ncvContour(ttk.Frame):
         self.bprev_z = ttk.Button(self.rowz, text="<", width=1,
                                   command=self.prev_z)
         self.bprev_z.pack(side=tk.LEFT)
-        self.bprev_ztip = add_tooltip(self.bprev_z, 'Previous variable.')
+        self.bprev_ztip = add_tooltip(self.bprev_z, 'Previous variable')
         self.bnext_z = ttk.Button(self.rowz, text=">", width=1,
                                   command=self.next_z)
         self.bnext_z.pack(side=tk.LEFT)
-        self.bnext_ztip = add_tooltip(self.bnext_z, 'Next variable.')
+        self.bnext_ztip = add_tooltip(self.bnext_z, 'Next variable')
         self.z = ttk.Combobox(self.rowz, values=columns, width=25)
         self.z.bind("<<ComboboxSelected>>", self.selected_z)
         self.z.pack(side=tk.LEFT)
-        self.ztip = add_tooltip(self.z, 'Choose variable.')
+        self.ztip = add_tooltip(self.z, 'Choose variable')
         self.trans_zlbl, self.trans_z, self.trans_ztip = add_checkbutton(
             self.rowz, label="transpose z", value=False, command=self.checked,
-            tooltip="Transpose matrix.")
+            tooltip="Transpose matrix")
         spacez = ttk.Label(self.rowz, text=" "*1)
         spacez.pack(side=tk.LEFT)
         self.zminlbl, self.zmin, self.zmintip = add_entry(
@@ -187,10 +189,10 @@ class ncvContour(ttk.Frame):
         self.rowx.pack(side=tk.TOP, fill=tk.X)
         self.xlbl, self.x, self.xtip = add_combobox(
             self.rowx, label="x", values=columns, command=self.selected_x,
-            tooltip="Choose variable of x-axis.\nTake index if 'None'.")
+            tooltip="Choose variable of x-axis.\nTake index if 'None' (fast).")
         self.inv_xlbl, self.inv_x, self.inv_xtip = add_checkbutton(
             self.rowx, label="invert x", value=False, command=self.checked,
-            tooltip="Invert x-axis.")
+            tooltip="Invert x-axis")
         self.rowxd = ttk.Frame(self.blockx)
         self.rowxd.pack(side=tk.TOP, fill=tk.X)
         self.xdlbl = []
@@ -217,7 +219,7 @@ class ncvContour(ttk.Frame):
             tooltip="Choose variable of y-axis.\nTake index if 'None'.")
         self.inv_ylbl, self.inv_y, self.inv_ytip = add_checkbutton(
             self.rowy, label="invert y", value=False, command=self.checked,
-            tooltip="Invert y-axis.")
+            tooltip="Invert y-axis")
         self.rowyd = ttk.Frame(self.blocky)
         self.rowyd.pack(side=tk.TOP, fill=tk.X)
         self.ydlbl = []
@@ -240,21 +242,21 @@ class ncvContour(ttk.Frame):
         self.cmaplbl, self.cmap, self.cmaptip = add_imagemenu(
             self.rowcmap, label="cmap", values=self.cmaps,
             images=self.imaps, command=self.selected_cmap,
-            tooltip="Choose colormap.")
+            tooltip="Choose colormap")
         self.cmap['text']  = 'RdYlBu'
         self.cmap['image'] = self.imaps[self.cmaps.index('RdYlBu')]
         self.rev_cmaplbl, self.rev_cmap, self.rev_cmaptip = add_checkbutton(
             self.rowcmap, label="reverse cmap", value=False,
             command=self.checked,
-            tooltip="Reverse colormap.")
+            tooltip="Reverse colormap")
         self.meshlbl, self.mesh, self.meshtip = add_checkbutton(
             self.rowcmap, label="mesh", value=True,
             command=self.checked,
-            tooltip="Pseudocolor plot if checked, plot contours if unchecked.")
+            tooltip="Pseudocolor plot if checked, plot contours if unchecked")
         self.gridlbl, self.grid, self.gridtip = add_checkbutton(
             self.rowcmap, label="grid", value=False,
             command=self.checked,
-            tooltip="Draw major grid lines.")
+            tooltip="Draw major grid lines")
 
     #
     # Bindings
@@ -555,7 +557,7 @@ class ncvContour(ttk.Frame):
         if mesh:
             try:
                 # zz is matrix notation: (row, col)
-                cc = self.axes.pcolormesh(xx, yy, xx, vmin=zmin, vmax=zmax,
+                cc = self.axes.pcolormesh(xx, yy, zz, vmin=zmin, vmax=zmax,
                                           cmap=cmap, shading='nearest')
                 cb = self.figure.colorbar(cc, fraction=0.05, shrink=0.75,
                                           extend=extend)

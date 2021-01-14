@@ -21,12 +21,14 @@ History:
 * Added arithmetics to apply on axis/dimensions such as mean, std, etc.,
   Dec 2020, Matthias Cuntz
 * Added clone_ncvmain, removing its own module, Dec 2020, Matthias Cuntz
+* added SEPCHAR and DIMMETHODS, Jan 2021, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
 The following functions are provided:
 
 .. autosummary::
+   DIMMETHODS
    SEPCHAR
    add_cyclic_point
    clone_ncvmain
@@ -43,10 +45,16 @@ import tkinter as tk
 import numpy as np
 
 
-__all__ = ['SEPCHAR',
+__all__ = ['DIMMETHODS', 'SEPCHAR',
            'add_cyclic_point', 'clone_ncvmain', 'get_slice',
            'list_intersection', 'set_axis_label', 'set_miss',
            'spinbox_values', 'vardim2var', 'zip_dim_name_length']
+
+
+"""
+Arithmetic methods implemented on dimensions.
+"""
+DIMMETHODS = ('mean', 'std', 'min', 'max', 'ptp', 'sum', 'median', 'var')
 
 
 """
@@ -345,10 +353,8 @@ def get_slice(dimspins, y):
     >>> yy = get_slice_y(self.yd, yy).squeeze()
     >>> yy = set_miss(miss, yy)
     """
-    methods = ['all',
-               'mean', 'std',
-               'min', 'max', 'ptp',
-               'sum', 'median', 'var']
+    methods = ['all']
+    methods.extend(DIMMETHODS)
     dd = []
     ss = []
     for i in range(y.ndim):
@@ -361,8 +367,7 @@ def get_slice(dimspins, y):
         dd.append(dim)
         ss.append(s)
     if len(ss) > 0:
-        methods = methods[1:]  # w/o 'all'
-        imeth = list_intersection(dd, methods)
+        imeth = list_intersection(dd, DIMMETHODS)
         if len(imeth) > 0:
             yout = y[tuple(ss)]
             ii = [ i for i, d in enumerate(dd) if d in imeth ]
@@ -505,8 +510,7 @@ def spinbox_values(ndim):
     >>> self.xd0.config(values=spinbox_values(xx.shape[0]))
     """
     if ndim > 1:
-        methods = ('mean', 'std', 'min', 'max', 'ptp', 'sum', 'median', 'var')
-        return (('all',) + tuple(range(ndim)) + methods)
+        return (('all',) + tuple(range(ndim)) + DIMMETHODS)
     else:
         return (0,)
 

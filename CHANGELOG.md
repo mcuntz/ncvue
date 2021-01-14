@@ -4,6 +4,7 @@ All notable changes after its initial development up to November 2020 (v1.0)
 are documented in this file.
 
 ### v2.1 (Jan 2021)
+    - Added tooltips to all selectors, entries, menus.
     - Variable names are now separated by SEPCHAR=chr(6) because netcdf
       variable names can have spaces, parentheses, brackets, etc.
     - Map panel is only chosen first if either lon or lat have more than one

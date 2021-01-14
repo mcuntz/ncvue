@@ -34,6 +34,7 @@ History:
 * catch non numpy.dtype in set_miss, Jan 2021, Matthias Cuntz
 * catch variables that have only one string or similar,
   Jan 2021, Matthias Cuntz
+* added tooltip to dimensions, Jan 2021, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -53,7 +54,8 @@ The following methods are provided:
 from __future__ import absolute_import, division, print_function
 import tkinter as tk
 import numpy as np
-from .ncvutils import get_slice, set_miss, spinbox_values, vardim2var
+from .ncvutils import DIMMETHODS, get_slice, set_miss, spinbox_values
+from .ncvutils import vardim2var
 import netCDF4 as nc
 # nc.default_fillvals but with keys as variables['var'].dtype
 nctypes = [ np.dtype(i) for i in nc.default_fillvals ]
@@ -183,6 +185,7 @@ def set_dim_lat(self):
     for i in range(self.maxdim):
         self.latd[i].config(values=(0,), width=1, state=tk.DISABLED)
         self.latdlbl[i].set(str(i))
+        self.latdtip[i].set("")
     lat = self.lat.get()
     if lat != '':
         # set real dimensions
@@ -199,6 +202,14 @@ def set_dim_lat(self):
             else:
                 self.latdval[i].set(0)
             self.latdlbl[i].set(ll.dimensions[i])
+            if ll.shape[i] > 1:
+                tstr  = "Specific dimension value: 0-{:d}\n".format(
+                    ll.shape[i])
+                tstr += "or arithmetic operation on axis:\n"
+                tstr += "  " + ", ".join(DIMMETHODS)
+            else:
+                tstr = "Single dimension: 0"
+            self.latdtip[i].set(tstr)
 
 
 def set_dim_lon(self):
@@ -225,6 +236,7 @@ def set_dim_lon(self):
     for i in range(self.maxdim):
         self.lond[i].config(values=(0,), width=1, state=tk.DISABLED)
         self.londlbl[i].set(str(i))
+        self.londtip[i].set("")
     lon = self.lon.get()
     if lon != '':
         # set real dimensions
@@ -241,6 +253,14 @@ def set_dim_lon(self):
             else:
                 self.londval[i].set(0)
             self.londlbl[i].set(ll.dimensions[i])
+            if ll.shape[i] > 1:
+                tstr  = "Specific dimension value: 0-{:d}\n".format(
+                    ll.shape[i])
+                tstr += "or arithmetic operation on axis:\n"
+                tstr += "  " + ", ".join(DIMMETHODS)
+            else:
+                tstr = "Single dimension: 0"
+            self.londtip[i].set(tstr)
 
 
 def set_dim_var(self):
@@ -271,6 +291,7 @@ def set_dim_var(self):
     for i in range(self.maxdim):
         self.vd[i].config(values=(0,), width=1, state=tk.DISABLED)
         self.vdlbl[i].set(str(i))
+        self.vdtip[i].set("")
     v = self.v.get()
     if v != '':
         # set real dimensions
@@ -288,6 +309,14 @@ def set_dim_var(self):
                 nall += 1
                 self.vdval[i].set('all')
                 self.vdlbl[i].set(vv.dimensions[i])
+                if vv.shape[i] > 1:
+                    tstr  = "Specific dimension value: 0-{:d}\n".format(
+                        vv.shape[i])
+                    tstr += "or arithmetic operation on axis:\n"
+                    tstr += "  " + ", ".join(DIMMETHODS)
+                else:
+                    tstr = "Single dimension: 0"
+                self.vdtip[i].set(tstr)
         if self.londim:
             if self.londim in vv.dimensions:
                 i = vv.dimensions.index(self.londim)
@@ -297,6 +326,14 @@ def set_dim_var(self):
                 nall += 1
                 self.vdval[i].set('all')
                 self.vdlbl[i].set(vv.dimensions[i])
+                if vv.shape[i] > 1:
+                    tstr  = "Specific dimension value: 0-{:d}\n".format(
+                        vv.shape[i])
+                    tstr += "or arithmetic operation on axis:\n"
+                    tstr += "  " + ", ".join(DIMMETHODS)
+                else:
+                    tstr = "Single dimension: 0"
+                self.vdtip[i].set(tstr)
         for i in range(vv.ndim):
             ww = max(5, int(np.ceil(np.log10(vv.shape[i]))))  # 5~median
             self.vd[i].config(values=spinbox_values(vv.shape[i]), width=ww,
@@ -307,10 +344,26 @@ def set_dim_var(self):
                 nall += 1
                 self.vdval[i].set('all')
                 self.vdlbl[i].set(vv.dimensions[i])
+                if vv.shape[i] > 1:
+                    tstr  = "Specific dimension value: 0-{:d}\n".format(
+                        vv.shape[i])
+                    tstr += "or arithmetic operation on axis:\n"
+                    tstr += "  " + ", ".join(DIMMETHODS)
+                else:
+                    tstr = "Single dimension: 0"
+                self.vdtip[i].set(tstr)
             elif ((vv.dimensions[i] != self.latdim) and
                   (vv.dimensions[i] != self.londim)):
                 self.vdval[i].set(0)
                 self.vdlbl[i].set(vv.dimensions[i])
+                if vv.shape[i] > 1:
+                    tstr  = "Specific dimension value: 0-{:d}\n".format(
+                        vv.shape[i])
+                    tstr += "or arithmetic operation on axis:\n"
+                    tstr += "  " + ", ".join(DIMMETHODS)
+                else:
+                    tstr = "Single dimension: 0"
+                self.vdtip[i].set(tstr)
 
 
 def set_dim_x(self):
@@ -341,6 +394,7 @@ def set_dim_x(self):
     for i in range(self.maxdim):
         self.xd[i].config(values=(0,), width=1, state=tk.DISABLED)
         self.xdlbl[i].set(str(i))
+        self.xdtip[i].set("")
     x = self.x.get()
     if x != '':
         # set real dimensions
@@ -357,6 +411,14 @@ def set_dim_x(self):
             nall += 1
             self.xdval[i].set('all')
             self.xdlbl[i].set(xx.dimensions[i])
+            if xx.shape[i] > 1:
+                tstr  = "Specific dimension value: 0-{:d}\n".format(
+                    xx.shape[i])
+                tstr += "or arithmetic operation on axis:\n"
+                tstr += "  " + ", ".join(DIMMETHODS)
+            else:
+                tstr = "Single dimension: 0"
+            self.xdtip[i].set(tstr)
         for i in range(xx.ndim):
             if xx.dimensions[i] != self.dunlim:
                 ww = max(5, int(np.ceil(np.log10(xx.shape[i]))))
@@ -368,6 +430,14 @@ def set_dim_x(self):
                 else:
                     self.xdval[i].set(0)
                 self.xdlbl[i].set(xx.dimensions[i])
+                if xx.shape[i] > 1:
+                    tstr  = "Specific dimension value: 0-{:d}\n".format(
+                        xx.shape[i])
+                    tstr += "or arithmetic operation on axis:\n"
+                    tstr += "  " + ", ".join(DIMMETHODS)
+                else:
+                    tstr = "Single dimension: 0"
+                self.xdtip[i].set(tstr)
 
 
 def set_dim_y(self):
@@ -398,6 +468,7 @@ def set_dim_y(self):
     for i in range(self.maxdim):
         self.yd[i].config(values=(0,), width=1, state=tk.DISABLED)
         self.ydlbl[i].set(str(i))
+        self.ydtip[i].set("")
     y = self.y.get()
     if y != '':
         # set real dimensions
@@ -414,6 +485,14 @@ def set_dim_y(self):
             nall += 1
             self.ydval[i].set('all')
             self.ydlbl[i].set(yy.dimensions[i])
+            if yy.shape[i] > 1:
+                tstr  = "Specific dimension value: 0-{:d}\n".format(
+                    yy.shape[i])
+                tstr += "or arithmetic operation on axis:\n"
+                tstr += "  " + ", ".join(DIMMETHODS)
+            else:
+                tstr = "Single dimension: 0"
+            self.ydtip[i].set(tstr)
         for i in range(yy.ndim):
             if yy.dimensions[i] != self.dunlim:
                 ww = max(5, int(np.ceil(np.log10(yy.shape[i]))))
@@ -425,6 +504,14 @@ def set_dim_y(self):
                 else:
                     self.ydval[i].set(0)
                 self.ydlbl[i].set(yy.dimensions[i])
+                if yy.shape[i] > 1:
+                    tstr  = "Specific dimension value: 0-{:d}\n".format(
+                        yy.shape[i])
+                    tstr += "or arithmetic operation on axis:\n"
+                    tstr += "  " + ", ".join(DIMMETHODS)
+                else:
+                    tstr = "Single dimension: 0"
+                self.ydtip[i].set(tstr)
 
 
 def set_dim_y2(self):
@@ -455,6 +542,7 @@ def set_dim_y2(self):
     for i in range(self.maxdim):
         self.y2d[i].config(values=(0,), width=1, state=tk.DISABLED)
         self.y2dlbl[i].set(str(i))
+        self.y2dtip[i].set("")
     y2 = self.y2.get()
     if y2 != '':
         # set real dimensions
@@ -471,6 +559,14 @@ def set_dim_y2(self):
             nall += 1
             self.y2dval[i].set('all')
             self.y2dlbl[i].set(yy2.dimensions[i])
+            if yy2.shape[i] > 1:
+                tstr  = "Specific dimension value: 0-{:d}\n".format(
+                    yy2.shape[i])
+                tstr += "or arithmetic operation on axis:\n"
+                tstr += "  " + ", ".join(DIMMETHODS)
+            else:
+                tstr = "Single dimension: 0"
+            self.y2dtip[i].set(tstr)
         for i in range(yy2.ndim):
             if yy2.dimensions[i] != self.dunlim:
                 ww = max(5, int(np.ceil(np.log10(yy2.shape[i]))))
@@ -482,6 +578,14 @@ def set_dim_y2(self):
                 else:
                     self.y2dval[i].set(0)
                 self.y2dlbl[i].set(yy2.dimensions[i])
+                if yy2.shape[i] > 1:
+                    tstr  = "Specific dimension value: 0-{:d}\n".format(
+                        yy2.shape[i])
+                    tstr += "or arithmetic operation on axis:\n"
+                    tstr += "  " + ", ".join(DIMMETHODS)
+                else:
+                    tstr = "Single dimension: 0"
+                self.y2dtip[i].set(tstr)
 
 
 def set_dim_z(self):
@@ -513,6 +617,7 @@ def set_dim_z(self):
     for i in range(self.maxdim):
         self.zd[i].config(values=(0,), width=1, state=tk.DISABLED)
         self.zdlbl[i].set(str(i))
+        self.zdtip[i].set("")
     z = self.z.get()
     if z != '':
         # set real dimensions
@@ -529,6 +634,14 @@ def set_dim_z(self):
             nall += 1
             self.zdval[i].set('all')
             self.zdlbl[i].set(zz.dimensions[i])
+            if zz.shape[i] > 1:
+                tstr  = "Specific dimension value: 0-{:d}\n".format(
+                    zz.shape[i])
+                tstr += "or arithmetic operation on axis:\n"
+                tstr += "  " + ", ".join(DIMMETHODS)
+            else:
+                tstr = "Single dimension: 0"
+            self.zdtip[i].set(tstr)
         for i in range(zz.ndim):
             if zz.dimensions[i] != self.dunlim:
                 ww = max(5, int(np.ceil(np.log10(zz.shape[i]))))
@@ -540,3 +653,11 @@ def set_dim_z(self):
                 else:
                     self.zdval[i].set(0)
                 self.zdlbl[i].set(zz.dimensions[i])
+                if zz.shape[i] > 1:
+                    tstr  = "Specific dimension value: 0-{:d}\n".format(
+                        zz.shape[i])
+                    tstr += "or arithmetic operation on axis:\n"
+                    tstr += "  " + ", ".join(DIMMETHODS)
+                else:
+                    tstr = "Single dimension: 0"
+                self.zdtip[i].set(tstr)
