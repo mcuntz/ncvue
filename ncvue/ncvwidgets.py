@@ -15,7 +15,7 @@ Released under the MIT License; see LICENSE file for details.
 History:
 
 * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
-* Added tooltips to all widgets with Hovertip, Jan 2021, Matthias Cuntz
+* Added tooltips to all widgets with class Tooltip, Jan 2021, Matthias Cuntz
 * Added add_tooltip widget, Jan 2021, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
@@ -23,7 +23,7 @@ History:
 The following functions are provided:
 
 .. autosummary::
-   Hovertip
+   Tooltip
    add_checkbutton
    add_combobox
    add_entry
@@ -42,23 +42,23 @@ except Exception:
     print('Using the themed widget set introduced in Tk 8.5.')
     print('Try to use mcview.py, which uses wxpython instead.')
     sys.exit()
-from idlelib.tooltip import OnHoverTooltipBase
+from idlelib.tooltip import Hovertip
 
 
-__all__ = ['Hovertip',
+__all__ = ['Tooltip',
            'add_checkbutton', 'add_combobox', 'add_entry',
            'add_imagemenu', 'add_menu', 'add_scale', 'add_spinbox',
            'add_tooltip']
 
 
-class Hovertip(OnHoverTooltipBase):
+class Tooltip(Hovertip):
     """
     A tooltip that pops up when a mouse hovers over an anchor widget.
 
     This is a copy of the class Hovertip of Python's idlelib/tooltip.py.
-    It sets the foreground colour to see the tip also in macOS dark mode,
-    and displays a textvariable rather than simple text so one can change
-    the tip during run time.
+    In addition, it sets the foreground colour to see the tip also in
+    macOS dark mode, and displays a textvariable rather than simple text
+    so one can change the tip during run time.
     """
     def __init__(self, anchor_widget, text, hover_delay=1000):
         """Create a text tooltip with a mouse hover delay.
@@ -69,12 +69,10 @@ class Hovertip(OnHoverTooltipBase):
         e.g. after hovering over the anchor widget with the mouse for enough
         time.
         """
-        super(Hovertip, self).__init__(anchor_widget, hover_delay=hover_delay)
-        self.text = text
+        super(Tooltip, self).__init__(anchor_widget, text,
+                                      hover_delay=hover_delay)
 
     def showcontents(self):
-        # label = Label(self.tipwindow, text=self.text, justify=LEFT,
-        #               background="#ffffe0", relief=SOLID, borderwidth=1)
         # light yellow = #ffffe0
         label = tk.Label(self.tipwindow, textvariable=self.text,
                          background="#ffffe0", foreground="#000000",
@@ -129,7 +127,7 @@ def add_checkbutton(frame, label="", value=False, command=None, tooltip="",
     if tooltip:
         ttip = tk.StringVar()
         ttip.set(tooltip)
-        cbtip = Hovertip(cb, ttip)
+        cbtip = Tooltip(cb, ttip)
         return check_label, bvar, ttip
     else:
         return check_label, bvar
@@ -185,7 +183,7 @@ def add_combobox(frame, label="", values=[], command=None, tooltip="",
     if tooltip:
         ttip = tk.StringVar()
         ttip.set(tooltip)
-        cbtip = Hovertip(cb, ttip)
+        cbtip = Tooltip(cb, ttip)
         return cb_label, cb, ttip
     else:
         return cb_label, cb
@@ -244,7 +242,7 @@ def add_entry(frame, label="", text="", command=None, tooltip="", **kwargs):
     if tooltip:
         ttip = tk.StringVar()
         ttip.set(tooltip)
-        etip = Hovertip(entry, ttip)
+        etip = Tooltip(entry, ttip)
         return entry_label, entry_text, ttip
     else:
         return entry_label, entry_text
@@ -312,7 +310,7 @@ def add_imagemenu(frame, label="", values=[], images=[], command=None,
     if tooltip:
         ttip = tk.StringVar()
         ttip.set(tooltip)
-        mbtip = Hovertip(mb, ttip)
+        mbtip = Tooltip(mb, ttip)
         return mb_label, mb, ttip
     else:
         return mb_label, mb
@@ -367,7 +365,7 @@ def add_menu(frame, label="", values=[], command=None, tooltip="", **kwargs):
     if tooltip:
         ttip = tk.StringVar()
         ttip.set(tooltip)
-        mbtip = Hovertip(mb, ttip)
+        mbtip = Tooltip(mb, ttip)
         return mb_label, mb, ttip
     else:
         return mb_label, mb
@@ -418,7 +416,7 @@ def add_scale(frame, label="", ini=0, tooltip="", **kwargs):
     if tooltip:
         ttip = tk.StringVar()
         ttip.set(tooltip)
-        stip = Hovertip(s, ttip)
+        stip = Tooltip(s, ttip)
         return s_label, s_val, s, ttip
     else:
         return s_label, s_val, s
@@ -482,7 +480,7 @@ def add_spinbox(frame, label="", values=[], command=None, tooltip="",
     if tooltip:
         ttip = tk.StringVar()
         ttip.set(tooltip)
-        sbtip = Hovertip(sb, ttip)
+        sbtip = Tooltip(sb, ttip)
         return sb_label, sb_val, sb, ttip
     else:
         return sb_label, sb_val, sb
@@ -490,7 +488,7 @@ def add_spinbox(frame, label="", values=[], command=None, tooltip="",
 
 def add_tooltip(frame, tooltip="", **kwargs):
     """
-    Add a writeable tooltip to a widget using the class Hovertip.
+    Add a writeable tooltip to a widget using the class Tooltip.
 
     Parameters
     ----------
@@ -518,5 +516,5 @@ def add_tooltip(frame, tooltip="", **kwargs):
     """
     ttip = tk.StringVar()
     ttip.set(tooltip)
-    htip = Hovertip(frame, ttip)
+    htip = Tooltip(frame, ttip)
     return ttip
