@@ -423,14 +423,13 @@ class ncvMap(ttk.Frame):
             irepeat = True
         else:
             irepeat = False
-        self.anim_running = True
+        self.anim_first   = True   # True: stops in self.update at first call
+        self.anim_running = True   # True/False: animation running or not
         self.anim_inc     = 1      # 1/-1: forward or backward run
         self.anim = animation.FuncAnimation(self.figure, self.update,
                                             init_func=self.redraw,
                                             interval=self.delayval.get(),
                                             repeat=irepeat)
-        # self.anim.event_source.stop()
-        # self.anim_running = False  # True/False: running or paused animation
 
     #
     # Bindings
@@ -825,6 +824,9 @@ class ncvMap(ttk.Frame):
         their dimension spinboxes, as well as all other plotting options.
         Then redraws the plot.
         """
+        # stop animation
+        self.anim.event_source.stop()
+        self.anim_running = False
         # get all states
         # rowv
         v = self.v.get()
@@ -1078,8 +1080,6 @@ class ncvMap(ttk.Frame):
         # redraw
         self.canvas.draw()
         self.toolbar.update()
-        self.anim.event_source.stop()
-        self.anim_running = False
 
     # def update(self, frame, isframe=False):
     #     pass
@@ -1088,6 +1088,11 @@ class ncvMap(ttk.Frame):
         """
         Updates data of the current the plot.
         """
+        if self.anim_first:
+            self.anim.event_source.stop()
+            self.anim_running = False
+            self.anim_first   = False
+            return
         # variable
         v = self.v.get()
         if (v != ''):
