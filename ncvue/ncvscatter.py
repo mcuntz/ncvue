@@ -578,8 +578,8 @@ class ncvScatter(ttk.Frame):
                      'linewidth': lw,
                      'marker': m,
                      'markersize': ms,
-                     'markerfacecolor': mec,
-                     'markeredgecolor': mfc,
+                     'markerfacecolor': mfc,
+                     'markeredgecolor': mec,
                      'markeredgewidth': mew}
             vy = vardim2var(y)
             if vy == self.tname:
@@ -682,8 +682,8 @@ class ncvScatter(ttk.Frame):
                      'linewidth': lw,
                      'marker': m,
                      'markersize': ms,
-                     'markerfacecolor': mec,
-                     'markeredgecolor': mfc,
+                     'markerfacecolor': mfc,
+                     'markeredgecolor': mec,
                      'markeredgewidth': mew}
             vy = vardim2var(y2)
             if vy == self.tname:

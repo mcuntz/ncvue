@@ -714,6 +714,8 @@ class ncvMap(ttk.Frame):
 
         Redraws plot.
         """
+        it = int(self.vdval[self.iunlim].get())
+        self.set_tstep(it)
         self.redraw()
 
     def tstep_t(self, step):
