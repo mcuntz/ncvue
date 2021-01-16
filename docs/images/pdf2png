@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+pdffile=${1}
+
+pid=$$
+tmpfile=${pdffile%.pdf}.${pid}.pdf
+pngfile=${pdffile%.pdf}.png
+
+pdfcrop --margins 1 ${pdffile} ${tmpfile}
+convert -density 600 ${tmpfile} ${pngfile}
+rm ${tmpfile}
+
+exit
