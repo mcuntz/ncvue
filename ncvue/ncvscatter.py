@@ -242,7 +242,7 @@ class ncvScatter(ttk.Frame):
             command=self.entered_y,
             tooltip="Line style: -, --, -., :, or None")
         self.lwlbl, self.lw, self.lwtip = add_entry(
-            self.rowxyopt, label="lw", text='1', width=2,
+            self.rowxyopt, label="lw", text='1', width=3,
             command=self.entered_y, tooltip="Line width")
         self.lclbl, self.lc, self.lctip = add_entry(
             self.rowxyopt, label="c", text=col1, width=7,
@@ -253,7 +253,7 @@ class ncvScatter(ttk.Frame):
             command=self.entered_y,
             tooltip="Marker symbol:\n"+mtstr)
         self.mslbl, self.ms, self.mstip = add_entry(
-            self.rowxyopt, label="ms", text='1', width=2,
+            self.rowxyopt, label="ms", text='1', width=3,
             command=self.entered_y, tooltip="Marker size")
         self.mfclbl, self.mfc, self.mfctip = add_entry(
             self.rowxyopt, label="mfc", text=col1, width=7,
@@ -264,7 +264,7 @@ class ncvScatter(ttk.Frame):
             command=self.entered_y,
             tooltip="Marker edge color:\n"+ctstr)
         self.mewlbl, self.mew, self.mewtip = add_entry(
-            self.rowxyopt, label="mew", text='1', width=2,
+            self.rowxyopt, label="mew", text='1', width=3,
             command=self.entered_y, tooltip="Marker edge width")
 
         # space
@@ -321,7 +321,7 @@ class ncvScatter(ttk.Frame):
             command=self.entered_y2,
             tooltip="Line style: -, --, -., :, or None")
         self.lw2lbl, self.lw2, self.lw2tip = add_entry(
-            self.rowy2opt, label="lw", text='1', width=2,
+            self.rowy2opt, label="lw", text='1', width=3,
             command=self.entered_y2, tooltip="Line width")
         self.lc2lbl, self.lc2, self.lc2tip = add_entry(
             self.rowy2opt, label="c", text=col2, width=7,
@@ -332,7 +332,7 @@ class ncvScatter(ttk.Frame):
             command=self.entered_y2,
             tooltip="Marker symbol:\n"+mtstr)
         self.ms2lbl, self.ms2, self.ms2tip = add_entry(
-            self.rowy2opt, label="ms", text='1', width=2,
+            self.rowy2opt, label="ms", text='1', width=3,
             command=self.entered_y2, tooltip="Marker size")
         self.mfc2lbl, self.mfc2, self.mfc2tip = add_entry(
             self.rowy2opt, label="mfc", text=col2, width=7,
@@ -341,7 +341,7 @@ class ncvScatter(ttk.Frame):
             self.rowy2opt, label="mec", text=col2, width=7,
             command=self.entered_y2, tooltip="Marker edge color:\n"+ctstr)
         self.mew2lbl, self.mew2, self.mew2tip = add_entry(
-            self.rowy2opt, label="mew", text='1', width=2,
+            self.rowy2opt, label="mew", text='1', width=3,
             command=self.entered_y2, tooltip="Marker edge width")
 
     #
@@ -368,8 +368,8 @@ class ncvScatter(ttk.Frame):
 
     def checked_y2(self):
         """
-        Command called if any checkbutton for right-hand-side y-axis was checked
-        or unchecked.
+        Command called if any checkbutton for right-hand-side y-axis was
+        checked or unchecked.
 
         Redraws right-hand-side y-axis.
         """
@@ -553,7 +553,7 @@ class ncvScatter(ttk.Frame):
             try:
                 if isinstance(eval(c), tuple):
                     c = eval(c)
-            except:
+            except:  # several different exceptions possible
                 pass
             m   = self.marker.get()
             ms  = float(self.ms.get())
