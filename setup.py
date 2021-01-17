@@ -32,10 +32,10 @@ def _find_version(*file_paths):
 
 # setup
 
-package  = "ncvue"
+package   = "ncvue"
 doclines  = "A minimal GUI for a quick view of netcdf files."
 doclines += " Aiming to be a drop-in replacement for ncview."
-readme   = open("README.md").read()
+readme    = open("README.rst").read()
 
 author = "Matthias Cuntz"
 email  = "mc@macu.de"
@@ -75,7 +75,7 @@ setup(
     maintainer_email     = email,
     description          = doclines,
     long_description     = readme,
-    long_description_content_type = "text/markdown",
+    long_description_content_type = "text/x-rst",
     author               = author,
     author_email         = email,
     url                  = "https://github.com/mcuntz/"+package,
@@ -83,7 +83,7 @@ setup(
     classifiers          = classifiers,
     platforms            = ["Windows", "Linux", "Solaris", "Mac OS-X", "Unix"],
     include_package_data = True,
-    install_requires     = ["numpy", "netcdf4"],
+    install_requires     = ["numpy", "netcdf4", "matplotlib", "cartopy"],
     extras_require       = {},
     packages             = find_packages(include=[package, package+'.*']),
     scripts              = scripts,

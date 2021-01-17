@@ -16,8 +16,8 @@ with a clear description of the problem and if possible with a
 - please add the version number to the issue:
 
 ```python
-import ncvue
-print(ncvue.__version__)
+    import ncvue
+    print(ncvue.__version__)
 ```
 
 ## Do you have suggestions for new features?
