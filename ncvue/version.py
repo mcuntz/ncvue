@@ -6,7 +6,7 @@ This module was written by Matthias Cuntz while at Institut National de
 Recherche pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy,
 France.
 
-Copyright (c) 2020 Matthias Cuntz - mc (at) macu (dot) de
+Copyright (c) 2020-2021 Matthias Cuntz - mc (at) macu (dot) de
 Released under the MIT License; see LICENSE file for details.
 
 * Written Nov 2020 by Matthias Cuntz (mc (at) macu (dot) de)

@@ -9,7 +9,7 @@ This module was written by Matthias Cuntz while at Institut National de
 Recherche pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy,
 France.
 
-Copyright (c) 2020 Matthias Cuntz - mc (at) macu (dot) de
+Copyright (c) 2020-2021 Matthias Cuntz - mc (at) macu (dot) de
 
 Released under the MIT License; see LICENSE file for details.
 
@@ -42,6 +42,10 @@ def ncvue(ncfile, miss=np.nan):
     ----------
     ncfile : str
         Name of netcdf file.
+    miss : float, optional
+        Add value to list of missing values: _FillValue, missing_value,
+        and the standard netCDF missing value for current datatype from
+        netcdf4.default_fillvals.
     """
     fi = nc.Dataset(ncfile, 'r')
 

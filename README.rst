@@ -1,10 +1,13 @@
-ncvue -- A GUI to view netCDF files
-===================================
+ncvue - A GUI to view netCDF files
+==================================
 ..
   pandoc -f rst -o README.html -t html README.rst
+  As docs/src/index.rst:
+    replace docs with .., and _small with nothing.
+    remove install section
 
 A minimal GUI for a quick view of netCDF files.
-Aiming to be a drop-in replacement for ncview.
+Aiming to be a drop-in replacement for ncview_.
 
 .. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.3893705.svg
    :alt: Zenodo DOI
@@ -34,21 +37,18 @@ a drop-in replacement for ncview_, being slightly more general than ncview,
 which targets maps. If ``ncvue`` is used with maps, it supports mostly
 structured grids, more precisely the grids supported by cartopy_.
 
-``ncvue`` is a Python script that can be called from within Python and as a command
-line tool.
-
-Documentation - NOT YET ON ReadTheDocs
---------------------------------------
+``ncvue`` is a Python script that can be called from within Python and as a
+command line tool. It is not supposed to produce publication-ready plots but
+rather provide a quick overview of the netcdf variables.
 
 The complete documentation for ``ncvue`` is available from Read The Docs.
 
    http://ncvue.readthedocs.org/en/latest/
 
-
 Quick usage guide
 -----------------
 
-Try it on the command line as:
+``ncvue`` can be run from the command line:
 
 .. code-block:: bash
 
@@ -61,11 +61,77 @@ or from within Python:
    from ncvue import ncvue
    ncvue('netcdf_file.nc')
 
-Note that ``ncvue`` uses the `TkAgg` backend of `matplotlib`. It must be called
+Note, ``ncvue`` uses the `TkAgg` backend of `matplotlib`. It must be called
 before any other call to `matplotlib`. This also means that you cannot launch it
 from within `iPython` if it was launched with `--pylab`. It can be called from
-within a standard `iPython`.
+within a standard `iPython`, though.
 
+General layout
+^^^^^^^^^^^^^^
+
+On opening, ``ncvue`` presents three panels for different plotting types:
+Scatter or Line plots, Contour plots, and Maps. This is the look in macOS light
+mode (higher resolution images can be found in the documentation_):
+
+.. image:: docs/images/scatter_panel_light_small.png
+   :width: 860 px
+   :align: left
+   :alt: Graphical documentation of ncvue layout
+
+..
+   :height: 462 px
+
+All three panes are organised in this fashion: the plotting canvas, the
+Matplotlib navigation toolbar and the pane, where one can choose the plotting
+variables and dimensions, as well as plotting options. You can always choose
+another panel on top, and open another, identical window for the same netCDF
+file with the button "New Window" on the top right.
+
+Map panel
+^^^^^^^^^
+
+If ``ncvue`` detects latitude and longitude variables with a size greater 1, it
+opens the Map panel by default. This is the Map panel in macOS dark mode,
+describing all buttons, sliders, entry boxes, spinboxes, and menus:
+
+.. image:: docs/images/map_panel_dark_small.png
+   :width: 860 px
+   :align: left
+   :alt: Graphical documentation of Map panel
+
+If it happens that the detection of latitudes and longitudes did not work
+automatically, you can choose the correct variables manually. Or you might use
+the empty entrances on top of the dropdown menus of the latitudes and
+longitudes, which uses the index and one can hence display the matrix within the
+netCDF file. You might want to switch of the coastlines in this case.
+
+You might want to switch off the automatically detected "global" option sometimes
+if your data is on a rotated grid or excludes some regions such as below minus -60 °S.
+
+All dimensions can be set from 0 to the size of the dimension-1, to "all", or to
+any of the arithmetic operators "mean", "std" (standard deviation), "min",
+"max", "ptp" (point-to-point amplitude (max-min)), "sum", "median", "var"
+(variance).
+
+Be aware that the underlying cartopy/matplotlib may (or may not) need a long
+time to plot the data (with the pseudocolor mesh option) if you change the
+central longitude of the projection from the central longitude of your data.
+Changing to the central longitude of the input data normally eliminates the
+problem.
+
+Scatter/Line panel
+^^^^^^^^^^^^^^^^^^
+
+If ``ncvue`` does not detect latitude and longitude variables with a size greater 1, it
+opens the Scatter/Line panel by default. This is the Scatter/Line panel in macOS dark mode,
+describing all buttons, sliders, entry boxes, spinboxes, and menus:
+
+.. image:: docs/images/scatter_panel_dark_small.png
+   :width: 860 px
+   :align: left
+   :alt: Graphical documentation of Scatter/Line panel
+
+Bla
 
 Installation - NOT YET ON PyPI
 ------------------------------
@@ -76,46 +142,7 @@ The easiest way to install is via `pip`:
 
    pip install ncvue
 
-
-The latest version of ``ncvue`` can be installed from source:
-
-.. code-block:: bash
-
-   git clone https://github.com/mcuntz/ncvue.git
-   cd ncvue
-   pip install .
-
-Users without proper privileges can append the `--user` flag to
-`pip` either while installing from the Python Package Index (PyPI):
-
-.. code-block:: bash
-
-   pip install ncvue --user
-
-or from the top ``ncvue`` directory:
-
-.. code-block:: bash
-
-   git clone https://github.com/mcuntz/ncvue.git
-   cd ncvue
-   pip install . --user
-
-One can download the repository and add it to `PYTHONPATH` as well as the `bin`
-directory to `PATH`:
-
-.. code-block:: bash
-
-   git clone https://github.com/mcuntz/ncvue.git
-   cd ncvue
-   export PYTHONPATH=${PYTHONPATH}:${PWD}
-   export PATH=${PATH}:${PWD}/bin
-
-``ncvue`` uses the packages numpy_, netCDF4_, matplotlib_, and cartopy_, which are installed automatically if
-`pip` is used or should be installed before setting up ``ncvue``.
-
-``ncvue`` uses the "themed Tk" ("ttk") functionality of Tk 8.5. It hence needs
-Python 2.7 or Python 3.1 or later. Linux users might need to update their (very
-old) Tk installations.
+See the installation instructions_ in the documentation_ for more information.
 
 License
 -------
@@ -127,16 +154,11 @@ Copyright (c) 2020-2021 Matthias Cuntz
 
 The project structure is based on a template_ provided by Sebastian Müller_.
 
-
-Contributing to ncvue
----------------------
-
-Users are welcome to submit bug reports, feature requests, and code
-contributions to this project through GitHub.
-
 .. _LICENSE: https://github.com/mcuntz/ncvue/LICENSE
 .. _Müller: https://github.com/MuellerSeb
 .. _cartopy: https://scitools.org.uk/cartopy/docs/latest/
+.. _documentation: http://ncvue.readthedocs.org/en/latest/
+.. _instructions: http://ncvue.readthedocs.io/en/latest/install.htm
 .. _matplotlib: https://matplotlib.org/
 .. _ncview: http://meteora.ucsd.edu/~pierce/ncview_home_page.html
 .. _netcdf4: https://unidata.github.io/netcdf4-python/netCDF4/index.html

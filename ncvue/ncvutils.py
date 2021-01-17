@@ -9,7 +9,7 @@ This module was written by Matthias Cuntz while at Institut National de
 Recherche pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy,
 France.
 
-Copyright (c) 2020 Matthias Cuntz - mc (at) macu (dot) de
+Copyright (c) 2020-2021 Matthias Cuntz - mc (at) macu (dot) de
 
 Released under the MIT License; see LICENSE file for details.
 
@@ -51,18 +51,27 @@ __all__ = ['DIMMETHODS', 'SEPCHAR',
            'spinbox_values', 'vardim2var', 'zip_dim_name_length']
 
 
+DIMMETHODS = ('mean', 'std', 'min', 'max', 'ptp', 'sum', 'median', 'var')
 """
 Arithmetic methods implemented on dimensions.
+
+mean - average
+std - standard deviation
+min - minimum
+max - maximum
+ptp - point-to-point amplitude = max - min
+sum - sum
+median - 50-percentile
+var - variance
 """
-DIMMETHODS = ('mean', 'std', 'min', 'max', 'ptp', 'sum', 'median', 'var')
 
 
+SEPCHAR = chr(6)
 """
-Invisible character to split springs.
+Invisible character to split strings.
 
 ASCII character 6 = ACKNOWLEDGE (ACK)
 """
-SEPCHAR = chr(6)
 
 
 def add_cyclic_point(data, coord=None, rowcoord=None, axis=-1):
