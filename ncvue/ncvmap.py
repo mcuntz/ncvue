@@ -924,13 +924,25 @@ class ncvMap(ttk.Frame):
             # make in 0-360, otherwise always 0 if -180 to 180
             xx360 = (xx + 360.) % 360.
             if xx.size > 1:
+                if xx.ndim > 1:
+                    x0 = xx[:, 0].mean()
+                    if self.iiglobal:
+                        # -2 instead of -1 to avoid possible cyclic longitude
+                        x1 = xx[:, -2].mean()
+                    else:
+                        x1 = xx[:, -1].mean()
+                else:
+                    x0 = xx[0]
+                    if self.iiglobal:
+                        x1 = xx[-2]
+                    else:
+                        x1 = xx[-1]
+                self.ixxmean = 0.5*(x1+x0)
                 if self.iiglobal:
                     # round it to next 180 degrees to get 0 or 180
-                    self.ixxmean = np.around(xx360.mean()/180., 0) * 180.
-                else:
-                    self.ixxmean = xx360.mean()
+                    self.ixxmean = np.around(self.ixxmean / 180., 0) * 180.
             else:
-                self.ixxmean = xx360.mean()
+                self.ixxmean = xx360[0]
             # seems to work better if central lon in projection
             # is set from -180 to 180 even if lon is given in 0-360
             if self.ixxmean > 180.:
