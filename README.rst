@@ -30,10 +30,9 @@ About ncvue
 -----------
 
 ``ncvue`` is a minimal GUI for a quick view of netCDF files. It is aiming to be
-a drop-in replacement for `ncview`_, being slightly more general than `ncview`,
-which targets maps.
-
-.. _ncview http://meteora.ucsd.edu/~pierce/ncview_home_page.html
+a drop-in replacement for ncview_, being slightly more general than ncview,
+which targets maps. If ``ncvue`` is used with maps, it supports mostly
+structured grids, more precisely the grids supported by cartopy_.
 
 ``ncvue`` is a Python script that can be called from within Python and as a command
 line tool.
@@ -78,7 +77,7 @@ The easiest way to install is via `pip`:
    pip install ncvue
 
 
-The latest version of `ncvue` can be installed from source:
+The latest version of ``ncvue`` can be installed from source:
 
 .. code-block:: bash
 
@@ -87,7 +86,7 @@ The latest version of `ncvue` can be installed from source:
    pip install .
 
 Users without proper privileges can append the `--user` flag to
-``pip`` either while installing from the Python Package Index (PyPI):
+`pip` either while installing from the Python Package Index (PyPI):
 
 .. code-block:: bash
 
@@ -111,9 +110,7 @@ directory to `PATH`:
    export PYTHONPATH=${PYTHONPATH}:${PWD}
    export PATH=${PATH}:${PWD}/bin
 
-``ncvue`` uses the packages :mod:`numpy`,
-[netCDF4](https://unidata.github.io/netcdf4-python/netCDF4/index.html),
-:mod:`matplotlib`, and :mod:`cartopy`, which are installed automatically if
+``ncvue`` uses the packages numpy_, netCDF4_, matplotlib_, and cartopy_, which are installed automatically if
 `pip` is used or should be installed before setting up ``ncvue``.
 
 ``ncvue`` uses the "themed Tk" ("ttk") functionality of Tk 8.5. It hence needs
@@ -123,20 +120,25 @@ old) Tk installations.
 License
 -------
 
-``ncvue`` is distributed under the MIT License. See the `LICENSE`_ file for
+``ncvue`` is distributed under the MIT License. See the LICENSE_ file for
 details.
-
-.. _LICENSE: https://github.com/mcuntz/ncvue/LICENSE
 
 Copyright (c) 2020-2021 Matthias Cuntz
 
-The project structure is based on a `template`_ provided by `Sebastian Müller`_.
+The project structure is based on a template_ provided by Sebastian Müller_.
 
-.. _template: https://github.com/MuellerSeb/template
-.. _Sebastian Müller: https://github.com/MuellerSeb
 
 Contributing to ncvue
 ---------------------
 
 Users are welcome to submit bug reports, feature requests, and code
 contributions to this project through GitHub.
+
+.. _LICENSE: https://github.com/mcuntz/ncvue/LICENSE
+.. _Müller: https://github.com/MuellerSeb
+.. _cartopy: https://scitools.org.uk/cartopy/docs/latest/
+.. _matplotlib: https://matplotlib.org/
+.. _ncview: http://meteora.ucsd.edu/~pierce/ncview_home_page.html
+.. _netcdf4: https://unidata.github.io/netcdf4-python/netCDF4/index.html
+.. _numpy: https://numpy.org/
+.. _template: https://github.com/MuellerSeb/template
