@@ -1,0 +1,13 @@
+name: ncvue
+channels:
+  - conda-forge
+dependencies:
+  - python
+  - cartopy
+  - numpydoc
+  - numpy
+  - matplotlib
+  - netcdf4
+  - cftime
+  - sphinx
+  - sphinx_rtd_theme

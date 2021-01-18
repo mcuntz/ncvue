@@ -5,6 +5,9 @@ version: 2
 sphinx:
   configuration: docs/src/conf.py
 
+conda:
+  environment: docs/environment_rtd.yml
+
 python:
   version: 3.8
   install:
