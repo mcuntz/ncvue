@@ -3,3 +3,4 @@ numpydoc
 numpy
 netcdf4
 matplotlib
+cartopy
