@@ -7,3 +7,12 @@ numpy
 cftime
 netcdf4
 matplotlib
+pyproj
+geos
+cython
+pyshp
+six
+shapely
+pillow
+pykdtree
+cartopy
