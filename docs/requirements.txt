@@ -3,4 +3,13 @@ numpy
 numpydoc
 netcdf4
 matplotlib
+# for cartopy
+proj
+geos
+cython
+pyshp
+six
+shapely
+pillow
+pykdtree
 cartopy
