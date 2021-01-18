@@ -1,6 +1,6 @@
 # required for readthedocs.org
-cartopy
-matplotlib
-netcdf4
-numpydoc
 numpy
+numpydoc
+netcdf4
+matplotlib
+cartopy
