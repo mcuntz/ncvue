@@ -4,4 +4,12 @@ numpydoc
 netcdf4
 matplotlib
 # for cartopy
-pyproj geos cython pyshp six shapely pillow pykdtree cartopy
+pyproj
+geos
+cython
+pyshp
+six
+shapely
+pillow
+pykdtree
+cartopy
