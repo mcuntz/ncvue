@@ -15,4 +15,4 @@ Main Author
 
 * Matthias Cuntz_, E-mail: mc (at) macu (dot) de
 
-.. _Matthias Cuntz: https://github.com/mcuntz
+.. _Cuntz: https://github.com/mcuntz

@@ -44,7 +44,7 @@ def setup(app):
 #
 # needs_sphinx = '1.0'
 
-autodoc_mock_imports = ["matplotlib"]
+autodoc_mock_imports = ["tkinter"]
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom

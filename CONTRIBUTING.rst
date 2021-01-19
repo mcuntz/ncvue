@@ -36,5 +36,5 @@ Do you want to enhance ncvue or fix something?
 * Push to your fork and submit a pull request.
 
 .. _Github: https://github.com/mcuntz/ncvue
-.. _issues: https://github.com/mcuntz/ncvue/issues
+.. _issue: https://github.com/mcuntz/ncvue/issues
 .. _example: https://en.wikipedia.org/wiki/Minimal_working_example
