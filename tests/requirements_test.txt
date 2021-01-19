@@ -15,4 +15,3 @@ six
 shapely
 pillow
 pykdtree
-cartopy

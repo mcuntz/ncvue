@@ -12,4 +12,3 @@ six
 shapely
 pillow
 pykdtree
-cartopy==0.17.0
