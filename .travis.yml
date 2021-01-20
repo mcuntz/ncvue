@@ -22,7 +22,7 @@ install:
   - python3 -m pip install -U pytest-cov
   - python3 -m pip install -U coveralls
   - python3 -m pip install -r tests/requirements_test.txt
-  - python3 -m pip install -r docsrc/requirements.txt
+  - python3 -m pip install -r docs/requirements.txt
   # - python3 -m pip install cibuildwheel
   - python3 -m pip install build
   - python3 -m pip install twine
