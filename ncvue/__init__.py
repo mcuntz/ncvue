@@ -7,7 +7,7 @@ ncvue is a minimal GUI for a quick view of netcdf files.
 It is aiming to be a drop-in replacement for ncview,
 being slightly more general than ncview, which targets maps.
 
-:copyright: Copyright 2020 Matthias Cuntz, see AUTHORS.md for details.
+:copyright: Copyright 2020 Matthias Cuntz, see AUTHORS.rst for details.
 :license: MIT License, see LICENSE for details.
 """
 from __future__ import division, absolute_import, print_function

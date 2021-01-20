@@ -2,7 +2,7 @@ ncvue - A GUI to view netCDF files
 ==================================
 ..
   pandoc -f rst -o README.html -t html README.rst
-  As docs/src/index.rst:
+  As docs/src/readme.rst:
     replace docs with .., and _small with nothing.
     remove install section
 
@@ -25,10 +25,6 @@ Aiming to be a drop-in replacement for ncview_.
    :alt: Build status
    :target: https://travis-ci.org/mcuntz/ncvue
 
-.. image:: https://readthedocs.org/projects/ncvue/badge/?version=latest
-   :alt: Documentation status
-   :target: https://ncvue.readthedocs.io/en/latest/?badge=latest
-
 About ncvue
 -----------
 
@@ -41,9 +37,9 @@ structured grids, more precisely the grids supported by cartopy_.
 command line tool. It is not supposed to produce publication-ready plots but
 rather provide a quick overview of the netcdf variables.
 
-The complete documentation for ``ncvue`` is available from Read The Docs.
+The complete documentation for ``ncvue`` is available from:
 
-   http://ncvue.readthedocs.org/en/latest/
+   https://mcuntz.github.io/ncvue/
 
 Quick usage guide
 -----------------
@@ -133,14 +129,22 @@ describing all buttons, sliders, entry boxes, spinboxes, and menus:
 
 Bla
 
-Installation - NOT YET ON PyPI
-------------------------------
+Installation - NOT YET ON PyPI NOR CONDA
+----------------------------------------
 
-The easiest way to install is via `pip`:
+The easiest way to install ``ncvue`` is via `pip` if you have cartopy_ installed already:
 
 .. code-block:: bash
 
    pip install ncvue
+
+`Cartopy` can, however, be more elaborate to install. The easiest way to install
+Cartopy is by Conda_ and then installing ``ncvue`` also by `Conda`:
+
+.. code-block:: bash
+
+   conda install -c conda-forge cartopy
+   conda install -c conda-forge ncvue
 
 See the installation instructions_ in the documentation_ for more information.
 
@@ -157,8 +161,9 @@ The project structure is based on a template_ provided by Sebastian Müller_.
 .. _LICENSE: https://github.com/mcuntz/ncvue/LICENSE
 .. _Müller: https://github.com/MuellerSeb
 .. _cartopy: https://scitools.org.uk/cartopy/docs/latest/
-.. _documentation: http://ncvue.readthedocs.org/en/latest/
-.. _instructions: http://ncvue.readthedocs.io/en/latest/install.htm
+.. _Conda: https://conda.io/miniconda.html
+.. _documentation: https://mcuntz.github.io/ncvue/
+.. _instructions: https://mcuntz.github.io/ncvue/install.htm
 .. _matplotlib: https://matplotlib.org/
 .. _ncview: http://meteora.ucsd.edu/~pierce/ncview_home_page.html
 .. _netcdf4: https://unidata.github.io/netcdf4-python/netCDF4/index.html

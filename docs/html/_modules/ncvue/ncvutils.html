@@ -1,0 +1,812 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ncvue.ncvutils &mdash; ncvue 2.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> ncvue
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+    <p class="link caption"><span class="link caption-text">Documentation</span></p>
+    
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">ncvue - A GUI to view netCDF files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../readme.html#about-ncvue">About ncvue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../readme.html#quick-usage-guide">Quick usage guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../readme.html#general-layout">General layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../readme.html#map-panel">Map panel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../readme.html#scatter-line-panel">Scatter/Line panel</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../readme.html#installation-not-yet-on-pypi">Installation - NOT YET ON PyPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../readme.html#license">License</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../package.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../package.html#purpose">Purpose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ncvcontour.html">ncvue.ncvcontour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ncvmain.html">ncvue.ncvmain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ncvmap.html">ncvue.ncvmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ncvmethods.html">ncvue.ncvmethods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ncvscatter.html">ncvue.ncvscatter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ncvue.html">ncvue.ncvue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ncvutils.html">ncvue.ncvutils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ncvwidgets.html">ncvue.ncvwidgets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../version.html">ncvue.version</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+    <br />
+    <p class="link caption"><span class="link caption-text">ncvue Links</span></p>
+    <a href="https://github.com/mcuntz/ncvue">ncvue @ GitHub</a>
+    <a href="https://zenodo.org/record/3620909">ncvue Zenodo DOI</a>
+    <a href="https://pypi.org/project/ncvue">ncvue @ PyPI</a>
+    <br />
+    <br />
+    <a href="genindex.html">Index</a>
+    <a href="index.html">Sitemap</a>
+  
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ncvue</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>ncvue.ncvutils</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for ncvue.ncvutils</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Utility functions for ncvue.</span>
+
+<span class="sd">The utility functions do not depend on the ncvue class.</span>
+<span class="sd">Functions depending on the class are in ncvmethods.</span>
+
+<span class="sd">This module was written by Matthias Cuntz while at Institut National de</span>
+<span class="sd">Recherche pour l&#39;Agriculture, l&#39;Alimentation et l&#39;Environnement (INRAE), Nancy,</span>
+<span class="sd">France.</span>
+
+<span class="sd">Copyright (c) 2020-2021 Matthias Cuntz - mc (at) macu (dot) de</span>
+
+<span class="sd">Released under the MIT License; see LICENSE file for details.</span>
+
+<span class="sd">History:</span>
+
+<span class="sd">* Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)</span>
+<span class="sd">* General get_slice function from individual methods for x, y, y2, z,</span>
+<span class="sd">  Dec 2020, Matthias Cuntz</span>
+<span class="sd">* Added arithmetics to apply on axis/dimensions such as mean, std, etc.,</span>
+<span class="sd">  Dec 2020, Matthias Cuntz</span>
+<span class="sd">* Added clone_ncvmain, removing its own module, Dec 2020, Matthias Cuntz</span>
+<span class="sd">* added SEPCHAR and DIMMETHODS, Jan 2021, Matthias Cuntz</span>
+
+<span class="sd">.. moduleauthor:: Matthias Cuntz</span>
+
+<span class="sd">The following functions are provided:</span>
+
+<span class="sd">.. autosummary::</span>
+<span class="sd">   DIMMETHODS</span>
+<span class="sd">   SEPCHAR</span>
+<span class="sd">   add_cyclic_point</span>
+<span class="sd">   clone_ncvmain</span>
+<span class="sd">   get_slice</span>
+<span class="sd">   list_intersection</span>
+<span class="sd">   set_axis_label</span>
+<span class="sd">   set_miss</span>
+<span class="sd">   spinbox_values</span>
+<span class="sd">   vardim2var</span>
+<span class="sd">   zip_dim_name_length</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span>
+<span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;DIMMETHODS&#39;</span><span class="p">,</span> <span class="s1">&#39;SEPCHAR&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;add_cyclic_point&#39;</span><span class="p">,</span> <span class="s1">&#39;clone_ncvmain&#39;</span><span class="p">,</span> <span class="s1">&#39;get_slice&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;list_intersection&#39;</span><span class="p">,</span> <span class="s1">&#39;set_axis_label&#39;</span><span class="p">,</span> <span class="s1">&#39;set_miss&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;spinbox_values&#39;</span><span class="p">,</span> <span class="s1">&#39;vardim2var&#39;</span><span class="p">,</span> <span class="s1">&#39;zip_dim_name_length&#39;</span><span class="p">]</span>
+
+
+<span class="n">DIMMETHODS</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">,</span> <span class="s1">&#39;ptp&#39;</span><span class="p">,</span> <span class="s1">&#39;sum&#39;</span><span class="p">,</span> <span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="s1">&#39;var&#39;</span><span class="p">)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Arithmetic methods implemented on dimensions.</span>
+
+<span class="sd">mean - average</span>
+<span class="sd">std - standard deviation</span>
+<span class="sd">min - minimum</span>
+<span class="sd">max - maximum</span>
+<span class="sd">ptp - point-to-point amplitude = max - min</span>
+<span class="sd">sum - sum</span>
+<span class="sd">median - 50-percentile</span>
+<span class="sd">var - variance</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="n">SEPCHAR</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Invisible character to split strings.</span>
+
+<span class="sd">ASCII character 6 = ACKNOWLEDGE (ACK)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="add_cyclic_point"><a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.add_cyclic_point">[docs]</a><span class="k">def</span> <span class="nf">add_cyclic_point</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">coord</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rowcoord</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add a cyclic point to an array and optionally a corresponding</span>
+<span class="sd">    coordinate.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : ndarray</span>
+<span class="sd">        An n-dimensional array of data to add a cyclic point to.</span>
+<span class="sd">    coord: ndarray, optional</span>
+<span class="sd">        A 1- or 2-dimensional array which specifies the coordinate values for</span>
+<span class="sd">        the dimension the cyclic point is to be added to. Defaults to None.</span>
+
+<span class="sd">        If `coord` is given than add_cyclic_point checks if cyclic point is</span>
+<span class="sd">        already present by checking `sin(coord[0]) == sin(coord[-1])`.</span>
+<span class="sd">        No point is added if cyclic point was detected.</span>
+
+<span class="sd">        Length of `coord` must be `data.shape[axis]` if 1-dimensional.</span>
+
+<span class="sd">        `coord.shape[-1]` must be `data.shape[axis]` if 2-dimensional.</span>
+<span class="sd">    rowcoord: ndarray, optional</span>
+<span class="sd">        A 2-dimensional array with the variable of the row coordinate.</span>
+<span class="sd">        The cyclic point simply copies the last column. Only considered if</span>
+<span class="sd">        `coord` is 2-dimensional. Defaults to None.</span>
+
+<span class="sd">        `rowcoord.shape[-1]` must be `data.shape[axis]`.</span>
+<span class="sd">    axis: optional</span>
+<span class="sd">        Specifies the axis of the data array to add the cyclic point to.</span>
+<span class="sd">        Defaults to the right-most axis.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    cyclic_data</span>
+<span class="sd">        The data array with a cyclic point added.</span>
+<span class="sd">    cyclic_coord</span>
+<span class="sd">        The coordinate with a cyclic point, only returned if the `coord`</span>
+<span class="sd">        keyword was supplied.</span>
+<span class="sd">    cyclic_rowcoord</span>
+<span class="sd">        The row coordinate with the last column duplicated, only returned</span>
+<span class="sd">        if `coord` was 2-dimensional and the `lat` keyword was supplied.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Adding a cyclic point to a data array, where the cyclic dimension is</span>
+<span class="sd">    the right-most dimension.</span>
+<span class="sd">    .. testsetup::</span>
+<span class="sd">        &gt;&gt;&gt; from distutils.version import LooseVersion</span>
+<span class="sd">        &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">        &gt;&gt;&gt; if LooseVersion(np.__version__) &gt;= &#39;1.14.0&#39;:</span>
+<span class="sd">        ...     # To provide consistent doctests.</span>
+<span class="sd">        ...     np.set_printoptions(legacy=&#39;1.13&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">    &gt;&gt;&gt; data = np.ones([5, 6]) * np.arange(6)</span>
+<span class="sd">    &gt;&gt;&gt; cyclic_data = add_cyclic_point(data)</span>
+<span class="sd">    &gt;&gt;&gt; print(cyclic_data)  # doctest: +NORMALIZE_WHITESPACE</span>
+<span class="sd">    [[ 0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="sd">     [ 0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="sd">     [ 0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="sd">     [ 0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="sd">     [ 0. 1. 2. 3. 4. 5. 0.]]</span>
+
+<span class="sd">    Adding a cyclic point to a data array and an associated coordinate.</span>
+<span class="sd">    &gt;&gt;&gt; lons = np.arange(0, 360, 60)</span>
+<span class="sd">    &gt;&gt;&gt; cyclic_data, cyclic_lons = add_cyclic_point(data, coord=lons)</span>
+<span class="sd">    &gt;&gt;&gt; print(cyclic_data)  # doctest: +NORMALIZE_WHITESPACE</span>
+<span class="sd">    [[ 0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="sd">     [ 0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="sd">     [ 0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="sd">     [ 0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="sd">     [ 0. 1. 2. 3. 4. 5. 0.]]</span>
+<span class="sd">    &gt;&gt;&gt; print(cyclic_lons)</span>
+<span class="sd">    [  0  60 120 180 240 300 360]</span>
+
+<span class="sd">    Adding a cyclic point to a data array and an associated 2-dimensional</span>
+<span class="sd">    coordinate.</span>
+<span class="sd">    &gt;&gt;&gt; lons = np.arange(0, 360, 60)</span>
+<span class="sd">    &gt;&gt;&gt; lats = np.arange(-90, 90, 180/5)</span>
+<span class="sd">    &gt;&gt;&gt; lon2d, lat2d = np.meshgrid(lons, lats)</span>
+<span class="sd">    &gt;&gt;&gt; cyclic_data, cyclic_lon2d = add_cyclic_point(data, coord=lon2d)</span>
+<span class="sd">    &gt;&gt;&gt; print(cyclic_data)  # doctest: +NORMALIZE_WHITESPACE</span>
+<span class="sd">    [[ 0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="sd">     [ 0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="sd">     [ 0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="sd">     [ 0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="sd">     [ 0. 1. 2. 3. 4. 5. 0.]]</span>
+<span class="sd">    &gt;&gt;&gt; print(cyclic_lon2d)</span>
+<span class="sd">    [[  0  60 120 180 240 300 360]</span>
+<span class="sd">     [  0  60 120 180 240 300 360]</span>
+<span class="sd">     [  0  60 120 180 240 300 360]</span>
+<span class="sd">     [  0  60 120 180 240 300 360]</span>
+<span class="sd">     [  0  60 120 180 240 300 360]]</span>
+
+<span class="sd">    Adding a cyclic point to a data array and an associated 2-dimensional</span>
+<span class="sd">    coordinate and a second raw variable.</span>
+<span class="sd">    &gt;&gt;&gt; lons = np.arange(0, 360, 60)</span>
+<span class="sd">    &gt;&gt;&gt; lats = np.arange(-90, 90, 180/5)</span>
+<span class="sd">    &gt;&gt;&gt; lon2d, lat2d = np.meshgrid(lons, lats)</span>
+<span class="sd">    &gt;&gt;&gt; cyclic_data, cyclic_lon2d, cyclic_lat2d = add_cyclic_point(</span>
+<span class="sd">    ...     data, coord=lon2d, rowcoord=lat2d)</span>
+<span class="sd">    &gt;&gt;&gt; print(cyclic_data)  # doctest: +NORMALIZE_WHITESPACE</span>
+<span class="sd">    [[ 0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="sd">     [ 0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="sd">     [ 0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="sd">     [ 0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="sd">     [ 0. 1. 2. 3. 4. 5. 0.]]</span>
+<span class="sd">    &gt;&gt;&gt; print(cyclic_lon2d)</span>
+<span class="sd">    [[  0  60 120 180 240 300 360]</span>
+<span class="sd">     [  0  60 120 180 240 300 360]</span>
+<span class="sd">     [  0  60 120 180 240 300 360]</span>
+<span class="sd">     [  0  60 120 180 240 300 360]</span>
+<span class="sd">     [  0  60 120 180 240 300 360]]</span>
+<span class="sd">    &gt;&gt;&gt; print(cyclic_lat2d)</span>
+<span class="sd">    [[-90. -90. -90. -90. -90. -90. -90.]</span>
+<span class="sd">     [-54. -54. -54. -54. -54. -54. -54.]</span>
+<span class="sd">     [-18. -18. -18. -18. -18. -18. -18.]</span>
+<span class="sd">     [ 18.  18.  18.  18.  18.  18.  18.]</span>
+<span class="sd">     [ 54.  54.  54.  54.  54.  54.  54.]]</span>
+
+<span class="sd">    Not adding a cyclic point if cyclic point detected in coord.</span>
+<span class="sd">    &gt;&gt;&gt; lons = np.arange(0, 361, 72)</span>
+<span class="sd">    &gt;&gt;&gt; lats = np.arange(-90, 90, 180/5)</span>
+<span class="sd">    &gt;&gt;&gt; lon2d, lat2d = np.meshgrid(lons, lats)</span>
+<span class="sd">    &gt;&gt;&gt; cyclic_data, cyclic_lon2d, cyclic_lat2d = add_cyclic_point(</span>
+<span class="sd">    ...     data, coord=lon2d, rowcoord=lat2d)</span>
+<span class="sd">    &gt;&gt;&gt; print(cyclic_data)  # doctest: +NORMALIZE_WHITESPACE</span>
+<span class="sd">    [[ 0. 1. 2. 3. 4. 5.]</span>
+<span class="sd">     [ 0. 1. 2. 3. 4. 5.]</span>
+<span class="sd">     [ 0. 1. 2. 3. 4. 5.]</span>
+<span class="sd">     [ 0. 1. 2. 3. 4. 5.]</span>
+<span class="sd">     [ 0. 1. 2. 3. 4. 5.]]</span>
+<span class="sd">    &gt;&gt;&gt; print(cyclic_lon2d)</span>
+<span class="sd">    [[  0  72 144 216 288 360]</span>
+<span class="sd">     [  0  72 144 216 288 360]</span>
+<span class="sd">     [  0  72 144 216 288 360]</span>
+<span class="sd">     [  0  72 144 216 288 360]</span>
+<span class="sd">     [  0  72 144 216 288 360]]</span>
+<span class="sd">    &gt;&gt;&gt; print(cyclic_lat2d)</span>
+<span class="sd">    [[-90. -90. -90. -90. -90. -90.]</span>
+<span class="sd">     [-54. -54. -54. -54. -54. -54.]</span>
+<span class="sd">     [-18. -18. -18. -18. -18. -18.]</span>
+<span class="sd">     [ 18.  18.  18.  18.  18.  18.]</span>
+<span class="sd">     [ 54.  54.  54.  54.  54.  54.]]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">coord</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">coord</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">coord</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="n">estr</span> <span class="o">=</span> <span class="s1">&#39;The coordinate must be 1- or 2-dimensional.&#39;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">estr</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">coord</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">coord</span><span class="p">)</span> <span class="o">!=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">axis</span><span class="p">]:</span>
+                <span class="n">estr</span>  <span class="o">=</span> <span class="s1">&#39;The length of the coordinate does not match&#39;</span>
+                <span class="n">estr</span> <span class="o">+=</span> <span class="s1">&#39; the size of the corresponding dimension of&#39;</span>
+                <span class="n">estr</span> <span class="o">+=</span> <span class="s1">&#39; the data array: len(coord) =&#39;</span>
+                <span class="n">estr</span> <span class="o">+=</span> <span class="s1">&#39; </span><span class="si">{}</span><span class="s1">, data.shape[</span><span class="si">{}</span><span class="s1">] = </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="nb">len</span><span class="p">(</span><span class="n">coord</span><span class="p">),</span> <span class="n">axis</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">axis</span><span class="p">])</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">estr</span><span class="p">)</span>
+            <span class="c1"># check if cyclic point already present</span>
+            <span class="c1"># atol=1e-5 because coordinates often float32</span>
+            <span class="c1"># and np.sin(np.deg2rad(np.float32(360.))) == 1.7484555e-07</span>
+            <span class="c1"># add a bit of tolerance, e.g. cyclic points from rotated grid</span>
+            <span class="c1"># I have seen differences of &gt; 1e-5 in this case. Test is on</span>
+            <span class="c1"># sine so that atol=1e-5 seems sufficient because 180/pi ~ 57.</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">coord</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span>
+                              <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">coord</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])),</span>
+                              <span class="n">atol</span><span class="o">=</span><span class="mf">1.0e-5</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">rowcoord</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">data</span><span class="p">,</span> <span class="n">coord</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">data</span><span class="p">,</span> <span class="n">coord</span><span class="p">,</span> <span class="n">rowcoord</span>
+            <span class="c1"># # old code: must be equally spaced, adding diff</span>
+            <span class="c1"># # delta_coord = np.diff(coord)</span>
+            <span class="c1"># # if not np.allclose(delta_coord, delta_coord[0]):</span>
+            <span class="c1"># #     raise ValueError(&#39;The coordinate must be equally spaced.&#39;)</span>
+            <span class="c1"># # new_coord = ma.concatenate((coord, coord[-1:] + delta_coord[0]))</span>
+            <span class="c1"># new code: just add 360 degree to first lon</span>
+            <span class="n">new_coord</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">coord</span><span class="p">,</span> <span class="n">coord</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">360.</span><span class="p">))</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">coord</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">coord</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">axis</span><span class="p">]:</span>
+                <span class="n">estr</span>  <span class="o">=</span> <span class="s1">&#39;coord.shape[-1] does not match&#39;</span>
+                <span class="n">estr</span> <span class="o">+=</span> <span class="s1">&#39; the size of the corresponding dimension of&#39;</span>
+                <span class="n">estr</span> <span class="o">+=</span> <span class="s1">&#39; the data array: coord.shape[-1] =&#39;</span>
+                <span class="n">estr</span> <span class="o">+=</span> <span class="s1">&#39; </span><span class="si">{}</span><span class="s1">, data.shape[</span><span class="si">{}</span><span class="s1">] = </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">coord</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">axis</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">axis</span><span class="p">])</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">estr</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">rowcoord</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">coord</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">rowcoord</span><span class="o">.</span><span class="n">shape</span><span class="p">):</span>
+                    <span class="n">estr</span>  <span class="o">=</span> <span class="s1">&#39;rowcoord.shape does not match&#39;</span>
+                    <span class="n">estr</span> <span class="o">+=</span> <span class="s1">&#39; coord.shape: coord.shape[] =,&#39;</span>
+                    <span class="n">estr</span> <span class="o">+=</span> <span class="s1">&#39; </span><span class="si">{}</span><span class="s1">, rowcoord.shape = </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">coord</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">rowcoord</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">estr</span><span class="p">)</span>
+            <span class="c1"># check if cyclic point already present</span>
+            <span class="c1"># atol=1e-5 see comment above</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">coord</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])),</span>
+                              <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">coord</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])),</span>
+                              <span class="n">atol</span><span class="o">=</span><span class="mf">1.0e-5</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">rowcoord</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">data</span><span class="p">,</span> <span class="n">coord</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">data</span><span class="p">,</span> <span class="n">coord</span><span class="p">,</span> <span class="n">rowcoord</span>
+            <span class="n">new_coord</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">coord</span><span class="p">,</span> <span class="n">coord</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">360.</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">rowcoord</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">new_rowcoord</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rowcoord</span><span class="p">,</span> <span class="n">rowcoord</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">:],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">slicer</span> <span class="o">=</span> <span class="p">[</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)]</span> <span class="o">*</span> <span class="n">data</span><span class="o">.</span><span class="n">ndim</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">slicer</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+        <span class="n">estr</span> <span class="o">=</span> <span class="s1">&#39;The specified axis does not correspond to an array dimension.&#39;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">estr</span><span class="p">)</span>
+    <span class="n">new_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">slicer</span><span class="p">)]),</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">coord</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">new_data</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">coord</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">rowcoord</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">new_data</span><span class="p">,</span> <span class="n">new_coord</span><span class="p">,</span> <span class="n">new_rowcoord</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">new_data</span><span class="p">,</span> <span class="n">new_coord</span></div>
+
+
+<div class="viewcode-block" id="clone_ncvmain"><a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.clone_ncvmain">[docs]</a><span class="k">def</span> <span class="nf">clone_ncvmain</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="n">fi</span><span class="p">,</span> <span class="n">miss</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Duplicate the main ncvue window.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    widget : ncvue.ncvMain</span>
+<span class="sd">        widget of ncvMain class.</span>
+<span class="sd">    fi : netCDF4._netCDF4.Dataset</span>
+<span class="sd">        netcdf dataset</span>
+<span class="sd">    miss : float</span>
+<span class="sd">        Additional value that will be set to np.nan in netcdf variables.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Another ncvue window will be created.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; self.newwin = ttk.Button(</span>
+<span class="sd">    ...     self.rowwin, text=&quot;New Window&quot;,</span>
+<span class="sd">    ...     command=partial(clone_ncvmain, self.master, self.fi, self.miss))</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># parent = widget.nametowidget(widget.winfo_parent())</span>
+    <span class="k">if</span> <span class="n">widget</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;ncvMain&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;clone_ncvmain failed. Widget should be ncvMain.&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;widget.name is: &#39;</span><span class="p">,</span> <span class="n">widget</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="kn">import</span> <span class="nn">sys</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+
+    <span class="bp">self</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Toplevel</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;ncvClone&#39;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Secondary ncvue window&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="s1">&#39;1000x800&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">miss</span> <span class="o">=</span> <span class="n">miss</span>
+
+    <span class="c1"># https://stackoverflow.com/questions/46505982/is-there-a-way-to-clone-a-tkinter-widget</span>
+    <span class="bp">cls</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="vm">__class__</span>
+    <span class="n">clone</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">fi</span><span class="p">,</span> <span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">miss</span><span class="o">=</span><span class="n">miss</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">widget</span><span class="o">.</span><span class="n">configure</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="o">!=</span> <span class="s1">&#39;class&#39;</span><span class="p">:</span>
+            <span class="n">clone</span><span class="o">.</span><span class="n">configure</span><span class="p">({</span><span class="n">key</span><span class="p">:</span> <span class="n">widget</span><span class="o">.</span><span class="n">cget</span><span class="p">(</span><span class="n">key</span><span class="p">)})</span>
+
+    <span class="k">return</span> <span class="n">clone</span></div>
+
+
+<div class="viewcode-block" id="get_slice"><a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.get_slice">[docs]</a><span class="k">def</span> <span class="nf">get_slice</span><span class="p">(</span><span class="n">dimspins</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get slice of variable `y` inquiring the spinboxes `dimspins`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dimspins : list</span>
+<span class="sd">        List of tk.Spinbox widgets of dimensions</span>
+<span class="sd">    y : ndarray or netCDF4._netCDF4.Variable</span>
+<span class="sd">        Input array or netcdf variable</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ndarray</span>
+<span class="sd">        Slice of `y` chosen by with spinboxes.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; vy = vardim2var(y)</span>
+<span class="sd">    &gt;&gt;&gt; yy = self.fi.variables[vy]</span>
+<span class="sd">    &gt;&gt;&gt; miss = get_miss(self, yy)</span>
+<span class="sd">    &gt;&gt;&gt; yy = get_slice_y(self.yd, yy).squeeze()</span>
+<span class="sd">    &gt;&gt;&gt; yy = set_miss(miss, yy)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;all&#39;</span><span class="p">]</span>
+    <span class="n">methods</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">DIMMETHODS</span><span class="p">)</span>
+    <span class="n">dd</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ss</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">ndim</span><span class="p">):</span>
+        <span class="n">dim</span> <span class="o">=</span> <span class="n">dimspins</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">dim</span> <span class="ow">in</span> <span class="n">methods</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">idim</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">idim</span><span class="p">,</span> <span class="n">idim</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">dd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
+        <span class="n">ss</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ss</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">imeth</span> <span class="o">=</span> <span class="n">list_intersection</span><span class="p">(</span><span class="n">dd</span><span class="p">,</span> <span class="n">DIMMETHODS</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">imeth</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">yout</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">ss</span><span class="p">)]</span>
+            <span class="n">ii</span> <span class="o">=</span> <span class="p">[</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dd</span><span class="p">)</span> <span class="k">if</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">imeth</span> <span class="p">]</span>
+            <span class="n">ii</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>  <span class="c1"># last axis first</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ii</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">dd</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;mean&#39;</span><span class="p">:</span>
+                    <span class="n">yout</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">yout</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">dd</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;std&#39;</span><span class="p">:</span>
+                    <span class="n">yout</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">yout</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">dd</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;min&#39;</span><span class="p">:</span>
+                    <span class="n">yout</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">yout</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">dd</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;max&#39;</span><span class="p">:</span>
+                    <span class="n">yout</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">yout</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">dd</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;ptp&#39;</span><span class="p">:</span>
+                    <span class="n">yout</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">ptp</span><span class="p">(</span><span class="n">yout</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">dd</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;sum&#39;</span><span class="p">:</span>
+                    <span class="n">yout</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">yout</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">dd</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;median&#39;</span><span class="p">:</span>
+                    <span class="n">yout</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">yout</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">dd</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;var&#39;</span><span class="p">:</span>
+                    <span class="n">yout</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">yout</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">yout</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">y</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">ss</span><span class="p">)]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">y</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="list_intersection"><a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.list_intersection">[docs]</a><span class="k">def</span> <span class="nf">list_intersection</span><span class="p">(</span><span class="n">lst1</span><span class="p">,</span> <span class="n">lst2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Intersection of two lists.</span>
+
+<span class="sd">    From:</span>
+<span class="sd">    https://stackoverflow.com/questions/3697432/how-to-find-list-intersection</span>
+<span class="sd">    Using list comprehension for small lists and set() method with builtin</span>
+<span class="sd">    intersection for longer lists.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    lst1, lst2 : list</span>
+<span class="sd">        Python lists</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list</span>
+<span class="sd">        List with common elements in both input lists.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; lst1 = [ 4, 9, 1, 17, 11, 26, 28, 28, 26, 66, 91]</span>
+<span class="sd">    &gt;&gt;&gt; lst2 = [9, 9, 74, 21, 45, 11, 63]</span>
+<span class="sd">    &gt;&gt;&gt; print(Intersection(lst1, lst2))</span>
+<span class="sd">    [9, 11]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lst1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lst2</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">lst1</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">lst2</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span> <span class="n">ll</span> <span class="k">for</span> <span class="n">ll</span> <span class="ow">in</span> <span class="n">lst1</span> <span class="k">if</span> <span class="n">ll</span> <span class="ow">in</span> <span class="n">lst2</span> <span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="set_axis_label"><a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.set_axis_label">[docs]</a><span class="k">def</span> <span class="nf">set_axis_label</span><span class="p">(</span><span class="n">ncvar</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set label plotting axis from name and unit of given variable</span>
+<span class="sd">    `ncvar`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ncvar : netCDF4._netCDF4.Variable</span>
+<span class="sd">        netcdf variables class</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    str</span>
+<span class="sd">        Label string: name (unit)</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; ylab = set_axis_label(fi.variables[&#39;w_soil&#39;])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">lab</span> <span class="o">=</span> <span class="n">ncvar</span><span class="o">.</span><span class="n">long_name</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">lab</span> <span class="o">=</span> <span class="n">ncvar</span><span class="o">.</span><span class="n">standard_name</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="n">lab</span> <span class="o">=</span> <span class="n">ncvar</span><span class="o">.</span><span class="n">name</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">lab</span> <span class="o">+=</span> <span class="s1">&#39; (&#39;</span> <span class="o">+</span> <span class="n">ncvar</span><span class="o">.</span><span class="n">units</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">return</span> <span class="n">lab</span></div>
+
+
+<div class="viewcode-block" id="set_miss"><a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.set_miss">[docs]</a><span class="k">def</span> <span class="nf">set_miss</span><span class="p">(</span><span class="n">miss</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set `x` to NaN for all values in miss.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    miss : iterable</span>
+<span class="sd">        values which shall be set to np.nan in `x`</span>
+<span class="sd">    x : ndarray</span>
+<span class="sd">        numpy array</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ndarray</span>
+<span class="sd">        `x` with all values set np.nan that are equal to any value in miss.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; x = fi.variables[&#39;time&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; miss = get_miss(self, x)</span>
+<span class="sd">    &gt;&gt;&gt; x = set_miss(miss, x)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">mm</span> <span class="ow">in</span> <span class="n">miss</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="n">mm</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span></div>
+
+
+<div class="viewcode-block" id="spinbox_values"><a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.spinbox_values">[docs]</a><span class="k">def</span> <span class="nf">spinbox_values</span><span class="p">(</span><span class="n">ndim</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Tuple for Spinbox values with &#39;all&#39; before range(`ndim`) and</span>
+<span class="sd">    &#39;mean&#39;, &#39;std&#39;, etc. after range(`ndim`) if `ndim`&gt;1,</span>
+<span class="sd">    otherwise single entry (0,).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ndim : int</span>
+<span class="sd">        Size of dimension.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple</span>
+<span class="sd">        ((&#39;all&#39;,) + tuple(range(ndim)) + (&#39;mean&#39;,&#39;std&#39;,...)) if ndim &gt; 1</span>
+<span class="sd">        (0,) else</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; self.xd0.config(values=spinbox_values(xx.shape[0]))</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">((</span><span class="s1">&#39;all&#39;</span><span class="p">,)</span> <span class="o">+</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">ndim</span><span class="p">))</span> <span class="o">+</span> <span class="n">DIMMETHODS</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="mi">0</span><span class="p">,)</span></div>
+
+
+<div class="viewcode-block" id="vardim2var"><a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.vardim2var">[docs]</a><span class="k">def</span> <span class="nf">vardim2var</span><span class="p">(</span><span class="n">vardim</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract variable name from &#39;variable (dim1=ndim1,)&#39; string.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    vardim : string</span>
+<span class="sd">        Variable name with dimensions, such as &#39;latitude (lat=32,lon=64)&#39;.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    string</span>
+<span class="sd">        Variable name.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; vardim2var(&#39;latitude (lat=32,lon=64)&#39;)</span>
+<span class="sd">    latitude</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">vardim</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">SEPCHAR</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="zip_dim_name_length"><a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.zip_dim_name_length">[docs]</a><span class="k">def</span> <span class="nf">zip_dim_name_length</span><span class="p">(</span><span class="n">ncvar</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Combines dimension names and length of netcdf variable in list of strings.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ncvar : netCDF4._netCDF4.Variable</span>
+<span class="sd">        netcdf variables class</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list</span>
+<span class="sd">        List of dimension name and length in the form &#39;dim=len&#39;.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import netCDF4 as nc</span>
+<span class="sd">    &gt;&gt;&gt; ifile = &#39;test.nc&#39;</span>
+<span class="sd">    &gt;&gt;&gt; fi = nc.Dataset(ifile, &#39;r&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; w_soil = fi.variables[&#39;w_soil&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; print(zip_dim_name_length(w_soil))</span>
+<span class="sd">    (&#39;ntime=17520&#39;, &#39;nsoil=30&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ncvar</span><span class="o">.</span><span class="n">ndim</span><span class="p">):</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ncvar</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;=&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">ncvar</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    <span class="k">return</span> <span class="n">out</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020-2021, Matthias Cuntz
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

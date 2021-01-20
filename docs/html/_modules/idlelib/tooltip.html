@@ -1,0 +1,423 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>idlelib.tooltip &mdash; ncvue 2.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> ncvue
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+    <p class="link caption"><span class="link caption-text">Documentation</span></p>
+    
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">ncvue - A GUI to view netCDF files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../readme.html#about-ncvue">About ncvue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../readme.html#quick-usage-guide">Quick usage guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../readme.html#general-layout">General layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../readme.html#map-panel">Map panel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../readme.html#scatter-line-panel">Scatter/Line panel</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../readme.html#installation-not-yet-on-pypi">Installation - NOT YET ON PyPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../readme.html#license">License</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../package.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../package.html#purpose">Purpose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ncvcontour.html">ncvue.ncvcontour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ncvmain.html">ncvue.ncvmain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ncvmap.html">ncvue.ncvmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ncvmethods.html">ncvue.ncvmethods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ncvscatter.html">ncvue.ncvscatter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ncvue.html">ncvue.ncvue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ncvutils.html">ncvue.ncvutils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ncvwidgets.html">ncvue.ncvwidgets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../version.html">ncvue.version</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+    <br />
+    <p class="link caption"><span class="link caption-text">ncvue Links</span></p>
+    <a href="https://github.com/mcuntz/ncvue">ncvue @ GitHub</a>
+    <a href="https://zenodo.org/record/3620909">ncvue Zenodo DOI</a>
+    <a href="https://pypi.org/project/ncvue">ncvue @ PyPI</a>
+    <br />
+    <br />
+    <a href="genindex.html">Index</a>
+    <a href="index.html">Sitemap</a>
+  
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ncvue</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>idlelib.tooltip</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for idlelib.tooltip</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Tools for displaying tool-tips.</span>
+
+<span class="sd">This includes:</span>
+<span class="sd"> * an abstract base-class for different kinds of tooltips</span>
+<span class="sd"> * a simple text-only Tooltip class</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="o">*</span>
+
+
+<span class="k">class</span> <span class="nc">TooltipBase</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;abstract base class for tooltips&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">anchor_widget</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create a tooltip.</span>
+
+<span class="sd">        anchor_widget: the widget next to which the tooltip will be shown</span>
+
+<span class="sd">        Note that a widget will only be shown when showtip() is called.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">anchor_widget</span> <span class="o">=</span> <span class="n">anchor_widget</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tipwindow</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hidetip</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">showtip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;display the tooltip&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tipwindow</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tipwindow</span> <span class="o">=</span> <span class="n">tw</span> <span class="o">=</span> <span class="n">Toplevel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">anchor_widget</span><span class="p">)</span>
+        <span class="c1"># show no border on the top level window</span>
+        <span class="n">tw</span><span class="o">.</span><span class="n">wm_overrideredirect</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># This command is only needed and available on Tk &gt;= 8.4.0 for OSX.</span>
+            <span class="c1"># Without it, call tips intrude on the typing process by grabbing</span>
+            <span class="c1"># the focus.</span>
+            <span class="n">tw</span><span class="o">.</span><span class="n">tk</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&quot;::tk::unsupported::MacWindowStyle&quot;</span><span class="p">,</span> <span class="s2">&quot;style&quot;</span><span class="p">,</span> <span class="n">tw</span><span class="o">.</span><span class="n">_w</span><span class="p">,</span>
+                       <span class="s2">&quot;help&quot;</span><span class="p">,</span> <span class="s2">&quot;noActivates&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">TclError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">position_window</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">showcontents</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tipwindow</span><span class="o">.</span><span class="n">update_idletasks</span><span class="p">()</span>  <span class="c1"># Needed on MacOS -- see #34275.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tipwindow</span><span class="o">.</span><span class="n">lift</span><span class="p">()</span>  <span class="c1"># work around bug in Tk 8.5.18+ (issue #24570)</span>
+
+    <span class="k">def</span> <span class="nf">position_window</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;(re)-set the tooltip&#39;s screen position&quot;&quot;&quot;</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_position</span><span class="p">()</span>
+        <span class="n">root_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">anchor_widget</span><span class="o">.</span><span class="n">winfo_rootx</span><span class="p">()</span> <span class="o">+</span> <span class="n">x</span>
+        <span class="n">root_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">anchor_widget</span><span class="o">.</span><span class="n">winfo_rooty</span><span class="p">()</span> <span class="o">+</span> <span class="n">y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tipwindow</span><span class="o">.</span><span class="n">wm_geometry</span><span class="p">(</span><span class="s2">&quot;+</span><span class="si">%d</span><span class="s2">+</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">root_x</span><span class="p">,</span> <span class="n">root_y</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">get_position</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;choose a screen position for the tooltip&quot;&quot;&quot;</span>
+        <span class="c1"># The tip window must be completely outside the anchor widget;</span>
+        <span class="c1"># otherwise when the mouse enters the tip window we get</span>
+        <span class="c1"># a leave event and it disappears, and then we get an enter</span>
+        <span class="c1"># event and it reappears, and so on forever :-(</span>
+        <span class="c1">#</span>
+        <span class="c1"># Note: This is a simplistic implementation; sub-classes will likely</span>
+        <span class="c1"># want to override this.</span>
+        <span class="k">return</span> <span class="mi">20</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">anchor_widget</span><span class="o">.</span><span class="n">winfo_height</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">showcontents</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;content display hook for sub-classes&quot;&quot;&quot;</span>
+        <span class="c1"># See ToolTip for an example</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="k">def</span> <span class="nf">hidetip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;hide the tooltip&quot;&quot;&quot;</span>
+        <span class="c1"># Note: This is called by __del__, so careful when overriding/extending</span>
+        <span class="n">tw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tipwindow</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tipwindow</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">tw</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">tw</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+            <span class="k">except</span> <span class="n">TclError</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+                <span class="k">pass</span>
+
+
+<span class="k">class</span> <span class="nc">OnHoverTooltipBase</span><span class="p">(</span><span class="n">TooltipBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;abstract base class for tooltips, with delayed on-hover display&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">anchor_widget</span><span class="p">,</span> <span class="n">hover_delay</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create a tooltip with a mouse hover delay.</span>
+
+<span class="sd">        anchor_widget: the widget next to which the tooltip will be shown</span>
+<span class="sd">        hover_delay: time to delay before showing the tooltip, in milliseconds</span>
+
+<span class="sd">        Note that a widget will only be shown when showtip() is called,</span>
+<span class="sd">        e.g. after hovering over the anchor widget with the mouse for enough</span>
+<span class="sd">        time.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">OnHoverTooltipBase</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">anchor_widget</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hover_delay</span> <span class="o">=</span> <span class="n">hover_delay</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_after_id</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_id1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">anchor_widget</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;Enter&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_show_event</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_id2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">anchor_widget</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;Leave&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hide_event</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_id3</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">anchor_widget</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;Button&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hide_event</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">anchor_widget</span><span class="o">.</span><span class="n">unbind</span><span class="p">(</span><span class="s2">&quot;&lt;Enter&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">anchor_widget</span><span class="o">.</span><span class="n">unbind</span><span class="p">(</span><span class="s2">&quot;&lt;Leave&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id2</span><span class="p">)</span>  <span class="c1"># pragma: no cover</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">anchor_widget</span><span class="o">.</span><span class="n">unbind</span><span class="p">(</span><span class="s2">&quot;&lt;Button&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id3</span><span class="p">)</span> <span class="c1"># pragma: no cover</span>
+        <span class="k">except</span> <span class="n">TclError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">OnHoverTooltipBase</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__del__</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_show_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;event handler to display the tooltip&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">hover_delay</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">schedule</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">showtip</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_hide_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;event handler to hide the tooltip&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hidetip</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">schedule</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;schedule the future display of the tooltip&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unschedule</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_after_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">anchor_widget</span><span class="o">.</span><span class="n">after</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hover_delay</span><span class="p">,</span>
+                                                  <span class="bp">self</span><span class="o">.</span><span class="n">showtip</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">unschedule</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;cancel the future display of the tooltip&quot;&quot;&quot;</span>
+        <span class="n">after_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_after_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_after_id</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">after_id</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">anchor_widget</span><span class="o">.</span><span class="n">after_cancel</span><span class="p">(</span><span class="n">after_id</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">hidetip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;hide the tooltip&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">unschedule</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">TclError</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+            <span class="k">pass</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">OnHoverTooltipBase</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">hidetip</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">Hovertip</span><span class="p">(</span><span class="n">OnHoverTooltipBase</span><span class="p">):</span>
+    <span class="s2">&quot;A tooltip that pops up when a mouse hovers over an anchor widget.&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">anchor_widget</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">hover_delay</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create a text tooltip with a mouse hover delay.</span>
+
+<span class="sd">        anchor_widget: the widget next to which the tooltip will be shown</span>
+<span class="sd">        hover_delay: time to delay before showing the tooltip, in milliseconds</span>
+
+<span class="sd">        Note that a widget will only be shown when showtip() is called,</span>
+<span class="sd">        e.g. after hovering over the anchor widget with the mouse for enough</span>
+<span class="sd">        time.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Hovertip</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">anchor_widget</span><span class="p">,</span> <span class="n">hover_delay</span><span class="o">=</span><span class="n">hover_delay</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span>
+
+    <span class="k">def</span> <span class="nf">showcontents</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tipwindow</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">justify</span><span class="o">=</span><span class="n">LEFT</span><span class="p">,</span>
+                      <span class="n">background</span><span class="o">=</span><span class="s2">&quot;#ffffe0&quot;</span><span class="p">,</span> <span class="n">relief</span><span class="o">=</span><span class="n">SOLID</span><span class="p">,</span> <span class="n">borderwidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">label</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">_tooltip</span><span class="p">(</span><span class="n">parent</span><span class="p">):</span>  <span class="c1"># htest #</span>
+    <span class="n">top</span> <span class="o">=</span> <span class="n">Toplevel</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+    <span class="n">top</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Test tooltip&quot;</span><span class="p">)</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">parent</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="n">top</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="s2">&quot;+</span><span class="si">%d</span><span class="s2">+</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">150</span><span class="p">))</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Place your mouse over buttons&quot;</span><span class="p">)</span>
+    <span class="n">label</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+    <span class="n">button1</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Button 1 -- 1/2 second hover delay&quot;</span><span class="p">)</span>
+    <span class="n">button1</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+    <span class="n">Hovertip</span><span class="p">(</span><span class="n">button1</span><span class="p">,</span> <span class="s2">&quot;This is tooltip text for button1.&quot;</span><span class="p">,</span> <span class="n">hover_delay</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+    <span class="n">button2</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Button 2 -- no hover delay&quot;</span><span class="p">)</span>
+    <span class="n">button2</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+    <span class="n">Hovertip</span><span class="p">(</span><span class="n">button2</span><span class="p">,</span> <span class="s2">&quot;This is tooltip</span><span class="se">\n</span><span class="s2">text for button2.&quot;</span><span class="p">,</span> <span class="n">hover_delay</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">unittest</span> <span class="kn">import</span> <span class="n">main</span>
+    <span class="n">main</span><span class="p">(</span><span class="s1">&#39;idlelib.idle_test.test_tooltip&#39;</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">exit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="kn">from</span> <span class="nn">idlelib.idle_test.htest</span> <span class="kn">import</span> <span class="n">run</span>
+    <span class="n">run</span><span class="p">(</span><span class="n">_tooltip</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020-2021, Matthias Cuntz
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
