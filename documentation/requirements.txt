@@ -1,0 +1,15 @@
+# required for readthedocs.org
+numpy
+numpydoc
+netcdf4
+matplotlib
+# for cartopy
+pyproj
+geos
+cython
+pyshp
+six
+shapely
+pillow
+pykdtree
+# cartopy

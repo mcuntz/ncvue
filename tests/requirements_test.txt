@@ -1,17 +1,1 @@
-cibuildwheel
-setuptools
-coverage
-coveralls
-pytest-cov
 numpy
-cftime
-netcdf4
-matplotlib
-pyproj
-geos
-cython
-pyshp
-six
-shapely
-pillow
-pykdtree

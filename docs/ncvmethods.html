@@ -1,0 +1,559 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ncvue.ncvmethods &mdash; ncvue 2.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ncvue.ncvscatter" href="ncvscatter.html" />
+    <link rel="prev" title="ncvue.ncvmap" href="ncvmap.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> ncvue
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="readme.html">ncvue - A GUI to view netCDF files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="readme.html#about-ncvue">About ncvue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="readme.html#quick-usage-guide">Quick usage guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="readme.html#general-layout">General layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="readme.html#map-panel">Map panel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="readme.html#scatter-line-panel">Scatter/Line panel</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="readme.html#installation-not-yet-on-pypi">Installation - NOT YET ON PyPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="readme.html#license">License</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="package.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="package.html#purpose">Purpose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ncvcontour.html">ncvue.ncvcontour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ncvmain.html">ncvue.ncvmain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ncvmap.html">ncvue.ncvmap</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">ncvue.ncvmethods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ncvscatter.html">ncvue.ncvscatter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ncvue.html">ncvue.ncvue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ncvutils.html">ncvue.ncvutils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ncvwidgets.html">ncvue.ncvwidgets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="version.html">ncvue.version</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ncvue</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="package.html">API</a> &raquo;</li>
+        
+      <li>ncvue.ncvmethods</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/ncvmethods.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
+      
+        <a href="ncvscatter.html" class="btn btn-neutral float-right" title="ncvue.ncvscatter" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ncvmap.html" class="btn btn-neutral float-left" title="ncvue.ncvmap" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+  </div>
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-ncvue.ncvmethods">
+<span id="ncvue-ncvmethods"></span><h1>ncvue.ncvmethods<a class="headerlink" href="#module-ncvue.ncvmethods" title="Permalink to this headline">¶</a></h1>
+<p>Common methods for panels of ncvue.</p>
+<p>Methods normally belong to a class and be called like self.method(args).
+We have several panels in ncvue that would have the same methods such as
+getting slices from arrays. These are hence gathered here, all start with
+the first argument self, which is the class instance, and are called like
+method(self, args).</p>
+<p>The methods could also be put onto a common class (based on ttk.Frame) on
+which ncvContour, etc. would then be based.</p>
+<p>This module was written by Matthias Cuntz while at Institut National de
+Recherche pour l’Agriculture, l’Alimentation et l’Environnement (INRAE), Nancy,
+France.</p>
+<p>Copyright (c) 2020-2021 Matthias Cuntz - mc (at) macu (dot) de</p>
+<p>Released under the MIT License; see LICENSE file for details.</p>
+<p>History:</p>
+<ul class="simple">
+<li><p>Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)</p></li>
+<li><p>Slice arrays with slice function rather than numpy.take,
+Dec 2020, Matthias Cuntz</p></li>
+<li><p>Moved individual <a href="#id1"><span class="problematic" id="id2">get_slice_</span></a>? methods for x, y, y2, z as general get_slice
+function to ncvutils, Dec 2020, Matthias Cuntz</p></li>
+<li><p>Added convenience method get_slice_miss, Dec 2020, Matthias Cuntz</p></li>
+<li><p>set_dim_lon, set_dim_lat, set_dim_var for Map panel,
+Jan 2021, Matthias Cuntz</p></li>
+<li><p>set latdim, londim to all on map var, determined in ncvMain,
+Jan 2021, Matthias Cuntz</p></li>
+<li><p>catch non numpy.dtype in set_miss, Jan 2021, Matthias Cuntz</p></li>
+<li><p>catch variables that have only one string or similar,
+Jan 2021, Matthias Cuntz</p></li>
+<li><p>added tooltip to dimensions, Jan 2021, Matthias Cuntz</p></li>
+</ul>
+<p>The following methods are provided:</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmethods.get_miss" title="ncvue.ncvmethods.get_miss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_miss</span></code></a>(self, x)</p></td>
+<td><p>Get list of missing values, i.e. self.miss, x._FillValue, x.missing_value, and from netcdf4.default_fillvals.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmethods.get_slice_miss" title="ncvue.ncvmethods.get_slice_miss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_slice_miss</span></code></a>(self, dimspins, x)</p></td>
+<td><p>Convenience method to get list of missing values (get_miss), choose slice of array (get_slice), and set missing values to NaN in slice (set_miss).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmethods.set_dim_lat" title="ncvue.ncvmethods.set_dim_lat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_dim_lat</span></code></a>(self)</p></td>
+<td><p>Set spinboxes of latitude-dimensions.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmethods.set_dim_lon" title="ncvue.ncvmethods.set_dim_lon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_dim_lon</span></code></a>(self)</p></td>
+<td><p>Set spinboxes of longitude-dimensions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmethods.set_dim_var" title="ncvue.ncvmethods.set_dim_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_dim_var</span></code></a>(self)</p></td>
+<td><p>Set spinboxes of varable-dimensions in Map panel.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmethods.set_dim_x" title="ncvue.ncvmethods.set_dim_x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_dim_x</span></code></a>(self)</p></td>
+<td><p>Set spinboxes of x-dimensions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmethods.set_dim_y" title="ncvue.ncvmethods.set_dim_y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_dim_y</span></code></a>(self)</p></td>
+<td><p>Set spinboxes of y-dimensions of the left-hand-side (lhs).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmethods.set_dim_y2" title="ncvue.ncvmethods.set_dim_y2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_dim_y2</span></code></a>(self)</p></td>
+<td><p>Set spinboxes of y2-dimensions of the right-hand-side (rhs).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmethods.set_dim_z" title="ncvue.ncvmethods.set_dim_z"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_dim_z</span></code></a>(self)</p></td>
+<td><p>Set spinboxes of z-dimensions.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function">
+<dt id="ncvue.ncvmethods.get_miss">
+<code class="sig-name descname">get_miss</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmethods.html#get_miss"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmethods.get_miss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of missing values, i.e. self.miss, x._FillValue,
+x.missing_value, and from netcdf4.default_fillvals.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">class</span></dt><dd><p>ncvue class</p>
+</dd>
+<dt><strong>x</strong><span class="classifier">netCDF4._netCDF4.Variable</span></dt><dd><p>netcdf variable</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>list</dt><dd><p>List with missing values self.miss, x._FillValue,
+x.missing_value if present,  and from netcdf4.default_fillvals</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">miss</span> <span class="o">=</span> <span class="n">get_miss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ncvue.ncvmethods.get_slice_miss">
+<code class="sig-name descname">get_slice_miss</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">dimspins</span></em>, <em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmethods.html#get_slice_miss"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmethods.get_slice_miss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convenience method to get list of missing values (get_miss),
+choose slice of array (get_slice), and set missing values to
+NaN in slice (set_miss).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">class</span></dt><dd><p>ncvue class</p>
+</dd>
+<dt><strong>dimspins</strong><span class="classifier">list</span></dt><dd><p>List of tk.Spinbox widgets of dimensions</p>
+</dd>
+<dt><strong>x</strong><span class="classifier">netCDF4._netCDF4.Variable</span></dt><dd><p>netcdf variable</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>ndarray</dt><dd><p>Extracted array slice with missing values set to np.NaN</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">xx</span> <span class="o">=</span> <span class="n">get_slice_miss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ncvue.ncvmethods.set_dim_lat">
+<code class="sig-name descname">set_dim_lat</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmethods.html#set_dim_lat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmethods.set_dim_lat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set spinboxes of latitude-dimensions.</p>
+<p>Set labels and value lists. Select ‘all’ for all dimension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">class</span></dt><dd><p>ncvue class</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>None</dt><dd><p>Labels and values of spinboxes of latitude-dimensions set.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">set_dim_lat</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ncvue.ncvmethods.set_dim_lon">
+<code class="sig-name descname">set_dim_lon</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmethods.html#set_dim_lon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmethods.set_dim_lon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set spinboxes of longitude-dimensions.</p>
+<p>Set labels and value lists. Select ‘all’ for all dimension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">class</span></dt><dd><p>ncvue class</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>None</dt><dd><p>Labels and values of spinboxes of longitude-dimensions set.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">set_dim_lon</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ncvue.ncvmethods.set_dim_var">
+<code class="sig-name descname">set_dim_var</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmethods.html#set_dim_var"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmethods.set_dim_var" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set spinboxes of varable-dimensions in Map panel.</p>
+<p>Set labels and value lists, including ‘all’ to select all entries,
+as well as ‘mean’, ‘std’, etc. for common operations on the axis.</p>
+<p>Select ‘all’ for the first two limited dimensions and select
+0 for all other dimensions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">class</span></dt><dd><p>ncvue class</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>None</dt><dd><p>Labels and values of spinboxes of variable-dimensions set.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">set_dim_var</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ncvue.ncvmethods.set_dim_x">
+<code class="sig-name descname">set_dim_x</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmethods.html#set_dim_x"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmethods.set_dim_x" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set spinboxes of x-dimensions.</p>
+<p>Set labels and value lists, including ‘all’ to select all entries,
+as well as ‘mean’, ‘std’, etc. for common operations on the axis.</p>
+<p>Select ‘all’ for the unlimited dimension if it exists, otherwise
+for the first dimension, and select 0 for all other dimensions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">class</span></dt><dd><p>ncvue class</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>None</dt><dd><p>Labels and values of spinboxes of x-dimensions set.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">set_dim_x</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ncvue.ncvmethods.set_dim_y">
+<code class="sig-name descname">set_dim_y</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmethods.html#set_dim_y"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmethods.set_dim_y" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set spinboxes of y-dimensions of the left-hand-side (lhs).</p>
+<p>Set labels and value lists, including ‘all’ to select all entries,
+as well as ‘mean’, ‘std’, etc. for common operations on the axis.</p>
+<p>Select ‘all’ for the unlimited dimension if it exists, otherwise
+for the first dimension, and select 0 for all other dimensions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">class</span></dt><dd><p>ncvue class</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>None</dt><dd><p>Labels and values of spinboxes of lhs y-dimensions set.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">set_dim_y</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ncvue.ncvmethods.set_dim_y2">
+<code class="sig-name descname">set_dim_y2</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmethods.html#set_dim_y2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmethods.set_dim_y2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set spinboxes of y2-dimensions of the right-hand-side (rhs).</p>
+<p>Set labels and value lists, including ‘all’ to select all entries,
+as well as ‘mean’, ‘std’, etc. for common operations on the axis.</p>
+<p>Select ‘all’ for the unlimited dimension if it exists, otherwise
+for the first dimension, and select 0 for all other dimensions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">class</span></dt><dd><p>ncvue class</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>None</dt><dd><p>Labels and values of spinboxes of rhs y-dimensions set.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">set_dim_y2</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ncvue.ncvmethods.set_dim_z">
+<code class="sig-name descname">set_dim_z</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmethods.html#set_dim_z"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmethods.set_dim_z" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set spinboxes of z-dimensions.</p>
+<p>Set labels and value lists, including ‘all’ to select all entries,
+as well as ‘mean’, ‘std’, etc. for common operations on the axis.</p>
+<p>Select ‘all’ for the unlimited dimension if it exists, otherwise
+for the first dimension, as well as for a second dimension and select
+0 for all other dimensions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">class</span></dt><dd><p>ncvue class</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>None</dt><dd><p>Labels and values of spinboxes of z-dimensions set.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">set_dim_z</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020-2021, Matthias Cuntz
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

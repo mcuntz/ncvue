@@ -7,8 +7,9 @@ include README.md
 include setup.py setup.cfg
 recursive-include ncvue *.py
 recursive-include bin *
-recursive-include docs/src *
-recursive-include docs/images *.png *.key
-include docs/Makefile docs/requirements.txt
+recursive-include documentation/src *
+recursive-include documentation/images *.png *.key
+include documentation/Makefile documentation/requirements.txt
+include docs/
 recursive-include tests *.py
 include tests/requirements_test.txt
