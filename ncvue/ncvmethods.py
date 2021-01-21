@@ -204,7 +204,7 @@ def set_dim_lat(self):
             self.latdlbl[i].set(ll.dimensions[i])
             if ll.shape[i] > 1:
                 tstr  = "Specific dimension value: 0-{:d}\n".format(
-                    ll.shape[i])
+                    ll.shape[i]-1)
                 tstr += "or arithmetic operation on axis:\n"
                 tstr += "  " + ", ".join(DIMMETHODS)
             else:
@@ -255,7 +255,7 @@ def set_dim_lon(self):
             self.londlbl[i].set(ll.dimensions[i])
             if ll.shape[i] > 1:
                 tstr  = "Specific dimension value: 0-{:d}\n".format(
-                    ll.shape[i])
+                    ll.shape[i]-1)
                 tstr += "or arithmetic operation on axis:\n"
                 tstr += "  " + ", ".join(DIMMETHODS)
             else:
@@ -311,7 +311,7 @@ def set_dim_var(self):
                 self.vdlbl[i].set(vv.dimensions[i])
                 if vv.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
-                        vv.shape[i])
+                        vv.shape[i]-1)
                     tstr += "or arithmetic operation on axis:\n"
                     tstr += "  " + ", ".join(DIMMETHODS)
                 else:
@@ -328,7 +328,7 @@ def set_dim_var(self):
                 self.vdlbl[i].set(vv.dimensions[i])
                 if vv.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
-                        vv.shape[i])
+                        vv.shape[i]-1)
                     tstr += "or arithmetic operation on axis:\n"
                     tstr += "  " + ", ".join(DIMMETHODS)
                 else:
@@ -346,7 +346,7 @@ def set_dim_var(self):
                 self.vdlbl[i].set(vv.dimensions[i])
                 if vv.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
-                        vv.shape[i])
+                        vv.shape[i]-1)
                     tstr += "or arithmetic operation on axis:\n"
                     tstr += "  " + ", ".join(DIMMETHODS)
                 else:
@@ -358,7 +358,7 @@ def set_dim_var(self):
                 self.vdlbl[i].set(vv.dimensions[i])
                 if vv.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
-                        vv.shape[i])
+                        vv.shape[i]-1)
                     tstr += "or arithmetic operation on axis:\n"
                     tstr += "  " + ", ".join(DIMMETHODS)
                 else:
@@ -413,7 +413,7 @@ def set_dim_x(self):
             self.xdlbl[i].set(xx.dimensions[i])
             if xx.shape[i] > 1:
                 tstr  = "Specific dimension value: 0-{:d}\n".format(
-                    xx.shape[i])
+                    xx.shape[i]-1)
                 tstr += "or arithmetic operation on axis:\n"
                 tstr += "  " + ", ".join(DIMMETHODS)
             else:
@@ -432,7 +432,7 @@ def set_dim_x(self):
                 self.xdlbl[i].set(xx.dimensions[i])
                 if xx.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
-                        xx.shape[i])
+                        xx.shape[i]-1)
                     tstr += "or arithmetic operation on axis:\n"
                     tstr += "  " + ", ".join(DIMMETHODS)
                 else:
@@ -487,7 +487,7 @@ def set_dim_y(self):
             self.ydlbl[i].set(yy.dimensions[i])
             if yy.shape[i] > 1:
                 tstr  = "Specific dimension value: 0-{:d}\n".format(
-                    yy.shape[i])
+                    yy.shape[i]-1)
                 tstr += "or arithmetic operation on axis:\n"
                 tstr += "  " + ", ".join(DIMMETHODS)
             else:
@@ -506,7 +506,7 @@ def set_dim_y(self):
                 self.ydlbl[i].set(yy.dimensions[i])
                 if yy.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
-                        yy.shape[i])
+                        yy.shape[i]-1)
                     tstr += "or arithmetic operation on axis:\n"
                     tstr += "  " + ", ".join(DIMMETHODS)
                 else:
@@ -561,7 +561,7 @@ def set_dim_y2(self):
             self.y2dlbl[i].set(yy2.dimensions[i])
             if yy2.shape[i] > 1:
                 tstr  = "Specific dimension value: 0-{:d}\n".format(
-                    yy2.shape[i])
+                    yy2.shape[i]-1)
                 tstr += "or arithmetic operation on axis:\n"
                 tstr += "  " + ", ".join(DIMMETHODS)
             else:
@@ -580,7 +580,7 @@ def set_dim_y2(self):
                 self.y2dlbl[i].set(yy2.dimensions[i])
                 if yy2.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
-                        yy2.shape[i])
+                        yy2.shape[i]-1)
                     tstr += "or arithmetic operation on axis:\n"
                     tstr += "  " + ", ".join(DIMMETHODS)
                 else:
@@ -636,7 +636,7 @@ def set_dim_z(self):
             self.zdlbl[i].set(zz.dimensions[i])
             if zz.shape[i] > 1:
                 tstr  = "Specific dimension value: 0-{:d}\n".format(
-                    zz.shape[i])
+                    zz.shape[i]-1)
                 tstr += "or arithmetic operation on axis:\n"
                 tstr += "  " + ", ".join(DIMMETHODS)
             else:
@@ -655,7 +655,7 @@ def set_dim_z(self):
                 self.zdlbl[i].set(zz.dimensions[i])
                 if zz.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
-                        zz.shape[i])
+                        zz.shape[i]-1)
                     tstr += "or arithmetic operation on axis:\n"
                     tstr += "  " + ", ".join(DIMMETHODS)
                 else:
