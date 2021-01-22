@@ -3,11 +3,16 @@ ncvue - A GUI to view netCDF files
 ..
   pandoc -f rst -o README.html -t html README.rst
   As docs/src/readme.rst:
-    replace docs with .., and _small with nothing.
-    remove install section
+    replace docs/ with ../
+    replace _small.png with .png
+    replace
+      higher resolution images can be found in the documentation_
+    with
+      click on figures to open larger pictures
+    remove section "Installation"
 
-A minimal GUI for a quick view of netCDF files.
-Aiming to be a drop-in replacement for ncview_.
+A minimal GUI for a quick view of netCDF files. Aiming to be a drop-in
+replacement for ncview_.
 
 .. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.3893705.svg
    :alt: Zenodo DOI
@@ -21,7 +26,7 @@ Aiming to be a drop-in replacement for ncview_.
    :alt: License
    :target: https://github.com/mcuntz/ncvue/blob/master/LICENSE
 
-.. image:: https://travis-ci.org/mcuntz/ncvue.svg?branch=master
+.. image:: https://travis-ci.org/mcuntz/ncvue.svg?branch=main
    :alt: Build status
    :target: https://travis-ci.org/mcuntz/ncvue
 
@@ -33,9 +38,9 @@ a drop-in replacement for ncview_, being slightly more general than ncview,
 which targets maps. If ``ncvue`` is used with maps, it supports mostly
 structured grids, more precisely the grids supported by cartopy_.
 
-``ncvue`` is a Python script that can be called from within Python and as a
+``ncvue`` is a Python script that can be called from within Python or as a
 command line tool. It is not supposed to produce publication-ready plots but
-rather provide a quick overview of the netcdf variables.
+rather provide a quick overview of the netcdf file.
 
 The complete documentation for ``ncvue`` is available from:
 
@@ -86,8 +91,8 @@ file with the button "New Window" on the top right.
 Map panel
 ^^^^^^^^^
 
-If ``ncvue`` detects latitude and longitude variables with a size greater 1, it
-opens the Map panel by default. This is the Map panel in macOS dark mode,
+If ``ncvue`` detects latitude and longitude variables with a size greater than
+1, it opens the Map panel by default. This is the Map panel in macOS dark mode,
 describing all buttons, sliders, entry boxes, spinboxes, and menus:
 
 .. image:: docs/images/map_panel_dark_small.png
@@ -97,40 +102,79 @@ describing all buttons, sliders, entry boxes, spinboxes, and menus:
 
 If it happens that the detection of latitudes and longitudes did not work
 automatically, you can choose the correct variables manually. Or you might use
-the empty entrances on top of the dropdown menus of the latitudes and
-longitudes, which uses the index and one can hence display the matrix within the
-netCDF file. You might want to switch of the coastlines in this case.
+the empty entries on top of the dropdown menus of the latitudes and longitudes,
+which uses the index and one can hence display the matrix within the netCDF
+file. You might want to switch of the coastlines in this case.
 
-You might want to switch off the automatically detected "global" option sometimes
-if your data is on a rotated grid or excludes some regions such as below minus -60 °S.
+You might want to switch off the automatically detected "global" option
+sometimes if your data is on a rotated grid or excludes some regions such as
+below minus -60 °S.
 
 All dimensions can be set from 0 to the size of the dimension-1, to "all", or to
 any of the arithmetic operators "mean", "std" (standard deviation), "min",
-"max", "ptp" (point-to-point amplitude (max-min)), "sum", "median", "var"
+"max", "ptp" (point-to-point amplitude, i.e. max-min), "sum", "median", "var"
 (variance).
 
 Be aware that the underlying cartopy/matplotlib may (or may not) need a long
-time to plot the data (with the pseudocolor mesh option) if you change the
-central longitude of the projection from the central longitude of your data.
-Changing to the central longitude of the input data normally eliminates the
+time to plot the data (with the pseudocolor 'mesh' option) if you change the
+central longitude of the projection from the central longitude of your data,
+which is automatically detected if "central lon" is set to None. Setting
+"central lon" to the central longitude of the input data normally eliminates the
 problem.
 
 Scatter/Line panel
 ^^^^^^^^^^^^^^^^^^
 
-If ``ncvue`` does not detect latitude and longitude variables with a size greater 1, it
-opens the Scatter/Line panel by default. This is the Scatter/Line panel in macOS dark mode,
-describing all buttons, sliders, entry boxes, spinboxes, and menus:
+If ``ncvue`` does not detect latitude and longitude variables with a size
+greater than 1, it opens the Scatter/Line panel by default. This is the
+Scatter/Line panel in macOS dark mode, describing all buttons, sliders, entry
+boxes, spinboxes, and menus:
 
 .. image:: docs/images/scatter_panel_dark_small.png
    :width: 860 px
    :align: left
    :alt: Graphical documentation of Scatter/Line panel
 
-Bla
+The default plot is a line plot with solid lines (line style 'ls' is '-'). One
+can set line style 'ls' to None and set a marker symbol, e.g. 'o' for circles, to
+get a scatter plot. A large variety of line styles, marker symbols and color
+notations are supported.
 
-Installation - NOT YET ON PyPI NOR CONDA
-----------------------------------------
+``ncvue`` builds automatically a `datetime` variable from the time axis. This is
+correctly interpreted by the underlying Matplotlib also when zooming into or
+panning the axes. But it is also much slower than using the index. Selecting the
+empty entry on top of the dropdown menu for `x` uses the index for the x-axis
+and is very fast. Plotting a line plot with 52608 time points takes about 2.2 s
+on my Macbook Pro using the `datetime` variable and about 0.3 s using the index
+(i.e. empty x-variable). This is especially true if one plots multiple lines
+with 'all' entries from a specific dimension. Plotting all 10 depths of soil
+water content for the 52608 time points, as in the example below, takes also
+about 0.3 s if using the index as x-variable but more than 11.1 s when using the
+`datetime` variable.
+
+.. image:: docs/images/scatter_panel_dark_multiline.png
+   :width: 407 px
+   :align: center
+   :alt: Example of multiple lines in the Scatter/Line panel
+
+Contour panel
+^^^^^^^^^^^^^
+
+The last panel provide by ``ncvue`` draws contour plots. This is the
+Contour panel in macOS dark mode, describing all buttons, sliders, entry
+boxes, spinboxes, and menus:
+
+.. image:: docs/images/contour_panel_dark_small.png
+   :width: 860 px
+   :align: left
+   :alt: Graphical documentation of Contour panel
+
+This produces also either pseudocolor plots ('mesh' ticked) or filled
+contour plots ('mesh' unticked) just as the Map panel but without any map
+projection.
+
+Installation - NOT YET ON PyPI
+------------------------------
 
 The easiest way to install ``ncvue`` is via `pip` if you have cartopy_ installed already:
 
@@ -139,12 +183,14 @@ The easiest way to install ``ncvue`` is via `pip` if you have cartopy_ installed
    pip install ncvue
 
 `Cartopy` can, however, be more elaborate to install. The easiest way to install
-Cartopy is by Conda_ and then installing ``ncvue`` also by `Conda`:
+Cartopy is by Conda_ and then installing ``ncvue`` with `pip`:
 
 .. code-block:: bash
 
    conda install -c conda-forge cartopy
-   conda install -c conda-forge ncvue
+   pip install ncvue
+
+You would need an Anaconda_ or Miniconda_ environment for this, of course.
 
 See the installation instructions_ in the documentation_ for more information.
 
@@ -158,13 +204,15 @@ Copyright (c) 2020-2021 Matthias Cuntz
 
 The project structure is based on a template_ provided by Sebastian Müller_.
 
-.. _LICENSE: https://github.com/mcuntz/ncvue/LICENSE
-.. _Müller: https://github.com/MuellerSeb
+.. _Anaconda: https://www.anaconda.com/products/individual
 .. _cartopy: https://scitools.org.uk/cartopy/docs/latest/
-.. _Conda: https://conda.io/miniconda.html
+.. _Conda: https://docs.conda.io/projects/conda/en/latest/
 .. _documentation: https://mcuntz.github.io/ncvue/
 .. _instructions: https://mcuntz.github.io/ncvue/install.htm
+.. _LICENSE: https://github.com/mcuntz/ncvue/blob/main/LICENSE
 .. _matplotlib: https://matplotlib.org/
+.. _Miniconda: https://docs.conda.io/en/latest/miniconda.html
+.. _Müller: https://github.com/MuellerSeb
 .. _ncview: http://meteora.ucsd.edu/~pierce/ncview_home_page.html
 .. _netcdf4: https://unidata.github.io/netcdf4-python/netCDF4/index.html
 .. _numpy: https://numpy.org/

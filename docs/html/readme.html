@@ -36,7 +36,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="API" href="package.html" />
+    <link rel="next" title="Installation" href="install.html" />
     <link rel="prev" title="Contents" href="index.html" /> 
 </head>
 
@@ -95,10 +95,15 @@
 <li class="toctree-l3"><a class="reference internal" href="#general-layout">General layout</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#map-panel">Map panel</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#scatter-line-panel">Scatter/Line panel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#contour-panel">Contour panel</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#installation-not-yet-on-pypi">Installation - NOT YET ON PyPI</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#license">License</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="install.html#building-from-source">Building from source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#dependencies">Dependencies</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="package.html">API</a><ul>
@@ -186,7 +191,7 @@
   
   <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
       
-        <a href="package.html" class="btn btn-neutral float-right" title="API" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="install.html" class="btn btn-neutral float-right" title="Installation" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral float-left" title="Contents" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -200,25 +205,24 @@
             
   <div class="section" id="ncvue-a-gui-to-view-netcdf-files">
 <h1>ncvue - A GUI to view netCDF files<a class="headerlink" href="#ncvue-a-gui-to-view-netcdf-files" title="Permalink to this headline">¶</a></h1>
-<p>A minimal GUI for a quick view of netCDF files.
-Aiming to be a drop-in replacement for <a class="reference external" href="http://meteora.ucsd.edu/~pierce/ncview_home_page.html">ncview</a>.</p>
+<p>A minimal GUI for a quick view of netCDF files. Aiming to be a drop-in
+replacement for <a class="reference external" href="http://meteora.ucsd.edu/~pierce/ncview_home_page.html">ncview</a>.</p>
 <a class="reference external image-reference" href="https://doi.org/10.5281/zenodo.3893705"><img alt="Zenodo DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.3893705.svg" /></a>
 <a class="reference external image-reference" href="https://badge.fury.io/py/ncvue"><img alt="PyPI version" src="https://badge.fury.io/py/ncvue.svg" /></a>
 <a class="reference external image-reference" href="https://github.com/mcuntz/ncvue/blob/master/LICENSE"><img alt="License" src="http://img.shields.io/badge/license-MIT-blue.svg?style=flat" /></a>
-<a class="reference external image-reference" href="https://travis-ci.org/mcuntz/ncvue"><img alt="Build status" src="https://travis-ci.org/mcuntz/ncvue.svg?branch=master" /></a>
-<a class="reference external image-reference" href="https://ncvue.readthedocs.io/en/latest/?badge=latest"><img alt="Documentation status" src="https://readthedocs.org/projects/ncvue/badge/?version=latest" /></a>
+<a class="reference external image-reference" href="https://travis-ci.org/mcuntz/ncvue"><img alt="Build status" src="https://travis-ci.org/mcuntz/ncvue.svg?branch=main" /></a>
 <div class="section" id="about-ncvue">
 <h2>About ncvue<a class="headerlink" href="#about-ncvue" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is a minimal GUI for a quick view of netCDF files. It is aiming to be
 a drop-in replacement for <a class="reference external" href="http://meteora.ucsd.edu/~pierce/ncview_home_page.html">ncview</a>, being slightly more general than ncview,
 which targets maps. If <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is used with maps, it supports mostly
 structured grids, more precisely the grids supported by <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/">cartopy</a>.</p>
-<p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is a Python script that can be called from within Python and as a
+<p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is a Python script that can be called from within Python or as a
 command line tool. It is not supposed to produce publication-ready plots but
-rather provide a quick overview of the netcdf variables.</p>
-<p>The complete documentation for <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is available from Read The Docs.</p>
+rather provide a quick overview of the netcdf file.</p>
+<p>The complete documentation for <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is available from:</p>
 <blockquote>
-<div><p><a class="reference external" href="http://ncvue.readthedocs.org/en/latest/">http://ncvue.readthedocs.org/en/latest/</a></p>
+<div><p><a class="reference external" href="https://mcuntz.github.io/ncvue/">https://mcuntz.github.io/ncvue/</a></p>
 </div></blockquote>
 </div>
 <div class="section" id="quick-usage-guide">
@@ -240,7 +244,7 @@ within a standard <cite>iPython</cite>, though.</p>
 <h3>General layout<a class="headerlink" href="#general-layout" title="Permalink to this headline">¶</a></h3>
 <p>On opening, <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> presents three panels for different plotting types:
 Scatter or Line plots, Contour plots, and Maps. This is the look in macOS light
-mode (higher resolution images can be found in the <a class="reference external" href="http://ncvue.readthedocs.org/en/latest/">documentation</a>):</p>
+mode (click on figures to open larger pictures):</p>
 <a class="reference internal image-reference" href="_images/scatter_panel_light.png"><img alt="Graphical documentation of ncvue layout" class="align-left" src="_images/scatter_panel_light.png" style="width: 860px;" /></a>
 <p>All three panes are organised in this fashion: the plotting canvas, the
 Matplotlib navigation toolbar and the pane, where one can choose the plotting
@@ -250,47 +254,67 @@ file with the button “New Window” on the top right.</p>
 </div>
 <div class="section" id="map-panel">
 <h3>Map panel<a class="headerlink" href="#map-panel" title="Permalink to this headline">¶</a></h3>
-<p>If <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> detects latitude and longitude variables with a size greater 1, it
-opens the Map panel by default. This is the Map panel in macOS dark mode,
+<p>If <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> detects latitude and longitude variables with a size greater than
+1, it opens the Map panel by default. This is the Map panel in macOS dark mode,
 describing all buttons, sliders, entry boxes, spinboxes, and menus:</p>
 <a class="reference internal image-reference" href="_images/map_panel_dark.png"><img alt="Graphical documentation of Map panel" class="align-left" src="_images/map_panel_dark.png" style="width: 860px;" /></a>
 <p>If it happens that the detection of latitudes and longitudes did not work
 automatically, you can choose the correct variables manually. Or you might use
-the empty entrances on top of the dropdown menus of the latitudes and
-longitudes, which uses the index and one can hence display the matrix within the
-netCDF file. You might want to switch of the coastlines in this case.</p>
-<p>You might want to switch off the automatically detected “global” option sometimes
-if your data is on a rotated grid or excludes some regions such as below minus -60 °S.</p>
+the empty entries on top of the dropdown menus of the latitudes and longitudes,
+which uses the index and one can hence display the matrix within the netCDF
+file. You might want to switch of the coastlines in this case.</p>
+<p>You might want to switch off the automatically detected “global” option
+sometimes if your data is on a rotated grid or excludes some regions such as
+below minus -60 °S.</p>
 <p>All dimensions can be set from 0 to the size of the dimension-1, to “all”, or to
 any of the arithmetic operators “mean”, “std” (standard deviation), “min”,
-“max”, “ptp” (point-to-point amplitude (max-min)), “sum”, “median”, “var”
+“max”, “ptp” (point-to-point amplitude, i.e. max-min), “sum”, “median”, “var”
 (variance).</p>
 <p>Be aware that the underlying cartopy/matplotlib may (or may not) need a long
-time to plot the data (with the pseudocolor mesh option) if you change the
-central longitude of the projection from the central longitude of your data.
-Changing to the central longitude of the input data normally eliminates the
+time to plot the data (with the pseudocolor ‘mesh’ option) if you change the
+central longitude of the projection from the central longitude of your data,
+which is automatically detected if “central lon” is set to None. Setting
+“central lon” to the central longitude of the input data normally eliminates the
 problem.</p>
 </div>
 <div class="section" id="scatter-line-panel">
 <h3>Scatter/Line panel<a class="headerlink" href="#scatter-line-panel" title="Permalink to this headline">¶</a></h3>
-<p>If <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> does not detect latitude and longitude variables with a size greater 1, it
-opens the Scatter/Line panel by default. This is the Scatter/Line panel in macOS dark mode,
-describing all buttons, sliders, entry boxes, spinboxes, and menus:</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> does not detect latitude and longitude variables with a size
+greater than 1, it opens the Scatter/Line panel by default. This is the
+Scatter/Line panel in macOS dark mode, describing all buttons, sliders, entry
+boxes, spinboxes, and menus:</p>
 <a class="reference internal image-reference" href="_images/scatter_panel_dark.png"><img alt="Graphical documentation of Scatter/Line panel" class="align-left" src="_images/scatter_panel_dark.png" style="width: 860px;" /></a>
-<p>Bla</p>
+<p>The default plot is a line plot with solid lines (line style ‘ls’ is ‘-‘). One
+can set line style ‘ls’ to None and set a marker symbol, e.g. ‘o’ for circles, to
+get a scatter plot. A large variety of line styles, marker symbols and color
+notations are supported.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> builds automatically a <cite>datetime</cite> variable from the time axis. This is
+correctly interpreted by the underlying Matplotlib also when zooming into or
+panning the axes. But it is also much slower than using the index. Selecting the
+empty entry on top of the dropdown menu for <cite>x</cite> uses the index for the x-axis
+and is very fast. Plotting a line plot with 52608 time points takes about 2.2 s
+on my Macbook Pro using the <cite>datetime</cite> variable and about 0.3 s using the index
+(i.e. empty x-variable). This is especially true if one plots multiple lines
+with ‘all’ entries from a specific dimension. Plotting all 10 depths of soil
+water content for the 52608 time points, as in the example below, takes also
+about 0.3 s if using the index as x-variable but more than 11.1 s when using the
+<cite>datetime</cite> variable.</p>
+<a class="reference internal image-reference" href="_images/scatter_panel_dark_multiline.png"><img alt="Example of multiple lines in the Scatter/Line panel" class="align-center" src="_images/scatter_panel_dark_multiline.png" style="width: 407px;" /></a>
 </div>
+<div class="section" id="contour-panel">
+<h3>Contour panel<a class="headerlink" href="#contour-panel" title="Permalink to this headline">¶</a></h3>
+<p>The last panel provide by <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> draws contour plots. This is the
+Contour panel in macOS dark mode, describing all buttons, sliders, entry
+boxes, spinboxes, and menus:</p>
+<a class="reference internal image-reference" href="_images/contour_panel_dark.png"><img alt="Graphical documentation of Contour panel" class="align-left" src="_images/contour_panel_dark.png" style="width: 860px;" /></a>
+<p>This produces also either pseudocolor plots (‘mesh’ ticked) or filled
+contour plots (‘mesh’ unticked) just as the Map panel but without any map
+projection.</p>
 </div>
-<div class="section" id="installation-not-yet-on-pypi">
-<h2>Installation - NOT YET ON PyPI<a class="headerlink" href="#installation-not-yet-on-pypi" title="Permalink to this headline">¶</a></h2>
-<p>The easiest way to install is via <cite>pip</cite>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install ncvue
-</pre></div>
-</div>
-<p>See the installation <a class="reference external" href="http://ncvue.readthedocs.io/en/latest/install.htm">instructions</a> in the <a class="reference external" href="http://ncvue.readthedocs.org/en/latest/">documentation</a> for more information.</p>
 </div>
 <div class="section" id="license">
 <h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is distributed under the MIT License. See the <a class="reference external" href="https://github.com/mcuntz/ncvue/LICENSE">LICENSE</a> file for
+<p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is distributed under the MIT License. See the <a class="reference external" href="https://github.com/mcuntz/ncvue/blob/main/LICENSE">LICENSE</a> file for
 details.</p>
 <p>Copyright (c) 2020-2021 Matthias Cuntz</p>
 <p>The project structure is based on a <a class="reference external" href="https://github.com/MuellerSeb/template">template</a> provided by Sebastian <a class="reference external" href="https://github.com/MuellerSeb">Müller</a>.</p>

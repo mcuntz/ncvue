@@ -1,0 +1,338 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installation &mdash; ncvue 2.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API" href="package.html" />
+    <link rel="prev" title="ncvue - A GUI to view netCDF files" href="readme.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> ncvue
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+    <p class="link caption"><span class="link caption-text">Documentation</span></p>
+    
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="readme.html">ncvue - A GUI to view netCDF files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="readme.html#about-ncvue">About ncvue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="readme.html#quick-usage-guide">Quick usage guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="readme.html#general-layout">General layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="readme.html#map-panel">Map panel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="readme.html#scatter-line-panel">Scatter/Line panel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="readme.html#contour-panel">Contour panel</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="readme.html#installation-not-yet-on-pypi-nor-conda">Installation - NOT YET ON PyPI NOR CONDA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="readme.html#license">License</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#building-from-source">Building from source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="package.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="package.html#purpose">Purpose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ncvcontour.html">ncvue.ncvcontour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ncvmain.html">ncvue.ncvmain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ncvmap.html">ncvue.ncvmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ncvmethods.html">ncvue.ncvmethods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ncvscatter.html">ncvue.ncvscatter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ncvue.html">ncvue.ncvue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ncvutils.html">ncvue.ncvutils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ncvwidgets.html">ncvue.ncvwidgets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="version.html">ncvue.version</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+    <br />
+    <p class="link caption"><span class="link caption-text">ncvue Links</span></p>
+    <a href="https://github.com/mcuntz/ncvue">ncvue @ GitHub</a>
+    <a href="https://zenodo.org/record/3620909">ncvue Zenodo DOI</a>
+    <a href="https://pypi.org/project/ncvue">ncvue @ PyPI</a>
+    <br />
+    <br />
+    <a href="genindex.html">Index</a>
+    <a href="index.html">Sitemap</a>
+  
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ncvue</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Installation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/install.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
+      
+        <a href="package.html" class="btn btn-neutral float-right" title="API" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="readme.html" class="btn btn-neutral float-left" title="ncvue - A GUI to view netCDF files" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+  </div>
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>The easiest way to install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is via <cite>pip</cite> if you have <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/">cartopy</a>
+installed already:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install ncvue
+</pre></div>
+</div>
+<p><cite>Cartopy</cite> can, however, be more elaborate to <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/installing.html">install</a>. The easiest way to install
+<cite>Cartopy</cite> is by <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/">Conda</a> and then installing <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> by <cite>pip</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c conda-forge cartopy
+pip install ncvue
+</pre></div>
+</div>
+<p>You would need an <a class="reference external" href="https://www.anaconda.com/products/individual">Anaconda</a> or <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a> environment for this, of course.</p>
+<p>Support of <cite>conda-forge</cite> will be added in one of the next minor releases of <code class="docutils literal notranslate"><span class="pre">ncvue</span></code>.</p>
+<div class="section" id="building-from-source">
+<h2>Building from source<a class="headerlink" href="#building-from-source" title="Permalink to this headline">¶</a></h2>
+<p>If you want to install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> from source, you first have to install the
+dependencies listed below and you can then install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> using <cite>pip</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install ncvue
+</pre></div>
+</div>
+<p>The latest version of <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> can be installed from source:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/mcuntz/ncvue.git
+<span class="nb">cd</span> ncvue
+pip install .
+</pre></div>
+</div>
+<p>You can use the <cite>--user</cite> option with <cite>pip install</cite> if you do not have proper
+privileges to install Python packages (and you are not using a virtual
+environment).</p>
+<p>You can also simply clone the repository and add it to your <cite>PYTHONPATH</cite>. In
+this case, add the <cite>bin</cite> directory to your <cite>PATH</cite> as well (bash/zsh example):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/mcuntz/ncvue.git
+<span class="nb">cd</span> ncvue
+<span class="nb">export</span> <span class="nv">PYTHONPATH</span><span class="o">=</span><span class="si">${</span><span class="nv">PYTHONPATH</span><span class="si">}</span>:<span class="si">${</span><span class="nv">PWD</span><span class="si">}</span>
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">PATH</span><span class="si">}</span>:<span class="si">${</span><span class="nv">PWD</span><span class="si">}</span>/bin
+</pre></div>
+</div>
+</div>
+<div class="section" id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> uses the packages <a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.19)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code></a>, <code class="xref py py-mod docutils literal notranslate"><span class="pre">netCDF4</span></code>, <code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib</span></code>, and
+<a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/">cartopy</a>. The first three packages are easily installed with <cite>pip</cite> from
+PyPI:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install numpy netcdf4 matplotlib
+</pre></div>
+</div>
+<p><cite>Cartopy</cite> can, however, be more elaborate to <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/installing.html">install</a>. It basically uses Python
+wrappers to C++/C-libraries that must be installed first.</p>
+<p>On <strong>Windows</strong>, one can use either the unofficial binaries of Christoph Gohlke
+(<a class="reference external" href="https://www.lfd.uci.edu/~gohlke/pythonlibs/">https://www.lfd.uci.edu/~gohlke/pythonlibs/</a>) or install <cite>cartopy</cite> with <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/">Conda</a>
+from <cite>conda-forge</cite> (see above).</p>
+<p>On <strong>macOS</strong>, one can use <a class="reference external" href="https://brew.sh/">homebrew</a> to install the Cartographic Projections
+Library <cite>proj</cite> and the Geometry Engine <cite>geos</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>brew install proj geos
+</pre></div>
+</div>
+<p>On Ubuntu <strong>Linux</strong>, this can be done with <cite>apt-get</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get install libproj-dev proj-data proj-bin
+sudo apt-get install libgeos++-dev
+</pre></div>
+</div>
+<p>The remaining Python packages can then be installed with <cite>pip</cite> (from Cartopy <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/installing.html">install</a>):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install --upgrade cython pyshp six
+<span class="c1"># shapely needs to be built from source to link to geos. If it is already</span>
+<span class="c1"># installed, uninstall it by: pip uninstall shapely</span>
+pip install shapely --no-binary shapely
+</pre></div>
+</div>
+<p>I also recommend to install the fast kd-tree implementation <cite>pykdtree</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install pykdtree
+</pre></div>
+</div>
+<p>Now, eventually, you can install <cite>cartopy</cite> with <cite>pip</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install cartopy
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> uses the “themed Tk” (“ttk”) functionality of Tk 8.5. It hence needs
+Python 2.7 or Python 3.1 or later. Linux users might need to update their (very
+old) Tk installations.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020-2021, Matthias Cuntz
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

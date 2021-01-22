@@ -20,6 +20,8 @@ Released under the MIT License; see LICENSE file for details.
 * v1.4, Read only slice from disk, respect unlimited dimension,
   visual colorbar chooser, Dec 2020, Matthias Cuntz
 * v2.0, Added map panel, Jan 2020, Matthias Cuntz
+* v3.0, First version to be tested elsewhere, documentation on Github Pages,
+  allow spaces in variable names, bug fixes, Jan 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 """

@@ -13,4 +13,5 @@ Contents
    :maxdepth: 4
 
    readme
+   install
    package
