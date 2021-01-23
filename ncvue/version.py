@@ -27,4 +27,4 @@ Released under the MIT License; see LICENSE file for details.
 """
 
 __author__  = "Matthias Cuntz"
-__version__ = "2.0"
+__version__ = "3.0"

@@ -4,12 +4,12 @@ ncvue - A GUI to view netCDF files
   pandoc -f rst -o README.html -t html README.rst
   As docs/src/readme.rst:
     replace docs/ with ../
-    replace _small with nothing
+    replace _small.png with .png
     replace
       higher resolution images can be found in the documentation_
-    by
+    with
       click on figures to open larger pictures
-    remove install section
+    remove section "Installation"
 
 A minimal GUI for a quick view of netCDF files. Aiming to be a drop-in
 replacement for ncview_.

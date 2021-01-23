@@ -173,8 +173,8 @@ This produces also either pseudocolor plots ('mesh' ticked) or filled
 contour plots ('mesh' unticked) just as the Map panel but without any map
 projection.
 
-Installation - NOT YET ON PyPI
-------------------------------
+Installation
+------------
 
 The easiest way to install ``ncvue`` is via `pip` if you have cartopy_ installed already:
 
