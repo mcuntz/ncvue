@@ -6,7 +6,7 @@ installed already:
 
 .. code-block:: bash
 
-    pip install ncvue
+   pip install ncvue
 
 `Cartopy` can, however, be more elaborate to install_. The easiest way to install
 `Cartopy` is by Conda_ and then installing ``ncvue`` by `pip`:
@@ -28,15 +28,15 @@ dependencies listed below and you can then install ``ncvue`` using `pip`:
 
 .. code-block:: bash
 
-    pip install ncvue
+   pip install ncvue
 
 The latest version of ``ncvue`` can be installed from source:
 
 .. code-block:: bash
 
-    git clone https://github.com/mcuntz/ncvue.git
-    cd ncvue
-    pip install .
+   git clone https://github.com/mcuntz/ncvue.git
+   cd ncvue
+   pip install .
 
 You can use the `\-\-user` option with `pip install` if you do not have proper
 privileges to install Python packages (and you are not using a virtual
@@ -47,10 +47,10 @@ this case, add the `bin` directory to your `PATH` as well (bash/zsh example):
 
 .. code-block:: bash
 
-    git clone https://github.com/mcuntz/ncvue.git
-    cd ncvue
-    export PYTHONPATH=${PYTHONPATH}:${PWD}
-    export PATH=${PATH}:${PWD}/bin
+   git clone https://github.com/mcuntz/ncvue.git
+   cd ncvue
+   export PYTHONPATH=${PYTHONPATH}:${PWD}
+   export PATH=${PATH}:${PWD}/bin
 
 Dependencies
 ------------
@@ -61,7 +61,7 @@ PyPI:
 
 .. code-block:: bash
 
-    pip install numpy netcdf4 matplotlib
+   pip install numpy netcdf4 matplotlib
 
 `Cartopy` can, however, be more elaborate to install_. It basically uses Python
 wrappers to C++/C-libraries that must be installed first.
@@ -75,7 +75,7 @@ Library `proj` and the Geometry Engine `geos`:
 
 .. code-block:: bash
 
-    brew install proj geos
+   brew install proj geos
 
 On Ubuntu **Linux**, this can be done with `apt-get`:
 
@@ -108,6 +108,61 @@ Now, eventually, you can install `cartopy` with `pip`:
 ``ncvue`` uses the "themed Tk" ("ttk") functionality of Tk 8.5. It hence needs
 Python 2.7 or Python 3.1 or later. Linux users might need to update their (very
 old) Tk installations.
+
+Summary
+-------
+
+To install ``ncvue`` on **Windows**, install Anaconda_ and the binary of `Cartopy` of Christoph Gohlke
+(https://www.lfd.uci.edu/~gohlke/pythonlibs/). Then install ``ncvue`` via pip:
+
+.. code-block:: bash
+
+   pip.exe install ncvue
+
+To install ``ncvue`` on **macOS**, use Anaconda_ and install ``ncvue`` with `pip`
+
+.. code-block:: bash
+
+   conda install -c conda-forge cartopy
+   pip install ncvue
+
+or install from source:
+
+.. code-block:: bash
+
+   pip install numpy netcdf4 matplotlib
+   # uncomment next line if homebrew is not installed
+   # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
+   brew install proj geos
+   pip install --upgrade cython pyshp six
+   # uncomment next line if shapely is already installed
+   # pip uninstall shapely
+   pip install shapely --no-binary shapely
+   pip install pykdtree
+   pip install cartopy
+   pip install ncvue
+
+To install ``ncvue`` on **Linux**, use Anaconda_ and install ``ncvue`` with `pip`
+
+.. code-block:: bash
+
+   conda install -c conda-forge cartopy
+   pip install ncvue
+
+or install from source:
+
+.. code-block:: bash
+
+   pip install numpy netcdf4 matplotlib
+   sudo apt-get install libproj-dev proj-data proj-bin
+   sudo apt-get install libgeos++-dev
+   pip install --upgrade cython pyshp six
+   # uncomment next line if shapely is already installed
+   # pip uninstall shapely
+   pip install shapely --no-binary shapely
+   pip install pykdtree
+   pip install cartopy
+   pip install ncvue
 
 .. _Anaconda: https://www.anaconda.com/products/individual
 .. _cartopy: https://scitools.org.uk/cartopy/docs/latest/

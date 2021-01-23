@@ -104,6 +104,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#building-from-source">Building from source</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="package.html">API</a><ul>
@@ -284,6 +285,51 @@ pip install shapely --no-binary shapely
 <p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> uses the “themed Tk” (“ttk”) functionality of Tk 8.5. It hence needs
 Python 2.7 or Python 3.1 or later. Linux users might need to update their (very
 old) Tk installations.</p>
+</div>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<p>To install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> on <strong>Windows</strong>, install <a class="reference external" href="https://www.anaconda.com/products/individual">Anaconda</a> and the binary of <cite>Cartopy</cite> of Christoph Gohlke
+(<a class="reference external" href="https://www.lfd.uci.edu/~gohlke/pythonlibs/">https://www.lfd.uci.edu/~gohlke/pythonlibs/</a>). Then install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> via pip:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip.exe install ncvue
+</pre></div>
+</div>
+<p>To install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> on <strong>macOS</strong>, use <a class="reference external" href="https://www.anaconda.com/products/individual">Anaconda</a> and install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> with <cite>pip</cite></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c conda-forge cartopy
+pip install ncvue
+</pre></div>
+</div>
+<p>or install from source:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install numpy netcdf4 matplotlib
+<span class="c1"># uncomment next line if homebrew is not installed</span>
+<span class="c1"># /bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)</span>
+brew install proj geos
+pip install --upgrade cython pyshp six
+<span class="c1"># uncomment next line if shapely is already installed</span>
+<span class="c1"># pip uninstall shapely</span>
+pip install shapely --no-binary shapely
+pip install pykdtree
+pip install cartopy
+pip install ncvue
+</pre></div>
+</div>
+<p>To install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> on <strong>Linux</strong>, use <a class="reference external" href="https://www.anaconda.com/products/individual">Anaconda</a> and install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> with <cite>pip</cite></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c conda-forge cartopy
+pip install ncvue
+</pre></div>
+</div>
+<p>or install from source:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install numpy netcdf4 matplotlib
+sudo apt-get install libproj-dev proj-data proj-bin
+sudo apt-get install libgeos++-dev
+pip install --upgrade cython pyshp six
+<span class="c1"># uncomment next line if shapely is already installed</span>
+<span class="c1"># pip uninstall shapely</span>
+pip install shapely --no-binary shapely
+pip install pykdtree
+pip install cartopy
+pip install ncvue
+</pre></div>
+</div>
 </div>
 </div>
 
