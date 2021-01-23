@@ -3,7 +3,7 @@ ncvue - A GUI to view netCDF files
 ..
   pandoc -f rst -o README.html -t html README.rst
   As docs/src/readme.rst:
-    replace docs/ with ../
+    replace https://mcuntz.github.io/ncvue/ with ../
     replace _small.png with .png
     replace
       higher resolution images can be found in the documentation_
@@ -14,21 +14,21 @@ ncvue - A GUI to view netCDF files
 A minimal GUI for a quick view of netCDF files. Aiming to be a drop-in
 replacement for ncview_.
 
-.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.3893705.svg
+.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4459598.svg
+   :target: https://doi.org/10.5281/zenodo.4459598
    :alt: Zenodo DOI
-   :target: https://doi.org/10.5281/zenodo.3893705
 
 .. image:: https://badge.fury.io/py/ncvue.svg
-   :alt: PyPI version
    :target: https://badge.fury.io/py/ncvue
+   :alt: PyPI version
 
 .. image:: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
-   :alt: License
    :target: https://github.com/mcuntz/ncvue/blob/master/LICENSE
+   :alt: License
 
 .. image:: https://travis-ci.org/mcuntz/ncvue.svg?branch=main
-   :alt: Build status
    :target: https://travis-ci.org/mcuntz/ncvue
+   :alt: Build status
 
 About ncvue
 -----------
@@ -74,7 +74,7 @@ On opening, ``ncvue`` presents three panels for different plotting types:
 Scatter or Line plots, Contour plots, and Maps. This is the look in macOS light
 mode (higher resolution images can be found in the documentation_):
 
-.. image:: docs/images/scatter_panel_light_small.png
+.. image:: https://mcuntz.github.io/ncvue/images/scatter_panel_light_small.png
    :width: 860 px
    :align: left
    :alt: Graphical documentation of ncvue layout
@@ -95,7 +95,7 @@ If ``ncvue`` detects latitude and longitude variables with a size greater than
 1, it opens the Map panel by default. This is the Map panel in macOS dark mode,
 describing all buttons, sliders, entry boxes, spinboxes, and menus:
 
-.. image:: docs/images/map_panel_dark_small.png
+.. image:: https://mcuntz.github.io/ncvue/images/map_panel_dark_small.png
    :width: 860 px
    :align: left
    :alt: Graphical documentation of Map panel
@@ -130,7 +130,7 @@ greater than 1, it opens the Scatter/Line panel by default. This is the
 Scatter/Line panel in macOS dark mode, describing all buttons, sliders, entry
 boxes, spinboxes, and menus:
 
-.. image:: docs/images/scatter_panel_dark_small.png
+.. image:: https://mcuntz.github.io/ncvue/images/scatter_panel_dark_small.png
    :width: 860 px
    :align: left
    :alt: Graphical documentation of Scatter/Line panel
@@ -152,7 +152,7 @@ water content for the 52608 time points, as in the example below, takes also
 about 0.3 s if using the index as x-variable but more than 11.1 s when using the
 `datetime` variable.
 
-.. image:: docs/images/scatter_panel_dark_multiline.png
+.. image:: https://mcuntz.github.io/ncvue/images/scatter_panel_dark_multiline.png
    :width: 407 px
    :align: center
    :alt: Example of multiple lines in the Scatter/Line panel
@@ -164,7 +164,7 @@ The last panel provide by ``ncvue`` draws contour plots. This is the
 Contour panel in macOS dark mode, describing all buttons, sliders, entry
 boxes, spinboxes, and menus:
 
-.. image:: docs/images/contour_panel_dark_small.png
+.. image:: https://mcuntz.github.io/ncvue/images/contour_panel_dark_small.png
    :width: 860 px
    :align: left
    :alt: Graphical documentation of Contour panel

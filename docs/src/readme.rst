@@ -3,7 +3,7 @@ ncvue - A GUI to view netCDF files
 ..
   pandoc -f rst -o README.html -t html README.rst
   As docs/src/readme.rst:
-    replace docs/ with ../
+    replace https://mcuntz.github.io/ncvue/ with ../
     replace _small.png with .png
     replace
       higher resolution images can be found in the documentation_
@@ -14,21 +14,21 @@ ncvue - A GUI to view netCDF files
 A minimal GUI for a quick view of netCDF files. Aiming to be a drop-in
 replacement for ncview_.
 
-.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.3893705.svg
+.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4459598.svg
+   :target: https://doi.org/10.5281/zenodo.4459598
    :alt: Zenodo DOI
-   :target: https://doi.org/10.5281/zenodo.3893705
 
 .. image:: https://badge.fury.io/py/ncvue.svg
-   :alt: PyPI version
    :target: https://badge.fury.io/py/ncvue
+   :alt: PyPI version
 
 .. image:: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
-   :alt: License
    :target: https://github.com/mcuntz/ncvue/blob/master/LICENSE
+   :alt: License
 
 .. image:: https://travis-ci.org/mcuntz/ncvue.svg?branch=main
-   :alt: Build status
    :target: https://travis-ci.org/mcuntz/ncvue
+   :alt: Build status
 
 About ncvue
 -----------
