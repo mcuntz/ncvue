@@ -82,7 +82,7 @@ setup(
     license              = "MIT",
     classifiers          = classifiers,
     platforms            = ["Windows", "Linux", "Solaris", "Mac OS-X", "Unix"],
-    package_data         = {package: ['ncvue/images/*.png']}
+    package_data         = {package: ['ncvue/images/*.png']},
     include_package_data = True,
     install_requires     = ["numpy", "netcdf4", "matplotlib", "cython", "pyshp",
                             "six", "shapely", "pykdtree", "cartopy"],
