@@ -14,6 +14,7 @@ installed already:
 .. code-block:: bash
 
    conda install -c conda-forge cartopy
+   conda install netcdf4
    pip install ncvue
 
 You would need an Anaconda_ or Miniconda_ environment for this, of course.
@@ -88,7 +89,7 @@ The remaining Python packages can then be installed with `pip` (from Cartopy ins
 
 .. code-block:: bash
 
-   pip install --upgrade cython pyshp six
+   pip install --upgrade cython pyshp six scipy
    # shapely needs to be built from source to link to geos. If it is already
    # installed, uninstall it by: pip uninstall shapely
    pip install shapely --no-binary shapely
@@ -124,6 +125,7 @@ To install ``ncvue`` on **macOS**, use Anaconda_ and install ``ncvue`` with `pip
 .. code-block:: bash
 
    conda install -c conda-forge cartopy
+   conda install netcdf4
    pip install ncvue
 
 or install from source:
@@ -134,7 +136,7 @@ or install from source:
    # uncomment next line if homebrew is not installed
    # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
    brew install proj geos
-   pip install --upgrade cython pyshp six
+   pip install --upgrade cython pyshp six scipy
    # uncomment next line if shapely is already installed
    # pip uninstall shapely
    pip install shapely --no-binary shapely
@@ -147,6 +149,7 @@ To install ``ncvue`` on **Linux**, use Anaconda_ and install ``ncvue`` with `pip
 .. code-block:: bash
 
    conda install -c conda-forge cartopy
+   conda install netcdf4
    pip install ncvue
 
 or install from source:
@@ -156,7 +159,7 @@ or install from source:
    pip install numpy netcdf4 matplotlib
    sudo apt-get install libproj-dev proj-data proj-bin
    sudo apt-get install libgeos++-dev
-   pip install --upgrade cython pyshp six
+   pip install --upgrade cython pyshp six scipy
    # uncomment next line if shapely is already installed
    # pip uninstall shapely
    pip install shapely --no-binary shapely
