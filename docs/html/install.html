@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Installation &mdash; ncvue 3.0 documentation</title>
+  <title>Installation &mdash; ncvue 3.1 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                3.0
+                3.1
               </div>
             
           
@@ -214,6 +214,7 @@ installed already:</p>
 <p><cite>Cartopy</cite> can, however, be more elaborate to <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/installing.html">install</a>. The easiest way to install
 <cite>Cartopy</cite> is by <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/">Conda</a> and then installing <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> by <cite>pip</cite>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c conda-forge cartopy
+conda install netcdf4
 pip install ncvue
 </pre></div>
 </div>
@@ -268,7 +269,7 @@ sudo apt-get install libgeos++-dev
 </pre></div>
 </div>
 <p>The remaining Python packages can then be installed with <cite>pip</cite> (from Cartopy <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/installing.html">install</a>):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install --upgrade cython pyshp six
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install --upgrade cython pyshp six scipy
 <span class="c1"># shapely needs to be built from source to link to geos. If it is already</span>
 <span class="c1"># installed, uninstall it by: pip uninstall shapely</span>
 pip install shapely --no-binary shapely
@@ -295,6 +296,7 @@ old) Tk installations.</p>
 </div>
 <p>To install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> on <strong>macOS</strong>, use <a class="reference external" href="https://www.anaconda.com/products/individual">Anaconda</a> and install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> with <cite>pip</cite></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c conda-forge cartopy
+conda install netcdf4
 pip install ncvue
 </pre></div>
 </div>
@@ -303,7 +305,7 @@ pip install ncvue
 <span class="c1"># uncomment next line if homebrew is not installed</span>
 <span class="c1"># /bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)</span>
 brew install proj geos
-pip install --upgrade cython pyshp six
+pip install --upgrade cython pyshp six scipy
 <span class="c1"># uncomment next line if shapely is already installed</span>
 <span class="c1"># pip uninstall shapely</span>
 pip install shapely --no-binary shapely
@@ -314,6 +316,7 @@ pip install ncvue
 </div>
 <p>To install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> on <strong>Linux</strong>, use <a class="reference external" href="https://www.anaconda.com/products/individual">Anaconda</a> and install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> with <cite>pip</cite></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c conda-forge cartopy
+conda install netcdf4
 pip install ncvue
 </pre></div>
 </div>
@@ -321,7 +324,7 @@ pip install ncvue
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install numpy netcdf4 matplotlib
 sudo apt-get install libproj-dev proj-data proj-bin
 sudo apt-get install libgeos++-dev
-pip install --upgrade cython pyshp six
+pip install --upgrade cython pyshp six scipy
 <span class="c1"># uncomment next line if shapely is already installed</span>
 <span class="c1"># pip uninstall shapely</span>
 pip install shapely --no-binary shapely

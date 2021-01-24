@@ -3,7 +3,6 @@ ncvue - A GUI to view netCDF files
 ..
   pandoc -f rst -o README.html -t html README.rst
   As docs/src/readme.rst:
-    replace https://mcuntz.github.io/ncvue/ with ../
     replace _small.png with .png
     replace
       higher resolution images can be found in the documentation_
@@ -188,6 +187,7 @@ Cartopy is by Conda_ and then installing ``ncvue`` with `pip`:
 .. code-block:: bash
 
    conda install -c conda-forge cartopy
+   conda install netcdf4
    pip install ncvue
 
 You would need an Anaconda_ or Miniconda_ environment for this, of course.
