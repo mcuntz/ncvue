@@ -6,6 +6,7 @@ include MANIFEST.in
 include README.md
 include setup.py setup.cfg
 recursive-include ncvue *.py
+recursive-include ncvue/images *.png
 recursive-include bin *
 recursive-include docs/src *
 recursive-include docs/images *.png *.key

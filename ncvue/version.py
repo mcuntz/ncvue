@@ -19,12 +19,14 @@ Released under the MIT License; see LICENSE file for details.
   Dec 2020, Matthias Cuntz
 * v1.4, Read only slice from disk, respect unlimited dimension,
   visual colorbar chooser, Dec 2020, Matthias Cuntz
-* v2.0, Added map panel, Jan 2020, Matthias Cuntz
+* v2.0, Added map panel, Jan 2021, Matthias Cuntz
 * v3.0, First version to be tested elsewhere, documentation on Github Pages,
-  allow spaces in variable names, bug fixes, Jan 2020, Matthias Cuntz
+  allow spaces in variable names, bug fixes, Jan 2021, Matthias Cuntz
+* v3.1, Include png files in ncvue/images in PyPI wheel,
+  Jan 2021, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 """
 
 __author__  = "Matthias Cuntz"
-__version__ = "3.0"
+__version__ = "3.1"

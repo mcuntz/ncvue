@@ -4,6 +4,10 @@ Changelog
 All notable changes after its initial development up to November 2020 (v1.0)
 are documented in this file.
 
+v3.1 (Jan 2021)
+---------------
+* Include ncvue/images/*.png in PyPI wheel.
+
 v3.0 (Jan 2021)
 ---------------
 * Moved from ReadTheDocs to Github Pages for documentation.

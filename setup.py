@@ -82,10 +82,10 @@ setup(
     license              = "MIT",
     classifiers          = classifiers,
     platforms            = ["Windows", "Linux", "Solaris", "Mac OS-X", "Unix"],
+    package_data         = {package: ['ncvue/images/*.png']}
     include_package_data = True,
-    install_requires     = ["numpy", "netcdf4", "matplotlib", "proj", "pyproj",
-                            "geos", "cython", "pyshp", "six", "shapely",
-                            "pillow", "pykdtree", "cartopy"],
+    install_requires     = ["numpy", "netcdf4", "matplotlib", "cython", "pyshp",
+                            "six", "shapely", "pykdtree", "cartopy"],
     extras_require       = {},
     packages             = find_packages(include=[package, package+'.*']),
     scripts              = scripts,
