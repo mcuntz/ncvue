@@ -22,7 +22,7 @@ from .ncvutils   import list_intersection, set_axis_label, set_miss
 from .ncvutils   import spinbox_values, vardim2var, zip_dim_name_length
 
 # common methods of all panels
-from .ncvmethods import get_miss, get_slice_miss
+from .ncvmethods import analyse_netcdf, get_miss, get_slice_miss
 from .ncvmethods import set_dim_lat, set_dim_lon, set_dim_var
 from .ncvmethods import set_dim_x, set_dim_y, set_dim_y2, set_dim_z
 
