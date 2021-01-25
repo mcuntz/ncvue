@@ -25,11 +25,11 @@ The following classes are provided:
    ncvMap
 """
 from __future__ import absolute_import, division, print_function
+import sys
 import tkinter as tk
 try:
     import tkinter.ttk as ttk
 except Exception:
-    import sys
     print('Using the themed widget set introduced in Tk 8.5.')
     print('Try to use mcview.py, which uses wxpython instead.')
     sys.exit()
@@ -138,7 +138,12 @@ class ncvMap(ttk.Frame):
         allcmaps = plt.colormaps()
         self.cmaps  = [ i for i in allcmaps if not i.endswith('_r') ]
         self.cmaps.sort()
-        self.imaps  = [ tk.PhotoImage(file=os.path.dirname(__file__) +
+        # self.imaps  = [ tk.PhotoImage(file=os.path.dirname(__file__) +
+        #                               '/images/' + i + '.png')
+        #                 for i in self.cmaps ]
+        bundle_dir = getattr(sys, '_MEIPASS',
+                             os.path.abspath(os.path.dirname(__file__)))
+        self.imaps  = [ tk.PhotoImage(file=bundle_dir +
                                       '/images/' + i + '.png')
                         for i in self.cmaps ]
 
