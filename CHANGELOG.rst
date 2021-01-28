@@ -4,6 +4,13 @@ Changelog
 All notable changes after its initial development up to November 2020 (v1.0)
 are documented in this file.
 
+v3.2 (Jan 2021)
+---------------
+* Added 'Open File' button to switch between files.
+* Separated Tk() and Toplevel() to communicate via Tk() between windows.
+* Externalise analysis of netcdf file for open file button.
+* Allow finding images path in standalone applications using pyinstaller.
+
 v3.1 (Jan 2021)
 ---------------
 * Include ncvue/images/*.png in PyPI wheel.

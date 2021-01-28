@@ -17,6 +17,7 @@ History:
 * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
 * Added tooltips to all widgets with class Tooltip, Jan 2021, Matthias Cuntz
 * Added add_tooltip widget, Jan 2021, Matthias Cuntz
+* add_spinbox returns also label widget, Jan 2021, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -446,8 +447,9 @@ def add_spinbox(frame, label="", values=[], command=None, tooltip="",
 
     Returns
     -------
-    tk.StringVar, tk.StringVar, tk.Spinbox
+    tk.StringVar, ttk.Label, tk.StringVar, tk.Spinbox
         variable for the text before the spinbox,
+        label widget,
         variable for the text in the spinbox area,
         spinbox widget
     tk.StringVar
@@ -457,15 +459,15 @@ def add_spinbox(frame, label="", values=[], command=None, tooltip="",
     --------
     >>> self.rowlev = ttk.Frame(self)
     >>> self.rowlev.pack(side=tk.TOP, fill=tk.X)
-    >>> self.dlbl, self.dval, self.d = add_spinbox(
+    >>> self.dlval, self.dl, self.dval, self.d = add_spinbox(
     ...     self.rowlev, label="dim", values=range(0,10),
     ...     command=self.spinned)
     """
     width = kwargs.pop('width', 1)
-    sb_label = tk.StringVar()
-    sb_label.set(label)
-    label = ttk.Label(frame, textvariable=sb_label)
-    label.pack(side=tk.LEFT)
+    sbl_val = tk.StringVar()
+    sbl_val.set(label)
+    sbl = ttk.Label(frame, textvariable=sbl_val)
+    sbl.pack(side=tk.LEFT)
     sb_val = tk.StringVar()
     if len(values) > 0:
         sb_val.set(str(values[0]))
@@ -481,9 +483,9 @@ def add_spinbox(frame, label="", values=[], command=None, tooltip="",
         ttip = tk.StringVar()
         ttip.set(tooltip)
         sbtip = Tooltip(sb, ttip)
-        return sb_label, sb_val, sb, ttip
+        return sbl_val, sbl, sb_val, sb, ttip
     else:
-        return sb_label, sb_val, sb
+        return sbl_val, sbl, sb_val, sb
 
 
 def add_tooltip(frame, tooltip="", **kwargs):

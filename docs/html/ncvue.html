@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>ncvue.ncvue &mdash; ncvue 3.1 documentation</title>
+  <title>ncvue.ncvue &mdash; ncvue 3.2 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                3.1
+                3.2
               </div>
             
           
@@ -219,6 +219,8 @@ France.</p>
 <p>History:</p>
 <ul class="simple">
 <li><p>Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)</p></li>
+<li><p>Separate Tk() and Toplevel() widgets to communicate via Tk() between windows,
+Jan 2021, Matthias Cuntz</p></li>
 </ul>
 <p>The following functions are provided:</p>
 <table class="longtable docutils align-default">
@@ -227,23 +229,23 @@ France.</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvue.ncvue" title="ncvue.ncvue.ncvue"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ncvue</span></code></a>(ncfile[, miss])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvue.ncvue" title="ncvue.ncvue.ncvue"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ncvue</span></code></a>([ncfile, miss])</p></td>
 <td><p>The main function to start the data frame GUI.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py function">
 <dt id="ncvue.ncvue.ncvue">
-<code class="sig-name descname">ncvue</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ncfile</span></em>, <em class="sig-param"><span class="n">miss</span><span class="o">=</span><span class="default_value">nan</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvue.html#ncvue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvue.ncvue" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">ncvue</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ncfile</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">miss</span><span class="o">=</span><span class="default_value">nan</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvue.html#ncvue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvue.ncvue" title="Permalink to this definition">¶</a></dt>
 <dd><p>The main function to start the data frame GUI.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>ncfile</strong><span class="classifier">str</span></dt><dd><p>Name of netcdf file.</p>
+<dt><strong>ncfile</strong><span class="classifier">str, optional</span></dt><dd><p>Name of netcdf file (default: ‘’).</p>
 </dd>
 <dt><strong>miss</strong><span class="classifier">float, optional</span></dt><dd><p>Add value to list of missing values: _FillValue, missing_value,
 and the standard netCDF missing value for current datatype from
-netcdf4.default_fillvals.</p>
+netcdf4.default_fillvals (default: np.nan).</p>
 </dd>
 </dl>
 </dd>

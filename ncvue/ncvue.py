@@ -16,6 +16,8 @@ Released under the MIT License; see LICENSE file for details.
 History:
 
 * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
+* Separate Tk() and Toplevel() widgets to communicate via Tk() between windows,
+  Jan 2021, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -28,36 +30,63 @@ from __future__ import absolute_import, division, print_function
 import tkinter as tk
 import numpy as np
 import netCDF4 as nc
+from .ncvmethods import analyse_netcdf
 from .ncvmain import ncvMain
 
 
 __all__ = ['ncvue']
 
 
-def ncvue(ncfile, miss=np.nan):
+def ncvue(ncfile='', miss=np.nan):
     """
     The main function to start the data frame GUI.
 
     Parameters
     ----------
-    ncfile : str
-        Name of netcdf file.
+    ncfile : str, optional
+        Name of netcdf file (default: '').
     miss : float, optional
         Add value to list of missing values: _FillValue, missing_value,
         and the standard netCDF missing value for current datatype from
-        netcdf4.default_fillvals.
+        netcdf4.default_fillvals (default: np.nan).
     """
-    fi = nc.Dataset(ncfile, 'r')
 
-    root = tk.Tk()
-    root.name = 'root'
+    top = tk.Tk()
+    top.withdraw()
+
+    root = tk.Toplevel()
+    root.name = 'ncvOne'
     root.title("ncvue "+ncfile)
     root.geometry('1000x800+100+100')
-    root.miss = miss
+
+    # Connect netcdf file and extracted information to top
+    top.fi     = ncfile  # file name or file handle
+    top.miss   = miss    # extra missing value
+    top.dunlim = ''      # name of unlimited dimension
+    top.time   = None    # datetime variable
+    top.tname  = ''      # datetime variable name
+    top.tvar   = ''      # datetime variable name in netcdf file
+    top.dtime  = None    # decimal year
+    top.latvar = ''      # name of latitude variable
+    top.lonvar = ''      # name of longitude variable
+    top.latdim = ''      # name of latitude dimension
+    top.londim = ''      # name of longitude dimension
+    top.maxdim = 1       # maximum number of dimensions of all variables
+                         # > 0 so that dimension spinboxes present
+    top.cols   = []      # variable list
+    if ncfile:
+        top.fi = nc.Dataset(ncfile, 'r')
+        # Analyse netcdf file
+        analyse_netcdf(top)
+    root.top = top
+
+    def on_closing():
+        if top.fi:
+            top.fi.close()
+        top.quit()
+    root.protocol("WM_DELETE_WINDOW", on_closing)
 
     # 1st plotting window
-    main_frame = ncvMain(fi, master=root)
+    main_frame = ncvMain(root)
 
-    root.mainloop()
-
-    fi.close()
+    top.mainloop()

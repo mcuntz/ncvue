@@ -17,6 +17,8 @@ Released under the MIT License; see LICENSE file for details.
 History:
 
 * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
+* Added check_new_netcdf method that re-initialises all panels if netcdf file
+  changed, Jan 2021, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -36,7 +38,6 @@ except Exception:
     sys.exit()
 import numpy as np
 from .ncvutils   import vardim2var
-from .ncvmethods import analyse_netcdf
 from .ncvscatter import ncvScatter
 from .ncvcontour import ncvContour
 from .ncvmap     import ncvMap
@@ -63,29 +64,13 @@ class ncvMain(ttk.Frame):
     # Window setup
     #
 
-    def __init__(self, fi, master=None, miss=np.nan, **kwargs):
+    def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
         self.pack(fill=tk.BOTH, expand=1)
 
         self.name   = 'ncvMain'
-        self.fi     = fi      # netcdf file
-        self.master = master  # master window = root
-        self.root   = master  # root window
-        self.miss   = master.miss
-        self.dunlim = ''      # name of unlimited dimension
-        self.time   = None    # datetime variable
-        self.tname  = ''      # datetime variable name
-        self.tvar   = ''      # datetime variable name in netcdf file
-        self.dtime  = None    # decimal year
-        self.latvar = ''      # name of latitude variable
-        self.lonvar = ''      # name of longitude variable
-        self.latdim = ''      # name of latitude dimension
-        self.londim = ''      # name of longitude dimension
-        self.maxdim = 0       # maximum number of dimensions of all variables
-        self.cols   = []      # variable list
-
-        # Analyse netcdf file
-        analyse_netcdf(self)
+        self.master = master      # master window, i.e. root
+        self.top    = master.top  # top window
 
         # Notebook for tabs for future plot types
         self.tabs = ttk.Notebook(self)
@@ -96,13 +81,13 @@ class ncvMain(ttk.Frame):
         self.tab_map     = ncvMap(self)
 
         mapfirst = False
-        if self.latvar:
-            vl = vardim2var(self.latvar)
-            if np.prod(self.fi.variables[vl].shape) > 1:
+        if self.top.latvar:
+            vl = vardim2var(self.top.latvar)
+            if np.prod(self.top.fi.variables[vl].shape) > 1:
                 mapfirst = True
-        if self.lonvar:
-            vl = vardim2var(self.lonvar)
-            if np.prod(self.fi.variables[vl].shape) > 1:
+        if self.top.lonvar:
+            vl = vardim2var(self.top.lonvar)
+            if np.prod(self.top.fi.variables[vl].shape) > 1:
                 mapfirst = True
 
         if mapfirst:
@@ -111,3 +96,26 @@ class ncvMain(ttk.Frame):
         self.tabs.add(self.tab_contour, text=self.tab_contour.name)
         if not mapfirst:
             self.tabs.add(self.tab_map, text=self.tab_map.name)
+
+        self.tabs.bind("<<NotebookTabChanged>>", self.check_new_netcdf)
+        self.tabs.bind("<Enter>", self.check_new_netcdf)
+
+    #
+    # Methods
+    #
+
+    def check_new_netcdf(self, event):
+        """
+        Command called if notebook panel changed or mouse pointer enters a
+        window. It checks if netcdf file was changed in any panel of any window
+        and re-initialises all plot panels (of the current window).
+        """
+        if self.tab_scatter.top.fi != self.tab_scatter.fi:
+            self.tab_scatter.reinit()
+            self.tab_scatter.redraw()
+        if self.tab_contour.top.fi != self.tab_contour.fi:
+            self.tab_contour.reinit()
+            self.tab_contour.redraw()
+        if self.tab_map.top.fi != self.tab_map.fi:
+            self.tab_map.reinit()
+            self.tab_map.redraw()

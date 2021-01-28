@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>ncvue.ncvue &mdash; ncvue 3.1 documentation</title>
+  <title>ncvue.ncvue &mdash; ncvue 3.2 documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                3.1
+                3.2
               </div>
             
           
@@ -210,6 +210,8 @@
 <span class="sd">History:</span>
 
 <span class="sd">* Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)</span>
+<span class="sd">* Separate Tk() and Toplevel() widgets to communicate via Tk() between windows,</span>
+<span class="sd">  Jan 2021, Matthias Cuntz</span>
 
 <span class="sd">.. moduleauthor:: Matthias Cuntz</span>
 
@@ -222,39 +224,66 @@
 <span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">netCDF4</span> <span class="k">as</span> <span class="nn">nc</span>
+<span class="kn">from</span> <span class="nn">.ncvmethods</span> <span class="kn">import</span> <span class="n">analyse_netcdf</span>
 <span class="kn">from</span> <span class="nn">.ncvmain</span> <span class="kn">import</span> <span class="n">ncvMain</span>
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ncvue&#39;</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="ncvue"><a class="viewcode-back" href="../../ncvue.html#ncvue.ncvue.ncvue">[docs]</a><span class="k">def</span> <span class="nf">ncvue</span><span class="p">(</span><span class="n">ncfile</span><span class="p">,</span> <span class="n">miss</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">):</span>
+<div class="viewcode-block" id="ncvue"><a class="viewcode-back" href="../../ncvue.html#ncvue.ncvue.ncvue">[docs]</a><span class="k">def</span> <span class="nf">ncvue</span><span class="p">(</span><span class="n">ncfile</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">miss</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The main function to start the data frame GUI.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    ncfile : str</span>
-<span class="sd">        Name of netcdf file.</span>
+<span class="sd">    ncfile : str, optional</span>
+<span class="sd">        Name of netcdf file (default: &#39;&#39;).</span>
 <span class="sd">    miss : float, optional</span>
 <span class="sd">        Add value to list of missing values: _FillValue, missing_value,</span>
 <span class="sd">        and the standard netCDF missing value for current datatype from</span>
-<span class="sd">        netcdf4.default_fillvals.</span>
+<span class="sd">        netcdf4.default_fillvals (default: np.nan).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">fi</span> <span class="o">=</span> <span class="n">nc</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">ncfile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
 
-    <span class="n">root</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Tk</span><span class="p">()</span>
-    <span class="n">root</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;root&#39;</span>
+    <span class="n">top</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Tk</span><span class="p">()</span>
+    <span class="n">top</span><span class="o">.</span><span class="n">withdraw</span><span class="p">()</span>
+
+    <span class="n">root</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Toplevel</span><span class="p">()</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;ncvOne&#39;</span>
     <span class="n">root</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;ncvue &quot;</span><span class="o">+</span><span class="n">ncfile</span><span class="p">)</span>
     <span class="n">root</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="s1">&#39;1000x800+100+100&#39;</span><span class="p">)</span>
-    <span class="n">root</span><span class="o">.</span><span class="n">miss</span> <span class="o">=</span> <span class="n">miss</span>
+
+    <span class="c1"># Connect netcdf file and extracted information to top</span>
+    <span class="n">top</span><span class="o">.</span><span class="n">fi</span>     <span class="o">=</span> <span class="n">ncfile</span>  <span class="c1"># file name or file handle</span>
+    <span class="n">top</span><span class="o">.</span><span class="n">miss</span>   <span class="o">=</span> <span class="n">miss</span>    <span class="c1"># extra missing value</span>
+    <span class="n">top</span><span class="o">.</span><span class="n">dunlim</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>      <span class="c1"># name of unlimited dimension</span>
+    <span class="n">top</span><span class="o">.</span><span class="n">time</span>   <span class="o">=</span> <span class="kc">None</span>    <span class="c1"># datetime variable</span>
+    <span class="n">top</span><span class="o">.</span><span class="n">tname</span>  <span class="o">=</span> <span class="s1">&#39;&#39;</span>      <span class="c1"># datetime variable name</span>
+    <span class="n">top</span><span class="o">.</span><span class="n">tvar</span>   <span class="o">=</span> <span class="s1">&#39;&#39;</span>      <span class="c1"># datetime variable name in netcdf file</span>
+    <span class="n">top</span><span class="o">.</span><span class="n">dtime</span>  <span class="o">=</span> <span class="kc">None</span>    <span class="c1"># decimal year</span>
+    <span class="n">top</span><span class="o">.</span><span class="n">latvar</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>      <span class="c1"># name of latitude variable</span>
+    <span class="n">top</span><span class="o">.</span><span class="n">lonvar</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>      <span class="c1"># name of longitude variable</span>
+    <span class="n">top</span><span class="o">.</span><span class="n">latdim</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>      <span class="c1"># name of latitude dimension</span>
+    <span class="n">top</span><span class="o">.</span><span class="n">londim</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>      <span class="c1"># name of longitude dimension</span>
+    <span class="n">top</span><span class="o">.</span><span class="n">maxdim</span> <span class="o">=</span> <span class="mi">1</span>       <span class="c1"># maximum number of dimensions of all variables</span>
+                         <span class="c1"># &gt; 0 so that dimension spinboxes present</span>
+    <span class="n">top</span><span class="o">.</span><span class="n">cols</span>   <span class="o">=</span> <span class="p">[]</span>      <span class="c1"># variable list</span>
+    <span class="k">if</span> <span class="n">ncfile</span><span class="p">:</span>
+        <span class="n">top</span><span class="o">.</span><span class="n">fi</span> <span class="o">=</span> <span class="n">nc</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">ncfile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+        <span class="c1"># Analyse netcdf file</span>
+        <span class="n">analyse_netcdf</span><span class="p">(</span><span class="n">top</span><span class="p">)</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">top</span> <span class="o">=</span> <span class="n">top</span>
+
+    <span class="k">def</span> <span class="nf">on_closing</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">top</span><span class="o">.</span><span class="n">fi</span><span class="p">:</span>
+            <span class="n">top</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">top</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">protocol</span><span class="p">(</span><span class="s2">&quot;WM_DELETE_WINDOW&quot;</span><span class="p">,</span> <span class="n">on_closing</span><span class="p">)</span>
 
     <span class="c1"># 1st plotting window</span>
-    <span class="n">main_frame</span> <span class="o">=</span> <span class="n">ncvMain</span><span class="p">(</span><span class="n">fi</span><span class="p">,</span> <span class="n">master</span><span class="o">=</span><span class="n">root</span><span class="p">)</span>
+    <span class="n">main_frame</span> <span class="o">=</span> <span class="n">ncvMain</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
 
-    <span class="n">root</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
-
-    <span class="n">fi</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+    <span class="n">top</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span></div>
 </pre></div>
 
            </div>

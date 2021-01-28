@@ -16,6 +16,7 @@ Released under the MIT License; see LICENSE file for details.
 History:
 
 * Written Dec 2020-Jan 2021 by Matthias Cuntz (mc (at) macu (dot) de)
+* Open new netcdf file, communicate via top widget, Jan 2021, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -33,11 +34,13 @@ except Exception:
     print('Using the themed widget set introduced in Tk 8.5.')
     print('Try to use mcview.py, which uses wxpython instead.')
     sys.exit()
+from tkinter import filedialog
 import os
 import numpy as np
+import netCDF4 as nc
 from .ncvutils   import add_cyclic_point, clone_ncvmain, set_axis_label
 from .ncvutils   import set_miss, vardim2var
-from .ncvmethods import get_slice_miss, get_miss
+from .ncvmethods import analyse_netcdf, get_slice_miss, get_miss
 from .ncvmethods import set_dim_lon, set_dim_lat, set_dim_var
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry, add_imagemenu
 from .ncvwidgets import add_menu, add_scale, add_spinbox, add_tooltip
@@ -77,20 +80,21 @@ class ncvMap(ttk.Frame):
 
         self.name   = 'Map'
         self.master = master
-        self.root   = master.root
-        self.fi     = master.fi
-        self.miss   = master.miss
-        self.dunlim = master.dunlim
-        self.time   = master.time
-        self.tname  = master.tname
-        self.tvar   = master.tvar
-        self.dtime  = master.dtime
-        self.latvar = master.latvar
-        self.lonvar = master.lonvar
-        self.latdim = master.latdim
-        self.londim = master.londim
-        self.maxdim = master.maxdim
-        self.cols   = master.cols
+        self.top    = master.top
+        # copy for ease of use
+        self.fi     = self.top.fi
+        self.miss   = self.top.miss
+        self.dunlim = self.top.dunlim
+        self.time   = self.top.time
+        self.tname  = self.top.tname
+        self.tvar   = self.top.tvar
+        self.dtime  = self.top.dtime
+        self.latvar = self.top.latvar
+        self.lonvar = self.top.lonvar
+        self.latdim = self.top.latdim
+        self.londim = self.top.londim
+        self.maxdim = self.top.maxdim
+        self.cols   = self.top.cols
 
         # unlimited dimension control
         self.iunlim = -1  # index of dunlim in dimensions of current var
@@ -99,6 +103,12 @@ class ncvMap(ttk.Frame):
         # new window
         self.rowwin = ttk.Frame(self)
         self.rowwin.pack(side=tk.TOP, fill=tk.X)
+        self.newfile = ttk.Button(self.rowwin, text="Open File",
+                                  command=self.newnetcdf)
+        self.newfile.pack(side=tk.LEFT)
+        self.newfiletip = add_tooltip(self.newfile, 'Open a new netcdf file')
+        spacew = ttk.Label(self.rowwin, text=" "*3)
+        spacew.pack(side=tk.LEFT)
         time_label1 = ttk.Label(self.rowwin, text='Time: ')
         time_label1.pack(side=tk.LEFT)
         self.timelbl = tk.StringVar()
@@ -107,10 +117,10 @@ class ncvMap(ttk.Frame):
         time_label2.pack(side=tk.LEFT)
         self.newwin = ttk.Button(
             self.rowwin, text="New Window",
-            command=partial(clone_ncvmain, self.master, self.fi, self.miss))
+            command=partial(clone_ncvmain, self.master))
         self.newwin.pack(side=tk.RIGHT)
-        self.newwintip = add_tooltip(self.newwin,
-                                     'Open secondary ncvue window')
+        self.newwintip = add_tooltip(
+            self.newwin, 'Open secondary ncvue window')
 
         # plotting canvas
         self.figure = Figure(facecolor="white", figsize=(1, 1))
@@ -277,14 +287,16 @@ class ncvMap(ttk.Frame):
         # levels var
         self.rowvd = ttk.Frame(self.blockv)
         self.rowvd.pack(side=tk.TOP, fill=tk.X)
-        self.vdlbl = []
-        self.vdval = []
-        self.vd    = []
-        self.vdtip = []
+        self.vdlblval = []
+        self.vdlbl    = []
+        self.vdval    = []
+        self.vd       = []
+        self.vdtip    = []
         for i in range(self.maxdim):
-            vdlbl, vdval, vd, vdtip = add_spinbox(
+            vdlblval, vdlbl, vdval, vd, vdtip = add_spinbox(
                 self.rowvd, label=str(i), values=(0,), wrap=True,
                 command=self.spinned_v, state=tk.DISABLED, tooltip="None")
+            self.vdlblval.append(vdlblval)
             self.vdlbl.append(vdlbl)
             self.vdval.append(vdval)
             self.vd.append(vd)
@@ -312,14 +324,16 @@ class ncvMap(ttk.Frame):
             tooltip="Roll longitudes by half its size")
         self.rowlond = ttk.Frame(self.blocklon)
         self.rowlond.pack(side=tk.TOP, fill=tk.X)
-        self.londlbl = []
-        self.londval = []
-        self.lond    = []
-        self.londtip = []
+        self.londlblval = []
+        self.londlbl    = []
+        self.londval    = []
+        self.lond       = []
+        self.londtip    = []
         for i in range(self.maxdim):
-            londlbl, londval, lond, londtip = add_spinbox(
+            londlblval, londlbl, londval, lond, londtip = add_spinbox(
                 self.rowlond, label=str(i), values=(0,), wrap=True,
                 command=self.spinned_lon, state=tk.DISABLED, tooltip="None")
+            self.londlblval.append(londlblval)
             self.londlbl.append(londlbl)
             self.londval.append(londval)
             self.lond.append(lond)
@@ -340,14 +354,16 @@ class ncvMap(ttk.Frame):
             tooltip="Invert longitudes")
         self.rowlatd = ttk.Frame(self.blocklat)
         self.rowlatd.pack(side=tk.TOP, fill=tk.X)
-        self.latdlbl = []
-        self.latdval = []
-        self.latd    = []
-        self.latdtip = []
+        self.latdlblval = []
+        self.latdlbl    = []
+        self.latdval    = []
+        self.latd       = []
+        self.latdtip    = []
         for i in range(self.maxdim):
-            latdlbl, latdval, latd, latdtip = add_spinbox(
+            latdlblval, latdlbl, latdval, latd, latdtip = add_spinbox(
                 self.rowlatd, label=str(i), values=(0,), wrap=True,
                 command=self.spinned_lat, state=tk.DISABLED, tooltip="None")
+            self.latdlblval.append(latdlblval)
             self.latdlbl.append(latdlbl)
             self.latdval.append(latdval)
             self.latd.append(latd)
@@ -503,6 +519,40 @@ class ncvMap(ttk.Frame):
         it = self.nunlim - 1
         self.set_tstep(it)
         self.update(it, isframe=True)
+
+    def newnetcdf(self):
+        """
+        Open a new netcdf file and connect it to top.
+        """
+        # stop animation if running
+        if self.anim_running:
+            self.anim.event_source.stop()
+            self.anim_running = False
+        # get new netcdf file name
+        ncfile = filedialog.askopenfilename(
+            parent=self, title='Choose netcdf file', multiple=False)
+        if ncfile:
+            # close old netcdf file
+            if self.top.fi:
+                self.top.fi.close()
+            # reset empty defaults of top
+            self.top.dunlim = ''      # name of unlimited dimension
+            self.top.time   = None    # datetime variable
+            self.top.tname  = ''      # datetime variable name
+            self.top.tvar   = ''      # datetime variable name in netcdf
+            self.top.dtime  = None    # decimal year
+            self.top.latvar = ''      # name of latitude variable
+            self.top.lonvar = ''      # name of longitude variable
+            self.top.latdim = ''      # name of latitude dimension
+            self.top.londim = ''      # name of longitude dimension
+            self.top.maxdim = 0       # maximum num of dims of all variables
+            self.top.cols   = []      # variable list
+            # open new netcdf file
+            self.top.fi = nc.Dataset(ncfile, 'r')
+            analyse_netcdf(self.top)
+            # reset panel
+            self.reinit()
+            self.redraw()
 
     def nrun_t(self):
         """
@@ -748,10 +798,10 @@ class ncvMap(ttk.Frame):
             if vz == self.tname:
                 return (0, 1)
             vv = self.fi.variables[vz]
-            miss = get_miss(self, vv)
-            iall = self.vall.get()
+            imiss = get_miss(self, vv)
+            iall  = self.vall.get()
             if iall or (np.sum(vv.shape[:-2]) < 50):
-                vv   = set_miss(miss, vv)
+                vv   = set_miss(imiss, vv)
                 vmin = np.nanmin(vv)
                 vmax = np.nanmax(vv)
             else:
@@ -768,7 +818,7 @@ class ncvMap(ttk.Frame):
                             s = slice(0, vv.shape[i])
                         ss.append(s)
                     ivv   = vv[tuple(ss)]
-                    ivv   = set_miss(miss, ivv)
+                    ivv   = set_miss(imiss, ivv)
                     ivmin = np.nanmin(ivv)
                     ivmax = np.nanmax(ivv)
                     vmin  = min(vmin, ivmin)
@@ -776,6 +826,116 @@ class ncvMap(ttk.Frame):
             return (vmin, vmax)
         else:
             return (0, 1)
+
+    def reinit(self):
+        """
+        Reinitialise the panel from top.
+        """
+        # reinit from top
+        self.fi     = self.top.fi
+        self.miss   = self.top.miss
+        self.dunlim = self.top.dunlim
+        self.time   = self.top.time
+        self.tname  = self.top.tname
+        self.tvar   = self.top.tvar
+        self.dtime  = self.top.dtime
+        self.latvar = self.top.latvar
+        self.lonvar = self.top.lonvar
+        self.latdim = self.top.latdim
+        self.londim = self.top.londim
+        self.maxdim = self.top.maxdim
+        self.cols   = self.top.cols
+        self.iunlim = -1
+        self.nunlim = 0
+        # reset dimensions
+        for ll in self.vdlbl:
+            ll.destroy()
+        for ll in self.vd:
+            ll.destroy()
+        self.vdlblval = []
+        self.vdlbl    = []
+        self.vdval    = []
+        self.vd       = []
+        self.vdtip    = []
+        for i in range(self.maxdim):
+            vdlblval, vdlbl, vdval, vd, vdtip = add_spinbox(
+                self.rowvd, label=str(i), values=(0,), wrap=True,
+                command=self.spinned_v, state=tk.DISABLED, tooltip="None")
+            self.vdlblval.append(vdlblval)
+            self.vdlbl.append(vdlbl)
+            self.vdval.append(vdval)
+            self.vd.append(vd)
+            self.vdtip.append(vdtip)
+        for ll in self.latdlbl:
+            ll.destroy()
+        for ll in self.latd:
+            ll.destroy()
+        self.latdlblval = []
+        self.latdlbl    = []
+        self.latdval    = []
+        self.latd       = []
+        self.latdtip    = []
+        for i in range(self.maxdim):
+            latdlblval, latdlbl, latdval, latd, latdtip = add_spinbox(
+                self.rowlatd, label=str(i), values=(0,), wrap=True,
+                command=self.spinned_lat, state=tk.DISABLED, tooltip="None")
+            self.latdlblval.append(latdlblval)
+            self.latdlbl.append(latdlbl)
+            self.latdval.append(latdval)
+            self.latd.append(latd)
+            self.latdtip.append(latdtip)
+        for ll in self.londlbl:
+            ll.destroy()
+        for ll in self.lond:
+            ll.destroy()
+        self.londlblval = []
+        self.londlbl    = []
+        self.londval    = []
+        self.lond       = []
+        self.londtip    = []
+        for i in range(self.maxdim):
+            londlblval, londlbl, londval, lond, londtip = add_spinbox(
+                self.rowlond, label=str(i), values=(0,), wrap=True,
+                command=self.spinned_lon, state=tk.DISABLED, tooltip="None")
+            self.londlblval.append(londlblval)
+            self.londlbl.append(londlbl)
+            self.londval.append(londval)
+            self.lond.append(lond)
+            self.londtip.append(londtip)
+        # set time step
+        self.tstep['to'] = 0
+        self.tstepval.set(0)
+        self.repeat.set('repeat')
+        # set variables
+        columns = [''] + self.cols
+        self.v['values'] = columns
+        self.v.set(columns[0])
+        self.vmin.set('None')
+        self.vmax.set('None')
+        # set lat/lon
+        self.lon['values'] = columns
+        self.lon.set(columns[0])
+        self.lat['values'] = columns
+        self.lat.set(columns[0])
+        if self.latvar:
+            self.lat.set(self.latvar)
+            self.inv_lat.set(0)
+            set_dim_lat(self)
+        if self.lonvar:
+            self.lon.set(self.lonvar)
+            self.inv_lon.set(0)
+            self.shift_lon.set(0)
+            set_dim_lon(self)
+        x = self.lon.get()
+        if (x != ''):
+            vx = vardim2var(x)
+            xx = self.fi.variables[vx]
+            xx = get_slice_miss(self, self.lond, xx)
+            xx = xx + 360.
+            if (xx.max() - xx.min()) > 150.:
+                self.iglobal.set(1)
+            else:
+                self.iglobal.set(0)
 
     def set_tstep(self, it):
         """

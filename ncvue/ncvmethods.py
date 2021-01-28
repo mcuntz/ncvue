@@ -36,6 +36,7 @@ History:
   Jan 2021, Matthias Cuntz
 * added tooltip to dimensions, Jan 2021, Matthias Cuntz
 * added analyse_netcdf from ncvmain, Jan 2021, Matthias Cuntz
+* use dlblval instead of dlbl to set dimension labels, Jan 2021, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -550,7 +551,7 @@ def set_dim_lat(self):
     # reset dimensions
     for i in range(self.maxdim):
         self.latd[i].config(values=(0,), width=1, state=tk.DISABLED)
-        self.latdlbl[i].set(str(i))
+        self.latdlblval[i].set(str(i))
         self.latdtip[i].set("")
     lat = self.lat.get()
     if lat != '':
@@ -567,7 +568,7 @@ def set_dim_lat(self):
                 self.latdval[i].set('all')
             else:
                 self.latdval[i].set(0)
-            self.latdlbl[i].set(ll.dimensions[i])
+            self.latdlblval[i].set(ll.dimensions[i])
             if ll.shape[i] > 1:
                 tstr  = "Specific dimension value: 0-{:d}\n".format(
                     ll.shape[i]-1)
@@ -601,7 +602,7 @@ def set_dim_lon(self):
     # reset dimensions
     for i in range(self.maxdim):
         self.lond[i].config(values=(0,), width=1, state=tk.DISABLED)
-        self.londlbl[i].set(str(i))
+        self.londlblval[i].set(str(i))
         self.londtip[i].set("")
     lon = self.lon.get()
     if lon != '':
@@ -618,7 +619,7 @@ def set_dim_lon(self):
                 self.londval[i].set('all')
             else:
                 self.londval[i].set(0)
-            self.londlbl[i].set(ll.dimensions[i])
+            self.londlblval[i].set(ll.dimensions[i])
             if ll.shape[i] > 1:
                 tstr  = "Specific dimension value: 0-{:d}\n".format(
                     ll.shape[i]-1)
@@ -656,7 +657,7 @@ def set_dim_var(self):
     # reset dimensions
     for i in range(self.maxdim):
         self.vd[i].config(values=(0,), width=1, state=tk.DISABLED)
-        self.vdlbl[i].set(str(i))
+        self.vdlblval[i].set(str(i))
         self.vdtip[i].set("")
     v = self.v.get()
     if v != '':
@@ -674,7 +675,7 @@ def set_dim_var(self):
                                   state=tk.NORMAL)
                 nall += 1
                 self.vdval[i].set('all')
-                self.vdlbl[i].set(vv.dimensions[i])
+                self.vdlblval[i].set(vv.dimensions[i])
                 if vv.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
                         vv.shape[i]-1)
@@ -691,7 +692,7 @@ def set_dim_var(self):
                                   state=tk.NORMAL)
                 nall += 1
                 self.vdval[i].set('all')
-                self.vdlbl[i].set(vv.dimensions[i])
+                self.vdlblval[i].set(vv.dimensions[i])
                 if vv.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
                         vv.shape[i]-1)
@@ -709,7 +710,7 @@ def set_dim_var(self):
                 (nall <= 1) and (vv.shape[i] > 1)):
                 nall += 1
                 self.vdval[i].set('all')
-                self.vdlbl[i].set(vv.dimensions[i])
+                self.vdlblval[i].set(vv.dimensions[i])
                 if vv.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
                         vv.shape[i]-1)
@@ -721,7 +722,7 @@ def set_dim_var(self):
             elif ((vv.dimensions[i] != self.latdim) and
                   (vv.dimensions[i] != self.londim)):
                 self.vdval[i].set(0)
-                self.vdlbl[i].set(vv.dimensions[i])
+                self.vdlblval[i].set(vv.dimensions[i])
                 if vv.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
                         vv.shape[i]-1)
@@ -759,7 +760,7 @@ def set_dim_x(self):
     # reset dimensions
     for i in range(self.maxdim):
         self.xd[i].config(values=(0,), width=1, state=tk.DISABLED)
-        self.xdlbl[i].set(str(i))
+        self.xdlblval[i].set(str(i))
         self.xdtip[i].set("")
     x = self.x.get()
     if x != '':
@@ -776,7 +777,7 @@ def set_dim_x(self):
                               state=tk.NORMAL)
             nall += 1
             self.xdval[i].set('all')
-            self.xdlbl[i].set(xx.dimensions[i])
+            self.xdlblval[i].set(xx.dimensions[i])
             if xx.shape[i] > 1:
                 tstr  = "Specific dimension value: 0-{:d}\n".format(
                     xx.shape[i]-1)
@@ -795,7 +796,7 @@ def set_dim_x(self):
                     self.xdval[i].set('all')
                 else:
                     self.xdval[i].set(0)
-                self.xdlbl[i].set(xx.dimensions[i])
+                self.xdlblval[i].set(xx.dimensions[i])
                 if xx.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
                         xx.shape[i]-1)
@@ -833,7 +834,7 @@ def set_dim_y(self):
     # reset dimensions
     for i in range(self.maxdim):
         self.yd[i].config(values=(0,), width=1, state=tk.DISABLED)
-        self.ydlbl[i].set(str(i))
+        self.ydlblval[i].set(str(i))
         self.ydtip[i].set("")
     y = self.y.get()
     if y != '':
@@ -850,7 +851,7 @@ def set_dim_y(self):
                               state=tk.NORMAL)
             nall += 1
             self.ydval[i].set('all')
-            self.ydlbl[i].set(yy.dimensions[i])
+            self.ydlblval[i].set(yy.dimensions[i])
             if yy.shape[i] > 1:
                 tstr  = "Specific dimension value: 0-{:d}\n".format(
                     yy.shape[i]-1)
@@ -869,7 +870,7 @@ def set_dim_y(self):
                     self.ydval[i].set('all')
                 else:
                     self.ydval[i].set(0)
-                self.ydlbl[i].set(yy.dimensions[i])
+                self.ydlblval[i].set(yy.dimensions[i])
                 if yy.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
                         yy.shape[i]-1)
@@ -907,7 +908,7 @@ def set_dim_y2(self):
     # reset dimensions
     for i in range(self.maxdim):
         self.y2d[i].config(values=(0,), width=1, state=tk.DISABLED)
-        self.y2dlbl[i].set(str(i))
+        self.y2dlblval[i].set(str(i))
         self.y2dtip[i].set("")
     y2 = self.y2.get()
     if y2 != '':
@@ -924,7 +925,7 @@ def set_dim_y2(self):
                                state=tk.NORMAL)
             nall += 1
             self.y2dval[i].set('all')
-            self.y2dlbl[i].set(yy2.dimensions[i])
+            self.y2dlblval[i].set(yy2.dimensions[i])
             if yy2.shape[i] > 1:
                 tstr  = "Specific dimension value: 0-{:d}\n".format(
                     yy2.shape[i]-1)
@@ -943,7 +944,7 @@ def set_dim_y2(self):
                     self.y2dval[i].set('all')
                 else:
                     self.y2dval[i].set(0)
-                self.y2dlbl[i].set(yy2.dimensions[i])
+                self.y2dlblval[i].set(yy2.dimensions[i])
                 if yy2.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
                         yy2.shape[i]-1)
@@ -982,7 +983,7 @@ def set_dim_z(self):
     # reset dimensions
     for i in range(self.maxdim):
         self.zd[i].config(values=(0,), width=1, state=tk.DISABLED)
-        self.zdlbl[i].set(str(i))
+        self.zdlblval[i].set(str(i))
         self.zdtip[i].set("")
     z = self.z.get()
     if z != '':
@@ -999,7 +1000,7 @@ def set_dim_z(self):
                               state=tk.NORMAL)
             nall += 1
             self.zdval[i].set('all')
-            self.zdlbl[i].set(zz.dimensions[i])
+            self.zdlblval[i].set(zz.dimensions[i])
             if zz.shape[i] > 1:
                 tstr  = "Specific dimension value: 0-{:d}\n".format(
                     zz.shape[i]-1)
@@ -1018,7 +1019,7 @@ def set_dim_z(self):
                     self.zdval[i].set('all')
                 else:
                     self.zdval[i].set(0)
-                self.zdlbl[i].set(zz.dimensions[i])
+                self.zdlblval[i].set(zz.dimensions[i])
                 if zz.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
                         zz.shape[i]-1)

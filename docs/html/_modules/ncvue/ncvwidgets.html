@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>ncvue.ncvwidgets &mdash; ncvue 3.1 documentation</title>
+  <title>ncvue.ncvwidgets &mdash; ncvue 3.2 documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                3.1
+                3.2
               </div>
             
           
@@ -211,6 +211,7 @@
 <span class="sd">* Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)</span>
 <span class="sd">* Added tooltips to all widgets with class Tooltip, Jan 2021, Matthias Cuntz</span>
 <span class="sd">* Added add_tooltip widget, Jan 2021, Matthias Cuntz</span>
+<span class="sd">* add_spinbox returns also label widget, Jan 2021, Matthias Cuntz</span>
 
 <span class="sd">.. moduleauthor:: Matthias Cuntz</span>
 
@@ -640,8 +641,9 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    tk.StringVar, tk.StringVar, tk.Spinbox</span>
+<span class="sd">    tk.StringVar, ttk.Label, tk.StringVar, tk.Spinbox</span>
 <span class="sd">        variable for the text before the spinbox,</span>
+<span class="sd">        label widget,</span>
 <span class="sd">        variable for the text in the spinbox area,</span>
 <span class="sd">        spinbox widget</span>
 <span class="sd">    tk.StringVar</span>
@@ -651,15 +653,15 @@
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; self.rowlev = ttk.Frame(self)</span>
 <span class="sd">    &gt;&gt;&gt; self.rowlev.pack(side=tk.TOP, fill=tk.X)</span>
-<span class="sd">    &gt;&gt;&gt; self.dlbl, self.dval, self.d = add_spinbox(</span>
+<span class="sd">    &gt;&gt;&gt; self.dlval, self.dl, self.dval, self.d = add_spinbox(</span>
 <span class="sd">    ...     self.rowlev, label=&quot;dim&quot;, values=range(0,10),</span>
 <span class="sd">    ...     command=self.spinned)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">width</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;width&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="n">sb_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
-    <span class="n">sb_label</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
-    <span class="n">label</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">sb_label</span><span class="p">)</span>
-    <span class="n">label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+    <span class="n">sbl_val</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
+    <span class="n">sbl_val</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+    <span class="n">sbl</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">sbl_val</span><span class="p">)</span>
+    <span class="n">sbl</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
     <span class="n">sb_val</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">sb_val</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
@@ -675,9 +677,9 @@
         <span class="n">ttip</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
         <span class="n">ttip</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">tooltip</span><span class="p">)</span>
         <span class="n">sbtip</span> <span class="o">=</span> <span class="n">Tooltip</span><span class="p">(</span><span class="n">sb</span><span class="p">,</span> <span class="n">ttip</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">sb_label</span><span class="p">,</span> <span class="n">sb_val</span><span class="p">,</span> <span class="n">sb</span><span class="p">,</span> <span class="n">ttip</span>
+        <span class="k">return</span> <span class="n">sbl_val</span><span class="p">,</span> <span class="n">sbl</span><span class="p">,</span> <span class="n">sb_val</span><span class="p">,</span> <span class="n">sb</span><span class="p">,</span> <span class="n">ttip</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">sb_label</span><span class="p">,</span> <span class="n">sb_val</span><span class="p">,</span> <span class="n">sb</span></div>
+        <span class="k">return</span> <span class="n">sbl_val</span><span class="p">,</span> <span class="n">sbl</span><span class="p">,</span> <span class="n">sb_val</span><span class="p">,</span> <span class="n">sb</span></div>
 
 
 <div class="viewcode-block" id="add_tooltip"><a class="viewcode-back" href="../../ncvwidgets.html#ncvue.ncvwidgets.add_tooltip">[docs]</a><span class="k">def</span> <span class="nf">add_tooltip</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>

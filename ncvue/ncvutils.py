@@ -22,6 +22,8 @@ History:
   Dec 2020, Matthias Cuntz
 * Added clone_ncvmain, removing its own module, Dec 2020, Matthias Cuntz
 * added SEPCHAR and DIMMETHODS, Jan 2021, Matthias Cuntz
+* pass only ncvMain widget to clone_ncvmain, Jan 2021, Matthias Cuntz
+* pass only root widget to clone_ncvmain, Jan 2021, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -292,7 +294,7 @@ def add_cyclic_point(data, coord=None, rowcoord=None, axis=-1):
             return new_data, new_coord
 
 
-def clone_ncvmain(widget, fi, miss):
+def clone_ncvmain(widget):
     """
     Duplicate the main ncvue window.
 
@@ -313,7 +315,7 @@ def clone_ncvmain(widget, fi, miss):
     --------
     >>> self.newwin = ttk.Button(
     ...     self.rowwin, text="New Window",
-    ...     command=partial(clone_ncvmain, self.master, self.fi, self.miss))
+    ...     command=partial(clone_ncvmain, self.master))
     """
     # parent = widget.nametowidget(widget.winfo_parent())
     if widget.name != 'ncvMain':
@@ -322,15 +324,16 @@ def clone_ncvmain(widget, fi, miss):
         import sys
         sys.exit()
 
-    self = tk.Toplevel()
-    self.name = 'ncvClone'
-    self.title("Secondary ncvue window")
-    self.geometry('1000x800')
-    self.miss = miss
+    root = tk.Toplevel()
+    root.name = 'ncvClone'
+    root.title("Secondary ncvue window")
+    root.geometry('1000x800')
+
+    root.top = widget.top
 
     # https://stackoverflow.com/questions/46505982/is-there-a-way-to-clone-a-tkinter-widget
     cls = widget.__class__
-    clone = cls(fi, master=self, miss=miss)
+    clone = cls(root)
     for key in widget.configure():
         if key != 'class':
             clone.configure({key: widget.cget(key)})

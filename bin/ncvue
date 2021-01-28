@@ -1,14 +1,16 @@
 #!/usr/bin/env python
 """
-usage: ncvue [-h] [netcdf_file]
+usage: ncvue [-h] [-m missing_value] [netcdf_file]
 
 A minimal GUI for a quick view of netcdf files.
 
 positional arguments:
-  netcdf_file      netcdf file
+  netcdf_file           netcdf file
 
 optional arguments:
-  -h, --help       show this help message and exit
+  -h, --help            show this help message and exit
+  -m missing_value, --miss missing_value
+                        Set value to missing value (default: numpy.nan)
 
 
 Example command line:
@@ -34,7 +36,7 @@ A minimal GUI for a quick view of netcdf files.""")
     parser.add_argument('-m', '--miss', action='store', type=float,
                         default=miss, dest='miss',
                         metavar='missing_value', help=hstr)
-    parser.add_argument('ncfile', nargs='?', default=None,
+    parser.add_argument('ncfile', nargs='*', default=None,
                         metavar='netcdf_file',
                         help='netcdf file')
 
@@ -44,7 +46,12 @@ A minimal GUI for a quick view of netcdf files.""")
 
     del parser, args
 
+    if len(ncfile) > 0:
+        ncfile = ncfile[0]
+    else:
+        ncfile = ''
+
     # This must be before any other call to matplotlib
     # because it uses the TkAgg backend.
     # This means, do not use --pylab with ipython.
-    ncvue(ncfile, miss=miss)
+    ncvue(ncfile=ncfile, miss=miss)

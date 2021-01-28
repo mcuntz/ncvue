@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>ncvue.ncvutils &mdash; ncvue 3.1 documentation</title>
+  <title>ncvue.ncvutils &mdash; ncvue 3.2 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                3.1
+                3.2
               </div>
             
           
@@ -225,6 +225,8 @@ Dec 2020, Matthias Cuntz</p></li>
 Dec 2020, Matthias Cuntz</p></li>
 <li><p>Added clone_ncvmain, removing its own module, Dec 2020, Matthias Cuntz</p></li>
 <li><p>added SEPCHAR and DIMMETHODS, Jan 2021, Matthias Cuntz</p></li>
+<li><p>pass only ncvMain widget to clone_ncvmain, Jan 2021, Matthias Cuntz</p></li>
+<li><p>pass only root widget to clone_ncvmain, Jan 2021, Matthias Cuntz</p></li>
 </ul>
 <p>The following functions are provided:</p>
 <table class="longtable docutils align-default">
@@ -242,7 +244,7 @@ Dec 2020, Matthias Cuntz</p></li>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvutils.add_cyclic_point" title="ncvue.ncvutils.add_cyclic_point"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_cyclic_point</span></code></a>(data[, coord, rowcoord, axis])</p></td>
 <td><p>Add a cyclic point to an array and optionally a corresponding coordinate.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvutils.clone_ncvmain" title="ncvue.ncvutils.clone_ncvmain"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clone_ncvmain</span></code></a>(widget, fi, miss)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvutils.clone_ncvmain" title="ncvue.ncvutils.clone_ncvmain"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clone_ncvmain</span></code></a>(widget)</p></td>
 <td><p>Duplicate the main ncvue window.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvutils.get_slice" title="ncvue.ncvutils.get_slice"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_slice</span></code></a>(dimspins, y)</p></td>
@@ -429,7 +431,7 @@ coordinate and a second raw variable.
 
 <dl class="py function">
 <dt id="ncvue.ncvutils.clone_ncvmain">
-<code class="sig-name descname">clone_ncvmain</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">widget</span></em>, <em class="sig-param"><span class="n">fi</span></em>, <em class="sig-param"><span class="n">miss</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#clone_ncvmain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvutils.clone_ncvmain" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">clone_ncvmain</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">widget</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#clone_ncvmain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvutils.clone_ncvmain" title="Permalink to this definition">¶</a></dt>
 <dd><p>Duplicate the main ncvue window.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -451,7 +453,7 @@ coordinate and a second raw variable.
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="bp">self</span><span class="o">.</span><span class="n">newwin</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="bp">self</span><span class="o">.</span><span class="n">rowwin</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;New Window&quot;</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">command</span><span class="o">=</span><span class="n">partial</span><span class="p">(</span><span class="n">clone_ncvmain</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">miss</span><span class="p">))</span>
+<span class="gp">... </span>    <span class="n">command</span><span class="o">=</span><span class="n">partial</span><span class="p">(</span><span class="n">clone_ncvmain</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="p">))</span>
 </pre></div>
 </div>
 </dd></dl>

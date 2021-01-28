@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>ncvue.ncvutils &mdash; ncvue 3.1 documentation</title>
+  <title>ncvue.ncvutils &mdash; ncvue 3.2 documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                3.1
+                3.2
               </div>
             
           
@@ -216,6 +216,8 @@
 <span class="sd">  Dec 2020, Matthias Cuntz</span>
 <span class="sd">* Added clone_ncvmain, removing its own module, Dec 2020, Matthias Cuntz</span>
 <span class="sd">* added SEPCHAR and DIMMETHODS, Jan 2021, Matthias Cuntz</span>
+<span class="sd">* pass only ncvMain widget to clone_ncvmain, Jan 2021, Matthias Cuntz</span>
+<span class="sd">* pass only root widget to clone_ncvmain, Jan 2021, Matthias Cuntz</span>
 
 <span class="sd">.. moduleauthor:: Matthias Cuntz</span>
 
@@ -486,7 +488,7 @@
             <span class="k">return</span> <span class="n">new_data</span><span class="p">,</span> <span class="n">new_coord</span></div>
 
 
-<div class="viewcode-block" id="clone_ncvmain"><a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.clone_ncvmain">[docs]</a><span class="k">def</span> <span class="nf">clone_ncvmain</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="n">fi</span><span class="p">,</span> <span class="n">miss</span><span class="p">):</span>
+<div class="viewcode-block" id="clone_ncvmain"><a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.clone_ncvmain">[docs]</a><span class="k">def</span> <span class="nf">clone_ncvmain</span><span class="p">(</span><span class="n">widget</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Duplicate the main ncvue window.</span>
 
@@ -507,7 +509,7 @@
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; self.newwin = ttk.Button(</span>
 <span class="sd">    ...     self.rowwin, text=&quot;New Window&quot;,</span>
-<span class="sd">    ...     command=partial(clone_ncvmain, self.master, self.fi, self.miss))</span>
+<span class="sd">    ...     command=partial(clone_ncvmain, self.master))</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># parent = widget.nametowidget(widget.winfo_parent())</span>
     <span class="k">if</span> <span class="n">widget</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;ncvMain&#39;</span><span class="p">:</span>
@@ -516,15 +518,16 @@
         <span class="kn">import</span> <span class="nn">sys</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
 
-    <span class="bp">self</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Toplevel</span><span class="p">()</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;ncvClone&#39;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Secondary ncvue window&quot;</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="s1">&#39;1000x800&#39;</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">miss</span> <span class="o">=</span> <span class="n">miss</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Toplevel</span><span class="p">()</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;ncvClone&#39;</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Secondary ncvue window&quot;</span><span class="p">)</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="s1">&#39;1000x800&#39;</span><span class="p">)</span>
+
+    <span class="n">root</span><span class="o">.</span><span class="n">top</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="n">top</span>
 
     <span class="c1"># https://stackoverflow.com/questions/46505982/is-there-a-way-to-clone-a-tkinter-widget</span>
     <span class="bp">cls</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="vm">__class__</span>
-    <span class="n">clone</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">fi</span><span class="p">,</span> <span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">miss</span><span class="o">=</span><span class="n">miss</span><span class="p">)</span>
+    <span class="n">clone</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">widget</span><span class="o">.</span><span class="n">configure</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">key</span> <span class="o">!=</span> <span class="s1">&#39;class&#39;</span><span class="p">:</span>
             <span class="n">clone</span><span class="o">.</span><span class="n">configure</span><span class="p">({</span><span class="n">key</span><span class="p">:</span> <span class="n">widget</span><span class="o">.</span><span class="n">cget</span><span class="p">(</span><span class="n">key</span><span class="p">)})</span>

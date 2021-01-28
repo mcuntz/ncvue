@@ -24,9 +24,10 @@ Released under the MIT License; see LICENSE file for details.
   allow spaces in variable names, bug fixes, Jan 2021, Matthias Cuntz
 * v3.1, Include png files in ncvue/images in PyPI wheel,
   Jan 2021, Matthias Cuntz
+* v3.2, Open netcdf files from within ncvue, Jan 2021, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 """
 
 __author__  = "Matthias Cuntz"
-__version__ = "3.1"
+__version__ = "3.2"

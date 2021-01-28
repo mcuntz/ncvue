@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>ncvue.ncvmethods &mdash; ncvue 3.1 documentation</title>
+  <title>ncvue.ncvmethods &mdash; ncvue 3.2 documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                3.1
+                3.2
               </div>
             
           
@@ -229,12 +229,15 @@
 <span class="sd">* catch variables that have only one string or similar,</span>
 <span class="sd">  Jan 2021, Matthias Cuntz</span>
 <span class="sd">* added tooltip to dimensions, Jan 2021, Matthias Cuntz</span>
+<span class="sd">* added analyse_netcdf from ncvmain, Jan 2021, Matthias Cuntz</span>
+<span class="sd">* use dlblval instead of dlbl to set dimension labels, Jan 2021, Matthias Cuntz</span>
 
 <span class="sd">.. moduleauthor:: Matthias Cuntz</span>
 
 <span class="sd">The following methods are provided:</span>
 
 <span class="sd">.. autosummary::</span>
+<span class="sd">   analyse_netcdf</span>
 <span class="sd">   get_miss</span>
 <span class="sd">   get_slice_miss</span>
 <span class="sd">   set_dim_lat</span>
@@ -249,7 +252,7 @@
 <span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">.ncvutils</span> <span class="kn">import</span> <span class="n">DIMMETHODS</span><span class="p">,</span> <span class="n">get_slice</span><span class="p">,</span> <span class="n">set_miss</span><span class="p">,</span> <span class="n">spinbox_values</span>
-<span class="kn">from</span> <span class="nn">.ncvutils</span> <span class="kn">import</span> <span class="n">vardim2var</span>
+<span class="kn">from</span> <span class="nn">.ncvutils</span> <span class="kn">import</span> <span class="n">SEPCHAR</span><span class="p">,</span> <span class="n">vardim2var</span><span class="p">,</span> <span class="n">zip_dim_name_length</span>
 <span class="kn">import</span> <span class="nn">netCDF4</span> <span class="k">as</span> <span class="nn">nc</span>
 <span class="c1"># nc.default_fillvals but with keys as variables[&#39;var&#39;].dtype</span>
 <span class="n">nctypes</span> <span class="o">=</span> <span class="p">[</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">nc</span><span class="o">.</span><span class="n">default_fillvals</span> <span class="p">]</span>
@@ -257,9 +260,373 @@
 <span class="n">ncfill</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;O&#39;</span><span class="p">):</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">})</span>
 
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;get_miss&#39;</span><span class="p">,</span> <span class="s1">&#39;get_slice_miss&#39;</span><span class="p">,</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;analyse_netcdf&#39;</span><span class="p">,</span> <span class="s1">&#39;get_miss&#39;</span><span class="p">,</span> <span class="s1">&#39;get_slice_miss&#39;</span><span class="p">,</span>
            <span class="s1">&#39;set_dim_lat&#39;</span><span class="p">,</span> <span class="s1">&#39;set_dim_lon&#39;</span><span class="p">,</span> <span class="s1">&#39;set_dim_var&#39;</span><span class="p">,</span>
            <span class="s1">&#39;set_dim_x&#39;</span><span class="p">,</span> <span class="s1">&#39;set_dim_y&#39;</span><span class="p">,</span> <span class="s1">&#39;set_dim_y2&#39;</span><span class="p">,</span> <span class="s1">&#39;set_dim_z&#39;</span><span class="p">]</span>
+
+
+<span class="c1">#</span>
+<span class="c1"># Analyse netcdf file</span>
+<span class="c1">#</span>
+
+<div class="viewcode-block" id="analyse_netcdf"><a class="viewcode-back" href="../../ncvmethods.html#ncvue.ncvmethods.analyse_netcdf">[docs]</a><span class="k">def</span> <span class="nf">analyse_netcdf</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Analyse a netcdf file for the unlimited dimension, calculating datetime,</span>
+<span class="sd">    variables, latitudes/longitudes variables and dimensions.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    self : class</span>
+<span class="sd">        ncvue class</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Set variables:</span>
+<span class="sd">        self.dunlim,</span>
+<span class="sd">        self.time, self.tname, self.tvar, self.dtime,</span>
+<span class="sd">        self.cols,</span>
+<span class="sd">        self.latvar, self.lonvar, self.latdim, self.londim</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; analyse_netcdf(self)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">cftime</span> <span class="k">as</span> <span class="nn">cf</span>
+    <span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">netCDF4</span> <span class="k">as</span> <span class="nn">cf</span>
+    <span class="c1">#</span>
+    <span class="c1"># search unlimited dimension</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">dunlim</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">for</span> <span class="n">dd</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">dimensions</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">dd</span><span class="p">]</span><span class="o">.</span><span class="n">isunlimited</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dunlim</span> <span class="o">=</span> <span class="n">dd</span>
+            <span class="k">break</span>
+    <span class="c1">#</span>
+    <span class="c1"># search for time variable and make datetime variable</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">time</span>  <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">tname</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">tvar</span>  <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">dtime</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">vv</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
+        <span class="n">isunlim</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dunlim</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">vv</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dunlim</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+                <span class="n">isunlim</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="n">isunlim</span> <span class="ow">or</span> <span class="n">vv</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;time_&#39;</span><span class="p">)</span> <span class="ow">or</span>
+             <span class="p">(</span><span class="n">vv</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;time&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">vv</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;datetime&#39;</span><span class="p">)</span> <span class="ow">or</span>
+             <span class="p">(</span><span class="n">vv</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;date&#39;</span><span class="p">)</span> <span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tvar</span> <span class="o">=</span> <span class="n">vv</span>
+            <span class="k">if</span> <span class="n">vv</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;datetime&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tname</span> <span class="o">=</span> <span class="s1">&#39;date&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tname</span> <span class="o">=</span> <span class="s1">&#39;datetime&#39;</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">tunit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">tvar</span><span class="p">]</span><span class="o">.</span><span class="n">units</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="n">tunit</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="c1"># assure 01, etc. if values &lt; 10</span>
+            <span class="k">if</span> <span class="n">tunit</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;since&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">tt</span> <span class="o">=</span> <span class="n">tunit</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+                <span class="n">dd</span> <span class="o">=</span> <span class="n">tt</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+                <span class="n">dd</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;000&#39;</span><span class="o">+</span><span class="n">dd</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="o">-</span><span class="mi">4</span><span class="p">:]</span>
+                <span class="n">dd</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="o">+</span><span class="n">dd</span><span class="p">[</span><span class="mi">1</span><span class="p">])[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
+                <span class="n">dd</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="o">+</span><span class="n">dd</span><span class="p">[</span><span class="mi">1</span><span class="p">])[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
+                <span class="n">tt</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dd</span><span class="p">)</span>
+                <span class="n">tunit</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tt</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">tcal</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">tvar</span><span class="p">]</span><span class="o">.</span><span class="n">calendar</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="n">tcal</span> <span class="o">=</span> <span class="s1">&#39;standard&#39;</span>
+            <span class="n">time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">tvar</span><span class="p">][:]</span>
+            <span class="c1"># time dimension &quot;day as %Y%m%d.%f&quot; from cdo.</span>
+            <span class="k">if</span> <span class="s1">&#39; as &#39;</span> <span class="ow">in</span> <span class="n">tunit</span><span class="p">:</span>
+                <span class="n">itunit</span> <span class="o">=</span> <span class="n">tunit</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span>
+                <span class="n">dtime</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">tt</span> <span class="ow">in</span> <span class="n">time</span><span class="p">:</span>
+                    <span class="n">stt</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tt</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+                    <span class="n">sstt</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;00&#39;</span><span class="o">+</span><span class="n">stt</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="o">-</span><span class="mi">8</span><span class="p">:]</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">stt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="n">dtime</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">sstt</span><span class="p">,</span> <span class="n">itunit</span><span class="p">))</span>
+                <span class="n">ntime</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">date2num</span><span class="p">(</span><span class="n">dtime</span><span class="p">,</span>
+                                    <span class="s1">&#39;days since 0001-01-01 00:00:00&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dtime</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">num2date</span><span class="p">(</span><span class="n">ntime</span><span class="p">,</span>
+                                         <span class="s1">&#39;days since 0001-01-01 00:00:00&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">dtime</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">num2date</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">tunit</span><span class="p">,</span>
+                                             <span class="n">calendar</span><span class="o">=</span><span class="n">tcal</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">dtime</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtime</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">ntime</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dtime</span><span class="p">)</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">tcal</span> <span class="o">==</span> <span class="s1">&#39;360_day&#39;</span><span class="p">):</span>
+                    <span class="n">ndays</span> <span class="o">=</span> <span class="p">[</span><span class="mf">360.</span><span class="p">]</span><span class="o">*</span><span class="n">ntime</span>
+                <span class="k">elif</span> <span class="p">(</span><span class="n">tcal</span> <span class="o">==</span> <span class="s1">&#39;365_day&#39;</span><span class="p">):</span>
+                    <span class="n">ndays</span> <span class="o">=</span> <span class="p">[</span><span class="mf">365.</span><span class="p">]</span><span class="o">*</span><span class="n">ntime</span>
+                <span class="k">elif</span> <span class="p">(</span><span class="n">tcal</span> <span class="o">==</span> <span class="s1">&#39;noleap&#39;</span><span class="p">):</span>
+                    <span class="n">ndays</span> <span class="o">=</span> <span class="p">[</span><span class="mf">365.</span><span class="p">]</span><span class="o">*</span><span class="n">ntime</span>
+                <span class="k">elif</span> <span class="p">(</span><span class="n">tcal</span> <span class="o">==</span> <span class="s1">&#39;366_day&#39;</span><span class="p">):</span>
+                    <span class="n">ndays</span> <span class="o">=</span> <span class="p">[</span><span class="mf">366.</span><span class="p">]</span><span class="o">*</span><span class="n">ntime</span>
+                <span class="k">elif</span> <span class="p">(</span><span class="n">tcal</span> <span class="o">==</span> <span class="s1">&#39;all_leap&#39;</span><span class="p">):</span>
+                    <span class="n">ndays</span> <span class="o">=</span> <span class="p">[</span><span class="mf">366.</span><span class="p">]</span><span class="o">*</span><span class="n">ntime</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">ndays</span> <span class="o">=</span> <span class="p">[</span> <span class="mf">365.</span> <span class="o">+</span>
+                              <span class="nb">float</span><span class="p">((((</span><span class="n">t</span><span class="o">.</span><span class="n">year</span><span class="o">%</span><span class="mi">4</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span>
+                                     <span class="p">((</span><span class="n">t</span><span class="o">.</span><span class="n">year</span><span class="o">%</span><span class="mi">100</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">))</span> <span class="o">|</span>
+                                    <span class="p">((</span><span class="n">t</span><span class="o">.</span><span class="n">year</span><span class="o">%</span><span class="mi">400</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span>
+                              <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtime</span> <span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dtime</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+                    <span class="n">t</span><span class="o">.</span><span class="n">year</span> <span class="o">+</span>
+                    <span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">dayofyr</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">t</span><span class="o">.</span><span class="n">hour</span> <span class="o">/</span> <span class="mf">24.</span> <span class="o">+</span>
+                     <span class="n">t</span><span class="o">.</span><span class="n">minute</span> <span class="o">/</span> <span class="mi">1440</span> <span class="o">+</span> <span class="n">t</span><span class="o">.</span><span class="n">second</span> <span class="o">/</span> <span class="mf">86400.</span><span class="p">)</span> <span class="o">/</span> <span class="n">ndays</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dtime</span><span class="p">)</span> <span class="p">])</span>
+            <span class="c1"># make datetime variable</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">num2date</span><span class="p">(</span>
+                        <span class="n">time</span><span class="p">,</span> <span class="n">tunit</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="n">tcal</span><span class="p">,</span>
+                        <span class="n">only_use_cftime_datetimes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">only_use_python_datetimes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">num2date</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">tunit</span><span class="p">,</span>
+                                            <span class="n">calendar</span><span class="o">=</span><span class="n">tcal</span><span class="p">)</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># if not possible use decimal year</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtime</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># could not interpret time at all,</span>
+                <span class="c1"># e.g. if units = &quot;months since ...&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">time</span>  <span class="o">=</span> <span class="n">time</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dtime</span> <span class="o">=</span> <span class="n">time</span>
+            <span class="k">break</span>
+    <span class="c1">#</span>
+    <span class="c1"># construct list of variable names with dimensions</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">addt</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tname</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">SEPCHAR</span> <span class="o">+</span>
+            <span class="nb">str</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">zip_dim_name_length</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">tvar</span><span class="p">])))]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cols</span> <span class="o">+=</span> <span class="n">addt</span>
+    <span class="n">ivars</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">vv</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
+        <span class="c1"># ss = self.fi.variables[vv].shape</span>
+        <span class="n">ss</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">zip_dim_name_length</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maxdim</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maxdim</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ss</span><span class="p">))</span>
+        <span class="n">ivars</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">vv</span><span class="p">,</span> <span class="n">ss</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ss</span><span class="p">)))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cols</span> <span class="o">+=</span> <span class="nb">sorted</span><span class="p">([</span> <span class="n">vv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">SEPCHAR</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">vv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                          <span class="k">for</span> <span class="n">vv</span> <span class="ow">in</span> <span class="n">ivars</span> <span class="p">])</span>
+    <span class="c1">#</span>
+    <span class="c1"># search for lat/lon variables</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">latvar</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="c1"># first sweep: *name must be &quot;latitude&quot; and</span>
+    <span class="c1">#              units must be &quot;degrees_north&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">latvar</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">vv</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">sname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">standard_name</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">sname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">long_name</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="n">sname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+            <span class="k">if</span> <span class="n">sname</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;latitude&#39;</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">sunit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">units</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="n">sunit</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                <span class="k">if</span> <span class="n">sunit</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;degrees_north&#39;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">latvar</span> <span class="o">=</span> <span class="n">vv</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">vv</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">sname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">standard_name</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">sname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">long_name</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="n">sname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+            <span class="k">if</span> <span class="n">sname</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;longitude&#39;</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">sunit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">units</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="n">sunit</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                <span class="k">if</span> <span class="n">sunit</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;degrees_east&#39;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span> <span class="o">=</span> <span class="n">vv</span>
+    <span class="c1"># second sweep: name must start with lat and</span>
+    <span class="c1">#               units must be &quot;degrees_north&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">latvar</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">vv</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
+            <span class="n">sname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+            <span class="k">if</span> <span class="n">sname</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;lat&#39;</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">sunit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">units</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="n">sunit</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                <span class="k">if</span> <span class="n">sunit</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;degrees_north&#39;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">latvar</span> <span class="o">=</span> <span class="n">vv</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">vv</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
+            <span class="n">sname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+            <span class="k">if</span> <span class="n">sname</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;lon&#39;</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">sunit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">units</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="n">sunit</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                <span class="k">if</span> <span class="n">sunit</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;degrees_east&#39;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span> <span class="o">=</span> <span class="n">vv</span>
+    <span class="c1"># third sweep: name must contain lat and</span>
+    <span class="c1">#              units must be &quot;degrees_north&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">latvar</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">vv</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
+            <span class="n">sname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+            <span class="n">sname</span> <span class="o">=</span> <span class="n">sname</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">sname</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;lat&#39;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">sunit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">units</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="n">sunit</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                <span class="k">if</span> <span class="n">sunit</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;degrees_north&#39;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">latvar</span> <span class="o">=</span> <span class="n">vv</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">vv</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
+            <span class="n">sname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+            <span class="n">sname</span> <span class="o">=</span> <span class="n">sname</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">sname</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;lon&#39;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">sunit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">units</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="n">sunit</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                <span class="k">if</span> <span class="n">sunit</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;degrees_east&#39;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span> <span class="o">=</span> <span class="n">vv</span>
+    <span class="c1"># fourth sweep: same as first but units can be &quot;degrees&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">latvar</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">vv</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">sname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">standard_name</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">sname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">long_name</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="n">sname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+            <span class="k">if</span> <span class="n">sname</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;latitude&#39;</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">sunit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">units</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="n">sunit</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                <span class="k">if</span> <span class="n">sunit</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;degrees&#39;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">latvar</span> <span class="o">=</span> <span class="n">vv</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">vv</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">sname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">standard_name</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">sname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">long_name</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="n">sname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+            <span class="k">if</span> <span class="n">sname</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;longitude&#39;</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">sunit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">units</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="n">sunit</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                <span class="k">if</span> <span class="n">sunit</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;degrees&#39;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span> <span class="o">=</span> <span class="n">vv</span>
+    <span class="c1"># fifth sweep: same as second but units can be &quot;degrees&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">latvar</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">vv</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
+            <span class="n">sname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+            <span class="k">if</span> <span class="n">sname</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;lat&#39;</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">sunit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">units</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="n">sunit</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                <span class="k">if</span> <span class="n">sunit</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;degrees&#39;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">latvar</span> <span class="o">=</span> <span class="n">vv</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">vv</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
+            <span class="n">sname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+            <span class="k">if</span> <span class="n">sname</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;lon&#39;</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">sunit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">units</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="n">sunit</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                <span class="k">if</span> <span class="n">sunit</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;degrees&#39;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span> <span class="o">=</span> <span class="n">vv</span>
+    <span class="c1"># sixth sweep: same as third but units can be &quot;degrees&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">latvar</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">vv</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
+            <span class="n">sname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+            <span class="n">sname</span> <span class="o">=</span> <span class="n">sname</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">sname</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;lat&#39;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">sunit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">units</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="n">sunit</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                <span class="k">if</span> <span class="n">sunit</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;degrees&#39;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">latvar</span> <span class="o">=</span> <span class="n">vv</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">vv</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
+            <span class="n">sname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+            <span class="n">sname</span> <span class="o">=</span> <span class="n">sname</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">sname</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;lon&#39;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">sunit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">units</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="n">sunit</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                <span class="k">if</span> <span class="n">sunit</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;degrees&#39;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span> <span class="o">=</span> <span class="n">vv</span>
+    <span class="c1">#</span>
+    <span class="c1"># determine lat/lon dimensions</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">latdim</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">londim</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">latvar</span><span class="p">:</span>
+        <span class="n">latshape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">latshape</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">latshape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="n">estr</span>  <span class="o">=</span> <span class="s1">&#39;Something went wrong determining lat/lon:&#39;</span>
+            <span class="n">estr</span> <span class="o">+=</span> <span class="s1">&#39; latitude variable is not 1D or 2D.&#39;</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">estr</span><span class="p">)</span>
+            <span class="n">estr</span> <span class="o">=</span> <span class="s1">&#39;latitude variable with dimensions:&#39;</span>
+            <span class="n">ldim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">latvar</span><span class="p">]</span><span class="o">.</span><span class="n">dimensions</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">estr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">latvar</span><span class="p">,</span> <span class="n">ldim</span><span class="p">)</span>
+            <span class="n">estr</span> <span class="o">=</span> <span class="s1">&#39;longitude variable with dimensions:&#39;</span>
+            <span class="n">ldim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span><span class="p">]</span><span class="o">.</span><span class="n">dimensions</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">estr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span><span class="p">,</span> <span class="n">ldim</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">latvar</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">latdim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">latvar</span><span class="p">]</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span><span class="p">:</span>
+        <span class="n">lonshape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lonshape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">londim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span><span class="p">]</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">lonshape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">londim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span><span class="p">]</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">estr</span>  <span class="o">=</span> <span class="s1">&#39;Something went wrong determining lat/lon:&#39;</span>
+            <span class="n">estr</span> <span class="o">+=</span> <span class="s1">&#39; longitude variable is not 1D or 2D.&#39;</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">estr</span><span class="p">)</span>
+            <span class="n">estr</span> <span class="o">=</span> <span class="s1">&#39;latitude variable with dimensions:&#39;</span>
+            <span class="n">ldim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">latvar</span><span class="p">]</span><span class="o">.</span><span class="n">dimensions</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">estr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">latvar</span><span class="p">,</span> <span class="n">ldim</span><span class="p">)</span>
+            <span class="n">estr</span> <span class="o">=</span> <span class="s1">&#39;longitude variable with dimensions:&#39;</span>
+            <span class="n">ldim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span><span class="p">]</span><span class="o">.</span><span class="n">dimensions</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">estr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span><span class="p">,</span> <span class="n">ldim</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">latvar</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="c1">#</span>
+    <span class="c1"># add units to lat/lon name</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">latvar</span><span class="p">:</span>
+        <span class="n">idim</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">zip_dim_name_length</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">latvar</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">latvar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">latvar</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">SEPCHAR</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">idim</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span><span class="p">:</span>
+        <span class="n">idim</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">zip_dim_name_length</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">SEPCHAR</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">idim</span><span class="p">)</span></div>
 
 
 <span class="c1">#</span>
@@ -378,7 +745,7 @@
     <span class="c1"># reset dimensions</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maxdim</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">latd</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">DISABLED</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">latdlbl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">latdlblval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">latdtip</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
     <span class="n">lat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lat</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">lat</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
@@ -395,7 +762,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">latdval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">latdval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">latdlbl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ll</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">latdlblval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ll</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
             <span class="k">if</span> <span class="n">ll</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="n">tstr</span>  <span class="o">=</span> <span class="s2">&quot;Specific dimension value: 0-</span><span class="si">{:d}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">ll</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
@@ -429,7 +796,7 @@
     <span class="c1"># reset dimensions</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maxdim</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lond</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">DISABLED</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">londlbl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">londlblval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">londtip</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
     <span class="n">lon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lon</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">lon</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
@@ -446,7 +813,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">londval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">londval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">londlbl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ll</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">londlblval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ll</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
             <span class="k">if</span> <span class="n">ll</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="n">tstr</span>  <span class="o">=</span> <span class="s2">&quot;Specific dimension value: 0-</span><span class="si">{:d}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">ll</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
@@ -484,7 +851,7 @@
     <span class="c1"># reset dimensions</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maxdim</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vd</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">DISABLED</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">vdlbl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vdlblval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vdtip</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
     <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">v</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
@@ -502,7 +869,7 @@
                                   <span class="n">state</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">NORMAL</span><span class="p">)</span>
                 <span class="n">nall</span> <span class="o">+=</span> <span class="mi">1</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">vdval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">vdlbl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">vv</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">vdlblval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">vv</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
                 <span class="k">if</span> <span class="n">vv</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="n">tstr</span>  <span class="o">=</span> <span class="s2">&quot;Specific dimension value: 0-</span><span class="si">{:d}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="n">vv</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
@@ -519,7 +886,7 @@
                                   <span class="n">state</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">NORMAL</span><span class="p">)</span>
                 <span class="n">nall</span> <span class="o">+=</span> <span class="mi">1</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">vdval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">vdlbl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">vv</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">vdlblval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">vv</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
                 <span class="k">if</span> <span class="n">vv</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="n">tstr</span>  <span class="o">=</span> <span class="s2">&quot;Specific dimension value: 0-</span><span class="si">{:d}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="n">vv</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
@@ -537,7 +904,7 @@
                 <span class="p">(</span><span class="n">nall</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">vv</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)):</span>
                 <span class="n">nall</span> <span class="o">+=</span> <span class="mi">1</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">vdval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">vdlbl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">vv</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">vdlblval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">vv</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
                 <span class="k">if</span> <span class="n">vv</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="n">tstr</span>  <span class="o">=</span> <span class="s2">&quot;Specific dimension value: 0-</span><span class="si">{:d}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="n">vv</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
@@ -549,7 +916,7 @@
             <span class="k">elif</span> <span class="p">((</span><span class="n">vv</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">latdim</span><span class="p">)</span> <span class="ow">and</span>
                   <span class="p">(</span><span class="n">vv</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">londim</span><span class="p">)):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">vdval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">vdlbl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">vv</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">vdlblval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">vv</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
                 <span class="k">if</span> <span class="n">vv</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="n">tstr</span>  <span class="o">=</span> <span class="s2">&quot;Specific dimension value: 0-</span><span class="si">{:d}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="n">vv</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
@@ -587,7 +954,7 @@
     <span class="c1"># reset dimensions</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maxdim</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">xd</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">DISABLED</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">xdlbl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xdlblval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">xdtip</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
     <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">x</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
@@ -604,7 +971,7 @@
                               <span class="n">state</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">NORMAL</span><span class="p">)</span>
             <span class="n">nall</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">xdval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">xdlbl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">xdlblval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
             <span class="k">if</span> <span class="n">xx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="n">tstr</span>  <span class="o">=</span> <span class="s2">&quot;Specific dimension value: 0-</span><span class="si">{:d}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">xx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
@@ -623,7 +990,7 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">xdval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">xdval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">xdlbl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">xdlblval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
                 <span class="k">if</span> <span class="n">xx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="n">tstr</span>  <span class="o">=</span> <span class="s2">&quot;Specific dimension value: 0-</span><span class="si">{:d}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="n">xx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
@@ -661,7 +1028,7 @@
     <span class="c1"># reset dimensions</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maxdim</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">yd</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">DISABLED</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ydlbl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ydlblval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ydtip</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
     <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">y</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
@@ -678,7 +1045,7 @@
                               <span class="n">state</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">NORMAL</span><span class="p">)</span>
             <span class="n">nall</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ydval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ydlbl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">yy</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ydlblval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">yy</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
             <span class="k">if</span> <span class="n">yy</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="n">tstr</span>  <span class="o">=</span> <span class="s2">&quot;Specific dimension value: 0-</span><span class="si">{:d}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">yy</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
@@ -697,7 +1064,7 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">ydval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">ydval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">ydlbl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">yy</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ydlblval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">yy</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
                 <span class="k">if</span> <span class="n">yy</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="n">tstr</span>  <span class="o">=</span> <span class="s2">&quot;Specific dimension value: 0-</span><span class="si">{:d}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="n">yy</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
@@ -735,7 +1102,7 @@
     <span class="c1"># reset dimensions</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maxdim</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">y2d</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">DISABLED</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">y2dlbl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y2dlblval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">y2dtip</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
     <span class="n">y2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y2</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">y2</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
@@ -752,7 +1119,7 @@
                                <span class="n">state</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">NORMAL</span><span class="p">)</span>
             <span class="n">nall</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">y2dval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">y2dlbl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">yy2</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">y2dlblval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">yy2</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
             <span class="k">if</span> <span class="n">yy2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="n">tstr</span>  <span class="o">=</span> <span class="s2">&quot;Specific dimension value: 0-</span><span class="si">{:d}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">yy2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
@@ -771,7 +1138,7 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">y2dval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">y2dval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">y2dlbl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">yy2</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">y2dlblval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">yy2</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
                 <span class="k">if</span> <span class="n">yy2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="n">tstr</span>  <span class="o">=</span> <span class="s2">&quot;Specific dimension value: 0-</span><span class="si">{:d}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="n">yy2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
@@ -810,7 +1177,7 @@
     <span class="c1"># reset dimensions</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maxdim</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">zd</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">DISABLED</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">zdlbl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">zdlblval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">zdtip</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
     <span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">z</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">z</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
@@ -827,7 +1194,7 @@
                               <span class="n">state</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">NORMAL</span><span class="p">)</span>
             <span class="n">nall</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">zdval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">zdlbl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">zz</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">zdlblval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">zz</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
             <span class="k">if</span> <span class="n">zz</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="n">tstr</span>  <span class="o">=</span> <span class="s2">&quot;Specific dimension value: 0-</span><span class="si">{:d}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">zz</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
@@ -846,7 +1213,7 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">zdval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">zdval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">zdlbl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">zz</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">zdlblval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">zz</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
                 <span class="k">if</span> <span class="n">zz</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="n">tstr</span>  <span class="o">=</span> <span class="s2">&quot;Specific dimension value: 0-</span><span class="si">{:d}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="n">zz</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>

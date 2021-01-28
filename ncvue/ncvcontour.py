@@ -15,6 +15,7 @@ Released under the MIT License; see LICENSE file for details.
 History:
 
 * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
+* Open new netcdf file, communicate via top widget, Jan 2021, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -32,10 +33,12 @@ except Exception:
     print('Using the themed widget set introduced in Tk 8.5.')
     print('Try to use mcview.py, which uses wxpython instead.')
     sys.exit()
+from tkinter import filedialog
 import os
 import numpy as np
+import netCDF4 as nc
 from .ncvutils   import clone_ncvmain, set_axis_label, vardim2var
-from .ncvmethods import get_slice_miss
+from .ncvmethods import analyse_netcdf, get_slice_miss
 from .ncvmethods import set_dim_x, set_dim_y, set_dim_z
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry, add_imagemenu
 from .ncvwidgets import add_spinbox, add_tooltip
@@ -73,30 +76,35 @@ class ncvContour(ttk.Frame):
 
         self.name   = 'Contour'
         self.master = master
-        self.root   = master.root
-        self.fi     = master.fi
-        self.miss   = master.miss
-        self.dunlim = master.dunlim
-        self.time   = master.time
-        self.tname  = master.tname
-        self.tvar   = master.tvar
-        self.dtime  = master.dtime
-        self.latvar = master.latvar
-        self.lonvar = master.lonvar
-        self.latdim = master.latdim
-        self.londim = master.londim
-        self.maxdim = master.maxdim
-        self.cols   = master.cols
+        self.top    = master.top
+        # copy for ease of use
+        self.fi     = self.top.fi
+        self.miss   = self.top.miss
+        self.dunlim = self.top.dunlim
+        self.time   = self.top.time
+        self.tname  = self.top.tname
+        self.tvar   = self.top.tvar
+        self.dtime  = self.top.dtime
+        self.latvar = self.top.latvar
+        self.lonvar = self.top.lonvar
+        self.latdim = self.top.latdim
+        self.londim = self.top.londim
+        self.maxdim = self.top.maxdim
+        self.cols   = self.top.cols
 
         # new window
         self.rowwin = ttk.Frame(self)
         self.rowwin.pack(side=tk.TOP, fill=tk.X)
+        self.newfile = ttk.Button(self.rowwin, text="Open File",
+                                  command=self.newnetcdf)
+        self.newfile.pack(side=tk.LEFT)
+        self.newfiletip = add_tooltip(self.newfile, 'Open a new netcdf file')
         self.newwin = ttk.Button(
             self.rowwin, text="New Window",
-            command=partial(clone_ncvmain, self.master, self.fi, self.miss))
+            command=partial(clone_ncvmain, self.master))
         self.newwin.pack(side=tk.RIGHT)
-        self.newwintip = add_tooltip(self.newwin,
-                                     'Open secondary ncvue window')
+        self.newwintip = add_tooltip(
+            self.newwin, 'Open secondary ncvue window')
 
         # plotting canvas
         self.figure = Figure(facecolor="white", figsize=(1, 1))
@@ -171,14 +179,16 @@ class ncvContour(ttk.Frame):
         # levels z
         self.rowzd = ttk.Frame(self.blockz)
         self.rowzd.pack(side=tk.TOP, fill=tk.X)
-        self.zdlbl = []
-        self.zdval = []
-        self.zd    = []
-        self.zdtip = []
+        self.zdlblval = []
+        self.zdlbl    = []
+        self.zdval    = []
+        self.zd       = []
+        self.zdtip    = []
         for i in range(self.maxdim):
-            zdlbl, zdval, zd, zdtip = add_spinbox(
+            zdlblval, zdlbl, zdval, zd, zdtip = add_spinbox(
                 self.rowzd, label=str(i), values=(0,), wrap=True,
                 command=self.spinned_z, state=tk.DISABLED, tooltip="None")
+            self.zdlblval.append(zdlblval)
             self.zdlbl.append(zdlbl)
             self.zdval.append(zdval)
             self.zd.append(zd)
@@ -200,14 +210,16 @@ class ncvContour(ttk.Frame):
             tooltip="Invert x-axis")
         self.rowxd = ttk.Frame(self.blockx)
         self.rowxd.pack(side=tk.TOP, fill=tk.X)
-        self.xdlbl = []
-        self.xdval = []
-        self.xd    = []
-        self.xdtip = []
+        self.xdlblval = []
+        self.xdlbl    = []
+        self.xdval    = []
+        self.xd       = []
+        self.xdtip    = []
         for i in range(self.maxdim):
-            xdlbl, xdval, xd, xdtip = add_spinbox(
+            xdlblval, xdlbl, xdval, xd, xdtip = add_spinbox(
                 self.rowxd, label=str(i), values=(0,), wrap=True,
                 command=self.spinned_x, state=tk.DISABLED, tooltip="None")
+            self.xdlblval.append(xdlblval)
             self.xdlbl.append(xdlbl)
             self.xdval.append(xdval)
             self.xd.append(xd)
@@ -227,14 +239,16 @@ class ncvContour(ttk.Frame):
             tooltip="Invert y-axis")
         self.rowyd = ttk.Frame(self.blocky)
         self.rowyd.pack(side=tk.TOP, fill=tk.X)
-        self.ydlbl = []
-        self.ydval = []
-        self.yd    = []
-        self.ydtip = []
+        self.ydlblval = []
+        self.ydlbl    = []
+        self.ydval    = []
+        self.yd       = []
+        self.ydtip    = []
         for i in range(self.maxdim):
-            ydlbl, ydval, yd, ydtip = add_spinbox(
+            ydlblval, ydlbl, ydval, yd, ydtip = add_spinbox(
                 self.rowyd, label=str(i), values=(0,), wrap=True,
                 command=self.spinned_y, state=tk.DISABLED, tooltip="None")
+            self.ydlblval.append(ydlblval)
             self.ydlbl.append(ydlbl)
             self.ydval.append(ydval)
             self.yd.append(yd)
@@ -334,6 +348,36 @@ class ncvContour(ttk.Frame):
             set_dim_y(self)
             self.redraw()
 
+    def newnetcdf(self):
+        """
+        Open a new netcdf file and connect it to top.
+        """
+        # get new netcdf file name
+        ncfile = filedialog.askopenfilename(
+            parent=self, title='Choose netcdf file', multiple=False)
+        if ncfile:
+            # close old netcdf file
+            if self.top.fi:
+                self.top.fi.close()
+            # reset empty defaults of top
+            self.top.dunlim = ''      # name of unlimited dimension
+            self.top.time   = None    # datetime variable
+            self.top.tname  = ''      # datetime variable name
+            self.top.tvar   = ''      # datetime variable name in netcdf
+            self.top.dtime  = None    # decimal year
+            self.top.latvar = ''      # name of latitude variable
+            self.top.lonvar = ''      # name of longitude variable
+            self.top.latdim = ''      # name of latitude dimension
+            self.top.londim = ''      # name of longitude dimension
+            self.top.maxdim = 0       # maximum num of dims of all variables
+            self.top.cols   = []      # variable list
+            # open new netcdf file
+            self.top.fi = nc.Dataset(ncfile, 'r')
+            analyse_netcdf(self.top)
+            # reset panel
+            self.reinit()
+            self.redraw()
+
     def selected_cmap(self, value):
         """
         Command called if cmap was chosen from menu.
@@ -419,6 +463,94 @@ class ncvContour(ttk.Frame):
         Redraws plot.
         """
         self.redraw()
+
+    #
+    # Methods
+    #
+
+    def reinit(self):
+        """
+        Reinitialise the panel from top.
+        """
+        # reinit from top
+        self.fi     = self.top.fi
+        self.miss   = self.top.miss
+        self.dunlim = self.top.dunlim
+        self.time   = self.top.time
+        self.tname  = self.top.tname
+        self.tvar   = self.top.tvar
+        self.dtime  = self.top.dtime
+        self.latvar = self.top.latvar
+        self.lonvar = self.top.lonvar
+        self.latdim = self.top.latdim
+        self.londim = self.top.londim
+        self.maxdim = self.top.maxdim
+        self.cols   = self.top.cols
+        # reset dimensions
+        for ll in self.zdlbl:
+            ll.destroy()
+        for ll in self.zd:
+            ll.destroy()
+        self.zdlblval = []
+        self.zdlbl    = []
+        self.zdval    = []
+        self.zd       = []
+        self.zdtip    = []
+        for i in range(self.maxdim):
+            zdlblval, zdlbl, zdval, zd, zdtip = add_spinbox(
+                self.rowzd, label=str(i), values=(0,), wrap=True,
+                command=self.spinned_z, state=tk.DISABLED, tooltip="None")
+            self.zdlblval.append(zdlblval)
+            self.zdlbl.append(zdlbl)
+            self.zdval.append(zdval)
+            self.zd.append(zd)
+            self.zdtip.append(zdtip)
+        for ll in self.xdlbl:
+            ll.destroy()
+        for ll in self.xd:
+            ll.destroy()
+        self.xdlblval = []
+        self.xdlbl    = []
+        self.xdval    = []
+        self.xd       = []
+        self.xdtip    = []
+        for i in range(self.maxdim):
+            xdlblval, xdlbl, xdval, xd, xdtip = add_spinbox(
+                self.rowxd, label=str(i), values=(0,), wrap=True,
+                command=self.spinned_x, state=tk.DISABLED, tooltip="None")
+            self.xdlblval.append(xdlblval)
+            self.xdlbl.append(xdlbl)
+            self.xdval.append(xdval)
+            self.xd.append(xd)
+            self.xdtip.append(xdtip)
+        for ll in self.ydlbl:
+            ll.destroy()
+        for ll in self.yd:
+            ll.destroy()
+        self.ydlblval = []
+        self.ydlbl    = []
+        self.ydval    = []
+        self.yd       = []
+        self.ydtip    = []
+        for i in range(self.maxdim):
+            ydlblval, ydlbl, ydval, yd, ydtip = add_spinbox(
+                self.rowyd, label=str(i), values=(0,), wrap=True,
+                command=self.spinned_y, state=tk.DISABLED, tooltip="None")
+            self.ydlblval.append(ydlblval)
+            self.ydlbl.append(ydlbl)
+            self.ydval.append(ydval)
+            self.yd.append(yd)
+            self.ydtip.append(ydtip)
+        # set variables
+        columns = [''] + self.cols
+        self.z['values'] = columns
+        self.z.set(columns[0])
+        self.zmin.set('None')
+        self.zmax.set('None')
+        self.x['values'] = columns
+        self.x.set(columns[0])
+        self.y['values'] = columns
+        self.y.set(columns[0])
 
     #
     # Plotting

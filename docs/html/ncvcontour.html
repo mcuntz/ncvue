@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>ncvue.ncvcontour &mdash; ncvue 3.1 documentation</title>
+  <title>ncvue.ncvcontour &mdash; ncvue 3.2 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                3.1
+                3.2
               </div>
             
           
@@ -218,6 +218,7 @@ France.</p>
 <p>History:</p>
 <ul class="simple">
 <li><p>Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)</p></li>
+<li><p>Open new netcdf file, communicate via top widget, Jan 2021, Matthias Cuntz</p></li>
 </ul>
 <p>The following classes are provided:</p>
 <table class="longtable docutils align-default">
@@ -436,68 +437,74 @@ something is selected, changed, checked, etc.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.nametowidget" title="ncvue.ncvcontour.ncvContour.nametowidget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nametowidget</span></code></a>(name)</p></td>
 <td><p>Return the Tkinter instance of a widget identified by its Tcl name NAME.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.next_z" title="ncvue.ncvcontour.ncvContour.next_z"><code class="xref py py-obj docutils literal notranslate"><span class="pre">next_z</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.newnetcdf" title="ncvue.ncvcontour.ncvContour.newnetcdf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">newnetcdf</span></code></a>()</p></td>
+<td><p>Open a new netcdf file and connect it to top.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.next_z" title="ncvue.ncvcontour.ncvContour.next_z"><code class="xref py py-obj docutils literal notranslate"><span class="pre">next_z</span></code></a>()</p></td>
 <td><p>Command called if next button for the plotting variable was pressed.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.option_add" title="ncvue.ncvcontour.ncvContour.option_add"><code class="xref py py-obj docutils literal notranslate"><span class="pre">option_add</span></code></a>(pattern, value[, priority])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.option_add" title="ncvue.ncvcontour.ncvContour.option_add"><code class="xref py py-obj docutils literal notranslate"><span class="pre">option_add</span></code></a>(pattern, value[, priority])</p></td>
 <td><p>Set a VALUE (second parameter) for an option PATTERN (first parameter).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.option_clear" title="ncvue.ncvcontour.ncvContour.option_clear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">option_clear</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.option_clear" title="ncvue.ncvcontour.ncvContour.option_clear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">option_clear</span></code></a>()</p></td>
 <td><p>Clear the option database.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.option_get" title="ncvue.ncvcontour.ncvContour.option_get"><code class="xref py py-obj docutils literal notranslate"><span class="pre">option_get</span></code></a>(name, className)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.option_get" title="ncvue.ncvcontour.ncvContour.option_get"><code class="xref py py-obj docutils literal notranslate"><span class="pre">option_get</span></code></a>(name, className)</p></td>
 <td><p>Return the value for an option NAME for this widget with CLASSNAME.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.option_readfile" title="ncvue.ncvcontour.ncvContour.option_readfile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">option_readfile</span></code></a>(fileName[, priority])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.option_readfile" title="ncvue.ncvcontour.ncvContour.option_readfile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">option_readfile</span></code></a>(fileName[, priority])</p></td>
 <td><p>Read file FILENAME into the option database.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.pack" title="ncvue.ncvcontour.ncvContour.pack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack</span></code></a>([cnf])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.pack" title="ncvue.ncvcontour.ncvContour.pack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack</span></code></a>([cnf])</p></td>
 <td><p>Pack a widget in the parent widget. Use as options: after=widget - pack it after you have packed widget anchor=NSEW (or subset) - position widget according to                           given direction before=widget - pack it before you will pack widget expand=bool - expand widget if parent size grows fill=NONE or X or Y or BOTH - fill widget if widget grows in=master - use master to contain this widget in_=master - see ‘in’ option description ipadx=amount - add internal padding in x direction ipady=amount - add internal padding in y direction padx=amount - add padding in x direction pady=amount - add padding in y direction side=TOP or BOTTOM or LEFT or RIGHT -  where to add this widget.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.pack_configure" title="ncvue.ncvcontour.ncvContour.pack_configure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack_configure</span></code></a>([cnf])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.pack_configure" title="ncvue.ncvcontour.ncvContour.pack_configure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack_configure</span></code></a>([cnf])</p></td>
 <td><p>Pack a widget in the parent widget. Use as options: after=widget - pack it after you have packed widget anchor=NSEW (or subset) - position widget according to                           given direction before=widget - pack it before you will pack widget expand=bool - expand widget if parent size grows fill=NONE or X or Y or BOTH - fill widget if widget grows in=master - use master to contain this widget in_=master - see ‘in’ option description ipadx=amount - add internal padding in x direction ipady=amount - add internal padding in y direction padx=amount - add padding in x direction pady=amount - add padding in y direction side=TOP or BOTTOM or LEFT or RIGHT -  where to add this widget.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.pack_forget" title="ncvue.ncvcontour.ncvContour.pack_forget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack_forget</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.pack_forget" title="ncvue.ncvcontour.ncvContour.pack_forget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack_forget</span></code></a>()</p></td>
 <td><p>Unmap this widget and do not use it for the packing order.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.pack_info" title="ncvue.ncvcontour.ncvContour.pack_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack_info</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.pack_info" title="ncvue.ncvcontour.ncvContour.pack_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack_info</span></code></a>()</p></td>
 <td><p>Return information about the packing options for this widget.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.pack_propagate" title="ncvue.ncvcontour.ncvContour.pack_propagate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack_propagate</span></code></a>([flag])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.pack_propagate" title="ncvue.ncvcontour.ncvContour.pack_propagate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack_propagate</span></code></a>([flag])</p></td>
 <td><p>Set or get the status for propagation of geometry information.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.pack_slaves" title="ncvue.ncvcontour.ncvContour.pack_slaves"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack_slaves</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.pack_slaves" title="ncvue.ncvcontour.ncvContour.pack_slaves"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack_slaves</span></code></a>()</p></td>
 <td><p>Return a list of all slaves of this widget in its packing order.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.place" title="ncvue.ncvcontour.ncvContour.place"><code class="xref py py-obj docutils literal notranslate"><span class="pre">place</span></code></a>([cnf])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.place" title="ncvue.ncvcontour.ncvContour.place"><code class="xref py py-obj docutils literal notranslate"><span class="pre">place</span></code></a>([cnf])</p></td>
 <td><p>Place a widget in the parent widget. Use as options: in=master - master relative to which the widget is placed in_=master - see ‘in’ option description x=amount - locate anchor of this widget at position x of master y=amount - locate anchor of this widget at position y of master relx=amount - locate anchor of this widget between 0.0 and 1.0               relative to width of master (1.0 is right edge) rely=amount - locate anchor of this widget between 0.0 and 1.0               relative to height of master (1.0 is bottom edge) anchor=NSEW (or subset) - position anchor according to given direction width=amount - width of this widget in pixel height=amount - height of this widget in pixel relwidth=amount - width of this widget between 0.0 and 1.0                   relative to width of master (1.0 is the same width                   as the master) relheight=amount - height of this widget between 0.0 and 1.0                    relative to height of master (1.0 is the same                    height as the master) bordermode=”inside” or “outside” - whether to take border width of                                    master widget into account.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.place_configure" title="ncvue.ncvcontour.ncvContour.place_configure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">place_configure</span></code></a>([cnf])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.place_configure" title="ncvue.ncvcontour.ncvContour.place_configure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">place_configure</span></code></a>([cnf])</p></td>
 <td><p>Place a widget in the parent widget. Use as options: in=master - master relative to which the widget is placed in_=master - see ‘in’ option description x=amount - locate anchor of this widget at position x of master y=amount - locate anchor of this widget at position y of master relx=amount - locate anchor of this widget between 0.0 and 1.0               relative to width of master (1.0 is right edge) rely=amount - locate anchor of this widget between 0.0 and 1.0               relative to height of master (1.0 is bottom edge) anchor=NSEW (or subset) - position anchor according to given direction width=amount - width of this widget in pixel height=amount - height of this widget in pixel relwidth=amount - width of this widget between 0.0 and 1.0                   relative to width of master (1.0 is the same width                   as the master) relheight=amount - height of this widget between 0.0 and 1.0                    relative to height of master (1.0 is the same                    height as the master) bordermode=”inside” or “outside” - whether to take border width of                                    master widget into account.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.place_forget" title="ncvue.ncvcontour.ncvContour.place_forget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">place_forget</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.place_forget" title="ncvue.ncvcontour.ncvContour.place_forget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">place_forget</span></code></a>()</p></td>
 <td><p>Unmap this widget.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.place_info" title="ncvue.ncvcontour.ncvContour.place_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">place_info</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.place_info" title="ncvue.ncvcontour.ncvContour.place_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">place_info</span></code></a>()</p></td>
 <td><p>Return information about the placing options for this widget.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.place_slaves" title="ncvue.ncvcontour.ncvContour.place_slaves"><code class="xref py py-obj docutils literal notranslate"><span class="pre">place_slaves</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.place_slaves" title="ncvue.ncvcontour.ncvContour.place_slaves"><code class="xref py py-obj docutils literal notranslate"><span class="pre">place_slaves</span></code></a>()</p></td>
 <td><p>Return a list of all slaves of this widget in its packing order.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.prev_z" title="ncvue.ncvcontour.ncvContour.prev_z"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prev_z</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.prev_z" title="ncvue.ncvcontour.ncvContour.prev_z"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prev_z</span></code></a>()</p></td>
 <td><p>Command called if previous button for the plotting variable was pressed.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.propagate" title="ncvue.ncvcontour.ncvContour.propagate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">propagate</span></code></a>([flag])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.propagate" title="ncvue.ncvcontour.ncvContour.propagate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">propagate</span></code></a>([flag])</p></td>
 <td><p>Set or get the status for propagation of geometry information.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.quit" title="ncvue.ncvcontour.ncvContour.quit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">quit</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.quit" title="ncvue.ncvcontour.ncvContour.quit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">quit</span></code></a>()</p></td>
 <td><p>Quit the Tcl interpreter.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.redraw" title="ncvue.ncvcontour.ncvContour.redraw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">redraw</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.redraw" title="ncvue.ncvcontour.ncvContour.redraw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">redraw</span></code></a>()</p></td>
 <td><p>Redraws the plot.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.register" title="ncvue.ncvcontour.ncvContour.register"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register</span></code></a>(func[, subst, needcleanup])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.register" title="ncvue.ncvcontour.ncvContour.register"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register</span></code></a>(func[, subst, needcleanup])</p></td>
 <td><p>Return a newly created Tcl function.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.reinit" title="ncvue.ncvcontour.ncvContour.reinit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reinit</span></code></a>()</p></td>
+<td><p>Reinitialise the panel from top.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.rowconfigure" title="ncvue.ncvcontour.ncvContour.rowconfigure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rowconfigure</span></code></a>(index[, cnf])</p></td>
 <td><p>Configure row INDEX of a grid.</p></td>
@@ -1327,6 +1334,12 @@ its Tcl name NAME.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="ncvue.ncvcontour.ncvContour.newnetcdf">
+<code class="sig-name descname">newnetcdf</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvcontour.html#ncvContour.newnetcdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvcontour.ncvContour.newnetcdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open a new netcdf file and connect it to top.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt id="ncvue.ncvcontour.ncvContour.next_z">
 <code class="sig-name descname">next_z</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvcontour.html#ncvContour.next_z"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvcontour.ncvContour.next_z" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if next button for the plotting variable was pressed.</p>
@@ -1563,6 +1576,12 @@ Then redraws the plot.</p>
 function is called, the Python function FUNC will
 be executed. An optional function SUBST can
 be given which will be executed before FUNC.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ncvue.ncvcontour.ncvContour.reinit">
+<code class="sig-name descname">reinit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvcontour.html#ncvContour.reinit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvcontour.ncvContour.reinit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reinitialise the panel from top.</p>
 </dd></dl>
 
 <dl class="py method">
