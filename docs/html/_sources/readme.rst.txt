@@ -61,6 +61,20 @@ or from within Python:
    from ncvue import ncvue
    ncvue('netcdf_file.nc')
 
+One can also leave out the file name and open a netCDF file with the "Open File"
+button from within ``ncvue``:
+
+.. code-block:: bash
+
+   ncvue
+
+or from within Python:
+
+.. code-block:: python
+
+   from ncvue import ncvue
+   ncvue()
+
 Note, ``ncvue`` uses the `TkAgg` backend of `matplotlib`. It must be called
 before any other call to `matplotlib`. This also means that you cannot launch it
 from within `iPython` if it was launched with `--pylab`. It can be called from
