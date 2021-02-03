@@ -34,7 +34,6 @@ try:
 except Exception:
     import sys
     print('Using the themed widget set introduced in Tk 8.5.')
-    print('Try to use mcview.py, which uses wxpython instead.')
     sys.exit()
 import numpy as np
 from .ncvutils   import vardim2var

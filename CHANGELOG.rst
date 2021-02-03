@@ -4,6 +4,10 @@ Changelog
 All notable changes after its initial development up to November 2020 (v1.0)
 are documented in this file.
 
+v3.3 (Feb 2021)
+---------------
+* Added standalone app for macOS.
+
 v3.2 (Jan 2021)
 ---------------
 * Added 'Open File' button to switch between files.

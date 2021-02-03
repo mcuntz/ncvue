@@ -39,7 +39,7 @@ structured grids, more precisely the grids supported by cartopy_.
 
 ``ncvue`` is a Python script that can be called from within Python or as a
 command line tool. It is not supposed to produce publication-ready plots but
-rather provide a quick overview of the netcdf file.
+rather provide a quick overview of the netCDF file.
 
 The complete documentation for ``ncvue`` is available from:
 

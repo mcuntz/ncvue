@@ -32,7 +32,6 @@ try:
     import tkinter.ttk as ttk
 except Exception:
     print('Using the themed widget set introduced in Tk 8.5.')
-    print('Try to use mcview.py, which uses wxpython instead.')
     sys.exit()
 from tkinter import filedialog
 import os

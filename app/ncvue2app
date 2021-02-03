@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# Background in ncvue_app.spec
+# Check with:
+#   open dist/ncvue.app/
+
+set -ex
+
+# Create app:
+pyinstaller --noconfirm --onefile --windowed ncvue_app.spec
+
+# Create dmg (https://gist.github.com/jadeatucker/5382343)
+hdiutil create -volname ncvue -srcfolder dist -ov -format UDRW dist.dmg
+hdiutil attach dist.dmg
+cd /Volumes/ncvue
+ln -s /Applications
+cd -
+hdiutil detach /Volumes/ncvue
+hdiutil convert dist.dmg -format UDZO -o ncvue.dmg -ov
+\rm dist.dmg
+
+exit

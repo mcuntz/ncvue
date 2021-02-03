@@ -28,6 +28,12 @@ The following functions are provided:
 """
 from __future__ import absolute_import, division, print_function
 import tkinter as tk
+# try:
+#     import tkinter.ttk as ttk
+# except Exception:
+#     import sys
+#     print('Using the themed widget set introduced in Tk 8.5.')
+#     sys.exit()
 import numpy as np
 import netCDF4 as nc
 from .ncvmethods import analyse_netcdf
@@ -53,6 +59,11 @@ def ncvue(ncfile='', miss=np.nan):
 
     top = tk.Tk()
     top.withdraw()
+    # top.option_add("*Font", "Helvetica")
+    # style = ttk.Style()
+    # themes = style.theme_names()
+    # theme = style.theme_use()
+    # style.theme_use(theme)
 
     root = tk.Toplevel()
     root.name = 'ncvOne'

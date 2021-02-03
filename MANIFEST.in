@@ -1,16 +1,11 @@
-include AUTHORS.md
-include CHANGELOG.md
-include CONTRIBUTING.md
-include LICENSE
-include MANIFEST.in
-include README.md
+include AUTHORS.rst CHANGELOG.rst CONTRIBUTING.rst
+include LICENSE MANIFEST.in README.rst
 include setup.py setup.cfg
 recursive-include ncvue *.py
 recursive-include ncvue/images *.png
 recursive-include bin *
+include docs/Makefile docs/make.bat docs/requirements.txt
 recursive-include docs/src *
-recursive-include docs/images *.png *.key
-include docs/Makefile docs/requirements.txt
-recursive-include docs/html *
-recursive-include tests *.py
+recursive-include docs/images *.png
 include tests/requirements_test.txt
+recursive-include tests *.py
