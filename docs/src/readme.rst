@@ -39,7 +39,7 @@ structured grids, more precisely the grids supported by cartopy_.
 
 ``ncvue`` is a Python script that can be called from within Python or as a
 command line tool. It is not supposed to produce publication-ready plots but
-rather provide a quick overview of the netcdf file.
+rather provide a quick overview of the netCDF file.
 
 The complete documentation for ``ncvue`` is available from:
 
@@ -197,13 +197,16 @@ Copyright (c) 2020-2021 Matthias Cuntz
 The project structure is based on a template_ provided by Sebastian Müller_.
 
 .. _Anaconda: https://www.anaconda.com/products/individual
+.. _app: http://www.macu.de/extra/ncvue.dmg
 .. _cartopy: https://scitools.org.uk/cartopy/docs/latest/
 .. _Conda: https://docs.conda.io/projects/conda/en/latest/
 .. _documentation: https://mcuntz.github.io/ncvue/
-.. _instructions: https://mcuntz.github.io/ncvue/install.htm
+.. _install: https://scitools.org.uk/cartopy/docs/latest/installing.html
+.. _instructions: https://mcuntz.github.io/ncvue/html/install.html
 .. _LICENSE: https://github.com/mcuntz/ncvue/blob/main/LICENSE
 .. _matplotlib: https://matplotlib.org/
 .. _Miniconda: https://docs.conda.io/en/latest/miniconda.html
+.. _Miniforge: https://github.com/conda-forge/miniforge
 .. _Müller: https://github.com/MuellerSeb
 .. _ncview: http://meteora.ucsd.edu/~pierce/ncview_home_page.html
 .. _netcdf4: https://unidata.github.io/netcdf4-python/netCDF4/index.html

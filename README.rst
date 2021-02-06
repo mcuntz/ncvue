@@ -189,22 +189,36 @@ projection.
 Installation
 ------------
 
-The easiest way to install ``ncvue`` is via `pip` if you have cartopy_ installed already:
+``ncvue`` is an application written in Python. If you have Python installed,
+ then the best is to install ``ncvue`` within the Python universe. The easiest
+ way to install ``ncvue`` is thence via `pip` if you have cartopy_ installed
+ already:
 
 .. code-block:: bash
 
    pip install ncvue
 
-`Cartopy` can, however, be more elaborate to install. The easiest way to install
-Cartopy is by Conda_ and then installing ``ncvue`` with `pip`:
+`Cartopy` can, however, be more elaborate to install_. The easiest way to
+install `Cartopy` is by using Conda_ and then installing ``ncvue`` by `pip`.
+After installing, for example, Miniconda_:
 
 .. code-block:: bash
 
    conda install -c conda-forge cartopy
-   conda install netcdf4
    pip install ncvue
 
-You would need an Anaconda_ or Miniconda_ environment for this, of course.
+or using directly the community-led Miniforge_:
+
+.. code-block:: bash
+
+   conda install cartopy
+   pip install ncvue
+
+We provide a macOS app_, which should work from macOS 10.13 (High
+Sierra) onward. It is, however, only tested on macOS 10.15 (Catalina). Drop me
+a message if it does not work on newer operating systems.
+
+A Windows application is in the making ;-)
 
 See the installation instructions_ in the documentation_ for more information.
 
@@ -219,13 +233,16 @@ Copyright (c) 2020-2021 Matthias Cuntz
 The project structure is based on a template_ provided by Sebastian Müller_.
 
 .. _Anaconda: https://www.anaconda.com/products/individual
+.. _app: http://www.macu.de/extra/ncvue.dmg
 .. _cartopy: https://scitools.org.uk/cartopy/docs/latest/
 .. _Conda: https://docs.conda.io/projects/conda/en/latest/
 .. _documentation: https://mcuntz.github.io/ncvue/
-.. _instructions: https://mcuntz.github.io/ncvue/install.htm
+.. _install: https://scitools.org.uk/cartopy/docs/latest/installing.html
+.. _instructions: https://mcuntz.github.io/ncvue/html/install.html
 .. _LICENSE: https://github.com/mcuntz/ncvue/blob/main/LICENSE
 .. _matplotlib: https://matplotlib.org/
 .. _Miniconda: https://docs.conda.io/en/latest/miniconda.html
+.. _Miniforge: https://github.com/conda-forge/miniforge
 .. _Müller: https://github.com/MuellerSeb
 .. _ncview: http://meteora.ucsd.edu/~pierce/ncview_home_page.html
 .. _netcdf4: https://unidata.github.io/netcdf4-python/netCDF4/index.html

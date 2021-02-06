@@ -102,9 +102,15 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#binary-distribution">Binary distribution</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#building-from-source">Building from source</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#windows">Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#macos">macOS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#linux">Linux</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="package.html">API</a><ul>
@@ -206,20 +212,35 @@
             
   <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>The easiest way to install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is via <cite>pip</cite> if you have <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/">cartopy</a>
-installed already:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is an application written in Python. If you have Python installed,</dt><dd><p>then the best is to install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> within the Python universe. The easiest
+way to install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is thence via <cite>pip</cite> if you have <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/">cartopy</a> installed
+already:</p>
+</dd>
+</dl>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install ncvue
 </pre></div>
 </div>
-<p><cite>Cartopy</cite> can, however, be more elaborate to <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/installing.html">install</a>. The easiest way to install
-<cite>Cartopy</cite> is by <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/">Conda</a> and then installing <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> by <cite>pip</cite>:</p>
+<p><cite>Cartopy</cite> can, however, be more elaborate to <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/installing.html">install</a>. The easiest way to
+install <cite>Cartopy</cite> is by using <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/">Conda</a> and then installing <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> by <cite>pip</cite>.
+After installing, for example, <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c conda-forge cartopy
-conda install netcdf4
 pip install ncvue
 </pre></div>
 </div>
-<p>You would need an <a class="reference external" href="https://www.anaconda.com/products/individual">Anaconda</a> or <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a> environment for this, of course.</p>
+<p>or using directly the community-led <a class="reference external" href="https://github.com/conda-forge/miniforge">Miniforge</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install cartopy
+pip install ncvue
+</pre></div>
+</div>
 <p>Support of <cite>conda-forge</cite> will be added in one of the next minor releases of <code class="docutils literal notranslate"><span class="pre">ncvue</span></code>.</p>
+<div class="section" id="binary-distribution">
+<h2>Binary distribution<a class="headerlink" href="#binary-distribution" title="Permalink to this headline">¶</a></h2>
+<p>We provide a macOS <a class="reference external" href="http://www.macu.de/extra/ncvue.dmg">app</a>, which should work from macOS 10.13 (High
+Sierra) onward. It is, however, only tested on macOS 10.15 (Catalina). Drop me
+a message if it does not work on newer operating systems.</p>
+<p>A Windows application is in the making ;-)</p>
+</div>
 <div class="section" id="building-from-source">
 <h2>Building from source<a class="headerlink" href="#building-from-source" title="Permalink to this headline">¶</a></h2>
 <p>If you want to install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> from source, you first have to install the
@@ -236,6 +257,9 @@ pip install .
 <p>You can use the <cite>--user</cite> option with <cite>pip install</cite> if you do not have proper
 privileges to install Python packages (and you are not using a virtual
 environment).</p>
+<p>You probably also have to run the Command prompt or the Powershell Prompt as
+Administrator (Right click &gt; More &gt; Run as administrator) on Windows to install
+Python packages.</p>
 <p>You can also simply clone the repository and add it to your <cite>PYTHONPATH</cite>. In
 this case, add the <cite>bin</cite> directory to your <cite>PATH</cite> as well (bash/zsh example):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/mcuntz/ncvue.git
@@ -247,7 +271,7 @@ this case, add the <cite>bin</cite> directory to your <cite>PATH</cite> as well 
 </div>
 <div class="section" id="dependencies">
 <h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> uses the packages <a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.19)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code></a>, <code class="xref py py-mod docutils literal notranslate"><span class="pre">netCDF4</span></code>, <code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib</span></code>, and
+<p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> uses the packages <a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.20)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code></a>, <code class="xref py py-mod docutils literal notranslate"><span class="pre">netCDF4</span></code>, <code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib</span></code>, and
 <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/">cartopy</a>. The first three packages are easily installed with <cite>pip</cite> from
 PyPI:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install numpy netcdf4 matplotlib
@@ -264,8 +288,7 @@ Library <cite>proj</cite> and the Geometry Engine <cite>geos</cite>:</p>
 </pre></div>
 </div>
 <p>On Ubuntu <strong>Linux</strong>, this can be done with <cite>apt-get</cite>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get install libproj-dev proj-data proj-bin
-sudo apt-get install libgeos++-dev
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get install libproj-dev proj-data proj-bin libgeos++-dev
 </pre></div>
 </div>
 <p>The remaining Python packages can then be installed with <cite>pip</cite> (from Cartopy <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/installing.html">install</a>):</p>
@@ -286,21 +309,49 @@ pip install shapely --no-binary shapely
 <p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> uses the “themed Tk” (“ttk”) functionality of Tk 8.5. It hence needs
 Python 2.7 or Python 3.1 or later. Linux users might need to update their (very
 old) Tk installations.</p>
+<p>It is also possible that your Python version installed with <a class="reference external" href="https://github.com/pyenv/pyenv">pyenv</a> might clash
+with Apple’s Tcl/Tk library. This gives in the best case a deprecation warning
+like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DEPRECATION</span> <span class="n">WARNING</span><span class="p">:</span> <span class="n">The</span> <span class="n">system</span> <span class="n">version</span> <span class="n">of</span> <span class="n">Tk</span> <span class="ow">is</span> <span class="n">deprecated</span> <span class="ow">and</span>
+<span class="n">may</span> <span class="n">be</span> <span class="n">removed</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">future</span> <span class="n">release</span><span class="o">.</span> <span class="n">Please</span> <span class="n">don</span><span class="s1">&#39;t rely on it.</span>
+<span class="n">Set</span> <span class="n">TK_SILENCE_DEPRECATION</span><span class="o">=</span><span class="mi">1</span> <span class="n">to</span> <span class="n">suppress</span> <span class="n">this</span> <span class="n">warning</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>You have to install <cite>tcl-tk</cite> from <a class="reference external" href="https://brew.sh/">homebrew</a> first and then reinstall Python
+(example with Python version 3.8.3):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>brew install tcl-tk
+pyenv uninstall <span class="m">3</span>.8.3
+pyenv rehash
+env <span class="nv">PYTHON_CONFIGURE_OPTS</span><span class="o">=</span><span class="s2">&quot;--with-tcltk-includes=&#39;-I/usr/local/opt/tcl-tk/include&#39; \</span>
+<span class="s2">    --with-tcltk-libs=&#39;-L/usr/local/opt/tcl-tk/lib -ltcl8.6 -ltk8.6&#39; \</span>
+<span class="s2">    --enable-framework&quot;</span> pyenv install <span class="m">3</span>.8.3
+pyenv rehash
+</pre></div>
+</div>
+<p>Note that <cite>tcl-tk</cite> is keg-only in <a class="reference external" href="https://brew.sh/">homebrew</a>. <cite>env</cite> in the command above allows
+using the homebrew version with Python while not interfering with the macOS
+provided Tcl/Tk installation.</p>
 </div>
 <div class="section" id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
-<p>To install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> on <strong>Windows</strong>, install <a class="reference external" href="https://www.anaconda.com/products/individual">Anaconda</a> and the binary of <cite>Cartopy</cite> of Christoph Gohlke
-(<a class="reference external" href="https://www.lfd.uci.edu/~gohlke/pythonlibs/">https://www.lfd.uci.edu/~gohlke/pythonlibs/</a>). Then install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> via pip:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip.exe install ncvue
-</pre></div>
-</div>
-<p>To install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> on <strong>macOS</strong>, use <a class="reference external" href="https://www.anaconda.com/products/individual">Anaconda</a> and install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> with <cite>pip</cite></p>
+<div class="section" id="windows">
+<h3>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
+<p>To install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> on Windows, install <a class="reference external" href="https://www.anaconda.com/products/individual">Anaconda</a>, run the Anaconda Prompt as
+administrator, install <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/">cartopy</a> from conda_forge and <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> via pip:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c conda-forge cartopy
-conda install netcdf4
 pip install ncvue
 </pre></div>
 </div>
-<p>or install from source:</p>
+</div>
+<div class="section" id="macos">
+<h3>macOS<a class="headerlink" href="#macos" title="Permalink to this headline">¶</a></h3>
+<p>To install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> on macOS, either use the macOS <a class="reference external" href="http://www.macu.de/extra/ncvue.dmg">app</a>, or use <a class="reference external" href="https://www.anaconda.com/products/individual">Anaconda</a>,
+install <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/">cartopy</a> from conda_forge and install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> with <cite>pip</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c conda-forge cartopy
+pip install ncvue
+</pre></div>
+</div>
+<p>or install everything from source:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install numpy netcdf4 matplotlib
 <span class="c1"># uncomment next line if homebrew is not installed</span>
 <span class="c1"># /bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)</span>
@@ -314,13 +365,17 @@ pip install cartopy
 pip install ncvue
 </pre></div>
 </div>
-<p>To install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> on <strong>Linux</strong>, use <a class="reference external" href="https://www.anaconda.com/products/individual">Anaconda</a> and install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> with <cite>pip</cite></p>
+</div>
+<div class="section" id="linux">
+<h3>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h3>
+<p>To install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> on Linux, either use <a class="reference external" href="https://www.anaconda.com/products/individual">Anaconda</a>, install <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/">cartopy</a> from
+conda_forge and install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> with <cite>pip</cite>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c conda-forge cartopy
 conda install netcdf4
 pip install ncvue
 </pre></div>
 </div>
-<p>or install from source:</p>
+<p>or install everything from source:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install numpy netcdf4 matplotlib
 sudo apt-get install libproj-dev proj-data proj-bin
 sudo apt-get install libgeos++-dev
@@ -332,6 +387,7 @@ pip install pykdtree
 pip install cartopy
 pip install ncvue
 </pre></div>
+</div>
 </div>
 </div>
 </div>

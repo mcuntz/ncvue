@@ -100,9 +100,15 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../install.html#binary-distribution">Binary distribution</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../install.html#building-from-source">Building from source</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../install.html#dependencies">Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../install.html#summary">Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../install.html#summary">Summary</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../install.html#windows">Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../install.html#macos">macOS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../install.html#linux">Linux</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../package.html">API</a><ul>
@@ -289,6 +295,7 @@
         <span class="k">if</span> <span class="n">top</span><span class="o">.</span><span class="n">fi</span><span class="p">:</span>
             <span class="n">top</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="n">top</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+        <span class="n">top</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
     <span class="n">root</span><span class="o">.</span><span class="n">protocol</span><span class="p">(</span><span class="s2">&quot;WM_DELETE_WINDOW&quot;</span><span class="p">,</span> <span class="n">on_closing</span><span class="p">)</span>
 
     <span class="c1"># 1st plotting window</span>

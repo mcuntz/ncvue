@@ -6,6 +6,7 @@ are documented in this file.
 
 v3.3 (Feb 2021)
 ---------------
+* Main window disappears if closed even if called from within Python.
 * Added standalone app for macOS.
 
 v3.2 (Jan 2021)
