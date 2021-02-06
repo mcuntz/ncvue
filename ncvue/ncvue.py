@@ -95,6 +95,7 @@ def ncvue(ncfile='', miss=np.nan):
         if top.fi:
             top.fi.close()
         top.quit()
+        top.destroy()
     root.protocol("WM_DELETE_WINDOW", on_closing)
 
     # 1st plotting window
