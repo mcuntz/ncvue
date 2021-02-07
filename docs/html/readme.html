@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>ncvue - A GUI to view netCDF files &mdash; ncvue 3.2 documentation</title>
+  <title>ncvue - A GUI to view netCDF files &mdash; ncvue 3.3 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                3.2
+                3.3
               </div>
             
           
@@ -102,10 +102,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="install.html#binary-distribution">Binary distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#binary-distributions">Binary distributions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="install.html#building-from-source">Building from source</a></li>
-<li class="toctree-l2"><a class="reference internal" href="install.html#dependencies">Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="install.html#summary">Summary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="install.html#dependencies">Dependencies</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="install.html#windows">Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="install.html#macos">macOS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="install.html#linux">Linux</a></li>
@@ -243,20 +242,14 @@ rather provide a quick overview of the netCDF file.</p>
 <span class="n">ncvue</span><span class="p">(</span><span class="s1">&#39;netcdf_file.nc&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>One can also leave out the file name and open a netCDF file with the “Open File”
-button from within <code class="docutils literal notranslate"><span class="pre">ncvue</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ncvue
-</pre></div>
-</div>
-<p>or from within Python:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ncvue</span> <span class="kn">import</span> <span class="n">ncvue</span>
-<span class="n">ncvue</span><span class="p">()</span>
-</pre></div>
-</div>
+<p>where the netCDF file is optional. It can also be left out and a netCDF file can
+be opened with the “Open File” button from within <code class="docutils literal notranslate"><span class="pre">ncvue</span></code>.</p>
 <p>Note, <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> uses the <cite>TkAgg</cite> backend of <cite>matplotlib</cite>. It must be called
 before any other call to <cite>matplotlib</cite>. This also means that you cannot launch it
 from within <cite>iPython</cite> if it was launched with <cite>–pylab</cite>. It can be called from
 within a standard <cite>iPython</cite>, though.</p>
+<p>One can also install standalone applications: the macOS <a class="reference external" href="http://www.macu.de/extra/ncvue.dmg">app</a> or the Windows
+<a class="reference external" href="http://www.macu.de/extra/ncvue.msi">executable</a> that come with everything needed to run <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> including Python.</p>
 <div class="section" id="general-layout">
 <h3>General layout<a class="headerlink" href="#general-layout" title="Permalink to this headline">¶</a></h3>
 <p>On opening, <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> presents three panels for different plotting types:
@@ -335,6 +328,7 @@ projection.</p>
 details.</p>
 <p>Copyright (c) 2020-2021 Matthias Cuntz</p>
 <p>The project structure is based on a <a class="reference external" href="https://github.com/MuellerSeb/template">template</a> provided by Sebastian <a class="reference external" href="https://github.com/MuellerSeb">Müller</a>.</p>
+<p>Different netCDF test files were provided by Juliane <a class="reference external" href="https://github.com/julemai">Mai</a>.</p>
 </div>
 </div>
 

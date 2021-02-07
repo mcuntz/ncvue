@@ -2,16 +2,16 @@ Installation
 ============
 
 ``ncvue`` is an application written in Python. If you have Python installed,
- then the best is to install ``ncvue`` within the Python universe. The easiest
- way to install ``ncvue`` is thence via `pip` if you have cartopy_ installed
- already:
+then the best is to install ``ncvue`` within the Python universe. The easiest
+way to install ``ncvue`` is thence via `pip` if you have cartopy_ installed
+already:
 
 .. code-block:: bash
 
    pip install ncvue
 
 `Cartopy` can, however, be more elaborate to install_. The easiest way to
-install `Cartopy` is by using Conda_ and then installing ``ncvue`` by `pip`.
+install `Cartopy` is by using conda_ and then installing ``ncvue`` by `pip`.
 After installing, for example, Miniconda_:
 
 .. code-block:: bash
@@ -19,23 +19,15 @@ After installing, for example, Miniconda_:
    conda install -c conda-forge cartopy
    pip install ncvue
 
-or using directly the community-led Miniforge_:
-
-.. code-block:: bash
-
-   conda install cartopy
-   pip install ncvue
-
 Support of `conda-forge` will be added in one of the next minor releases of ``ncvue``.
 
-Binary distribution
--------------------
+Binary distributions
+--------------------
 
-We provide a macOS app_, which should work from macOS 10.13 (High
-Sierra) onward. It is, however, only tested on macOS 10.15 (Catalina). Drop me
-a message if it does not work on newer operating systems.
-
-A Windows application is in the making ;-)
+We also provide a standalone macOS app_ and a Windows executable_ that come with
+everything needed to run ``ncvue`` including Python. The macOS app should work
+from macOS 10.13 (High Sierra) onward. It is, however, only tested on macOS
+10.15 (Catalina).
 
 Building from source
 --------------------
@@ -78,59 +70,49 @@ Dependencies
 
 ``ncvue`` uses the packages :mod:`numpy`, :mod:`netCDF4`, :mod:`matplotlib`, and
 cartopy_. The first three packages are easily installed with `pip` from
-PyPI:
+PyPI. `Cartopy` can, however, be more elaborate to install_. It basically uses Python
+wrappers to C++/C-libraries that must be installed first.
+
+Windows
+^^^^^^^
+
+On **Windows**, one can install `cartopy` with conda_ from `conda-forge`. We
+recommend then to install also all other dependencies for ``ncvue`` with conda
+before installing ``ncvue`` with `pip` (`pip` will otherwise install the second
+lot of packages):
 
 .. code-block:: bash
 
-   pip install numpy netcdf4 matplotlib
+   conda install -c conda-forge cartopy
+   conda install -c conda-forge scipy cython pykdtree netcdf4
+   pip install ncvue
 
-`Cartopy` can, however, be more elaborate to install_. It basically uses Python
-wrappers to C++/C-libraries that must be installed first.
+macOS
+^^^^^
 
-On **Windows**, one can use either the unofficial binaries of Christoph Gohlke
-(https://www.lfd.uci.edu/~gohlke/pythonlibs/) or install `cartopy` with Conda_
-from `conda-forge` (see above).
-
-On **macOS**, one can use homebrew_ to install the Cartographic Projections
+On **macOS**, one can use exactly the same procedure with conda_ as for Windows
+(see above). Or one can use homebrew_ to install the Cartographic Projections
 Library `proj` and the Geometry Engine `geos`:
 
 .. code-block:: bash
 
+   # uncomment next line if homebrew is not installed
+   # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
    brew install proj geos
 
-On Ubuntu **Linux**, this can be done with `apt-get`:
+``ncvue`` and its prerequisites are then installed via pip (from Cartopy install_):
 
 .. code-block:: bash
 
-   sudo apt-get install libproj-dev proj-data proj-bin libgeos++-dev
-
-The remaining Python packages can then be installed with `pip` (from Cartopy install_):
-
-.. code-block:: bash
-
-   pip install --upgrade cython pyshp six scipy
+   pip install numpy scipy matplotlib netcdf4 pykdtree
+   pip install --upgrade cython pyshp six
    # shapely needs to be built from source to link to geos. If it is already
    # installed, uninstall it by: pip uninstall shapely
    pip install shapely --no-binary shapely
-
-I also recommend to install the fast kd-tree implementation `pykdtree`:
-
-.. code-block:: bash
-
-   pip install pykdtree
-
-Now, eventually, you can install `cartopy` with `pip`:
-
-.. code-block:: bash
-
    pip install cartopy
+   pip install ncvue
 
-``ncvue`` uses the "themed Tk" ("ttk") functionality of Tk 8.5. It hence needs
-Python 2.7 or Python 3.1 or later. Linux users might need to update their (very
-old) Tk installations.
-
-
-It is also possible that your Python version installed with pyenv_ might clash
+It is possible that your Python version installed with pyenv_ might clash
 with Apple's Tcl/Tk library. This gives in the best case a deprecation warning
 like:
 
@@ -157,79 +139,39 @@ Note that `tcl-tk` is keg-only in homebrew_. `env` in the command above allows
 using the homebrew version with Python while not interfering with the macOS
 provided Tcl/Tk installation.
 
-
-Summary
--------
-
-Windows
-^^^^^^^
-
-To install ``ncvue`` on Windows, install Anaconda_, run the Anaconda Prompt as
-administrator, install cartopy_ from conda_forge and ``ncvue`` via pip:
-
-.. code-block:: bash
-
-   conda install -c conda-forge cartopy
-   pip install ncvue
-
-macOS
-^^^^^
-
-To install ``ncvue`` on macOS, either use the macOS app_, or use Anaconda_,
-install cartopy_ from conda_forge and install ``ncvue`` with `pip`:
-
-.. code-block:: bash
-
-   conda install -c conda-forge cartopy
-   pip install ncvue
-
-or install everything from source:
-
-.. code-block:: bash
-
-   pip install numpy netcdf4 matplotlib
-   # uncomment next line if homebrew is not installed
-   # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
-   brew install proj geos
-   pip install --upgrade cython pyshp six scipy
-   # uncomment next line if shapely is already installed
-   # pip uninstall shapely
-   pip install shapely --no-binary shapely
-   pip install pykdtree
-   pip install cartopy
-   pip install ncvue
-
 Linux
 ^^^^^
 
-To install ``ncvue`` on Linux, either use Anaconda_, install cartopy_ from
-conda_forge and install ``ncvue`` with `pip`:
+On **Linux**, one can also use exactly the same procedure with conda_ as for Windows
+(see above). Or one can install the C++/C-libraries with `apt-get` (Ubuntu):
 
 .. code-block:: bash
 
-   conda install -c conda-forge cartopy
-   conda install netcdf4
-   pip install ncvue
+   sudo apt-get install libproj-dev proj-data proj-bin libgeos++-dev
 
-or install everything from source:
+or any other package manager such as homebrew_.
+
+The Python packages are then installed as for macOS (see above):
 
 .. code-block:: bash
 
-   pip install numpy netcdf4 matplotlib
-   sudo apt-get install libproj-dev proj-data proj-bin
-   sudo apt-get install libgeos++-dev
-   pip install --upgrade cython pyshp six scipy
-   # uncomment next line if shapely is already installed
-   # pip uninstall shapely
+   pip install numpy scipy matplotlib netcdf4 pykdtree
+   pip install --upgrade cython pyshp six
+   # shapely needs to be built from source to link to geos. If it is already
+   # installed, uninstall it by: pip uninstall shapely
    pip install shapely --no-binary shapely
-   pip install pykdtree
    pip install cartopy
    pip install ncvue
+
+``ncvue`` uses the "themed Tk" ("ttk") functionality of Tk 8.5. It hence needs
+Python 2.7 or Python 3.1 or later. Linux users might need to update their (very
+old) Tk installations.
 
 .. _Anaconda: https://www.anaconda.com/products/individual
 .. _app: http://www.macu.de/extra/ncvue.dmg
 .. _cartopy: https://scitools.org.uk/cartopy/docs/latest/
-.. _Conda: https://docs.conda.io/projects/conda/en/latest/
+.. _conda: https://docs.conda.io/projects/conda/en/latest/
+.. _executable: http://www.macu.de/extra/ncvue.msi
 .. _homebrew: https://brew.sh/
 .. _install: https://scitools.org.uk/cartopy/docs/latest/installing.html
 .. _Miniconda: https://docs.conda.io/en/latest/miniconda.html

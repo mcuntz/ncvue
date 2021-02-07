@@ -25,9 +25,10 @@ Released under the MIT License; see LICENSE file for details.
 * v3.1, Include png files in ncvue/images in PyPI wheel,
   Jan 2021, Matthias Cuntz
 * v3.2, Open netcdf files from within ncvue, Jan 2021, Matthias Cuntz
+* v3.3, Standalone apps for macOS and Windows, Feb 2021, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 """
 
 __author__  = "Matthias Cuntz"
-__version__ = "3.2"
+__version__ = "3.3"

@@ -61,24 +61,16 @@ or from within Python:
    from ncvue import ncvue
    ncvue('netcdf_file.nc')
 
-One can also leave out the file name and open a netCDF file with the "Open File"
-button from within ``ncvue``:
-
-.. code-block:: bash
-
-   ncvue
-
-or from within Python:
-
-.. code-block:: python
-
-   from ncvue import ncvue
-   ncvue()
+where the netCDF file is optional. It can also be left out and a netCDF file can
+be opened with the "Open File" button from within ``ncvue``.
 
 Note, ``ncvue`` uses the `TkAgg` backend of `matplotlib`. It must be called
 before any other call to `matplotlib`. This also means that you cannot launch it
 from within `iPython` if it was launched with `--pylab`. It can be called from
 within a standard `iPython`, though.
+
+One can also install standalone applications: the macOS app_ or the Windows
+executable_ that come with everything needed to run ``ncvue`` including Python.
 
 General layout
 ^^^^^^^^^^^^^^
@@ -207,18 +199,11 @@ After installing, for example, Miniconda_:
    conda install -c conda-forge cartopy
    pip install ncvue
 
-or using directly the community-led Miniforge_:
-
-.. code-block:: bash
-
-   conda install cartopy
-   pip install ncvue
-
-We provide a macOS app_, which should work from macOS 10.13 (High
-Sierra) onward. It is, however, only tested on macOS 10.15 (Catalina). Drop me
-a message if it does not work on newer operating systems.
-
-A Windows application is in the making ;-)
+We also provide a standalone macOS app_ and a Windows executable_ that come with
+everything needed to run ``ncvue`` including Python. The macOS app should work
+from macOS 10.13 (High Sierra) onward. It is, however, only tested on macOS
+10.15 (Catalina). Drop me a message if it does not work on newer operating
+systems.
 
 See the installation instructions_ in the documentation_ for more information.
 
@@ -232,17 +217,20 @@ Copyright (c) 2020-2021 Matthias Cuntz
 
 The project structure is based on a template_ provided by Sebastian Müller_.
 
+Different netCDF test files were provided by Juliane Mai_.
+
 .. _Anaconda: https://www.anaconda.com/products/individual
 .. _app: http://www.macu.de/extra/ncvue.dmg
 .. _cartopy: https://scitools.org.uk/cartopy/docs/latest/
 .. _Conda: https://docs.conda.io/projects/conda/en/latest/
 .. _documentation: https://mcuntz.github.io/ncvue/
+.. _executable: http://www.macu.de/extra/ncvue.msi
 .. _install: https://scitools.org.uk/cartopy/docs/latest/installing.html
 .. _instructions: https://mcuntz.github.io/ncvue/html/install.html
 .. _LICENSE: https://github.com/mcuntz/ncvue/blob/main/LICENSE
 .. _matplotlib: https://matplotlib.org/
+.. _Mai: https://github.com/julemai
 .. _Miniconda: https://docs.conda.io/en/latest/miniconda.html
-.. _Miniforge: https://github.com/conda-forge/miniforge
 .. _Müller: https://github.com/MuellerSeb
 .. _ncview: http://meteora.ucsd.edu/~pierce/ncview_home_page.html
 .. _netcdf4: https://unidata.github.io/netcdf4-python/netCDF4/index.html

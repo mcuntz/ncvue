@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>ncvue.ncvue &mdash; ncvue 3.2 documentation</title>
+  <title>ncvue.ncvue &mdash; ncvue 3.3 documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                3.2
+                3.3
               </div>
             
           
@@ -100,10 +100,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../install.html#binary-distribution">Binary distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../install.html#binary-distributions">Binary distributions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../install.html#building-from-source">Building from source</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../install.html#dependencies">Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../install.html#summary">Summary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../install.html#dependencies">Dependencies</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../install.html#windows">Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../install.html#macos">macOS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../install.html#linux">Linux</a></li>
@@ -227,13 +226,15 @@
 <span class="sd">   ncvue</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
-<span class="c1"># try:</span>
-<span class="c1">#     import tkinter.ttk as ttk</span>
-<span class="c1"># except Exception:</span>
-<span class="c1">#     import sys</span>
-<span class="c1">#     print(&#39;Using the themed widget set introduced in Tk 8.5.&#39;)</span>
-<span class="c1">#     sys.exit()</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">tkinter.ttk</span> <span class="k">as</span> <span class="nn">ttk</span>
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Using the themed widget set introduced in Tk 8.5.&#39;</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">platform</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">netCDF4</span> <span class="k">as</span> <span class="nn">nc</span>
 <span class="kn">from</span> <span class="nn">.ncvmethods</span> <span class="kn">import</span> <span class="n">analyse_netcdf</span>
@@ -256,6 +257,12 @@
 <span class="sd">        and the standard netCDF missing value for current datatype from</span>
 <span class="sd">        netcdf4.default_fillvals (default: np.nan).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ios</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">ios</span> <span class="o">==</span> <span class="s1">&#39;Windows&#39;</span><span class="p">:</span>
+        <span class="c1"># make Windows aware of high resolution displays</span>
+        <span class="c1"># https://stackoverflow.com/questions/41315873/attempting-to-resolve-blurred-tkinter-text-scaling-on-windows-10-high-dpi-disp</span>
+        <span class="kn">from</span> <span class="nn">ctypes</span> <span class="kn">import</span> <span class="n">windll</span>
+        <span class="n">windll</span><span class="o">.</span><span class="n">shcore</span><span class="o">.</span><span class="n">SetProcessDpiAwareness</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="n">top</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Tk</span><span class="p">()</span>
     <span class="n">top</span><span class="o">.</span><span class="n">withdraw</span><span class="p">()</span>
@@ -264,6 +271,13 @@
     <span class="c1"># themes = style.theme_names()</span>
     <span class="c1"># theme = style.theme_use()</span>
     <span class="c1"># style.theme_use(theme)</span>
+    <span class="c1"># # style.theme_use(&#39;winnative&#39;)</span>
+
+    <span class="c1"># set titlebar and taskbar icon</span>
+    <span class="n">bundle_dir</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="s1">&#39;_MEIPASS&#39;</span><span class="p">,</span>
+                         <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)))</span>
+    <span class="n">icon</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">PhotoImage</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">bundle_dir</span> <span class="o">+</span> <span class="s1">&#39;/images/ncvue_icon.png&#39;</span><span class="p">)</span>
+    <span class="n">top</span><span class="o">.</span><span class="n">iconphoto</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">icon</span><span class="p">)</span>  <span class="c1"># True: apply to all future created toplevels</span>
 
     <span class="n">root</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Toplevel</span><span class="p">()</span>
     <span class="n">root</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;ncvOne&#39;</span>
@@ -271,6 +285,8 @@
     <span class="n">root</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="s1">&#39;1000x800+100+100&#39;</span><span class="p">)</span>
 
     <span class="c1"># Connect netcdf file and extracted information to top</span>
+    <span class="n">top</span><span class="o">.</span><span class="n">os</span>     <span class="o">=</span> <span class="n">ios</span>     <span class="c1"># operating system</span>
+    <span class="n">top</span><span class="o">.</span><span class="n">icon</span>   <span class="o">=</span> <span class="n">icon</span>    <span class="c1"># app icon</span>
     <span class="n">top</span><span class="o">.</span><span class="n">fi</span>     <span class="o">=</span> <span class="n">ncfile</span>  <span class="c1"># file name or file handle</span>
     <span class="n">top</span><span class="o">.</span><span class="n">miss</span>   <span class="o">=</span> <span class="n">miss</span>    <span class="c1"># extra missing value</span>
     <span class="n">top</span><span class="o">.</span><span class="n">dunlim</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>      <span class="c1"># name of unlimited dimension</span>
