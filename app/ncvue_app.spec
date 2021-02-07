@@ -16,6 +16,8 @@
 #         -compose CopyOpacity -composite -shave 1 ${outfile}
 #   - png to icns
 #     image2icns docs/images/ncvue_icon.png
+#   - png to ico
+#     convert docs/images/ncvue_icon.png -define icon:auto-resize="256,128,96,64,48,32,16" docs/images/ncvue_icon.ico
 #   - clean up: docs/images/ncvue_icon.pdf ~/Desktop/ncvue_icon.png
 
 # Create app:
