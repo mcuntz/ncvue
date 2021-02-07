@@ -17,7 +17,11 @@
 #   - png to icns
 #     image2icns docs/images/ncvue_icon.png
 #   - png to ico
-#     convert docs/images/ncvue_icon.png -define icon:auto-resize="256,128,96,64,48,32,16" docs/images/ncvue_icon.ico
+#     convert docs/images/ncvue_icon.png \
+#         -define icon:auto-resize="256,128,96,64,48,32,16" \
+#         ncvue/images/ncvue_icon.ico
+#     convert docs/images/ncvue_icon.png \
+#          -resize 512 ncvue/images/ncvue_icon.png
 #   - clean up: docs/images/ncvue_icon.pdf ~/Desktop/ncvue_icon.png
 
 # Create app:

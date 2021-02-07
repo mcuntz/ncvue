@@ -27,13 +27,15 @@ The following functions are provided:
    ncvue
 """
 from __future__ import absolute_import, division, print_function
+import sys
 import tkinter as tk
 # try:
 #     import tkinter.ttk as ttk
 # except Exception:
-#     import sys
 #     print('Using the themed widget set introduced in Tk 8.5.')
 #     sys.exit()
+import os
+import platform
 import numpy as np
 import netCDF4 as nc
 from .ncvmethods import analyse_netcdf
@@ -56,6 +58,12 @@ def ncvue(ncfile='', miss=np.nan):
         and the standard netCDF missing value for current datatype from
         netcdf4.default_fillvals (default: np.nan).
     """
+    ios = platform.system()
+    if ios == 'Windows':
+        # make Windows aware of high resolution displays
+        # https://stackoverflow.com/questions/41315873/attempting-to-resolve-blurred-tkinter-text-scaling-on-windows-10-high-dpi-disp
+        from ctypes import windll
+        windll.shcore.SetProcessDpiAwareness(1)
 
     top = tk.Tk()
     top.withdraw()
@@ -65,12 +73,23 @@ def ncvue(ncfile='', miss=np.nan):
     # theme = style.theme_use()
     # style.theme_use(theme)
 
+    # set titlebar and taskbar icon
+    bundle_dir = getattr(sys, '_MEIPASS',
+                         os.path.abspath(os.path.dirname(__file__)))
+    if ios == 'Windows':
+        icon = tk.PhotoImage(file=bundle_dir + '/images/ncvue_icon.ico')
+    else:
+        icon = tk.PhotoImage(file=bundle_dir + '/images/ncvue_icon.png')
+    top.iconphoto(True, icon)  # True: apply to all future created toplevels
+
     root = tk.Toplevel()
     root.name = 'ncvOne'
     root.title("ncvue "+ncfile)
-    root.geometry('1000x800+100+100')
+    root.geometry('800x600+100+100')
 
     # Connect netcdf file and extracted information to top
+    top.os     = ios     # operating system
+    top.icon   = icon    # app icon
     top.fi     = ncfile  # file name or file handle
     top.miss   = miss    # extra missing value
     top.dunlim = ''      # name of unlimited dimension
