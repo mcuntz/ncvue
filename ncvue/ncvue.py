@@ -29,11 +29,11 @@ The following functions are provided:
 from __future__ import absolute_import, division, print_function
 import sys
 import tkinter as tk
-# try:
-#     import tkinter.ttk as ttk
-# except Exception:
-#     print('Using the themed widget set introduced in Tk 8.5.')
-#     sys.exit()
+try:
+    import tkinter.ttk as ttk
+except Exception:
+    print('Using the themed widget set introduced in Tk 8.5.')
+    sys.exit()
 import os
 import platform
 import numpy as np
@@ -72,20 +72,18 @@ def ncvue(ncfile='', miss=np.nan):
     # themes = style.theme_names()
     # theme = style.theme_use()
     # style.theme_use(theme)
+    # # style.theme_use('winnative')
 
     # set titlebar and taskbar icon
     bundle_dir = getattr(sys, '_MEIPASS',
                          os.path.abspath(os.path.dirname(__file__)))
-    if ios == 'Windows':
-        icon = tk.PhotoImage(file=bundle_dir + '/images/ncvue_icon.ico')
-    else:
-        icon = tk.PhotoImage(file=bundle_dir + '/images/ncvue_icon.png')
+    icon = tk.PhotoImage(file=bundle_dir + '/images/ncvue_icon.png')
     top.iconphoto(True, icon)  # True: apply to all future created toplevels
 
     root = tk.Toplevel()
     root.name = 'ncvOne'
     root.title("ncvue "+ncfile)
-    root.geometry('800x600+100+100')
+    root.geometry('1000x800+100+100')
 
     # Connect netcdf file and extracted information to top
     top.os     = ios     # operating system

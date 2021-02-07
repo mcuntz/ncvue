@@ -327,7 +327,7 @@ def clone_ncvmain(widget):
     root = tk.Toplevel()
     root.name = 'ncvClone'
     root.title("Secondary ncvue window")
-    root.geometry('800x600+150+100')
+    root.geometry('1000x800+150+100')
 
     root.top = widget.top
 

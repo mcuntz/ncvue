@@ -11,12 +11,9 @@
 
 # Create app:
 #   Use conda-forge for everything because more up-to-date
-#   Try to avoid mkl by using numpy from conda-forge and scipy from pip
-#   https://github.com/pyinstaller/pyinstaller/issues/2270
-#     conda install -c conda-forge blas numpy openblas pandas netcdf4 matplotlib cython pyshp six pykdtree
-#     pip install scipy
-#     conda install -c conda-forge shapely
-#     conda install -c conda-forge cartopy
+#   Do not use mkl for smaller executable with PyInstaller
+#     conda install -c conda-forge nomkl cartopy
+#     conda install -c conda-forge scipy cython pykdtree netcdf4
 #     pip install ncvue
 #   Install newest version of PyInstaller (5.0a2)
 #     conda install -c conda-forge pyinstaller
@@ -24,17 +21,12 @@
 #     pyinstaller --onedir --windowed .\ncvue_exe.spec
 #   # Using UPX (copy into C:\ProgramData, i.e. path without space): https://upx.github.io/
 #   #   pyinstaller --onedir --windowed --upx-dir='C:\ProgramData\upx-3.96-win64\' .\ncvue_exe.spec
-#   Change icon of dist\ncvue\ncvue.exe with ResourceHacker
-#      http://www.angusj.com/resourcehacker/
-
-# Clean icon cache
-#   # Before Win-10 
-#   ie4uinit.exe -ClearIconCache
-#   # For Windows 10, use
-#   ie4uinit.exe -show
 
 # Create Installer:
 #   https://helpdeskgeek.com/free-tools-review/4-tools-to-create-windows-installer-packages/
+#   Use Advanced Installer > Generic Simple
+#   Follow https://www.advancedinstaller.com/user-guide/tutorial-simple.html
+#   Project file ncvue.aip gives installer ncvue.msi
 
 block_cipher = None
 
