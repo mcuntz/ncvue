@@ -33,9 +33,10 @@ About ncvue
 -----------
 
 ``ncvue`` is a minimal GUI for a quick view of netCDF files. It is aiming to be
-a drop-in replacement for ncview_, being slightly more general than ncview,
-which targets maps. If ``ncvue`` is used with maps, it supports mostly
-structured grids, more precisely the grids supported by cartopy_.
+a drop-in replacement for ncview_ and panoply_, being slightly more general than
+ncview targeting maps but providing animations, zooming and panning capabilities
+unlike panoply. If ``ncvue`` is used with maps, it supports mostly structured
+grids, more precisely the grids supported by cartopy_.
 
 ``ncvue`` is a Python script that can be called from within Python or as a
 command line tool. It is not supposed to produce publication-ready plots but
@@ -61,16 +62,26 @@ or from within Python:
    from ncvue import ncvue
    ncvue('netcdf_file.nc')
 
-where the netCDF file is optional. It can also be left out and a netCDF file can
-be opened with the "Open File" button from within ``ncvue``.
+where the netCDF file is optional. The latter can also be left out and a netCDF
+file can be opened with the "Open File" button from within ``ncvue``.
 
 Note, ``ncvue`` uses the `TkAgg` backend of `matplotlib`. It must be called
 before any other call to `matplotlib`. This also means that you cannot launch it
 from within `iPython` if it was launched with `--pylab`. It can be called from
 within a standard `iPython`, though.
 
-One can also install standalone applications: the macOS app_ or the Windows
-executable_ that come with everything needed to run ``ncvue`` including Python.
+One can also install standalone macOS or Windows applications that come with everything needed to
+run ``ncvue`` including Python:
+
+- macOS app_ (macOS > 10.13, High Sierra)
+- Windows executable_ (Windows 10)
+
+A dialog box might pop up on macOS saying that the ``ncvue.app`` is from an
+unidentified developer. This is because ``ncvue`` is an open-source software.
+Depending on the macOS version, it offers to open it anyway. In later versions
+of macOS, this option is only given if you right-click (or control-click) on the
+``ncvue.app`` and choose `Open`. You only have to do this once. It will open like
+any other application the next times.
 
 General layout
 ^^^^^^^^^^^^^^
@@ -206,4 +217,5 @@ Different netCDF test files were provided by Juliane Mai_.
 .. _ncview: http://meteora.ucsd.edu/~pierce/ncview_home_page.html
 .. _netcdf4: https://unidata.github.io/netcdf4-python/netCDF4/index.html
 .. _numpy: https://numpy.org/
+.. _panoply: https://www.giss.nasa.gov/tools/panoply/
 .. _template: https://github.com/MuellerSeb/template

@@ -1,7 +1,10 @@
 Installation
 ============
 
-``ncvue`` is an application written in Python. If you have Python installed, then the best is to install ``ncvue`` within the Python universe. The easiest way to install ``ncvue`` is thence via `pip` if you have cartopy_ installed already:
+``ncvue`` is an application written in Python. If you have Python installed,
+then the best is to install ``ncvue`` within the Python universe. The easiest
+way to install ``ncvue`` is thence via `pip` if you have cartopy_ installed
+already:
 
 .. code-block:: bash
 
@@ -21,10 +24,21 @@ Support of `conda-forge` will be added in one of the next minor releases of ``nc
 Binary distributions
 --------------------
 
-We also provide a standalone macOS app_ and a Windows executable_ that come with
-everything needed to run ``ncvue`` including Python. The macOS app should work
-from macOS 10.13 (High Sierra) onward. It is, however, only tested on macOS
-10.15 (Catalina).
+We also provide standalone macOS and Windows applications that come with
+everything needed to run ``ncvue`` including Python:
+
+- macOS app_ (macOS > 10.13, High Sierra)
+- Windows executable_ (Windows 10)
+
+The macOS app should work from macOS 10.13 (High Sierra) onward. It is, however,
+only tested on macOS 10.15 (Catalina).
+
+A dialog box might pop up on macOS saying that the ``ncvue.app`` is from an
+unidentified developer. This is because ``ncvue`` is an open-source software.
+Depending on the macOS version, it offers to open it anyway. In later versions
+of macOS, this option is only given if you right-click (or control-click) on the
+``ncvue.app`` and choose `Open`. You only have to do this once. It will open like
+any other application the next times.
 
 Building from source
 --------------------

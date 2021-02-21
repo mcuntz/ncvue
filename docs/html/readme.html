@@ -220,9 +220,10 @@ replacement for <a class="reference external" href="http://meteora.ucsd.edu/~pie
 <div class="section" id="about-ncvue">
 <h2>About ncvue<a class="headerlink" href="#about-ncvue" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is a minimal GUI for a quick view of netCDF files. It is aiming to be
-a drop-in replacement for <a class="reference external" href="http://meteora.ucsd.edu/~pierce/ncview_home_page.html">ncview</a>, being slightly more general than ncview,
-which targets maps. If <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is used with maps, it supports mostly
-structured grids, more precisely the grids supported by <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/">cartopy</a>.</p>
+a drop-in replacement for <a class="reference external" href="http://meteora.ucsd.edu/~pierce/ncview_home_page.html">ncview</a> and <a class="reference external" href="https://www.giss.nasa.gov/tools/panoply/">panoply</a>, being slightly more general than
+ncview targeting maps but providing animations, zooming and panning capabilities
+unlike panoply. If <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is used with maps, it supports mostly structured
+grids, more precisely the grids supported by <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/">cartopy</a>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is a Python script that can be called from within Python or as a
 command line tool. It is not supposed to produce publication-ready plots but
 rather provide a quick overview of the netCDF file.</p>
@@ -242,14 +243,24 @@ rather provide a quick overview of the netCDF file.</p>
 <span class="n">ncvue</span><span class="p">(</span><span class="s1">&#39;netcdf_file.nc&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>where the netCDF file is optional. It can also be left out and a netCDF file can
-be opened with the “Open File” button from within <code class="docutils literal notranslate"><span class="pre">ncvue</span></code>.</p>
+<p>where the netCDF file is optional. The latter can also be left out and a netCDF
+file can be opened with the “Open File” button from within <code class="docutils literal notranslate"><span class="pre">ncvue</span></code>.</p>
 <p>Note, <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> uses the <cite>TkAgg</cite> backend of <cite>matplotlib</cite>. It must be called
 before any other call to <cite>matplotlib</cite>. This also means that you cannot launch it
 from within <cite>iPython</cite> if it was launched with <cite>–pylab</cite>. It can be called from
 within a standard <cite>iPython</cite>, though.</p>
-<p>One can also install standalone applications: the macOS <a class="reference external" href="http://www.macu.de/extra/ncvue.dmg">app</a> or the Windows
-<a class="reference external" href="http://www.macu.de/extra/ncvue.msi">executable</a> that come with everything needed to run <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> including Python.</p>
+<p>One can also install standalone macOS or Windows applications that come with everything needed to
+run <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> including Python:</p>
+<ul class="simple">
+<li><p>macOS <a class="reference external" href="http://www.macu.de/extra/ncvue.dmg">app</a> (macOS &gt; 10.13, High Sierra)</p></li>
+<li><p>Windows <a class="reference external" href="http://www.macu.de/extra/ncvue.msi">executable</a> (Windows 10)</p></li>
+</ul>
+<p>A dialog box might pop up on macOS saying that the <code class="docutils literal notranslate"><span class="pre">ncvue.app</span></code> is from an
+unidentified developer. This is because <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is an open-source software.
+Depending on the macOS version, it offers to open it anyway. In later versions
+of macOS, this option is only given if you right-click (or control-click) on the
+<code class="docutils literal notranslate"><span class="pre">ncvue.app</span></code> and choose <cite>Open</cite>. You only have to do this once. It will open like
+any other application the next times.</p>
 <div class="section" id="general-layout">
 <h3>General layout<a class="headerlink" href="#general-layout" title="Permalink to this headline">¶</a></h3>
 <p>On opening, <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> presents three panels for different plotting types:
