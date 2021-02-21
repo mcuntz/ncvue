@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 ncvue: A minimal GUI for a quick view of netcdf files.
-       Aiming to be a drop-in replacement for ncview.
+       Aiming to be a drop-in replacement for ncview and panoply.
 """
 from __future__ import division, absolute_import, print_function
 import os
@@ -34,7 +34,7 @@ def _find_version(*file_paths):
 
 package   = "ncvue"
 doclines  = "A minimal GUI for a quick view of netcdf files."
-doclines += " Aiming to be a drop-in replacement for ncview."
+doclines += " Aiming to be a drop-in replacement for ncview and panoply."
 readme    = open("README.rst").read()
 
 author = "Matthias Cuntz"

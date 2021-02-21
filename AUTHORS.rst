@@ -2,7 +2,7 @@ ncvue
 =====
 
 ncvue: A minimal GUI for a quick view of netcdf files.
-       Aiming to be a drop-in replacement for ncview.
+       Aiming to be a drop-in replacement for ncview and panoply.
 
 Created Nov 2020-Jan 2021 by Matthias Cuntz.
 

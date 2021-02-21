@@ -11,7 +11,7 @@ ncvue - A GUI to view netCDF files
     remove section "Installation"
 
 A minimal GUI for a quick view of netCDF files. Aiming to be a drop-in
-replacement for ncview_.
+replacement for ncview_ and panoply_.
 
 .. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4459598.svg
    :target: https://doi.org/10.5281/zenodo.4459598
