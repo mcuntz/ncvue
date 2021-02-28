@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Installation &mdash; ncvue 3.3 documentation</title>
+  <title>Installation &mdash; ncvue 3.3.1 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                3.3
+                3.3.1
               </div>
             
           
@@ -334,8 +334,18 @@ provided Tcl/Tk installation.</p>
 </div>
 <div class="section" id="linux">
 <h3>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h3>
-<p>On <strong>Linux</strong>, one can also use exactly the same procedure with <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/">conda</a> as for Windows
-(see above). Or one can install the C++/C-libraries with <cite>apt-get</cite> (Ubuntu):</p>
+<p>On <strong>Linux</strong>, one can also use exactly the same procedure with <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/">conda</a> as for
+Windows (see above). <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> uses also a base-class for tooltips from Python’s
+Integrated Development IDLE. The latter is installed by default with Python on
+macOS and Windows but must be installed separately on Linux (reported by
+Sebastian <a class="reference external" href="https://github.com/MuellerSeb">Müller</a>), e.g.:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get install idle3
+</pre></div>
+</div>
+<p>It also follows from the use of that tooltip class that a Python version of 3.5
+or higher must be used.</p>
+<p>Instead of conda, one can also install the C++/C-libraries with <cite>apt</cite> or
+<cite>apt-get</cite> (Ubuntu):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get install libproj-dev proj-data proj-bin libgeos++-dev
 </pre></div>
 </div>
@@ -350,9 +360,10 @@ pip install cartopy
 pip install ncvue
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> uses the “themed Tk” (“ttk”) functionality of Tk 8.5. It hence needs
-Python 2.7 or Python 3.1 or later. Linux users might need to update their (very
-old) Tk installations.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> uses the “themed Tk” (“ttk”) functionality of Tk 8.5. It would hence
+need Python 2.7 or Python 3.1 or later. <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> further uses the tooltip class
+from IDLE, which bumps the Python version to 3.5 or later. Linux users might
+need to update their (very old) Tk installations.</p>
 </div>
 </div>
 </div>

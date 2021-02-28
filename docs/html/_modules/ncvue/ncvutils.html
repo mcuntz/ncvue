@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>ncvue.ncvutils &mdash; ncvue 3.3 documentation</title>
+  <title>ncvue.ncvutils &mdash; ncvue 3.3.1 documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                3.3
+                3.3.1
               </div>
             
           
@@ -447,7 +447,8 @@
             <span class="c1"># # delta_coord = np.diff(coord)</span>
             <span class="c1"># # if not np.allclose(delta_coord, delta_coord[0]):</span>
             <span class="c1"># #     raise ValueError(&#39;The coordinate must be equally spaced.&#39;)</span>
-            <span class="c1"># # new_coord = ma.concatenate((coord, coord[-1:] + delta_coord[0]))</span>
+            <span class="c1"># # new_coord = ma.concatenate((coord,</span>
+            <span class="c1"># #                             coord[-1:] + delta_coord[0]))</span>
             <span class="c1"># new code: just add 360 degree to first lon</span>
             <span class="n">new_coord</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">coord</span><span class="p">,</span> <span class="n">coord</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">360.</span><span class="p">))</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">coord</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">):</span>

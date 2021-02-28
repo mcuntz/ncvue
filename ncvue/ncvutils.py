@@ -248,7 +248,8 @@ def add_cyclic_point(data, coord=None, rowcoord=None, axis=-1):
             # # delta_coord = np.diff(coord)
             # # if not np.allclose(delta_coord, delta_coord[0]):
             # #     raise ValueError('The coordinate must be equally spaced.')
-            # # new_coord = ma.concatenate((coord, coord[-1:] + delta_coord[0]))
+            # # new_coord = ma.concatenate((coord,
+            # #                             coord[-1:] + delta_coord[0]))
             # new code: just add 360 degree to first lon
             new_coord = np.ma.concatenate((coord, coord[0:1] + 360.))
         if (coord.ndim == 2):

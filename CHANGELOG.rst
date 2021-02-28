@@ -4,6 +4,11 @@ Changelog
 All notable changes after its initial development up to November 2020 (v1.0)
 are documented in this file.
 
+v3.3.1 (Feb 2021)
+-----------------
+* Better installation instructions for all platforms.
+* Dropped claim of Python 2 support, which was not given.
+
 v3.3 (Feb 2021)
 ---------------
 * Main window disappears if closed even if called from within Python.

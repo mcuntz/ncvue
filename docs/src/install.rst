@@ -153,8 +153,21 @@ provided Tcl/Tk installation.
 Linux
 ^^^^^
 
-On **Linux**, one can also use exactly the same procedure with conda_ as for Windows
-(see above). Or one can install the C++/C-libraries with `apt-get` (Ubuntu):
+On **Linux**, one can also use exactly the same procedure with conda_ as for
+Windows (see above). ``ncvue`` uses also a base-class for tooltips from Python's
+Integrated Development IDLE. The latter is installed by default with Python on
+macOS and Windows but must be installed separately on Linux (reported by
+Sebastian Müller_), e.g.:
+
+.. code-block:: bash
+
+   sudo apt-get install idle3
+
+It also follows from the use of that tooltip class that a Python version of 3.5
+or higher must be used.
+
+Instead of conda, one can also install the C++/C-libraries with `apt` or
+`apt-get` (Ubuntu):
 
 .. code-block:: bash
 
@@ -174,9 +187,10 @@ The Python packages are then installed as for macOS (see above):
    pip install cartopy
    pip install ncvue
 
-``ncvue`` uses the "themed Tk" ("ttk") functionality of Tk 8.5. It hence needs
-Python 2.7 or Python 3.1 or later. Linux users might need to update their (very
-old) Tk installations.
+``ncvue`` uses the "themed Tk" ("ttk") functionality of Tk 8.5. It would hence
+need Python 2.7 or Python 3.1 or later. ``ncvue`` further uses the tooltip class
+from IDLE, which bumps the Python version to 3.5 or later. Linux users might
+need to update their (very old) Tk installations.
 
 .. _Anaconda: https://www.anaconda.com/products/individual
 .. _app: http://www.macu.de/extra/ncvue.dmg
@@ -187,5 +201,6 @@ old) Tk installations.
 .. _install: https://scitools.org.uk/cartopy/docs/latest/installing.html
 .. _Miniconda: https://docs.conda.io/en/latest/miniconda.html
 .. _Miniforge: https://github.com/conda-forge/miniforge
+.. _Müller: https://github.com/MuellerSeb
 .. _netcdf4: https://unidata.github.io/netcdf4-python/netCDF4/index.html
 .. _pyenv: https://github.com/pyenv/pyenv
