@@ -44,7 +44,9 @@ from .ncvwidgets import add_spinbox, add_tooltip
 import matplotlib
 matplotlib.use('TkAgg')
 from matplotlib import pyplot as plt
-plt.style.use('seaborn-darkgrid')
+# plt.style.use('seaborn-darkgrid')
+plt.style.use('seaborn-dark')
+# plt.style.use('fast')
 
 
 __all__ = ['ncvContour']
@@ -737,6 +739,7 @@ class ncvContour(ttk.Frame):
                 ylim = ylim[::-1]
                 self.axes.set_ylim(ylim)
         # draw grid lines
+        self.axes.grid(False)
         xticks = np.array(self.axes.get_xticks())
         yticks = np.array(self.axes.get_yticks())
         if grid:

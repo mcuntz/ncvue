@@ -45,7 +45,9 @@ from .ncvwidgets import add_spinbox, add_tooltip
 import matplotlib
 matplotlib.use('TkAgg')
 from matplotlib import pyplot as plt
-plt.style.use('seaborn-darkgrid')
+# plt.style.use('seaborn-darkgrid')
+plt.style.use('seaborn-dark')
+# plt.style.use('fast')
 
 
 __all__ = ['ncvScatter']

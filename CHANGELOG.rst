@@ -4,6 +4,12 @@ Changelog
 All notable changes after its initial development up to November 2020 (v1.0)
 are documented in this file.
 
+v3.3.2
+-----------------
+* Moved from Matplotlib style seaborn-darkgrid to seaborn-dark.
+* Grid drawn by hand in contour plot. Set automatic grid to
+  False: `self.axes.grid(False)`.
+
 v3.3.1 (Feb 2021)
 -----------------
 * Better installation instructions for all platforms.
