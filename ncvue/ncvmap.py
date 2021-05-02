@@ -433,7 +433,8 @@ class ncvMap(ttk.Frame):
             vx = vardim2var(x)
             xx = self.fi.variables[vx]
             xx = get_slice_miss(self, self.lond, xx)
-            xx = (xx + 360.) % 360.
+            if np.any(np.isfinite(xx)):
+                xx = (xx + 360.) % 360.
             if (xx.max() - xx.min()) > 150.:
                 self.iglobal.set(1)
             else:
