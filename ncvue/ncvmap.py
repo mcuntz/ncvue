@@ -17,6 +17,8 @@ History:
 
 * Written Dec 2020-Jan 2021 by Matthias Cuntz (mc (at) macu (dot) de)
 * Open new netcdf file, communicate via top widget, Jan 2021, Matthias Cuntz
+* Write coordinates and value on bottom of plotting canvas,
+  May 2021, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -37,8 +39,8 @@ from tkinter import filedialog
 import os
 import numpy as np
 import netCDF4 as nc
-from .ncvutils   import add_cyclic_point, clone_ncvmain, set_axis_label
-from .ncvutils   import set_miss, vardim2var
+from .ncvutils   import add_cyclic_point, clone_ncvmain, format_coord_map
+from .ncvutils   import set_axis_label, set_miss, vardim2var
 from .ncvmethods import analyse_netcdf, get_slice_miss, get_miss
 from .ncvmethods import set_dim_lon, set_dim_lat, set_dim_var
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry, add_imagemenu
@@ -1092,7 +1094,10 @@ class ncvMap(ttk.Frame):
             xx = get_slice_miss(self, self.lond, xx)
             # set central longitude of projection
             # make in 0-360, otherwise always 0 if -180 to 180
-            xx360 = (xx + 360.) % 360.
+            if np.any(np.isfinite(xx)):
+                xx360 = (xx + 360.) % 360.
+            else:
+                xx360 = xx
             if xx.size > 1:
                 if xx.ndim > 1:
                     x0 = xx[:, 0].mean()
@@ -1141,12 +1146,12 @@ class ncvMap(ttk.Frame):
             # set x and y to index if not selected
             if (x == ''):
                 nx = vv.shape[1]
-                xx = -180. + np.arange(nx) * 360./float(nx)
+                xx = -180. + np.arange(nx) / float(nx) * 360.
                 xx += 0.5 * (xx[1] - xx[0])
                 xlab = ''
             if (y == ''):
                 ny = vv.shape[0]
-                yy = np.arange(ny) * 180./float(ny) - 90.
+                yy = -90. + np.arange(ny) / float(ny) * 180.
                 yy += 0.5 * (yy[1] - yy[0])
                 ylab = ''
             # plot
@@ -1249,6 +1254,8 @@ class ncvMap(ttk.Frame):
                           self.ivvc.shape)
                     return
             self.cb.set_label(vlab)
+            self.axes.format_coord = lambda x, y: format_coord_map(
+                x, y, self.axes, self.ixx, self.iyy, self.ivv)
         # help(self.figure)
         if self.iiglobal:
             self.axes.set_global()

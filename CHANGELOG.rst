@@ -6,7 +6,7 @@ are documented in this file.
 
 v3.3.2
 -----------------
-* Print correct coordinates and values on plots.
+* Print correct coordinates and values on plotting window.
 * Set time axis to numpy's datetime64 format.
 * Moved from Matplotlib style seaborn-darkgrid to seaborn-dark.
 * Grid is drawn by hand in contour plot. Set automatic grid to

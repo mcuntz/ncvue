@@ -16,6 +16,8 @@ History:
 
 * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
 * Open new netcdf file, communicate via top widget, Jan 2021, Matthias Cuntz
+* Write coordinates and value on bottom of plotting canvas,
+  May 2021, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -36,7 +38,8 @@ from tkinter import filedialog
 import os
 import numpy as np
 import netCDF4 as nc
-from .ncvutils   import clone_ncvmain, set_axis_label, vardim2var
+from .ncvutils   import clone_ncvmain, format_coord_contour
+from .ncvutils   import set_axis_label, vardim2var
 from .ncvmethods import analyse_netcdf, get_slice_miss
 from .ncvmethods import set_dim_x, set_dim_y, set_dim_z
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry, add_imagemenu
@@ -721,6 +724,8 @@ class ncvContour(ttk.Frame):
         cb.set_label(zlab)
         self.axes.xaxis.set_label_text(xlab)
         self.axes.yaxis.set_label_text(ylab)
+        self.axes.format_coord = lambda x, y: format_coord_contour(
+            x, y, self.axes, xx, yy, zz)
         # # Does not work
         # # might do it by hand, i.e. get ticks and use axhline and axvline
         # self.axes.grid(True, lw=5, color='k', zorder=100)

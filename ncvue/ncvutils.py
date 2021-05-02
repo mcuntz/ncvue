@@ -26,6 +26,8 @@ History:
 * pass only root widget to clone_ncvmain, Jan 2021, Matthias Cuntz
 * set correct missing value for date variable in numpy's datetime64[ms] format
   May 2021, Matthias Cuntz
+* added format_coord functions for scatter, contour, and map,
+  May 2021, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -36,6 +38,9 @@ The following functions are provided:
    SEPCHAR
    add_cyclic_point
    clone_ncvmain
+   format_coord_contour
+   format_coord_map
+   format_coord_scatter
    get_slice
    list_intersection
    set_axis_label
@@ -47,10 +52,14 @@ The following functions are provided:
 from __future__ import absolute_import, division, print_function
 import tkinter as tk
 import numpy as np
+import matplotlib.dates as mpld
+import cartopy.crs as ccrs
 
 
 __all__ = ['DIMMETHODS', 'SEPCHAR',
-           'add_cyclic_point', 'clone_ncvmain', 'get_slice',
+           'add_cyclic_point', 'clone_ncvmain',
+           'format_coord_contour', 'format_coord_map', 'format_coord_scatter',
+           'get_slice',
            'list_intersection', 'set_axis_label', 'set_miss',
            'spinbox_values', 'vardim2var', 'zip_dim_name_length']
 
@@ -338,6 +347,184 @@ def clone_ncvmain(widget):
             clone.configure({key: widget.cget(key)})
 
     return clone
+
+
+def format_coord_contour(x, y, ax, xx, yy, zz):
+    """
+    Formatter function for contour plot including value of nearest array cell.
+
+    Parameters
+    ----------
+    x, y : float
+        Data coordinates of `ax`.
+    ax: matplotlib.axes._subplots.AxesSubplot
+        Matplotlib axes object for left-hand and right-hand y-axis, resp.
+    xx, yy, zz: ndarray
+        Numpy arrays with x-values, y-values, and z-values
+
+    Returns
+    -------
+    String with coordinateds.
+
+    Examples
+    --------
+    >>> ax = plt.subplot(111)
+    >>> ax.pcolormesh(xx, yy, zz)
+    >>> ax.format_coord = lambda x, y: format_coord_contour(
+    ...     x, y, ax, xx, yy, zz)
+    """
+    # find closest grid cell
+    # https://stackoverflow.com/questions/42577204/show-z-value-at-mouse-pointer-position-in-status-line-with-matplotlibs-pcolorme
+    if xx.ndim > 1:
+        xarr = xx[0, :]
+    else:
+        xarr = xx
+    if xx.dtype == np.dtype('<M8[ms]'):
+        xarr = mpld.date2num(xarr)
+    if yy.ndim > 1:
+        yarr = yy[:, 0]
+    else:
+        yarr = yy
+    if yy.dtype == np.dtype('<M8[ms]'):
+        yarr = mpld.date2num(yarr)
+    if ((x > xarr.min()) & (x <= xarr.max()) & 
+        (y > yarr.min()) & (y <= yarr.max())):
+        col = np.searchsorted(xarr, x) - 1
+        row = np.searchsorted(yarr, y) - 1
+        xout = xarr[col]
+        yout = yarr[row]
+        zout = zz[row, col]
+    else:
+        xout = x
+        yout = y
+        if zz.dtype == np.dtype('<M8[ms]'):
+            zout = np.datetime64('NaT')
+        else:
+            zout = np.nan
+
+    # Special treatment for datetime
+    # https://stackoverflow.com/questions/49267011/matplotlib-datetime-from-event-coordinates
+    if xx.dtype == np.dtype('<M8[ms]'):
+        xstr = mpld.num2date(xout).strftime('%Y-%m-%d %H:%M:%S')
+    else:
+        xstr  = '{:.4g}'.format(xout)
+    if yy.dtype == np.dtype('<M8[ms]'):
+        ystr = mpld.num2date(yout).strftime('%Y-%m-%d %H:%M:%S')
+    else:
+        ystr  = '{:.4g}'.format(yout)
+    if zz.dtype == np.dtype('<M8[ms]'):
+        zstr = mpld.num2date(zout).strftime('%Y-%m-%d %H:%M:%S')
+    else:
+        zstr = '{:.4g}'.format(zout)
+    out = 'x=' + xstr + ', y=' + ystr + ', z=' + zstr
+    return out
+
+
+def format_coord_map(x, y, ax, xx, yy, zz):
+    """
+    Formatter function for map including value of nearest array cell.
+
+    Parameters
+    ----------
+    x, y : float
+        Data coordinates of `ax`.
+    ax: matplotlib.axes._subplots.AxesSubplot
+        Matplotlib axes object for left-hand and right-hand y-axis, resp.
+    xx, yy, zz: ndarray
+        Numpy arrays with x-values, y-values, and z-values
+
+    Returns
+    -------
+    String with coordinateds.
+
+    Examples
+    --------
+    >>> ax = plt.subplot(111)
+    >>> ax.pcolormesh(xx, yy, zz)
+    >>> ax.format_coord = lambda x, y: format_coord_contour(
+    ...     x, y, ax, xx, yy, zz)
+    """
+    # find closest grid cell
+    xpp, ypp = ccrs.PlateCarree(central_longitude=0).transform_point(
+        x, y, ax.projection)
+    x360 = (xpp + 360.) % 360.
+    y360 = ypp
+    xx360 = (xx + 360.) % 360.
+    yy360 = yy
+    idx = np.abs((xx360 - x360)**2 + (yy360 - y360)**2).argmin()
+    xout = xx.flat[idx]
+    yout = yy.flat[idx]
+    zout = zz.flat[idx]
+
+    # from cartopy
+    lon, lat = ccrs.Geodetic().transform_point(x, y, ax.projection)
+
+    # xstr  = '{:.4g}'.format(xout)
+    # ystr  = '{:.4g}'.format(yout)
+    xstr  = '{:.4g}'.format(xout)
+    ystr  = '{:.4g}'.format(yout)
+    zstr  = '{:.4g}'.format(zout)
+    ns = 'N' if lat >= 0. else 'S'
+    ew = 'E' if lon >= 0. else 'W'
+    latstr = u'{:.4f} \u00b0{:s}'.format(abs(lat), ns)
+    lonstr = u'{:.4f} \u00b0{:s}'.format(abs(lon), ew)
+    out  = u'x=' + xstr + ', y=' + ystr + ' (' + lonstr + ', ' + latstr + ')'
+    out += ' z=' + zstr
+    return out
+
+
+def format_coord_scatter(x, y, ax, ax2, xdtype, ydtype, y2dtype):
+    """
+    Formatter function for scatter plot with left and right axis
+    having the same x-axis.
+
+    Parameters
+    ----------
+    x, y : float
+        Data coordinates of `ax2`.
+    ax, ax2: matplotlib.axes._subplots.AxesSubplot
+        Matplotlib axes object for left-hand and right-hand y-axis, resp.
+    xdtype, ydtype, y2dtype: numpy.dtype
+        Numpy dtype of data of x-values (xdtype), left-hand side y-values
+        (ydtype), and right-hand side y-values (y2dtype)
+
+    Returns
+    -------
+    String with left-hand side and right hand-side coordinates.
+
+    Examples
+    --------
+    >>> ax = plt.subplot(111)
+    >>> ax2 = ax.twinx()
+    >>> ax.plot(xx, yy)
+    >>> ax2.plot(xx, yy2)
+    >>> ax2.format_coord = lambda x, y: format_coord_scatter(
+    ...     x, y, ax, ax2, xx.dtype, yy.dtype, yy2.dtype)
+    """
+    # convert to display coords
+    # https://stackoverflow.com/questions/21583965/matplotlib-cursor-value-with-two-axes
+    display_coord = ax2.transData.transform((x, y))
+    # convert back to data coords with respect to ax
+    inv      = ax.transData.inverted()
+    ax_coord = inv.transform(display_coord)
+
+    # Special treatment for datetime
+    # https://stackoverflow.com/questions/49267011/matplotlib-datetime-from-event-coordinates
+    if xdtype == np.dtype('<M8[ms]'):
+        xstr = mpld.num2date(x).strftime('%Y-%m-%d %H:%M:%S')
+    else:
+        xstr  = '{:.3g}'.format(x)
+    if ydtype == np.dtype('<M8[ms]'):
+        ystr = mpld.num2date(ax_coord[1]).strftime('%Y-%m-%d %H:%M:%S')
+    else:
+        ystr  = '{:.3g}'.format(ax_coord[1])
+    if y2dtype == np.dtype('<M8[ms]'):
+        y2str = mpld.num2date(y).strftime('%Y-%m-%d %H:%M:%S')
+    else:
+        y2str = '{:.3g}'.format(y)
+    out  = 'Left: (' + xstr + ', ' + ystr + ')'
+    out += ' Right: (' + xstr + ', ' + y2str + ')'
+    return out
 
 
 def get_slice(dimspins, y):

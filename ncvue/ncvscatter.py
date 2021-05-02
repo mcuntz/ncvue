@@ -18,6 +18,8 @@ History:
 
 * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
 * Open new netcdf file, communicate via top widget, Jan 2021, Matthias Cuntz
+* Write left-hand side and right-hand side values on bottom of plotting canvas,
+  May 2021, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -37,7 +39,8 @@ except Exception:
 from tkinter import filedialog
 import numpy as np
 import netCDF4 as nc
-from .ncvutils   import clone_ncvmain, set_axis_label, vardim2var
+from .ncvutils   import clone_ncvmain, format_coord_scatter
+from .ncvutils   import set_axis_label, vardim2var
 from .ncvmethods import analyse_netcdf, get_slice_miss
 from .ncvmethods import set_dim_x, set_dim_y, set_dim_y2
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry
@@ -51,37 +54,6 @@ plt.style.use('seaborn-dark')
 
 
 __all__ = ['ncvScatter']
-
-
-def format_coord_left_right(x, y, ax, ax2, xdtype, ydtype, y2dtype):
-    # https://stackoverflow.com/questions/21583965/matplotlib-cursor-value-with-two-axes
-    # x, y are data coordinates of ax2
-    # ax2 and ax are axes
-    # xdtype, ydtype, y2dtype are the data types of the plotted data
-
-    # convert to display coords
-    display_coord = ax2.transData.transform((x, y))
-    inv = ax.transData.inverted()
-    # convert back to data coords with respect to ax
-    ax_coord = inv.transform(display_coord)
-
-    # Special treatment for datetime
-    # https://stackoverflow.com/questions/49267011/matplotlib-datetime-from-event-coordinates
-    if xdtype == np.dtype('<M8[ms]'):
-        xstr = matplotlib.dates.num2date(x).strftime('%Y-%m-%d %H:%M:%S')
-    else:
-        xstr  = '{:.3g}'.format(x)
-    if ydtype == np.dtype('<M8[ms]'):
-        ystr = matplotlib.dates.num2date(ax_coord[1]).strftime('%Y-%m-%d %H:%M:%S')
-    else:
-        ystr  = '{:.3g}'.format(ax_coord[1])
-    if y2dtype == np.dtype('<M8[ms]'):
-        y2str = matplotlib.dates.num2date(y).strftime('%Y-%m-%d %H:%M:%S')
-    else:
-        y2str = '{:.3g}'.format(y)
-    out   = 'Left: (' + xstr + ', ' + ystr + ')'
-    out  += ' Right: (' + xstr + ', ' + y2str + ')'
-    return out
 
 
 class ncvScatter(ttk.Frame):
@@ -992,7 +964,7 @@ class ncvScatter(ttk.Frame):
                 estr += ' shapes do not match for plot:'
                 print(estr, xx.shape, yy2.shape)
                 return
-            self.axes2.format_coord = lambda x, y: format_coord_left_right(
+            self.axes2.format_coord = lambda x, y: format_coord_scatter(
                 x, y, self.axes, self.axes2, xx.dtype, yy.dtype, yy2.dtype)
             self.axes2.xaxis.set_label_text(xlab)
             self.axes2.yaxis.set_label_text(ylab2)
