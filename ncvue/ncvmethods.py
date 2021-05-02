@@ -37,6 +37,8 @@ History:
 * added tooltip to dimensions, Jan 2021, Matthias Cuntz
 * added analyse_netcdf from ncvmain, Jan 2021, Matthias Cuntz
 * use dlblval instead of dlbl to set dimension labels, Jan 2021, Matthias Cuntz
+* make self.time numpy's datetime64[ms] format, May 2021, Matthias Cuntz
+* add numpy's datetime64[ms] to missing values, May 2021, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -64,6 +66,7 @@ import netCDF4 as nc
 nctypes = [ np.dtype(i) for i in nc.default_fillvals ]
 ncfill  = dict(zip(nctypes, list(nc.default_fillvals.values())))
 ncfill.update({np.dtype('O'): np.nan})
+ncfill.update({np.dtype('<M8[ms]'): np.datetime64('NaT')})
 
 
 __all__ = ['analyse_netcdf', 'get_miss', 'get_slice_miss',
@@ -160,8 +163,7 @@ def analyse_netcdf(self):
                                          'days since 0001-01-01 00:00:00')
             else:
                 try:
-                    self.dtime = cf.num2date(time, tunit,
-                                             calendar=tcal)
+                    self.dtime = cf.num2date(time, tunit, calendar=tcal)
                 except ValueError:
                     self.dtime = None
             if self.dtime is not None:
@@ -190,16 +192,23 @@ def analyse_netcdf(self):
             # make datetime variable
             if self.time is None:
                 try:
-                    self.time = cf.num2date(
+                    ttime = cf.num2date(
                         time, tunit, calendar=tcal,
                         only_use_cftime_datetimes=False,
                         only_use_python_datetimes=True)
+                    self.time = np.array([ dd.isoformat()
+                                           for dd in ttime ],
+                                         dtype='datetime64[ms]')
                 except:
                     self.time = None
             if self.time is None:
                 try:
-                    self.time = cf.num2date(time, tunit,
-                                            calendar=tcal)
+                    # self.time = cf.num2date(time, tunit,
+                    ttime = cf.num2date(time, tunit,
+                                        calendar=tcal)
+                    self.time = np.array([ dd.isoformat()
+                                           for dd in ttime ],
+                                         dtype='datetime64[ms]')
                 except:
                     self.time = None
             if self.time is None:
@@ -210,6 +219,8 @@ def analyse_netcdf(self):
                 # e.g. if units = "months since ..."
                 self.time  = time
                 self.dtime = time
+            # print('time:  ', self.time)
+            # print('dtime: ', self.dtime)
             break
     #
     # construct list of variable names with dimensions
@@ -467,7 +478,8 @@ def get_miss(self, x):
     except KeyError:
         out = []
     try:
-        out += [self.miss]
+        if x.dtype != np.dtype('<M8[ms]'):
+            out += [self.miss]
     except AttributeError:
         pass
     try:
@@ -489,7 +501,7 @@ def get_slice_miss(self, dimspins, x):
     """
     Convenience method to get list of missing values (get_miss),
     choose slice of array (get_slice), and set missing values to
-    NaN in slice (set_miss).
+    NaN or np.datetime64('NaT') in slice (set_miss).
 
     Parameters
     ----------
@@ -503,7 +515,8 @@ def get_slice_miss(self, dimspins, x):
     Returns
     -------
     ndarray
-        Extracted array slice with missing values set to np.NaN
+        Extracted array slice with missing values set to
+        np.NaN or np.datetime64('NaT')
 
     Examples
     --------
