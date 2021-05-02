@@ -24,6 +24,8 @@ History:
 * added SEPCHAR and DIMMETHODS, Jan 2021, Matthias Cuntz
 * pass only ncvMain widget to clone_ncvmain, Jan 2021, Matthias Cuntz
 * pass only root widget to clone_ncvmain, Jan 2021, Matthias Cuntz
+* set correct missing value for date variable in numpy's datetime64[ms] format
+  May 2021, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -303,10 +305,6 @@ def clone_ncvmain(widget):
     ----------
     widget : ncvue.ncvMain
         widget of ncvMain class.
-    fi : netCDF4._netCDF4.Dataset
-        netcdf dataset
-    miss : float
-        Additional value that will be set to np.nan in netcdf variables.
 
     Returns
     -------
@@ -476,19 +474,20 @@ def set_axis_label(ncvar):
 
 def set_miss(miss, x):
     """
-    Set `x` to NaN for all values in miss.
+    Set `x` to NaN or NaT for all values in miss.
 
     Parameters
     ----------
     miss : iterable
-        values which shall be set to np.nan in `x`
+        values which shall be set to np.nan or np.datetime64('NaT') in `x`
     x : ndarray
         numpy array
 
     Returns
     -------
     ndarray
-        `x` with all values set np.nan that are equal to any value in miss.
+        `x` with all values set np.nan or np.datetime64('NaT')
+        that are equal to any value in miss.
 
     Examples
     --------
@@ -496,8 +495,12 @@ def set_miss(miss, x):
     >>> miss = get_miss(self, x)
     >>> x = set_miss(miss, x)
     """
+    if x.dtype == np.dtype('<M8[ms]'):
+        default = np.datetime64('NaT')
+    else:
+        default = np.nan
     for mm in miss:
-        x = np.where(x == mm, np.nan, x)
+        x = np.where(x == mm, default, x)
     return x
 
 
