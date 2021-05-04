@@ -984,7 +984,10 @@ class ncvMap(ttk.Frame):
                     self.iunlim = 0
             else:
                 self.iunlim = 0
-            self.nunlim = self.fi.variables[vz].shape[self.iunlim]
+            if self.fi.variables[vz].ndim > 0:
+                self.nunlim = self.fi.variables[vz].shape[self.iunlim]
+            else:
+                self.nunlim = 0
 
     #
     # Plotting
@@ -1197,7 +1200,8 @@ class ncvMap(ttk.Frame):
             if self.iiglobal:
                 # cartopy.contourf needs cyclic longitude for wrap around
                 self.ivvc, self.ixxc, self.iyyc = add_cyclic_point(
-                    self.ivv, coord=self.ixx, rowcoord=self.iyy)
+                    self.ivv.astype(float), coord=self.ixx.astype(float),
+                    rowcoord=self.iyy)
             else:
                 self.ivvc = self.ivv
                 self.ixxc = self.ixx
@@ -1210,7 +1214,8 @@ class ncvMap(ttk.Frame):
             self.ncmap   = self.ncmap if self.ncmap < 256 else 15
             self.iextend = extend
             # self.img_extent = (xx.min(), xx.max(), yy.min(), yy.max())
-            # print(self.ixx.min(), self.ixx.max(), self.iyy.min(), self.iyy.max())
+            # print(self.ixx.min(), self.ixx.max(), self.iyy.min(),
+            #       self.iyy.max())
             if mesh:
                 try:
                     # vv is matrix notation: (row, col)
