@@ -14,4 +14,5 @@ Contents
 
    readme
    install
+   license
    package

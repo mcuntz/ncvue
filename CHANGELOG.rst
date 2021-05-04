@@ -6,6 +6,7 @@ are documented in this file.
 
 v3.4 (May 2021)
 -----------------
+* Added license to documentation.
 * Change separator character to unit separator (ASCII 31).
 * Print correct coordinates and values on plotting window.
 * Set time axis to numpy's datetime64 format.
