@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>ncvue.ncvmap &mdash; ncvue 3.3.1 documentation</title>
   
@@ -16,7 +16,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -29,7 +32,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -51,7 +53,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> ncvue
+            <a href="index.html" class="icon icon-home"> ncvue
           
 
           
@@ -175,6 +177,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -188,7 +192,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/ncvmap.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -199,10 +203,10 @@
   
   <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
       
-        <a href="ncvmethods.html" class="btn btn-neutral float-right" title="ncvue.ncvmethods" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="ncvmethods.html" class="btn btn-neutral float-right" title="ncvue.ncvmethods" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
       
       
-        <a href="ncvmain.html" class="btn btn-neutral float-left" title="ncvue.ncvmain" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="ncvmain.html" class="btn btn-neutral float-left" title="ncvue.ncvmain" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
       
   </div>
   
@@ -225,6 +229,8 @@ France.</p>
 <ul class="simple">
 <li><p>Written Dec 2020-Jan 2021 by Matthias Cuntz (mc (at) macu (dot) de)</p></li>
 <li><p>Open new netcdf file, communicate via top widget, Jan 2021, Matthias Cuntz</p></li>
+<li><p>Write coordinates and value on bottom of plotting canvas,
+May 2021, Matthias Cuntz</p></li>
 </ul>
 <p>The following classes are provided:</p>
 <table class="longtable docutils align-default">
@@ -240,7 +246,7 @@ France.</p>
 </table>
 <dl class="py class">
 <dt id="ncvue.ncvmap.ncvMap">
-<em class="property">class </em><code class="sig-name descname">ncvMap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">master</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">ncvMap</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">master</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tkinter.ttk.Frame</span></code></p>
 <p>Panel for maps.</p>
 <p>Sets up the layout with the figure canvas, variable selectors, dimension
@@ -827,7 +833,7 @@ something is selected, changed, checked, etc.</p>
 </table>
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.after">
-<code class="sig-name descname">after</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ms</span></em>, <em class="sig-param"><span class="n">func</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.after" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">after</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.after" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call function once after given time.</p>
 <p>MS specifies the time in milliseconds. FUNC gives the
 function which shall be called. Additional parameters
@@ -837,7 +843,7 @@ identifier to cancel scheduling with after_cancel.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.after_cancel">
-<code class="sig-name descname">after_cancel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.after_cancel" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">after_cancel</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.after_cancel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Cancel scheduling of function identified with ID.</p>
 <p>Identifier returned by after or after_idle must be
 given as first parameter.</p>
@@ -845,7 +851,7 @@ given as first parameter.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.after_idle">
-<code class="sig-name descname">after_idle</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.after_idle" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">after_idle</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.after_idle" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call FUNC once if the Tcl main loop has no event to
 process.</p>
 <p>Return an identifier to cancel the scheduling with
@@ -854,7 +860,7 @@ after_cancel.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.anchor">
-<code class="sig-name descname">anchor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">anchor</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.anchor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">anchor</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">anchor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.anchor" title="Permalink to this definition">¶</a></dt>
 <dd><p>The anchor value controls how to place the grid within the
 master when no row/column has any weight.</p>
 <p>The default anchor is nw.</p>
@@ -862,7 +868,7 @@ master when no row/column has any weight.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.bbox">
-<code class="sig-name descname">bbox</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">column</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">row</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">col2</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">row2</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.bbox" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">bbox</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.bbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a tuple of integer coordinates for the bounding
 box of this widget controlled by the geometry manager grid.</p>
 <p>If COLUMN, ROW is given the bounding box applies from
@@ -875,13 +881,13 @@ corner in the master widget and the width and height.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.bell">
-<code class="sig-name descname">bell</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">displayof</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.bell" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">bell</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">displayof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.bell" title="Permalink to this definition">¶</a></dt>
 <dd><p>Ring a display’s bell.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.bind">
-<code class="sig-name descname">bind</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sequence</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">func</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">add</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.bind" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">bind</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.bind" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bind to this widget at event SEQUENCE a call to function FUNC.</p>
 <p>SEQUENCE is a string of concatenated event
 patterns. An event pattern is of the form
@@ -918,7 +924,7 @@ of bound events are returned.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.bind_all">
-<code class="sig-name descname">bind_all</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sequence</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">func</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">add</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.bind_all" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">bind_all</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.bind_all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bind to all widgets at an event SEQUENCE a call to function FUNC.
 An additional boolean parameter ADD specifies whether FUNC will
 be called additionally to the other bound function or whether
@@ -927,7 +933,7 @@ it will replace the previous function. See bind for the return value.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.bind_class">
-<code class="sig-name descname">bind_class</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">className</span></em>, <em class="sig-param"><span class="n">sequence</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">func</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">add</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.bind_class" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">bind_class</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">className</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sequence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.bind_class" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bind to widgets with bindtag CLASSNAME at event
 SEQUENCE a call of function FUNC. An additional
 boolean parameter ADD specifies whether FUNC will be
@@ -938,7 +944,7 @@ the return value.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.bindtags">
-<code class="sig-name descname">bindtags</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tagList</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.bindtags" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">bindtags</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tagList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.bindtags" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set or get the list of bindtags for this widget.</p>
 <p>With no argument return the list of all bindtags associated with
 this widget. With a list of strings as argument the bindtags are
@@ -948,20 +954,20 @@ processed (see bind).</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.cget">
-<code class="sig-name descname">cget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.cget" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">cget</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.cget" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the resource value for a KEY given as string.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.checked">
-<code class="sig-name descname">checked</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.checked"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.checked" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">checked</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.checked"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.checked" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if any checkbutton was checked or unchecked.</p>
 <p>Redraws plot.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.checked_all">
-<code class="sig-name descname">checked_all</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.checked_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.checked_all" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">checked_all</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.checked_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.checked_all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if any checkbutton ‘all’ for vmin/vmax was checked or
 unchecked.</p>
 <p>Resets vmin/vmax, redraws plot.</p>
@@ -969,7 +975,7 @@ unchecked.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.clipboard_append">
-<code class="sig-name descname">clipboard_append</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.clipboard_append" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">clipboard_append</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.clipboard_append" title="Permalink to this definition">¶</a></dt>
 <dd><p>Append STRING to the Tk clipboard.</p>
 <p>A widget specified at the optional displayof keyword
 argument specifies the target display. The clipboard
@@ -978,7 +984,7 @@ can be retrieved with selection_get.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.clipboard_clear">
-<code class="sig-name descname">clipboard_clear</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.clipboard_clear" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">clipboard_clear</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.clipboard_clear" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clear the data in the Tk clipboard.</p>
 <p>A widget specified for the optional displayof keyword
 argument specifies the target display.</p>
@@ -986,7 +992,7 @@ argument specifies the target display.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.clipboard_get">
-<code class="sig-name descname">clipboard_get</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.clipboard_get" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">clipboard_get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.clipboard_get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve data from the clipboard on window’s display.</p>
 <p>The window keyword defaults to the root window of the Tkinter
 application.</p>
@@ -1000,7 +1006,7 @@ is to try UTF8_STRING and fall back to STRING.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.columnconfigure">
-<code class="sig-name descname">columnconfigure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">index</span></em>, <em class="sig-param"><span class="n">cnf</span><span class="o">=</span><span class="default_value">{}</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.columnconfigure" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">columnconfigure</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.columnconfigure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configure column INDEX of a grid.</p>
 <p>Valid resources are minsize (minimum size of the column),
 weight (how much does additional space propagate to this column)
@@ -1009,7 +1015,7 @@ and pad (how much space to let additionally).</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.config">
-<code class="sig-name descname">config</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cnf</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.config" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">config</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configure resources of a widget.</p>
 <p>The values for resources are specified as keyword
 arguments. To get an overview about
@@ -1018,7 +1024,7 @@ the allowed keyword arguments call the method keys.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.configure">
-<code class="sig-name descname">configure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cnf</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.configure" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">configure</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.configure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configure resources of a widget.</p>
 <p>The values for resources are specified as keyword
 arguments. To get an overview about
@@ -1027,27 +1033,27 @@ the allowed keyword arguments call the method keys.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.delay_t">
-<code class="sig-name descname">delay_t</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">delay</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.delay_t"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.delay_t" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">delay_t</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delay</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.delay_t"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.delay_t" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if delay scale was changed.</p>
 <p><cite>delay</cite> is the chosen value on the scale slider.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.deletecommand">
-<code class="sig-name descname">deletecommand</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.deletecommand" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">deletecommand</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.deletecommand" title="Permalink to this definition">¶</a></dt>
 <dd><p>Internal function.</p>
 <p>Delete the Tcl command provided in NAME.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.destroy">
-<code class="sig-name descname">destroy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.destroy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">destroy</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.destroy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Destroy this and all descendants widgets.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.entered_clon">
-<code class="sig-name descname">entered_clon</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.entered_clon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.entered_clon" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">entered_clon</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.entered_clon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.entered_clon" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if values central longitude was entered.</p>
 <p>Triggering <cite>event</cite> was bound to entry.</p>
 <p>Redraws plot.</p>
@@ -1055,7 +1061,7 @@ the allowed keyword arguments call the method keys.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.entered_v">
-<code class="sig-name descname">entered_v</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.entered_v"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.entered_v" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">entered_v</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.entered_v"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.entered_v" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if values for <cite>vmin</cite>/<cite>vmax</cite> were entered.</p>
 <p>Triggering <cite>event</cite> was bound to entry.</p>
 <p>Redraws plot.</p>
@@ -1063,7 +1069,7 @@ the allowed keyword arguments call the method keys.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.event_add">
-<code class="sig-name descname">event_add</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">virtual</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">sequences</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.event_add" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">event_add</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">virtual</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">sequences</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.event_add" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bind a virtual event VIRTUAL (of the form &lt;&lt;Name&gt;&gt;)
 to an event SEQUENCE such that the virtual event is triggered
 whenever SEQUENCE occurs.</p>
@@ -1071,13 +1077,13 @@ whenever SEQUENCE occurs.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.event_delete">
-<code class="sig-name descname">event_delete</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">virtual</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">sequences</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.event_delete" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">event_delete</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">virtual</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">sequences</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.event_delete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unbind a virtual event VIRTUAL from SEQUENCE.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.event_generate">
-<code class="sig-name descname">event_generate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sequence</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.event_generate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">event_generate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.event_generate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate an event SEQUENCE. Additional
 keyword arguments specify parameter of the event
 (e.g. x, y, rootx, rooty).</p>
@@ -1085,20 +1091,20 @@ keyword arguments specify parameter of the event
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.event_info">
-<code class="sig-name descname">event_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">virtual</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.event_info" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">event_info</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">virtual</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.event_info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of all virtual events or the information
 about the SEQUENCE bound to the virtual event VIRTUAL.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.first_t">
-<code class="sig-name descname">first_t</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.first_t"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.first_t" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">first_t</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.first_t"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.first_t" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if first frame button was pressed.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.focus">
-<code class="sig-name descname">focus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.focus" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">focus</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.focus" title="Permalink to this definition">¶</a></dt>
 <dd><p>Direct input focus to this widget.</p>
 <p>If the application currently does not have the focus
 this widget will get the focus if the application gets
@@ -1107,7 +1113,7 @@ the focus through the window manager.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.focus_displayof">
-<code class="sig-name descname">focus_displayof</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.focus_displayof" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">focus_displayof</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.focus_displayof" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the widget which has currently the focus on the
 display where this widget is located.</p>
 <p>Return None if the application does not have the focus.</p>
@@ -1115,7 +1121,7 @@ display where this widget is located.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.focus_force">
-<code class="sig-name descname">focus_force</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.focus_force" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">focus_force</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.focus_force" title="Permalink to this definition">¶</a></dt>
 <dd><p>Direct input focus to this widget even if the
 application does not have the focus. Use with
 caution!</p>
@@ -1123,7 +1129,7 @@ caution!</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.focus_get">
-<code class="sig-name descname">focus_get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.focus_get" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">focus_get</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.focus_get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the widget which has currently the focus in the
 application.</p>
 <p>Use focus_displayof to allow working with several
@@ -1133,14 +1139,14 @@ the focus.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.focus_lastfor">
-<code class="sig-name descname">focus_lastfor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.focus_lastfor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">focus_lastfor</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.focus_lastfor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the widget which would have the focus if top level
 for this widget gets the focus from the window manager.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.focus_set">
-<code class="sig-name descname">focus_set</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.focus_set" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">focus_set</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.focus_set" title="Permalink to this definition">¶</a></dt>
 <dd><p>Direct input focus to this widget.</p>
 <p>If the application currently does not have the focus
 this widget will get the focus if the application gets
@@ -1149,53 +1155,53 @@ the focus through the window manager.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.forget">
-<code class="sig-name descname">forget</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.forget" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">forget</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.forget" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unmap this widget and do not use it for the packing order.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.get_vminmax">
-<code class="sig-name descname">get_vminmax</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.get_vminmax"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.get_vminmax" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_vminmax</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.get_vminmax"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.get_vminmax" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.getboolean">
-<code class="sig-name descname">getboolean</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">s</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.getboolean" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">getboolean</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.getboolean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a boolean value for Tcl boolean values true and false given as parameter.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.getdouble">
-<code class="sig-name descname">getdouble</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">s</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.getdouble" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">getdouble</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.getdouble" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.getint">
-<code class="sig-name descname">getint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">s</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.getint" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">getint</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.getint" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.getvar">
-<code class="sig-name descname">getvar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">'PY_VAR'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.getvar" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">getvar</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'PY_VAR'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.getvar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return value of Tcl variable NAME.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.grab_current">
-<code class="sig-name descname">grab_current</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grab_current" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">grab_current</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grab_current" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return widget which has currently the grab in this application
 or None.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.grab_release">
-<code class="sig-name descname">grab_release</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grab_release" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">grab_release</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grab_release" title="Permalink to this definition">¶</a></dt>
 <dd><p>Release grab for this widget if currently set.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.grab_set">
-<code class="sig-name descname">grab_set</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grab_set" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">grab_set</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grab_set" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set grab for this widget.</p>
 <p>A grab directs all events to this and descendant
 widgets in the application.</p>
@@ -1203,7 +1209,7 @@ widgets in the application.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.grab_set_global">
-<code class="sig-name descname">grab_set_global</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grab_set_global" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">grab_set_global</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grab_set_global" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set global grab for this widget.</p>
 <p>A global grab directs all events to this and
 descendant widgets on the display. Use with caution -
@@ -1212,14 +1218,14 @@ other applications do not get events anymore.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.grab_status">
-<code class="sig-name descname">grab_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grab_status" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">grab_status</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grab_status" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return None, “local” or “global” if this widget has
 no, a local or a global grab.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.grid">
-<code class="sig-name descname">grid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cnf</span><span class="o">=</span><span class="default_value">{}</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grid" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">grid</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Position a widget in the parent widget in a grid. Use as options:
 column=number - use cell identified with given column (starting with 0)
 columnspan=number - this widget will span several columns
@@ -1239,7 +1245,7 @@ sticky=NSEW - if cell is larger on which sides will this</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.grid_anchor">
-<code class="sig-name descname">grid_anchor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">anchor</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grid_anchor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">grid_anchor</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">anchor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grid_anchor" title="Permalink to this definition">¶</a></dt>
 <dd><p>The anchor value controls how to place the grid within the
 master when no row/column has any weight.</p>
 <p>The default anchor is nw.</p>
@@ -1247,7 +1253,7 @@ master when no row/column has any weight.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.grid_bbox">
-<code class="sig-name descname">grid_bbox</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">column</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">row</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">col2</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">row2</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grid_bbox" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">grid_bbox</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grid_bbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a tuple of integer coordinates for the bounding
 box of this widget controlled by the geometry manager grid.</p>
 <p>If COLUMN, ROW is given the bounding box applies from
@@ -1260,7 +1266,7 @@ corner in the master widget and the width and height.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.grid_columnconfigure">
-<code class="sig-name descname">grid_columnconfigure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">index</span></em>, <em class="sig-param"><span class="n">cnf</span><span class="o">=</span><span class="default_value">{}</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grid_columnconfigure" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">grid_columnconfigure</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grid_columnconfigure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configure column INDEX of a grid.</p>
 <p>Valid resources are minsize (minimum size of the column),
 weight (how much does additional space propagate to this column)
@@ -1269,7 +1275,7 @@ and pad (how much space to let additionally).</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.grid_configure">
-<code class="sig-name descname">grid_configure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cnf</span><span class="o">=</span><span class="default_value">{}</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grid_configure" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">grid_configure</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grid_configure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Position a widget in the parent widget in a grid. Use as options:
 column=number - use cell identified with given column (starting with 0)
 columnspan=number - this widget will span several columns
@@ -1289,20 +1295,20 @@ sticky=NSEW - if cell is larger on which sides will this</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.grid_forget">
-<code class="sig-name descname">grid_forget</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grid_forget" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">grid_forget</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grid_forget" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unmap this widget.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.grid_info">
-<code class="sig-name descname">grid_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grid_info" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">grid_info</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grid_info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return information about the options
 for positioning this widget in a grid.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.grid_location">
-<code class="sig-name descname">grid_location</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grid_location" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">grid_location</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grid_location" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a tuple of column and row which identify the cell
 at which the pixel at position X and Y inside the master
 widget is located.</p>
@@ -1310,7 +1316,7 @@ widget is located.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.grid_propagate">
-<code class="sig-name descname">grid_propagate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">flag</span><span class="o">=</span><span class="default_value">['_noarg_']</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grid_propagate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">grid_propagate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['_noarg_']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grid_propagate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set or get the status for propagation of geometry information.</p>
 <p>A boolean argument specifies whether the geometry information
 of the slaves will determine the size of this widget. If no argument
@@ -1319,13 +1325,13 @@ is given, the current setting will be returned.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.grid_remove">
-<code class="sig-name descname">grid_remove</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grid_remove" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">grid_remove</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grid_remove" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unmap this widget but remember the grid options.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.grid_rowconfigure">
-<code class="sig-name descname">grid_rowconfigure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">index</span></em>, <em class="sig-param"><span class="n">cnf</span><span class="o">=</span><span class="default_value">{}</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grid_rowconfigure" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">grid_rowconfigure</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grid_rowconfigure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configure row INDEX of a grid.</p>
 <p>Valid resources are minsize (minimum size of the row),
 weight (how much does additional space propagate to this row)
@@ -1334,20 +1340,20 @@ and pad (how much space to let additionally).</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.grid_size">
-<code class="sig-name descname">grid_size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grid_size" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">grid_size</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grid_size" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a tuple of the number of column and rows in the grid.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.grid_slaves">
-<code class="sig-name descname">grid_slaves</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">row</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">column</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grid_slaves" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">grid_slaves</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grid_slaves" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of all slaves of this widget
 in its packing order.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.identify">
-<code class="sig-name descname">identify</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.identify" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">identify</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.identify" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the name of the element at position x, y, or the empty
 string if the point does not lie within any element.</p>
 <p>x and y are pixel coordinates relative to the widget.</p>
@@ -1355,26 +1361,26 @@ string if the point does not lie within any element.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.image_names">
-<code class="sig-name descname">image_names</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.image_names" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">image_names</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.image_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of all existing image names.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.image_types">
-<code class="sig-name descname">image_types</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.image_types" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">image_types</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.image_types" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of all available image types (e.g. photo bitmap).</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.info">
-<code class="sig-name descname">info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.info" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">info</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return information about the packing options
 for this widget.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.instate">
-<code class="sig-name descname">instate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">statespec</span></em>, <em class="sig-param"><span class="n">callback</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.instate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">instate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">statespec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.instate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test the widget’s state.</p>
 <p>If callback is not specified, returns True if the widget state
 matches statespec and False otherwise. If callback is specified,
@@ -1384,25 +1390,25 @@ matches statespec. statespec is expected to be a sequence.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.keys">
-<code class="sig-name descname">keys</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.keys" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">keys</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.keys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of all resource names of this widget.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.last_t">
-<code class="sig-name descname">last_t</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.last_t"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.last_t" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">last_t</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.last_t"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.last_t" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if last frame button was pressed.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.lift">
-<code class="sig-name descname">lift</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">aboveThis</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.lift" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">lift</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aboveThis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.lift" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raise this widget in the stacking order.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.location">
-<code class="sig-name descname">location</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.location" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">location</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.location" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a tuple of column and row which identify the cell
 at which the pixel at position X and Y inside the master
 widget is located.</p>
@@ -1410,51 +1416,51 @@ widget is located.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.lower">
-<code class="sig-name descname">lower</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">belowThis</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.lower" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">lower</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">belowThis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.lower" title="Permalink to this definition">¶</a></dt>
 <dd><p>Lower this widget in the stacking order.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.mainloop">
-<code class="sig-name descname">mainloop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.mainloop" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">mainloop</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.mainloop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call the mainloop of Tk.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.nametowidget">
-<code class="sig-name descname">nametowidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.nametowidget" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">nametowidget</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.nametowidget" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the Tkinter instance of a widget identified by
 its Tcl name NAME.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.newnetcdf">
-<code class="sig-name descname">newnetcdf</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.newnetcdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.newnetcdf" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">newnetcdf</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.newnetcdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.newnetcdf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Open a new netcdf file and connect it to top.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.next_t">
-<code class="sig-name descname">next_t</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.next_t"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.next_t" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">next_t</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.next_t"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.next_t" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if next frame button was pressed.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.next_v">
-<code class="sig-name descname">next_v</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.next_v"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.next_v" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">next_v</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.next_v"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.next_v" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if next button for the plotting variable was pressed.</p>
 <p>Resets <cite>vmin</cite>/<cite>vmax</cite> and variable-dimensions. Redraws plot.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.nrun_t">
-<code class="sig-name descname">nrun_t</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.nrun_t"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.nrun_t" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">nrun_t</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.nrun_t"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.nrun_t" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if forward run button was pressed.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.option_add">
-<code class="sig-name descname">option_add</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pattern</span></em>, <em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="n">priority</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.option_add" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">option_add</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">priority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.option_add" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set a VALUE (second parameter) for an option
 PATTERN (first parameter).</p>
 <p>An optional third parameter gives the numeric priority
@@ -1463,14 +1469,14 @@ PATTERN (first parameter).</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.option_clear">
-<code class="sig-name descname">option_clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.option_clear" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">option_clear</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.option_clear" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clear the option database.</p>
 <p>It will be reloaded if option_add is called.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.option_get">
-<code class="sig-name descname">option_get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">className</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.option_get" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">option_get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">className</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.option_get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the value for an option NAME for this widget
 with CLASSNAME.</p>
 <p>Values with higher priority override lower values.</p>
@@ -1478,7 +1484,7 @@ with CLASSNAME.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.option_readfile">
-<code class="sig-name descname">option_readfile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fileName</span></em>, <em class="sig-param"><span class="n">priority</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.option_readfile" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">option_readfile</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fileName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">priority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.option_readfile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read file FILENAME into the option database.</p>
 <p>An optional second parameter gives the numeric
 priority.</p>
@@ -1486,7 +1492,7 @@ priority.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.pack">
-<code class="sig-name descname">pack</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cnf</span><span class="o">=</span><span class="default_value">{}</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.pack" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">pack</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.pack" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pack a widget in the parent widget. Use as options:
 after=widget - pack it after you have packed widget
 anchor=NSEW (or subset) - position widget according to</p>
@@ -1507,7 +1513,7 @@ side=TOP or BOTTOM or LEFT or RIGHT -  where to add this widget.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.pack_configure">
-<code class="sig-name descname">pack_configure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cnf</span><span class="o">=</span><span class="default_value">{}</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.pack_configure" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">pack_configure</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.pack_configure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pack a widget in the parent widget. Use as options:
 after=widget - pack it after you have packed widget
 anchor=NSEW (or subset) - position widget according to</p>
@@ -1528,20 +1534,20 @@ side=TOP or BOTTOM or LEFT or RIGHT -  where to add this widget.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.pack_forget">
-<code class="sig-name descname">pack_forget</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.pack_forget" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">pack_forget</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.pack_forget" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unmap this widget and do not use it for the packing order.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.pack_info">
-<code class="sig-name descname">pack_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.pack_info" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">pack_info</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.pack_info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return information about the packing options
 for this widget.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.pack_propagate">
-<code class="sig-name descname">pack_propagate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">flag</span><span class="o">=</span><span class="default_value">['_noarg_']</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.pack_propagate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">pack_propagate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['_noarg_']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.pack_propagate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set or get the status for propagation of geometry information.</p>
 <p>A boolean argument specifies whether the geometry information
 of the slaves will determine the size of this widget. If no argument
@@ -1550,20 +1556,20 @@ is given the current setting will be returned.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.pack_slaves">
-<code class="sig-name descname">pack_slaves</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.pack_slaves" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">pack_slaves</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.pack_slaves" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of all slaves of this widget
 in its packing order.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.pause_t">
-<code class="sig-name descname">pause_t</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.pause_t"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.pause_t" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">pause_t</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.pause_t"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.pause_t" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if pause button was pressed.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.place">
-<code class="sig-name descname">place</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cnf</span><span class="o">=</span><span class="default_value">{}</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.place" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">place</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.place" title="Permalink to this definition">¶</a></dt>
 <dd><p>Place a widget in the parent widget. Use as options:
 in=master - master relative to which the widget is placed
 in_=master - see ‘in’ option description
@@ -1596,7 +1602,7 @@ height as the master)</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.place_configure">
-<code class="sig-name descname">place_configure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cnf</span><span class="o">=</span><span class="default_value">{}</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.place_configure" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">place_configure</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.place_configure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Place a widget in the parent widget. Use as options:
 in=master - master relative to which the widget is placed
 in_=master - see ‘in’ option description
@@ -1629,33 +1635,33 @@ height as the master)</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.place_forget">
-<code class="sig-name descname">place_forget</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.place_forget" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">place_forget</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.place_forget" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unmap this widget.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.place_info">
-<code class="sig-name descname">place_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.place_info" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">place_info</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.place_info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return information about the placing options
 for this widget.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.place_slaves">
-<code class="sig-name descname">place_slaves</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.place_slaves" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">place_slaves</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.place_slaves" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of all slaves of this widget
 in its packing order.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.prev_t">
-<code class="sig-name descname">prev_t</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.prev_t"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.prev_t" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">prev_t</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.prev_t"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.prev_t" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if previous frame button was pressed.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.prev_v">
-<code class="sig-name descname">prev_v</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.prev_v"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.prev_v" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">prev_v</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.prev_v"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.prev_v" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if previous button for the plotting variable was
 pressed.</p>
 <p>Resets <cite>vmin</cite>/<cite>vmax</cite> and v-dimensions. Redraws plot.</p>
@@ -1663,7 +1669,7 @@ pressed.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.propagate">
-<code class="sig-name descname">propagate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">flag</span><span class="o">=</span><span class="default_value">['_noarg_']</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.propagate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">propagate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['_noarg_']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.propagate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set or get the status for propagation of geometry information.</p>
 <p>A boolean argument specifies whether the geometry information
 of the slaves will determine the size of this widget. If no argument
@@ -1672,19 +1678,19 @@ is given the current setting will be returned.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.prun_t">
-<code class="sig-name descname">prun_t</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.prun_t"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.prun_t" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">prun_t</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.prun_t"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.prun_t" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if run backwards button was pressed.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.quit">
-<code class="sig-name descname">quit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.quit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">quit</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.quit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Quit the Tcl interpreter. All widgets will be destroyed.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.redraw">
-<code class="sig-name descname">redraw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.redraw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.redraw" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">redraw</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.redraw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.redraw" title="Permalink to this definition">¶</a></dt>
 <dd><p>Redraws the plot.</p>
 <p>Reads <cite>lon</cite>, <cite>lat</cite>, <cite>variable</cite> names, the current settings of
 their dimension spinboxes, as well as all other plotting options.
@@ -1693,7 +1699,7 @@ Then redraws the plot.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.register">
-<code class="sig-name descname">register</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em>, <em class="sig-param"><span class="n">subst</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">needcleanup</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.register" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">register</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">needcleanup</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.register" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a newly created Tcl function. If this
 function is called, the Python function FUNC will
 be executed. An optional function SUBST can
@@ -1702,20 +1708,20 @@ be given which will be executed before FUNC.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.reinit">
-<code class="sig-name descname">reinit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.reinit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.reinit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">reinit</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.reinit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.reinit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reinitialise the panel from top.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.repeat_t">
-<code class="sig-name descname">repeat_t</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.repeat_t"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.repeat_t" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">repeat_t</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.repeat_t"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.repeat_t" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if repeat option was chosen with combobox.</p>
 <p>Triggering <cite>event</cite> was bound to the combobox.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.rowconfigure">
-<code class="sig-name descname">rowconfigure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">index</span></em>, <em class="sig-param"><span class="n">cnf</span><span class="o">=</span><span class="default_value">{}</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.rowconfigure" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">rowconfigure</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.rowconfigure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configure row INDEX of a grid.</p>
 <p>Valid resources are minsize (minimum size of the row),
 weight (how much does additional space propagate to this row)
@@ -1724,7 +1730,7 @@ and pad (how much space to let additionally).</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.selected_cmap">
-<code class="sig-name descname">selected_cmap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.selected_cmap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.selected_cmap" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">selected_cmap</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.selected_cmap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.selected_cmap" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if cmap was chosen from menu.</p>
 <p><cite>value</cite> is the chosen colormap.</p>
 <p>Sets text and image on the menubutton.</p>
@@ -1732,7 +1738,7 @@ and pad (how much space to let additionally).</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.selected_lat">
-<code class="sig-name descname">selected_lat</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.selected_lat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.selected_lat" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">selected_lat</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.selected_lat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.selected_lat" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if latitude-variable was selected with combobox.</p>
 <p>Triggering <cite>event</cite> was bound to the combobox.</p>
 <p>Resets <cite>lat</cite> options and dimensions. Redraws plot.</p>
@@ -1740,7 +1746,7 @@ and pad (how much space to let additionally).</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.selected_lon">
-<code class="sig-name descname">selected_lon</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.selected_lon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.selected_lon" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">selected_lon</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.selected_lon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.selected_lon" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if x-variable was selected with combobox.</p>
 <p>Triggering <cite>event</cite> was bound to the combobox.</p>
 <p>Resets <cite>x</cite> options and dimensions. Redraws plot.</p>
@@ -1748,7 +1754,7 @@ and pad (how much space to let additionally).</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.selected_proj">
-<code class="sig-name descname">selected_proj</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.selected_proj"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.selected_proj" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">selected_proj</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.selected_proj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.selected_proj" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if projection was chosen from menu.</p>
 <p><cite>value</cite> is the chosen projection.</p>
 <p>Sets text on the menubutton.</p>
@@ -1756,7 +1762,7 @@ and pad (how much space to let additionally).</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.selected_v">
-<code class="sig-name descname">selected_v</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.selected_v"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.selected_v" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">selected_v</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.selected_v"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.selected_v" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if plotting variable was selected with combobox.</p>
 <p>Triggering <cite>event</cite> was bound to the combobox.</p>
 <p>Resets <cite>vmin</cite>/<cite>vmax</cite> and variable-dimensions. Redraws plot.</p>
@@ -1764,13 +1770,13 @@ and pad (how much space to let additionally).</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.selection_clear">
-<code class="sig-name descname">selection_clear</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.selection_clear" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">selection_clear</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.selection_clear" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clear the current X selection.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.selection_get">
-<code class="sig-name descname">selection_get</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.selection_get" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">selection_get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.selection_get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the contents of the current X selection.</p>
 <p>A keyword parameter selection specifies the name of
 the selection and defaults to PRIMARY.  A keyword
@@ -1782,7 +1788,7 @@ before STRING.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.selection_handle">
-<code class="sig-name descname">selection_handle</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">command</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.selection_handle" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">selection_handle</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.selection_handle" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specify a function COMMAND to call if the X
 selection owned by this widget is queried by another
 application.</p>
@@ -1797,7 +1803,7 @@ type - type of the selection (e.g. STRING, FILE_NAME).</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.selection_own">
-<code class="sig-name descname">selection_own</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.selection_own" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">selection_own</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.selection_own" title="Permalink to this definition">¶</a></dt>
 <dd><p>Become owner of X selection.</p>
 <p>A keyword parameter selection specifies the name of
 the selection (default PRIMARY).</p>
@@ -1805,7 +1811,7 @@ the selection (default PRIMARY).</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.selection_own_get">
-<code class="sig-name descname">selection_own_get</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.selection_own_get" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">selection_own_get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.selection_own_get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return owner of X selection.</p>
 <p>The following keyword parameter can
 be provided:
@@ -1815,13 +1821,13 @@ type - type of the selection (e.g. STRING, FILE_NAME).</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.send">
-<code class="sig-name descname">send</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">interp</span></em>, <em class="sig-param"><span class="n">cmd</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.send" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">send</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmd</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.send" title="Permalink to this definition">¶</a></dt>
 <dd><p>Send Tcl command CMD to different interpreter INTERP to be executed.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.set_tstep">
-<code class="sig-name descname">set_tstep</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">it</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.set_tstep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.set_tstep" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">set_tstep</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">it</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.set_tstep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.set_tstep" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make all steps when changing time step.</p>
 <p><cite>it</cite> (int) is the time step.</p>
 <p>Sets the time dimension spinbox, sets the time step scale,
@@ -1830,7 +1836,7 @@ write the time on top.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.set_unlim">
-<code class="sig-name descname">set_unlim</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">v</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.set_unlim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.set_unlim" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">set_unlim</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.set_unlim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.set_unlim" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set index and length of unlimited dimension of variable <cite>v</cite>.</p>
 <p><cite>v</cite> (str) is the variable name as in the selection comboboxes, i.e.
 <cite>var = vardim2var(self.fi.variables[v)]</cite>.</p>
@@ -1843,26 +1849,26 @@ self.dunlim == ‘’` or <cite>self.dunlim</cite> not in var.dimensions.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.setvar">
-<code class="sig-name descname">setvar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">'PY_VAR'</span></em>, <em class="sig-param"><span class="n">value</span><span class="o">=</span><span class="default_value">'1'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.setvar" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">setvar</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'PY_VAR'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.setvar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set Tcl variable NAME to VALUE.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.size">
-<code class="sig-name descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.size" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">size</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.size" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a tuple of the number of column and rows in the grid.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.slaves">
-<code class="sig-name descname">slaves</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.slaves" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">slaves</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.slaves" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of all slaves of this widget
 in its packing order.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.spinned_lat">
-<code class="sig-name descname">spinned_lat</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.spinned_lat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.spinned_lat" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">spinned_lat</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.spinned_lat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.spinned_lat" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if spinbox of latitude-dimensions was changed.</p>
 <p>Triggering <cite>event</cite> was bound to the spinbox.</p>
 <p>Redraws plot.</p>
@@ -1870,7 +1876,7 @@ in its packing order.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.spinned_lon">
-<code class="sig-name descname">spinned_lon</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.spinned_lon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.spinned_lon" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">spinned_lon</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.spinned_lon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.spinned_lon" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if spinbox of x-dimensions was changed.</p>
 <p>Triggering <cite>event</cite> was bound to the spinbox.</p>
 <p>Redraws plot.</p>
@@ -1878,7 +1884,7 @@ in its packing order.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.spinned_v">
-<code class="sig-name descname">spinned_v</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.spinned_v"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.spinned_v" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">spinned_v</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.spinned_v"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.spinned_v" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if spinbox of variable-dimensions was changed.</p>
 <p>Triggering <cite>event</cite> was bound to the spinbox.</p>
 <p>Redraws plot.</p>
@@ -1886,7 +1892,7 @@ in its packing order.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.state">
-<code class="sig-name descname">state</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">statespec</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.state" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">state</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">statespec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.state" title="Permalink to this definition">¶</a></dt>
 <dd><p>Modify or inquire widget state.</p>
 <p>Widget state is returned if statespec is None, otherwise it is
 set according to the statespec flags and then a new state spec
@@ -1896,20 +1902,20 @@ expected to be a sequence.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.tk_bisque">
-<code class="sig-name descname">tk_bisque</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.tk_bisque" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">tk_bisque</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.tk_bisque" title="Permalink to this definition">¶</a></dt>
 <dd><p>Change the color scheme to light brown as used in Tk 3.6 and before.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.tk_focusFollowsMouse">
-<code class="sig-name descname">tk_focusFollowsMouse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.tk_focusFollowsMouse" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">tk_focusFollowsMouse</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.tk_focusFollowsMouse" title="Permalink to this definition">¶</a></dt>
 <dd><p>The widget under mouse will get automatically focus. Can not
 be disabled easily.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.tk_focusNext">
-<code class="sig-name descname">tk_focusNext</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.tk_focusNext" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">tk_focusNext</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.tk_focusNext" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the next widget in the focus order which follows
 widget which has currently the focus.</p>
 <p>The focus order first goes to the next child, then to
@@ -1921,13 +1927,13 @@ to 0.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.tk_focusPrev">
-<code class="sig-name descname">tk_focusPrev</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.tk_focusPrev" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">tk_focusPrev</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.tk_focusPrev" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return previous widget in the focus order. See tk_focusNext for details.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.tk_setPalette">
-<code class="sig-name descname">tk_setPalette</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.tk_setPalette" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">tk_setPalette</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.tk_setPalette" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set a new color scheme for all widget elements.</p>
 <p>A single color as argument will cause that all colors of Tk
 widget elements are derived from this.
@@ -1941,7 +1947,7 @@ disabledForeground, insertBackground, troughColor.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.tk_strictMotif">
-<code class="sig-name descname">tk_strictMotif</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">boolean</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.tk_strictMotif" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">tk_strictMotif</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">boolean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.tk_strictMotif" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set Tcl internal variable, whether the look and feel
 should adhere to Motif.</p>
 <p>A parameter of 1 means adhere to Motif (e.g. no color
@@ -1951,46 +1957,46 @@ Returns the set value.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.tkraise">
-<code class="sig-name descname">tkraise</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">aboveThis</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.tkraise" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">tkraise</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aboveThis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.tkraise" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raise this widget in the stacking order.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.tstep_t">
-<code class="sig-name descname">tstep_t</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">step</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.tstep_t"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.tstep_t" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">tstep_t</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">step</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.tstep_t"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.tstep_t" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if tstep was changed.</p>
 <p><cite>step</cite> is the chosen value on the scale slider.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.unbind">
-<code class="sig-name descname">unbind</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sequence</span></em>, <em class="sig-param"><span class="n">funcid</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.unbind" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">unbind</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">funcid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.unbind" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unbind for this widget for event SEQUENCE  the
 function identified with FUNCID.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.unbind_all">
-<code class="sig-name descname">unbind_all</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sequence</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.unbind_all" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">unbind_all</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.unbind_all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unbind for all widgets for event SEQUENCE all functions.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.unbind_class">
-<code class="sig-name descname">unbind_class</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">className</span></em>, <em class="sig-param"><span class="n">sequence</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.unbind_class" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">unbind_class</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">className</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sequence</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.unbind_class" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unbind for all widgets with bindtag CLASSNAME for event SEQUENCE
 all functions.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.update">
-<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">frame</span></em>, <em class="sig-param"><span class="n">isframe</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.update" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">update</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isframe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates data of the current the plot.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.update_idletasks">
-<code class="sig-name descname">update_idletasks</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.update_idletasks" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">update_idletasks</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.update_idletasks" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enter event loop until all idle callbacks have been called. This
 will update the display of windows but not process events caused by
 the user.</p>
@@ -1998,7 +2004,7 @@ the user.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.wait_variable">
-<code class="sig-name descname">wait_variable</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">'PY_VAR'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.wait_variable" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">wait_variable</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'PY_VAR'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.wait_variable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wait until the variable is modified.</p>
 <p>A parameter of type IntVar, StringVar, DoubleVar or
 BooleanVar must be given.</p>
@@ -2006,7 +2012,7 @@ BooleanVar must be given.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.wait_visibility">
-<code class="sig-name descname">wait_visibility</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">window</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.wait_visibility" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">wait_visibility</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.wait_visibility" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wait until the visibility of a WIDGET changes
 (e.g. it appears).</p>
 <p>If no parameter is given self is used.</p>
@@ -2014,14 +2020,14 @@ BooleanVar must be given.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.wait_window">
-<code class="sig-name descname">wait_window</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">window</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.wait_window" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">wait_window</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.wait_window" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wait until a WIDGET is destroyed.</p>
 <p>If no parameter is given self is used.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.waitvar">
-<code class="sig-name descname">waitvar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">'PY_VAR'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.waitvar" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">waitvar</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'PY_VAR'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.waitvar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wait until the variable is modified.</p>
 <p>A parameter of type IntVar, StringVar, DoubleVar or
 BooleanVar must be given.</p>
@@ -2029,220 +2035,220 @@ BooleanVar must be given.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_atom">
-<code class="sig-name descname">winfo_atom</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">displayof</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_atom" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_atom</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">displayof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_atom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return integer which represents atom NAME.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_atomname">
-<code class="sig-name descname">winfo_atomname</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span></em>, <em class="sig-param"><span class="n">displayof</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_atomname" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_atomname</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">displayof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_atomname" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return name of atom with identifier ID.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_cells">
-<code class="sig-name descname">winfo_cells</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_cells" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_cells</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_cells" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return number of cells in the colormap for this widget.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_children">
-<code class="sig-name descname">winfo_children</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_children" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_children</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_children" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of all widgets which are children of this widget.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_class">
-<code class="sig-name descname">winfo_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_class" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_class</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_class" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return window class name of this widget.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_colormapfull">
-<code class="sig-name descname">winfo_colormapfull</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_colormapfull" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_colormapfull</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_colormapfull" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return True if at the last color request the colormap was full.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_containing">
-<code class="sig-name descname">winfo_containing</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rootX</span></em>, <em class="sig-param"><span class="n">rootY</span></em>, <em class="sig-param"><span class="n">displayof</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_containing" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_containing</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rootX</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rootY</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">displayof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_containing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the widget which is at the root coordinates ROOTX, ROOTY.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_depth">
-<code class="sig-name descname">winfo_depth</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_depth" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_depth</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_depth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the number of bits per pixel.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_exists">
-<code class="sig-name descname">winfo_exists</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_exists" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_exists</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_exists" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return true if this widget exists.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_fpixels">
-<code class="sig-name descname">winfo_fpixels</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">number</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_fpixels" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_fpixels</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_fpixels" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the number of pixels for the given distance NUMBER
 (e.g. “3c”) as float.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_geometry">
-<code class="sig-name descname">winfo_geometry</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_geometry" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_geometry</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_geometry" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return geometry string for this widget in the form “widthxheight+X+Y”.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_height">
-<code class="sig-name descname">winfo_height</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_height" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_height</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_height" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return height of this widget.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_id">
-<code class="sig-name descname">winfo_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_id" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_id</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return identifier ID for this widget.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_interps">
-<code class="sig-name descname">winfo_interps</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">displayof</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_interps" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_interps</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">displayof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_interps" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the name of all Tcl interpreters for this display.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_ismapped">
-<code class="sig-name descname">winfo_ismapped</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_ismapped" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_ismapped</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_ismapped" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return true if this widget is mapped.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_manager">
-<code class="sig-name descname">winfo_manager</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_manager" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_manager</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_manager" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the window manager name for this widget.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_name">
-<code class="sig-name descname">winfo_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_name</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the name of this widget.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_parent">
-<code class="sig-name descname">winfo_parent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_parent" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_parent</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_parent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the name of the parent of this widget.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_pathname">
-<code class="sig-name descname">winfo_pathname</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span></em>, <em class="sig-param"><span class="n">displayof</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_pathname" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_pathname</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">displayof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_pathname" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the pathname of the widget given by ID.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_pixels">
-<code class="sig-name descname">winfo_pixels</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">number</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_pixels" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_pixels</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_pixels" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rounded integer value of winfo_fpixels.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_pointerx">
-<code class="sig-name descname">winfo_pointerx</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_pointerx" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_pointerx</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_pointerx" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the x coordinate of the pointer on the root window.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_pointerxy">
-<code class="sig-name descname">winfo_pointerxy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_pointerxy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_pointerxy</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_pointerxy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a tuple of x and y coordinates of the pointer on the root window.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_pointery">
-<code class="sig-name descname">winfo_pointery</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_pointery" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_pointery</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_pointery" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the y coordinate of the pointer on the root window.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_reqheight">
-<code class="sig-name descname">winfo_reqheight</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_reqheight" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_reqheight</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_reqheight" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return requested height of this widget.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_reqwidth">
-<code class="sig-name descname">winfo_reqwidth</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_reqwidth" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_reqwidth</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_reqwidth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return requested width of this widget.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_rgb">
-<code class="sig-name descname">winfo_rgb</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_rgb" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_rgb</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_rgb" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return tuple of decimal values for red, green, blue for
 COLOR in this widget.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_rootx">
-<code class="sig-name descname">winfo_rootx</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_rootx" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_rootx</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_rootx" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return x coordinate of upper left corner of this widget on the
 root window.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_rooty">
-<code class="sig-name descname">winfo_rooty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_rooty" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_rooty</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_rooty" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return y coordinate of upper left corner of this widget on the
 root window.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_screen">
-<code class="sig-name descname">winfo_screen</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_screen" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_screen</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_screen" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the screen name of this widget.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_screencells">
-<code class="sig-name descname">winfo_screencells</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_screencells" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_screencells</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_screencells" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the number of the cells in the colormap of the screen
 of this widget.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_screendepth">
-<code class="sig-name descname">winfo_screendepth</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_screendepth" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_screendepth</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_screendepth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the number of bits per pixel of the root window of the
 screen of this widget.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_screenheight">
-<code class="sig-name descname">winfo_screenheight</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_screenheight" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_screenheight</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_screenheight" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the number of pixels of the height of the screen of this widget
 in pixel.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_screenmmheight">
-<code class="sig-name descname">winfo_screenmmheight</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_screenmmheight" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_screenmmheight</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_screenmmheight" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the number of pixels of the height of the screen of
 this widget in mm.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_screenmmwidth">
-<code class="sig-name descname">winfo_screenmmwidth</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_screenmmwidth" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_screenmmwidth</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_screenmmwidth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the number of pixels of the width of the screen of
 this widget in mm.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_screenvisual">
-<code class="sig-name descname">winfo_screenvisual</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_screenvisual" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_screenvisual</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_screenvisual" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return one of the strings directcolor, grayscale, pseudocolor,
 staticcolor, staticgray, or truecolor for the default
 colormodel of this screen.</p>
@@ -2250,33 +2256,33 @@ colormodel of this screen.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_screenwidth">
-<code class="sig-name descname">winfo_screenwidth</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_screenwidth" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_screenwidth</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_screenwidth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the number of pixels of the width of the screen of
 this widget in pixel.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_server">
-<code class="sig-name descname">winfo_server</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_server" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_server</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_server" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return information of the X-Server of the screen of this widget in
 the form “XmajorRminor vendor vendorVersion”.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_toplevel">
-<code class="sig-name descname">winfo_toplevel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_toplevel" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_toplevel</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_toplevel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the toplevel widget of this widget.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_viewable">
-<code class="sig-name descname">winfo_viewable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_viewable" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_viewable</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_viewable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return true if the widget and all its higher ancestors are mapped.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_visual">
-<code class="sig-name descname">winfo_visual</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_visual" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_visual</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_visual" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return one of the strings directcolor, grayscale, pseudocolor,
 staticcolor, staticgray, or truecolor for the
 colormodel of this widget.</p>
@@ -2284,13 +2290,13 @@ colormodel of this widget.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_visualid">
-<code class="sig-name descname">winfo_visualid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_visualid" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_visualid</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_visualid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the X identifier for the visual for this widget.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_visualsavailable">
-<code class="sig-name descname">winfo_visualsavailable</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">includeids</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_visualsavailable" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_visualsavailable</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">includeids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_visualsavailable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of all visuals available for the screen
 of this widget.</p>
 <p>Each item in the list consists of a visual name (see winfo_visual), a
@@ -2299,7 +2305,7 @@ depth and if includeids is true is given also the X identifier.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_vrootheight">
-<code class="sig-name descname">winfo_vrootheight</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_vrootheight" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_vrootheight</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_vrootheight" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the height of the virtual root window associated with this
 widget in pixels. If there is no virtual root window return the
 height of the screen.</p>
@@ -2307,7 +2313,7 @@ height of the screen.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_vrootwidth">
-<code class="sig-name descname">winfo_vrootwidth</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_vrootwidth" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_vrootwidth</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_vrootwidth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the width of the virtual root window associated with this
 widget in pixel. If there is no virtual root window return the
 width of the screen.</p>
@@ -2315,34 +2321,34 @@ width of the screen.</p>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_vrootx">
-<code class="sig-name descname">winfo_vrootx</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_vrootx" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_vrootx</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_vrootx" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the x offset of the virtual root relative to the root
 window of the screen of this widget.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_vrooty">
-<code class="sig-name descname">winfo_vrooty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_vrooty" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_vrooty</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_vrooty" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the y offset of the virtual root relative to the root
 window of the screen of this widget.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_width">
-<code class="sig-name descname">winfo_width</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_width" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_width</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_width" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the width of this widget.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_x">
-<code class="sig-name descname">winfo_x</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_x" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_x</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_x" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the x coordinate of the upper left corner of this widget
 in the parent.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ncvue.ncvmap.ncvMap.winfo_y">
-<code class="sig-name descname">winfo_y</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_y" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">winfo_y</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_y" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the y coordinate of the upper left corner of this widget
 in the parent.</p>
 </dd></dl>
@@ -2356,28 +2362,25 @@ in the parent.</p>
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2020-2021, Matthias Cuntz
+        &#169; Copyright 2020-2021, Matthias Cuntz.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

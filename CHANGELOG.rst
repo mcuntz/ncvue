@@ -4,8 +4,9 @@ Changelog
 All notable changes after its initial development up to November 2020 (v1.0)
 are documented in this file.
 
-v3.3.2
+v3.4 (May 2021)
 -----------------
+* Change separator character to unit separator (ASCII 31).
 * Print correct coordinates and values on plotting window.
 * Set time axis to numpy's datetime64 format.
 * Moved from Matplotlib style seaborn-darkgrid to seaborn-dark.
