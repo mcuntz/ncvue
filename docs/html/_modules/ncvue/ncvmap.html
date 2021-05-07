@@ -112,6 +112,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../package.html">API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../package.html#purpose">Purpose</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvcontour.html">ncvue.ncvcontour</a></li>
@@ -1187,7 +1188,10 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">iunlim</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">iunlim</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">nunlim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vz</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">iunlim</span><span class="p">]</span></div>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vz</span><span class="p">]</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">nunlim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vz</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">iunlim</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">nunlim</span> <span class="o">=</span> <span class="mi">0</span></div>
 
     <span class="c1">#</span>
     <span class="c1"># Plotting</span>
@@ -1401,6 +1405,17 @@
                 <span class="c1"># cartopy.contourf needs cyclic longitude for wrap around</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">ivvc</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ixxc</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iyyc</span> <span class="o">=</span> <span class="n">add_cyclic_point</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">ivv</span><span class="p">,</span> <span class="n">coord</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ixx</span><span class="p">,</span> <span class="n">rowcoord</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">iyy</span><span class="p">)</span>
+                <span class="c1"># # special treatment if fringe points &lt; 1e-4 apart</span>
+                <span class="c1"># # This works but it did still not display correctly the</span>
+                <span class="c1"># # test file of GDPS from cuizinart</span>
+                <span class="c1"># # -&gt; do not do it for the moment</span>
+                <span class="c1"># if np.ma.allclose(np.ma.sin(np.deg2rad(self.ixxc[:, 0])),</span>
+                <span class="c1">#                   np.ma.sin(np.deg2rad(self.ixxc[:, -1])),</span>
+                <span class="c1">#                   atol=1.0e-5):</span>
+                <span class="c1">#     if np.ma.allclose(self.ixxc[:, 0], self.ixxc[:, -1],</span>
+                <span class="c1">#                       atol=1.0e-4):</span>
+                <span class="c1">#         self.ixxc = self.ixxc.astype(float)</span>
+                <span class="c1">#         self.ixxc[:, -1] = self.ixxc[:, 0] + 360.</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">ivvc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ivv</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">ixxc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ixx</span>
@@ -1413,7 +1428,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">ncmap</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ncmap</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ncmap</span> <span class="o">&lt;</span> <span class="mi">256</span> <span class="k">else</span> <span class="mi">15</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">iextend</span> <span class="o">=</span> <span class="n">extend</span>
             <span class="c1"># self.img_extent = (xx.min(), xx.max(), yy.min(), yy.max())</span>
-            <span class="c1"># print(self.ixx.min(), self.ixx.max(), self.iyy.min(), self.iyy.max())</span>
+            <span class="c1"># print(self.ixx.min(), self.ixx.max(), self.iyy.min(),</span>
+            <span class="c1">#       self.iyy.max())</span>
             <span class="k">if</span> <span class="n">mesh</span><span class="p">:</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="c1"># vv is matrix notation: (row, col)</span>

@@ -130,6 +130,9 @@ class ncvScatter(ttk.Frame):
         # self.canvas.get_tk_widget().columnconfigure(0, weight=1)
         # self.canvas.get_tk_widget().rowconfigure(0, weight=1)
 
+        # self.canvas.mpl_connect('pick_event', self.onpick)
+        # self.canvas.mpl_connect('button_press_event', self.onpick)
+
         # matplotlib toolbar
         self.toolbar = NavigationToolbar2Tk(self.canvas, self)
         self.toolbar.update()
@@ -435,6 +438,16 @@ class ncvScatter(ttk.Frame):
             self.y.set(cols[idx])
             set_dim_y(self)
             self.redraw()
+
+    # def onpick(self, event):
+    #     print('in pick')
+    #     print('you pressed', event.button, event.xdata, event.ydata)
+    #     thisline = event.artist
+    #     xdata = thisline.get_xdata()
+    #     ydata = thisline.get_ydata()
+    #     ind = event.ind
+    #     points = tuple(zip(xdata[ind], ydata[ind]))
+    #     print('onpick points:', points)
 
     def prev_y(self):
         """
@@ -948,6 +961,7 @@ class ncvScatter(ttk.Frame):
             # plot
             # y-axis
             try:
+                # , picker=True, pickradius=5)
                 self.line_y = self.axes.plot(xx, yy)
             except Exception:
                 estr  = 'Scatter: x (' + vx + ') and y (' + vy + ')'
@@ -958,6 +972,7 @@ class ncvScatter(ttk.Frame):
             self.axes.yaxis.set_label_text(ylab)
             # y2-axis
             try:
+                # , picker=True, pickradius=5)
                 self.line_y2 = self.axes2.plot(xx, yy2)
             except Exception:
                 estr  = 'Scatter: x (' + vx + ') and y2 (' + vy2 + ')'

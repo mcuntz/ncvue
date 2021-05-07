@@ -112,6 +112,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../package.html">API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../package.html#purpose">Purpose</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvcontour.html">ncvue.ncvcontour</a></li>
@@ -332,6 +333,9 @@
         <span class="c1">#     sticky=(tk.N, tk.S, tk.E, tk.W))</span>
         <span class="c1"># self.canvas.get_tk_widget().columnconfigure(0, weight=1)</span>
         <span class="c1"># self.canvas.get_tk_widget().rowconfigure(0, weight=1)</span>
+
+        <span class="c1"># self.canvas.mpl_connect(&#39;pick_event&#39;, self.onpick)</span>
+        <span class="c1"># self.canvas.mpl_connect(&#39;button_press_event&#39;, self.onpick)</span>
 
         <span class="c1"># matplotlib toolbar</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span> <span class="o">=</span> <span class="n">NavigationToolbar2Tk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
@@ -638,6 +642,16 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cols</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
             <span class="n">set_dim_y</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
+
+    <span class="c1"># def onpick(self, event):</span>
+    <span class="c1">#     print(&#39;in pick&#39;)</span>
+    <span class="c1">#     print(&#39;you pressed&#39;, event.button, event.xdata, event.ydata)</span>
+    <span class="c1">#     thisline = event.artist</span>
+    <span class="c1">#     xdata = thisline.get_xdata()</span>
+    <span class="c1">#     ydata = thisline.get_ydata()</span>
+    <span class="c1">#     ind = event.ind</span>
+    <span class="c1">#     points = tuple(zip(xdata[ind], ydata[ind]))</span>
+    <span class="c1">#     print(&#39;onpick points:&#39;, points)</span>
 
 <div class="viewcode-block" id="ncvScatter.prev_y"><a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.prev_y">[docs]</a>    <span class="k">def</span> <span class="nf">prev_y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -1151,6 +1165,7 @@
             <span class="c1"># plot</span>
             <span class="c1"># y-axis</span>
             <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># , picker=True, pickradius=5)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">line_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
                 <span class="n">estr</span>  <span class="o">=</span> <span class="s1">&#39;Scatter: x (&#39;</span> <span class="o">+</span> <span class="n">vx</span> <span class="o">+</span> <span class="s1">&#39;) and y (&#39;</span> <span class="o">+</span> <span class="n">vy</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
@@ -1161,6 +1176,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_label_text</span><span class="p">(</span><span class="n">ylab</span><span class="p">)</span>
             <span class="c1"># y2-axis</span>
             <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># , picker=True, pickradius=5)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">line_y2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy2</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
                 <span class="n">estr</span>  <span class="o">=</span> <span class="s1">&#39;Scatter: x (&#39;</span> <span class="o">+</span> <span class="n">vx</span> <span class="o">+</span> <span class="s1">&#39;) and y2 (&#39;</span> <span class="o">+</span> <span class="n">vy2</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>

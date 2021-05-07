@@ -75,10 +75,17 @@ def ncvue(ncfile='', miss=np.nan):
     # # style.theme_use('winnative')
 
     # set titlebar and taskbar icon
-    bundle_dir = getattr(sys, '_MEIPASS',
-                         os.path.abspath(os.path.dirname(__file__)))
-    icon = tk.PhotoImage(file=bundle_dir + '/images/ncvue_icon.png')
-    top.iconphoto(True, icon)  # True: apply to all future created toplevels
+    try:
+        whichpy = get_ipython().__class__.__name__
+    except NameError:
+        whichpy = ''
+    if not whichpy:
+        bundle_dir = getattr(sys, '_MEIPASS',
+                             os.path.abspath(os.path.dirname(__file__)))
+        icon = tk.PhotoImage(file=bundle_dir + '/images/ncvue_icon.png')
+        top.iconphoto(True, icon)  # True: apply to all future created toplevels
+    else:
+        icon = None
 
     root = tk.Toplevel()
     root.name = 'ncvOne'

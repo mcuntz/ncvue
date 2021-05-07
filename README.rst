@@ -68,7 +68,19 @@ file can be opened with the "Open File" button from within ``ncvue``.
 Note, ``ncvue`` uses the `TkAgg` backend of `matplotlib`. It must be called
 before any other call to `matplotlib`. This also means that you cannot launch it
 from within `iPython` if it was launched with `--pylab`. It can be called from
-within a standard `iPython`, though.
+within a standard `iPython`, though, or using `ipython --gui tk`.
+
+When using ``ncvue`` with `jupyter` notebooks, one has to set `%matplotlib
+inline` before the import and call of ``ncvue``. You have set `%matplotlib
+inline` again if you want to continue having inline plots in `jupyter`
+afterwards.
+
+.. code-block:: python
+
+   %matplotlib inline
+   from ncvue import ncvue
+   ncvue('netcdf_file.nc')
+   %matplotlib inline
 
 One can also install standalone macOS or Windows applications that come with everything needed to
 run ``ncvue`` including Python:
