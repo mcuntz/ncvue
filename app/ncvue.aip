@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<DOCUMENT Type="Advanced Installer" CreateVersion="17.9" version="17.9" Modules="simple" RootPath="." Language="en" Id="{E5FED7A1-4C7A-4572-9669-4BD3C3AD4649}">
+<DOCUMENT Type="Advanced Installer" CreateVersion="17.9" version="18.2" Modules="simple" RootPath="." Language="en" Id="{E5FED7A1-4C7A-4572-9669-4BD3C3AD4649}">
   <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
     <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
+    <ROW Property="AI_CURRENT_YEAR" Value="2021" ValueLocId="-"/>
     <ROW Property="ALLUSERS" Value="1" MultiBuildValue="DefaultBuild:2"/>
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install ncvue." ValueLocId="*"/>
     <ROW Property="ARPHELPLINK" Value="https://mcuntz.github.io/ncvue"/>
