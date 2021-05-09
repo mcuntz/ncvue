@@ -16,6 +16,10 @@ cd /Volumes/ncvue
 ln -s /Applications
 cd -
 hdiutil detach /Volumes/ncvue
+# if the nex line fails with
+#   hdiutil: convert failed - Resource temporarily unavailable
+# open Disk Utility and eject the Apple read/write Media.
+# Then run the two commands below
 hdiutil convert dist.dmg -format UDZO -o ncvue.dmg -ov
 \rm dist.dmg
 
