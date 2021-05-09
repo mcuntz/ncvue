@@ -6,7 +6,7 @@ are documented in this file.
 
 v3.4 (May 2021)
 -----------------
-* Works in ipython and jupyter noetbooks. Adapted documentation accordingly.
+* Works in ipython and jupyter notebooks. Adapted documentation accordingly.
 * Added license to documentation.
 * Change separator character to unit separator (ASCII 31).
 * Print correct coordinates and values on plotting window.
