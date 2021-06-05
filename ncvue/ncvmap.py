@@ -39,7 +39,7 @@ from tkinter import filedialog
 import os
 import numpy as np
 import netCDF4 as nc
-from .ncvutils   import add_cyclic_point, clone_ncvmain, format_coord_map
+from .ncvutils   import add_cyclic, clone_ncvmain, format_coord_map
 from .ncvutils   import set_axis_label, set_miss, vardim2var
 from .ncvmethods import analyse_netcdf, get_slice_miss, get_miss
 from .ncvmethods import set_dim_lon, set_dim_lat, set_dim_var
@@ -1115,7 +1115,7 @@ class ncvMap(ttk.Frame):
                         x1 = xx[-2]
                     else:
                         x1 = xx[-1]
-                self.ixxmean = 0.5*(x1+x0)
+                self.ixxmean = 0.5 * (x1 + x0)
                 if self.iiglobal:
                     # round it to next 180 degrees to get 0 or 180
                     self.ixxmean = np.around(self.ixxmean / 180., 0) * 180.
@@ -1199,7 +1199,7 @@ class ncvMap(ttk.Frame):
             self.ivv = vv
             if self.iiglobal:
                 # cartopy.contourf needs cyclic longitude for wrap around
-                self.ivvc, self.ixxc, self.iyyc = add_cyclic_point(
+                self.ivvc, self.ixxc, self.iyyc = add_cyclic(
                     self.ivv, coord=self.ixx, rowcoord=self.iyy)
                 # # special treatment if fringe points < 1e-4 apart
                 # # This works but it did still not display correctly the
@@ -1223,9 +1223,6 @@ class ncvMap(ttk.Frame):
             self.ncmap   = mpl.cm.get_cmap(self.icmap).N
             self.ncmap   = self.ncmap if self.ncmap < 256 else 15
             self.iextend = extend
-            # self.img_extent = (xx.min(), xx.max(), yy.min(), yy.max())
-            # print(self.ixx.min(), self.ixx.max(), self.iyy.min(),
-            #       self.iyy.max())
             if mesh:
                 try:
                     # vv is matrix notation: (row, col)
@@ -1373,7 +1370,7 @@ class ncvMap(ttk.Frame):
                 for coll in self.cc.collections:
                     self.axes.collections.remove(coll)
                 if self.iiglobal:
-                    self.ivvc = add_cyclic_point(self.ivv)
+                    self.ivvc = add_cyclic(self.ivv)
                 else:
                     self.ivvc = self.ivv
                 self.cc = self.axes.contourf(
