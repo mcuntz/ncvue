@@ -7,12 +7,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ncvue.ncvue &mdash; ncvue 3.3.1 documentation</title>
+  <title>ncvue.ncvue &mdash; ncvue 3.4 documentation</title>
   
 
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
 
   
   
@@ -29,6 +31,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
@@ -61,7 +64,7 @@
             
             
               <div class="version">
-                3.3.1
+                3.4
               </div>
             
           
@@ -222,6 +225,9 @@
 <span class="sd">* Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)</span>
 <span class="sd">* Separate Tk() and Toplevel() widgets to communicate via Tk() between windows,</span>
 <span class="sd">  Jan 2021, Matthias Cuntz</span>
+<span class="sd">* Set titlebar and taskbar icon only if &quot;standalone&quot; not in ipython or jupyter,</span>
+<span class="sd">  May 2021, Matthias Cuntz</span>
+<span class="sd">* Different themes for different OS, May 2021, Matthias Cuntz</span>
 
 <span class="sd">.. moduleauthor:: Matthias Cuntz</span>
 
@@ -262,42 +268,65 @@
 <span class="sd">        and the standard netCDF missing value for current datatype from</span>
 <span class="sd">        netcdf4.default_fillvals (default: np.nan).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">ios</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span>
+    <span class="n">ios</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span>  <span class="c1"># Windows, Darwin, Linux</span>
     <span class="k">if</span> <span class="n">ios</span> <span class="o">==</span> <span class="s1">&#39;Windows&#39;</span><span class="p">:</span>
         <span class="c1"># make Windows aware of high resolution displays</span>
         <span class="c1"># https://stackoverflow.com/questions/41315873/attempting-to-resolve-blurred-tkinter-text-scaling-on-windows-10-high-dpi-disp</span>
         <span class="kn">from</span> <span class="nn">ctypes</span> <span class="kn">import</span> <span class="n">windll</span>
         <span class="n">windll</span><span class="o">.</span><span class="n">shcore</span><span class="o">.</span><span class="n">SetProcessDpiAwareness</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
+    <span class="c1"># if macOS app then _MEIPASS is set</span>
+    <span class="n">bundle_dir</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="s1">&#39;_MEIPASS&#39;</span><span class="p">,</span>
+                         <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)))</span>
+
     <span class="n">top</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Tk</span><span class="p">()</span>
     <span class="n">top</span><span class="o">.</span><span class="n">withdraw</span><span class="p">()</span>
-    <span class="c1"># top.option_add(&quot;*Font&quot;, &quot;Helvetica&quot;)</span>
-    <span class="c1"># style = ttk.Style()</span>
-    <span class="c1"># themes = style.theme_names()</span>
-    <span class="c1"># theme = style.theme_use()</span>
-    <span class="c1"># style.theme_use(theme)</span>
-    <span class="c1"># # style.theme_use(&#39;winnative&#39;)</span>
+    <span class="c1"># top.option_add(&quot;*Font&quot;, &quot;Helvetica 10&quot;)</span>
 
-    <span class="c1"># set titlebar and taskbar icon</span>
+    <span class="c1"># Check light/dark mode</span>
+    <span class="c1"># https://stackoverflow.com/questions/65294987/detect-os-dark-mode-in-python</span>
+
+    <span class="c1"># style = ttk.Style()</span>
+    <span class="c1"># print(style.theme_names(), style.theme_use())</span>
+    <span class="k">if</span> <span class="n">ios</span> <span class="o">==</span> <span class="s1">&#39;Darwin&#39;</span><span class="p">:</span>
+        <span class="n">theme</span> <span class="o">=</span> <span class="s1">&#39;aqua&#39;</span>
+    <span class="k">elif</span> <span class="n">ios</span> <span class="o">==</span> <span class="s1">&#39;Windows&#39;</span><span class="p">:</span>
+        <span class="c1"># # style packages</span>
+        <span class="c1"># # top.tk.call(&#39;lappend&#39;, &#39;auto_path&#39;,</span>
+        <span class="c1"># #             bundle_dir + &#39;/themes/awthemes-10.3.0&#39;)</span>
+        <span class="c1"># # theme = &#39;awlight&#39;  # &#39;awlight&#39;, &#39;awdark&#39;</span>
+        <span class="c1"># # top.tk.call(&#39;package&#39;, &#39;require&#39;, theme)</span>
+
+        <span class="c1"># single file styles</span>
+        <span class="c1"># top.tk.call(&#39;source&#39;, bundle_dir + &#39;/themes/breeze/breeze.tcl&#39;)</span>
+        <span class="n">top</span><span class="o">.</span><span class="n">tk</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">,</span> <span class="n">bundle_dir</span> <span class="o">+</span> <span class="s1">&#39;/themes/azure/azure.tcl&#39;</span><span class="p">)</span>
+        <span class="c1"># top.tk.call(&#39;source&#39;, bundle_dir + &#39;/themes/azure/azure-dark.tcl&#39;)</span>
+        <span class="n">theme</span> <span class="o">=</span> <span class="s1">&#39;azure&#39;</span>  <span class="c1"># &#39;azure&#39;, &#39;azure-dark&#39;, &#39;Breeze&#39;</span>
+    <span class="k">elif</span> <span class="n">ios</span> <span class="o">==</span> <span class="s1">&#39;Linux&#39;</span><span class="p">:</span>
+        <span class="n">theme</span> <span class="o">=</span> <span class="s1">&#39;clam&#39;</span>  <span class="c1"># &#39;clam&#39;, &#39;alt&#39;, &#39;default&#39;, &#39;classic&#39;</span>
+    <span class="n">style</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Style</span><span class="p">()</span>
+    <span class="n">style</span><span class="o">.</span><span class="n">theme_use</span><span class="p">(</span><span class="n">theme</span><span class="p">)</span>
+
+    <span class="c1"># set titlebar and taskbar icon only if &quot;standalone&quot;,</span>
+    <span class="c1"># i.e. not ipython or jupyter</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">whichpy</span> <span class="o">=</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
     <span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
         <span class="n">whichpy</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">whichpy</span><span class="p">:</span>
-        <span class="n">bundle_dir</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="s1">&#39;_MEIPASS&#39;</span><span class="p">,</span>
-                             <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)))</span>
         <span class="n">icon</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">PhotoImage</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">bundle_dir</span> <span class="o">+</span> <span class="s1">&#39;/images/ncvue_icon.png&#39;</span><span class="p">)</span>
-        <span class="n">top</span><span class="o">.</span><span class="n">iconphoto</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">icon</span><span class="p">)</span>  <span class="c1"># True: apply to all future created toplevels</span>
+        <span class="n">top</span><span class="o">.</span><span class="n">iconphoto</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">icon</span><span class="p">)</span>  <span class="c1"># True: apply to all future toplevels</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">icon</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="n">root</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Toplevel</span><span class="p">()</span>
     <span class="n">root</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;ncvOne&#39;</span>
-    <span class="n">root</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;ncvue &quot;</span><span class="o">+</span><span class="n">ncfile</span><span class="p">)</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;ncvue &quot;</span> <span class="o">+</span> <span class="n">ncfile</span><span class="p">)</span>
     <span class="n">root</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="s1">&#39;1000x800+100+100&#39;</span><span class="p">)</span>
 
     <span class="c1"># Connect netcdf file and extracted information to top</span>
     <span class="n">top</span><span class="o">.</span><span class="n">os</span>     <span class="o">=</span> <span class="n">ios</span>     <span class="c1"># operating system</span>
+    <span class="n">top</span><span class="o">.</span><span class="n">theme</span>  <span class="o">=</span> <span class="n">theme</span>   <span class="c1"># current theme</span>
     <span class="n">top</span><span class="o">.</span><span class="n">icon</span>   <span class="o">=</span> <span class="n">icon</span>    <span class="c1"># app icon</span>
     <span class="n">top</span><span class="o">.</span><span class="n">fi</span>     <span class="o">=</span> <span class="n">ncfile</span>  <span class="c1"># file name or file handle</span>
     <span class="n">top</span><span class="o">.</span><span class="n">miss</span>   <span class="o">=</span> <span class="n">miss</span>    <span class="c1"># extra missing value</span>

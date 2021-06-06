@@ -24,7 +24,7 @@ History:
 * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
 * Slice arrays with slice function rather than numpy.take,
   Dec 2020, Matthias Cuntz
-* Moved individual get_slice_? methods for x, y, y2, z as general get_slice
+* Moved individual get_slice? methods for x, y, y2, z as general get_slice
   function to ncvutils, Dec 2020, Matthias Cuntz
 * Added convenience method get_slice_miss, Dec 2020, Matthias Cuntz
 * set_dim_lon, set_dim_lat, set_dim_var for Map panel,

@@ -238,12 +238,16 @@ details.
 
 Copyright (c) 2020-2021 Matthias Cuntz
 
-The project structure is based on a template_ provided by Sebastian Müller_.
+``ncvue`` uses the Azure_ theme by rdbende_ on Windows.
+
+The project structure was originally based on a template_ provided by Sebastian
+Müller_.
 
 Different netCDF test files were provided by Juliane Mai_.
 
 .. _Anaconda: https://www.anaconda.com/products/individual
 .. _app: http://www.macu.de/extra/ncvue.dmg
+.. _Azure: https://github.com/rdbende/Azure-ttk-theme
 .. _cartopy: https://scitools.org.uk/cartopy/docs/latest/
 .. _Conda: https://docs.conda.io/projects/conda/en/latest/
 .. _documentation: https://mcuntz.github.io/ncvue/
@@ -259,4 +263,5 @@ Different netCDF test files were provided by Juliane Mai_.
 .. _netcdf4: https://unidata.github.io/netcdf4-python/netCDF4/index.html
 .. _numpy: https://numpy.org/
 .. _panoply: https://www.giss.nasa.gov/tools/panoply/
+.. _rdbende: https://github.com/rdbende
 .. _template: https://github.com/MuellerSeb/template

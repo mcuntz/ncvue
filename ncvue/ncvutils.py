@@ -252,16 +252,16 @@ def add_cyclic(data, coord=None, rowcoord=None, axis=-1,
         coordinates to be less than `prec`.
         No point is added if a cyclic point was detected.
 
-        `coord.shape[-1]` must be `data.shape[axis]` if coord is
-         1- or 2-dimensional,
+        `coord.shape[-1]` must be `data.shape[axis]` if coord is 1- or
+        2-dimensional,
         `coord.shape[axis]` must be `data.shape[axis]` otherwise.
     rowcoord: ndarray, optional
         An n-dimensional array with the variable of the row
         coordinate, i.e. normally the latitudes.
         The cyclic point simply copies the last column. Defaults to None.
 
-        `rowcoord.shape[-1]` must be `data.shape[axis]` if rowcoord is
-         1- or 2-dimensional,
+        `rowcoord.shape[-1]` must be `data.shape[axis]` if rowcoord is 1- or
+        2-dimensional,
         `rowcoord.shape[axis]` must be `data.shape[axis]` otherwise.
     axis: int, optional
         Specifies the axis of the data array to add the cyclic point to,

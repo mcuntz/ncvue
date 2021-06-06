@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
 
   
   
@@ -29,6 +31,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -247,8 +250,8 @@ May 2021, Matthias Cuntz</p></li>
 </tbody>
 </table>
 <dl class="py class">
-<dt id="ncvue.ncvscatter.ncvScatter">
-<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">ncvScatter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">master</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">ncvScatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">master</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tkinter.ttk.Frame</span></code></p>
 <p>Panel for scatter and line plots.</p>
 <p>Sets up the layout with the figure canvas, variable selectors, dimension
@@ -720,7 +723,7 @@ all axes, resetting zoom, etc.</p>
 <td><p>Return requested width of this widget.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_rgb" title="ncvue.ncvscatter.ncvScatter.winfo_rgb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_rgb</span></code></a>(color)</p></td>
-<td><p>Return tuple of decimal values for red, green, blue for COLOR in this widget.</p></td>
+<td><p>Return a tuple of integer RGB values in range(65536) for color in this widget.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_rootx" title="ncvue.ncvscatter.ncvScatter.winfo_rootx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_rootx</span></code></a>()</p></td>
 <td><p>Return x coordinate of upper left corner of this widget on the root window.</p></td>
@@ -808,8 +811,8 @@ all axes, resetting zoom, etc.</p>
 </tbody>
 </table>
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.after">
-<code class="sig-name descname"><span class="pre">after</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.after" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.after">
+<span class="sig-name descname"><span class="pre">after</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.after" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call function once after given time.</p>
 <p>MS specifies the time in milliseconds. FUNC gives the
 function which shall be called. Additional parameters
@@ -818,16 +821,16 @@ identifier to cancel scheduling with after_cancel.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.after_cancel">
-<code class="sig-name descname"><span class="pre">after_cancel</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.after_cancel" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.after_cancel">
+<span class="sig-name descname"><span class="pre">after_cancel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.after_cancel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Cancel scheduling of function identified with ID.</p>
 <p>Identifier returned by after or after_idle must be
 given as first parameter.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.after_idle">
-<code class="sig-name descname"><span class="pre">after_idle</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.after_idle" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.after_idle">
+<span class="sig-name descname"><span class="pre">after_idle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.after_idle" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call FUNC once if the Tcl main loop has no event to
 process.</p>
 <p>Return an identifier to cancel the scheduling with
@@ -835,16 +838,16 @@ after_cancel.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.anchor">
-<code class="sig-name descname"><span class="pre">anchor</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">anchor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.anchor" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.anchor">
+<span class="sig-name descname"><span class="pre">anchor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">anchor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.anchor" title="Permalink to this definition">¶</a></dt>
 <dd><p>The anchor value controls how to place the grid within the
 master when no row/column has any weight.</p>
 <p>The default anchor is nw.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.bbox">
-<code class="sig-name descname"><span class="pre">bbox</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.bbox" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.bbox">
+<span class="sig-name descname"><span class="pre">bbox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.bbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a tuple of integer coordinates for the bounding
 box of this widget controlled by the geometry manager grid.</p>
 <p>If COLUMN, ROW is given the bounding box applies from
@@ -856,14 +859,14 @@ corner in the master widget and the width and height.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.bell">
-<code class="sig-name descname"><span class="pre">bell</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">displayof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.bell" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.bell">
+<span class="sig-name descname"><span class="pre">bell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">displayof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.bell" title="Permalink to this definition">¶</a></dt>
 <dd><p>Ring a display’s bell.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.bind">
-<code class="sig-name descname"><span class="pre">bind</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.bind" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.bind">
+<span class="sig-name descname"><span class="pre">bind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.bind" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bind to this widget at event SEQUENCE a call to function FUNC.</p>
 <p>SEQUENCE is a string of concatenated event
 patterns. An event pattern is of the form
@@ -899,8 +902,8 @@ of bound events are returned.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.bind_all">
-<code class="sig-name descname"><span class="pre">bind_all</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.bind_all" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.bind_all">
+<span class="sig-name descname"><span class="pre">bind_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.bind_all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bind to all widgets at an event SEQUENCE a call to function FUNC.
 An additional boolean parameter ADD specifies whether FUNC will
 be called additionally to the other bound function or whether
@@ -908,8 +911,8 @@ it will replace the previous function. See bind for the return value.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.bind_class">
-<code class="sig-name descname"><span class="pre">bind_class</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">className</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sequence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.bind_class" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.bind_class">
+<span class="sig-name descname"><span class="pre">bind_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">className</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sequence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.bind_class" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bind to widgets with bindtag CLASSNAME at event
 SEQUENCE a call of function FUNC. An additional
 boolean parameter ADD specifies whether FUNC will be
@@ -919,8 +922,8 @@ the return value.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.bindtags">
-<code class="sig-name descname"><span class="pre">bindtags</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tagList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.bindtags" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.bindtags">
+<span class="sig-name descname"><span class="pre">bindtags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tagList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.bindtags" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set or get the list of bindtags for this widget.</p>
 <p>With no argument return the list of all bindtags associated with
 this widget. With a list of strings as argument the bindtags are
@@ -929,45 +932,45 @@ processed (see bind).</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.cget">
-<code class="sig-name descname"><span class="pre">cget</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.cget" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.cget">
+<span class="sig-name descname"><span class="pre">cget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.cget" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the resource value for a KEY given as string.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.checked_x">
-<code class="sig-name descname"><span class="pre">checked_x</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.checked_x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.checked_x" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.checked_x">
+<span class="sig-name descname"><span class="pre">checked_x</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.checked_x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.checked_x" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if any checkbutton for x-axis was checked or unchecked.</p>
 <p>Redraws left-hand-side and right-hand-side y-axes.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.checked_y">
-<code class="sig-name descname"><span class="pre">checked_y</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.checked_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.checked_y" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.checked_y">
+<span class="sig-name descname"><span class="pre">checked_y</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.checked_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.checked_y" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if any checkbutton for left-hand-side y-axis was checked
 or unchecked.</p>
 <p>Redraws left-hand-side y-axis.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.checked_y2">
-<code class="sig-name descname"><span class="pre">checked_y2</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.checked_y2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.checked_y2" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.checked_y2">
+<span class="sig-name descname"><span class="pre">checked_y2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.checked_y2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.checked_y2" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if any checkbutton for right-hand-side y-axis was
 checked or unchecked.</p>
 <p>Redraws right-hand-side y-axis.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.checked_yy2">
-<code class="sig-name descname"><span class="pre">checked_yy2</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.checked_yy2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.checked_yy2" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.checked_yy2">
+<span class="sig-name descname"><span class="pre">checked_yy2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.checked_yy2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.checked_yy2" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if any checkbutton was checked or unchecked that concerns
 both, the left-hand-side and right-hand-side y-axes.</p>
 <p>Redraws left-hand-side and right-hand-side y-axes.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.clipboard_append">
-<code class="sig-name descname"><span class="pre">clipboard_append</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.clipboard_append" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.clipboard_append">
+<span class="sig-name descname"><span class="pre">clipboard_append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.clipboard_append" title="Permalink to this definition">¶</a></dt>
 <dd><p>Append STRING to the Tk clipboard.</p>
 <p>A widget specified at the optional displayof keyword
 argument specifies the target display. The clipboard
@@ -975,16 +978,16 @@ can be retrieved with selection_get.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.clipboard_clear">
-<code class="sig-name descname"><span class="pre">clipboard_clear</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.clipboard_clear" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.clipboard_clear">
+<span class="sig-name descname"><span class="pre">clipboard_clear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.clipboard_clear" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clear the data in the Tk clipboard.</p>
 <p>A widget specified for the optional displayof keyword
 argument specifies the target display.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.clipboard_get">
-<code class="sig-name descname"><span class="pre">clipboard_get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.clipboard_get" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.clipboard_get">
+<span class="sig-name descname"><span class="pre">clipboard_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.clipboard_get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve data from the clipboard on window’s display.</p>
 <p>The window keyword defaults to the root window of the Tkinter
 application.</p>
@@ -997,8 +1000,8 @@ is to try UTF8_STRING and fall back to STRING.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.columnconfigure">
-<code class="sig-name descname"><span class="pre">columnconfigure</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.columnconfigure" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.columnconfigure">
+<span class="sig-name descname"><span class="pre">columnconfigure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.columnconfigure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configure column INDEX of a grid.</p>
 <p>Valid resources are minsize (minimum size of the column),
 weight (how much does additional space propagate to this column)
@@ -1006,8 +1009,8 @@ and pad (how much space to let additionally).</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.config">
-<code class="sig-name descname"><span class="pre">config</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.config" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.config">
+<span class="sig-name descname"><span class="pre">config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configure resources of a widget.</p>
 <p>The values for resources are specified as keyword
 arguments. To get an overview about
@@ -1015,8 +1018,8 @@ the allowed keyword arguments call the method keys.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.configure">
-<code class="sig-name descname"><span class="pre">configure</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.configure" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.configure">
+<span class="sig-name descname"><span class="pre">configure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.configure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configure resources of a widget.</p>
 <p>The values for resources are specified as keyword
 arguments. To get an overview about
@@ -1024,64 +1027,64 @@ the allowed keyword arguments call the method keys.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.deletecommand">
-<code class="sig-name descname"><span class="pre">deletecommand</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.deletecommand" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.deletecommand">
+<span class="sig-name descname"><span class="pre">deletecommand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.deletecommand" title="Permalink to this definition">¶</a></dt>
 <dd><p>Internal function.</p>
 <p>Delete the Tcl command provided in NAME.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.destroy">
-<code class="sig-name descname"><span class="pre">destroy</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.destroy" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.destroy">
+<span class="sig-name descname"><span class="pre">destroy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.destroy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Destroy this and all descendants widgets.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.entered_y">
-<code class="sig-name descname"><span class="pre">entered_y</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.entered_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.entered_y" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.entered_y">
+<span class="sig-name descname"><span class="pre">entered_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.entered_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.entered_y" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if option was entered for left-hand-side y-axis.</p>
 <p>Redraws left-hand-side y-axis.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.entered_y2">
-<code class="sig-name descname"><span class="pre">entered_y2</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.entered_y2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.entered_y2" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.entered_y2">
+<span class="sig-name descname"><span class="pre">entered_y2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.entered_y2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.entered_y2" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if option was entered for right-hand-side y-axis.</p>
 <p>Redraws right-hand-side y-axis.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.event_add">
-<code class="sig-name descname"><span class="pre">event_add</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">virtual</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">sequences</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.event_add" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.event_add">
+<span class="sig-name descname"><span class="pre">event_add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">virtual</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">sequences</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.event_add" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bind a virtual event VIRTUAL (of the form &lt;&lt;Name&gt;&gt;)
 to an event SEQUENCE such that the virtual event is triggered
 whenever SEQUENCE occurs.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.event_delete">
-<code class="sig-name descname"><span class="pre">event_delete</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">virtual</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">sequences</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.event_delete" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.event_delete">
+<span class="sig-name descname"><span class="pre">event_delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">virtual</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">sequences</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.event_delete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unbind a virtual event VIRTUAL from SEQUENCE.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.event_generate">
-<code class="sig-name descname"><span class="pre">event_generate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.event_generate" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.event_generate">
+<span class="sig-name descname"><span class="pre">event_generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.event_generate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate an event SEQUENCE. Additional
 keyword arguments specify parameter of the event
 (e.g. x, y, rootx, rooty).</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.event_info">
-<code class="sig-name descname"><span class="pre">event_info</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">virtual</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.event_info" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.event_info">
+<span class="sig-name descname"><span class="pre">event_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">virtual</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.event_info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of all virtual events or the information
 about the SEQUENCE bound to the virtual event VIRTUAL.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.focus">
-<code class="sig-name descname"><span class="pre">focus</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.focus" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.focus">
+<span class="sig-name descname"><span class="pre">focus</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.focus" title="Permalink to this definition">¶</a></dt>
 <dd><p>Direct input focus to this widget.</p>
 <p>If the application currently does not have the focus
 this widget will get the focus if the application gets
@@ -1089,24 +1092,24 @@ the focus through the window manager.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.focus_displayof">
-<code class="sig-name descname"><span class="pre">focus_displayof</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.focus_displayof" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.focus_displayof">
+<span class="sig-name descname"><span class="pre">focus_displayof</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.focus_displayof" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the widget which has currently the focus on the
 display where this widget is located.</p>
 <p>Return None if the application does not have the focus.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.focus_force">
-<code class="sig-name descname"><span class="pre">focus_force</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.focus_force" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.focus_force">
+<span class="sig-name descname"><span class="pre">focus_force</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.focus_force" title="Permalink to this definition">¶</a></dt>
 <dd><p>Direct input focus to this widget even if the
 application does not have the focus. Use with
 caution!</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.focus_get">
-<code class="sig-name descname"><span class="pre">focus_get</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.focus_get" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.focus_get">
+<span class="sig-name descname"><span class="pre">focus_get</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.focus_get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the widget which has currently the focus in the
 application.</p>
 <p>Use focus_displayof to allow working with several
@@ -1115,15 +1118,15 @@ the focus.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.focus_lastfor">
-<code class="sig-name descname"><span class="pre">focus_lastfor</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.focus_lastfor" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.focus_lastfor">
+<span class="sig-name descname"><span class="pre">focus_lastfor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.focus_lastfor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the widget which would have the focus if top level
 for this widget gets the focus from the window manager.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.focus_set">
-<code class="sig-name descname"><span class="pre">focus_set</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.focus_set" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.focus_set">
+<span class="sig-name descname"><span class="pre">focus_set</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.focus_set" title="Permalink to this definition">¶</a></dt>
 <dd><p>Direct input focus to this widget.</p>
 <p>If the application currently does not have the focus
 this widget will get the focus if the application gets
@@ -1131,57 +1134,57 @@ the focus through the window manager.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.forget">
-<code class="sig-name descname"><span class="pre">forget</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.forget" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.forget">
+<span class="sig-name descname"><span class="pre">forget</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.forget" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unmap this widget and do not use it for the packing order.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.getboolean">
-<code class="sig-name descname"><span class="pre">getboolean</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.getboolean" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.getboolean">
+<span class="sig-name descname"><span class="pre">getboolean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.getboolean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a boolean value for Tcl boolean values true and false given as parameter.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.getdouble">
-<code class="sig-name descname"><span class="pre">getdouble</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.getdouble" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.getdouble">
+<span class="sig-name descname"><span class="pre">getdouble</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.getdouble" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.getint">
-<code class="sig-name descname"><span class="pre">getint</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.getint" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.getint">
+<span class="sig-name descname"><span class="pre">getint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.getint" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.getvar">
-<code class="sig-name descname"><span class="pre">getvar</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'PY_VAR'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.getvar" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.getvar">
+<span class="sig-name descname"><span class="pre">getvar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'PY_VAR'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.getvar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return value of Tcl variable NAME.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.grab_current">
-<code class="sig-name descname"><span class="pre">grab_current</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grab_current" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.grab_current">
+<span class="sig-name descname"><span class="pre">grab_current</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grab_current" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return widget which has currently the grab in this application
 or None.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.grab_release">
-<code class="sig-name descname"><span class="pre">grab_release</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grab_release" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.grab_release">
+<span class="sig-name descname"><span class="pre">grab_release</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grab_release" title="Permalink to this definition">¶</a></dt>
 <dd><p>Release grab for this widget if currently set.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.grab_set">
-<code class="sig-name descname"><span class="pre">grab_set</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grab_set" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.grab_set">
+<span class="sig-name descname"><span class="pre">grab_set</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grab_set" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set grab for this widget.</p>
 <p>A grab directs all events to this and descendant
 widgets in the application.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.grab_set_global">
-<code class="sig-name descname"><span class="pre">grab_set_global</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grab_set_global" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.grab_set_global">
+<span class="sig-name descname"><span class="pre">grab_set_global</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grab_set_global" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set global grab for this widget.</p>
 <p>A global grab directs all events to this and
 descendant widgets on the display. Use with caution -
@@ -1189,15 +1192,15 @@ other applications do not get events anymore.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.grab_status">
-<code class="sig-name descname"><span class="pre">grab_status</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grab_status" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.grab_status">
+<span class="sig-name descname"><span class="pre">grab_status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grab_status" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return None, “local” or “global” if this widget has
 no, a local or a global grab.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.grid">
-<code class="sig-name descname"><span class="pre">grid</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grid" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.grid">
+<span class="sig-name descname"><span class="pre">grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Position a widget in the parent widget in a grid. Use as options:
 column=number - use cell identified with given column (starting with 0)
 columnspan=number - this widget will span several columns
@@ -1216,16 +1219,16 @@ sticky=NSEW - if cell is larger on which sides will this</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.grid_anchor">
-<code class="sig-name descname"><span class="pre">grid_anchor</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">anchor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grid_anchor" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.grid_anchor">
+<span class="sig-name descname"><span class="pre">grid_anchor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">anchor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grid_anchor" title="Permalink to this definition">¶</a></dt>
 <dd><p>The anchor value controls how to place the grid within the
 master when no row/column has any weight.</p>
 <p>The default anchor is nw.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.grid_bbox">
-<code class="sig-name descname"><span class="pre">grid_bbox</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grid_bbox" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.grid_bbox">
+<span class="sig-name descname"><span class="pre">grid_bbox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grid_bbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a tuple of integer coordinates for the bounding
 box of this widget controlled by the geometry manager grid.</p>
 <p>If COLUMN, ROW is given the bounding box applies from
@@ -1237,8 +1240,8 @@ corner in the master widget and the width and height.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.grid_columnconfigure">
-<code class="sig-name descname"><span class="pre">grid_columnconfigure</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grid_columnconfigure" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.grid_columnconfigure">
+<span class="sig-name descname"><span class="pre">grid_columnconfigure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grid_columnconfigure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configure column INDEX of a grid.</p>
 <p>Valid resources are minsize (minimum size of the column),
 weight (how much does additional space propagate to this column)
@@ -1246,8 +1249,8 @@ and pad (how much space to let additionally).</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.grid_configure">
-<code class="sig-name descname"><span class="pre">grid_configure</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grid_configure" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.grid_configure">
+<span class="sig-name descname"><span class="pre">grid_configure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grid_configure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Position a widget in the parent widget in a grid. Use as options:
 column=number - use cell identified with given column (starting with 0)
 columnspan=number - this widget will span several columns
@@ -1266,29 +1269,29 @@ sticky=NSEW - if cell is larger on which sides will this</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.grid_forget">
-<code class="sig-name descname"><span class="pre">grid_forget</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grid_forget" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.grid_forget">
+<span class="sig-name descname"><span class="pre">grid_forget</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grid_forget" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unmap this widget.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.grid_info">
-<code class="sig-name descname"><span class="pre">grid_info</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grid_info" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.grid_info">
+<span class="sig-name descname"><span class="pre">grid_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grid_info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return information about the options
 for positioning this widget in a grid.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.grid_location">
-<code class="sig-name descname"><span class="pre">grid_location</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grid_location" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.grid_location">
+<span class="sig-name descname"><span class="pre">grid_location</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grid_location" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a tuple of column and row which identify the cell
 at which the pixel at position X and Y inside the master
 widget is located.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.grid_propagate">
-<code class="sig-name descname"><span class="pre">grid_propagate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['_noarg_']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grid_propagate" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.grid_propagate">
+<span class="sig-name descname"><span class="pre">grid_propagate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['_noarg_']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grid_propagate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set or get the status for propagation of geometry information.</p>
 <p>A boolean argument specifies whether the geometry information
 of the slaves will determine the size of this widget. If no argument
@@ -1296,14 +1299,14 @@ is given, the current setting will be returned.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.grid_remove">
-<code class="sig-name descname"><span class="pre">grid_remove</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grid_remove" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.grid_remove">
+<span class="sig-name descname"><span class="pre">grid_remove</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grid_remove" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unmap this widget but remember the grid options.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.grid_rowconfigure">
-<code class="sig-name descname"><span class="pre">grid_rowconfigure</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grid_rowconfigure" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.grid_rowconfigure">
+<span class="sig-name descname"><span class="pre">grid_rowconfigure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grid_rowconfigure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configure row INDEX of a grid.</p>
 <p>Valid resources are minsize (minimum size of the row),
 weight (how much does additional space propagate to this row)
@@ -1311,48 +1314,48 @@ and pad (how much space to let additionally).</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.grid_size">
-<code class="sig-name descname"><span class="pre">grid_size</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grid_size" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.grid_size">
+<span class="sig-name descname"><span class="pre">grid_size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grid_size" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a tuple of the number of column and rows in the grid.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.grid_slaves">
-<code class="sig-name descname"><span class="pre">grid_slaves</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grid_slaves" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.grid_slaves">
+<span class="sig-name descname"><span class="pre">grid_slaves</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.grid_slaves" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of all slaves of this widget
 in its packing order.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.identify">
-<code class="sig-name descname"><span class="pre">identify</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.identify" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.identify">
+<span class="sig-name descname"><span class="pre">identify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.identify" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the name of the element at position x, y, or the empty
 string if the point does not lie within any element.</p>
 <p>x and y are pixel coordinates relative to the widget.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.image_names">
-<code class="sig-name descname"><span class="pre">image_names</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.image_names" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.image_names">
+<span class="sig-name descname"><span class="pre">image_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.image_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of all existing image names.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.image_types">
-<code class="sig-name descname"><span class="pre">image_types</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.image_types" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.image_types">
+<span class="sig-name descname"><span class="pre">image_types</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.image_types" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of all available image types (e.g. photo bitmap).</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.info">
-<code class="sig-name descname"><span class="pre">info</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.info" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.info">
+<span class="sig-name descname"><span class="pre">info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return information about the packing options
 for this widget.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.instate">
-<code class="sig-name descname"><span class="pre">instate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">statespec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.instate" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.instate">
+<span class="sig-name descname"><span class="pre">instate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">statespec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.instate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test the widget’s state.</p>
 <p>If callback is not specified, returns True if the widget state
 matches statespec and False otherwise. If callback is specified,
@@ -1361,61 +1364,61 @@ matches statespec. statespec is expected to be a sequence.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.keys">
-<code class="sig-name descname"><span class="pre">keys</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.keys" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.keys">
+<span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.keys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of all resource names of this widget.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.lift">
-<code class="sig-name descname"><span class="pre">lift</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aboveThis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.lift" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.lift">
+<span class="sig-name descname"><span class="pre">lift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aboveThis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.lift" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raise this widget in the stacking order.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.location">
-<code class="sig-name descname"><span class="pre">location</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.location" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.location">
+<span class="sig-name descname"><span class="pre">location</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.location" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a tuple of column and row which identify the cell
 at which the pixel at position X and Y inside the master
 widget is located.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.lower">
-<code class="sig-name descname"><span class="pre">lower</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">belowThis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.lower" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.lower">
+<span class="sig-name descname"><span class="pre">lower</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">belowThis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.lower" title="Permalink to this definition">¶</a></dt>
 <dd><p>Lower this widget in the stacking order.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.mainloop">
-<code class="sig-name descname"><span class="pre">mainloop</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.mainloop" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.mainloop">
+<span class="sig-name descname"><span class="pre">mainloop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.mainloop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call the mainloop of Tk.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.minmax_ylim">
-<code class="sig-name descname"><span class="pre">minmax_ylim</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ylim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylim2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.minmax_ylim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.minmax_ylim" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.minmax_ylim">
+<span class="sig-name descname"><span class="pre">minmax_ylim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ylim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylim2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.minmax_ylim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.minmax_ylim" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get minimum of first elements of lists <cite>ylim</cite> and <cite>ylim2</cite> and
 maximum of second element of the two lists.</p>
 <p>Returns minimum, maximum.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.nametowidget">
-<code class="sig-name descname"><span class="pre">nametowidget</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.nametowidget" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.nametowidget">
+<span class="sig-name descname"><span class="pre">nametowidget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.nametowidget" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the Tkinter instance of a widget identified by
 its Tcl name NAME.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.newnetcdf">
-<code class="sig-name descname"><span class="pre">newnetcdf</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.newnetcdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.newnetcdf" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.newnetcdf">
+<span class="sig-name descname"><span class="pre">newnetcdf</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.newnetcdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.newnetcdf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Open a new netcdf file and connect it to top.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.next_y">
-<code class="sig-name descname"><span class="pre">next_y</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.next_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.next_y" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.next_y">
+<span class="sig-name descname"><span class="pre">next_y</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.next_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.next_y" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if next button for the left-hand-side y-variable was
 pressed.</p>
 <p>Resets dimensions of left-hand-side y-variable.
@@ -1423,8 +1426,8 @@ Redraws plot.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.option_add">
-<code class="sig-name descname"><span class="pre">option_add</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">priority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.option_add" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.option_add">
+<span class="sig-name descname"><span class="pre">option_add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">priority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.option_add" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set a VALUE (second parameter) for an option
 PATTERN (first parameter).</p>
 <p>An optional third parameter gives the numeric priority
@@ -1432,31 +1435,31 @@ PATTERN (first parameter).</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.option_clear">
-<code class="sig-name descname"><span class="pre">option_clear</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.option_clear" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.option_clear">
+<span class="sig-name descname"><span class="pre">option_clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.option_clear" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clear the option database.</p>
 <p>It will be reloaded if option_add is called.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.option_get">
-<code class="sig-name descname"><span class="pre">option_get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">className</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.option_get" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.option_get">
+<span class="sig-name descname"><span class="pre">option_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">className</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.option_get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the value for an option NAME for this widget
 with CLASSNAME.</p>
 <p>Values with higher priority override lower values.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.option_readfile">
-<code class="sig-name descname"><span class="pre">option_readfile</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fileName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">priority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.option_readfile" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.option_readfile">
+<span class="sig-name descname"><span class="pre">option_readfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fileName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">priority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.option_readfile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read file FILENAME into the option database.</p>
 <p>An optional second parameter gives the numeric
 priority.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.pack">
-<code class="sig-name descname"><span class="pre">pack</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.pack" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.pack">
+<span class="sig-name descname"><span class="pre">pack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.pack" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pack a widget in the parent widget. Use as options:
 after=widget - pack it after you have packed widget
 anchor=NSEW (or subset) - position widget according to</p>
@@ -1476,8 +1479,8 @@ side=TOP or BOTTOM or LEFT or RIGHT -  where to add this widget.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.pack_configure">
-<code class="sig-name descname"><span class="pre">pack_configure</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.pack_configure" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.pack_configure">
+<span class="sig-name descname"><span class="pre">pack_configure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.pack_configure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pack a widget in the parent widget. Use as options:
 after=widget - pack it after you have packed widget
 anchor=NSEW (or subset) - position widget according to</p>
@@ -1497,21 +1500,21 @@ side=TOP or BOTTOM or LEFT or RIGHT -  where to add this widget.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.pack_forget">
-<code class="sig-name descname"><span class="pre">pack_forget</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.pack_forget" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.pack_forget">
+<span class="sig-name descname"><span class="pre">pack_forget</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.pack_forget" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unmap this widget and do not use it for the packing order.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.pack_info">
-<code class="sig-name descname"><span class="pre">pack_info</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.pack_info" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.pack_info">
+<span class="sig-name descname"><span class="pre">pack_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.pack_info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return information about the packing options
 for this widget.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.pack_propagate">
-<code class="sig-name descname"><span class="pre">pack_propagate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['_noarg_']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.pack_propagate" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.pack_propagate">
+<span class="sig-name descname"><span class="pre">pack_propagate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['_noarg_']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.pack_propagate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set or get the status for propagation of geometry information.</p>
 <p>A boolean argument specifies whether the geometry information
 of the slaves will determine the size of this widget. If no argument
@@ -1519,15 +1522,15 @@ is given the current setting will be returned.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.pack_slaves">
-<code class="sig-name descname"><span class="pre">pack_slaves</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.pack_slaves" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.pack_slaves">
+<span class="sig-name descname"><span class="pre">pack_slaves</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.pack_slaves" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of all slaves of this widget
 in its packing order.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.place">
-<code class="sig-name descname"><span class="pre">place</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.place" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.place">
+<span class="sig-name descname"><span class="pre">place</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.place" title="Permalink to this definition">¶</a></dt>
 <dd><p>Place a widget in the parent widget. Use as options:
 in=master - master relative to which the widget is placed
 in_=master - see ‘in’ option description
@@ -1559,8 +1562,8 @@ height as the master)</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.place_configure">
-<code class="sig-name descname"><span class="pre">place_configure</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.place_configure" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.place_configure">
+<span class="sig-name descname"><span class="pre">place_configure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.place_configure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Place a widget in the parent widget. Use as options:
 in=master - master relative to which the widget is placed
 in_=master - see ‘in’ option description
@@ -1592,28 +1595,28 @@ height as the master)</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.place_forget">
-<code class="sig-name descname"><span class="pre">place_forget</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.place_forget" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.place_forget">
+<span class="sig-name descname"><span class="pre">place_forget</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.place_forget" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unmap this widget.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.place_info">
-<code class="sig-name descname"><span class="pre">place_info</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.place_info" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.place_info">
+<span class="sig-name descname"><span class="pre">place_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.place_info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return information about the placing options
 for this widget.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.place_slaves">
-<code class="sig-name descname"><span class="pre">place_slaves</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.place_slaves" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.place_slaves">
+<span class="sig-name descname"><span class="pre">place_slaves</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.place_slaves" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of all slaves of this widget
 in its packing order.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.prev_y">
-<code class="sig-name descname"><span class="pre">prev_y</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.prev_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.prev_y" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.prev_y">
+<span class="sig-name descname"><span class="pre">prev_y</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.prev_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.prev_y" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if previous button for the left-hand-side y-variable was
 pressed.</p>
 <p>Resets dimensions of left-hand-side y-variable.
@@ -1621,8 +1624,8 @@ Redraws plot.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.propagate">
-<code class="sig-name descname"><span class="pre">propagate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['_noarg_']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.propagate" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.propagate">
+<span class="sig-name descname"><span class="pre">propagate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['_noarg_']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.propagate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set or get the status for propagation of geometry information.</p>
 <p>A boolean argument specifies whether the geometry information
 of the slaves will determine the size of this widget. If no argument
@@ -1630,14 +1633,14 @@ is given the current setting will be returned.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.quit">
-<code class="sig-name descname"><span class="pre">quit</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.quit" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.quit">
+<span class="sig-name descname"><span class="pre">quit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.quit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Quit the Tcl interpreter. All widgets will be destroyed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.redraw">
-<code class="sig-name descname"><span class="pre">redraw</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.redraw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.redraw" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.redraw">
+<span class="sig-name descname"><span class="pre">redraw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.redraw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.redraw" title="Permalink to this definition">¶</a></dt>
 <dd><p>Redraw the left-hand-side and right-hand-side y-axis.</p>
 <p>Reads the two <cite>y</cite> variable names, the current settings of
 their dimension spinboxes, as well as all other plotting options.
@@ -1645,8 +1648,8 @@ Then redraws the both y-axes.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.redraw_y">
-<code class="sig-name descname"><span class="pre">redraw_y</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.redraw_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.redraw_y" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.redraw_y">
+<span class="sig-name descname"><span class="pre">redraw_y</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.redraw_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.redraw_y" title="Permalink to this definition">¶</a></dt>
 <dd><p>Redraw the left-hand-side y-axis.</p>
 <p>Reads left-hand-side <cite>y</cite> variable name, the current settings of
 its dimension spinboxes, as well as all other plotting options.
@@ -1654,8 +1657,8 @@ Then redraws the left-hand-side y-axis.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.redraw_y2">
-<code class="sig-name descname"><span class="pre">redraw_y2</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.redraw_y2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.redraw_y2" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.redraw_y2">
+<span class="sig-name descname"><span class="pre">redraw_y2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.redraw_y2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.redraw_y2" title="Permalink to this definition">¶</a></dt>
 <dd><p>Redraw the right-hand-side y-axis.</p>
 <p>Reads right-hand-side <cite>y</cite> variable name, the current settings of
 its dimension spinboxes, as well as all other plotting options.
@@ -1663,8 +1666,8 @@ Then redraws the right-hand-side y-axis.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.register">
-<code class="sig-name descname"><span class="pre">register</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">needcleanup</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.register" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.register">
+<span class="sig-name descname"><span class="pre">register</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">needcleanup</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.register" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a newly created Tcl function. If this
 function is called, the Python function FUNC will
 be executed. An optional function SUBST can
@@ -1672,14 +1675,14 @@ be given which will be executed before FUNC.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.reinit">
-<code class="sig-name descname"><span class="pre">reinit</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.reinit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.reinit" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.reinit">
+<span class="sig-name descname"><span class="pre">reinit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.reinit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.reinit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reinitialise the panel from top.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.rowconfigure">
-<code class="sig-name descname"><span class="pre">rowconfigure</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.rowconfigure" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.rowconfigure">
+<span class="sig-name descname"><span class="pre">rowconfigure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.rowconfigure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configure row INDEX of a grid.</p>
 <p>Valid resources are minsize (minimum size of the row),
 weight (how much does additional space propagate to this row)
@@ -1687,16 +1690,16 @@ and pad (how much space to let additionally).</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.selected_x">
-<code class="sig-name descname"><span class="pre">selected_x</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.selected_x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.selected_x" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.selected_x">
+<span class="sig-name descname"><span class="pre">selected_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.selected_x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.selected_x" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if x-variable was selected with combobox.</p>
 <p>Triggering <cite>event</cite> was bound to the combobox.</p>
 <p>Resets <cite>x</cite> dimensions. Redraws plot.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.selected_y">
-<code class="sig-name descname"><span class="pre">selected_y</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.selected_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.selected_y" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.selected_y">
+<span class="sig-name descname"><span class="pre">selected_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.selected_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.selected_y" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if left-hand-side y-variable was selected with
 combobox.</p>
 <p>Triggering <cite>event</cite> was bound to the combobox.</p>
@@ -1704,8 +1707,8 @@ combobox.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.selected_y2">
-<code class="sig-name descname"><span class="pre">selected_y2</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.selected_y2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.selected_y2" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.selected_y2">
+<span class="sig-name descname"><span class="pre">selected_y2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.selected_y2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.selected_y2" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if right-hand-side y-variable was selected with
 combobox.</p>
 <p>Triggering <cite>event</cite> was bound to the combobox.</p>
@@ -1713,14 +1716,14 @@ combobox.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.selection_clear">
-<code class="sig-name descname"><span class="pre">selection_clear</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.selection_clear" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.selection_clear">
+<span class="sig-name descname"><span class="pre">selection_clear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.selection_clear" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clear the current X selection.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.selection_get">
-<code class="sig-name descname"><span class="pre">selection_get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.selection_get" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.selection_get">
+<span class="sig-name descname"><span class="pre">selection_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.selection_get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the contents of the current X selection.</p>
 <p>A keyword parameter selection specifies the name of
 the selection and defaults to PRIMARY.  A keyword
@@ -1731,8 +1734,8 @@ before STRING.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.selection_handle">
-<code class="sig-name descname"><span class="pre">selection_handle</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.selection_handle" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.selection_handle">
+<span class="sig-name descname"><span class="pre">selection_handle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.selection_handle" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specify a function COMMAND to call if the X
 selection owned by this widget is queried by another
 application.</p>
@@ -1746,16 +1749,16 @@ type - type of the selection (e.g. STRING, FILE_NAME).</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.selection_own">
-<code class="sig-name descname"><span class="pre">selection_own</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.selection_own" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.selection_own">
+<span class="sig-name descname"><span class="pre">selection_own</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.selection_own" title="Permalink to this definition">¶</a></dt>
 <dd><p>Become owner of X selection.</p>
 <p>A keyword parameter selection specifies the name of
 the selection (default PRIMARY).</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.selection_own_get">
-<code class="sig-name descname"><span class="pre">selection_own_get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.selection_own_get" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.selection_own_get">
+<span class="sig-name descname"><span class="pre">selection_own_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.selection_own_get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return owner of X selection.</p>
 <p>The following keyword parameter can
 be provided:
@@ -1764,41 +1767,41 @@ type - type of the selection (e.g. STRING, FILE_NAME).</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.send">
-<code class="sig-name descname"><span class="pre">send</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmd</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.send" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.send">
+<span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmd</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.send" title="Permalink to this definition">¶</a></dt>
 <dd><p>Send Tcl command CMD to different interpreter INTERP to be executed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.setvar">
-<code class="sig-name descname"><span class="pre">setvar</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'PY_VAR'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.setvar" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.setvar">
+<span class="sig-name descname"><span class="pre">setvar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'PY_VAR'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.setvar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set Tcl variable NAME to VALUE.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.size">
-<code class="sig-name descname"><span class="pre">size</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.size" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.size">
+<span class="sig-name descname"><span class="pre">size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.size" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a tuple of the number of column and rows in the grid.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.slaves">
-<code class="sig-name descname"><span class="pre">slaves</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.slaves" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.slaves">
+<span class="sig-name descname"><span class="pre">slaves</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.slaves" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of all slaves of this widget
 in its packing order.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.spinned_x">
-<code class="sig-name descname"><span class="pre">spinned_x</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.spinned_x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.spinned_x" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.spinned_x">
+<span class="sig-name descname"><span class="pre">spinned_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.spinned_x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.spinned_x" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if spinbox of x-dimensions was changed.</p>
 <p>Triggering <cite>event</cite> was bound to the spinbox.</p>
 <p>Redraws plot.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.spinned_y">
-<code class="sig-name descname"><span class="pre">spinned_y</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.spinned_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.spinned_y" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.spinned_y">
+<span class="sig-name descname"><span class="pre">spinned_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.spinned_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.spinned_y" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if spinbox of any dimension of left-hand-side
 y-variable was changed.</p>
 <p>Triggering <cite>event</cite> was bound to the spinbox.</p>
@@ -1806,8 +1809,8 @@ y-variable was changed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.spinned_y2">
-<code class="sig-name descname"><span class="pre">spinned_y2</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.spinned_y2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.spinned_y2" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.spinned_y2">
+<span class="sig-name descname"><span class="pre">spinned_y2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.spinned_y2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.spinned_y2" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command called if spinbox of any dimension of right-hand-side
 y-variable was changed.</p>
 <p>Triggering <cite>event</cite> was bound to the spinbox.</p>
@@ -1815,8 +1818,8 @@ y-variable was changed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.state">
-<code class="sig-name descname"><span class="pre">state</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">statespec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.state" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.state">
+<span class="sig-name descname"><span class="pre">state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">statespec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.state" title="Permalink to this definition">¶</a></dt>
 <dd><p>Modify or inquire widget state.</p>
 <p>Widget state is returned if statespec is None, otherwise it is
 set according to the statespec flags and then a new state spec
@@ -1825,21 +1828,21 @@ expected to be a sequence.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.tk_bisque">
-<code class="sig-name descname"><span class="pre">tk_bisque</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.tk_bisque" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.tk_bisque">
+<span class="sig-name descname"><span class="pre">tk_bisque</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.tk_bisque" title="Permalink to this definition">¶</a></dt>
 <dd><p>Change the color scheme to light brown as used in Tk 3.6 and before.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.tk_focusFollowsMouse">
-<code class="sig-name descname"><span class="pre">tk_focusFollowsMouse</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.tk_focusFollowsMouse" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.tk_focusFollowsMouse">
+<span class="sig-name descname"><span class="pre">tk_focusFollowsMouse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.tk_focusFollowsMouse" title="Permalink to this definition">¶</a></dt>
 <dd><p>The widget under mouse will get automatically focus. Can not
 be disabled easily.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.tk_focusNext">
-<code class="sig-name descname"><span class="pre">tk_focusNext</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.tk_focusNext" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.tk_focusNext">
+<span class="sig-name descname"><span class="pre">tk_focusNext</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.tk_focusNext" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the next widget in the focus order which follows
 widget which has currently the focus.</p>
 <p>The focus order first goes to the next child, then to
@@ -1850,14 +1853,14 @@ to 0.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.tk_focusPrev">
-<code class="sig-name descname"><span class="pre">tk_focusPrev</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.tk_focusPrev" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.tk_focusPrev">
+<span class="sig-name descname"><span class="pre">tk_focusPrev</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.tk_focusPrev" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return previous widget in the focus order. See tk_focusNext for details.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.tk_setPalette">
-<code class="sig-name descname"><span class="pre">tk_setPalette</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.tk_setPalette" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.tk_setPalette">
+<span class="sig-name descname"><span class="pre">tk_setPalette</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.tk_setPalette" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set a new color scheme for all widget elements.</p>
 <p>A single color as argument will cause that all colors of Tk
 widget elements are derived from this.
@@ -1870,8 +1873,8 @@ disabledForeground, insertBackground, troughColor.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.tk_strictMotif">
-<code class="sig-name descname"><span class="pre">tk_strictMotif</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">boolean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.tk_strictMotif" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.tk_strictMotif">
+<span class="sig-name descname"><span class="pre">tk_strictMotif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">boolean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.tk_strictMotif" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set Tcl internal variable, whether the look and feel
 should adhere to Motif.</p>
 <p>A parameter of 1 means adhere to Motif (e.g. no color
@@ -1880,340 +1883,339 @@ Returns the set value.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.tkraise">
-<code class="sig-name descname"><span class="pre">tkraise</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aboveThis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.tkraise" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.tkraise">
+<span class="sig-name descname"><span class="pre">tkraise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aboveThis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.tkraise" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raise this widget in the stacking order.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.unbind">
-<code class="sig-name descname"><span class="pre">unbind</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">funcid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.unbind" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.unbind">
+<span class="sig-name descname"><span class="pre">unbind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">funcid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.unbind" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unbind for this widget for event SEQUENCE  the
 function identified with FUNCID.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.unbind_all">
-<code class="sig-name descname"><span class="pre">unbind_all</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.unbind_all" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.unbind_all">
+<span class="sig-name descname"><span class="pre">unbind_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.unbind_all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unbind for all widgets for event SEQUENCE all functions.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.unbind_class">
-<code class="sig-name descname"><span class="pre">unbind_class</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">className</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sequence</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.unbind_class" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.unbind_class">
+<span class="sig-name descname"><span class="pre">unbind_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">className</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sequence</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.unbind_class" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unbind for all widgets with bindtag CLASSNAME for event SEQUENCE
 all functions.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.update">
-<code class="sig-name descname"><span class="pre">update</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.update" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enter event loop until all pending events have been processed by Tcl.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.update_idletasks">
-<code class="sig-name descname"><span class="pre">update_idletasks</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.update_idletasks" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.update_idletasks">
+<span class="sig-name descname"><span class="pre">update_idletasks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.update_idletasks" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enter event loop until all idle callbacks have been called. This
 will update the display of windows but not process events caused by
 the user.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.wait_variable">
-<code class="sig-name descname"><span class="pre">wait_variable</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'PY_VAR'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.wait_variable" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.wait_variable">
+<span class="sig-name descname"><span class="pre">wait_variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'PY_VAR'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.wait_variable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wait until the variable is modified.</p>
 <p>A parameter of type IntVar, StringVar, DoubleVar or
 BooleanVar must be given.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.wait_visibility">
-<code class="sig-name descname"><span class="pre">wait_visibility</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.wait_visibility" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.wait_visibility">
+<span class="sig-name descname"><span class="pre">wait_visibility</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.wait_visibility" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wait until the visibility of a WIDGET changes
 (e.g. it appears).</p>
 <p>If no parameter is given self is used.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.wait_window">
-<code class="sig-name descname"><span class="pre">wait_window</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.wait_window" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.wait_window">
+<span class="sig-name descname"><span class="pre">wait_window</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.wait_window" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wait until a WIDGET is destroyed.</p>
 <p>If no parameter is given self is used.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.waitvar">
-<code class="sig-name descname"><span class="pre">waitvar</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'PY_VAR'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.waitvar" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.waitvar">
+<span class="sig-name descname"><span class="pre">waitvar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'PY_VAR'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.waitvar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wait until the variable is modified.</p>
 <p>A parameter of type IntVar, StringVar, DoubleVar or
 BooleanVar must be given.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_atom">
-<code class="sig-name descname"><span class="pre">winfo_atom</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">displayof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_atom" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_atom">
+<span class="sig-name descname"><span class="pre">winfo_atom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">displayof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_atom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return integer which represents atom NAME.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_atomname">
-<code class="sig-name descname"><span class="pre">winfo_atomname</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">displayof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_atomname" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_atomname">
+<span class="sig-name descname"><span class="pre">winfo_atomname</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">displayof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_atomname" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return name of atom with identifier ID.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_cells">
-<code class="sig-name descname"><span class="pre">winfo_cells</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_cells" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_cells">
+<span class="sig-name descname"><span class="pre">winfo_cells</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_cells" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return number of cells in the colormap for this widget.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_children">
-<code class="sig-name descname"><span class="pre">winfo_children</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_children" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_children">
+<span class="sig-name descname"><span class="pre">winfo_children</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_children" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of all widgets which are children of this widget.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_class">
-<code class="sig-name descname"><span class="pre">winfo_class</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_class" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_class">
+<span class="sig-name descname"><span class="pre">winfo_class</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_class" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return window class name of this widget.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_colormapfull">
-<code class="sig-name descname"><span class="pre">winfo_colormapfull</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_colormapfull" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_colormapfull">
+<span class="sig-name descname"><span class="pre">winfo_colormapfull</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_colormapfull" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return True if at the last color request the colormap was full.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_containing">
-<code class="sig-name descname"><span class="pre">winfo_containing</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rootX</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rootY</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">displayof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_containing" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_containing">
+<span class="sig-name descname"><span class="pre">winfo_containing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rootX</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rootY</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">displayof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_containing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the widget which is at the root coordinates ROOTX, ROOTY.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_depth">
-<code class="sig-name descname"><span class="pre">winfo_depth</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_depth" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_depth">
+<span class="sig-name descname"><span class="pre">winfo_depth</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_depth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the number of bits per pixel.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_exists">
-<code class="sig-name descname"><span class="pre">winfo_exists</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_exists" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_exists">
+<span class="sig-name descname"><span class="pre">winfo_exists</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_exists" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return true if this widget exists.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_fpixels">
-<code class="sig-name descname"><span class="pre">winfo_fpixels</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_fpixels" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_fpixels">
+<span class="sig-name descname"><span class="pre">winfo_fpixels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_fpixels" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the number of pixels for the given distance NUMBER
 (e.g. “3c”) as float.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_geometry">
-<code class="sig-name descname"><span class="pre">winfo_geometry</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_geometry" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_geometry">
+<span class="sig-name descname"><span class="pre">winfo_geometry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_geometry" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return geometry string for this widget in the form “widthxheight+X+Y”.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_height">
-<code class="sig-name descname"><span class="pre">winfo_height</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_height" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_height">
+<span class="sig-name descname"><span class="pre">winfo_height</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_height" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return height of this widget.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_id">
-<code class="sig-name descname"><span class="pre">winfo_id</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_id" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_id">
+<span class="sig-name descname"><span class="pre">winfo_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return identifier ID for this widget.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_interps">
-<code class="sig-name descname"><span class="pre">winfo_interps</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">displayof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_interps" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_interps">
+<span class="sig-name descname"><span class="pre">winfo_interps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">displayof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_interps" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the name of all Tcl interpreters for this display.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_ismapped">
-<code class="sig-name descname"><span class="pre">winfo_ismapped</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_ismapped" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_ismapped">
+<span class="sig-name descname"><span class="pre">winfo_ismapped</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_ismapped" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return true if this widget is mapped.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_manager">
-<code class="sig-name descname"><span class="pre">winfo_manager</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_manager" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_manager">
+<span class="sig-name descname"><span class="pre">winfo_manager</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_manager" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the window manager name for this widget.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_name">
-<code class="sig-name descname"><span class="pre">winfo_name</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_name" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_name">
+<span class="sig-name descname"><span class="pre">winfo_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the name of this widget.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_parent">
-<code class="sig-name descname"><span class="pre">winfo_parent</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_parent" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_parent">
+<span class="sig-name descname"><span class="pre">winfo_parent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_parent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the name of the parent of this widget.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_pathname">
-<code class="sig-name descname"><span class="pre">winfo_pathname</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">displayof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_pathname" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_pathname">
+<span class="sig-name descname"><span class="pre">winfo_pathname</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">displayof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_pathname" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the pathname of the widget given by ID.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_pixels">
-<code class="sig-name descname"><span class="pre">winfo_pixels</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_pixels" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_pixels">
+<span class="sig-name descname"><span class="pre">winfo_pixels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_pixels" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rounded integer value of winfo_fpixels.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_pointerx">
-<code class="sig-name descname"><span class="pre">winfo_pointerx</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_pointerx" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_pointerx">
+<span class="sig-name descname"><span class="pre">winfo_pointerx</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_pointerx" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the x coordinate of the pointer on the root window.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_pointerxy">
-<code class="sig-name descname"><span class="pre">winfo_pointerxy</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_pointerxy" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_pointerxy">
+<span class="sig-name descname"><span class="pre">winfo_pointerxy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_pointerxy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a tuple of x and y coordinates of the pointer on the root window.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_pointery">
-<code class="sig-name descname"><span class="pre">winfo_pointery</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_pointery" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_pointery">
+<span class="sig-name descname"><span class="pre">winfo_pointery</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_pointery" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the y coordinate of the pointer on the root window.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_reqheight">
-<code class="sig-name descname"><span class="pre">winfo_reqheight</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_reqheight" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_reqheight">
+<span class="sig-name descname"><span class="pre">winfo_reqheight</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_reqheight" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return requested height of this widget.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_reqwidth">
-<code class="sig-name descname"><span class="pre">winfo_reqwidth</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_reqwidth" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_reqwidth">
+<span class="sig-name descname"><span class="pre">winfo_reqwidth</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_reqwidth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return requested width of this widget.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_rgb">
-<code class="sig-name descname"><span class="pre">winfo_rgb</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_rgb" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return tuple of decimal values for red, green, blue for
-COLOR in this widget.</p>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_rgb">
+<span class="sig-name descname"><span class="pre">winfo_rgb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_rgb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a tuple of integer RGB values in range(65536) for color in this widget.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_rootx">
-<code class="sig-name descname"><span class="pre">winfo_rootx</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_rootx" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_rootx">
+<span class="sig-name descname"><span class="pre">winfo_rootx</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_rootx" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return x coordinate of upper left corner of this widget on the
 root window.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_rooty">
-<code class="sig-name descname"><span class="pre">winfo_rooty</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_rooty" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_rooty">
+<span class="sig-name descname"><span class="pre">winfo_rooty</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_rooty" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return y coordinate of upper left corner of this widget on the
 root window.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_screen">
-<code class="sig-name descname"><span class="pre">winfo_screen</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_screen" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_screen">
+<span class="sig-name descname"><span class="pre">winfo_screen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_screen" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the screen name of this widget.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_screencells">
-<code class="sig-name descname"><span class="pre">winfo_screencells</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_screencells" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_screencells">
+<span class="sig-name descname"><span class="pre">winfo_screencells</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_screencells" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the number of the cells in the colormap of the screen
 of this widget.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_screendepth">
-<code class="sig-name descname"><span class="pre">winfo_screendepth</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_screendepth" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_screendepth">
+<span class="sig-name descname"><span class="pre">winfo_screendepth</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_screendepth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the number of bits per pixel of the root window of the
 screen of this widget.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_screenheight">
-<code class="sig-name descname"><span class="pre">winfo_screenheight</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_screenheight" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_screenheight">
+<span class="sig-name descname"><span class="pre">winfo_screenheight</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_screenheight" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the number of pixels of the height of the screen of this widget
 in pixel.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_screenmmheight">
-<code class="sig-name descname"><span class="pre">winfo_screenmmheight</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_screenmmheight" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_screenmmheight">
+<span class="sig-name descname"><span class="pre">winfo_screenmmheight</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_screenmmheight" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the number of pixels of the height of the screen of
 this widget in mm.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_screenmmwidth">
-<code class="sig-name descname"><span class="pre">winfo_screenmmwidth</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_screenmmwidth" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_screenmmwidth">
+<span class="sig-name descname"><span class="pre">winfo_screenmmwidth</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_screenmmwidth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the number of pixels of the width of the screen of
 this widget in mm.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_screenvisual">
-<code class="sig-name descname"><span class="pre">winfo_screenvisual</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_screenvisual" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_screenvisual">
+<span class="sig-name descname"><span class="pre">winfo_screenvisual</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_screenvisual" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return one of the strings directcolor, grayscale, pseudocolor,
 staticcolor, staticgray, or truecolor for the default
 colormodel of this screen.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_screenwidth">
-<code class="sig-name descname"><span class="pre">winfo_screenwidth</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_screenwidth" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_screenwidth">
+<span class="sig-name descname"><span class="pre">winfo_screenwidth</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_screenwidth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the number of pixels of the width of the screen of
 this widget in pixel.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_server">
-<code class="sig-name descname"><span class="pre">winfo_server</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_server" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_server">
+<span class="sig-name descname"><span class="pre">winfo_server</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_server" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return information of the X-Server of the screen of this widget in
 the form “XmajorRminor vendor vendorVersion”.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_toplevel">
-<code class="sig-name descname"><span class="pre">winfo_toplevel</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_toplevel" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_toplevel">
+<span class="sig-name descname"><span class="pre">winfo_toplevel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_toplevel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the toplevel widget of this widget.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_viewable">
-<code class="sig-name descname"><span class="pre">winfo_viewable</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_viewable" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_viewable">
+<span class="sig-name descname"><span class="pre">winfo_viewable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_viewable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return true if the widget and all its higher ancestors are mapped.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_visual">
-<code class="sig-name descname"><span class="pre">winfo_visual</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_visual" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_visual">
+<span class="sig-name descname"><span class="pre">winfo_visual</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_visual" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return one of the strings directcolor, grayscale, pseudocolor,
 staticcolor, staticgray, or truecolor for the
 colormodel of this widget.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_visualid">
-<code class="sig-name descname"><span class="pre">winfo_visualid</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_visualid" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_visualid">
+<span class="sig-name descname"><span class="pre">winfo_visualid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_visualid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the X identifier for the visual for this widget.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_visualsavailable">
-<code class="sig-name descname"><span class="pre">winfo_visualsavailable</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">includeids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_visualsavailable" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_visualsavailable">
+<span class="sig-name descname"><span class="pre">winfo_visualsavailable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">includeids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_visualsavailable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of all visuals available for the screen
 of this widget.</p>
 <p>Each item in the list consists of a visual name (see winfo_visual), a
@@ -2221,51 +2223,51 @@ depth and if includeids is true is given also the X identifier.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_vrootheight">
-<code class="sig-name descname"><span class="pre">winfo_vrootheight</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_vrootheight" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_vrootheight">
+<span class="sig-name descname"><span class="pre">winfo_vrootheight</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_vrootheight" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the height of the virtual root window associated with this
 widget in pixels. If there is no virtual root window return the
 height of the screen.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_vrootwidth">
-<code class="sig-name descname"><span class="pre">winfo_vrootwidth</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_vrootwidth" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_vrootwidth">
+<span class="sig-name descname"><span class="pre">winfo_vrootwidth</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_vrootwidth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the width of the virtual root window associated with this
 widget in pixel. If there is no virtual root window return the
 width of the screen.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_vrootx">
-<code class="sig-name descname"><span class="pre">winfo_vrootx</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_vrootx" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_vrootx">
+<span class="sig-name descname"><span class="pre">winfo_vrootx</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_vrootx" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the x offset of the virtual root relative to the root
 window of the screen of this widget.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_vrooty">
-<code class="sig-name descname"><span class="pre">winfo_vrooty</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_vrooty" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_vrooty">
+<span class="sig-name descname"><span class="pre">winfo_vrooty</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_vrooty" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the y offset of the virtual root relative to the root
 window of the screen of this widget.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_width">
-<code class="sig-name descname"><span class="pre">winfo_width</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_width" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_width">
+<span class="sig-name descname"><span class="pre">winfo_width</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_width" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the width of this widget.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_x">
-<code class="sig-name descname"><span class="pre">winfo_x</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_x" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_x">
+<span class="sig-name descname"><span class="pre">winfo_x</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_x" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the x coordinate of the upper left corner of this widget
 in the parent.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ncvue.ncvscatter.ncvScatter.winfo_y">
-<code class="sig-name descname"><span class="pre">winfo_y</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_y" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.winfo_y">
+<span class="sig-name descname"><span class="pre">winfo_y</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.winfo_y" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the y coordinate of the upper left corner of this widget
 in the parent.</p>
 </dd></dl>

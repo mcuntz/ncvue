@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
 
   
   
@@ -29,6 +31,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -226,7 +229,8 @@ already:</p>
 <p><cite>Cartopy</cite> can, however, be more elaborate to <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/installing.html">install</a>. The easiest way to
 install <cite>Cartopy</cite> is by using <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/">conda</a> and then installing <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> by <cite>pip</cite>.
 After installing, for example, <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c conda-forge cartopy
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c conda-forge scipy cython pykdtree netcdf4
+conda install -c conda-forge cartopy
 pip install ncvue
 </pre></div>
 </div>
@@ -288,8 +292,8 @@ wrappers to C++/C-libraries that must be installed first.</p>
 recommend then to install also all other dependencies for <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> with conda
 before installing <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> with <cite>pip</cite> (<cite>pip</cite> will otherwise install the second
 lot of packages):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c conda-forge cartopy
-conda install -c conda-forge scipy cython pykdtree netcdf4
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c conda-forge scipy cython pykdtree netcdf4
+conda install -c conda-forge cartopy
 pip install ncvue
 </pre></div>
 </div>
@@ -308,7 +312,8 @@ brew install proj geos
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install numpy scipy matplotlib netcdf4 pykdtree
 pip install --upgrade cython pyshp six
 <span class="c1"># shapely needs to be built from source to link to geos. If it is already</span>
-<span class="c1"># installed, uninstall it by: pip uninstall shapely</span>
+<span class="c1"># installed, uninstall it by:</span>
+<span class="c1"># pip uninstall shapely</span>
 pip install shapely --no-binary shapely
 pip install cartopy
 pip install ncvue
@@ -323,13 +328,13 @@ like:</p>
 </pre></div>
 </div>
 <p>You have to install <cite>tcl-tk</cite> from <a class="reference external" href="https://brew.sh/">homebrew</a> first and then reinstall Python
-(example with Python version 3.8.3):</p>
+(example with Python version 3.8.9):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>brew install tcl-tk
-pyenv uninstall <span class="m">3</span>.8.3
+pyenv uninstall <span class="m">3</span>.8.9
 pyenv rehash
 env <span class="nv">PYTHON_CONFIGURE_OPTS</span><span class="o">=</span><span class="s2">&quot;--with-tcltk-includes=&#39;-I/usr/local/opt/tcl-tk/include&#39; \</span>
 <span class="s2">    --with-tcltk-libs=&#39;-L/usr/local/opt/tcl-tk/lib -ltcl8.6 -ltk8.6&#39; \</span>
-<span class="s2">    --enable-framework&quot;</span> pyenv install <span class="m">3</span>.8.3
+<span class="s2">    --enable-framework&quot;</span> pyenv install <span class="m">3</span>.8.9
 pyenv rehash
 </pre></div>
 </div>

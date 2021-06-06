@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+# pillow 8.2.0 comes with older libtiff.5.dylib (version 12.0.0)
+# but proj4 (libproj.19.dylib) needs version 13.0.0
+#   -> take libtiff from homebrew
+# cd /Users/cuntz/.pyenv/versions/3.8.9/envs/pystd/lib/python3.8/site-packages/PIL/.dylibs/
+# mv libtiff.5.dylib libtiff.5.dylib.save
+# cp /usr/local/lib/libtiff.5.dylib .
+
 # Background in ncvue_app.spec
 # Check with:
 #   open dist/ncvue.app/

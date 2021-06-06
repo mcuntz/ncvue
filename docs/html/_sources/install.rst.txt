@@ -16,6 +16,7 @@ After installing, for example, Miniconda_:
 
 .. code-block:: bash
 
+   conda install -c conda-forge scipy cython pykdtree netcdf4
    conda install -c conda-forge cartopy
    pip install ncvue
 
@@ -94,8 +95,8 @@ lot of packages):
 
 .. code-block:: bash
 
-   conda install -c conda-forge cartopy
    conda install -c conda-forge scipy cython pykdtree netcdf4
+   conda install -c conda-forge cartopy
    pip install ncvue
 
 macOS
@@ -118,7 +119,8 @@ Library `proj` and the Geometry Engine `geos`:
    pip install numpy scipy matplotlib netcdf4 pykdtree
    pip install --upgrade cython pyshp six
    # shapely needs to be built from source to link to geos. If it is already
-   # installed, uninstall it by: pip uninstall shapely
+   # installed, uninstall it by:
+   # pip uninstall shapely
    pip install shapely --no-binary shapely
    pip install cartopy
    pip install ncvue
@@ -134,16 +136,16 @@ like:
    Set TK_SILENCE_DEPRECATION=1 to suppress this warning.
 
 You have to install `tcl-tk` from homebrew_ first and then reinstall Python
-(example with Python version 3.8.3):
+(example with Python version 3.8.9):
 
 .. code-block:: bash
 
    brew install tcl-tk
-   pyenv uninstall 3.8.3
+   pyenv uninstall 3.8.9
    pyenv rehash
    env PYTHON_CONFIGURE_OPTS="--with-tcltk-includes='-I/usr/local/opt/tcl-tk/include' \
        --with-tcltk-libs='-L/usr/local/opt/tcl-tk/lib -ltcl8.6 -ltk8.6' \
-       --enable-framework" pyenv install 3.8.3
+       --enable-framework" pyenv install 3.8.9
    pyenv rehash
 
 Note that `tcl-tk` is keg-only in homebrew_. `env` in the command above allows

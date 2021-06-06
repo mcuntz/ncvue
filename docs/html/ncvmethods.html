@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
 
   
   
@@ -29,6 +31,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -236,7 +239,7 @@ France.</p>
 <li><p>Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)</p></li>
 <li><p>Slice arrays with slice function rather than numpy.take,
 Dec 2020, Matthias Cuntz</p></li>
-<li><p>Moved individual <a href="#id1"><span class="problematic" id="id2">get_slice_</span></a>? methods for x, y, y2, z as general get_slice
+<li><p>Moved individual get_slice? methods for x, y, y2, z as general get_slice
 function to ncvutils, Dec 2020, Matthias Cuntz</p></li>
 <li><p>Added convenience method get_slice_miss, Dec 2020, Matthias Cuntz</p></li>
 <li><p>set_dim_lon, set_dim_lat, set_dim_var for Map panel,
@@ -292,8 +295,8 @@ Jan 2021, Matthias Cuntz</p></li>
 </tbody>
 </table>
 <dl class="py function">
-<dt id="ncvue.ncvmethods.analyse_netcdf">
-<code class="sig-name descname"><span class="pre">analyse_netcdf</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmethods.html#analyse_netcdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmethods.analyse_netcdf" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvmethods.analyse_netcdf">
+<span class="sig-name descname"><span class="pre">analyse_netcdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmethods.html#analyse_netcdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmethods.analyse_netcdf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Analyse a netcdf file for the unlimited dimension, calculating datetime,
 variables, latitudes/longitudes variables and dimensions.</p>
 <dl class="field-list simple">
@@ -320,8 +323,8 @@ self.latvar, self.lonvar, self.latdim, self.londim</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ncvue.ncvmethods.get_miss">
-<code class="sig-name descname"><span class="pre">get_miss</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmethods.html#get_miss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmethods.get_miss" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvmethods.get_miss">
+<span class="sig-name descname"><span class="pre">get_miss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmethods.html#get_miss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmethods.get_miss" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get list of missing values, i.e. self.miss, x._FillValue,
 x.missing_value, and from netcdf4.default_fillvals.</p>
 <dl class="field-list simple">
@@ -349,8 +352,8 @@ x.missing_value if present,  and from netcdf4.default_fillvals</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ncvue.ncvmethods.get_slice_miss">
-<code class="sig-name descname"><span class="pre">get_slice_miss</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dimspins</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmethods.html#get_slice_miss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmethods.get_slice_miss" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvmethods.get_slice_miss">
+<span class="sig-name descname"><span class="pre">get_slice_miss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dimspins</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmethods.html#get_slice_miss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmethods.get_slice_miss" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convenience method to get list of missing values (get_miss),
 choose slice of array (get_slice), and set missing values to
 NaN or np.datetime64(‘NaT’) in slice (set_miss).</p>
@@ -381,8 +384,8 @@ np.NaN or np.datetime64(‘NaT’)</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ncvue.ncvmethods.set_dim_lat">
-<code class="sig-name descname"><span class="pre">set_dim_lat</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmethods.html#set_dim_lat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmethods.set_dim_lat" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvmethods.set_dim_lat">
+<span class="sig-name descname"><span class="pre">set_dim_lat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmethods.html#set_dim_lat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmethods.set_dim_lat" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set spinboxes of latitude-dimensions.</p>
 <p>Set labels and value lists. Select ‘all’ for all dimension.</p>
 <dl class="field-list simple">
@@ -406,8 +409,8 @@ np.NaN or np.datetime64(‘NaT’)</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ncvue.ncvmethods.set_dim_lon">
-<code class="sig-name descname"><span class="pre">set_dim_lon</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmethods.html#set_dim_lon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmethods.set_dim_lon" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvmethods.set_dim_lon">
+<span class="sig-name descname"><span class="pre">set_dim_lon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmethods.html#set_dim_lon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmethods.set_dim_lon" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set spinboxes of longitude-dimensions.</p>
 <p>Set labels and value lists. Select ‘all’ for all dimension.</p>
 <dl class="field-list simple">
@@ -431,8 +434,8 @@ np.NaN or np.datetime64(‘NaT’)</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ncvue.ncvmethods.set_dim_var">
-<code class="sig-name descname"><span class="pre">set_dim_var</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmethods.html#set_dim_var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmethods.set_dim_var" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvmethods.set_dim_var">
+<span class="sig-name descname"><span class="pre">set_dim_var</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmethods.html#set_dim_var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmethods.set_dim_var" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set spinboxes of varable-dimensions in Map panel.</p>
 <p>Set labels and value lists, including ‘all’ to select all entries,
 as well as ‘mean’, ‘std’, etc. for common operations on the axis.</p>
@@ -459,8 +462,8 @@ as well as ‘mean’, ‘std’, etc. for common operations on the axis.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ncvue.ncvmethods.set_dim_x">
-<code class="sig-name descname"><span class="pre">set_dim_x</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmethods.html#set_dim_x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmethods.set_dim_x" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvmethods.set_dim_x">
+<span class="sig-name descname"><span class="pre">set_dim_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmethods.html#set_dim_x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmethods.set_dim_x" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set spinboxes of x-dimensions.</p>
 <p>Set labels and value lists, including ‘all’ to select all entries,
 as well as ‘mean’, ‘std’, etc. for common operations on the axis.</p>
@@ -487,8 +490,8 @@ for the first dimension, and select 0 for all other dimensions.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ncvue.ncvmethods.set_dim_y">
-<code class="sig-name descname"><span class="pre">set_dim_y</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmethods.html#set_dim_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmethods.set_dim_y" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvmethods.set_dim_y">
+<span class="sig-name descname"><span class="pre">set_dim_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmethods.html#set_dim_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmethods.set_dim_y" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set spinboxes of y-dimensions of the left-hand-side (lhs).</p>
 <p>Set labels and value lists, including ‘all’ to select all entries,
 as well as ‘mean’, ‘std’, etc. for common operations on the axis.</p>
@@ -515,8 +518,8 @@ for the first dimension, and select 0 for all other dimensions.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ncvue.ncvmethods.set_dim_y2">
-<code class="sig-name descname"><span class="pre">set_dim_y2</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmethods.html#set_dim_y2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmethods.set_dim_y2" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvmethods.set_dim_y2">
+<span class="sig-name descname"><span class="pre">set_dim_y2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmethods.html#set_dim_y2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmethods.set_dim_y2" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set spinboxes of y2-dimensions of the right-hand-side (rhs).</p>
 <p>Set labels and value lists, including ‘all’ to select all entries,
 as well as ‘mean’, ‘std’, etc. for common operations on the axis.</p>
@@ -543,8 +546,8 @@ for the first dimension, and select 0 for all other dimensions.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ncvue.ncvmethods.set_dim_z">
-<code class="sig-name descname"><span class="pre">set_dim_z</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmethods.html#set_dim_z"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmethods.set_dim_z" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvmethods.set_dim_z">
+<span class="sig-name descname"><span class="pre">set_dim_z</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmethods.html#set_dim_z"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmethods.set_dim_z" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set spinboxes of z-dimensions.</p>
 <p>Set labels and value lists, including ‘all’ to select all entries,
 as well as ‘mean’, ‘std’, etc. for common operations on the axis.</p>

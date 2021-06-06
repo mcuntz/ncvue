@@ -4,6 +4,11 @@ Changelog
 All notable changes after its initial development up to November 2020 (v1.0)
 are documented in this file.
 
+v3.5 (Jun 2021)
+-----------------
+* Uses different themes on different operating systems.
+* New add_cyclic function used as submitted to Cartopy.
+
 v3.4 (May 2021)
 -----------------
 * Works in ipython and jupyter notebooks. Adapted documentation accordingly.

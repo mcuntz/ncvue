@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
 
   
   
@@ -29,6 +31,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -241,6 +244,8 @@ Dec 2020, Matthias Cuntz</p></li>
 May 2021, Matthias Cuntz</p></li>
 <li><p>added format_coord functions for scatter, contour, and map,
 May 2021, Matthias Cuntz</p></li>
+<li><p>replaced add_cyclic_point with add_cyclic as submitted to cartopy,
+Jun 2021, Matthias Cuntz</p></li>
 </ul>
 <p>The following functions are provided:</p>
 <table class="longtable docutils align-default">
@@ -255,8 +260,8 @@ May 2021, Matthias Cuntz</p></li>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SEPCHAR</span></code></p></td>
 <td><p>str(object=’’) -&gt; str str(bytes_or_buffer[, encoding[, errors]]) -&gt; str</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvutils.add_cyclic_point" title="ncvue.ncvutils.add_cyclic_point"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_cyclic_point</span></code></a>(data[, coord, rowcoord, axis])</p></td>
-<td><p>Add a cyclic point to an array and optionally a corresponding coordinate.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvutils.add_cyclic" title="ncvue.ncvutils.add_cyclic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_cyclic</span></code></a>(data[, coord, rowcoord, axis, …])</p></td>
+<td><p>Add a cyclic point to an array and optionally corresponding column (<cite>coord</cite> ~ longitudes) and row coordinates (<cite>rowcoord</cite> ~ latitudes).</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvutils.clone_ncvmain" title="ncvue.ncvutils.clone_ncvmain"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clone_ncvmain</span></code></a>(widget)</p></td>
 <td><p>Duplicate the main ncvue window.</p></td>
@@ -294,30 +299,44 @@ May 2021, Matthias Cuntz</p></li>
 </tbody>
 </table>
 <dl class="py function">
-<dt id="ncvue.ncvutils.add_cyclic_point">
-<code class="sig-name descname"><span class="pre">add_cyclic_point</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coord</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rowcoord</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#add_cyclic_point"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.add_cyclic_point" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add a cyclic point to an array and optionally a corresponding
-coordinate.</p>
+<dt class="sig sig-object py" id="ncvue.ncvutils.add_cyclic">
+<span class="sig-name descname"><span class="pre">add_cyclic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coord</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rowcoord</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cyclic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">360</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#add_cyclic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.add_cyclic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a cyclic point to an array and optionally corresponding
+column (<cite>coord</cite> ~ longitudes) and row coordinates
+(<cite>rowcoord</cite> ~ latitudes).</p>
+<p>The call is <cite>add_cyclic(data[, coord[, rowcoord]])</cite>.</p>
+<p>Checks all differences between the first and last
+coordinates along <cite>axis</cite> to be less than <cite>prec</cite>.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl>
 <dt><strong>data</strong><span class="classifier">ndarray</span></dt><dd><p>An n-dimensional array of data to add a cyclic point to.</p>
 </dd>
-<dt><strong>coord: ndarray, optional</strong></dt><dd><p>A 1- or 2-dimensional array which specifies the coordinate values for
-the dimension the cyclic point is to be added to. Defaults to None.</p>
-<p>If <cite>coord</cite> is given than add_cyclic_point checks if cyclic point is
-already present by checking <cite>sin(coord[0]) == sin(coord[-1])</cite>.
-No point is added if cyclic point was detected.</p>
-<p>Length of <cite>coord</cite> must be <cite>data.shape[axis]</cite> if 1-dimensional.</p>
-<p><cite>coord.shape[-1]</cite> must be <cite>data.shape[axis]</cite> if 2-dimensional.</p>
+<dt><strong>coord: ndarray, optional</strong></dt><dd><p>An n-dimensional array which specifies the coordinate values
+for the dimension the cyclic point is to be added to, i.e. normally the
+longitudes. Defaults to None.</p>
+<p>If <cite>coord</cite> is given than add_cyclic checks if a cyclic point is
+already present by checking all differences between the first and last
+coordinates to be less than <cite>prec</cite>.
+No point is added if a cyclic point was detected.</p>
+<p><cite>coord.shape[-1]</cite> must be <cite>data.shape[axis]</cite> if coord is 1- or
+2-dimensional,
+<cite>coord.shape[axis]</cite> must be <cite>data.shape[axis]</cite> otherwise.</p>
 </dd>
-<dt><strong>rowcoord: ndarray, optional</strong></dt><dd><p>A 2-dimensional array with the variable of the row coordinate.
-The cyclic point simply copies the last column. Only considered if
-<cite>coord</cite> is 2-dimensional. Defaults to None.</p>
-<p><cite>rowcoord.shape[-1]</cite> must be <cite>data.shape[axis]</cite>.</p>
+<dt><strong>rowcoord: ndarray, optional</strong></dt><dd><p>An n-dimensional array with the variable of the row
+coordinate, i.e. normally the latitudes.
+The cyclic point simply copies the last column. Defaults to None.</p>
+<p><cite>rowcoord.shape[-1]</cite> must be <cite>data.shape[axis]</cite> if rowcoord is 1- or
+2-dimensional,
+<cite>rowcoord.shape[axis]</cite> must be <cite>data.shape[axis]</cite> otherwise.</p>
 </dd>
-<dt><strong>axis: optional</strong></dt><dd><p>Specifies the axis of the data array to add the cyclic point to.
-Defaults to the right-most axis.</p>
+<dt><strong>axis: int, optional</strong></dt><dd><p>Specifies the axis of the data array to add the cyclic point to,
+i.e. normally the longitudes. Defaults to the right-most axis.</p>
+</dd>
+<dt><strong>cyclic: int or float, optional</strong></dt><dd><p>Width of periodic domain (default: 360).</p>
+</dd>
+<dt><strong>prec: float, optional</strong></dt><dd><p>Maximal difference between first and last coordinate to detect
+cyclic point (default: 1e-4).</p>
 </dd>
 </dl>
 </dd>
@@ -329,7 +348,8 @@ Defaults to the right-most axis.</p>
 keyword was supplied.</p>
 </dd>
 <dt>cyclic_rowcoord</dt><dd><p>The row coordinate with the last column duplicated, only returned
-if <cite>coord</cite> was 2-dimensional and the <cite>lat</cite> keyword was supplied.</p>
+if <cite>coord</cite> was 2- or n-dimensional and the <cite>rowcoord</cite> keyword was
+supplied.</p>
 </dd>
 </dl>
 </dd>
@@ -347,7 +367,7 @@ the right-most dimension.
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic_data</span> <span class="o">=</span> <span class="n">add_cyclic_point</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic_data</span> <span class="o">=</span> <span class="n">add_cyclic</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_data</span><span class="p">)</span>  
 <span class="go">[[ 0. 1. 2. 3. 4. 5. 0.]</span>
 <span class="go"> [ 0. 1. 2. 3. 4. 5. 0.]</span>
@@ -358,7 +378,7 @@ the right-most dimension.
 </div>
 <p>Adding a cyclic point to a data array and an associated coordinate.
 &gt;&gt;&gt; lons = np.arange(0, 360, 60)
-&gt;&gt;&gt; cyclic_data, cyclic_lons = add_cyclic_point(data, coord=lons)
+&gt;&gt;&gt; cyclic_data, cyclic_lons = add_cyclic(data, coord=lons)
 &gt;&gt;&gt; print(cyclic_data)  # doctest: +NORMALIZE_WHITESPACE
 [[ 0. 1. 2. 3. 4. 5. 0.]</p>
 <blockquote>
@@ -368,7 +388,7 @@ the right-most dimension.
 [ 0. 1. 2. 3. 4. 5. 0.]]</p>
 </div></blockquote>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_lons</span><span class="p">)</span>
-<span class="go">[  0  60 120 180 240 300 360]</span>
+<span class="go">[   0.   60.  120.  180.  240.  300.  360.]</span>
 </pre></div>
 </div>
 <p>Adding a cyclic point to a data array and an associated 2-dimensional
@@ -376,7 +396,7 @@ coordinate.
 &gt;&gt;&gt; lons = np.arange(0, 360, 60)
 &gt;&gt;&gt; lats = np.arange(-90, 90, 180/5)
 &gt;&gt;&gt; lon2d, lat2d = np.meshgrid(lons, lats)
-&gt;&gt;&gt; cyclic_data, cyclic_lon2d = add_cyclic_point(data, coord=lon2d)
+&gt;&gt;&gt; cyclic_data, cyclic_lon2d = add_cyclic(data, coord=lon2d)
 &gt;&gt;&gt; print(cyclic_data)  # doctest: +NORMALIZE_WHITESPACE
 [[ 0. 1. 2. 3. 4. 5. 0.]</p>
 <blockquote>
@@ -386,11 +406,11 @@ coordinate.
 [ 0. 1. 2. 3. 4. 5. 0.]]</p>
 </div></blockquote>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_lon2d</span><span class="p">)</span>
-<span class="go">[[  0  60 120 180 240 300 360]</span>
-<span class="go"> [  0  60 120 180 240 300 360]</span>
-<span class="go"> [  0  60 120 180 240 300 360]</span>
-<span class="go"> [  0  60 120 180 240 300 360]</span>
-<span class="go"> [  0  60 120 180 240 300 360]]</span>
+<span class="go">[[   0.   60.  120.  180.  240.  300.  360.]</span>
+<span class="go"> [   0.   60.  120.  180.  240.  300.  360.]</span>
+<span class="go"> [   0.   60.  120.  180.  240.  300.  360.]</span>
+<span class="go"> [   0.   60.  120.  180.  240.  300.  360.]</span>
+<span class="go"> [   0.   60.  120.  180.  240.  300.  360.]]</span>
 </pre></div>
 </div>
 <p>Adding a cyclic point to a data array and an associated 2-dimensional
@@ -398,7 +418,7 @@ coordinate and a second raw variable.
 &gt;&gt;&gt; lons = np.arange(0, 360, 60)
 &gt;&gt;&gt; lats = np.arange(-90, 90, 180/5)
 &gt;&gt;&gt; lon2d, lat2d = np.meshgrid(lons, lats)
-&gt;&gt;&gt; cyclic_data, cyclic_lon2d, cyclic_lat2d = add_cyclic_point(
+&gt;&gt;&gt; cyclic_data, cyclic_lon2d, cyclic_lat2d = add_cyclic(
 …     data, coord=lon2d, rowcoord=lat2d)
 &gt;&gt;&gt; print(cyclic_data)  # doctest: +NORMALIZE_WHITESPACE
 [[ 0. 1. 2. 3. 4. 5. 0.]</p>
@@ -409,11 +429,11 @@ coordinate and a second raw variable.
 [ 0. 1. 2. 3. 4. 5. 0.]]</p>
 </div></blockquote>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_lon2d</span><span class="p">)</span>
-<span class="go">[[  0  60 120 180 240 300 360]</span>
-<span class="go"> [  0  60 120 180 240 300 360]</span>
-<span class="go"> [  0  60 120 180 240 300 360]</span>
-<span class="go"> [  0  60 120 180 240 300 360]</span>
-<span class="go"> [  0  60 120 180 240 300 360]]</span>
+<span class="go">[[   0.   60.  120.  180.  240.  300.  360.]</span>
+<span class="go"> [   0.   60.  120.  180.  240.  300.  360.]</span>
+<span class="go"> [   0.   60.  120.  180.  240.  300.  360.]</span>
+<span class="go"> [   0.   60.  120.  180.  240.  300.  360.]</span>
+<span class="go"> [   0.   60.  120.  180.  240.  300.  360.]]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_lat2d</span><span class="p">)</span>
 <span class="go">[[-90. -90. -90. -90. -90. -90. -90.]</span>
 <span class="go"> [-54. -54. -54. -54. -54. -54. -54.]</span>
@@ -426,7 +446,7 @@ coordinate and a second raw variable.
 &gt;&gt;&gt; lons = np.arange(0, 361, 72)
 &gt;&gt;&gt; lats = np.arange(-90, 90, 180/5)
 &gt;&gt;&gt; lon2d, lat2d = np.meshgrid(lons, lats)
-&gt;&gt;&gt; cyclic_data, cyclic_lon2d, cyclic_lat2d = add_cyclic_point(
+&gt;&gt;&gt; cyclic_data, cyclic_lon2d, cyclic_lat2d = add_cyclic(
 …     data, coord=lon2d, rowcoord=lat2d)
 &gt;&gt;&gt; print(cyclic_data)  # doctest: +NORMALIZE_WHITESPACE
 [[ 0. 1. 2. 3. 4. 5.]</p>
@@ -453,8 +473,8 @@ coordinate and a second raw variable.
 </dd></dl>
 
 <dl class="py function">
-<dt id="ncvue.ncvutils.clone_ncvmain">
-<code class="sig-name descname"><span class="pre">clone_ncvmain</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widget</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#clone_ncvmain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.clone_ncvmain" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvutils.clone_ncvmain">
+<span class="sig-name descname"><span class="pre">clone_ncvmain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widget</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#clone_ncvmain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.clone_ncvmain" title="Permalink to this definition">¶</a></dt>
 <dd><p>Duplicate the main ncvue window.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -478,8 +498,8 @@ coordinate and a second raw variable.
 </dd></dl>
 
 <dl class="py function">
-<dt id="ncvue.ncvutils.format_coord_contour">
-<code class="sig-name descname"><span class="pre">format_coord_contour</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zz</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#format_coord_contour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.format_coord_contour" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvutils.format_coord_contour">
+<span class="sig-name descname"><span class="pre">format_coord_contour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zz</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#format_coord_contour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.format_coord_contour" title="Permalink to this definition">¶</a></dt>
 <dd><p>Formatter function for contour plot including value of nearest array cell.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -508,8 +528,8 @@ coordinate and a second raw variable.
 </dd></dl>
 
 <dl class="py function">
-<dt id="ncvue.ncvutils.format_coord_map">
-<code class="sig-name descname"><span class="pre">format_coord_map</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zz</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#format_coord_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.format_coord_map" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvutils.format_coord_map">
+<span class="sig-name descname"><span class="pre">format_coord_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zz</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#format_coord_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.format_coord_map" title="Permalink to this definition">¶</a></dt>
 <dd><p>Formatter function for map including value of nearest array cell.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -538,8 +558,8 @@ coordinate and a second raw variable.
 </dd></dl>
 
 <dl class="py function">
-<dt id="ncvue.ncvutils.format_coord_scatter">
-<code class="sig-name descname"><span class="pre">format_coord_scatter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xdtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ydtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y2dtype</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#format_coord_scatter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.format_coord_scatter" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvutils.format_coord_scatter">
+<span class="sig-name descname"><span class="pre">format_coord_scatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xdtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ydtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y2dtype</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#format_coord_scatter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.format_coord_scatter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Formatter function for scatter plot with left and right axis
 having the same x-axis.</p>
 <dl class="field-list simple">
@@ -572,8 +592,8 @@ having the same x-axis.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ncvue.ncvutils.get_slice">
-<code class="sig-name descname"><span class="pre">get_slice</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimspins</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#get_slice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.get_slice" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvutils.get_slice">
+<span class="sig-name descname"><span class="pre">get_slice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimspins</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#get_slice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.get_slice" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get slice of variable <cite>y</cite> inquiring the spinboxes <cite>dimspins</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -602,8 +622,8 @@ having the same x-axis.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ncvue.ncvutils.list_intersection">
-<code class="sig-name descname"><span class="pre">list_intersection</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lst2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#list_intersection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.list_intersection" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvutils.list_intersection">
+<span class="sig-name descname"><span class="pre">list_intersection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lst2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#list_intersection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.list_intersection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Intersection of two lists.</p>
 <p>From:
 <a class="reference external" href="https://stackoverflow.com/questions/3697432/how-to-find-list-intersection">https://stackoverflow.com/questions/3697432/how-to-find-list-intersection</a>
@@ -633,8 +653,8 @@ intersection for longer lists.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ncvue.ncvutils.set_axis_label">
-<code class="sig-name descname"><span class="pre">set_axis_label</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ncvar</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#set_axis_label"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.set_axis_label" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvutils.set_axis_label">
+<span class="sig-name descname"><span class="pre">set_axis_label</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ncvar</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#set_axis_label"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.set_axis_label" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set label plotting axis from name and unit of given variable
 <cite>ncvar</cite>.</p>
 <dl class="field-list simple">
@@ -658,8 +678,8 @@ intersection for longer lists.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ncvue.ncvutils.set_miss">
-<code class="sig-name descname"><span class="pre">set_miss</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">miss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#set_miss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.set_miss" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvutils.set_miss">
+<span class="sig-name descname"><span class="pre">set_miss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">miss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#set_miss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.set_miss" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set <cite>x</cite> to NaN or NaT for all values in miss.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -687,8 +707,8 @@ that are equal to any value in miss.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ncvue.ncvutils.spinbox_values">
-<code class="sig-name descname"><span class="pre">spinbox_values</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ndim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#spinbox_values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.spinbox_values" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvutils.spinbox_values">
+<span class="sig-name descname"><span class="pre">spinbox_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ndim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#spinbox_values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.spinbox_values" title="Permalink to this definition">¶</a></dt>
 <dd><p>Tuple for Spinbox values with ‘all’ before range(<cite>ndim</cite>) and
 ‘mean’, ‘std’, etc. after range(<cite>ndim</cite>) if <cite>ndim</cite>&gt;1,
 otherwise single entry (0,).</p>
@@ -714,8 +734,8 @@ otherwise single entry (0,).</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ncvue.ncvutils.vardim2var">
-<code class="sig-name descname"><span class="pre">vardim2var</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vardim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#vardim2var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.vardim2var" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvutils.vardim2var">
+<span class="sig-name descname"><span class="pre">vardim2var</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vardim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#vardim2var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.vardim2var" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extract variable name from ‘variable (dim1=ndim1,)’ string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -739,8 +759,8 @@ otherwise single entry (0,).</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ncvue.ncvutils.zip_dim_name_length">
-<code class="sig-name descname"><span class="pre">zip_dim_name_length</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ncvar</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#zip_dim_name_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.zip_dim_name_length" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvutils.zip_dim_name_length">
+<span class="sig-name descname"><span class="pre">zip_dim_name_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ncvar</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#zip_dim_name_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.zip_dim_name_length" title="Permalink to this definition">¶</a></dt>
 <dd><p>Combines dimension names and length of netcdf variable in list of strings.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -768,8 +788,8 @@ otherwise single entry (0,).</p>
 </dd></dl>
 
 <dl class="py data">
-<dt id="ncvue.ncvutils.DIMMETHODS">
-<code class="sig-name descname"><span class="pre">DIMMETHODS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">('mean',</span> <span class="pre">'std',</span> <span class="pre">'min',</span> <span class="pre">'max',</span> <span class="pre">'ptp',</span> <span class="pre">'sum',</span> <span class="pre">'median',</span> <span class="pre">'var')</span></em><a class="headerlink" href="#ncvue.ncvutils.DIMMETHODS" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ncvue.ncvutils.DIMMETHODS">
+<span class="sig-name descname"><span class="pre">DIMMETHODS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">('mean',</span> <span class="pre">'std',</span> <span class="pre">'min',</span> <span class="pre">'max',</span> <span class="pre">'ptp',</span> <span class="pre">'sum',</span> <span class="pre">'median',</span> <span class="pre">'var')</span></em><a class="headerlink" href="#ncvue.ncvutils.DIMMETHODS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Arithmetic methods implemented on dimensions.</p>
 <p>mean - average
 std - standard deviation
