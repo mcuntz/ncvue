@@ -120,6 +120,8 @@ class ncvScatter(ttk.Frame):
         self.figure = Figure(facecolor="white", figsize=(1, 1))
         self.axes   = self.figure.add_subplot(111)
         self.axes2  = self.axes.twinx()
+        self.axes2.yaxis.set_label_position("right")
+        self.axes2.yaxis.tick_right()
         self.canvas = FigureCanvasTkAgg(self.figure, master=self)
         self.canvas.draw()
         # pack
@@ -904,6 +906,8 @@ class ncvScatter(ttk.Frame):
         self.axes.clear()
         # if (x != self.x0) or (y2 != self.y20):
         self.axes2.clear()
+        self.axes2.yaxis.set_label_position("right")
+        self.axes2.yaxis.tick_right()
         ylim  = [None, None]
         ylim2 = [None, None]
         # set x, y, axes labels

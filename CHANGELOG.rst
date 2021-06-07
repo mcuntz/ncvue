@@ -4,6 +4,11 @@ Changelog
 All notable changes after its initial development up to November 2020 (v1.0)
 are documented in this file.
 
+v3.5.1 (Jun 2021)
+-----------------
+* Set labelling of second y-axis to the right explicitly,
+  which needs to be done with newer Matplotlib versions.
+
 v3.5 (Jun 2021)
 -----------------
 * Uses different themes on different operating systems.

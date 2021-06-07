@@ -29,9 +29,11 @@ Released under the MIT License; see LICENSE file for details.
 * v3.3.1, Better installation instructions, Feb 2021, Matthias Cuntz
 * v3.4, Print values, draw grid lines in contour, May 2021, Matthias Cuntz
 * v3.5, Uses different themes on different OS, Jun 2021, Matthias Cuntz
+* v3.5.1, Explicitly set labelling of second y-axis to the right,
+  Jun 2021, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 """
 
 __author__  = "Matthias Cuntz"
-__version__ = "3.5"
+__version__ = "3.5.1"
