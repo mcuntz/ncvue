@@ -60,7 +60,7 @@ from __future__ import absolute_import, division, print_function
 import tkinter as tk
 import numpy as np
 from .ncvutils import DIMMETHODS, get_slice, set_miss, spinbox_values
-from .ncvutils import SEPCHAR, vardim2var, zip_dim_name_length
+from .ncvutils import vardim2var, zip_dim_name_length
 import netCDF4 as nc
 # nc.default_fillvals but with keys as variables['var'].dtype
 nctypes = [ np.dtype(i) for i in nc.default_fillvals ]
@@ -226,7 +226,7 @@ def analyse_netcdf(self):
     # construct list of variable names with dimensions
     if self.time is not None:
         addt = [
-            self.tname + ' ' + SEPCHAR +
+            self.tname + ' ' +
             str(tuple(zip_dim_name_length(self.fi.variables[self.tvar])))]
         self.cols += addt
     ivars = []
@@ -235,7 +235,7 @@ def analyse_netcdf(self):
         ss = tuple(zip_dim_name_length(self.fi.variables[vv]))
         self.maxdim = max(self.maxdim, len(ss))
         ivars.append((vv, ss, len(ss)))
-    self.cols += sorted([ vv[0] + ' ' + SEPCHAR + str(vv[1])
+    self.cols += sorted([ vv[0] + ' ' + str(vv[1])
                           for vv in ivars ])
     #
     # search for lat/lon variables
@@ -440,10 +440,10 @@ def analyse_netcdf(self):
     # add units to lat/lon name
     if self.latvar:
         idim = tuple(zip_dim_name_length(self.fi.variables[self.latvar]))
-        self.latvar = self.latvar + ' ' + SEPCHAR + str(idim)
+        self.latvar = self.latvar + ' ' + str(idim)
     if self.lonvar:
         idim = tuple(zip_dim_name_length(self.fi.variables[self.lonvar]))
-        self.lonvar = self.lonvar + ' ' + SEPCHAR + str(idim)
+        self.lonvar = self.lonvar + ' ' + str(idim)
 
 
 #

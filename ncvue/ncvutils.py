@@ -30,6 +30,7 @@ History:
   May 2021, Matthias Cuntz
 * replaced add_cyclic_point with add_cyclic as submitted to cartopy,
   Jun 2021, Matthias Cuntz
+* removed SEPCHAR, Jun 2021, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -37,7 +38,6 @@ The following functions are provided:
 
 .. autosummary::
    DIMMETHODS
-   SEPCHAR
    add_cyclic
    clone_ncvmain
    format_coord_contour
@@ -56,10 +56,9 @@ import tkinter as tk
 import numpy as np
 import matplotlib.dates as mpld
 import cartopy.crs as ccrs
-import platform
 
 
-__all__ = ['DIMMETHODS', 'SEPCHAR',
+__all__ = ['DIMMETHODS',
            'add_cyclic', 'clone_ncvmain',
            'format_coord_contour', 'format_coord_map', 'format_coord_scatter',
            'get_slice',
@@ -79,56 +78,6 @@ ptp - point-to-point amplitude = max - min
 sum - sum
 median - 50-percentile
 var - variance
-"""
-
-ios = platform.system()
-if ios == 'Darwin':
-    # SEPCHAR = chr(6)
-    SEPCHAR = chr(31)
-elif ios == 'Java':
-    SEPCHAR = chr(31)
-elif ios == 'Linux':
-    SEPCHAR = chr(9)
-elif ios == 'Windows':
-    SEPCHAR = chr(31)
-else:
-    SEPCHAR = chr(31)
-"""
-Invisible character to split strings.
-
-Name (Code) Decimal
-Null (NUL) 0
-Start of Heading (SOH) 1
-Start of Text (STX) 2
-End of Text (ETX) 3
-End of Transmit (EOT) 4
-Enquiry (ENQ) 5
-Acknowledge (ACK) 6
-Bell (BEL) 7
-Back Space (BS) 8
-Horizontal Tab (TAB) 9
-Line Feed (LF) 10
-Vertical Tab (VT) 11
-Form Feed (FF) 12
-Carriage Return (CR) 13
-Shift Out (SO) 14
-Shift In (SI) 15
-Data Line Escape (DLE) 16
-Device Control 1 (DC1) 17
-Device Control 2 (DC2) 18
-Device Control 3 (DC3) 19
-Device Control 4 (DC4) 20
-Negative Acknowledge (NAK) 21
-Synchronous Idle (SYN) 22
-End of Transmit Block (ETB) 23
-Cancel (CAN) 24
-End of Medium (EM) 25
-Substitute (SUB) 26
-Escape (ESC) 27
-File Separator (FS) 28
-Group Separator (GS) 29
-Record Separator (RS) 30
-Unit Separator (US) 31
 """
 
 
@@ -858,7 +807,7 @@ def vardim2var(vardim):
     >>> vardim2var('latitude (lat=32,lon=64)')
     latitude
     """
-    return vardim.split(SEPCHAR)[0].rstrip()
+    return vardim[0:vardim.rfind('(')].rstrip()
 
 
 def zip_dim_name_length(ncvar):
