@@ -84,17 +84,26 @@ def ncvue(ncfile='', miss=np.nan):
     if ios == 'Darwin':
         theme = 'aqua'
     elif ios == 'Windows':
-        # # style packages
-        # # top.tk.call('lappend', 'auto_path',
-        # #             bundle_dir + '/themes/awthemes-10.3.0')
-        # # theme = 'awlight'  # 'awlight', 'awdark'
-        # # top.tk.call('package', 'require', theme)
+        top.option_add("*Font", "Helvetica 11")
+        # standard themes
+        # ('winnative', 'clam', 'alt', 'default', 'classic', 'vista', 'xpnative')
+        # theme = 'vista'
+
+        # style packages
+        # Download from https://sourceforge.net/projects/tcl-awthemes/
+        # top.tk.call('lappend', 'auto_path',
+        #             bundle_dir + '/themes/awthemes-10.3.2')
+        # theme = 'awdark'  # 'awlight', 'awdark'
+        # top.tk.call('package', 'require', theme)
 
         # single file styles
+        # 'azure', 'azure-dark', 'Breeze'
         # top.tk.call('source', bundle_dir + '/themes/breeze/breeze.tcl')
+        # theme = 'Breeze'
         top.tk.call('source', bundle_dir + '/themes/azure/azure.tcl')
+        theme = 'azure'
         # top.tk.call('source', bundle_dir + '/themes/azure/azure-dark.tcl')
-        theme = 'azure'  # 'azure', 'azure-dark', 'Breeze'
+        # theme = 'azure-dark'
     elif ios == 'Linux':
         theme = 'clam'  # 'clam', 'alt', 'default', 'classic'
     style = ttk.Style()
