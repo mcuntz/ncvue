@@ -21,6 +21,7 @@
 #     pyinstaller --onedir --windowed .\ncvue_exe.spec
 #   # Using UPX (copy into C:\ProgramData, i.e. path without space): https://upx.github.io/
 #   #   pyinstaller --onedir --windowed --upx-dir='C:\ProgramData\upx-3.96-win64\' .\ncvue_exe.spec
+#
 
 # Create Installer:
 #   https://helpdeskgeek.com/free-tools-review/4-tools-to-create-windows-installer-packages/
@@ -33,7 +34,7 @@ block_cipher = None
 a = Analysis(['../bin/ncvue'],
              pathex=['.'],
              binaries=[],
-             datas=[('../ncvue/images', 'images')],
+             datas=[('../ncvue/images', 'images'), ('../ncvue/themes', 'themes')],
              hiddenimports=[],
              hookspath=[],
              runtime_hooks=[],
