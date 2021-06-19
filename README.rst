@@ -85,8 +85,8 @@ afterwards.
 One can also install standalone macOS or Windows applications that come with everything needed to
 run ``ncvue`` including Python:
 
-- macOS app_ (macOS > 10.13, High Sierra)
-- Windows executable_ (Windows 10)
+- `macOS app`_ (macOS > 10.13, High Sierra)
+- `Windows executable`_ (Windows 10)
 
 A dialog box might pop up on macOS saying that the ``ncvue.app`` is from an
 unidentified developer. This is because ``ncvue`` is an open-source software.
@@ -222,7 +222,7 @@ After installing, for example, Miniconda_:
    conda install -c conda-forge cartopy
    pip install ncvue
 
-We also provide a standalone macOS app_ and a Windows executable_ that come with
+We also provide a standalone `macOS app`_ and a `Windows executable`_ that come with
 everything needed to run ``ncvue`` including Python. The macOS app should work
 from macOS 10.13 (High Sierra) onward. It is, however, only tested on macOS
 10.15 (Catalina). Drop me a message if it does not work on newer operating
@@ -240,25 +240,30 @@ Copyright (c) 2020-2021 Matthias Cuntz
 
 ``ncvue`` uses the Azure_ theme by rdbende_ on Windows.
 
-The project structure was originally based on a template_ provided by Sebastian
-Müller_.
+Standalone applications are produced with `cx_Freeze`_, currently maintained by
+`Marcelo Duarte`_.
 
-Different netCDF test files were provided by Juliane Mai_.
+The project structure of ``ncvue`` was originally based on a template_ provided
+by `Sebastian Müller`_ but has evolved considerably.
+
+Different netCDF test files were provided by `Juliane Mai`_.
 
 .. _Anaconda: https://www.anaconda.com/products/individual
-.. _app: http://www.macu.de/extra/ncvue.dmg
+.. _macOS app: http://www.macu.de/extra/ncvue-3.6.dmg
 .. _Azure: https://github.com/rdbende/Azure-ttk-theme
 .. _cartopy: https://scitools.org.uk/cartopy/docs/latest/
 .. _Conda: https://docs.conda.io/projects/conda/en/latest/
+.. _cx_Freeze: https://cx-freeze.readthedocs.io/en/latest/
 .. _documentation: https://mcuntz.github.io/ncvue/
-.. _executable: http://www.macu.de/extra/ncvue.msi
+.. _Marcelo Duarte: https://github.com/marcelotduarte
+.. _Windows executable: http://www.macu.de/extra/ncvue.msi
 .. _install: https://scitools.org.uk/cartopy/docs/latest/installing.html
 .. _instructions: https://mcuntz.github.io/ncvue/html/install.html
 .. _LICENSE: https://github.com/mcuntz/ncvue/blob/main/LICENSE
 .. _matplotlib: https://matplotlib.org/
-.. _Mai: https://github.com/julemai
+.. _Juliane Mai: https://github.com/julemai
 .. _Miniconda: https://docs.conda.io/en/latest/miniconda.html
-.. _Müller: https://github.com/MuellerSeb
+.. _Sebastian Müller: https://github.com/MuellerSeb
 .. _ncview: http://meteora.ucsd.edu/~pierce/ncview_home_page.html
 .. _netcdf4: https://unidata.github.io/netcdf4-python/netCDF4/index.html
 .. _numpy: https://numpy.org/

@@ -4,10 +4,11 @@ Changelog
 All notable changes after its initial development up to November 2020 (v1.0)
 are documented in this file.
 
-v3.6 (??? 2021)
+v3.6 (Jun 2021)
 -----------------
 * Separate variables and dimensions by space again but deal with space in
   variable names.
+* Use cx_Freeze to make standalone apps.
 
 v3.5.1 (Jun 2021)
 -----------------

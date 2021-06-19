@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ncvue.ncvmethods &mdash; ncvue 3.4 documentation</title>
+  <title>ncvue.ncvmethods &mdash; ncvue 3.6 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                3.4
+                3.6
               </div>
             
           
@@ -267,7 +267,7 @@
 <span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">.ncvutils</span> <span class="kn">import</span> <span class="n">DIMMETHODS</span><span class="p">,</span> <span class="n">get_slice</span><span class="p">,</span> <span class="n">set_miss</span><span class="p">,</span> <span class="n">spinbox_values</span>
-<span class="kn">from</span> <span class="nn">.ncvutils</span> <span class="kn">import</span> <span class="n">SEPCHAR</span><span class="p">,</span> <span class="n">vardim2var</span><span class="p">,</span> <span class="n">zip_dim_name_length</span>
+<span class="kn">from</span> <span class="nn">.ncvutils</span> <span class="kn">import</span> <span class="n">vardim2var</span><span class="p">,</span> <span class="n">zip_dim_name_length</span>
 <span class="kn">import</span> <span class="nn">netCDF4</span> <span class="k">as</span> <span class="nn">nc</span>
 <span class="c1"># nc.default_fillvals but with keys as variables[&#39;var&#39;].dtype</span>
 <span class="n">nctypes</span> <span class="o">=</span> <span class="p">[</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">nc</span><span class="o">.</span><span class="n">default_fillvals</span> <span class="p">]</span>
@@ -433,7 +433,7 @@
     <span class="c1"># construct list of variable names with dimensions</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">addt</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">tname</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">SEPCHAR</span> <span class="o">+</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tname</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span>
             <span class="nb">str</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">zip_dim_name_length</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">tvar</span><span class="p">])))]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cols</span> <span class="o">+=</span> <span class="n">addt</span>
     <span class="n">ivars</span> <span class="o">=</span> <span class="p">[]</span>
@@ -442,7 +442,7 @@
         <span class="n">ss</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">zip_dim_name_length</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vv</span><span class="p">]))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">maxdim</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maxdim</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ss</span><span class="p">))</span>
         <span class="n">ivars</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">vv</span><span class="p">,</span> <span class="n">ss</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ss</span><span class="p">)))</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">cols</span> <span class="o">+=</span> <span class="nb">sorted</span><span class="p">([</span> <span class="n">vv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">SEPCHAR</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">vv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cols</span> <span class="o">+=</span> <span class="nb">sorted</span><span class="p">([</span> <span class="n">vv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">vv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
                           <span class="k">for</span> <span class="n">vv</span> <span class="ow">in</span> <span class="n">ivars</span> <span class="p">])</span>
     <span class="c1">#</span>
     <span class="c1"># search for lat/lon variables</span>
@@ -647,10 +647,10 @@
     <span class="c1"># add units to lat/lon name</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">latvar</span><span class="p">:</span>
         <span class="n">idim</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">zip_dim_name_length</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">latvar</span><span class="p">]))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">latvar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">latvar</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">SEPCHAR</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">idim</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">latvar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">latvar</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">idim</span><span class="p">)</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span><span class="p">:</span>
         <span class="n">idim</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">zip_dim_name_length</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span><span class="p">]))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">SEPCHAR</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">idim</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">idim</span><span class="p">)</span></div>
 
 
 <span class="c1">#</span>

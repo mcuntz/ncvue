@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ncvue.ncvutils &mdash; ncvue 3.4 documentation</title>
+  <title>ncvue.ncvutils &mdash; ncvue 3.6 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                3.4
+                3.6
               </div>
             
           
@@ -237,6 +237,7 @@
 <span class="sd">  May 2021, Matthias Cuntz</span>
 <span class="sd">* replaced add_cyclic_point with add_cyclic as submitted to cartopy,</span>
 <span class="sd">  Jun 2021, Matthias Cuntz</span>
+<span class="sd">* removed SEPCHAR, Jun 2021, Matthias Cuntz</span>
 
 <span class="sd">.. moduleauthor:: Matthias Cuntz</span>
 
@@ -244,7 +245,6 @@
 
 <span class="sd">.. autosummary::</span>
 <span class="sd">   DIMMETHODS</span>
-<span class="sd">   SEPCHAR</span>
 <span class="sd">   add_cyclic</span>
 <span class="sd">   clone_ncvmain</span>
 <span class="sd">   format_coord_contour</span>
@@ -263,10 +263,9 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.dates</span> <span class="k">as</span> <span class="nn">mpld</span>
 <span class="kn">import</span> <span class="nn">cartopy.crs</span> <span class="k">as</span> <span class="nn">ccrs</span>
-<span class="kn">import</span> <span class="nn">platform</span>
 
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;DIMMETHODS&#39;</span><span class="p">,</span> <span class="s1">&#39;SEPCHAR&#39;</span><span class="p">,</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;DIMMETHODS&#39;</span><span class="p">,</span>
            <span class="s1">&#39;add_cyclic&#39;</span><span class="p">,</span> <span class="s1">&#39;clone_ncvmain&#39;</span><span class="p">,</span>
            <span class="s1">&#39;format_coord_contour&#39;</span><span class="p">,</span> <span class="s1">&#39;format_coord_map&#39;</span><span class="p">,</span> <span class="s1">&#39;format_coord_scatter&#39;</span><span class="p">,</span>
            <span class="s1">&#39;get_slice&#39;</span><span class="p">,</span>
@@ -286,56 +285,6 @@
 <span class="sd">sum - sum</span>
 <span class="sd">median - 50-percentile</span>
 <span class="sd">var - variance</span>
-<span class="sd">&quot;&quot;&quot;</span>
-
-<span class="n">ios</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span>
-<span class="k">if</span> <span class="n">ios</span> <span class="o">==</span> <span class="s1">&#39;Darwin&#39;</span><span class="p">:</span>
-    <span class="c1"># SEPCHAR = chr(6)</span>
-    <span class="n">SEPCHAR</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="mi">31</span><span class="p">)</span>
-<span class="k">elif</span> <span class="n">ios</span> <span class="o">==</span> <span class="s1">&#39;Java&#39;</span><span class="p">:</span>
-    <span class="n">SEPCHAR</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="mi">31</span><span class="p">)</span>
-<span class="k">elif</span> <span class="n">ios</span> <span class="o">==</span> <span class="s1">&#39;Linux&#39;</span><span class="p">:</span>
-    <span class="n">SEPCHAR</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
-<span class="k">elif</span> <span class="n">ios</span> <span class="o">==</span> <span class="s1">&#39;Windows&#39;</span><span class="p">:</span>
-    <span class="n">SEPCHAR</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="mi">31</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">SEPCHAR</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="mi">31</span><span class="p">)</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Invisible character to split strings.</span>
-
-<span class="sd">Name (Code) Decimal</span>
-<span class="sd">Null (NUL) 0</span>
-<span class="sd">Start of Heading (SOH) 1</span>
-<span class="sd">Start of Text (STX) 2</span>
-<span class="sd">End of Text (ETX) 3</span>
-<span class="sd">End of Transmit (EOT) 4</span>
-<span class="sd">Enquiry (ENQ) 5</span>
-<span class="sd">Acknowledge (ACK) 6</span>
-<span class="sd">Bell (BEL) 7</span>
-<span class="sd">Back Space (BS) 8</span>
-<span class="sd">Horizontal Tab (TAB) 9</span>
-<span class="sd">Line Feed (LF) 10</span>
-<span class="sd">Vertical Tab (VT) 11</span>
-<span class="sd">Form Feed (FF) 12</span>
-<span class="sd">Carriage Return (CR) 13</span>
-<span class="sd">Shift Out (SO) 14</span>
-<span class="sd">Shift In (SI) 15</span>
-<span class="sd">Data Line Escape (DLE) 16</span>
-<span class="sd">Device Control 1 (DC1) 17</span>
-<span class="sd">Device Control 2 (DC2) 18</span>
-<span class="sd">Device Control 3 (DC3) 19</span>
-<span class="sd">Device Control 4 (DC4) 20</span>
-<span class="sd">Negative Acknowledge (NAK) 21</span>
-<span class="sd">Synchronous Idle (SYN) 22</span>
-<span class="sd">End of Transmit Block (ETB) 23</span>
-<span class="sd">Cancel (CAN) 24</span>
-<span class="sd">End of Medium (EM) 25</span>
-<span class="sd">Substitute (SUB) 26</span>
-<span class="sd">Escape (ESC) 27</span>
-<span class="sd">File Separator (FS) 28</span>
-<span class="sd">Group Separator (GS) 29</span>
-<span class="sd">Record Separator (RS) 30</span>
-<span class="sd">Unit Separator (US) 31</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 
@@ -1065,7 +1014,7 @@
 <span class="sd">    &gt;&gt;&gt; vardim2var(&#39;latitude (lat=32,lon=64)&#39;)</span>
 <span class="sd">    latitude</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">vardim</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">SEPCHAR</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span></div>
+    <span class="k">return</span> <span class="n">vardim</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">vardim</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="p">)]</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="zip_dim_name_length"><a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.zip_dim_name_length">[docs]</a><span class="k">def</span> <span class="nf">zip_dim_name_length</span><span class="p">(</span><span class="n">ncvar</span><span class="p">):</span>

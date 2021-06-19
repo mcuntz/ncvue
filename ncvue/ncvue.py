@@ -68,7 +68,7 @@ def ncvue(ncfile='', miss=np.nan):
         from ctypes import windll
         windll.shcore.SetProcessDpiAwareness(1)
 
-    # if macOS app then _MEIPASS is set
+    # Pyinstaller sets _MEIPASS if macOS app
     bundle_dir = getattr(sys, '_MEIPASS',
                          os.path.abspath(os.path.dirname(__file__)))
 
