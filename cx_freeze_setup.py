@@ -2,7 +2,7 @@
 """
 Make stand-alone version of ncvue with cx_Freeze.
 
-Use minimal virtual environment
+On macOS, use minimal virtual environment
     pyenv virtualenv 3.8.9 install-ncvue
     pyenv rehash
     pyenv local install-ncvue
@@ -22,6 +22,13 @@ Use minimal virtual environment
        ~/.pyenv/versions/3.8.9/envs/install-ncvue/lib/python3.8/site-packages/PIL/.dylibs/libtiff.5.dylib.save
     \cp /usr/local/lib/libtiff.5.dylib \
         ~/.pyenv/versions/3.8.9/envs/install-ncvue/lib/python3.8/site-packages/PIL/.dylibs/libtiff.5.dylib
+
+On Windows, use conda-forge for everything because more up-to-date
+    # Do not use mkl for smaller executable with PyInstaller
+    conda install -c conda-forge nomkl cartopy
+    conda install -c conda-forge scipy cython pykdtree netcdf4
+    conda install -c conda-forge cx_Freeze
+    # pip install ncvue
 
 Executable for testing
     python cx_freeze_setup.py build
@@ -71,14 +78,25 @@ def _post_build_mac(exedir):
         shutil.rmtree(aa)
 
 
+def _post_build_win(exedir):
+    adir = glob.glob(exedir + '/lib/**/*.dll', recursive=True)
+    for aa in adir:
+        if not os.path.exists(exedir + '/' + os.path.basename(aa)):
+            print('cp ', aa, exedir)
+            shutil.copy2(aa, exedir)
+
+
 class build(_build):
     def run(self):
-        if sys.platform == 'darwin':
-            _build.run(self)
+        _build.run(self)
+        if sys.platform == 'win32':
+            self.execute(_post_build_win, (self.build_exe,),
+                         msg="Post-build on Windows")
+        elif sys.platform == 'darwin':
             self.execute(_post_build_mac, (self.build_exe,),
                          msg="Post-build on macOS")
         else:
-            _build.run(self)
+            pass
 
 
 package   = 'ncvue'
@@ -140,30 +158,30 @@ bdist_dmg_options = {
 
 bdist_msi_options = {
     'add_to_path': True,
+    'all_users': True,
     'data': {'ProgId': [('Prog.Id', None, None, doclines1,
-                         'IconId', icon)],
-             'Icon': [('IconId', icon)]},
+                         'IconId', None)]},
     'summary_data': {'author': author,
                      'comments': doclines1,
                      'keywords': 'netcdf maps view GUI cartopy'},
-    'install_icon': icon,
-    'extensions': [{'extension': 'nc',  # open / view netcdf files (.nc)
-                    'verb': 'open',
-                    'executable': exe,
-                    'context': 'Open with ncvue'},
-                   {'extension': 'nc',
-                    'verb': 'view',
-                    'executable': exe,
-                    'context': 'View with ncvue'},
-                   {'extension': 'nc4',  # open / view netcdf files (.nc4)
-                    'verb': 'open',
-                    'executable': exe,
-                    'context': 'Open with ncvue'},
-                   {'extension': 'nc4',
-                    'verb': 'view',
-                    'executable': exe,
-                    'context': 'View with ncvue'}]
-}
+    'install_icon': icon,}
+#    'extensions': [{'extension': 'nc',  # open / view netcdf files (.nc)
+#                    'verb': 'open',
+#                    'executable': exe,
+#                    'context': 'Open with ncvue'},
+#                   {'extension': 'nc',
+#                    'verb': 'view',
+#                    'executable': exe,
+#                    'context': 'View with ncvue'},
+#                   {'extension': 'nc4',  # open / view netcdf files (.nc4)
+#                    'verb': 'open',
+#                    'executable': exe,
+#                    'context': 'Open with ncvue'},
+#                   {'extension': 'nc4',
+#                    'verb': 'view',
+#                    'executable': exe,
+#                    'context': 'View with ncvue'}]
+#}
 
 setup(name        = package,
       version     = version,
