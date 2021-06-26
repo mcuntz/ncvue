@@ -9,6 +9,7 @@ v3.6 (Jun 2021)
 * Separate variables and dimensions by space again but deal with space in
   variable names.
 * Use cx_Freeze to make standalone apps.
+* Font size 13 on Windows in plot panel.
 
 v3.5.1 (Jun 2021)
 -----------------

@@ -30,6 +30,9 @@ On Windows, use conda-forge for everything because more up-to-date
     conda install -c conda-forge cx_Freeze
     # pip install ncvue
 
+Check in Windows Powershell
+    $env:PYTHONPATH = "C:\Users\mcuntz\prog\github\ncvue"
+    python.exe .\bin\ncvue
 Executable for testing
     python cx_freeze_setup.py build
 macOS app

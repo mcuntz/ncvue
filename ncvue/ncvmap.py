@@ -19,6 +19,7 @@ History:
 * Open new netcdf file, communicate via top widget, Jan 2021, Matthias Cuntz
 * Write coordinates and value on bottom of plotting canvas,
   May 2021, Matthias Cuntz
+* Larger pad for colorbar, Jun 2021, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -46,7 +47,7 @@ from .ncvmethods import set_dim_lon, set_dim_lat, set_dim_var
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry, add_imagemenu
 from .ncvwidgets import add_menu, add_scale, add_spinbox, add_tooltip
 import matplotlib as mpl
-mpl.use('TkAgg')
+# mpl.use('TkAgg')
 from matplotlib import pyplot as plt
 # plt.style.use('seaborn-darkgrid')
 plt.style.use('seaborn-dark')
@@ -1239,7 +1240,7 @@ class ncvMap(ttk.Frame):
                     #     origin='upper', extent=self.img_extent,
                     #     transform=self.itrans)
                     self.cb = self.figure.colorbar(self.cc, fraction=0.05,
-                                                   shrink=0.75,
+                                                   shrink=0.75, pad=0.07,
                                                    extend=self.iextend)
                 except Exception:
                     estr  = 'Map pcolormesh: lon (' + vx + '), '
@@ -1257,7 +1258,7 @@ class ncvMap(ttk.Frame):
                         cmap=self.icmap, extend=self.iextend,
                         transform=self.itrans)
                     self.cb = self.figure.colorbar(self.cc, fraction=0.05,
-                                                   shrink=0.75)
+                                                   shrink=0.75, pad=0.07)
                     # self.cc, = self.axes.plot(yy, vv[0,:])
                 except Exception:
                     estr  = 'Map contourf: lon (' + vx + '), lat (' + vy + '),'

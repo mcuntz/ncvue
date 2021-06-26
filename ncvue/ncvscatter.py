@@ -46,7 +46,7 @@ from .ncvmethods import set_dim_x, set_dim_y, set_dim_y2
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry
 from .ncvwidgets import add_spinbox, add_tooltip
 import matplotlib
-matplotlib.use('TkAgg')
+# matplotlib.use('TkAgg')
 from matplotlib import pyplot as plt
 # plt.style.use('seaborn-darkgrid')
 plt.style.use('seaborn-dark')

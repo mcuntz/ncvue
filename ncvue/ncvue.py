@@ -21,6 +21,7 @@ History:
 * Set titlebar and taskbar icon only if "standalone" not in ipython or jupyter,
   May 2021, Matthias Cuntz
 * Different themes for different OS, May 2021, Matthias Cuntz
+* Font size 13 on Windows for plots, Jun 2021, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -43,6 +44,9 @@ import numpy as np
 import netCDF4 as nc
 from .ncvmethods import analyse_netcdf
 from .ncvmain import ncvMain
+import matplotlib as mpl
+mpl.use('TkAgg')
+from matplotlib import pyplot as plt
 
 
 __all__ = ['ncvue']
@@ -84,7 +88,8 @@ def ncvue(ncfile='', miss=np.nan):
     if ios == 'Darwin':
         theme = 'aqua'
     elif ios == 'Windows':
-        top.option_add("*Font", "Helvetica 11")
+        top.option_add("*Font", "Helvetica 10")
+        plt.rc('font', size=13)
         # standard themes
         # ('winnative', 'clam', 'alt', 'default', 'classic', 'vista', 'xpnative')
         # theme = 'vista'
