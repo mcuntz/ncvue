@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""
+'''
 Make stand-alone version of ncvue with cx_Freeze.
 
 On macOS, use minimal virtual environment
@@ -31,8 +31,8 @@ On Windows, use conda-forge for everything because more up-to-date
     # pip install ncvue
 
 Check in Windows Powershell
-    $env:PYTHONPATH = "C:\Users\mcuntz\prog\github\ncvue"
-    python.exe .\bin\ncvue
+    $env:PYTHONPATH = "C:/Users/mcuntz/prog/github/ncvue"
+    python.exe bin/ncvue
 Executable for testing
     python cx_freeze_setup.py build
 macOS app
@@ -41,7 +41,7 @@ macOS dmg
     python cx_freeze_setup.py bdist_dmg
 Windows installer
     python.exe cx_freeze_setup.py bdist_msi
-"""
+'''
 from __future__ import division, absolute_import, print_function
 import os
 import codecs
@@ -56,20 +56,20 @@ from cx_Freeze.dist import build as _build
 
 # find __version__
 def _iread(*fparts):
-    """ Read file data. """
+    ''' Read file data. '''
     here = os.path.abspath(os.path.dirname(__file__))
-    with codecs.open(os.path.join(here, *fparts), "r") as fp:
+    with codecs.open(os.path.join(here, *fparts), 'r') as fp:
         return fp.read()
 
 
 def _find_version(*file_paths):
-    """Find version without importing module."""
+    '''Find version without importing module.'''
     version_file = _iread(*file_paths)
     version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]",
                               version_file, re.M)
     if version_match:
         return version_match.group(1)
-    raise RuntimeError("Unable to find version string.")
+    raise RuntimeError('Unable to find version string.')
 
 
 # special build hook for macOS - remove redundant dylibs
@@ -96,10 +96,10 @@ class build(_build):
         _build.run(self)
         if sys.platform == 'win32':
             self.execute(_post_build_win, (self.build_exe,),
-                         msg="Post-build on Windows")
+                         msg='Post-build on Windows')
         elif sys.platform == 'darwin':
             self.execute(_post_build_mac, (self.build_exe,),
-                         msg="Post-build on macOS")
+                         msg='Post-build on macOS')
         else:
             pass
 
@@ -127,21 +127,21 @@ if sys.platform == 'win32':
     exe  = 'ncvue.exe'
     icon = 'ncvue/images/ncvue_icon.ico'
     msvcr = True
-    shortcutname = "ncvue"
-    shortcutdir  = "ProgramMenuFolder"
+    shortcutname = 'ncvue'
+    shortcutdir  = 'ProgramMenuFolder'
 elif sys.platform == 'darwin':
     base = None
     exe  = 'ncvue'
     icon = 'docs/images/ncvue_icon.icns'
     msvcr = False
-    shortcutname = "ncvue"
+    shortcutname = 'ncvue'
     shortcutdir  = None
 else:
     base = None
     exe  = 'ncvue'
     icon = 'ncvue/images/ncvue_icon.ico'
     msvcr = False
-    shortcutname = "ncvue"
+    shortcutname = 'ncvue'
     shortcutdir  = None
 
 build_exe_options = {'packages': packages,
@@ -155,8 +155,8 @@ executables = [Executable(script,
                           copyright=copyright,
                           base=base,
                           icon=icon,
-                          shortcutName=shortcutname,
-                          shortcutDir=shortcutdir)]
+                          shortcut_name=shortcutname,
+                          shortcut_dir=shortcutdir)]
 
 bdist_mac_options = {
     'iconfile': icon,
