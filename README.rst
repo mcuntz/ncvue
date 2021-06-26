@@ -256,7 +256,7 @@ Different netCDF test files were provided by `Juliane Mai`_.
 .. _cx_Freeze: https://cx-freeze.readthedocs.io/en/latest/
 .. _documentation: https://mcuntz.github.io/ncvue/
 .. _Marcelo Duarte: https://github.com/marcelotduarte
-.. _Windows executable: http://www.macu.de/extra/ncvue.msi
+.. _Windows executable: http://www.macu.de/extra/ncvue-3.6-amd64.msi
 .. _install: https://scitools.org.uk/cartopy/docs/latest/installing.html
 .. _instructions: https://mcuntz.github.io/ncvue/html/install.html
 .. _LICENSE: https://github.com/mcuntz/ncvue/blob/main/LICENSE

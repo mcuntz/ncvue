@@ -228,6 +228,7 @@
 <span class="sd">* Set titlebar and taskbar icon only if &quot;standalone&quot; not in ipython or jupyter,</span>
 <span class="sd">  May 2021, Matthias Cuntz</span>
 <span class="sd">* Different themes for different OS, May 2021, Matthias Cuntz</span>
+<span class="sd">* Font size 13 on Windows for plots, Jun 2021, Matthias Cuntz</span>
 
 <span class="sd">.. moduleauthor:: Matthias Cuntz</span>
 
@@ -250,6 +251,9 @@
 <span class="kn">import</span> <span class="nn">netCDF4</span> <span class="k">as</span> <span class="nn">nc</span>
 <span class="kn">from</span> <span class="nn">.ncvmethods</span> <span class="kn">import</span> <span class="n">analyse_netcdf</span>
 <span class="kn">from</span> <span class="nn">.ncvmain</span> <span class="kn">import</span> <span class="n">ncvMain</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;TkAgg&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ncvue&#39;</span><span class="p">]</span>
@@ -291,17 +295,27 @@
     <span class="k">if</span> <span class="n">ios</span> <span class="o">==</span> <span class="s1">&#39;Darwin&#39;</span><span class="p">:</span>
         <span class="n">theme</span> <span class="o">=</span> <span class="s1">&#39;aqua&#39;</span>
     <span class="k">elif</span> <span class="n">ios</span> <span class="o">==</span> <span class="s1">&#39;Windows&#39;</span><span class="p">:</span>
-        <span class="c1"># # style packages</span>
-        <span class="c1"># # top.tk.call(&#39;lappend&#39;, &#39;auto_path&#39;,</span>
-        <span class="c1"># #             bundle_dir + &#39;/themes/awthemes-10.3.0&#39;)</span>
-        <span class="c1"># # theme = &#39;awlight&#39;  # &#39;awlight&#39;, &#39;awdark&#39;</span>
-        <span class="c1"># # top.tk.call(&#39;package&#39;, &#39;require&#39;, theme)</span>
+        <span class="n">top</span><span class="o">.</span><span class="n">option_add</span><span class="p">(</span><span class="s2">&quot;*Font&quot;</span><span class="p">,</span> <span class="s2">&quot;Helvetica 10&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;font&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+        <span class="c1"># standard themes</span>
+        <span class="c1"># (&#39;winnative&#39;, &#39;clam&#39;, &#39;alt&#39;, &#39;default&#39;, &#39;classic&#39;, &#39;vista&#39;, &#39;xpnative&#39;)</span>
+        <span class="c1"># theme = &#39;vista&#39;</span>
+
+        <span class="c1"># style packages</span>
+        <span class="c1"># Download from https://sourceforge.net/projects/tcl-awthemes/</span>
+        <span class="c1"># top.tk.call(&#39;lappend&#39;, &#39;auto_path&#39;,</span>
+        <span class="c1">#             bundle_dir + &#39;/themes/awthemes-10.3.2&#39;)</span>
+        <span class="c1"># theme = &#39;awdark&#39;  # &#39;awlight&#39;, &#39;awdark&#39;</span>
+        <span class="c1"># top.tk.call(&#39;package&#39;, &#39;require&#39;, theme)</span>
 
         <span class="c1"># single file styles</span>
+        <span class="c1"># &#39;azure&#39;, &#39;azure-dark&#39;, &#39;Breeze&#39;</span>
         <span class="c1"># top.tk.call(&#39;source&#39;, bundle_dir + &#39;/themes/breeze/breeze.tcl&#39;)</span>
+        <span class="c1"># theme = &#39;Breeze&#39;</span>
         <span class="n">top</span><span class="o">.</span><span class="n">tk</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">,</span> <span class="n">bundle_dir</span> <span class="o">+</span> <span class="s1">&#39;/themes/azure/azure.tcl&#39;</span><span class="p">)</span>
+        <span class="n">theme</span> <span class="o">=</span> <span class="s1">&#39;azure&#39;</span>
         <span class="c1"># top.tk.call(&#39;source&#39;, bundle_dir + &#39;/themes/azure/azure-dark.tcl&#39;)</span>
-        <span class="n">theme</span> <span class="o">=</span> <span class="s1">&#39;azure&#39;</span>  <span class="c1"># &#39;azure&#39;, &#39;azure-dark&#39;, &#39;Breeze&#39;</span>
+        <span class="c1"># theme = &#39;azure-dark&#39;</span>
     <span class="k">elif</span> <span class="n">ios</span> <span class="o">==</span> <span class="s1">&#39;Linux&#39;</span><span class="p">:</span>
         <span class="n">theme</span> <span class="o">=</span> <span class="s1">&#39;clam&#39;</span>  <span class="c1"># &#39;clam&#39;, &#39;alt&#39;, &#39;default&#39;, &#39;classic&#39;</span>
     <span class="n">style</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Style</span><span class="p">()</span>

@@ -31,7 +31,8 @@ Released under the MIT License; see LICENSE file for details.
 * v3.5, Uses different themes on different OS, Jun 2021, Matthias Cuntz
 * v3.5.1, Explicitly set labelling of second y-axis to the right,
   Jun 2021, Matthias Cuntz
-* v3.6, separate units with spacee and use cx_Freeze, Jun 2021, Matthias Cuntz
+* v3.6, standalone with cx_Freeze, separate units with space,
+  Jun 2021, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 """

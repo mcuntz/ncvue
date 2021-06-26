@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ncvue.ncvmap &mdash; ncvue 3.4 documentation</title>
+  <title>ncvue.ncvmap &mdash; ncvue 3.6 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                3.4
+                3.6
               </div>
             
           
@@ -226,6 +226,7 @@
 <span class="sd">* Open new netcdf file, communicate via top widget, Jan 2021, Matthias Cuntz</span>
 <span class="sd">* Write coordinates and value on bottom of plotting canvas,</span>
 <span class="sd">  May 2021, Matthias Cuntz</span>
+<span class="sd">* Larger pad for colorbar, Jun 2021, Matthias Cuntz</span>
 
 <span class="sd">.. moduleauthor:: Matthias Cuntz</span>
 
@@ -253,7 +254,7 @@
 <span class="kn">from</span> <span class="nn">.ncvwidgets</span> <span class="kn">import</span> <span class="n">add_checkbutton</span><span class="p">,</span> <span class="n">add_combobox</span><span class="p">,</span> <span class="n">add_entry</span><span class="p">,</span> <span class="n">add_imagemenu</span>
 <span class="kn">from</span> <span class="nn">.ncvwidgets</span> <span class="kn">import</span> <span class="n">add_menu</span><span class="p">,</span> <span class="n">add_scale</span><span class="p">,</span> <span class="n">add_spinbox</span><span class="p">,</span> <span class="n">add_tooltip</span>
 <span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
-<span class="n">mpl</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;TkAgg&#39;</span><span class="p">)</span>
+<span class="c1"># mpl.use(&#39;TkAgg&#39;)</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="c1"># plt.style.use(&#39;seaborn-darkgrid&#39;)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-dark&#39;</span><span class="p">)</span>
@@ -1446,7 +1447,7 @@
                     <span class="c1">#     origin=&#39;upper&#39;, extent=self.img_extent,</span>
                     <span class="c1">#     transform=self.itrans)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">cb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cc</span><span class="p">,</span> <span class="n">fraction</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
-                                                   <span class="n">shrink</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span>
+                                                   <span class="n">shrink</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.07</span><span class="p">,</span>
                                                    <span class="n">extend</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">iextend</span><span class="p">)</span>
                 <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
                     <span class="n">estr</span>  <span class="o">=</span> <span class="s1">&#39;Map pcolormesh: lon (&#39;</span> <span class="o">+</span> <span class="n">vx</span> <span class="o">+</span> <span class="s1">&#39;), &#39;</span>
@@ -1464,7 +1465,7 @@
                         <span class="n">cmap</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">icmap</span><span class="p">,</span> <span class="n">extend</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">iextend</span><span class="p">,</span>
                         <span class="n">transform</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">itrans</span><span class="p">)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">cb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cc</span><span class="p">,</span> <span class="n">fraction</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
-                                                   <span class="n">shrink</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
+                                                   <span class="n">shrink</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.07</span><span class="p">)</span>
                     <span class="c1"># self.cc, = self.axes.plot(yy, vv[0,:])</span>
                 <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
                     <span class="n">estr</span>  <span class="o">=</span> <span class="s1">&#39;Map contourf: lon (&#39;</span> <span class="o">+</span> <span class="n">vx</span> <span class="o">+</span> <span class="s1">&#39;), lat (&#39;</span> <span class="o">+</span> <span class="n">vy</span> <span class="o">+</span> <span class="s1">&#39;),&#39;</span>
