@@ -24,7 +24,7 @@ On macOS, use minimal virtual environment
         ~/.pyenv/versions/3.8.9/envs/install-ncvue/lib/python3.8/site-packages/PIL/.dylibs/libtiff.5.dylib
 
 On Windows, use conda-forge for everything because more up-to-date
-    # Do not use mkl for smaller executable with PyInstaller
+    # Do not use mkl for smaller executable with PyInstaller/cx_Freeze
     conda install -c conda-forge nomkl cartopy
     conda install -c conda-forge scipy cython pykdtree netcdf4
     conda install -c conda-forge cx_Freeze
@@ -69,8 +69,7 @@ def _find_version(*file_paths):
     raise RuntimeError("Unable to find version string.")
 
 
-# special build for macOS
-# https://stackoverflow.com/questions/17806485/execute-a-python-script-post-install-using-distutils-setuptools
+# special build hook for macOS - remove redundant dylibs
 def _post_build_mac(exedir):
     adir = glob.glob(exedir + '/lib/*/.dylibs')
     for aa in adir:
@@ -78,6 +77,7 @@ def _post_build_mac(exedir):
         shutil.rmtree(aa)
 
 
+# special build hook for Windows - add all .dll also to base path
 def _post_build_win(exedir):
     adir = glob.glob(exedir + '/lib/**/*.dll', recursive=True)
     for aa in adir:
@@ -86,6 +86,8 @@ def _post_build_win(exedir):
             shutil.copy2(aa, exedir)
 
 
+# post build hook
+# https://stackoverflow.com/questions/17806485/execute-a-python-script-post-install-using-distutils-setuptools
 class build(_build):
     def run(self):
         _build.run(self)
@@ -122,16 +124,22 @@ if sys.platform == 'win32':
     exe  = 'ncvue.exe'
     icon = 'ncvue/images/ncvue_icon.ico'
     msvcr = True
+    shortcutname = "ncvue"
+    shortcutdir  = "ProgramMenuFolder"
 elif sys.platform == 'darwin':
     base = None
     exe  = 'ncvue'
     icon = 'docs/images/ncvue_icon.icns'
     msvcr = False
+    shortcutname = "ncvue"
+    shortcutdir  = None
 else:
     base = None
     exe  = 'ncvue'
     icon = 'ncvue/images/ncvue_icon.ico'
     msvcr = False
+    shortcutname = "ncvue"
+    shortcutdir  = None
 
 build_exe_options = {'packages': packages,
                      'excludes': excludes,
@@ -143,7 +151,9 @@ executables = [Executable(script,
                           target_name=exe,
                           copyright=copyright,
                           base=base,
-                          icon=icon)]
+                          icon=icon,
+                          shortcutName=shortcutname,
+                          shortcutDir=shortcutdir)]
 
 bdist_mac_options = {
     'iconfile': icon,
