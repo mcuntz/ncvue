@@ -3,16 +3,16 @@ Installation
 
 ``ncvue`` is an application written in Python. If you have Python installed,
 then the best is to install ``ncvue`` within the Python universe. The easiest
-way to install ``ncvue`` is thence via `pip` if you have cartopy_ installed
-already:
+way to install ``ncvue`` is thence via `pip` if you have cartopy_ already
+installed:
 
 .. code-block:: bash
 
    pip install ncvue
 
 `Cartopy` can, however, be more elaborate to install_. The easiest way to
-install `Cartopy` is by using conda_ and then installing ``ncvue`` by `pip`.
-After installing, for example, Miniconda_:
+install `Cartopy` is by using Conda_ and then install ``ncvue`` with `pip`.
+After having installed, for example, Miniconda_:
 
 .. code-block:: bash
 
@@ -28,18 +28,20 @@ Binary distributions
 We also provide standalone macOS and Windows applications that come with
 everything needed to run ``ncvue`` including Python:
 
-- macOS app_ (macOS > 10.13, High Sierra)
-- Windows executable_ (Windows 10)
+- `macOS app`_ (macOS > 10.13, High Sierra on Intel)
+- `Windows executable`_ (Windows 10)
 
-The macOS app should work from macOS 10.13 (High Sierra) onward. It is, however,
-only tested on macOS 10.15 (Catalina).
+The macOS app should work from macOS 10.13 (High Sierra) onward on Intel
+processors. It is, however, only tested on macOS 10.15 (Catalina). The creation
+of standalone applications does not work on Apple Silicon (M1) processors, yet.
+The installation via `pip` works, though.
 
 A dialog box might pop up on macOS saying that the ``ncvue.app`` is from an
 unidentified developer. This is because ``ncvue`` is an open-source software.
 Depending on the macOS version, it offers to open it anyway. In later versions
 of macOS, this option is only given if you right-click (or control-click) on the
 ``ncvue.app`` and choose `Open`. You only have to do this once. It will open like
-any other application the next times.
+any other application the next time.
 
 Building from source
 --------------------
@@ -68,7 +70,7 @@ Administrator (Right click > More > Run as administrator) on Windows to install
 Python packages.
 
 You can also simply clone the repository and add it to your `PYTHONPATH`. In
-this case, add the `bin` directory to your `PATH` as well (bash/zsh example):
+this case, add the `bin` directory to your `PATH` as well (`bash`/`zsh` example):
 
 .. code-block:: bash
 
@@ -88,7 +90,7 @@ wrappers to C++/C-libraries that must be installed first.
 Windows
 ^^^^^^^
 
-On **Windows**, one can install `cartopy` with conda_ from `conda-forge`. We
+On **Windows**, one can install `cartopy` with Conda_ from `conda-forge`. We
 recommend then to install also all other dependencies for ``ncvue`` with conda
 before installing ``ncvue`` with `pip` (`pip` will otherwise install the second
 lot of packages):
@@ -102,27 +104,57 @@ lot of packages):
 macOS
 ^^^^^
 
-On **macOS**, one can use exactly the same procedure with conda_ as for Windows
+On **macOS**, one can use exactly the same procedure with Conda_ as for Windows
 (see above). Or one can use homebrew_ to install the Cartographic Projections
 Library `proj` and the Geometry Engine `geos`:
 
 .. code-block:: bash
 
    # uncomment next line if homebrew is not installed
-   # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
-   brew install proj geos
+   # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   brew install geos
+   # cartopy needs proj < v8
+   brew install proj@7
 
-``ncvue`` and its prerequisites are then installed via pip (from Cartopy install_):
+``ncvue`` and its prerequisites are then installed via pip (from `cartopy install`_):
 
 .. code-block:: bash
 
+   # HOMEBREW_PREFIX environment variable should be set after installing homebrew.
+   # Make sure it is /usr/local or /opt/homebrew.
+   if [[ "$(uname -m)" == "arm64" ]] ; then
+       # Homebrew on macOS on Apple Silicon (M1) now installs into /opt/homebrew,
+       # which is not searched by default.
+       export HDF5_DIR="$(brew --prefix hdf5)"
+       export GEOS_DIR="$(brew --prefix geos)"
+       export GEOS_CONFIG="$(brew --prefix geos)/bin/geos-config"
+       # There is also currently a problem with Apple's Accelerate framework on
+       # Apple Silicon (M1) so that one should use OpenBLAS instead.
+       export OPENBLAS="$(brew --prefix openblas)"
+   fi
    pip install numpy scipy matplotlib netcdf4 pykdtree
    pip install --upgrade cython pyshp six
-   # shapely needs to be built from source to link to geos. If it is already
-   # installed, uninstall it by:
-   # pip uninstall shapely
-   pip install shapely --no-binary shapely
-   pip install cartopy
+   # shapely needs to be built from source to link to geos.
+   # Uninstall it if it is already installed:
+   [[ -z $(pip freeze | grep shapely) ]] && pip uninstall -y shapely
+   if [[ "$(uname -m)" == "arm64" ]] ; then
+       # includes support for Shapely on macOS on Apple Silicon (M1)
+       git clone https://github.com/mcuntz/Shapely.git
+       cd Shapely
+       pip install .
+       cd ..
+       \rm -rf Shapely
+   else
+       # otherwise
+       pip install shapely --no-binary shapely
+   fi
+   PKG_CONFIG_PATH=${HOMEBREW_PREFIX}/opt/proj@7/lib/pkgconfig/ \
+       pip install cartopy
+
+One can then install ``ncvue``, eventually:
+
+.. code-block:: bash
+
    pip install ncvue
 
 It is possible that your Python version installed with pyenv_ might clash
@@ -155,11 +187,11 @@ provided Tcl/Tk installation.
 Linux
 ^^^^^
 
-On **Linux**, one can also use exactly the same procedure with conda_ as for
+On **Linux**, one can also use exactly the same procedure with Conda_ as for
 Windows (see above). ``ncvue`` uses also a base-class for tooltips from Python's
 Integrated Development IDLE. The latter is installed by default with Python on
 macOS and Windows but must be installed separately on Linux (reported by
-Sebastian Müller_), e.g.:
+`Sebastian Müller`_), e.g.:
 
 .. code-block:: bash
 
@@ -169,7 +201,7 @@ It also follows from the use of that tooltip class that a Python version of 3.5
 or higher must be used.
 
 Instead of conda, one can also install the C++/C-libraries with `apt` or
-`apt-get` (Ubuntu):
+`apt-get` (Ubuntu). Note that cartopy still needs proj < version 8:
 
 .. code-block:: bash
 
@@ -184,7 +216,8 @@ The Python packages are then installed as for macOS (see above):
    pip install numpy scipy matplotlib netcdf4 pykdtree
    pip install --upgrade cython pyshp six
    # shapely needs to be built from source to link to geos. If it is already
-   # installed, uninstall it by: pip uninstall shapely
+   # installed, uninstall it:
+   [[ -z $(pip freeze | grep shapely) ]] && pip uninstall -y shapely
    pip install shapely --no-binary shapely
    pip install cartopy
    pip install ncvue
@@ -195,14 +228,14 @@ from IDLE, which bumps the Python version to 3.5 or later. Linux users might
 need to update their (very old) Tk installations.
 
 .. _Anaconda: https://www.anaconda.com/products/individual
-.. _app: http://www.macu.de/extra/ncvue.dmg
 .. _cartopy: https://scitools.org.uk/cartopy/docs/latest/
-.. _conda: https://docs.conda.io/projects/conda/en/latest/
-.. _executable: http://www.macu.de/extra/ncvue.msi
+.. _cartopy install: https://scitools.org.uk/cartopy/docs/latest/installing.html
+.. _Conda: https://docs.conda.io/projects/conda/en/latest/
 .. _homebrew: https://brew.sh/
-.. _install: https://scitools.org.uk/cartopy/docs/latest/installing.html
+.. _macOS app: http://www.macu.de/extra/ncvue-3.6.dmg
 .. _Miniconda: https://docs.conda.io/en/latest/miniconda.html
 .. _Miniforge: https://github.com/conda-forge/miniforge
-.. _Müller: https://github.com/MuellerSeb
 .. _netcdf4: https://unidata.github.io/netcdf4-python/netCDF4/index.html
 .. _pyenv: https://github.com/pyenv/pyenv
+.. _Sebastian Müller: https://github.com/MuellerSeb
+.. _Windows executable: http://www.macu.de/extra/ncvue-3.6-amd64.msi

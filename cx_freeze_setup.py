@@ -47,6 +47,7 @@ import os
 import codecs
 import re
 import sys
+import platform
 import glob
 import shutil
 
@@ -89,6 +90,15 @@ def _post_build_win(exedir):
             shutil.copy2(aa, exedir)
 
 
+# special build hook for macOS on Apple Silicon (M1) - add all .dylib also to base path
+def _post_build_m1(exedir):
+    adir = glob.glob(exedir + '/lib/**/*.dylib', recursive=True)
+    for aa in adir:
+        if not os.path.exists(exedir + '/' + os.path.basename(aa)):
+            print('cp ', aa, exedir)
+            shutil.copy2(aa, exedir)
+
+
 # post build hook
 # https://stackoverflow.com/questions/17806485/execute-a-python-script-post-install-using-distutils-setuptools
 class build(_build):
@@ -98,8 +108,13 @@ class build(_build):
             self.execute(_post_build_win, (self.build_exe,),
                          msg='Post-build on Windows')
         elif sys.platform == 'darwin':
-            self.execute(_post_build_mac, (self.build_exe,),
-                         msg='Post-build on macOS')
+            if platform.machine() == 'arm64':
+                # self.execute(_post_build_m1, (self.build_exe,),
+                #              msg='Post-build on macOS Apple Silicon (M1)')
+                pass
+            else:
+                self.execute(_post_build_mac, (self.build_exe,),
+                             msg='Post-build on macOS')
         else:
             pass
 

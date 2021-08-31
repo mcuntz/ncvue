@@ -85,7 +85,7 @@ afterwards.
 One can also install standalone macOS or Windows applications that come with everything needed to
 run ``ncvue`` including Python:
 
-- `macOS app`_ (macOS > 10.13, High Sierra)
+- `macOS app`_ (macOS > 10.13, High Sierra on Intel)
 - `Windows executable`_ (Windows 10)
 
 A dialog box might pop up on macOS saying that the ``ncvue.app`` is from an
