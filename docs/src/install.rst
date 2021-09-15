@@ -32,16 +32,16 @@ everything needed to run ``ncvue`` including Python:
 - `Windows executable`_ (Windows 10)
 
 The macOS app should work from macOS 10.13 (High Sierra) onward on Intel
-processors. It is, however, only tested on macOS 10.15 (Catalina). The creation
-of standalone applications does not work on Apple Silicon (M1) processors, yet.
-The installation via `pip` works, though.
+processors. There is no standalone application for macOS on Apple Silicon (M1)
+chips because I do not have a paid Apple Developer ID. The installation via
+`pip` works, though.
 
 A dialog box might pop up on macOS saying that the ``ncvue.app`` is from an
 unidentified developer. This is because ``ncvue`` is an open-source software.
 Depending on the macOS version, it offers to open it anyway. In later versions
 of macOS, this option is only given if you right-click (or control-click) on the
 ``ncvue.app`` and choose `Open`. You only have to do this once. It will open like
-any other application the next time.
+any other application the next times.
 
 Building from source
 --------------------
@@ -232,7 +232,7 @@ need to update their (very old) Tk installations.
 .. _cartopy install: https://scitools.org.uk/cartopy/docs/latest/installing.html
 .. _Conda: https://docs.conda.io/projects/conda/en/latest/
 .. _homebrew: https://brew.sh/
-.. _macOS app: http://www.macu.de/extra/ncvue-3.6.dmg
+.. _macOS app: http://www.macu.de/extra/ncvue-3.7.dmg
 .. _Miniconda: https://docs.conda.io/en/latest/miniconda.html
 .. _Miniforge: https://github.com/conda-forge/miniforge
 .. _netcdf4: https://unidata.github.io/netcdf4-python/netCDF4/index.html

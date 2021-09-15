@@ -4,10 +4,11 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ncvue.ncvutils &mdash; ncvue 3.6 documentation</title>
+  <title>ncvue.ncvutils &mdash; ncvue 3.7 documentation</title>
   
 
   
@@ -66,7 +67,7 @@
             
             
               <div class="version">
-                3.6
+                3.7
               </div>
             
           
@@ -219,7 +220,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-ncvue.ncvutils">
+  <section id="module-ncvue.ncvutils">
 <span id="ncvue-ncvutils"></span><h1>ncvue.ncvutils<a class="headerlink" href="#module-ncvue.ncvutils" title="Permalink to this headline">¶</a></h1>
 <p>Utility functions for ncvue.</p>
 <p>The utility functions do not depend on the ncvue class.
@@ -258,7 +259,7 @@ Jun 2021, Matthias Cuntz</p></li>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvutils.DIMMETHODS" title="ncvue.ncvutils.DIMMETHODS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DIMMETHODS</span></code></a></p></td>
 <td><p>Arithmetic methods implemented on dimensions.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvutils.add_cyclic" title="ncvue.ncvutils.add_cyclic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_cyclic</span></code></a>(data[, coord, rowcoord, axis, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvutils.add_cyclic" title="ncvue.ncvutils.add_cyclic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_cyclic</span></code></a>(data[, coord, rowcoord, axis, ...])</p></td>
 <td><p>Add a cyclic point to an array and optionally corresponding column (<cite>coord</cite> ~ longitudes) and row coordinates (<cite>rowcoord</cite> ~ latitudes).</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvutils.clone_ncvmain" title="ncvue.ncvutils.clone_ncvmain"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clone_ncvmain</span></code></a>(widget)</p></td>
@@ -270,7 +271,7 @@ Jun 2021, Matthias Cuntz</p></li>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvutils.format_coord_map" title="ncvue.ncvutils.format_coord_map"><code class="xref py py-obj docutils literal notranslate"><span class="pre">format_coord_map</span></code></a>(x, y, ax, xx, yy, zz)</p></td>
 <td><p>Formatter function for map including value of nearest array cell.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvutils.format_coord_scatter" title="ncvue.ncvutils.format_coord_scatter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">format_coord_scatter</span></code></a>(x, y, ax, ax2, xdtype, …)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvutils.format_coord_scatter" title="ncvue.ncvutils.format_coord_scatter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">format_coord_scatter</span></code></a>(x, y, ax, ax2, xdtype, ...)</p></td>
 <td><p>Formatter function for scatter plot with left and right axis having the same x-axis.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvutils.get_slice" title="ncvue.ncvutils.get_slice"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_slice</span></code></a>(dimspins, y)</p></td>
@@ -286,10 +287,10 @@ Jun 2021, Matthias Cuntz</p></li>
 <td><p>Set <cite>x</cite> to NaN or NaT for all values in miss.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvutils.spinbox_values" title="ncvue.ncvutils.spinbox_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spinbox_values</span></code></a>(ndim)</p></td>
-<td><p>Tuple for Spinbox values with ‘all’ before range(<cite>ndim</cite>) and ‘mean’, ‘std’, etc.</p></td>
+<td><p>Tuple for Spinbox values with 'all' before range(<cite>ndim</cite>) and 'mean', 'std', etc.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvutils.vardim2var" title="ncvue.ncvutils.vardim2var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vardim2var</span></code></a>(vardim)</p></td>
-<td><p>Extract variable name from ‘variable (dim1=ndim1,)’ string.</p></td>
+<td><p>Extract variable name from 'variable (dim1=ndim1,)' string.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvutils.zip_dim_name_length" title="ncvue.ncvutils.zip_dim_name_length"><code class="xref py py-obj docutils literal notranslate"><span class="pre">zip_dim_name_length</span></code></a>(ncvar)</p></td>
 <td><p>Combines dimension names and length of netcdf variable in list of strings.</p></td>
@@ -799,7 +800,7 @@ median - 50-percentile
 var - variance</p>
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>

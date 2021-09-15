@@ -4,10 +4,11 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ncvue.ncvwidgets &mdash; ncvue 3.6 documentation</title>
+  <title>ncvue.ncvwidgets &mdash; ncvue 3.7 documentation</title>
   
 
   
@@ -66,7 +67,7 @@
             
             
               <div class="version">
-                3.6
+                3.7
               </div>
             
           
@@ -219,7 +220,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-ncvue.ncvwidgets">
+  <section id="module-ncvue.ncvwidgets">
 <span id="ncvue-ncvwidgets"></span><h1>ncvue.ncvwidgets<a class="headerlink" href="#module-ncvue.ncvwidgets" title="Permalink to this headline">¶</a></h1>
 <p>Widget functions for ncvue.</p>
 <p>Convenience functions for adding Tkinter widgets.</p>
@@ -245,25 +246,25 @@ France.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvwidgets.Tooltip" title="ncvue.ncvwidgets.Tooltip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Tooltip</span></code></a>(anchor_widget, text[, hover_delay])</p></td>
 <td><p>A tooltip that pops up when a mouse hovers over an anchor widget.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvwidgets.add_checkbutton" title="ncvue.ncvwidgets.add_checkbutton"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_checkbutton</span></code></a>(frame[, label, value, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvwidgets.add_checkbutton" title="ncvue.ncvwidgets.add_checkbutton"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_checkbutton</span></code></a>(frame[, label, value, ...])</p></td>
 <td><p>Add a left-aligned ttk.Checkbutton.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvwidgets.add_combobox" title="ncvue.ncvwidgets.add_combobox"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_combobox</span></code></a>(frame[, label, values, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvwidgets.add_combobox" title="ncvue.ncvwidgets.add_combobox"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_combobox</span></code></a>(frame[, label, values, ...])</p></td>
 <td><p>Add a left-aligned ttk.Combobox with a ttk.Label before.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvwidgets.add_entry" title="ncvue.ncvwidgets.add_entry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_entry</span></code></a>(frame[, label, text, command, tooltip])</p></td>
 <td><p>Add a left-aligned ttk.Entry with a ttk.Label before.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvwidgets.add_imagemenu" title="ncvue.ncvwidgets.add_imagemenu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_imagemenu</span></code></a>(frame[, label, values, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvwidgets.add_imagemenu" title="ncvue.ncvwidgets.add_imagemenu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_imagemenu</span></code></a>(frame[, label, values, ...])</p></td>
 <td><p>Add a left-aligned menu with menubuttons having text and images with a ttk.Label before.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvwidgets.add_menu" title="ncvue.ncvwidgets.add_menu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_menu</span></code></a>(frame[, label, values, command, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvwidgets.add_menu" title="ncvue.ncvwidgets.add_menu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_menu</span></code></a>(frame[, label, values, command, ...])</p></td>
 <td><p>Add a left-aligned menu with menubuttons with a ttk.Label before.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvwidgets.add_scale" title="ncvue.ncvwidgets.add_scale"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_scale</span></code></a>(frame[, label, ini, tooltip])</p></td>
 <td><p>Add a left-aligned ttk.Scale with a ttk.Label before.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvwidgets.add_spinbox" title="ncvue.ncvwidgets.add_spinbox"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_spinbox</span></code></a>(frame[, label, values, command, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvwidgets.add_spinbox" title="ncvue.ncvwidgets.add_spinbox"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_spinbox</span></code></a>(frame[, label, values, command, ...])</p></td>
 <td><p>Add a left-aligned tk.Spinbox with a ttk.Label before.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvwidgets.add_tooltip" title="ncvue.ncvwidgets.add_tooltip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_tooltip</span></code></a>(frame[, tooltip])</p></td>
@@ -294,7 +295,7 @@ so one can change the tip during run time.</p>
 <td><p>hide the tooltip</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvwidgets.Tooltip.position_window" title="ncvue.ncvwidgets.Tooltip.position_window"><code class="xref py py-obj docutils literal notranslate"><span class="pre">position_window</span></code></a>()</p></td>
-<td><p>(re)-set the tooltip’s screen position</p></td>
+<td><p>(re)-set the tooltip's screen position</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvwidgets.Tooltip.schedule" title="ncvue.ncvwidgets.Tooltip.schedule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">schedule</span></code></a>()</p></td>
 <td><p>schedule the future display of the tooltip</p></td>
@@ -686,7 +687,7 @@ the parent widget (default: “” = no tooltip)</p>
 </div>
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>

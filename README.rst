@@ -82,11 +82,16 @@ afterwards.
    ncvue('netcdf_file.nc')
    %matplotlib inline
 
-One can also install standalone macOS or Windows applications that come with everything needed to
-run ``ncvue`` including Python:
+One can also install standalone macOS or Windows applications that come with
+everything needed to run ``ncvue`` including Python:
 
-- `macOS app`_ (macOS > 10.13, High Sierra on Intel)
+- `macOS app`_ (macOS > 10.13 [High Sierra] on Intel)
 - `Windows executable`_ (Windows 10)
+
+The macOS app should work from macOS 10.13 (High Sierra) onward on Intel
+processors. There is no standalone application for macOS on Apple Silicon (M1)
+chips because I do not have a paid Apple Developer ID. Other installation
+options work, though.
 
 A dialog box might pop up on macOS saying that the ``ncvue.app`` is from an
 unidentified developer. This is because ``ncvue`` is an open-source software.
@@ -238,18 +243,19 @@ details.
 
 Copyright (c) 2020-2021 Matthias Cuntz
 
-``ncvue`` uses the Azure_ theme by rdbende_ on Windows.
+``ncvue`` uses the Azure_ theme by rdbende_ on Linux and the `Sun Valley`_ theme
+also by rdbende_ on Windows.
 
 Standalone applications are produced with `cx_Freeze`_, currently maintained by
 `Marcelo Duarte`_.
 
-The project structure of ``ncvue`` was originally based on a template_ provided
-by `Sebastian Müller`_ but has evolved considerably.
+The project structure of ``ncvue`` was very originally based on a template_
+provided by `Sebastian Müller`_ but has evolved considerably.
 
 Different netCDF test files were provided by `Juliane Mai`_.
 
 .. _Anaconda: https://www.anaconda.com/products/individual
-.. _macOS app: http://www.macu.de/extra/ncvue-3.6.dmg
+.. _macOS app: http://www.macu.de/extra/ncvue-3.7.dmg
 .. _Azure: https://github.com/rdbende/Azure-ttk-theme
 .. _cartopy: https://scitools.org.uk/cartopy/docs/latest/
 .. _Conda: https://docs.conda.io/projects/conda/en/latest/
@@ -264,6 +270,7 @@ Different netCDF test files were provided by `Juliane Mai`_.
 .. _Juliane Mai: https://github.com/julemai
 .. _Miniconda: https://docs.conda.io/en/latest/miniconda.html
 .. _Sebastian Müller: https://github.com/MuellerSeb
+.. _Sun Valley: https://github.com/rdbende/Sun-Valley-ttk-theme
 .. _ncview: http://meteora.ucsd.edu/~pierce/ncview_home_page.html
 .. _netcdf4: https://unidata.github.io/netcdf4-python/netCDF4/index.html
 .. _numpy: https://numpy.org/

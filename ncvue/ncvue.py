@@ -87,12 +87,16 @@ def ncvue(ncfile='', miss=np.nan):
     # print(style.theme_names(), style.theme_use())
     if ios == 'Darwin':
         theme = 'aqua'
+        style = ttk.Style()
+        style.theme_use(theme)
     elif ios == 'Windows':
         top.option_add("*Font", "Helvetica 10")
         plt.rc('font', size=13)
-        # standard themes
+        # standard Windows themes
         # ('winnative', 'clam', 'alt', 'default', 'classic', 'vista', 'xpnative')
         # theme = 'vista'
+        # style = ttk.Style()
+        # style.theme_use(theme)
 
         # style packages
         # Download from https://sourceforge.net/projects/tcl-awthemes/
@@ -100,19 +104,35 @@ def ncvue(ncfile='', miss=np.nan):
         #             bundle_dir + '/themes/awthemes-10.3.2')
         # theme = 'awdark'  # 'awlight', 'awdark'
         # top.tk.call('package', 'require', theme)
+        # style = ttk.Style()
+        # style.theme_use(theme)
 
         # single file styles
-        # 'azure', 'azure-dark', 'Breeze'
+        # 'azure' and 'azure-dark' v1.x, 'Breeze'
         # top.tk.call('source', bundle_dir + '/themes/breeze/breeze.tcl')
         # theme = 'Breeze'
-        top.tk.call('source', bundle_dir + '/themes/azure/azure.tcl')
-        theme = 'azure'
-        # top.tk.call('source', bundle_dir + '/themes/azure/azure-dark.tcl')
+        # top.tk.call('source', bundle_dir + '/themes/azure-1.3/azure.tcl')
+        # theme = 'azure'
+        # top.tk.call('source', bundle_dir + '/themes/azure-1.3/azure-dark.tcl')
         # theme = 'azure-dark'
+        # style = ttk.Style()
+        # style.theme_use(theme)
+
+        # 'azure' v2.x, 'sun-valley', 'forest' of rdbende
+        # top.tk.call('source', bundle_dir + '/themes/azure-2.0/azure.tcl')
+        top.tk.call('source', bundle_dir + '/themes/sun-valley-1.0/sun-valley.tcl')
+        theme = 'light'  # light, dark
+        top.tk.call("set_theme", theme)
     elif ios == 'Linux':
-        theme = 'clam'  # 'clam', 'alt', 'default', 'classic'
-    style = ttk.Style()
-    style.theme_use(theme)
+        # standard Linux schemes
+        # theme = 'clam'  # 'clam', 'alt', 'default', 'classic'
+        # style = ttk.Style()
+        # style.theme_use(theme)
+
+        # 'azure' v2.x, 'sun-valley', 'forest' of rdbende
+        top.tk.call('source', bundle_dir + '/themes/azure-2.0/azure.tcl')
+        theme = 'light'  # light, dark
+        top.tk.call("set_theme", theme)
 
     # set titlebar and taskbar icon only if "standalone",
     # i.e. not ipython or jupyter

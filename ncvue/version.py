@@ -33,9 +33,11 @@ Released under the MIT License; see LICENSE file for details.
   Jun 2021, Matthias Cuntz
 * v3.6, standalone with cx_Freeze, separate units with space,
   Jun 2021, Matthias Cuntz
+* v3.7, new themes from rdbende on Linux and Windows,
+  Sep 2021, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 """
 
 __author__  = "Matthias Cuntz"
-__version__ = "3.6"
+__version__ = "3.7"

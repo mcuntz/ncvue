@@ -4,6 +4,13 @@ Changelog
 All notable changes after its initial development up to November 2020 (v1.0)
 are documented in this file.
 
+v3.7 (Sep 2021)
+-----------------
+* Use Azure theme v2.0 on Linux and Sun Valley theme v1.0 on Windows from
+  rdbende (https://github.com/rdbende).
+* Does not provide standalone package (no installer) on macOS with Apple Silicon
+  (M1) chip anymore (no paid Apple Developer ID).
+
 v3.6 (Jun 2021)
 -----------------
 * Separate variables and dimensions by space again but deal with space in

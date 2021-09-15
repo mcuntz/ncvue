@@ -4,10 +4,11 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ncvue.ncvcontour &mdash; ncvue 3.6 documentation</title>
+  <title>ncvue.ncvcontour &mdash; ncvue 3.7 documentation</title>
   
 
   
@@ -66,7 +67,7 @@
             
             
               <div class="version">
-                3.6
+                3.7
               </div>
             
           
@@ -219,7 +220,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-ncvue.ncvcontour">
+  <section id="module-ncvue.ncvcontour">
 <span id="ncvue-ncvcontour"></span><h1>ncvue.ncvcontour<a class="headerlink" href="#module-ncvue.ncvcontour" title="Permalink to this headline">¶</a></h1>
 <p>Contour panel of ncvue.</p>
 <p>The panel allows plotting contour or mesh plots of 2D-variables.</p>
@@ -279,7 +280,7 @@ something is selected, changed, checked, etc.</p>
 <td><p>Return a tuple of integer coordinates for the bounding box of this widget controlled by the geometry manager grid.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.bell" title="ncvue.ncvcontour.ncvContour.bell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bell</span></code></a>([displayof])</p></td>
-<td><p>Ring a display’s bell.</p></td>
+<td><p>Ring a display's bell.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.bind" title="ncvue.ncvcontour.ncvContour.bind"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bind</span></code></a>([sequence, func, add])</p></td>
 <td><p>Bind to this widget at event SEQUENCE a call to function FUNC.</p></td>
@@ -306,7 +307,7 @@ something is selected, changed, checked, etc.</p>
 <td><p>Clear the data in the Tk clipboard.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.clipboard_get" title="ncvue.ncvcontour.ncvContour.clipboard_get"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clipboard_get</span></code></a>(**kw)</p></td>
-<td><p>Retrieve data from the clipboard on window’s display.</p></td>
+<td><p>Retrieve data from the clipboard on window's display.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.columnconfigure" title="ncvue.ncvcontour.ncvContour.columnconfigure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">columnconfigure</span></code></a>(index[, cnf])</p></td>
 <td><p>Configure column INDEX of a grid.</p></td>
@@ -378,10 +379,10 @@ something is selected, changed, checked, etc.</p>
 <td><p>Set global grab for this widget.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.grab_status" title="ncvue.ncvcontour.ncvContour.grab_status"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grab_status</span></code></a>()</p></td>
-<td><p>Return None, “local” or “global” if this widget has no, a local or a global grab.</p></td>
+<td><p>Return None, &quot;local&quot; or &quot;global&quot; if this widget has no, a local or a global grab.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.grid" title="ncvue.ncvcontour.ncvContour.grid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grid</span></code></a>([cnf])</p></td>
-<td><p>Position a widget in the parent widget in a grid. Use as options: column=number - use cell identified with given column (starting with 0) columnspan=number - this widget will span several columns in=master - use master to contain this widget in_=master - see ‘in’ option description ipadx=amount - add internal padding in x direction ipady=amount - add internal padding in y direction padx=amount - add padding in x direction pady=amount - add padding in y direction row=number - use cell identified with given row (starting with 0) rowspan=number - this widget will span several rows sticky=NSEW - if cell is larger on which sides will this               widget stick to the cell boundary.</p></td>
+<td><p>Position a widget in the parent widget in a grid. Use as options: column=number - use cell identified with given column (starting with 0) columnspan=number - this widget will span several columns in=master - use master to contain this widget in_=master - see 'in' option description ipadx=amount - add internal padding in x direction ipady=amount - add internal padding in y direction padx=amount - add padding in x direction pady=amount - add padding in y direction row=number - use cell identified with given row (starting with 0) rowspan=number - this widget will span several rows sticky=NSEW - if cell is larger on which sides will this               widget stick to the cell boundary.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.grid_anchor" title="ncvue.ncvcontour.ncvContour.grid_anchor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grid_anchor</span></code></a>([anchor])</p></td>
 <td><p>The anchor value controls how to place the grid within the master when no row/column has any weight.</p></td>
@@ -393,7 +394,7 @@ something is selected, changed, checked, etc.</p>
 <td><p>Configure column INDEX of a grid.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.grid_configure" title="ncvue.ncvcontour.ncvContour.grid_configure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grid_configure</span></code></a>([cnf])</p></td>
-<td><p>Position a widget in the parent widget in a grid. Use as options: column=number - use cell identified with given column (starting with 0) columnspan=number - this widget will span several columns in=master - use master to contain this widget in_=master - see ‘in’ option description ipadx=amount - add internal padding in x direction ipady=amount - add internal padding in y direction padx=amount - add padding in x direction pady=amount - add padding in y direction row=number - use cell identified with given row (starting with 0) rowspan=number - this widget will span several rows sticky=NSEW - if cell is larger on which sides will this               widget stick to the cell boundary.</p></td>
+<td><p>Position a widget in the parent widget in a grid. Use as options: column=number - use cell identified with given column (starting with 0) columnspan=number - this widget will span several columns in=master - use master to contain this widget in_=master - see 'in' option description ipadx=amount - add internal padding in x direction ipady=amount - add internal padding in y direction padx=amount - add padding in x direction pady=amount - add padding in y direction row=number - use cell identified with given row (starting with 0) rowspan=number - this widget will span several rows sticky=NSEW - if cell is larger on which sides will this               widget stick to the cell boundary.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.grid_forget" title="ncvue.ncvcontour.ncvContour.grid_forget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grid_forget</span></code></a>()</p></td>
 <td><p>Unmap this widget.</p></td>
@@ -432,7 +433,7 @@ something is selected, changed, checked, etc.</p>
 <td><p>Return information about the packing options for this widget.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.instate" title="ncvue.ncvcontour.ncvContour.instate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">instate</span></code></a>(statespec[, callback])</p></td>
-<td><p>Test the widget’s state.</p></td>
+<td><p>Test the widget's state.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.keys" title="ncvue.ncvcontour.ncvContour.keys"><code class="xref py py-obj docutils literal notranslate"><span class="pre">keys</span></code></a>()</p></td>
 <td><p>Return a list of all resource names of this widget.</p></td>
@@ -471,10 +472,10 @@ something is selected, changed, checked, etc.</p>
 <td><p>Read file FILENAME into the option database.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.pack" title="ncvue.ncvcontour.ncvContour.pack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack</span></code></a>([cnf])</p></td>
-<td><p>Pack a widget in the parent widget. Use as options: after=widget - pack it after you have packed widget anchor=NSEW (or subset) - position widget according to                           given direction before=widget - pack it before you will pack widget expand=bool - expand widget if parent size grows fill=NONE or X or Y or BOTH - fill widget if widget grows in=master - use master to contain this widget in_=master - see ‘in’ option description ipadx=amount - add internal padding in x direction ipady=amount - add internal padding in y direction padx=amount - add padding in x direction pady=amount - add padding in y direction side=TOP or BOTTOM or LEFT or RIGHT -  where to add this widget.</p></td>
+<td><p>Pack a widget in the parent widget. Use as options: after=widget - pack it after you have packed widget anchor=NSEW (or subset) - position widget according to                           given direction before=widget - pack it before you will pack widget expand=bool - expand widget if parent size grows fill=NONE or X or Y or BOTH - fill widget if widget grows in=master - use master to contain this widget in_=master - see 'in' option description ipadx=amount - add internal padding in x direction ipady=amount - add internal padding in y direction padx=amount - add padding in x direction pady=amount - add padding in y direction side=TOP or BOTTOM or LEFT or RIGHT -  where to add this widget.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.pack_configure" title="ncvue.ncvcontour.ncvContour.pack_configure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack_configure</span></code></a>([cnf])</p></td>
-<td><p>Pack a widget in the parent widget. Use as options: after=widget - pack it after you have packed widget anchor=NSEW (or subset) - position widget according to                           given direction before=widget - pack it before you will pack widget expand=bool - expand widget if parent size grows fill=NONE or X or Y or BOTH - fill widget if widget grows in=master - use master to contain this widget in_=master - see ‘in’ option description ipadx=amount - add internal padding in x direction ipady=amount - add internal padding in y direction padx=amount - add padding in x direction pady=amount - add padding in y direction side=TOP or BOTTOM or LEFT or RIGHT -  where to add this widget.</p></td>
+<td><p>Pack a widget in the parent widget. Use as options: after=widget - pack it after you have packed widget anchor=NSEW (or subset) - position widget according to                           given direction before=widget - pack it before you will pack widget expand=bool - expand widget if parent size grows fill=NONE or X or Y or BOTH - fill widget if widget grows in=master - use master to contain this widget in_=master - see 'in' option description ipadx=amount - add internal padding in x direction ipady=amount - add internal padding in y direction padx=amount - add padding in x direction pady=amount - add padding in y direction side=TOP or BOTTOM or LEFT or RIGHT -  where to add this widget.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.pack_forget" title="ncvue.ncvcontour.ncvContour.pack_forget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack_forget</span></code></a>()</p></td>
 <td><p>Unmap this widget and do not use it for the packing order.</p></td>
@@ -489,10 +490,10 @@ something is selected, changed, checked, etc.</p>
 <td><p>Return a list of all slaves of this widget in its packing order.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.place" title="ncvue.ncvcontour.ncvContour.place"><code class="xref py py-obj docutils literal notranslate"><span class="pre">place</span></code></a>([cnf])</p></td>
-<td><p>Place a widget in the parent widget. Use as options: in=master - master relative to which the widget is placed in_=master - see ‘in’ option description x=amount - locate anchor of this widget at position x of master y=amount - locate anchor of this widget at position y of master relx=amount - locate anchor of this widget between 0.0 and 1.0               relative to width of master (1.0 is right edge) rely=amount - locate anchor of this widget between 0.0 and 1.0               relative to height of master (1.0 is bottom edge) anchor=NSEW (or subset) - position anchor according to given direction width=amount - width of this widget in pixel height=amount - height of this widget in pixel relwidth=amount - width of this widget between 0.0 and 1.0                   relative to width of master (1.0 is the same width                   as the master) relheight=amount - height of this widget between 0.0 and 1.0                    relative to height of master (1.0 is the same                    height as the master) bordermode=”inside” or “outside” - whether to take border width of                                    master widget into account.</p></td>
+<td><p>Place a widget in the parent widget. Use as options: in=master - master relative to which the widget is placed in_=master - see 'in' option description x=amount - locate anchor of this widget at position x of master y=amount - locate anchor of this widget at position y of master relx=amount - locate anchor of this widget between 0.0 and 1.0               relative to width of master (1.0 is right edge) rely=amount - locate anchor of this widget between 0.0 and 1.0               relative to height of master (1.0 is bottom edge) anchor=NSEW (or subset) - position anchor according to given direction width=amount - width of this widget in pixel height=amount - height of this widget in pixel relwidth=amount - width of this widget between 0.0 and 1.0                   relative to width of master (1.0 is the same width                   as the master) relheight=amount - height of this widget between 0.0 and 1.0                    relative to height of master (1.0 is the same                    height as the master) bordermode=&quot;inside&quot; or &quot;outside&quot; - whether to take border width of                                    master widget into account.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.place_configure" title="ncvue.ncvcontour.ncvContour.place_configure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">place_configure</span></code></a>([cnf])</p></td>
-<td><p>Place a widget in the parent widget. Use as options: in=master - master relative to which the widget is placed in_=master - see ‘in’ option description x=amount - locate anchor of this widget at position x of master y=amount - locate anchor of this widget at position y of master relx=amount - locate anchor of this widget between 0.0 and 1.0               relative to width of master (1.0 is right edge) rely=amount - locate anchor of this widget between 0.0 and 1.0               relative to height of master (1.0 is bottom edge) anchor=NSEW (or subset) - position anchor according to given direction width=amount - width of this widget in pixel height=amount - height of this widget in pixel relwidth=amount - width of this widget between 0.0 and 1.0                   relative to width of master (1.0 is the same width                   as the master) relheight=amount - height of this widget between 0.0 and 1.0                    relative to height of master (1.0 is the same                    height as the master) bordermode=”inside” or “outside” - whether to take border width of                                    master widget into account.</p></td>
+<td><p>Place a widget in the parent widget. Use as options: in=master - master relative to which the widget is placed in_=master - see 'in' option description x=amount - locate anchor of this widget at position x of master y=amount - locate anchor of this widget at position y of master relx=amount - locate anchor of this widget between 0.0 and 1.0               relative to width of master (1.0 is right edge) rely=amount - locate anchor of this widget between 0.0 and 1.0               relative to height of master (1.0 is bottom edge) anchor=NSEW (or subset) - position anchor according to given direction width=amount - width of this widget in pixel height=amount - height of this widget in pixel relwidth=amount - width of this widget between 0.0 and 1.0                   relative to width of master (1.0 is the same width                   as the master) relheight=amount - height of this widget between 0.0 and 1.0                    relative to height of master (1.0 is the same                    height as the master) bordermode=&quot;inside&quot; or &quot;outside&quot; - whether to take border width of                                    master widget into account.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.place_forget" title="ncvue.ncvcontour.ncvContour.place_forget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">place_forget</span></code></a>()</p></td>
 <td><p>Unmap this widget.</p></td>
@@ -654,7 +655,7 @@ something is selected, changed, checked, etc.</p>
 <td><p>Return the number of pixels for the given distance NUMBER (e.g.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.winfo_geometry" title="ncvue.ncvcontour.ncvContour.winfo_geometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_geometry</span></code></a>()</p></td>
-<td><p>Return geometry string for this widget in the form “widthxheight+X+Y”.</p></td>
+<td><p>Return geometry string for this widget in the form &quot;widthxheight+X+Y&quot;.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.winfo_height" title="ncvue.ncvcontour.ncvContour.winfo_height"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_height</span></code></a>()</p></td>
 <td><p>Return height of this widget.</p></td>
@@ -732,7 +733,7 @@ something is selected, changed, checked, etc.</p>
 <td><p>Return the number of pixels of the width of the screen of this widget in pixel.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.winfo_server" title="ncvue.ncvcontour.ncvContour.winfo_server"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_server</span></code></a>()</p></td>
-<td><p>Return information of the X-Server of the screen of this widget in the form “XmajorRminor vendor vendorVersion”.</p></td>
+<td><p>Return information of the X-Server of the screen of this widget in the form &quot;XmajorRminor vendor vendorVersion&quot;.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvcontour.ncvContour.winfo_toplevel" title="ncvue.ncvcontour.ncvContour.winfo_toplevel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_toplevel</span></code></a>()</p></td>
 <td><p>Return the toplevel widget of this widget.</p></td>
@@ -2198,7 +2199,7 @@ in the parent.</p>
 
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>
