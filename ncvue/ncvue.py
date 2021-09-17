@@ -119,8 +119,8 @@ def ncvue(ncfile='', miss=np.nan):
         # style.theme_use(theme)
 
         # 'azure' v2.x, 'sun-valley', 'forest' of rdbende
-        # top.tk.call('source', bundle_dir + '/themes/azure-2.0/azure.tcl')
-        top.tk.call('source', bundle_dir + '/themes/sun-valley-1.0/sun-valley.tcl')
+        top.tk.call('source', bundle_dir + '/themes/azure-2.0/azure.tcl')
+        # top.tk.call('source', bundle_dir + '/themes/sun-valley-1.0/sun-valley.tcl')
         theme = 'light'  # light, dark
         top.tk.call("set_theme", theme)
     elif ios == 'Linux':
