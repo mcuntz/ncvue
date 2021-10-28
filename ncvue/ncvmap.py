@@ -951,12 +951,13 @@ class ncvMap(ttk.Frame):
         Sets the time dimension spinbox, sets the time step scale,
         write the time on top.
         """
-        self.vdval[self.iunlim].set(it)
-        self.tstepval.set(it)
-        try:
-            self.timelbl.set(np.around(self.time[it], 4))
-        except TypeError:
-            self.timelbl.set(self.time[it])
+        if self.dunlim:
+            self.vdval[self.iunlim].set(it)
+            self.tstepval.set(it)
+            try:
+                self.timelbl.set(np.around(self.time[it], 4))
+            except TypeError:
+                self.timelbl.set(self.time[it])
 
     def set_unlim(self, v):
         """
