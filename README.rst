@@ -255,7 +255,7 @@ provided by `Sebastian Müller`_ but has evolved considerably.
 Different netCDF test files were provided by `Juliane Mai`_.
 
 .. _Anaconda: https://www.anaconda.com/products/individual
-.. _macOS app: http://www.macu.de/extra/ncvue-3.7.dmg
+.. _macOS app: http://www.macu.de/extra/ncvue-3.8.dmg
 .. _Azure: https://github.com/rdbende/Azure-ttk-theme
 .. _cartopy: https://scitools.org.uk/cartopy/docs/latest/
 .. _Conda: https://docs.conda.io/projects/conda/en/latest/
