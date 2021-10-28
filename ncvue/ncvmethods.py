@@ -729,6 +729,7 @@ def set_dim_var(self):
                               state=tk.NORMAL)
             if ((vv.dimensions[i] != self.latdim) and
                 (vv.dimensions[i] != self.londim) and
+                (vv.dimensions[i] != self.dunlim) and
                 (nall <= 1) and (vv.shape[i] > 1)):
                 nall += 1
                 self.vdval[i].set('all')
