@@ -403,7 +403,7 @@ def analyse_netcdf(self):
     self.latdim = ''
     self.londim = ''
     if self.latvar:
-        latshape = self.fi.variables[self.lonvar].shape
+        latshape = self.fi.variables[self.latvar].shape
         if (len(latshape) < 1) or (len(latshape) > 2):
             estr  = 'Something went wrong determining lat/lon:'
             estr += ' latitude variable is not 1D or 2D.'
@@ -411,11 +411,7 @@ def analyse_netcdf(self):
             estr = 'latitude variable with dimensions:'
             ldim = self.fi.variables[self.latvar].dimensions
             print(estr, self.latvar, ldim)
-            estr = 'longitude variable with dimensions:'
-            ldim = self.fi.variables[self.lonvar].dimensions
-            print(estr, self.lonvar, ldim)
             self.latvar = ''
-            self.lonvar = ''
         else:
             self.latdim = self.fi.variables[self.latvar].dimensions[0]
     if self.lonvar:
@@ -428,13 +424,9 @@ def analyse_netcdf(self):
             estr  = 'Something went wrong determining lat/lon:'
             estr += ' longitude variable is not 1D or 2D.'
             print(estr)
-            estr = 'latitude variable with dimensions:'
-            ldim = self.fi.variables[self.latvar].dimensions
-            print(estr, self.latvar, ldim)
             estr = 'longitude variable with dimensions:'
             ldim = self.fi.variables[self.lonvar].dimensions
             print(estr, self.lonvar, ldim)
-            self.latvar = ''
             self.lonvar = ''
     #
     # add units to lat/lon name

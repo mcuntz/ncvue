@@ -4,6 +4,11 @@ Changelog
 All notable changes after its initial development up to November 2020 (v1.0)
 are documented in this file.
 
+v3.8 (Oct 2021)
+-----------------
+* Work with files without an unlimited (time) dimension.
+* Removed bug in detection of lon/lat.
+
 v3.7 (Sep 2021)
 -----------------
 * Use Azure theme v2.0 on Linux and Sun Valley theme v1.0 on Windows from
