@@ -10,15 +10,8 @@ This module was written by Matthias Cuntz while at Institut National de
 Recherche pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy,
 France.
 
-Copyright (c) 2020-2021 Matthias Cuntz - mc (at) macu (dot) de
-
-Released under the MIT License; see LICENSE file for details.
-
-History:
-
-* Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
-* Added check_new_netcdf method that re-initialises all panels if netcdf file
-  changed, Jan 2021, Matthias Cuntz
+:copyright: Copyright 2020-2021 Matthias Cuntz - mc (at) macu (dot) de
+:license: MIT License, see LICENSE for details.
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -26,6 +19,12 @@ The following classes are provided:
 
 .. autosummary::
    ncvMain
+
+History
+    * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
+    * Added check_new_netcdf method that re-initialises all panels if netcdf
+      file changed, Jan 2021, Matthias Cuntz
+
 """
 from __future__ import absolute_import, division, print_function
 import tkinter as tk

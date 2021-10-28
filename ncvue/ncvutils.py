@@ -9,28 +9,8 @@ This module was written by Matthias Cuntz while at Institut National de
 Recherche pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy,
 France.
 
-Copyright (c) 2020-2021 Matthias Cuntz - mc (at) macu (dot) de
-
-Released under the MIT License; see LICENSE file for details.
-
-History:
-
-* Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
-* General get_slice function from individual methods for x, y, y2, z,
-  Dec 2020, Matthias Cuntz
-* Added arithmetics to apply on axis/dimensions such as mean, std, etc.,
-  Dec 2020, Matthias Cuntz
-* Added clone_ncvmain, removing its own module, Dec 2020, Matthias Cuntz
-* added SEPCHAR and DIMMETHODS, Jan 2021, Matthias Cuntz
-* pass only ncvMain widget to clone_ncvmain, Jan 2021, Matthias Cuntz
-* pass only root widget to clone_ncvmain, Jan 2021, Matthias Cuntz
-* set correct missing value for date variable in numpy's datetime64[ms] format
-  May 2021, Matthias Cuntz
-* added format_coord functions for scatter, contour, and map,
-  May 2021, Matthias Cuntz
-* replaced add_cyclic_point with add_cyclic as submitted to cartopy,
-  Jun 2021, Matthias Cuntz
-* removed SEPCHAR, Jun 2021, Matthias Cuntz
+:copyright: Copyright 2020-2021 Matthias Cuntz - mc (at) macu (dot) de
+:license: MIT License, see LICENSE for details.
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -50,6 +30,25 @@ The following functions are provided:
    spinbox_values
    vardim2var
    zip_dim_name_length
+
+History
+    * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
+    * General get_slice function from individual methods for x, y, y2, z,
+      Dec 2020, Matthias Cuntz
+    * Added arithmetics to apply on axis/dimensions such as mean, std, etc.,
+      Dec 2020, Matthias Cuntz
+    * Added clone_ncvmain, removing its own module, Dec 2020, Matthias Cuntz
+    * added SEPCHAR and DIMMETHODS, Jan 2021, Matthias Cuntz
+    * pass only ncvMain widget to clone_ncvmain, Jan 2021, Matthias Cuntz
+    * pass only root widget to clone_ncvmain, Jan 2021, Matthias Cuntz
+    * set correct missing value for date variable in numpy's datetime64[ms]
+      format May 2021, Matthias Cuntz
+    * added format_coord functions for scatter, contour, and map,
+      May 2021, Matthias Cuntz
+    * replaced add_cyclic_point with add_cyclic as submitted to cartopy,
+      Jun 2021, Matthias Cuntz
+    * removed SEPCHAR, Jun 2021, Matthias Cuntz
+
 """
 from __future__ import absolute_import, division, print_function
 import tkinter as tk

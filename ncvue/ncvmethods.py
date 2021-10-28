@@ -15,30 +15,8 @@ This module was written by Matthias Cuntz while at Institut National de
 Recherche pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy,
 France.
 
-Copyright (c) 2020-2021 Matthias Cuntz - mc (at) macu (dot) de
-
-Released under the MIT License; see LICENSE file for details.
-
-History:
-
-* Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
-* Slice arrays with slice function rather than numpy.take,
-  Dec 2020, Matthias Cuntz
-* Moved individual get_slice? methods for x, y, y2, z as general get_slice
-  function to ncvutils, Dec 2020, Matthias Cuntz
-* Added convenience method get_slice_miss, Dec 2020, Matthias Cuntz
-* set_dim_lon, set_dim_lat, set_dim_var for Map panel,
-  Jan 2021, Matthias Cuntz
-* set latdim, londim to all on map var, determined in ncvMain,
-  Jan 2021, Matthias Cuntz
-* catch non numpy.dtype in set_miss, Jan 2021, Matthias Cuntz
-* catch variables that have only one string or similar,
-  Jan 2021, Matthias Cuntz
-* added tooltip to dimensions, Jan 2021, Matthias Cuntz
-* added analyse_netcdf from ncvmain, Jan 2021, Matthias Cuntz
-* use dlblval instead of dlbl to set dimension labels, Jan 2021, Matthias Cuntz
-* make self.time numpy's datetime64[ms] format, May 2021, Matthias Cuntz
-* add numpy's datetime64[ms] to missing values, May 2021, Matthias Cuntz
+:copyright: Copyright 2020-2021 Matthias Cuntz - mc (at) macu (dot) de
+:license: MIT License, see LICENSE for details.
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -55,6 +33,34 @@ The following methods are provided:
    set_dim_y
    set_dim_y2
    set_dim_z
+
+History
+    * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
+    * Slice arrays with slice function rather than numpy.take,
+      Dec 2020, Matthias Cuntz
+    * Moved individual get_slice? methods for x, y, y2, z as general get_slice
+      function to ncvutils, Dec 2020, Matthias Cuntz
+    * Added convenience method get_slice_miss, Dec 2020, Matthias Cuntz
+    * set_dim_lon, set_dim_lat, set_dim_var for Map panel,
+      Jan 2021, Matthias Cuntz
+    * Set latdim, londim to all on map var, determined in ncvMain,
+      Jan 2021, Matthias Cuntz
+    * Catch non numpy.dtype in set_miss, Jan 2021, Matthias Cuntz
+    * Catch variables that have only one string or similar,
+      Jan 2021, Matthias Cuntz
+    * Added tooltip to dimensions, Jan 2021, Matthias Cuntz
+    * Added analyse_netcdf from ncvmain, Jan 2021, Matthias Cuntz
+    * Use dlblval instead of dlbl to set dimension labels,
+      Jan 2021, Matthias Cuntz
+    * Make self.time numpy's datetime64[ms] format, May 2021, Matthias Cuntz
+    * Add numpy's datetime64[ms] to missing values, May 2021, Matthias Cuntz
+    * Removed bug in detection of lon/lat (analyse_netcdf),
+      Oct 2021, Matthias Cuntz
+    * Identify lon/lat also by axis attributes x/y or X/Y (analyse_netcdf),
+      Oct 2021, Matthias Cuntz
+    * Do not default the unlimited dimension to 'all' if no lon/lat were found,
+      (get_dim_var) Oct 2021, Matthias Cuntz
+
 """
 from __future__ import absolute_import, division, print_function
 import tkinter as tk

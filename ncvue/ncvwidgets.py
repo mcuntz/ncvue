@@ -8,16 +8,8 @@ This module was written by Matthias Cuntz while at Institut National de
 Recherche pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy,
 France.
 
-Copyright (c) 2020-2021 Matthias Cuntz - mc (at) macu (dot) de
-
-Released under the MIT License; see LICENSE file for details.
-
-History:
-
-* Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
-* Added tooltips to all widgets with class Tooltip, Jan 2021, Matthias Cuntz
-* Added add_tooltip widget, Jan 2021, Matthias Cuntz
-* add_spinbox returns also label widget, Jan 2021, Matthias Cuntz
+:copyright: Copyright 2020-2021 Matthias Cuntz - mc (at) macu (dot) de
+:license: MIT License, see LICENSE for details.
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -33,6 +25,14 @@ The following functions are provided:
    add_scale
    add_spinbox
    add_tooltip
+
+History
+    * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
+    * Added tooltips to all widgets with class Tooltip,
+      Jan 2021, Matthias Cuntz
+    * Added add_tooltip widget, Jan 2021, Matthias Cuntz
+    * add_spinbox returns also label widget, Jan 2021, Matthias Cuntz
+
 """
 from __future__ import absolute_import, division, print_function
 import tkinter as tk

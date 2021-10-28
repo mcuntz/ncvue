@@ -8,8 +8,9 @@ It is aiming to be a drop-in replacement for ncview and panoply,
 being slightly more general than ncview targeting maps but providing
 animations, zooming and panning capabilities unlike panoply.
 
-:copyright: Copyright 2020 Matthias Cuntz, see AUTHORS.rst for details.
+:copyright: Copyright 2020-2021 Matthias Cuntz - mc (at) macu (dot) de
 :license: MIT License, see LICENSE for details.
+
 """
 from __future__ import division, absolute_import, print_function
 

@@ -9,17 +9,8 @@ This module was written by Matthias Cuntz while at Institut National de
 Recherche pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy,
 France.
 
-Copyright (c) 2020-2021 Matthias Cuntz - mc (at) macu (dot) de
-
-Released under the MIT License; see LICENSE file for details.
-
-History:
-
-* Written Dec 2020-Jan 2021 by Matthias Cuntz (mc (at) macu (dot) de)
-* Open new netcdf file, communicate via top widget, Jan 2021, Matthias Cuntz
-* Write coordinates and value on bottom of plotting canvas,
-  May 2021, Matthias Cuntz
-* Larger pad for colorbar, Jun 2021, Matthias Cuntz
+:copyright: Copyright 2020-2021 Matthias Cuntz - mc (at) macu (dot) de
+:license: MIT License, see LICENSE for details.
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -27,6 +18,17 @@ The following classes are provided:
 
 .. autosummary::
    ncvMap
+
+History
+    * Written Dec 2020-Jan 2021 by Matthias Cuntz (mc (at) macu (dot) de)
+    * Open new netcdf file, communicate via top widget,
+      Jan 2021, Matthias Cuntz
+    * Write coordinates and value on bottom of plotting canvas,
+      May 2021, Matthias Cuntz
+    * Larger pad for colorbar, Jun 2021, Matthias Cuntz
+    * Work with files without an unlimited (time) dimension (set_tstep),
+      Oct 2021, Matthias Cuntz
+
 """
 from __future__ import absolute_import, division, print_function
 import sys
