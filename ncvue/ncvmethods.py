@@ -321,7 +321,24 @@ def analyse_netcdf(self):
                     sunit = ''
                 if sunit.lower() == 'degrees_east':
                     self.lonvar = vv
-    # fourth sweep: same as first but units can be "degrees"
+    # fourth sweep: axis is 'Y' or 'y'
+    if not self.latvar:
+        for vv in self.fi.variables:
+            try:
+                saxis = self.fi.variables[vv].axis
+            except AttributeError:
+                saxis = ''
+            if saxis.lower() == 'y':
+                self.latvar = vv
+    if not self.lonvar:
+        for vv in self.fi.variables:
+            try:
+                saxis = self.fi.variables[vv].axis
+            except AttributeError:
+                saxis = ''
+            if saxis.lower() == 'x':
+                self.lonvar = vv
+    # fifth sweep: same as first but units can be "degrees"
     if not self.latvar:
         for vv in self.fi.variables:
             try:
@@ -354,7 +371,7 @@ def analyse_netcdf(self):
                     sunit = ''
                 if sunit.lower() == 'degrees':
                     self.lonvar = vv
-    # fifth sweep: same as second but units can be "degrees"
+    # sixth sweep: same as second but units can be "degrees"
     if not self.latvar:
         for vv in self.fi.variables:
             sname = self.fi.variables[vv].name
@@ -375,7 +392,7 @@ def analyse_netcdf(self):
                     sunit = ''
                 if sunit.lower() == 'degrees':
                     self.lonvar = vv
-    # sixth sweep: same as third but units can be "degrees"
+    # seventh sweep: same as third but units can be "degrees"
     if not self.latvar:
         for vv in self.fi.variables:
             sname = self.fi.variables[vv].name

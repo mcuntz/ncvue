@@ -8,6 +8,7 @@ v3.8 (Oct 2021)
 -----------------
 * Work with files without an unlimited (time) dimension.
 * Removed bug in detection of lon/lat.
+* Identify lon/lat also by axis attribute.
 
 v3.7 (Sep 2021)
 -----------------
