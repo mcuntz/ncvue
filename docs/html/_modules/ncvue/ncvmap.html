@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ncvue.ncvmap &mdash; ncvue 3.6 documentation</title>
+  <title>ncvue.ncvmap &mdash; ncvue 3.9.dev1 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                3.6
+                3.9.dev1
               </div>
             
           
@@ -118,6 +118,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../package.html">API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../package.html#purpose">Purpose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../package.html#subpackages">Subpackages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvcontour.html">ncvue.ncvcontour</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvmain.html">ncvue.ncvmain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvmap.html">ncvue.ncvmap</a></li>
@@ -126,7 +127,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../ncvue.html">ncvue.ncvue</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvutils.html">ncvue.ncvutils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvwidgets.html">ncvue.ncvwidgets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../version.html">ncvue.version</a></li>
 </ul>
 </li>
 </ul>
@@ -216,17 +216,8 @@
 <span class="sd">Recherche pour l&#39;Agriculture, l&#39;Alimentation et l&#39;Environnement (INRAE), Nancy,</span>
 <span class="sd">France.</span>
 
-<span class="sd">Copyright (c) 2020-2021 Matthias Cuntz - mc (at) macu (dot) de</span>
-
-<span class="sd">Released under the MIT License; see LICENSE file for details.</span>
-
-<span class="sd">History:</span>
-
-<span class="sd">* Written Dec 2020-Jan 2021 by Matthias Cuntz (mc (at) macu (dot) de)</span>
-<span class="sd">* Open new netcdf file, communicate via top widget, Jan 2021, Matthias Cuntz</span>
-<span class="sd">* Write coordinates and value on bottom of plotting canvas,</span>
-<span class="sd">  May 2021, Matthias Cuntz</span>
-<span class="sd">* Larger pad for colorbar, Jun 2021, Matthias Cuntz</span>
+<span class="sd">:copyright: Copyright 2020-2021 Matthias Cuntz - mc (at) macu (dot) de</span>
+<span class="sd">:license: MIT License, see LICENSE for details.</span>
 
 <span class="sd">.. moduleauthor:: Matthias Cuntz</span>
 
@@ -234,6 +225,17 @@
 
 <span class="sd">.. autosummary::</span>
 <span class="sd">   ncvMap</span>
+
+<span class="sd">History</span>
+<span class="sd">    * Written Dec 2020-Jan 2021 by Matthias Cuntz (mc (at) macu (dot) de)</span>
+<span class="sd">    * Open new netcdf file, communicate via top widget,</span>
+<span class="sd">      Jan 2021, Matthias Cuntz</span>
+<span class="sd">    * Write coordinates and value on bottom of plotting canvas,</span>
+<span class="sd">      May 2021, Matthias Cuntz</span>
+<span class="sd">    * Larger pad for colorbar, Jun 2021, Matthias Cuntz</span>
+<span class="sd">    * Work with files without an unlimited (time) dimension (set_tstep),</span>
+<span class="sd">      Oct 2021, Matthias Cuntz</span>
+
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span>
 <span class="kn">import</span> <span class="nn">sys</span>
@@ -274,6 +276,7 @@
 
 <span class="sd">    Contains various commands that manage what will be drawn or redrawn if</span>
 <span class="sd">    something is selected, changed, checked, etc.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1">#</span>
@@ -1158,12 +1161,13 @@
 <span class="sd">        Sets the time dimension spinbox, sets the time step scale,</span>
 <span class="sd">        write the time on top.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">vdval</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">iunlim</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tstepval</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">timelbl</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">it</span><span class="p">],</span> <span class="mi">4</span><span class="p">))</span>
-        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">timelbl</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">it</span><span class="p">])</span></div>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dunlim</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vdval</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">iunlim</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tstepval</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">timelbl</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">it</span><span class="p">],</span> <span class="mi">4</span><span class="p">))</span>
+            <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">timelbl</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">it</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="ncvMap.set_unlim"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.set_unlim">[docs]</a>    <span class="k">def</span> <span class="nf">set_unlim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>

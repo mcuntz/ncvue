@@ -1,4 +1,4 @@
-# Created by .ignore support plugin (hsz.mobi)
+# Adapted from .ignore support plugin (hsz.mobi)
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -10,6 +10,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
+env/
 build/
 develop-eggs/
 dist/
@@ -25,13 +26,12 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
-MANIFEST
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
-# *.spec
+*.spec
 
 # Installer logs
 pip-log.txt
@@ -67,6 +67,7 @@ instance/
 
 # Sphinx documentation
 docs/_build/
+docs/output.txt
 
 # PyBuilder
 target/
@@ -83,14 +84,13 @@ celerybeat-schedule
 # SageMath parsed files
 *.sage.py
 
-# Environments
+# dotenv
 .env
+
+# virtualenv
 .venv
-env/
 venv/
 ENV/
-env.bak/
-venv.bak/
 
 # Spyder project settings
 .spyderproject
@@ -105,5 +105,11 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-# macOS
-.DS_Store
+tags
+/test_*
+
+# own stuff
+*.DS_Store
+
+# generated version file
+src/ncvue/_version.py

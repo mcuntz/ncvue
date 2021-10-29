@@ -116,7 +116,7 @@ Library `proj` and the Geometry Engine `geos`:
    # cartopy needs proj < v8
    brew install proj@7
 
-``ncvue`` and its prerequisites are then installed via pip (from `cartopy install`_):
+``ncvue`` and its prerequisites are then installed via pip (from cartopy install_):
 
 .. code-block:: bash
 
@@ -229,7 +229,7 @@ need to update their (very old) Tk installations.
 
 .. _Anaconda: https://www.anaconda.com/products/individual
 .. _cartopy: https://scitools.org.uk/cartopy/docs/latest/
-.. _cartopy install: https://scitools.org.uk/cartopy/docs/latest/installing.html
+.. _install: https://scitools.org.uk/cartopy/docs/latest/installing.html
 .. _Conda: https://docs.conda.io/projects/conda/en/latest/
 .. _homebrew: https://brew.sh/
 .. _macOS app: http://www.macu.de/extra/ncvue-3.8.dmg

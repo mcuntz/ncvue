@@ -4,6 +4,12 @@ Changelog
 All notable changes after its initial development up to November 2020 (v1.0) are
 documented in this file.
 
+v4.0 (Oct 2021)
+    * Move to new pip structure using pyproject.toml.
+    * Move to Github actions.
+    * Move to src directory structure.
+    * Remove History sections from docstrings of wrappers and IO routines.
+
 v3.8 (Oct 2021)
     * Work with files without an unlimited (time) dimension.
     * Removed bug in detection of lon/lat.

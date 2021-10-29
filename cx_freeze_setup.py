@@ -120,13 +120,13 @@ class build(_build):
 
 
 package   = 'ncvue'
-doclines1 = 'A minimal GUI for a quick view of netcdf files.'
-doclines  = doclines1 + ' Aiming to be a drop-in replacement'
+doclines1 = 'A minimal GUI for a quick view of netcdf files'
+doclines  = doclines1 + ', aiming to be a drop-in replacement'
 doclines += ' for ncview and panoply.'
 author    = 'Matthias Cuntz'
 copyright = 'Copyright (c) 2020-2021 Matthias Cuntz - mc (at) macu (dot) de'
 
-version = _find_version(package, 'version.py')
+version = _find_version('src/' + package, '_version.py')
 
 script        = 'bin/ncvue'
 packages      = ['scipy', 'netCDF4']  # others detected automatically
@@ -140,7 +140,7 @@ include_files = []
 if sys.platform == 'win32':
     base = 'Win32GUI'
     exe  = 'ncvue.exe'
-    icon = 'ncvue/images/ncvue_icon.ico'
+    icon = 'src/ncvue/images/ncvue_icon.ico'
     msvcr = True
     shortcutname = 'ncvue'
     shortcutdir  = 'ProgramMenuFolder'
@@ -154,7 +154,7 @@ elif sys.platform == 'darwin':
 else:
     base = None
     exe  = 'ncvue'
-    icon = 'ncvue/images/ncvue_icon.ico'
+    icon = 'src/ncvue/images/ncvue_icon.ico'
     msvcr = False
     shortcutname = 'ncvue'
     shortcutdir  = None

@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ncvue.ncvutils &mdash; ncvue 3.7 documentation</title>
+  <title>ncvue.ncvutils &mdash; ncvue 3.9.dev1 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                3.7
+                3.9.dev1
               </div>
             
           
@@ -121,6 +121,7 @@
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="package.html">API</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="package.html#purpose">Purpose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package.html#subpackages">Subpackages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvcontour.html">ncvue.ncvcontour</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvmain.html">ncvue.ncvmain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvmap.html">ncvue.ncvmap</a></li>
@@ -129,7 +130,6 @@
 <li class="toctree-l2"><a class="reference internal" href="ncvue.html">ncvue.ncvue</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">ncvue.ncvutils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvwidgets.html">ncvue.ncvwidgets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="version.html">ncvue.version</a></li>
 </ul>
 </li>
 </ul>
@@ -228,27 +228,14 @@ Functions depending on the class are in ncvmethods.</p>
 <p>This module was written by Matthias Cuntz while at Institut National de
 Recherche pour l’Agriculture, l’Alimentation et l’Environnement (INRAE), Nancy,
 France.</p>
-<p>Copyright (c) 2020-2021 Matthias Cuntz - mc (at) macu (dot) de</p>
-<p>Released under the MIT License; see LICENSE file for details.</p>
-<p>History:</p>
-<ul class="simple">
-<li><p>Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)</p></li>
-<li><p>General get_slice function from individual methods for x, y, y2, z,
-Dec 2020, Matthias Cuntz</p></li>
-<li><p>Added arithmetics to apply on axis/dimensions such as mean, std, etc.,
-Dec 2020, Matthias Cuntz</p></li>
-<li><p>Added clone_ncvmain, removing its own module, Dec 2020, Matthias Cuntz</p></li>
-<li><p>added SEPCHAR and DIMMETHODS, Jan 2021, Matthias Cuntz</p></li>
-<li><p>pass only ncvMain widget to clone_ncvmain, Jan 2021, Matthias Cuntz</p></li>
-<li><p>pass only root widget to clone_ncvmain, Jan 2021, Matthias Cuntz</p></li>
-<li><p>set correct missing value for date variable in numpy’s datetime64[ms] format
-May 2021, Matthias Cuntz</p></li>
-<li><p>added format_coord functions for scatter, contour, and map,
-May 2021, Matthias Cuntz</p></li>
-<li><p>replaced add_cyclic_point with add_cyclic as submitted to cartopy,
-Jun 2021, Matthias Cuntz</p></li>
-<li><p>removed SEPCHAR, Jun 2021, Matthias Cuntz</p></li>
-</ul>
+<dl class="field-list simple">
+<dt class="field-odd">copyright</dt>
+<dd class="field-odd"><p>Copyright 2020-2021 Matthias Cuntz - mc (at) macu (dot) de</p>
+</dd>
+<dt class="field-even">license</dt>
+<dd class="field-even"><p>MIT License, see LICENSE for details.</p>
+</dd>
+</dl>
 <p>The following functions are provided:</p>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -297,6 +284,27 @@ Jun 2021, Matthias Cuntz</p></li>
 </tr>
 </tbody>
 </table>
+<dl class="simple">
+<dt>History</dt><dd><ul class="simple">
+<li><p>Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)</p></li>
+<li><p>General get_slice function from individual methods for x, y, y2, z,
+Dec 2020, Matthias Cuntz</p></li>
+<li><p>Added arithmetics to apply on axis/dimensions such as mean, std, etc.,
+Dec 2020, Matthias Cuntz</p></li>
+<li><p>Added clone_ncvmain, removing its own module, Dec 2020, Matthias Cuntz</p></li>
+<li><p>added SEPCHAR and DIMMETHODS, Jan 2021, Matthias Cuntz</p></li>
+<li><p>pass only ncvMain widget to clone_ncvmain, Jan 2021, Matthias Cuntz</p></li>
+<li><p>pass only root widget to clone_ncvmain, Jan 2021, Matthias Cuntz</p></li>
+<li><p>set correct missing value for date variable in numpy’s datetime64[ms]
+format May 2021, Matthias Cuntz</p></li>
+<li><p>added format_coord functions for scatter, contour, and map,
+May 2021, Matthias Cuntz</p></li>
+<li><p>replaced add_cyclic_point with add_cyclic as submitted to cartopy,
+Jun 2021, Matthias Cuntz</p></li>
+<li><p>removed SEPCHAR, Jun 2021, Matthias Cuntz</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="ncvue.ncvutils.add_cyclic">
 <span class="sig-name descname"><span class="pre">add_cyclic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coord</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rowcoord</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cyclic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">360</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#add_cyclic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.add_cyclic" title="Permalink to this definition">¶</a></dt>

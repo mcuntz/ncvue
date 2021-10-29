@@ -1,0 +1,30 @@
+[build-system]
+requires = [
+    "setuptools>=42",
+    "wheel",
+    "setuptools_scm[toml]>=3.5",
+]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+write_to = "src/ncvue/_version.py"
+write_to_template = "__version__ = '{version}'"
+local_scheme = "no-local-version"
+fallback_version = "0.0.0.dev0"
+
+[tool.coverage]
+    [tool.coverage.run]
+    source = ["src"]
+    omit = [
+        "*bin*",
+        "*docs*",
+        "*tests*",
+    ]
+
+    [tool.coverage.report]
+    exclude_lines = [
+        "pragma: no cover",
+        "if __name__ == '__main__':",
+        "def __repr__",
+        "def __str__",
+    ]

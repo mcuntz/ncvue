@@ -16,10 +16,16 @@
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
+#
+# NOTE:
+# pip install sphinx_rtd_theme
+# is needed in order to build the documentation
+import datetime
 import os
 import sys
-# this line is needed, if ncvue is not installed yet
-sys.path.insert(0, os.path.abspath("../../"))
+# this line is needed, if partialwrap is not installed yet
+sys.path.insert(
+    0, os.path.dirname(os.path.abspath(__file__)) + '/../../src')
 from ncvue import __version__ as ver
 
 
@@ -35,6 +41,10 @@ def setup(app):
 
 # -- General configuration ------------------------------------------------
 
+# If your documentation needs a minimal Sphinx version, state it here.
+#
+# needs_sphinx = '1.0'
+
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
@@ -46,7 +56,7 @@ extensions = [
     "sphinx.ext.doctest",
     "sphinx.ext.githubpages",
     "sphinx.ext.ifconfig",
-    "sphinx.ext.imgmath",
+    # "sphinx.ext.imgmath",
     "sphinx.ext.intersphinx",
     "sphinx.ext.mathjax",
     "sphinx.ext.napoleon",  # parameters look better than with numpydoc only
@@ -88,8 +98,9 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
+curr_year = datetime.datetime.now().year
 project = "ncvue"
-copyright = "2020-2021, Matthias Cuntz"
+copyright = "2020-{}, Matthias Cuntz".format(curr_year)
 author = "Matthias Cuntz"
 
 # The version info for the project you're documenting, acts as replacement for
@@ -157,10 +168,8 @@ html_theme_options = {
 # refs: http://alabaster.readthedocs.io/en/latest/installation.html#sidebars
 html_sidebars = {
     "**": [
-        "localtoc.html",
         "relations.html",  # needs 'show_related': True theme option to display
         "searchbox.html",
-        "sourcelink.html",
     ]
 }
 
@@ -193,7 +202,7 @@ latex_documents = [
     (
         master_doc,
         "ncvue.tex",
-        "ncvue Documentation",
+        "Documentation of ncvue",
         "Matthias Cuntz",
         "manual",
     )
@@ -205,7 +214,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, "ncvue", "ncvue Documentation", [author], 1)
+    (master_doc, "ncvue", "Documentation of ncvue", [author], 1)
 ]
 
 
@@ -218,7 +227,7 @@ texinfo_documents = [
     (
         master_doc,
         "ncvue",
-        "ncvue Documentation",
+        "Documentation of ncvue",
         author,
         "ncvue",
         "A minimal GUI for a quick view of netcdf files.",
@@ -233,17 +242,17 @@ suppress_warnings = [
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
-    "cython":     ("https://cython.readthedocs.io/en/latest/",     None),
-    "emcee":      ("https://emcee.readthedocs.io/en/latest/",      None),
-    "hesseflux":  ("https://hesseflux.readthedocs.io/en/latest/",  None),
-    "matplotlib": ("https://matplotlib.org/",                      None),
-    "mpi4py":     ("https://mpi4py.readthedocs.io/en/latest/",     None),
-    "NumPy":      ("https://numpy.org/doc/stable/",                None),
-    "Pandas":     ("https://pandas.pydata.org/docs/",              None),
+    "Python":      ("https://docs.python.org/3/",                    None),
+    "NumPy":       ("https://numpy.org/doc/stable/",                 None),
+    "SciPy":       ("https://docs.scipy.org/doc/scipy/reference/",   None),
+    "matplotlib":  ("https://matplotlib.org/",                       None),
+    "cython":      ("https://cython.readthedocs.io/en/latest/",      None),
+    "Sphinx":      ("https://www.sphinx-doc.org/en/master/",         None),
+    "Pandas":      ("https://pandas.pydata.org/docs/",               None),
+    "schwimmbad":  ("https://schwimmbad.readthedocs.io/en/latest/",  None),
+    "mpi4py":      ("https://mpi4py.readthedocs.io/en/latest/",      None),
+    "emcee":       ("https://emcee.readthedocs.io/en/latest/",       None),
     "partialwrap": ("https://partialwrap.readthedocs.io/en/latest/", None),
-    "pyeee":      ("https://pyeee.readthedocs.io/en/latest/",      None),
-    "Python":     ("https://docs.python.org/3/",                   None),
-    "schwimmbad": ("https://schwimmbad.readthedocs.io/en/latest/", None),
-    "SciPy":      ("https://docs.scipy.org/doc/scipy/reference/",  None),
-    "Sphinx":     ("https://www.sphinx-doc.org/en/master/",        None),
+    "pyeee":       ("https://pyeee.readthedocs.io/en/latest/",       None),
+    "hesseflux":   ("https://hesseflux.readthedocs.io/en/latest/",   None),
 }

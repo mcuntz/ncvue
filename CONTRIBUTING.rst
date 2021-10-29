@@ -10,9 +10,9 @@ We are happy about all contributions! :thumbsup:
 Did you find a bug?
 -------------------
 
-* Ensure that the bug was not already reported under Github issue_.
-* If the bug was not already reported, open a new issue_. with a clear
-  description of the problem and if possible with a minimal working example_.
+* Ensure that the bug was not already reported under issue_.
+* If the bug was not already reported, open a new issue_ with a clear
+  description of the problem and if possible with a minimal `working example`_.
 * please add the version number to the issue:
 
 .. code-block:: python
@@ -37,4 +37,4 @@ Do you want to enhance ncvue or fix something?
 
 .. _Github: https://github.com/mcuntz/ncvue
 .. _issue: https://github.com/mcuntz/ncvue/issues
-.. _example: https://en.wikipedia.org/wiki/Minimal_working_example
+.. _working example: https://en.wikipedia.org/wiki/Minimal_working_example

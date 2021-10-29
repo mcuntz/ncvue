@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ncvue.ncvutils &mdash; ncvue 3.6 documentation</title>
+  <title>ncvue.ncvutils &mdash; ncvue 3.9.dev1 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                3.6
+                3.9.dev1
               </div>
             
           
@@ -118,6 +118,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../package.html">API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../package.html#purpose">Purpose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../package.html#subpackages">Subpackages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvcontour.html">ncvue.ncvcontour</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvmain.html">ncvue.ncvmain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvmap.html">ncvue.ncvmap</a></li>
@@ -126,7 +127,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../ncvue.html">ncvue.ncvue</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvutils.html">ncvue.ncvutils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvwidgets.html">ncvue.ncvwidgets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../version.html">ncvue.version</a></li>
 </ul>
 </li>
 </ul>
@@ -216,28 +216,8 @@
 <span class="sd">Recherche pour l&#39;Agriculture, l&#39;Alimentation et l&#39;Environnement (INRAE), Nancy,</span>
 <span class="sd">France.</span>
 
-<span class="sd">Copyright (c) 2020-2021 Matthias Cuntz - mc (at) macu (dot) de</span>
-
-<span class="sd">Released under the MIT License; see LICENSE file for details.</span>
-
-<span class="sd">History:</span>
-
-<span class="sd">* Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)</span>
-<span class="sd">* General get_slice function from individual methods for x, y, y2, z,</span>
-<span class="sd">  Dec 2020, Matthias Cuntz</span>
-<span class="sd">* Added arithmetics to apply on axis/dimensions such as mean, std, etc.,</span>
-<span class="sd">  Dec 2020, Matthias Cuntz</span>
-<span class="sd">* Added clone_ncvmain, removing its own module, Dec 2020, Matthias Cuntz</span>
-<span class="sd">* added SEPCHAR and DIMMETHODS, Jan 2021, Matthias Cuntz</span>
-<span class="sd">* pass only ncvMain widget to clone_ncvmain, Jan 2021, Matthias Cuntz</span>
-<span class="sd">* pass only root widget to clone_ncvmain, Jan 2021, Matthias Cuntz</span>
-<span class="sd">* set correct missing value for date variable in numpy&#39;s datetime64[ms] format</span>
-<span class="sd">  May 2021, Matthias Cuntz</span>
-<span class="sd">* added format_coord functions for scatter, contour, and map,</span>
-<span class="sd">  May 2021, Matthias Cuntz</span>
-<span class="sd">* replaced add_cyclic_point with add_cyclic as submitted to cartopy,</span>
-<span class="sd">  Jun 2021, Matthias Cuntz</span>
-<span class="sd">* removed SEPCHAR, Jun 2021, Matthias Cuntz</span>
+<span class="sd">:copyright: Copyright 2020-2021 Matthias Cuntz - mc (at) macu (dot) de</span>
+<span class="sd">:license: MIT License, see LICENSE for details.</span>
 
 <span class="sd">.. moduleauthor:: Matthias Cuntz</span>
 
@@ -257,6 +237,25 @@
 <span class="sd">   spinbox_values</span>
 <span class="sd">   vardim2var</span>
 <span class="sd">   zip_dim_name_length</span>
+
+<span class="sd">History</span>
+<span class="sd">    * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)</span>
+<span class="sd">    * General get_slice function from individual methods for x, y, y2, z,</span>
+<span class="sd">      Dec 2020, Matthias Cuntz</span>
+<span class="sd">    * Added arithmetics to apply on axis/dimensions such as mean, std, etc.,</span>
+<span class="sd">      Dec 2020, Matthias Cuntz</span>
+<span class="sd">    * Added clone_ncvmain, removing its own module, Dec 2020, Matthias Cuntz</span>
+<span class="sd">    * added SEPCHAR and DIMMETHODS, Jan 2021, Matthias Cuntz</span>
+<span class="sd">    * pass only ncvMain widget to clone_ncvmain, Jan 2021, Matthias Cuntz</span>
+<span class="sd">    * pass only root widget to clone_ncvmain, Jan 2021, Matthias Cuntz</span>
+<span class="sd">    * set correct missing value for date variable in numpy&#39;s datetime64[ms]</span>
+<span class="sd">      format May 2021, Matthias Cuntz</span>
+<span class="sd">    * added format_coord functions for scatter, contour, and map,</span>
+<span class="sd">      May 2021, Matthias Cuntz</span>
+<span class="sd">    * replaced add_cyclic_point with add_cyclic as submitted to cartopy,</span>
+<span class="sd">      Jun 2021, Matthias Cuntz</span>
+<span class="sd">    * removed SEPCHAR, Jun 2021, Matthias Cuntz</span>
+
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span>
 <span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
@@ -285,6 +284,7 @@
 <span class="sd">sum - sum</span>
 <span class="sd">median - 50-percentile</span>
 <span class="sd">var - variance</span>
+
 <span class="sd">&quot;&quot;&quot;</span>
 
 
@@ -303,6 +303,7 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    The data array with a cyclic point added.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">slicer</span> <span class="o">=</span> <span class="p">[</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)]</span> <span class="o">*</span> <span class="n">data</span><span class="o">.</span><span class="n">ndim</span>
     <span class="k">try</span><span class="p">:</span>
@@ -332,6 +333,7 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    The coordinate `lon` with a cyclic point added.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">npc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">is_masked</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span> <span class="k">else</span> <span class="n">np</span>
     <span class="c1"># get cyclic longitudes</span>
@@ -371,6 +373,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    True if a cyclic point was detected along the given axis,</span>
 <span class="sd">    False otherwise.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">npc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">is_masked</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span> <span class="k">else</span> <span class="n">np</span>
     <span class="c1"># transform to 0-cyclic, assuming e.g. -180 to 180 if any &lt; 0</span>
@@ -541,6 +544,7 @@
 <span class="sd">     [-18. -18. -18. -18. -18. -18.]</span>
 <span class="sd">     [ 18.  18.  18.  18.  18.  18.]</span>
 <span class="sd">     [ 54.  54.  54.  54.  54.  54.]]</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">coord</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">_add_cyclic_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
@@ -601,6 +605,7 @@
 <span class="sd">    &gt;&gt;&gt; self.newwin = ttk.Button(</span>
 <span class="sd">    ...     self.rowwin, text=&quot;New Window&quot;,</span>
 <span class="sd">    ...     command=partial(clone_ncvmain, self.master))</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># parent = widget.nametowidget(widget.winfo_parent())</span>
     <span class="k">if</span> <span class="n">widget</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;ncvMain&#39;</span><span class="p">:</span>
@@ -649,6 +654,7 @@
 <span class="sd">    &gt;&gt;&gt; ax.pcolormesh(xx, yy, zz)</span>
 <span class="sd">    &gt;&gt;&gt; ax.format_coord = lambda x, y: format_coord_contour(</span>
 <span class="sd">    ...     x, y, ax, xx, yy, zz)</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># find closest grid cell</span>
     <span class="c1"># https://stackoverflow.com/questions/42577204/show-z-value-at-mouse-pointer-position-in-status-line-with-matplotlibs-pcolorme</span>
@@ -664,7 +670,7 @@
         <span class="n">yarr</span> <span class="o">=</span> <span class="n">yy</span>
     <span class="k">if</span> <span class="n">yy</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;&lt;M8[ms]&#39;</span><span class="p">):</span>
         <span class="n">yarr</span> <span class="o">=</span> <span class="n">mpld</span><span class="o">.</span><span class="n">date2num</span><span class="p">(</span><span class="n">yarr</span><span class="p">)</span>
-    <span class="k">if</span> <span class="p">((</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">xarr</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">xarr</span><span class="o">.</span><span class="n">max</span><span class="p">())</span> <span class="o">&amp;</span> 
+    <span class="k">if</span> <span class="p">((</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">xarr</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">xarr</span><span class="o">.</span><span class="n">max</span><span class="p">())</span> <span class="o">&amp;</span>
         <span class="p">(</span><span class="n">y</span> <span class="o">&gt;</span> <span class="n">yarr</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="n">yarr</span><span class="o">.</span><span class="n">max</span><span class="p">())):</span>
         <span class="n">col</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">xarr</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
         <span class="n">row</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">yarr</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
@@ -720,6 +726,7 @@
 <span class="sd">    &gt;&gt;&gt; ax.pcolormesh(xx, yy, zz)</span>
 <span class="sd">    &gt;&gt;&gt; ax.format_coord = lambda x, y: format_coord_contour(</span>
 <span class="sd">    ...     x, y, ax, xx, yy, zz)</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># find closest grid cell</span>
     <span class="n">xpp</span><span class="p">,</span> <span class="n">ypp</span> <span class="o">=</span> <span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(</span><span class="n">central_longitude</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">transform_point</span><span class="p">(</span>
@@ -777,6 +784,7 @@
 <span class="sd">    &gt;&gt;&gt; ax2.plot(xx, yy2)</span>
 <span class="sd">    &gt;&gt;&gt; ax2.format_coord = lambda x, y: format_coord_scatter(</span>
 <span class="sd">    ...     x, y, ax, ax2, xx.dtype, yy.dtype, yy2.dtype)</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># convert to display coords</span>
     <span class="c1"># https://stackoverflow.com/questions/21583965/matplotlib-cursor-value-with-two-axes</span>
@@ -827,6 +835,7 @@
 <span class="sd">    &gt;&gt;&gt; miss = get_miss(self, yy)</span>
 <span class="sd">    &gt;&gt;&gt; yy = get_slice_y(self.yd, yy).squeeze()</span>
 <span class="sd">    &gt;&gt;&gt; yy = set_miss(miss, yy)</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;all&#39;</span><span class="p">]</span>
     <span class="n">methods</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">DIMMETHODS</span><span class="p">)</span>
@@ -896,6 +905,7 @@
 <span class="sd">    &gt;&gt;&gt; lst2 = [9, 9, 74, 21, 45, 11, 63]</span>
 <span class="sd">    &gt;&gt;&gt; print(Intersection(lst1, lst2))</span>
 <span class="sd">    [9, 11]</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lst1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lst2</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">lst1</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">lst2</span><span class="p">))</span>
@@ -921,6 +931,7 @@
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; ylab = set_axis_label(fi.variables[&#39;w_soil&#39;])</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">lab</span> <span class="o">=</span> <span class="n">ncvar</span><span class="o">.</span><span class="n">long_name</span>
@@ -958,6 +969,7 @@
 <span class="sd">    &gt;&gt;&gt; x = fi.variables[&#39;time&#39;]</span>
 <span class="sd">    &gt;&gt;&gt; miss = get_miss(self, x)</span>
 <span class="sd">    &gt;&gt;&gt; x = set_miss(miss, x)</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;&lt;M8[ms]&#39;</span><span class="p">):</span>
         <span class="n">default</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">(</span><span class="s1">&#39;NaT&#39;</span><span class="p">)</span>
@@ -988,6 +1000,7 @@
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; self.xd0.config(values=spinbox_values(xx.shape[0]))</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">((</span><span class="s1">&#39;all&#39;</span><span class="p">,)</span> <span class="o">+</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">ndim</span><span class="p">))</span> <span class="o">+</span> <span class="n">DIMMETHODS</span><span class="p">)</span>
@@ -1013,6 +1026,7 @@
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; vardim2var(&#39;latitude (lat=32,lon=64)&#39;)</span>
 <span class="sd">    latitude</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">vardim</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">vardim</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="p">)]</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span></div>
 
@@ -1039,6 +1053,7 @@
 <span class="sd">    &gt;&gt;&gt; w_soil = fi.variables[&#39;w_soil&#39;]</span>
 <span class="sd">    &gt;&gt;&gt; print(zip_dim_name_length(w_soil))</span>
 <span class="sd">    (&#39;ntime=17520&#39;, &#39;nsoil=30&#39;)</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ncvar</span><span class="o">.</span><span class="n">ndim</span><span class="p">):</span>

@@ -1,5 +1,4 @@
-ncvue
-=====
+# ncvue
 
 ncvue: A minimal GUI for a quick view of netcdf files.
        Aiming to be a drop-in replacement for ncview and panoply.
@@ -13,6 +12,6 @@ Copyright (c) 2020-2021 Matthias Cuntz
 Main Author
 -----------
 
-* Matthias Cuntz_, E-mail: mc (at) macu (dot) de
+* `Matthias Cuntz`_, E-mail: mc (at) macu (dot) de
 
-.. _Cuntz: https://github.com/mcuntz
+.. _Matthias Cuntz: https://github.com/mcuntz

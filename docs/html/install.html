@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Installation &mdash; ncvue 3.7 documentation</title>
+  <title>Installation &mdash; ncvue 3.9.dev1 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                3.7
+                3.9.dev1
               </div>
             
           
@@ -121,6 +121,7 @@
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 <li class="toctree-l1"><a class="reference internal" href="package.html">API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="package.html#purpose">Purpose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package.html#subpackages">Subpackages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvcontour.html">ncvue.ncvcontour</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvmain.html">ncvue.ncvmain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvmap.html">ncvue.ncvmap</a></li>
@@ -129,7 +130,6 @@
 <li class="toctree-l2"><a class="reference internal" href="ncvue.html">ncvue.ncvue</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvutils.html">ncvue.ncvutils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvwidgets.html">ncvue.ncvwidgets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="version.html">ncvue.version</a></li>
 </ul>
 </li>
 </ul>
@@ -227,7 +227,7 @@ installed:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install ncvue
 </pre></div>
 </div>
-<p><cite>Cartopy</cite> can, however, be more elaborate to <a href="#id1"><span class="problematic" id="id2">install_</span></a>. The easiest way to
+<p><cite>Cartopy</cite> can, however, be more elaborate to <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/installing.html">install</a>. The easiest way to
 install <cite>Cartopy</cite> is by using <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/">Conda</a> and then install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> with <cite>pip</cite>.
 After having installed, for example, <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c conda-forge scipy cython pykdtree netcdf4
@@ -241,8 +241,8 @@ pip install ncvue
 <p>We also provide standalone macOS and Windows applications that come with
 everything needed to run <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> including Python:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="http://www.macu.de/extra/ncvue-3.7.dmg">macOS app</a> (macOS &gt; 10.13, High Sierra on Intel)</p></li>
-<li><p><a class="reference external" href="http://www.macu.de/extra/ncvue-3.6-amd64.msi">Windows executable</a> (Windows 10)</p></li>
+<li><p><a class="reference external" href="http://www.macu.de/extra/ncvue-3.8.dmg">macOS app</a> (macOS &gt; 10.13, High Sierra on Intel)</p></li>
+<li><p><a class="reference external" href="http://www.macu.de/extra/ncvue-3.7-amd64.msi">Windows executable</a> (Windows 10)</p></li>
 </ul>
 <p>The macOS app should work from macOS 10.13 (High Sierra) onward on Intel
 processors. There is no standalone application for macOS on Apple Silicon (M1)
@@ -287,7 +287,7 @@ this case, add the <cite>bin</cite> directory to your <cite>PATH</cite> as well 
 <h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> uses the packages <a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.21)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code></a>, <code class="xref py py-mod docutils literal notranslate"><span class="pre">netCDF4</span></code>, <a class="reference external" href="https://matplotlib.org/index.html#module-matplotlib" title="(in Matplotlib v3.4.3)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib</span></code></a>, and
 <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/">cartopy</a>. The first three packages are easily installed with <cite>pip</cite> from
-PyPI. <cite>Cartopy</cite> can, however, be more elaborate to <a href="#id3"><span class="problematic" id="id4">install_</span></a>. It basically uses Python
+PyPI. <cite>Cartopy</cite> can, however, be more elaborate to <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/installing.html">install</a>. It basically uses Python
 wrappers to C++/C-libraries that must be installed first.</p>
 <section id="windows">
 <h3>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
@@ -313,7 +313,7 @@ brew install geos
 brew install proj@7
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> and its prerequisites are then installed via pip (from <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/installing.html">cartopy install</a>):</p>
+<p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> and its prerequisites are then installed via pip (from cartopy <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/installing.html">install</a>):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># HOMEBREW_PREFIX environment variable should be set after installing homebrew.</span>
 <span class="c1"># Make sure it is /usr/local or /opt/homebrew.</span>
 <span class="k">if</span> <span class="o">[[</span> <span class="s2">&quot;</span><span class="k">$(</span>uname -m<span class="k">)</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="s2">&quot;arm64&quot;</span> <span class="o">]]</span> <span class="p">;</span> <span class="k">then</span>

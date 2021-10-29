@@ -18,4 +18,3 @@ API
    ncvue.rst
    ncvutils.rst
    ncvwidgets.rst
-   version.rst

@@ -7,12 +7,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ncvue.ncvwidgets &mdash; ncvue 3.3.1 documentation</title>
+  <title>ncvue.ncvwidgets &mdash; ncvue 3.9.dev1 documentation</title>
   
 
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
 
   
   
@@ -29,6 +31,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
@@ -61,7 +64,7 @@
             
             
               <div class="version">
-                3.3.1
+                3.9.dev1
               </div>
             
           
@@ -115,6 +118,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../package.html">API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../package.html#purpose">Purpose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../package.html#subpackages">Subpackages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvcontour.html">ncvue.ncvcontour</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvmain.html">ncvue.ncvmain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvmap.html">ncvue.ncvmap</a></li>
@@ -123,7 +127,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../ncvue.html">ncvue.ncvue</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvutils.html">ncvue.ncvutils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvwidgets.html">ncvue.ncvwidgets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../version.html">ncvue.version</a></li>
 </ul>
 </li>
 </ul>
@@ -212,16 +215,8 @@
 <span class="sd">Recherche pour l&#39;Agriculture, l&#39;Alimentation et l&#39;Environnement (INRAE), Nancy,</span>
 <span class="sd">France.</span>
 
-<span class="sd">Copyright (c) 2020-2021 Matthias Cuntz - mc (at) macu (dot) de</span>
-
-<span class="sd">Released under the MIT License; see LICENSE file for details.</span>
-
-<span class="sd">History:</span>
-
-<span class="sd">* Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)</span>
-<span class="sd">* Added tooltips to all widgets with class Tooltip, Jan 2021, Matthias Cuntz</span>
-<span class="sd">* Added add_tooltip widget, Jan 2021, Matthias Cuntz</span>
-<span class="sd">* add_spinbox returns also label widget, Jan 2021, Matthias Cuntz</span>
+<span class="sd">:copyright: Copyright 2020-2021 Matthias Cuntz - mc (at) macu (dot) de</span>
+<span class="sd">:license: MIT License, see LICENSE for details.</span>
 
 <span class="sd">.. moduleauthor:: Matthias Cuntz</span>
 
@@ -237,6 +232,14 @@
 <span class="sd">   add_scale</span>
 <span class="sd">   add_spinbox</span>
 <span class="sd">   add_tooltip</span>
+
+<span class="sd">History</span>
+<span class="sd">    * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)</span>
+<span class="sd">    * Added tooltips to all widgets with class Tooltip,</span>
+<span class="sd">      Jan 2021, Matthias Cuntz</span>
+<span class="sd">    * Added add_tooltip widget, Jan 2021, Matthias Cuntz</span>
+<span class="sd">    * add_spinbox returns also label widget, Jan 2021, Matthias Cuntz</span>
+
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span>
 <span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
@@ -264,15 +267,18 @@
 <span class="sd">    In addition, it sets the foreground colour to see the tip also in</span>
 <span class="sd">    macOS dark mode, and displays a textvariable rather than simple text</span>
 <span class="sd">    so one can change the tip during run time.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">anchor_widget</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">hover_delay</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Create a text tooltip with a mouse hover delay.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a text tooltip with a mouse hover delay.</span>
 <span class="sd">        anchor_widget: the widget next to which the tooltip will be shown</span>
 <span class="sd">        text: tk.StringVar with text to display</span>
 <span class="sd">        hover_delay: time to delay before showing the tooltip, in milliseconds</span>
 <span class="sd">        Note that a widget will only be shown when showtip() is called,</span>
 <span class="sd">        e.g. after hovering over the anchor widget with the mouse for enough</span>
 <span class="sd">        time.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Tooltip</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">anchor_widget</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span>
                                       <span class="n">hover_delay</span><span class="o">=</span><span class="n">hover_delay</span><span class="p">)</span>
@@ -322,6 +328,7 @@
 <span class="sd">    &gt;&gt;&gt; self.rowzxy.pack(side=tk.TOP, fill=tk.X)</span>
 <span class="sd">    &gt;&gt;&gt; self.inv_xlbl, self.inv_x = add_checkbutton(</span>
 <span class="sd">    ...     self.rowzxy, label=&quot;invert x&quot;, value=False, command=self.checked)</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">check_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
     <span class="n">check_label</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
@@ -373,6 +380,7 @@
 <span class="sd">    &gt;&gt;&gt; self.rowzxy.pack(side=tk.TOP, fill=tk.X)</span>
 <span class="sd">    &gt;&gt;&gt; self.xlbl, self.x = add_combobox(</span>
 <span class="sd">    ...     self.rowzxy, label=&quot;x&quot;, values=columns, command=self.selected)</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">width</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;width&#39;</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
     <span class="n">cb_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
@@ -430,6 +438,7 @@
 <span class="sd">    &gt;&gt;&gt; self.lslbl, self.ls = add_entry(</span>
 <span class="sd">    ...     self.rowxyopt, label=&quot;ls&quot;, text=&#39;-&#39;,</span>
 <span class="sd">    ...     width=4, command=self.selected_y)</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">entry_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
     <span class="n">entry_label</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
@@ -494,6 +503,7 @@
 <span class="sd">    ...     images=self.imaps, command=self.selected_cmap)</span>
 <span class="sd">    &gt;&gt;&gt; self.cmap[&#39;text&#39;]  = &#39;RdYlBu&#39;</span>
 <span class="sd">    &gt;&gt;&gt; self.cmap[&#39;image&#39;] = self.imaps[self.cmaps.index(&#39;RdYlBu&#39;)]</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
     <span class="n">estr</span>  <span class="o">=</span> <span class="s1">&#39;Same number of values and images needed for add_imagemenu.&#39;</span>
@@ -554,6 +564,7 @@
 <span class="sd">    &gt;&gt;&gt; self.rowzxy.pack(side=tk.TOP, fill=tk.X)</span>
 <span class="sd">    &gt;&gt;&gt; self.xlbl, self.x = add_combobox(</span>
 <span class="sd">    ...     self.rowzxy, label=&quot;x&quot;, values=columns, command=self.selected)</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
     <span class="n">mb_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
@@ -609,6 +620,7 @@
 <span class="sd">    &gt;&gt;&gt; self.rowzxy.pack(side=tk.TOP, fill=tk.X)</span>
 <span class="sd">    &gt;&gt;&gt; self.xlbl, self.x = add_scale(</span>
 <span class="sd">    ...     self.rowzxy, label=&quot;x&quot;, values=columns, command=self.selected)</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">s_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
     <span class="n">s_label</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
@@ -666,6 +678,7 @@
 <span class="sd">    &gt;&gt;&gt; self.dlval, self.dl, self.dval, self.d = add_spinbox(</span>
 <span class="sd">    ...     self.rowlev, label=&quot;dim&quot;, values=range(0,10),</span>
 <span class="sd">    ...     command=self.spinned)</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">width</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;width&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
     <span class="n">sbl_val</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
@@ -719,6 +732,7 @@
 <span class="sd">    ...     self.rowlev, label=&quot;dim&quot;, values=range(0,10),</span>
 <span class="sd">    ...     command=self.spinned)</span>
 <span class="sd">    &gt;&gt;&gt; self.dtip = add_tooltip(self.d, &#39;Dimension&#39;)</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">ttip</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
     <span class="n">ttip</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">tooltip</span><span class="p">)</span>
