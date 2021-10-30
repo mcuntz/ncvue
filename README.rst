@@ -25,8 +25,8 @@ replacement for ncview_ and panoply_.
    :target: https://github.com/mcuntz/ncvue/blob/master/LICENSE
    :alt: License
 
-.. image:: https://travis-ci.org/mcuntz/ncvue.svg?branch=main
-   :target: https://travis-ci.org/mcuntz/ncvue
+.. image:: https://github.com/mcuntz/ncvue/workflows/Continuous%20Integration/badge.svg?branch=main
+   :target: https://github.com/mcuntz/ncvue/actions
    :alt: Build status
 
 About ncvue

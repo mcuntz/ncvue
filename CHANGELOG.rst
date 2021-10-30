@@ -6,9 +6,9 @@ documented in this file.
 
 v4.0 (Oct 2021)
     * Move to new pip structure using pyproject.toml.
-    * Move to Github actions.
+    * Versioning with setuptools_scm.
     * Move to src directory structure.
-    * Remove History sections from docstrings of wrappers and IO routines.
+    * Move to Github actions.
 
 v3.8 (Oct 2021)
     * Work with files without an unlimited (time) dimension.
