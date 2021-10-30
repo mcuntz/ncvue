@@ -232,7 +232,7 @@ need to update their (very old) Tk installations.
 .. _install: https://scitools.org.uk/cartopy/docs/latest/installing.html
 .. _Conda: https://docs.conda.io/projects/conda/en/latest/
 .. _homebrew: https://brew.sh/
-.. _macOS app: http://www.macu.de/extra/ncvue-3.8.dmg
+.. _macOS app: http://www.macu.de/extra/ncvue-4.0.dmg
 .. _Miniconda: https://docs.conda.io/en/latest/miniconda.html
 .. _Miniforge: https://github.com/conda-forge/miniforge
 .. _netcdf4: https://unidata.github.io/netcdf4-python/netCDF4/index.html
