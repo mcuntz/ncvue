@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ncvue.ncvmap &mdash; ncvue 4.0.2.dev2 documentation</title>
+  <title>ncvue.ncvmap &mdash; ncvue 4.0.2.dev3 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                4.0.2.dev2
+                4.0.2.dev3
               </div>
             
           
@@ -1412,7 +1412,7 @@
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">iiglobal</span><span class="p">:</span>
                 <span class="c1"># cartopy.contourf needs cyclic longitude for wrap around</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">ivvc</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ixxc</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iyyc</span> <span class="o">=</span> <span class="n">add_cyclic</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">ivv</span><span class="p">,</span> <span class="n">coord</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ixx</span><span class="p">,</span> <span class="n">rowcoord</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">iyy</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">ivv</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ixx</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">iyy</span><span class="p">)</span>
                 <span class="c1"># # special treatment if fringe points &lt; 1e-4 apart</span>
                 <span class="c1"># # This works but it did still not display correctly the</span>
                 <span class="c1"># # test file of GDPS from cuizinart</span>
@@ -1582,7 +1582,9 @@
                 <span class="k">for</span> <span class="n">coll</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cc</span><span class="o">.</span><span class="n">collections</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">collections</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">coll</span><span class="p">)</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">iiglobal</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">ivvc</span> <span class="o">=</span> <span class="n">add_cyclic</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ivv</span><span class="p">)</span>
+                    <span class="c1"># self.ivvc = add_cyclic(self.ivv)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">ivvc</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ixxc</span> <span class="o">=</span> <span class="n">add_cyclic</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">ivv</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ixx</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">ivvc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ivv</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">cc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span>

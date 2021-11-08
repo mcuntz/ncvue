@@ -68,7 +68,7 @@ __author__  = "Matthias Cuntz"
 # helper functions
 # general helper function
 from .ncvutils   import DIMMETHODS
-from .ncvutils   import add_cyclic, clone_ncvmain
+from .ncvutils   import add_cyclic, has_cyclic, clone_ncvmain
 from .ncvutils   import format_coord_contour, format_coord_map
 from .ncvutils   import format_coord_scatter, get_slice
 from .ncvutils   import list_intersection, set_axis_label, set_miss

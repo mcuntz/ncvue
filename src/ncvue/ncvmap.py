@@ -1205,7 +1205,7 @@ class ncvMap(ttk.Frame):
             if self.iiglobal:
                 # cartopy.contourf needs cyclic longitude for wrap around
                 self.ivvc, self.ixxc, self.iyyc = add_cyclic(
-                    self.ivv, coord=self.ixx, rowcoord=self.iyy)
+                    self.ivv, x=self.ixx, y=self.iyy)
                 # # special treatment if fringe points < 1e-4 apart
                 # # This works but it did still not display correctly the
                 # # test file of GDPS from cuizinart
@@ -1375,7 +1375,9 @@ class ncvMap(ttk.Frame):
                 for coll in self.cc.collections:
                     self.axes.collections.remove(coll)
                 if self.iiglobal:
-                    self.ivvc = add_cyclic(self.ivv)
+                    # self.ivvc = add_cyclic(self.ivv)
+                    self.ivvc, self.ixxc = add_cyclic(
+                        self.ivv, x=self.ixx)
                 else:
                     self.ivvc = self.ivv
                 self.cc = self.axes.contourf(

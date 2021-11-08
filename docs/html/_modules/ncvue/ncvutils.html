@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ncvue.ncvutils &mdash; ncvue 4.0.2.dev2 documentation</title>
+  <title>ncvue.ncvutils &mdash; ncvue 4.0.2.dev3 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                4.0.2.dev2
+                4.0.2.dev3
               </div>
             
           
@@ -245,16 +245,18 @@
 <span class="sd">    * Added arithmetics to apply on axis/dimensions such as mean, std, etc.,</span>
 <span class="sd">      Dec 2020, Matthias Cuntz</span>
 <span class="sd">    * Added clone_ncvmain, removing its own module, Dec 2020, Matthias Cuntz</span>
-<span class="sd">    * added SEPCHAR and DIMMETHODS, Jan 2021, Matthias Cuntz</span>
-<span class="sd">    * pass only ncvMain widget to clone_ncvmain, Jan 2021, Matthias Cuntz</span>
-<span class="sd">    * pass only root widget to clone_ncvmain, Jan 2021, Matthias Cuntz</span>
-<span class="sd">    * set correct missing value for date variable in numpy&#39;s datetime64[ms]</span>
+<span class="sd">    * Added SEPCHAR and DIMMETHODS, Jan 2021, Matthias Cuntz</span>
+<span class="sd">    * Pass only ncvMain widget to clone_ncvmain, Jan 2021, Matthias Cuntz</span>
+<span class="sd">    * Pass only root widget to clone_ncvmain, Jan 2021, Matthias Cuntz</span>
+<span class="sd">    * Set correct missing value for date variable in numpy&#39;s datetime64[ms]</span>
 <span class="sd">      format May 2021, Matthias Cuntz</span>
-<span class="sd">    * added format_coord functions for scatter, contour, and map,</span>
+<span class="sd">    * Added format_coord functions for scatter, contour, and map,</span>
 <span class="sd">      May 2021, Matthias Cuntz</span>
-<span class="sd">    * replaced add_cyclic_point with add_cyclic as submitted to cartopy,</span>
+<span class="sd">    * Replaced add_cyclic_point with add_cyclic as submitted to cartopy,</span>
 <span class="sd">      Jun 2021, Matthias Cuntz</span>
-<span class="sd">    * removed SEPCHAR, Jun 2021, Matthias Cuntz</span>
+<span class="sd">    * Removed SEPCHAR, Jun 2021, Matthias Cuntz</span>
+<span class="sd">    * Final add_cyclic, has_cyclic from cartopy v0.20.1,</span>
+<span class="sd">      Nov 2021, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span>
@@ -265,7 +267,7 @@
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;DIMMETHODS&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;add_cyclic&#39;</span><span class="p">,</span> <span class="s1">&#39;clone_ncvmain&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;add_cyclic&#39;</span><span class="p">,</span> <span class="s1">&#39;has_cyclic&#39;</span><span class="p">,</span> <span class="s1">&#39;clone_ncvmain&#39;</span><span class="p">,</span>
            <span class="s1">&#39;format_coord_contour&#39;</span><span class="p">,</span> <span class="s1">&#39;format_coord_map&#39;</span><span class="p">,</span> <span class="s1">&#39;format_coord_scatter&#39;</span><span class="p">,</span>
            <span class="s1">&#39;get_slice&#39;</span><span class="p">,</span>
            <span class="s1">&#39;list_intersection&#39;</span><span class="p">,</span> <span class="s1">&#39;set_axis_label&#39;</span><span class="p">,</span> <span class="s1">&#39;set_miss&#39;</span><span class="p">,</span>
@@ -296,7 +298,7 @@
 <span class="sd">    ----------</span>
 <span class="sd">    data : ndarray</span>
 <span class="sd">        An n-dimensional array of data to add a cyclic point to.</span>
-<span class="sd">    axis: int, optional</span>
+<span class="sd">    axis : int, optional</span>
 <span class="sd">        Specifies the axis of the data array to add the cyclic point to.</span>
 <span class="sd">        Defaults to the right-most axis.</span>
 
@@ -309,64 +311,64 @@
     <span class="k">try</span><span class="p">:</span>
         <span class="n">slicer</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
-        <span class="n">estr</span> <span class="o">=</span> <span class="s1">&#39;The specified axis does not correspond to an array dimension.&#39;</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">estr</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s1">&#39;The specified axis does not correspond to an array dimension.&#39;</span><span class="p">)</span>
     <span class="n">npc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">is_masked</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="k">else</span> <span class="n">np</span>
     <span class="k">return</span> <span class="n">npc</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">slicer</span><span class="p">)]),</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_add_cyclic_lon</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">cyclic</span><span class="o">=</span><span class="mi">360</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_add_cyclic_x</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">cyclic</span><span class="o">=</span><span class="mi">360</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Add a cyclic point to a longitude array.</span>
+<span class="sd">    Add a cyclic point to a x/longitude coordinate array.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    lon: ndarray, optional</span>
-<span class="sd">        An array which specifies the coordinate values for</span>
+<span class="sd">    x : ndarray</span>
+<span class="sd">        An array which specifies the x-coordinate values for</span>
 <span class="sd">        the dimension the cyclic point is to be added to.</span>
-<span class="sd">    axis: int, optional</span>
-<span class="sd">        Specifies the axis of the longitude array to add the cyclic point to.</span>
-<span class="sd">        Defaults to the right-most axis.</span>
-<span class="sd">    cyclic: float, optional</span>
+<span class="sd">    axis : int, optional</span>
+<span class="sd">        Specifies the axis of the x-coordinate array to add the cyclic point</span>
+<span class="sd">        to. Defaults to the right-most axis.</span>
+<span class="sd">    cyclic : float, optional</span>
 <span class="sd">        Width of periodic domain (default: 360)</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    The coordinate `lon` with a cyclic point added.</span>
+<span class="sd">    The coordinate array ``x`` with a cyclic point added.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">npc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">is_masked</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span> <span class="k">else</span> <span class="n">np</span>
-    <span class="c1"># get cyclic longitudes</span>
-    <span class="c1"># clon is the code from basemap (addcyclic)</span>
+    <span class="n">npc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">is_masked</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">else</span> <span class="n">np</span>
+    <span class="c1"># get cyclic x-coordinates</span>
+    <span class="c1"># cx is the code from basemap (addcyclic)</span>
     <span class="c1"># https://github.com/matplotlib/basemap/blob/master/lib/mpl_toolkits/basemap/__init__.py</span>
-    <span class="n">clon</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span> <span class="o">+</span>
-            <span class="n">cyclic</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">),</span>
-                                     <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)))</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span> <span class="o">+</span>
+          <span class="n">cyclic</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">),</span>
+                                   <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)))</span>
     <span class="c1"># basemap ensures that the values do not exceed cyclic</span>
     <span class="c1"># (next code line). We do not do this to deal with rotated grids that</span>
     <span class="c1"># might have values not exactly 0.</span>
-    <span class="c1">#     clon = npc.where(clon &lt;= cyclic, clon, np.mod(clon, cyclic))</span>
-    <span class="k">return</span> <span class="n">npc</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">lon</span><span class="p">,</span> <span class="n">clon</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
+    <span class="c1">#     cx = npc.where(cx &lt;= cyclic, cx, np.mod(cx, cyclic))</span>
+    <span class="k">return</span> <span class="n">npc</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">cx</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_has_cyclic</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">cyclic</span><span class="o">=</span><span class="mi">360</span><span class="p">,</span> <span class="n">prec</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">):</span>
+<div class="viewcode-block" id="has_cyclic"><a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.has_cyclic">[docs]</a><span class="k">def</span> <span class="nf">has_cyclic</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">cyclic</span><span class="o">=</span><span class="mi">360</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Check if longitudes already have a cyclic point.</span>
+<span class="sd">    Check if x/longitude coordinates already have a cyclic point.</span>
 
 <span class="sd">    Checks all differences between the first and last</span>
-<span class="sd">    longitudes along `axis` to be less than `prec`.</span>
+<span class="sd">    x-coordinates along ``axis`` to be less than ``precision``.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    lon: ndarray, optional</span>
-<span class="sd">        An array with the coordinate values to be checked for cyclic points.</span>
-<span class="sd">    axis: int, optional</span>
-<span class="sd">        Specifies the axis of the `lon` array to be checked.</span>
+<span class="sd">    x : ndarray</span>
+<span class="sd">        An array with the x-coordinate values to be checked for cyclic points.</span>
+<span class="sd">    axis : int, optional</span>
+<span class="sd">        Specifies the axis of the ``x`` array to be checked.</span>
 <span class="sd">        Defaults to the right-most axis.</span>
-<span class="sd">    cyclic: float, optional</span>
+<span class="sd">    cyclic : float, optional</span>
 <span class="sd">        Width of periodic domain (default: 360).</span>
-<span class="sd">    prec: float, optional</span>
-<span class="sd">        Maximal difference between first and last longitude to detect</span>
+<span class="sd">    precision : float, optional</span>
+<span class="sd">        Maximal difference between first and last x-coordinate to detect</span>
 <span class="sd">        cyclic point (default: 1e-4).</span>
 
 <span class="sd">    Returns</span>
@@ -374,145 +376,157 @@
 <span class="sd">    True if a cyclic point was detected along the given axis,</span>
 <span class="sd">    False otherwise.</span>
 
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Check for cyclic x-coordinate in one dimension.</span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">    &gt;&gt;&gt; lons = np.arange(0, 360, 60)</span>
+<span class="sd">    &gt;&gt;&gt; clons = np.arange(0, 361, 60)</span>
+<span class="sd">    &gt;&gt;&gt; print(has_cyclic(lons))</span>
+<span class="sd">    False</span>
+<span class="sd">    &gt;&gt;&gt; print(has_cyclic(clons))</span>
+<span class="sd">    True</span>
+
+<span class="sd">    Check for cyclic x-coordinate in two dimensions.</span>
+<span class="sd">    &gt;&gt;&gt; lats = np.arange(-90, 90, 30)</span>
+<span class="sd">    &gt;&gt;&gt; lon2d, lat2d = np.meshgrid(lons, lats)</span>
+<span class="sd">    &gt;&gt;&gt; clon2d, clat2d = np.meshgrid(clons, lats)</span>
+<span class="sd">    &gt;&gt;&gt; print(has_cyclic(lon2d))</span>
+<span class="sd">    False</span>
+<span class="sd">    &gt;&gt;&gt; print(has_cyclic(clon2d))</span>
+<span class="sd">    True</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">npc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">is_masked</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span> <span class="k">else</span> <span class="n">np</span>
+    <span class="n">npc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">is_masked</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">else</span> <span class="n">np</span>
     <span class="c1"># transform to 0-cyclic, assuming e.g. -180 to 180 if any &lt; 0</span>
-    <span class="n">lon1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mod</span><span class="p">(</span><span class="n">npc</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">lon</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">lon</span> <span class="o">+</span> <span class="n">cyclic</span><span class="p">,</span> <span class="n">lon</span><span class="p">),</span> <span class="n">cyclic</span><span class="p">)</span>
-    <span class="n">dd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">lon1</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">npc</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">dd</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">prec</span><span class="p">):</span>
+    <span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mod</span><span class="p">(</span><span class="n">npc</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="n">cyclic</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="n">cyclic</span><span class="p">)</span>
+    <span class="n">dd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">npc</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">dd</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">precision</span><span class="p">):</span>
         <span class="k">return</span> <span class="kc">True</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
 
 
-<div class="viewcode-block" id="add_cyclic"><a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.add_cyclic">[docs]</a><span class="k">def</span> <span class="nf">add_cyclic</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">coord</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rowcoord</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
-               <span class="n">cyclic</span><span class="o">=</span><span class="mi">360</span><span class="p">,</span> <span class="n">prec</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">):</span>
+<div class="viewcode-block" id="add_cyclic"><a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.add_cyclic">[docs]</a><span class="k">def</span> <span class="nf">add_cyclic</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+               <span class="n">cyclic</span><span class="o">=</span><span class="mi">360</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Add a cyclic point to an array and optionally corresponding</span>
-<span class="sd">    column (`coord` ~ longitudes) and row coordinates</span>
-<span class="sd">    (`rowcoord` ~ latitudes).</span>
-
-<span class="sd">    The call is `add_cyclic(data[, coord[, rowcoord]])`.</span>
+<span class="sd">    x/longitude and y/latitude coordinates.</span>
 
 <span class="sd">    Checks all differences between the first and last</span>
-<span class="sd">    coordinates along `axis` to be less than `prec`.</span>
+<span class="sd">    x-coordinates along ``axis`` to be less than ``precision``.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    data : ndarray</span>
 <span class="sd">        An n-dimensional array of data to add a cyclic point to.</span>
-<span class="sd">    coord: ndarray, optional</span>
-<span class="sd">        An n-dimensional array which specifies the coordinate values</span>
+<span class="sd">    x : ndarray, optional</span>
+<span class="sd">        An n-dimensional array which specifies the x-coordinate values</span>
 <span class="sd">        for the dimension the cyclic point is to be added to, i.e. normally the</span>
 <span class="sd">        longitudes. Defaults to None.</span>
 
-<span class="sd">        If `coord` is given than add_cyclic checks if a cyclic point is</span>
+<span class="sd">        If ``x`` is given then *add_cyclic* checks if a cyclic point is</span>
 <span class="sd">        already present by checking all differences between the first and last</span>
-<span class="sd">        coordinates to be less than `prec`.</span>
+<span class="sd">        coordinates to be less than ``precision``.</span>
 <span class="sd">        No point is added if a cyclic point was detected.</span>
 
-<span class="sd">        `coord.shape[-1]` must be `data.shape[axis]` if coord is 1- or</span>
-<span class="sd">        2-dimensional,</span>
-<span class="sd">        `coord.shape[axis]` must be `data.shape[axis]` otherwise.</span>
-<span class="sd">    rowcoord: ndarray, optional</span>
-<span class="sd">        An n-dimensional array with the variable of the row</span>
-<span class="sd">        coordinate, i.e. normally the latitudes.</span>
+<span class="sd">        If ``x`` is 1- or 2-dimensional, ``x.shape[-1]`` must equal</span>
+<span class="sd">        ``data.shape[axis]``, otherwise ``x.shape[axis]`` must equal</span>
+<span class="sd">        ``data.shape[axis]``.</span>
+<span class="sd">    y : ndarray, optional</span>
+<span class="sd">        An n-dimensional array with the values of the y-coordinate, i.e.</span>
+<span class="sd">        normally the latitudes.</span>
 <span class="sd">        The cyclic point simply copies the last column. Defaults to None.</span>
 
-<span class="sd">        `rowcoord.shape[-1]` must be `data.shape[axis]` if rowcoord is 1- or</span>
-<span class="sd">        2-dimensional,</span>
-<span class="sd">        `rowcoord.shape[axis]` must be `data.shape[axis]` otherwise.</span>
-<span class="sd">    axis: int, optional</span>
-<span class="sd">        Specifies the axis of the data array to add the cyclic point to,</span>
-<span class="sd">        i.e. normally the longitudes. Defaults to the right-most axis.</span>
-<span class="sd">    cyclic: int or float, optional</span>
+<span class="sd">        No cyclic point is added if ``y`` is 1-dimensional.</span>
+<span class="sd">        If ``y`` is 2-dimensional, ``y.shape[-1]`` must equal</span>
+<span class="sd">        ``data.shape[axis]``, otherwise ``y.shape[axis]`` must equal</span>
+<span class="sd">        ``data.shape[axis]``.</span>
+<span class="sd">    axis : int, optional</span>
+<span class="sd">        Specifies the axis of the arrays to add the cyclic point to,</span>
+<span class="sd">        i.e. axis with changing x-coordinates. Defaults to the right-most axis.</span>
+<span class="sd">    cyclic : int or float, optional</span>
 <span class="sd">        Width of periodic domain (default: 360).</span>
-<span class="sd">    prec: float, optional</span>
-<span class="sd">        Maximal difference between first and last coordinate to detect</span>
+<span class="sd">    precision : float, optional</span>
+<span class="sd">        Maximal difference between first and last x-coordinate to detect</span>
 <span class="sd">        cyclic point (default: 1e-4).</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    cyclic_data</span>
 <span class="sd">        The data array with a cyclic point added.</span>
-<span class="sd">    cyclic_coord</span>
-<span class="sd">        The coordinate with a cyclic point, only returned if the `coord`</span>
+<span class="sd">    cyclic_x</span>
+<span class="sd">        The x-coordinate with a cyclic point, only returned if the ``x``</span>
 <span class="sd">        keyword was supplied.</span>
-<span class="sd">    cyclic_rowcoord</span>
-<span class="sd">        The row coordinate with the last column duplicated, only returned</span>
-<span class="sd">        if `coord` was 2- or n-dimensional and the `rowcoord` keyword was</span>
-<span class="sd">        supplied.</span>
+<span class="sd">    cyclic_y</span>
+<span class="sd">        The y-coordinate with the last column of the cyclic axis duplicated,</span>
+<span class="sd">        only returned if ``x`` was 2- or n-dimensional and the ``y``</span>
+<span class="sd">        keyword was supplied.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    Adding a cyclic point to a data array, where the cyclic dimension is</span>
 <span class="sd">    the right-most dimension.</span>
-<span class="sd">    .. testsetup::</span>
-<span class="sd">        &gt;&gt;&gt; from distutils.version import LooseVersion</span>
-<span class="sd">        &gt;&gt;&gt; import numpy as np</span>
-<span class="sd">        &gt;&gt;&gt; if LooseVersion(np.__version__) &gt;= &#39;1.14.0&#39;:</span>
-<span class="sd">        ...     # To provide consistent doctests.</span>
-<span class="sd">        ...     np.set_printoptions(legacy=&#39;1.13&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; import numpy as np</span>
 <span class="sd">    &gt;&gt;&gt; data = np.ones([5, 6]) * np.arange(6)</span>
 <span class="sd">    &gt;&gt;&gt; cyclic_data = add_cyclic(data)</span>
 <span class="sd">    &gt;&gt;&gt; print(cyclic_data)  # doctest: +NORMALIZE_WHITESPACE</span>
-<span class="sd">    [[ 0. 1. 2. 3. 4. 5. 0.]</span>
-<span class="sd">     [ 0. 1. 2. 3. 4. 5. 0.]</span>
-<span class="sd">     [ 0. 1. 2. 3. 4. 5. 0.]</span>
-<span class="sd">     [ 0. 1. 2. 3. 4. 5. 0.]</span>
-<span class="sd">     [ 0. 1. 2. 3. 4. 5. 0.]]</span>
+<span class="sd">    [[0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="sd">     [0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="sd">     [0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="sd">     [0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="sd">     [0. 1. 2. 3. 4. 5. 0.]]</span>
 
-<span class="sd">    Adding a cyclic point to a data array and an associated coordinate.</span>
+<span class="sd">    Adding a cyclic point to a data array and an associated x-coordinate.</span>
 <span class="sd">    &gt;&gt;&gt; lons = np.arange(0, 360, 60)</span>
-<span class="sd">    &gt;&gt;&gt; cyclic_data, cyclic_lons = add_cyclic(data, coord=lons)</span>
+<span class="sd">    &gt;&gt;&gt; cyclic_data, cyclic_lons = add_cyclic(data, x=lons)</span>
 <span class="sd">    &gt;&gt;&gt; print(cyclic_data)  # doctest: +NORMALIZE_WHITESPACE</span>
-<span class="sd">    [[ 0. 1. 2. 3. 4. 5. 0.]</span>
-<span class="sd">     [ 0. 1. 2. 3. 4. 5. 0.]</span>
-<span class="sd">     [ 0. 1. 2. 3. 4. 5. 0.]</span>
-<span class="sd">     [ 0. 1. 2. 3. 4. 5. 0.]</span>
-<span class="sd">     [ 0. 1. 2. 3. 4. 5. 0.]]</span>
+<span class="sd">    [[0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="sd">     [0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="sd">     [0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="sd">     [0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="sd">     [0. 1. 2. 3. 4. 5. 0.]]</span>
 <span class="sd">    &gt;&gt;&gt; print(cyclic_lons)</span>
-<span class="sd">    [   0.   60.  120.  180.  240.  300.  360.]</span>
+<span class="sd">    [  0  60 120 180 240 300 360]</span>
 
 <span class="sd">    Adding a cyclic point to a data array and an associated 2-dimensional</span>
-<span class="sd">    coordinate.</span>
+<span class="sd">    x-coordinate.</span>
 <span class="sd">    &gt;&gt;&gt; lons = np.arange(0, 360, 60)</span>
 <span class="sd">    &gt;&gt;&gt; lats = np.arange(-90, 90, 180/5)</span>
 <span class="sd">    &gt;&gt;&gt; lon2d, lat2d = np.meshgrid(lons, lats)</span>
-<span class="sd">    &gt;&gt;&gt; cyclic_data, cyclic_lon2d = add_cyclic(data, coord=lon2d)</span>
+<span class="sd">    &gt;&gt;&gt; cyclic_data, cyclic_lon2d = add_cyclic(data, x=lon2d)</span>
 <span class="sd">    &gt;&gt;&gt; print(cyclic_data)  # doctest: +NORMALIZE_WHITESPACE</span>
-<span class="sd">    [[ 0. 1. 2. 3. 4. 5. 0.]</span>
-<span class="sd">     [ 0. 1. 2. 3. 4. 5. 0.]</span>
-<span class="sd">     [ 0. 1. 2. 3. 4. 5. 0.]</span>
-<span class="sd">     [ 0. 1. 2. 3. 4. 5. 0.]</span>
-<span class="sd">     [ 0. 1. 2. 3. 4. 5. 0.]]</span>
+<span class="sd">    [[0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="sd">     [0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="sd">     [0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="sd">     [0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="sd">     [0. 1. 2. 3. 4. 5. 0.]]</span>
 <span class="sd">    &gt;&gt;&gt; print(cyclic_lon2d)</span>
-<span class="sd">    [[   0.   60.  120.  180.  240.  300.  360.]</span>
-<span class="sd">     [   0.   60.  120.  180.  240.  300.  360.]</span>
-<span class="sd">     [   0.   60.  120.  180.  240.  300.  360.]</span>
-<span class="sd">     [   0.   60.  120.  180.  240.  300.  360.]</span>
-<span class="sd">     [   0.   60.  120.  180.  240.  300.  360.]]</span>
+<span class="sd">    [[  0  60 120 180 240 300 360]</span>
+<span class="sd">     [  0  60 120 180 240 300 360]</span>
+<span class="sd">     [  0  60 120 180 240 300 360]</span>
+<span class="sd">     [  0  60 120 180 240 300 360]</span>
+<span class="sd">     [  0  60 120 180 240 300 360]]</span>
 
-<span class="sd">    Adding a cyclic point to a data array and an associated 2-dimensional</span>
-<span class="sd">    coordinate and a second raw variable.</span>
+<span class="sd">    Adding a cyclic point to a data array and the associated 2-dimensional</span>
+<span class="sd">    x- and y-coordinates.</span>
 <span class="sd">    &gt;&gt;&gt; lons = np.arange(0, 360, 60)</span>
 <span class="sd">    &gt;&gt;&gt; lats = np.arange(-90, 90, 180/5)</span>
 <span class="sd">    &gt;&gt;&gt; lon2d, lat2d = np.meshgrid(lons, lats)</span>
 <span class="sd">    &gt;&gt;&gt; cyclic_data, cyclic_lon2d, cyclic_lat2d = add_cyclic(</span>
-<span class="sd">    ...     data, coord=lon2d, rowcoord=lat2d)</span>
+<span class="sd">    ...     data, x=lon2d, y=lat2d)</span>
 <span class="sd">    &gt;&gt;&gt; print(cyclic_data)  # doctest: +NORMALIZE_WHITESPACE</span>
-<span class="sd">    [[ 0. 1. 2. 3. 4. 5. 0.]</span>
-<span class="sd">     [ 0. 1. 2. 3. 4. 5. 0.]</span>
-<span class="sd">     [ 0. 1. 2. 3. 4. 5. 0.]</span>
-<span class="sd">     [ 0. 1. 2. 3. 4. 5. 0.]</span>
-<span class="sd">     [ 0. 1. 2. 3. 4. 5. 0.]]</span>
+<span class="sd">    [[0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="sd">     [0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="sd">     [0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="sd">     [0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="sd">     [0. 1. 2. 3. 4. 5. 0.]]</span>
 <span class="sd">    &gt;&gt;&gt; print(cyclic_lon2d)</span>
-<span class="sd">    [[   0.   60.  120.  180.  240.  300.  360.]</span>
-<span class="sd">     [   0.   60.  120.  180.  240.  300.  360.]</span>
-<span class="sd">     [   0.   60.  120.  180.  240.  300.  360.]</span>
-<span class="sd">     [   0.   60.  120.  180.  240.  300.  360.]</span>
-<span class="sd">     [   0.   60.  120.  180.  240.  300.  360.]]</span>
+<span class="sd">    [[  0  60 120 180 240 300 360]</span>
+<span class="sd">     [  0  60 120 180 240 300 360]</span>
+<span class="sd">     [  0  60 120 180 240 300 360]</span>
+<span class="sd">     [  0  60 120 180 240 300 360]</span>
+<span class="sd">     [  0  60 120 180 240 300 360]]</span>
 <span class="sd">    &gt;&gt;&gt; print(cyclic_lat2d)</span>
 <span class="sd">    [[-90. -90. -90. -90. -90. -90. -90.]</span>
 <span class="sd">     [-54. -54. -54. -54. -54. -54. -54.]</span>
@@ -520,18 +534,18 @@
 <span class="sd">     [ 18.  18.  18.  18.  18.  18.  18.]</span>
 <span class="sd">     [ 54.  54.  54.  54.  54.  54.  54.]]</span>
 
-<span class="sd">    Not adding a cyclic point if cyclic point detected in coord.</span>
+<span class="sd">    Not adding a cyclic point if cyclic point detected in x.</span>
 <span class="sd">    &gt;&gt;&gt; lons = np.arange(0, 361, 72)</span>
 <span class="sd">    &gt;&gt;&gt; lats = np.arange(-90, 90, 180/5)</span>
 <span class="sd">    &gt;&gt;&gt; lon2d, lat2d = np.meshgrid(lons, lats)</span>
 <span class="sd">    &gt;&gt;&gt; cyclic_data, cyclic_lon2d, cyclic_lat2d = add_cyclic(</span>
-<span class="sd">    ...     data, coord=lon2d, rowcoord=lat2d)</span>
+<span class="sd">    ...     data, x=lon2d, y=lat2d)</span>
 <span class="sd">    &gt;&gt;&gt; print(cyclic_data)  # doctest: +NORMALIZE_WHITESPACE</span>
-<span class="sd">    [[ 0. 1. 2. 3. 4. 5.]</span>
-<span class="sd">     [ 0. 1. 2. 3. 4. 5.]</span>
-<span class="sd">     [ 0. 1. 2. 3. 4. 5.]</span>
-<span class="sd">     [ 0. 1. 2. 3. 4. 5.]</span>
-<span class="sd">     [ 0. 1. 2. 3. 4. 5.]]</span>
+<span class="sd">    [[0. 1. 2. 3. 4. 5.]</span>
+<span class="sd">     [0. 1. 2. 3. 4. 5.]</span>
+<span class="sd">     [0. 1. 2. 3. 4. 5.]</span>
+<span class="sd">     [0. 1. 2. 3. 4. 5.]</span>
+<span class="sd">     [0. 1. 2. 3. 4. 5.]]</span>
 <span class="sd">    &gt;&gt;&gt; print(cyclic_lon2d)</span>
 <span class="sd">    [[  0  72 144 216 288 360]</span>
 <span class="sd">     [  0  72 144 216 288 360]</span>
@@ -546,45 +560,44 @@
 <span class="sd">     [ 54.  54.  54.  54.  54.  54.]]</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">coord</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">_add_cyclic_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
+    <span class="c1"># if x was given</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">xaxis</span> <span class="o">=</span> <span class="n">axis</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">coord</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">):</span>
-            <span class="n">caxis</span> <span class="o">=</span> <span class="n">axis</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">caxis</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-        <span class="k">if</span> <span class="n">coord</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">caxis</span><span class="p">]</span> <span class="o">!=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">axis</span><span class="p">]:</span>
-            <span class="n">estr</span> <span class="o">=</span> <span class="s1">&#39;coord.shape[</span><span class="si">{}</span><span class="s1">] does not match&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">caxis</span><span class="p">)</span>
-            <span class="n">estr</span> <span class="o">+=</span> <span class="s1">&#39; the size of the corresponding dimension of&#39;</span>
-            <span class="n">estr</span> <span class="o">+=</span> <span class="s1">&#39; the data array: coord.shape[</span><span class="si">{}</span><span class="s1">] =&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">caxis</span><span class="p">)</span>
-            <span class="n">estr</span> <span class="o">+=</span> <span class="s1">&#39; </span><span class="si">{}</span><span class="s1">, data.shape[</span><span class="si">{}</span><span class="s1">] = </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="n">coord</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">caxis</span><span class="p">],</span> <span class="n">axis</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">axis</span><span class="p">])</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">estr</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">_has_cyclic</span><span class="p">(</span><span class="n">coord</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">caxis</span><span class="p">,</span> <span class="n">cyclic</span><span class="o">=</span><span class="n">cyclic</span><span class="p">,</span> <span class="n">prec</span><span class="o">=</span><span class="n">prec</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">rowcoord</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">data</span><span class="p">,</span> <span class="n">coord</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">data</span><span class="p">,</span> <span class="n">coord</span><span class="p">,</span> <span class="n">rowcoord</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">odata</span> <span class="o">=</span> <span class="n">_add_cyclic_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
-            <span class="n">ocoord</span> <span class="o">=</span> <span class="n">_add_cyclic_lon</span><span class="p">(</span><span class="n">coord</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">caxis</span><span class="p">,</span> <span class="n">cyclic</span><span class="o">=</span><span class="n">cyclic</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">rowcoord</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">odata</span><span class="p">,</span> <span class="n">ocoord</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">rowcoord</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">):</span>
-                    <span class="n">raxis</span> <span class="o">=</span> <span class="n">axis</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">raxis</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-                <span class="k">if</span> <span class="n">rowcoord</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">raxis</span><span class="p">]</span> <span class="o">!=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">axis</span><span class="p">]:</span>
-                    <span class="n">estr</span> <span class="o">=</span> <span class="s1">&#39;rowcoord.shape[</span><span class="si">{}</span><span class="s1">] does not match&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">raxis</span><span class="p">)</span>
-                    <span class="n">estr</span> <span class="o">+=</span> <span class="s1">&#39; the size of the corresponding dimension of&#39;</span>
-                    <span class="n">estr</span> <span class="o">+=</span> <span class="s1">&#39; the data array: rowcoord.shape[</span><span class="si">{}</span><span class="s1">] =&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                        <span class="n">raxis</span><span class="p">)</span>
-                    <span class="n">estr</span> <span class="o">+=</span> <span class="s1">&#39; </span><span class="si">{}</span><span class="s1">, data.shape[</span><span class="si">{}</span><span class="s1">] = </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                        <span class="n">rowcoord</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">raxis</span><span class="p">],</span> <span class="n">axis</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">axis</span><span class="p">])</span>
-                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">estr</span><span class="p">)</span>
-                <span class="n">orowcoord</span> <span class="o">=</span> <span class="n">_add_cyclic_data</span><span class="p">(</span><span class="n">rowcoord</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">raxis</span><span class="p">)</span>
-                <span class="k">return</span> <span class="n">odata</span><span class="p">,</span> <span class="n">ocoord</span><span class="p">,</span> <span class="n">orowcoord</span></div>
+        <span class="n">xaxis</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">xaxis</span><span class="p">]</span> <span class="o">!=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">axis</span><span class="p">]:</span>
+        <span class="n">estr</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s1">&#39;x.shape[</span><span class="si">{</span><span class="n">xaxis</span><span class="si">}</span><span class="s1">] does not match the size of the&#39;</span>
+                <span class="sa">f</span><span class="s1">&#39; corresponding dimension of the data array:&#39;</span>
+                <span class="sa">f</span><span class="s1">&#39; x.shape[</span><span class="si">{</span><span class="n">xaxis</span><span class="si">}</span><span class="s1">] = </span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">xaxis</span><span class="p">]</span><span class="si">}</span><span class="s1">,&#39;</span>
+                <span class="sa">f</span><span class="s1">&#39; data.shape[</span><span class="si">{</span><span class="n">axis</span><span class="si">}</span><span class="s1">] = </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">estr</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">has_cyclic</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">xaxis</span><span class="p">,</span> <span class="n">cyclic</span><span class="o">=</span><span class="n">cyclic</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="n">precision</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">data</span><span class="p">,</span> <span class="n">x</span>
+        <span class="c1"># if y was given</span>
+        <span class="k">return</span> <span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+    <span class="c1"># if not has_cyclic, add cyclic points to data and x</span>
+    <span class="n">out_data</span> <span class="o">=</span> <span class="n">_add_cyclic_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
+    <span class="n">out_x</span> <span class="o">=</span> <span class="n">_add_cyclic_x</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">xaxis</span><span class="p">,</span> <span class="n">cyclic</span><span class="o">=</span><span class="n">cyclic</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">out_data</span><span class="p">,</span> <span class="n">out_x</span>
+    <span class="c1"># if y was given</span>
+    <span class="k">if</span> <span class="n">y</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">out_data</span><span class="p">,</span> <span class="n">out_x</span><span class="p">,</span> <span class="n">y</span>
+    <span class="k">if</span> <span class="n">y</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">yaxis</span> <span class="o">=</span> <span class="n">axis</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">yaxis</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">if</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">yaxis</span><span class="p">]</span> <span class="o">!=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">axis</span><span class="p">]:</span>
+        <span class="n">estr</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s1">&#39;y.shape[</span><span class="si">{</span><span class="n">yaxis</span><span class="si">}</span><span class="s1">] does not match the size of the&#39;</span>
+                <span class="sa">f</span><span class="s1">&#39; corresponding dimension of the data array:&#39;</span>
+                <span class="sa">f</span><span class="s1">&#39; y.shape[</span><span class="si">{</span><span class="n">yaxis</span><span class="si">}</span><span class="s1">] = </span><span class="si">{</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">yaxis</span><span class="p">]</span><span class="si">}</span><span class="s1">,&#39;</span>
+                <span class="sa">f</span><span class="s1">&#39; data.shape[</span><span class="si">{</span><span class="n">axis</span><span class="si">}</span><span class="s1">] = </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">estr</span><span class="p">)</span>
+    <span class="n">out_y</span> <span class="o">=</span> <span class="n">_add_cyclic_data</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">yaxis</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out_data</span><span class="p">,</span> <span class="n">out_x</span><span class="p">,</span> <span class="n">out_y</span></div>
 
 
 <div class="viewcode-block" id="clone_ncvmain"><a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.clone_ncvmain">[docs]</a><span class="k">def</span> <span class="nf">clone_ncvmain</span><span class="p">(</span><span class="n">widget</span><span class="p">):</span>

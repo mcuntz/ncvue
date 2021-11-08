@@ -38,16 +38,18 @@ History
     * Added arithmetics to apply on axis/dimensions such as mean, std, etc.,
       Dec 2020, Matthias Cuntz
     * Added clone_ncvmain, removing its own module, Dec 2020, Matthias Cuntz
-    * added SEPCHAR and DIMMETHODS, Jan 2021, Matthias Cuntz
-    * pass only ncvMain widget to clone_ncvmain, Jan 2021, Matthias Cuntz
-    * pass only root widget to clone_ncvmain, Jan 2021, Matthias Cuntz
-    * set correct missing value for date variable in numpy's datetime64[ms]
+    * Added SEPCHAR and DIMMETHODS, Jan 2021, Matthias Cuntz
+    * Pass only ncvMain widget to clone_ncvmain, Jan 2021, Matthias Cuntz
+    * Pass only root widget to clone_ncvmain, Jan 2021, Matthias Cuntz
+    * Set correct missing value for date variable in numpy's datetime64[ms]
       format May 2021, Matthias Cuntz
-    * added format_coord functions for scatter, contour, and map,
+    * Added format_coord functions for scatter, contour, and map,
       May 2021, Matthias Cuntz
-    * replaced add_cyclic_point with add_cyclic as submitted to cartopy,
+    * Replaced add_cyclic_point with add_cyclic as submitted to cartopy,
       Jun 2021, Matthias Cuntz
-    * removed SEPCHAR, Jun 2021, Matthias Cuntz
+    * Removed SEPCHAR, Jun 2021, Matthias Cuntz
+    * Final add_cyclic, has_cyclic from cartopy v0.20.1,
+      Nov 2021, Matthias Cuntz
 
 """
 from __future__ import absolute_import, division, print_function
@@ -58,7 +60,7 @@ import cartopy.crs as ccrs
 
 
 __all__ = ['DIMMETHODS',
-           'add_cyclic', 'clone_ncvmain',
+           'add_cyclic', 'has_cyclic', 'clone_ncvmain',
            'format_coord_contour', 'format_coord_map', 'format_coord_scatter',
            'get_slice',
            'list_intersection', 'set_axis_label', 'set_miss',
@@ -89,7 +91,7 @@ def _add_cyclic_data(data, axis=-1):
     ----------
     data : ndarray
         An n-dimensional array of data to add a cyclic point to.
-    axis: int, optional
+    axis : int, optional
         Specifies the axis of the data array to add the cyclic point to.
         Defaults to the right-most axis.
 
@@ -102,64 +104,64 @@ def _add_cyclic_data(data, axis=-1):
     try:
         slicer[axis] = slice(0, 1)
     except IndexError:
-        estr = 'The specified axis does not correspond to an array dimension.'
-        raise ValueError(estr)
+        raise ValueError(
+            'The specified axis does not correspond to an array dimension.')
     npc = np.ma if np.ma.is_masked(data) else np
     return npc.concatenate((data, data[tuple(slicer)]), axis=axis)
 
 
-def _add_cyclic_lon(lon, axis=-1, cyclic=360):
+def _add_cyclic_x(x, axis=-1, cyclic=360):
     """
-    Add a cyclic point to a longitude array.
+    Add a cyclic point to a x/longitude coordinate array.
 
     Parameters
     ----------
-    lon: ndarray, optional
-        An array which specifies the coordinate values for
+    x : ndarray
+        An array which specifies the x-coordinate values for
         the dimension the cyclic point is to be added to.
-    axis: int, optional
-        Specifies the axis of the longitude array to add the cyclic point to.
-        Defaults to the right-most axis.
-    cyclic: float, optional
+    axis : int, optional
+        Specifies the axis of the x-coordinate array to add the cyclic point
+        to. Defaults to the right-most axis.
+    cyclic : float, optional
         Width of periodic domain (default: 360)
 
     Returns
     -------
-    The coordinate `lon` with a cyclic point added.
+    The coordinate array ``x`` with a cyclic point added.
 
     """
-    npc = np.ma if np.ma.is_masked(lon) else np
-    # get cyclic longitudes
-    # clon is the code from basemap (addcyclic)
+    npc = np.ma if np.ma.is_masked(x) else np
+    # get cyclic x-coordinates
+    # cx is the code from basemap (addcyclic)
     # https://github.com/matplotlib/basemap/blob/master/lib/mpl_toolkits/basemap/__init__.py
-    clon = (np.take(lon, [0], axis=axis) +
-            cyclic * np.sign(np.diff(np.take(lon, [0, -1], axis=axis),
-                                     axis=axis)))
+    cx = (np.take(x, [0], axis=axis) +
+          cyclic * np.sign(np.diff(np.take(x, [0, -1], axis=axis),
+                                   axis=axis)))
     # basemap ensures that the values do not exceed cyclic
     # (next code line). We do not do this to deal with rotated grids that
     # might have values not exactly 0.
-    #     clon = npc.where(clon <= cyclic, clon, np.mod(clon, cyclic))
-    return npc.concatenate((lon, clon), axis=axis)
+    #     cx = npc.where(cx <= cyclic, cx, np.mod(cx, cyclic))
+    return npc.concatenate((x, cx), axis=axis)
 
 
-def _has_cyclic(lon, axis=-1, cyclic=360, prec=1e-4):
+def has_cyclic(x, axis=-1, cyclic=360, precision=1e-4):
     """
-    Check if longitudes already have a cyclic point.
+    Check if x/longitude coordinates already have a cyclic point.
 
     Checks all differences between the first and last
-    longitudes along `axis` to be less than `prec`.
+    x-coordinates along ``axis`` to be less than ``precision``.
 
     Parameters
     ----------
-    lon: ndarray, optional
-        An array with the coordinate values to be checked for cyclic points.
-    axis: int, optional
-        Specifies the axis of the `lon` array to be checked.
+    x : ndarray
+        An array with the x-coordinate values to be checked for cyclic points.
+    axis : int, optional
+        Specifies the axis of the ``x`` array to be checked.
         Defaults to the right-most axis.
-    cyclic: float, optional
+    cyclic : float, optional
         Width of periodic domain (default: 360).
-    prec: float, optional
-        Maximal difference between first and last longitude to detect
+    precision : float, optional
+        Maximal difference between first and last x-coordinate to detect
         cyclic point (default: 1e-4).
 
     Returns
@@ -167,145 +169,157 @@ def _has_cyclic(lon, axis=-1, cyclic=360, prec=1e-4):
     True if a cyclic point was detected along the given axis,
     False otherwise.
 
+    Examples
+    --------
+    Check for cyclic x-coordinate in one dimension.
+    >>> import numpy as np
+    >>> lons = np.arange(0, 360, 60)
+    >>> clons = np.arange(0, 361, 60)
+    >>> print(has_cyclic(lons))
+    False
+    >>> print(has_cyclic(clons))
+    True
+
+    Check for cyclic x-coordinate in two dimensions.
+    >>> lats = np.arange(-90, 90, 30)
+    >>> lon2d, lat2d = np.meshgrid(lons, lats)
+    >>> clon2d, clat2d = np.meshgrid(clons, lats)
+    >>> print(has_cyclic(lon2d))
+    False
+    >>> print(has_cyclic(clon2d))
+    True
+
     """
-    npc = np.ma if np.ma.is_masked(lon) else np
+    npc = np.ma if np.ma.is_masked(x) else np
     # transform to 0-cyclic, assuming e.g. -180 to 180 if any < 0
-    lon1 = np.mod(npc.where(lon < 0, lon + cyclic, lon), cyclic)
-    dd = np.diff(np.take(lon1, [0, -1], axis=axis), axis=axis)
-    if npc.all(np.abs(dd) < prec):
+    x1 = np.mod(npc.where(x < 0, x + cyclic, x), cyclic)
+    dd = np.diff(np.take(x1, [0, -1], axis=axis), axis=axis)
+    if npc.all(np.abs(dd) < precision):
         return True
     else:
         return False
 
 
-def add_cyclic(data, coord=None, rowcoord=None, axis=-1,
-               cyclic=360, prec=1e-4):
+def add_cyclic(data, x=None, y=None, axis=-1,
+               cyclic=360, precision=1e-4):
     """
     Add a cyclic point to an array and optionally corresponding
-    column (`coord` ~ longitudes) and row coordinates
-    (`rowcoord` ~ latitudes).
-
-    The call is `add_cyclic(data[, coord[, rowcoord]])`.
+    x/longitude and y/latitude coordinates.
 
     Checks all differences between the first and last
-    coordinates along `axis` to be less than `prec`.
+    x-coordinates along ``axis`` to be less than ``precision``.
 
     Parameters
     ----------
     data : ndarray
         An n-dimensional array of data to add a cyclic point to.
-    coord: ndarray, optional
-        An n-dimensional array which specifies the coordinate values
+    x : ndarray, optional
+        An n-dimensional array which specifies the x-coordinate values
         for the dimension the cyclic point is to be added to, i.e. normally the
         longitudes. Defaults to None.
 
-        If `coord` is given than add_cyclic checks if a cyclic point is
+        If ``x`` is given then *add_cyclic* checks if a cyclic point is
         already present by checking all differences between the first and last
-        coordinates to be less than `prec`.
+        coordinates to be less than ``precision``.
         No point is added if a cyclic point was detected.
 
-        `coord.shape[-1]` must be `data.shape[axis]` if coord is 1- or
-        2-dimensional,
-        `coord.shape[axis]` must be `data.shape[axis]` otherwise.
-    rowcoord: ndarray, optional
-        An n-dimensional array with the variable of the row
-        coordinate, i.e. normally the latitudes.
+        If ``x`` is 1- or 2-dimensional, ``x.shape[-1]`` must equal
+        ``data.shape[axis]``, otherwise ``x.shape[axis]`` must equal
+        ``data.shape[axis]``.
+    y : ndarray, optional
+        An n-dimensional array with the values of the y-coordinate, i.e.
+        normally the latitudes.
         The cyclic point simply copies the last column. Defaults to None.
 
-        `rowcoord.shape[-1]` must be `data.shape[axis]` if rowcoord is 1- or
-        2-dimensional,
-        `rowcoord.shape[axis]` must be `data.shape[axis]` otherwise.
-    axis: int, optional
-        Specifies the axis of the data array to add the cyclic point to,
-        i.e. normally the longitudes. Defaults to the right-most axis.
-    cyclic: int or float, optional
+        No cyclic point is added if ``y`` is 1-dimensional.
+        If ``y`` is 2-dimensional, ``y.shape[-1]`` must equal
+        ``data.shape[axis]``, otherwise ``y.shape[axis]`` must equal
+        ``data.shape[axis]``.
+    axis : int, optional
+        Specifies the axis of the arrays to add the cyclic point to,
+        i.e. axis with changing x-coordinates. Defaults to the right-most axis.
+    cyclic : int or float, optional
         Width of periodic domain (default: 360).
-    prec: float, optional
-        Maximal difference between first and last coordinate to detect
+    precision : float, optional
+        Maximal difference between first and last x-coordinate to detect
         cyclic point (default: 1e-4).
 
     Returns
     -------
     cyclic_data
         The data array with a cyclic point added.
-    cyclic_coord
-        The coordinate with a cyclic point, only returned if the `coord`
+    cyclic_x
+        The x-coordinate with a cyclic point, only returned if the ``x``
         keyword was supplied.
-    cyclic_rowcoord
-        The row coordinate with the last column duplicated, only returned
-        if `coord` was 2- or n-dimensional and the `rowcoord` keyword was
-        supplied.
+    cyclic_y
+        The y-coordinate with the last column of the cyclic axis duplicated,
+        only returned if ``x`` was 2- or n-dimensional and the ``y``
+        keyword was supplied.
 
     Examples
     --------
     Adding a cyclic point to a data array, where the cyclic dimension is
     the right-most dimension.
-    .. testsetup::
-        >>> from distutils.version import LooseVersion
-        >>> import numpy as np
-        >>> if LooseVersion(np.__version__) >= '1.14.0':
-        ...     # To provide consistent doctests.
-        ...     np.set_printoptions(legacy='1.13')
     >>> import numpy as np
     >>> data = np.ones([5, 6]) * np.arange(6)
     >>> cyclic_data = add_cyclic(data)
     >>> print(cyclic_data)  # doctest: +NORMALIZE_WHITESPACE
-    [[ 0. 1. 2. 3. 4. 5. 0.]
-     [ 0. 1. 2. 3. 4. 5. 0.]
-     [ 0. 1. 2. 3. 4. 5. 0.]
-     [ 0. 1. 2. 3. 4. 5. 0.]
-     [ 0. 1. 2. 3. 4. 5. 0.]]
+    [[0. 1. 2. 3. 4. 5. 0.]
+     [0. 1. 2. 3. 4. 5. 0.]
+     [0. 1. 2. 3. 4. 5. 0.]
+     [0. 1. 2. 3. 4. 5. 0.]
+     [0. 1. 2. 3. 4. 5. 0.]]
 
-    Adding a cyclic point to a data array and an associated coordinate.
+    Adding a cyclic point to a data array and an associated x-coordinate.
     >>> lons = np.arange(0, 360, 60)
-    >>> cyclic_data, cyclic_lons = add_cyclic(data, coord=lons)
+    >>> cyclic_data, cyclic_lons = add_cyclic(data, x=lons)
     >>> print(cyclic_data)  # doctest: +NORMALIZE_WHITESPACE
-    [[ 0. 1. 2. 3. 4. 5. 0.]
-     [ 0. 1. 2. 3. 4. 5. 0.]
-     [ 0. 1. 2. 3. 4. 5. 0.]
-     [ 0. 1. 2. 3. 4. 5. 0.]
-     [ 0. 1. 2. 3. 4. 5. 0.]]
+    [[0. 1. 2. 3. 4. 5. 0.]
+     [0. 1. 2. 3. 4. 5. 0.]
+     [0. 1. 2. 3. 4. 5. 0.]
+     [0. 1. 2. 3. 4. 5. 0.]
+     [0. 1. 2. 3. 4. 5. 0.]]
     >>> print(cyclic_lons)
-    [   0.   60.  120.  180.  240.  300.  360.]
+    [  0  60 120 180 240 300 360]
 
     Adding a cyclic point to a data array and an associated 2-dimensional
-    coordinate.
+    x-coordinate.
     >>> lons = np.arange(0, 360, 60)
     >>> lats = np.arange(-90, 90, 180/5)
     >>> lon2d, lat2d = np.meshgrid(lons, lats)
-    >>> cyclic_data, cyclic_lon2d = add_cyclic(data, coord=lon2d)
+    >>> cyclic_data, cyclic_lon2d = add_cyclic(data, x=lon2d)
     >>> print(cyclic_data)  # doctest: +NORMALIZE_WHITESPACE
-    [[ 0. 1. 2. 3. 4. 5. 0.]
-     [ 0. 1. 2. 3. 4. 5. 0.]
-     [ 0. 1. 2. 3. 4. 5. 0.]
-     [ 0. 1. 2. 3. 4. 5. 0.]
-     [ 0. 1. 2. 3. 4. 5. 0.]]
+    [[0. 1. 2. 3. 4. 5. 0.]
+     [0. 1. 2. 3. 4. 5. 0.]
+     [0. 1. 2. 3. 4. 5. 0.]
+     [0. 1. 2. 3. 4. 5. 0.]
+     [0. 1. 2. 3. 4. 5. 0.]]
     >>> print(cyclic_lon2d)
-    [[   0.   60.  120.  180.  240.  300.  360.]
-     [   0.   60.  120.  180.  240.  300.  360.]
-     [   0.   60.  120.  180.  240.  300.  360.]
-     [   0.   60.  120.  180.  240.  300.  360.]
-     [   0.   60.  120.  180.  240.  300.  360.]]
+    [[  0  60 120 180 240 300 360]
+     [  0  60 120 180 240 300 360]
+     [  0  60 120 180 240 300 360]
+     [  0  60 120 180 240 300 360]
+     [  0  60 120 180 240 300 360]]
 
-    Adding a cyclic point to a data array and an associated 2-dimensional
-    coordinate and a second raw variable.
+    Adding a cyclic point to a data array and the associated 2-dimensional
+    x- and y-coordinates.
     >>> lons = np.arange(0, 360, 60)
     >>> lats = np.arange(-90, 90, 180/5)
     >>> lon2d, lat2d = np.meshgrid(lons, lats)
     >>> cyclic_data, cyclic_lon2d, cyclic_lat2d = add_cyclic(
-    ...     data, coord=lon2d, rowcoord=lat2d)
+    ...     data, x=lon2d, y=lat2d)
     >>> print(cyclic_data)  # doctest: +NORMALIZE_WHITESPACE
-    [[ 0. 1. 2. 3. 4. 5. 0.]
-     [ 0. 1. 2. 3. 4. 5. 0.]
-     [ 0. 1. 2. 3. 4. 5. 0.]
-     [ 0. 1. 2. 3. 4. 5. 0.]
-     [ 0. 1. 2. 3. 4. 5. 0.]]
+    [[0. 1. 2. 3. 4. 5. 0.]
+     [0. 1. 2. 3. 4. 5. 0.]
+     [0. 1. 2. 3. 4. 5. 0.]
+     [0. 1. 2. 3. 4. 5. 0.]
+     [0. 1. 2. 3. 4. 5. 0.]]
     >>> print(cyclic_lon2d)
-    [[   0.   60.  120.  180.  240.  300.  360.]
-     [   0.   60.  120.  180.  240.  300.  360.]
-     [   0.   60.  120.  180.  240.  300.  360.]
-     [   0.   60.  120.  180.  240.  300.  360.]
-     [   0.   60.  120.  180.  240.  300.  360.]]
+    [[  0  60 120 180 240 300 360]
+     [  0  60 120 180 240 300 360]
+     [  0  60 120 180 240 300 360]
+     [  0  60 120 180 240 300 360]
+     [  0  60 120 180 240 300 360]]
     >>> print(cyclic_lat2d)
     [[-90. -90. -90. -90. -90. -90. -90.]
      [-54. -54. -54. -54. -54. -54. -54.]
@@ -313,18 +327,18 @@ def add_cyclic(data, coord=None, rowcoord=None, axis=-1,
      [ 18.  18.  18.  18.  18.  18.  18.]
      [ 54.  54.  54.  54.  54.  54.  54.]]
 
-    Not adding a cyclic point if cyclic point detected in coord.
+    Not adding a cyclic point if cyclic point detected in x.
     >>> lons = np.arange(0, 361, 72)
     >>> lats = np.arange(-90, 90, 180/5)
     >>> lon2d, lat2d = np.meshgrid(lons, lats)
     >>> cyclic_data, cyclic_lon2d, cyclic_lat2d = add_cyclic(
-    ...     data, coord=lon2d, rowcoord=lat2d)
+    ...     data, x=lon2d, y=lat2d)
     >>> print(cyclic_data)  # doctest: +NORMALIZE_WHITESPACE
-    [[ 0. 1. 2. 3. 4. 5.]
-     [ 0. 1. 2. 3. 4. 5.]
-     [ 0. 1. 2. 3. 4. 5.]
-     [ 0. 1. 2. 3. 4. 5.]
-     [ 0. 1. 2. 3. 4. 5.]]
+    [[0. 1. 2. 3. 4. 5.]
+     [0. 1. 2. 3. 4. 5.]
+     [0. 1. 2. 3. 4. 5.]
+     [0. 1. 2. 3. 4. 5.]
+     [0. 1. 2. 3. 4. 5.]]
     >>> print(cyclic_lon2d)
     [[  0  72 144 216 288 360]
      [  0  72 144 216 288 360]
@@ -339,45 +353,44 @@ def add_cyclic(data, coord=None, rowcoord=None, axis=-1,
      [ 54.  54.  54.  54.  54.  54.]]
 
     """
-    if coord is None:
+    if x is None:
         return _add_cyclic_data(data, axis=axis)
+    # if x was given
+    if x.ndim > 2:
+        xaxis = axis
     else:
-        if (coord.ndim > 2):
-            caxis = axis
-        else:
-            caxis = -1
-        if coord.shape[caxis] != data.shape[axis]:
-            estr = 'coord.shape[{}] does not match'.format(caxis)
-            estr += ' the size of the corresponding dimension of'
-            estr += ' the data array: coord.shape[{}] ='.format(caxis)
-            estr += ' {}, data.shape[{}] = {}.'.format(
-                coord.shape[caxis], axis, data.shape[axis])
-            raise ValueError(estr)
-        if _has_cyclic(coord, axis=caxis, cyclic=cyclic, prec=prec):
-            if rowcoord is None:
-                return data, coord
-            else:
-                return data, coord, rowcoord
-        else:
-            odata = _add_cyclic_data(data, axis=axis)
-            ocoord = _add_cyclic_lon(coord, axis=caxis, cyclic=cyclic)
-            if rowcoord is None:
-                return odata, ocoord
-            else:
-                if (rowcoord.ndim > 2):
-                    raxis = axis
-                else:
-                    raxis = -1
-                if rowcoord.shape[raxis] != data.shape[axis]:
-                    estr = 'rowcoord.shape[{}] does not match'.format(raxis)
-                    estr += ' the size of the corresponding dimension of'
-                    estr += ' the data array: rowcoord.shape[{}] ='.format(
-                        raxis)
-                    estr += ' {}, data.shape[{}] = {}.'.format(
-                        rowcoord.shape[raxis], axis, data.shape[axis])
-                    raise ValueError(estr)
-                orowcoord = _add_cyclic_data(rowcoord, axis=raxis)
-                return odata, ocoord, orowcoord
+        xaxis = -1
+    if x.shape[xaxis] != data.shape[axis]:
+        estr = (f'x.shape[{xaxis}] does not match the size of the'
+                f' corresponding dimension of the data array:'
+                f' x.shape[{xaxis}] = {x.shape[xaxis]},'
+                f' data.shape[{axis}] = {data.shape[axis]}.')
+        raise ValueError(estr)
+    if has_cyclic(x, axis=xaxis, cyclic=cyclic, precision=precision):
+        if y is None:
+            return data, x
+        # if y was given
+        return data, x, y
+    # if not has_cyclic, add cyclic points to data and x
+    out_data = _add_cyclic_data(data, axis=axis)
+    out_x = _add_cyclic_x(x, axis=xaxis, cyclic=cyclic)
+    if y is None:
+        return out_data, out_x
+    # if y was given
+    if y.ndim == 1:
+        return out_data, out_x, y
+    if y.ndim > 2:
+        yaxis = axis
+    else:
+        yaxis = -1
+    if y.shape[yaxis] != data.shape[axis]:
+        estr = (f'y.shape[{yaxis}] does not match the size of the'
+                f' corresponding dimension of the data array:'
+                f' y.shape[{yaxis}] = {y.shape[yaxis]},'
+                f' data.shape[{axis}] = {data.shape[axis]}.')
+        raise ValueError(estr)
+    out_y = _add_cyclic_data(y, axis=yaxis)
+    return out_data, out_x, out_y
 
 
 def clone_ncvmain(widget):

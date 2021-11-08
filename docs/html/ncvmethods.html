@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ncvue.ncvmethods &mdash; ncvue 4.0.2.dev2 documentation</title>
+  <title>ncvue.ncvmethods &mdash; ncvue 4.0.2.dev3 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                4.0.2.dev2
+                4.0.2.dev3
               </div>
             
           
@@ -314,6 +314,34 @@ Oct 2021, Matthias Cuntz</p></li>
 <dt class="sig sig-object py" id="ncvue.ncvmethods.analyse_netcdf">
 <span class="sig-name descname"><span class="pre">analyse_netcdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmethods.html#analyse_netcdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmethods.analyse_netcdf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Analyse a netcdf file for the unlimited dimension, calculating datetime,
+variables, latitudes/longitudes variables and dimensions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">class</span></dt><dd><p>ncvue class</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>Set variables:</dt><dd><p>self.dunlim,
+self.time, self.tname, self.tvar, self.dtime,
+self.cols,
+self.latvar, self.lonvar, self.latdim, self.londim</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">analyse_netcdf</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ncvue.ncvmethods.analyse_netcdf_xarray">
+<span class="sig-name descname"><span class="pre">analyse_netcdf_xarray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmethods.html#analyse_netcdf_xarray"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmethods.analyse_netcdf_xarray" title="Permalink to this definition">¶</a></dt>
+<dd><p>Analyse netcdf files for the unlimited dimension, calculating datetime,
 variables, latitudes/longitudes variables and dimensions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

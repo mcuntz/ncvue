@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ncvue.ncvutils &mdash; ncvue 4.0.2.dev2 documentation</title>
+  <title>ncvue.ncvutils &mdash; ncvue 4.0.2.dev3 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                4.0.2.dev2
+                4.0.2.dev3
               </div>
             
           
@@ -246,8 +246,8 @@ France.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvutils.DIMMETHODS" title="ncvue.ncvutils.DIMMETHODS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DIMMETHODS</span></code></a></p></td>
 <td><p>Arithmetic methods implemented on dimensions.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvutils.add_cyclic" title="ncvue.ncvutils.add_cyclic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_cyclic</span></code></a>(data[, coord, rowcoord, axis, ...])</p></td>
-<td><p>Add a cyclic point to an array and optionally corresponding column (<cite>coord</cite> ~ longitudes) and row coordinates (<cite>rowcoord</cite> ~ latitudes).</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvutils.add_cyclic" title="ncvue.ncvutils.add_cyclic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_cyclic</span></code></a>(data[, x, y, axis, cyclic, precision])</p></td>
+<td><p>Add a cyclic point to an array and optionally corresponding x/longitude and y/latitude coordinates.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvutils.clone_ncvmain" title="ncvue.ncvutils.clone_ncvmain"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clone_ncvmain</span></code></a>(widget)</p></td>
 <td><p>Duplicate the main ncvue window.</p></td>
@@ -292,57 +292,58 @@ Dec 2020, Matthias Cuntz</p></li>
 <li><p>Added arithmetics to apply on axis/dimensions such as mean, std, etc.,
 Dec 2020, Matthias Cuntz</p></li>
 <li><p>Added clone_ncvmain, removing its own module, Dec 2020, Matthias Cuntz</p></li>
-<li><p>added SEPCHAR and DIMMETHODS, Jan 2021, Matthias Cuntz</p></li>
-<li><p>pass only ncvMain widget to clone_ncvmain, Jan 2021, Matthias Cuntz</p></li>
-<li><p>pass only root widget to clone_ncvmain, Jan 2021, Matthias Cuntz</p></li>
-<li><p>set correct missing value for date variable in numpy’s datetime64[ms]
+<li><p>Added SEPCHAR and DIMMETHODS, Jan 2021, Matthias Cuntz</p></li>
+<li><p>Pass only ncvMain widget to clone_ncvmain, Jan 2021, Matthias Cuntz</p></li>
+<li><p>Pass only root widget to clone_ncvmain, Jan 2021, Matthias Cuntz</p></li>
+<li><p>Set correct missing value for date variable in numpy’s datetime64[ms]
 format May 2021, Matthias Cuntz</p></li>
-<li><p>added format_coord functions for scatter, contour, and map,
+<li><p>Added format_coord functions for scatter, contour, and map,
 May 2021, Matthias Cuntz</p></li>
-<li><p>replaced add_cyclic_point with add_cyclic as submitted to cartopy,
+<li><p>Replaced add_cyclic_point with add_cyclic as submitted to cartopy,
 Jun 2021, Matthias Cuntz</p></li>
-<li><p>removed SEPCHAR, Jun 2021, Matthias Cuntz</p></li>
+<li><p>Removed SEPCHAR, Jun 2021, Matthias Cuntz</p></li>
+<li><p>Final add_cyclic, has_cyclic from cartopy v0.20.1,
+Nov 2021, Matthias Cuntz</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="ncvue.ncvutils.add_cyclic">
-<span class="sig-name descname"><span class="pre">add_cyclic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coord</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rowcoord</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cyclic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">360</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#add_cyclic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.add_cyclic" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">add_cyclic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cyclic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">360</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#add_cyclic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.add_cyclic" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a cyclic point to an array and optionally corresponding
-column (<cite>coord</cite> ~ longitudes) and row coordinates
-(<cite>rowcoord</cite> ~ latitudes).</p>
-<p>The call is <cite>add_cyclic(data[, coord[, rowcoord]])</cite>.</p>
+x/longitude and y/latitude coordinates.</p>
 <p>Checks all differences between the first and last
-coordinates along <cite>axis</cite> to be less than <cite>prec</cite>.</p>
+x-coordinates along <code class="docutils literal notranslate"><span class="pre">axis</span></code> to be less than <code class="docutils literal notranslate"><span class="pre">precision</span></code>.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl>
 <dt><strong>data</strong><span class="classifier">ndarray</span></dt><dd><p>An n-dimensional array of data to add a cyclic point to.</p>
 </dd>
-<dt><strong>coord: ndarray, optional</strong></dt><dd><p>An n-dimensional array which specifies the coordinate values
+<dt><strong>x</strong><span class="classifier">ndarray, optional</span></dt><dd><p>An n-dimensional array which specifies the x-coordinate values
 for the dimension the cyclic point is to be added to, i.e. normally the
 longitudes. Defaults to None.</p>
-<p>If <cite>coord</cite> is given than add_cyclic checks if a cyclic point is
+<p>If <code class="docutils literal notranslate"><span class="pre">x</span></code> is given then <em>add_cyclic</em> checks if a cyclic point is
 already present by checking all differences between the first and last
-coordinates to be less than <cite>prec</cite>.
+coordinates to be less than <code class="docutils literal notranslate"><span class="pre">precision</span></code>.
 No point is added if a cyclic point was detected.</p>
-<p><cite>coord.shape[-1]</cite> must be <cite>data.shape[axis]</cite> if coord is 1- or
-2-dimensional,
-<cite>coord.shape[axis]</cite> must be <cite>data.shape[axis]</cite> otherwise.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">x</span></code> is 1- or 2-dimensional, <code class="docutils literal notranslate"><span class="pre">x.shape[-1]</span></code> must equal
+<code class="docutils literal notranslate"><span class="pre">data.shape[axis]</span></code>, otherwise <code class="docutils literal notranslate"><span class="pre">x.shape[axis]</span></code> must equal
+<code class="docutils literal notranslate"><span class="pre">data.shape[axis]</span></code>.</p>
 </dd>
-<dt><strong>rowcoord: ndarray, optional</strong></dt><dd><p>An n-dimensional array with the variable of the row
-coordinate, i.e. normally the latitudes.
+<dt><strong>y</strong><span class="classifier">ndarray, optional</span></dt><dd><p>An n-dimensional array with the values of the y-coordinate, i.e.
+normally the latitudes.
 The cyclic point simply copies the last column. Defaults to None.</p>
-<p><cite>rowcoord.shape[-1]</cite> must be <cite>data.shape[axis]</cite> if rowcoord is 1- or
-2-dimensional,
-<cite>rowcoord.shape[axis]</cite> must be <cite>data.shape[axis]</cite> otherwise.</p>
+<p>No cyclic point is added if <code class="docutils literal notranslate"><span class="pre">y</span></code> is 1-dimensional.
+If <code class="docutils literal notranslate"><span class="pre">y</span></code> is 2-dimensional, <code class="docutils literal notranslate"><span class="pre">y.shape[-1]</span></code> must equal
+<code class="docutils literal notranslate"><span class="pre">data.shape[axis]</span></code>, otherwise <code class="docutils literal notranslate"><span class="pre">y.shape[axis]</span></code> must equal
+<code class="docutils literal notranslate"><span class="pre">data.shape[axis]</span></code>.</p>
 </dd>
-<dt><strong>axis: int, optional</strong></dt><dd><p>Specifies the axis of the data array to add the cyclic point to,
-i.e. normally the longitudes. Defaults to the right-most axis.</p>
+<dt><strong>axis</strong><span class="classifier">int, optional</span></dt><dd><p>Specifies the axis of the arrays to add the cyclic point to,
+i.e. axis with changing x-coordinates. Defaults to the right-most axis.</p>
 </dd>
-<dt><strong>cyclic: int or float, optional</strong></dt><dd><p>Width of periodic domain (default: 360).</p>
+<dt><strong>cyclic</strong><span class="classifier">int or float, optional</span></dt><dd><p>Width of periodic domain (default: 360).</p>
 </dd>
-<dt><strong>prec: float, optional</strong></dt><dd><p>Maximal difference between first and last coordinate to detect
+<dt><strong>precision</strong><span class="classifier">float, optional</span></dt><dd><p>Maximal difference between first and last x-coordinate to detect
 cyclic point (default: 1e-4).</p>
 </dd>
 </dl>
@@ -351,12 +352,12 @@ cyclic point (default: 1e-4).</p>
 <dd class="field-even"><dl class="simple">
 <dt>cyclic_data</dt><dd><p>The data array with a cyclic point added.</p>
 </dd>
-<dt>cyclic_coord</dt><dd><p>The coordinate with a cyclic point, only returned if the <cite>coord</cite>
+<dt>cyclic_x</dt><dd><p>The x-coordinate with a cyclic point, only returned if the <code class="docutils literal notranslate"><span class="pre">x</span></code>
 keyword was supplied.</p>
 </dd>
-<dt>cyclic_rowcoord</dt><dd><p>The row coordinate with the last column duplicated, only returned
-if <cite>coord</cite> was 2- or n-dimensional and the <cite>rowcoord</cite> keyword was
-supplied.</p>
+<dt>cyclic_y</dt><dd><p>The y-coordinate with the last column of the cyclic axis duplicated,
+only returned if <code class="docutils literal notranslate"><span class="pre">x</span></code> was 2- or n-dimensional and the <code class="docutils literal notranslate"><span class="pre">y</span></code>
+keyword was supplied.</p>
 </dd>
 </dl>
 </dd>
@@ -364,83 +365,75 @@ supplied.</p>
 <p class="rubric">Examples</p>
 <p>Adding a cyclic point to a data array, where the cyclic dimension is
 the right-most dimension.
-.. testsetup:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">distutils.version</span> <span class="kn">import</span> <span class="n">LooseVersion</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">LooseVersion</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="s1">&#39;1.14.0&#39;</span><span class="p">:</span>
-<span class="gp">... </span>    <span class="c1"># To provide consistent doctests.</span>
-<span class="gp">... </span>    <span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">legacy</span><span class="o">=</span><span class="s1">&#39;1.13&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic_data</span> <span class="o">=</span> <span class="n">add_cyclic</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_data</span><span class="p">)</span>  
-<span class="go">[[ 0. 1. 2. 3. 4. 5. 0.]</span>
-<span class="go"> [ 0. 1. 2. 3. 4. 5. 0.]</span>
-<span class="go"> [ 0. 1. 2. 3. 4. 5. 0.]</span>
-<span class="go"> [ 0. 1. 2. 3. 4. 5. 0.]</span>
-<span class="go"> [ 0. 1. 2. 3. 4. 5. 0.]]</span>
-</pre></div>
-</div>
-<p>Adding a cyclic point to a data array and an associated coordinate.
-&gt;&gt;&gt; lons = np.arange(0, 360, 60)
-&gt;&gt;&gt; cyclic_data, cyclic_lons = add_cyclic(data, coord=lons)
+&gt;&gt;&gt; import numpy as np
+&gt;&gt;&gt; data = np.ones([5, 6]) * np.arange(6)
+&gt;&gt;&gt; cyclic_data = add_cyclic(data)
 &gt;&gt;&gt; print(cyclic_data)  # doctest: +NORMALIZE_WHITESPACE
-[[ 0. 1. 2. 3. 4. 5. 0.]</p>
+[[0. 1. 2. 3. 4. 5. 0.]</p>
 <blockquote>
-<div><p>[ 0. 1. 2. 3. 4. 5. 0.]
-[ 0. 1. 2. 3. 4. 5. 0.]
-[ 0. 1. 2. 3. 4. 5. 0.]
-[ 0. 1. 2. 3. 4. 5. 0.]]</p>
+<div><p>[0. 1. 2. 3. 4. 5. 0.]
+[0. 1. 2. 3. 4. 5. 0.]
+[0. 1. 2. 3. 4. 5. 0.]
+[0. 1. 2. 3. 4. 5. 0.]]</p>
+</div></blockquote>
+<p>Adding a cyclic point to a data array and an associated x-coordinate.
+&gt;&gt;&gt; lons = np.arange(0, 360, 60)
+&gt;&gt;&gt; cyclic_data, cyclic_lons = add_cyclic(data, x=lons)
+&gt;&gt;&gt; print(cyclic_data)  # doctest: +NORMALIZE_WHITESPACE
+[[0. 1. 2. 3. 4. 5. 0.]</p>
+<blockquote>
+<div><p>[0. 1. 2. 3. 4. 5. 0.]
+[0. 1. 2. 3. 4. 5. 0.]
+[0. 1. 2. 3. 4. 5. 0.]
+[0. 1. 2. 3. 4. 5. 0.]]</p>
 </div></blockquote>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_lons</span><span class="p">)</span>
-<span class="go">[   0.   60.  120.  180.  240.  300.  360.]</span>
+<span class="go">[  0  60 120 180 240 300 360]</span>
 </pre></div>
 </div>
 <p>Adding a cyclic point to a data array and an associated 2-dimensional
-coordinate.
+x-coordinate.
 &gt;&gt;&gt; lons = np.arange(0, 360, 60)
 &gt;&gt;&gt; lats = np.arange(-90, 90, 180/5)
 &gt;&gt;&gt; lon2d, lat2d = np.meshgrid(lons, lats)
-&gt;&gt;&gt; cyclic_data, cyclic_lon2d = add_cyclic(data, coord=lon2d)
+&gt;&gt;&gt; cyclic_data, cyclic_lon2d = add_cyclic(data, x=lon2d)
 &gt;&gt;&gt; print(cyclic_data)  # doctest: +NORMALIZE_WHITESPACE
-[[ 0. 1. 2. 3. 4. 5. 0.]</p>
+[[0. 1. 2. 3. 4. 5. 0.]</p>
 <blockquote>
-<div><p>[ 0. 1. 2. 3. 4. 5. 0.]
-[ 0. 1. 2. 3. 4. 5. 0.]
-[ 0. 1. 2. 3. 4. 5. 0.]
-[ 0. 1. 2. 3. 4. 5. 0.]]</p>
+<div><p>[0. 1. 2. 3. 4. 5. 0.]
+[0. 1. 2. 3. 4. 5. 0.]
+[0. 1. 2. 3. 4. 5. 0.]
+[0. 1. 2. 3. 4. 5. 0.]]</p>
 </div></blockquote>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_lon2d</span><span class="p">)</span>
-<span class="go">[[   0.   60.  120.  180.  240.  300.  360.]</span>
-<span class="go"> [   0.   60.  120.  180.  240.  300.  360.]</span>
-<span class="go"> [   0.   60.  120.  180.  240.  300.  360.]</span>
-<span class="go"> [   0.   60.  120.  180.  240.  300.  360.]</span>
-<span class="go"> [   0.   60.  120.  180.  240.  300.  360.]]</span>
+<span class="go">[[  0  60 120 180 240 300 360]</span>
+<span class="go"> [  0  60 120 180 240 300 360]</span>
+<span class="go"> [  0  60 120 180 240 300 360]</span>
+<span class="go"> [  0  60 120 180 240 300 360]</span>
+<span class="go"> [  0  60 120 180 240 300 360]]</span>
 </pre></div>
 </div>
-<p>Adding a cyclic point to a data array and an associated 2-dimensional
-coordinate and a second raw variable.
+<p>Adding a cyclic point to a data array and the associated 2-dimensional
+x- and y-coordinates.
 &gt;&gt;&gt; lons = np.arange(0, 360, 60)
 &gt;&gt;&gt; lats = np.arange(-90, 90, 180/5)
 &gt;&gt;&gt; lon2d, lat2d = np.meshgrid(lons, lats)
 &gt;&gt;&gt; cyclic_data, cyclic_lon2d, cyclic_lat2d = add_cyclic(
-…     data, coord=lon2d, rowcoord=lat2d)
+…     data, x=lon2d, y=lat2d)
 &gt;&gt;&gt; print(cyclic_data)  # doctest: +NORMALIZE_WHITESPACE
-[[ 0. 1. 2. 3. 4. 5. 0.]</p>
+[[0. 1. 2. 3. 4. 5. 0.]</p>
 <blockquote>
-<div><p>[ 0. 1. 2. 3. 4. 5. 0.]
-[ 0. 1. 2. 3. 4. 5. 0.]
-[ 0. 1. 2. 3. 4. 5. 0.]
-[ 0. 1. 2. 3. 4. 5. 0.]]</p>
+<div><p>[0. 1. 2. 3. 4. 5. 0.]
+[0. 1. 2. 3. 4. 5. 0.]
+[0. 1. 2. 3. 4. 5. 0.]
+[0. 1. 2. 3. 4. 5. 0.]]</p>
 </div></blockquote>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_lon2d</span><span class="p">)</span>
-<span class="go">[[   0.   60.  120.  180.  240.  300.  360.]</span>
-<span class="go"> [   0.   60.  120.  180.  240.  300.  360.]</span>
-<span class="go"> [   0.   60.  120.  180.  240.  300.  360.]</span>
-<span class="go"> [   0.   60.  120.  180.  240.  300.  360.]</span>
-<span class="go"> [   0.   60.  120.  180.  240.  300.  360.]]</span>
+<span class="go">[[  0  60 120 180 240 300 360]</span>
+<span class="go"> [  0  60 120 180 240 300 360]</span>
+<span class="go"> [  0  60 120 180 240 300 360]</span>
+<span class="go"> [  0  60 120 180 240 300 360]</span>
+<span class="go"> [  0  60 120 180 240 300 360]]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_lat2d</span><span class="p">)</span>
 <span class="go">[[-90. -90. -90. -90. -90. -90. -90.]</span>
 <span class="go"> [-54. -54. -54. -54. -54. -54. -54.]</span>
@@ -449,19 +442,19 @@ coordinate and a second raw variable.
 <span class="go"> [ 54.  54.  54.  54.  54.  54.  54.]]</span>
 </pre></div>
 </div>
-<p>Not adding a cyclic point if cyclic point detected in coord.
+<p>Not adding a cyclic point if cyclic point detected in x.
 &gt;&gt;&gt; lons = np.arange(0, 361, 72)
 &gt;&gt;&gt; lats = np.arange(-90, 90, 180/5)
 &gt;&gt;&gt; lon2d, lat2d = np.meshgrid(lons, lats)
 &gt;&gt;&gt; cyclic_data, cyclic_lon2d, cyclic_lat2d = add_cyclic(
-…     data, coord=lon2d, rowcoord=lat2d)
+…     data, x=lon2d, y=lat2d)
 &gt;&gt;&gt; print(cyclic_data)  # doctest: +NORMALIZE_WHITESPACE
-[[ 0. 1. 2. 3. 4. 5.]</p>
+[[0. 1. 2. 3. 4. 5.]</p>
 <blockquote>
-<div><p>[ 0. 1. 2. 3. 4. 5.]
-[ 0. 1. 2. 3. 4. 5.]
-[ 0. 1. 2. 3. 4. 5.]
-[ 0. 1. 2. 3. 4. 5.]]</p>
+<div><p>[0. 1. 2. 3. 4. 5.]
+[0. 1. 2. 3. 4. 5.]
+[0. 1. 2. 3. 4. 5.]
+[0. 1. 2. 3. 4. 5.]]</p>
 </div></blockquote>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_lon2d</span><span class="p">)</span>
 <span class="go">[[  0  72 144 216 288 360]</span>
@@ -626,6 +619,53 @@ having the same x-axis.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">yy</span> <span class="o">=</span> <span class="n">set_miss</span><span class="p">(</span><span class="n">miss</span><span class="p">,</span> <span class="n">yy</span><span class="p">)</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ncvue.ncvutils.has_cyclic">
+<span class="sig-name descname"><span class="pre">has_cyclic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cyclic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">360</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#has_cyclic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.has_cyclic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if x/longitude coordinates already have a cyclic point.</p>
+<p>Checks all differences between the first and last
+x-coordinates along <code class="docutils literal notranslate"><span class="pre">axis</span></code> to be less than <code class="docutils literal notranslate"><span class="pre">precision</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>x</strong><span class="classifier">ndarray</span></dt><dd><p>An array with the x-coordinate values to be checked for cyclic points.</p>
+</dd>
+<dt><strong>axis</strong><span class="classifier">int, optional</span></dt><dd><p>Specifies the axis of the <code class="docutils literal notranslate"><span class="pre">x</span></code> array to be checked.
+Defaults to the right-most axis.</p>
+</dd>
+<dt><strong>cyclic</strong><span class="classifier">float, optional</span></dt><dd><p>Width of periodic domain (default: 360).</p>
+</dd>
+<dt><strong>precision</strong><span class="classifier">float, optional</span></dt><dd><p>Maximal difference between first and last x-coordinate to detect
+cyclic point (default: 1e-4).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>True if a cyclic point was detected along the given axis,</dt><dd></dd>
+<dt>False otherwise.</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Check for cyclic x-coordinate in one dimension.
+&gt;&gt;&gt; import numpy as np
+&gt;&gt;&gt; lons = np.arange(0, 360, 60)
+&gt;&gt;&gt; clons = np.arange(0, 361, 60)
+&gt;&gt;&gt; print(has_cyclic(lons))
+False
+&gt;&gt;&gt; print(has_cyclic(clons))
+True</p>
+<p>Check for cyclic x-coordinate in two dimensions.
+&gt;&gt;&gt; lats = np.arange(-90, 90, 30)
+&gt;&gt;&gt; lon2d, lat2d = np.meshgrid(lons, lats)
+&gt;&gt;&gt; clon2d, clat2d = np.meshgrid(clons, lats)
+&gt;&gt;&gt; print(has_cyclic(lon2d))
+False
+&gt;&gt;&gt; print(has_cyclic(clon2d))
+True</p>
 </dd></dl>
 
 <dl class="py function">

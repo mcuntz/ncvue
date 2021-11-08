@@ -4,9 +4,13 @@ Changelog
 All notable changes after its initial development up to November 2020 (v1.0) are
 documented in this file.
 
+v4.1.x (Nov 2021)
+    * Add final routines `add_cyclic` and `has_cyclic` committed to cartopy
+      v0.20.1.
+
 v4.0 (Oct 2021)
-    * Move to new pip structure using pyproject.toml.
-    * Versioning with setuptools_scm.
+    * Move to new pip structure using `pyproject.toml`.
+    * Versioning with `setuptools_scm`.
     * Move to src directory structure.
     * Move to Github actions.
 
@@ -42,7 +46,7 @@ v3.4 (May 2021)
     * Change separator character to unit separator (ASCII 31).
     * Print correct coordinates and values on plotting window.
     * Set time axis to numpy's datetime64 format.
-    * Moved from Matplotlib style seaborn-darkgrid to seaborn-dark.
+    * Moved from Matplotlib style `seaborn-darkgrid` to `seaborn-dark`.
     * Grid is drawn by hand in contour plot. Set automatic grid to False:
       `self.axes.grid(False)`.
 
@@ -62,7 +66,7 @@ v3.2 (Jan 2021)
     * Allow finding images path in standalone applications using pyinstaller.
 
 v3.1 (Jan 2021)
-    * Include ncvue/images/*.png in PyPI wheel.
+    * Include `ncvue/images/*.png` in PyPI wheel.
 
 v3.0 (Jan 2021)
     * Moved from ReadTheDocs to Github Pages for documentation.
