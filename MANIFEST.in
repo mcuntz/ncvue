@@ -1,7 +1,9 @@
 prune **
-graft src
-graft tests
 graft bin
+include src/ncvue/*.py
+graft src/ncvue/images
+graft src/ncvue/themes/azure-2.0
+graft tests
 
 include AUTHORS.rst CHANGELOG.rst CONTRIBUTING.rst README.rst LICENSE pyproject.toml setup.cfg
-global-exclude __pycache__ *.py[cod] .*
+global-exclude __pycache__ *.py[cod] .* *~

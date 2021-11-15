@@ -1,6 +1,9 @@
 Changelog
 ---------
 
+v4.1.1 (Nov 2021)
+    * Added package_data to `setup.cfg`.
+
 v4.1 (Nov 2021)
     * Add final routines `add_cyclic` and `has_cyclic` committed to cartopy
       v0.20.1.
