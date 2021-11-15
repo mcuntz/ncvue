@@ -1,12 +1,11 @@
 Changelog
 ---------
 
-All notable changes after its initial development up to November 2020 (v1.0) are
-documented in this file.
-
-v4.1.x (Nov 2021)
+v4.1 (Nov 2021)
     * Add final routines `add_cyclic` and `has_cyclic` committed to cartopy
       v0.20.1.
+    * Added `ncvue` to conda-forge.
+    * Added `scripts` in [options] section in `setup.cfg`.
 
 v4.0 (Oct 2021)
     * Move to new pip structure using `pyproject.toml`.
