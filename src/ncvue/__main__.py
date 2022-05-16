@@ -16,15 +16,19 @@ optional arguments:
 Example command line:
     ncvue MuSICA_out_2009.nc
 
-Written  Matthias Cuntz, Nov-Dec 2020
+:copyright: Copyright 2020-2022 Matthias Cuntz, see AUTHORS.md for details.
+:license: MIT License, see LICENSE for details.
+
+History
+    * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
+    * Made ncvue a gui_script entry_point, May 2022, Matthias Cuntz
+
 """
-from __future__ import absolute_import, division, print_function
 import numpy as np
 from ncvue import ncvue
 
 
-if __name__ == "__main__":
-
+def main():
     import argparse
 
     miss = np.nan
@@ -55,3 +59,7 @@ A minimal GUI for a quick view of netcdf files.""")
     # because it uses the TkAgg backend.
     # This means, do not use --pylab with ipython.
     ncvue(ncfile=ncfile, miss=miss)
+
+
+if __name__ == "__main__":
+    main()
