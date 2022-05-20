@@ -1,6 +1,10 @@
 Changelog
 ---------
 
+v4.2 (May 2022)
+    * Made ``ncvue`` a gui_script entry_point.
+    * Bumped minimum Python version to 3.7 because of proj4.
+
 v4.1.1 (Nov 2021)
     * Added package_data to `setup.cfg`.
 

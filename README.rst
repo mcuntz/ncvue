@@ -241,7 +241,7 @@ License
 ``ncvue`` is distributed under the MIT License. See the LICENSE_ file for
 details.
 
-Copyright (c) 2020-2021 Matthias Cuntz
+Copyright (c) 2020-2022 Matthias Cuntz
 
 ``ncvue`` uses the Azure_ theme by rdbende_ on Linux and the `Sun Valley`_ theme
 also by rdbende_ on Windows.
