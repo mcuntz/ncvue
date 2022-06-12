@@ -57,7 +57,7 @@ History
       Oct 2021, Matthias Cuntz
     * v4.1, final add_cyclic and has_cyclic as committed to cartopy,
       Nov 2021, Matthias Cuntz
-    * v4.2, ncvue is gui_script entry_point, May 2022, Matthias Cuntz
+    * v4.1.2, ncvue is gui_script entry_point, Jun 2022, Matthias Cuntz
 
 """
 # version, author

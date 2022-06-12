@@ -1,8 +1,9 @@
 Changelog
 ---------
 
-v4.2 (May 2022)
-    * Made ``ncvue`` a gui_script entry_point.
+v4.1.2 (Jun 2022)
+    * Made ``ncvue`` a gui_script entry_point, so it can be called by
+      `python -m ncvue`.
     * Bumped minimum Python version to 3.7 because of proj4.
 
 v4.1.1 (Nov 2021)

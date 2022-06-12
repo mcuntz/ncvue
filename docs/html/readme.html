@@ -4,11 +4,10 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ncvue - A GUI to view netCDF files &mdash; ncvue 4.0.2.dev3 documentation</title>
+  <title>ncvue - A GUI to view netCDF files &mdash; ncvue 4.1.2.dev0 documentation</title>
   
 
   
@@ -67,7 +66,7 @@
             
             
               <div class="version">
-                4.0.2.dev3
+                4.1.2.dev0
               </div>
             
           
@@ -218,7 +217,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="ncvue-a-gui-to-view-netcdf-files">
+  <div class="section" id="ncvue-a-gui-to-view-netcdf-files">
 <h1>ncvue - A GUI to view netCDF files<a class="headerlink" href="#ncvue-a-gui-to-view-netcdf-files" title="Permalink to this headline">¶</a></h1>
 <p>A minimal GUI for a quick view of netCDF files. Aiming to be a drop-in
 replacement for <a class="reference external" href="http://meteora.ucsd.edu/~pierce/ncview_home_page.html">ncview</a> and <a class="reference external" href="https://www.giss.nasa.gov/tools/panoply/">panoply</a>.</p>
@@ -226,7 +225,7 @@ replacement for <a class="reference external" href="http://meteora.ucsd.edu/~pie
 <a class="reference external image-reference" href="https://badge.fury.io/py/ncvue"><img alt="PyPI version" src="https://badge.fury.io/py/ncvue.svg" /></a>
 <a class="reference external image-reference" href="https://github.com/mcuntz/ncvue/blob/master/LICENSE"><img alt="License" src="http://img.shields.io/badge/license-MIT-blue.svg?style=flat" /></a>
 <a class="reference external image-reference" href="https://travis-ci.org/mcuntz/ncvue"><img alt="Build status" src="https://travis-ci.org/mcuntz/ncvue.svg?branch=main" /></a>
-<section id="about-ncvue">
+<div class="section" id="about-ncvue">
 <h2>About ncvue<a class="headerlink" href="#about-ncvue" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is a minimal GUI for a quick view of netCDF files. It is aiming to be
 a drop-in replacement for <a class="reference external" href="http://meteora.ucsd.edu/~pierce/ncview_home_page.html">ncview</a> and <a class="reference external" href="https://www.giss.nasa.gov/tools/panoply/">panoply</a>, being slightly more general than
@@ -240,8 +239,8 @@ rather provide a quick overview of the netCDF file.</p>
 <blockquote>
 <div><p><a class="reference external" href="https://mcuntz.github.io/ncvue/">https://mcuntz.github.io/ncvue/</a></p>
 </div></blockquote>
-</section>
-<section id="quick-usage-guide">
+</div>
+<div class="section" id="quick-usage-guide">
 <h2>Quick usage guide<a class="headerlink" href="#quick-usage-guide" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> can be run from the command line:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ncvue netcdf_file.nc
@@ -284,7 +283,7 @@ Depending on the macOS version, it offers to open it anyway. In later versions
 of macOS, this option is only given if you right-click (or control-click) on the
 <code class="docutils literal notranslate"><span class="pre">ncvue.app</span></code> and choose <cite>Open</cite>. You only have to do this once. It will open like
 any other application the next times.</p>
-<section id="general-layout">
+<div class="section" id="general-layout">
 <h3>General layout<a class="headerlink" href="#general-layout" title="Permalink to this headline">¶</a></h3>
 <p>On opening, <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> presents three panels for different plotting types:
 Scatter or Line plots, Contour plots, and Maps. This is the look in macOS light
@@ -295,8 +294,8 @@ Matplotlib navigation toolbar and the pane, where one can choose the plotting
 variables and dimensions, as well as plotting options. You can always choose
 another panel on top, and open another, identical window for the same netCDF
 file with the button “New Window” on the top right.</p>
-</section>
-<section id="map-panel">
+</div>
+<div class="section" id="map-panel">
 <h3>Map panel<a class="headerlink" href="#map-panel" title="Permalink to this headline">¶</a></h3>
 <p>If <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> detects latitude and longitude variables with a size greater than
 1, it opens the Map panel by default. This is the Map panel in macOS dark mode,
@@ -320,8 +319,8 @@ central longitude of the projection from the central longitude of your data,
 which is automatically detected if “central lon” is set to None. Setting
 “central lon” to the central longitude of the input data normally eliminates the
 problem.</p>
-</section>
-<section id="scatter-line-panel">
+</div>
+<div class="section" id="scatter-line-panel">
 <h3>Scatter/Line panel<a class="headerlink" href="#scatter-line-panel" title="Permalink to this headline">¶</a></h3>
 <p>If <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> does not detect latitude and longitude variables with a size
 greater than 1, it opens the Scatter/Line panel by default. This is the
@@ -344,8 +343,8 @@ water content for the 52608 time points, as in the example below, takes also
 about 0.3 s if using the index as x-variable but more than 11.1 s when using the
 <cite>datetime</cite> variable.</p>
 <a class="reference internal image-reference" href="https://mcuntz.github.io/ncvue/images/scatter_panel_dark_multiline.png"><img alt="Example of multiple lines in the Scatter/Line panel" class="align-center" src="https://mcuntz.github.io/ncvue/images/scatter_panel_dark_multiline.png" style="width: 407px;" /></a>
-</section>
-<section id="contour-panel">
+</div>
+<div class="section" id="contour-panel">
 <h3>Contour panel<a class="headerlink" href="#contour-panel" title="Permalink to this headline">¶</a></h3>
 <p>The last panel provide by <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> draws contour plots. This is the
 Contour panel in macOS dark mode, describing all buttons, sliders, entry
@@ -354,9 +353,9 @@ boxes, spinboxes, and menus:</p>
 <p>This produces also either pseudocolor plots (‘mesh’ ticked) or filled
 contour plots (‘mesh’ unticked) just as the Map panel but without any map
 projection.</p>
-</section>
-</section>
-<section id="license">
+</div>
+</div>
+<div class="section" id="license">
 <h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is distributed under the MIT License. See the <a class="reference external" href="https://github.com/mcuntz/ncvue/blob/main/LICENSE">LICENSE</a> file for
 details.</p>
@@ -368,8 +367,8 @@ also by <a class="reference external" href="https://github.com/rdbende">rdbende<
 <p>The project structure of <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> was very originally based on a <a class="reference external" href="https://github.com/MuellerSeb/template">template</a>
 provided by <a class="reference external" href="https://github.com/MuellerSeb">Sebastian Müller</a> but has evolved considerably.</p>
 <p>Different netCDF test files were provided by <a class="reference external" href="https://github.com/julemai">Juliane Mai</a>.</p>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>
@@ -381,7 +380,7 @@ provided by <a class="reference external" href="https://github.com/MuellerSeb">S
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2020-2021, Matthias Cuntz.
+        &#169; Copyright 2020-2022, Matthias Cuntz.
 
     </p>
   </div>
