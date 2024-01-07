@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """
 Calling routine of ncvue.
 
@@ -29,7 +29,6 @@ History
     * Font size 13 on Windows for plots, Jun 2021, Matthias Cuntz
 
 """
-from __future__ import absolute_import, division, print_function
 import sys
 import tkinter as tk
 try:
@@ -43,8 +42,8 @@ import numpy as np
 import netCDF4 as nc
 from .ncvmethods import analyse_netcdf
 from .ncvmain import ncvMain
-import matplotlib as mpl
-mpl.use('TkAgg')
+# import matplotlib as mpl
+# mpl.use('TkAgg')
 from matplotlib import pyplot as plt
 
 
@@ -65,6 +64,7 @@ def ncvue(ncfile='', miss=np.nan):
         netcdf4.default_fillvals (default: np.nan).
 
     """
+    # print(mpl.get_backend())
     ios = platform.system()  # Windows, Darwin, Linux
     if ios == 'Windows':
         # make Windows aware of high resolution displays
@@ -88,7 +88,10 @@ def ncvue(ncfile='', miss=np.nan):
     if ios == 'Darwin':
         theme = 'aqua'
         style = ttk.Style()
-        style.theme_use(theme)
+        try:
+            style.theme_use(theme)
+        except:
+            pass
     elif ios == 'Windows':
         top.option_add("*Font", "Helvetica 10")
         plt.rc('font', size=13)

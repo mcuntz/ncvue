@@ -1,6 +1,11 @@
 Changelog
 ---------
 
+v4.2 (??? 2024)
+    * Made ``ncvue`` work with newer matplotlib versions, updating
+      colormaps and using matplotlib.pyplot.style 'seaborn-v0_8-dark'.
+    * Made ``ncvue`` work with newer Tcl/Tk versions (ttk.Style.theme_use).
+
 v4.1.2 (Jun 2022)
     * Made ``ncvue`` a gui_script entry_point, so it can be called by
       `python -m ncvue`.

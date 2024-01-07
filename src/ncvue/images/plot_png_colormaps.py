@@ -14,7 +14,10 @@ matplotlib.use('Agg')  # set directly after import matplotlib
 # from matplotlib.backends.backend_pdf import PdfPages
 # matplotlib.rc('ps', usedistiller='xpdf')  # ps2pdf
 from matplotlib import pyplot as plt
-plt.style.use('seaborn-darkgrid')
+try:
+    plt.style.use('seaborn-v0_8-darkgrid')
+except OSError:
+    plt.style.use('seaborn-darkgrid')
 
 if __name__ == "__main__":
 

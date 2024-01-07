@@ -51,8 +51,12 @@ from .ncvwidgets import add_menu, add_scale, add_spinbox, add_tooltip
 import matplotlib as mpl
 # mpl.use('TkAgg')
 from matplotlib import pyplot as plt
-# plt.style.use('seaborn-darkgrid')
-plt.style.use('seaborn-dark')
+try:
+    # plt.style.use('seaborn-v0_8-darkgrid')
+    plt.style.use('seaborn-v0_8-dark')
+except OSError:
+    # plt.style.use('seaborn-darkgrid')
+    plt.style.use('seaborn-dark')
 # plt.style.use('fast')
 import cartopy.crs as ccrs
 
