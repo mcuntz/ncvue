@@ -147,9 +147,9 @@ def analyse_netcdf(self):
             if tunit.find('since') > 0:
                 tt = tunit.split()
                 dd = tt[2].split('-')
-                dd[0] = ('000'+dd[0])[-4:]
-                dd[1] = ('0'+dd[1])[-2:]
-                dd[2] = ('0'+dd[1])[-2:]
+                dd[0] = ('000' + dd[0])[-4:]
+                dd[1] = ('0' + dd[1])[-2:]
+                dd[2] = ('0' + dd[1])[-2:]
                 tt[2] = '-'.join(dd)
                 tunit = ' '.join(tt)
             try:
@@ -163,7 +163,7 @@ def analyse_netcdf(self):
                 dtime = []
                 for tt in time:
                     stt = str(tt).split('.')
-                    sstt = ('00'+stt[0])[-8:] + '.' + stt[1]
+                    sstt = ('00' + stt[0])[-8:] + '.' + stt[1]
                     dtime.append(dt.datetime.strptime(sstt, itunit))
                 ntime = cf.date2num(dtime,
                                     'days since 0001-01-01 00:00:00')
@@ -177,24 +177,24 @@ def analyse_netcdf(self):
             if self.dtime is not None:
                 ntime = len(self.dtime)
                 if (tcal == '360_day'):
-                    ndays = [360.]*ntime
+                    ndays = [360.] * ntime
                 elif (tcal == '365_day'):
-                    ndays = [365.]*ntime
+                    ndays = [365.] * ntime
                 elif (tcal == 'noleap'):
-                    ndays = [365.]*ntime
+                    ndays = [365.] * ntime
                 elif (tcal == '366_day'):
-                    ndays = [366.]*ntime
+                    ndays = [366.] * ntime
                 elif (tcal == 'all_leap'):
-                    ndays = [366.]*ntime
+                    ndays = [366.] * ntime
                 else:
                     ndays = [ 365. +
-                              float((((t.year%4) == 0) &
-                                     ((t.year%100) != 0)) |
-                                    ((t.year%400) == 0))
+                              float((((t.year % 4) == 0) &
+                                     ((t.year % 100) != 0)) |
+                                    ((t.year % 400) == 0))
                               for t in self.dtime ]
                 self.dtime = np.array([
                     t.year +
-                    (t.dayofyr-1 + t.hour / 24. +
+                    (t.dayofyr - 1 + t.hour / 24. +
                      t.minute / 1440 + t.second / 86400.) / ndays[i]
                     for i, t in enumerate(self.dtime) ])
             # make datetime variable
@@ -545,7 +545,7 @@ def analyse_netcdf_xarray(self):
                 dtime = []
                 for tt in time:
                     stt = str(tt).split('.')
-                    sstt = ('00'+stt[0])[-8:] + '.' + stt[1]
+                    sstt = ('00' + stt[0])[-8:] + '.' + stt[1]
                     dtime.append(dt.datetime.strptime(sstt, itunit))
                 ntime = cf.date2num(dtime,
                                     'days since 0001-01-01 00:00:00')
@@ -559,24 +559,24 @@ def analyse_netcdf_xarray(self):
             if self.dtime is not None:
                 ntime = len(self.dtime)
                 if (tcal == '360_day'):
-                    ndays = [360.]*ntime
+                    ndays = [360.] * ntime
                 elif (tcal == '365_day'):
-                    ndays = [365.]*ntime
+                    ndays = [365.] * ntime
                 elif (tcal == 'noleap'):
-                    ndays = [365.]*ntime
+                    ndays = [365.] * ntime
                 elif (tcal == '366_day'):
-                    ndays = [366.]*ntime
+                    ndays = [366.] * ntime
                 elif (tcal == 'all_leap'):
-                    ndays = [366.]*ntime
+                    ndays = [366.] * ntime
                 else:
                     ndays = [ 365. +
-                              float((((t.year%4) == 0) &
-                                     ((t.year%100) != 0)) |
-                                    ((t.year%400) == 0))
+                              float((((t.year % 4) == 0) &
+                                     ((t.year % 100) != 0)) |
+                                    ((t.year % 400) == 0))
                               for t in self.dtime ]
                 self.dtime = np.array([
                     t.year +
-                    (t.dayofyr-1 + t.hour / 24. +
+                    (t.dayofyr - 1 + t.hour / 24. +
                      t.minute / 1440 + t.second / 86400.) / ndays[i]
                     for i, t in enumerate(self.dtime) ])
             # make datetime variable
@@ -986,7 +986,7 @@ def set_dim_lat(self):
             self.latdlblval[i].set(ll.dimensions[i])
             if ll.shape[i] > 1:
                 tstr  = "Specific dimension value: 0-{:d}\n".format(
-                    ll.shape[i]-1)
+                    ll.shape[i] - 1)
                 tstr += "or arithmetic operation on axis:\n"
                 tstr += "  " + ", ".join(DIMMETHODS)
             else:
@@ -1095,7 +1095,7 @@ def set_dim_var(self):
                 self.vdlblval[i].set(vv.dimensions[i])
                 if vv.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
-                        vv.shape[i]-1)
+                        vv.shape[i] - 1)
                     tstr += "or arithmetic operation on axis:\n"
                     tstr += "  " + ", ".join(DIMMETHODS)
                 else:
@@ -1112,7 +1112,7 @@ def set_dim_var(self):
                 self.vdlblval[i].set(vv.dimensions[i])
                 if vv.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
-                        vv.shape[i]-1)
+                        vv.shape[i] - 1)
                     tstr += "or arithmetic operation on axis:\n"
                     tstr += "  " + ", ".join(DIMMETHODS)
                 else:
@@ -1122,16 +1122,16 @@ def set_dim_var(self):
             ww = max(5, int(np.ceil(np.log10(vv.shape[i]))))  # 5~median
             self.vd[i].config(values=spinbox_values(vv.shape[i]), width=ww,
                               state=tk.NORMAL)
-            if ((vv.dimensions[i] != self.latdim) and
-                (vv.dimensions[i] != self.londim) and
-                (vv.dimensions[i] != self.dunlim) and
-                (nall <= 1) and (vv.shape[i] > 1)):
+            if ( (vv.dimensions[i] != self.latdim) and
+                 (vv.dimensions[i] != self.londim) and
+                 (vv.dimensions[i] != self.dunlim) and
+                 (nall <= 1) and (vv.shape[i] > 1) ):
                 nall += 1
                 self.vdval[i].set('all')
                 self.vdlblval[i].set(vv.dimensions[i])
                 if vv.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
-                        vv.shape[i]-1)
+                        vv.shape[i] - 1)
                     tstr += "or arithmetic operation on axis:\n"
                     tstr += "  " + ", ".join(DIMMETHODS)
                 else:
@@ -1143,7 +1143,7 @@ def set_dim_var(self):
                 self.vdlblval[i].set(vv.dimensions[i])
                 if vv.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
-                        vv.shape[i]-1)
+                        vv.shape[i] - 1)
                     tstr += "or arithmetic operation on axis:\n"
                     tstr += "  " + ", ".join(DIMMETHODS)
                 else:
@@ -1199,7 +1199,7 @@ def set_dim_x(self):
             self.xdlblval[i].set(xx.dimensions[i])
             if xx.shape[i] > 1:
                 tstr  = "Specific dimension value: 0-{:d}\n".format(
-                    xx.shape[i]-1)
+                    xx.shape[i] - 1)
                 tstr += "or arithmetic operation on axis:\n"
                 tstr += "  " + ", ".join(DIMMETHODS)
             else:
@@ -1218,7 +1218,7 @@ def set_dim_x(self):
                 self.xdlblval[i].set(xx.dimensions[i])
                 if xx.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
-                        xx.shape[i]-1)
+                        xx.shape[i] - 1)
                     tstr += "or arithmetic operation on axis:\n"
                     tstr += "  " + ", ".join(DIMMETHODS)
                 else:
@@ -1274,7 +1274,7 @@ def set_dim_y(self):
             self.ydlblval[i].set(yy.dimensions[i])
             if yy.shape[i] > 1:
                 tstr  = "Specific dimension value: 0-{:d}\n".format(
-                    yy.shape[i]-1)
+                    yy.shape[i] - 1)
                 tstr += "or arithmetic operation on axis:\n"
                 tstr += "  " + ", ".join(DIMMETHODS)
             else:
@@ -1293,7 +1293,7 @@ def set_dim_y(self):
                 self.ydlblval[i].set(yy.dimensions[i])
                 if yy.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
-                        yy.shape[i]-1)
+                        yy.shape[i] - 1)
                     tstr += "or arithmetic operation on axis:\n"
                     tstr += "  " + ", ".join(DIMMETHODS)
                 else:
@@ -1349,7 +1349,7 @@ def set_dim_y2(self):
             self.y2dlblval[i].set(yy2.dimensions[i])
             if yy2.shape[i] > 1:
                 tstr  = "Specific dimension value: 0-{:d}\n".format(
-                    yy2.shape[i]-1)
+                    yy2.shape[i] - 1)
                 tstr += "or arithmetic operation on axis:\n"
                 tstr += "  " + ", ".join(DIMMETHODS)
             else:
@@ -1368,7 +1368,7 @@ def set_dim_y2(self):
                 self.y2dlblval[i].set(yy2.dimensions[i])
                 if yy2.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
-                        yy2.shape[i]-1)
+                        yy2.shape[i] - 1)
                     tstr += "or arithmetic operation on axis:\n"
                     tstr += "  " + ", ".join(DIMMETHODS)
                 else:
@@ -1425,7 +1425,7 @@ def set_dim_z(self):
             self.zdlblval[i].set(zz.dimensions[i])
             if zz.shape[i] > 1:
                 tstr  = "Specific dimension value: 0-{:d}\n".format(
-                    zz.shape[i]-1)
+                    zz.shape[i] - 1)
                 tstr += "or arithmetic operation on axis:\n"
                 tstr += "  " + ", ".join(DIMMETHODS)
             else:
@@ -1444,7 +1444,7 @@ def set_dim_z(self):
                 self.zdlblval[i].set(zz.dimensions[i])
                 if zz.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
-                        zz.shape[i]-1)
+                        zz.shape[i] - 1)
                     tstr += "or arithmetic operation on axis:\n"
                     tstr += "  " + ", ".join(DIMMETHODS)
                 else:

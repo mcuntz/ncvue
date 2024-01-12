@@ -35,10 +35,10 @@ except Exception:
     print('Using the themed widget set introduced in Tk 8.5.')
     sys.exit()
 import numpy as np
-from .ncvutils   import vardim2var
+from .ncvutils import vardim2var
 from .ncvscatter import ncvScatter
 from .ncvcontour import ncvContour
-from .ncvmap     import ncvMap
+from .ncvmap import ncvMap
 
 __all__ = ['ncvMain']
 

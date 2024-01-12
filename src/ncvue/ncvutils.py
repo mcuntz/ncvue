@@ -653,7 +653,7 @@ def get_slice(dimspins, y):
             s = slice(0, y.shape[i])
         else:
             idim = int(dim)
-            s = slice(idim, idim+1)
+            s = slice(idim, idim + 1)
         dd.append(dim)
         ss.append(s)
     if len(ss) > 0:
@@ -863,5 +863,5 @@ def zip_dim_name_length(ncvar):
     """
     out = []
     for i in range(ncvar.ndim):
-        out.append(ncvar.dimensions[i]+'='+str(ncvar.shape[i]))
+        out.append(ncvar.dimensions[i] + '=' + str(ncvar.shape[i]))
     return out

@@ -38,13 +38,13 @@ from tkinter import filedialog
 import os
 import numpy as np
 import netCDF4 as nc
-from .ncvutils   import clone_ncvmain, format_coord_contour
-from .ncvutils   import set_axis_label, vardim2var
+from .ncvutils import clone_ncvmain, format_coord_contour
+from .ncvutils import set_axis_label, vardim2var
 from .ncvmethods import analyse_netcdf, get_slice_miss
 from .ncvmethods import set_dim_x, set_dim_y, set_dim_z
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry, add_imagemenu
 from .ncvwidgets import add_spinbox, add_tooltip
-import matplotlib
+# import matplotlib
 # matplotlib.use('TkAgg')
 from matplotlib import pyplot as plt
 try:
