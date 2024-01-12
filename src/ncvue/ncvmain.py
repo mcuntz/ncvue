@@ -81,11 +81,11 @@ class ncvMain(ttk.Frame):
 
         mapfirst = False
         if self.top.latvar:
-            vl = vardim2var(self.top.latvar)
+            gl, vl = vardim2var(self.top.latvar, self.top.fi.groups.keys())
             if np.prod(self.top.fi.variables[vl].shape) > 1:
                 mapfirst = True
         if self.top.lonvar:
-            vl = vardim2var(self.top.lonvar)
+            gl, vl = vardim2var(self.top.lonvar, self.top.fi.groups.keys())
             if np.prod(self.top.fi.variables[vl].shape) > 1:
                 mapfirst = True
 

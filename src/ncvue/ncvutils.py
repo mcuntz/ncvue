@@ -50,6 +50,7 @@ History
     * Removed SEPCHAR, Jun 2021, Matthias Cuntz
     * Final add_cyclic, has_cyclic from cartopy v0.20.1,
       Nov 2021, Matthias Cuntz
+    * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz
 
 """
 from __future__ import absolute_import, division, print_function
@@ -636,8 +637,8 @@ def get_slice(dimspins, y):
 
     Examples
     --------
-    >>> vy = vardim2var(y)
-    >>> yy = self.fi.variables[vy]
+    >>> gy, vy = vardim2var(y, self.fi.groups.keys())
+    >>> yy = self.fi[vy]
     >>> miss = get_miss(self, yy)
     >>> yy = get_slice_y(self.yd, yy).squeeze()
     >>> yy = set_miss(miss, yy)
@@ -736,7 +737,7 @@ def set_axis_label(ncvar):
 
     Examples
     --------
-    >>> ylab = set_axis_label(fi.variables['w_soil'])
+    >>> ylab = set_axis_label(fi['w_soil'])
 
     """
     try:
@@ -772,7 +773,7 @@ def set_miss(miss, x):
 
     Examples
     --------
-    >>> x = fi.variables['time']
+    >>> x = fi['time']
     >>> miss = get_miss(self, x)
     >>> x = set_miss(miss, x)
 
@@ -814,27 +815,34 @@ def spinbox_values(ndim):
         return (0,)
 
 
-def vardim2var(vardim):
+def vardim2var(vardim, groups=[]):
     """
-    Extract variable name from 'variable (dim1=ndim1,)' string.
+    Extract group index and variable name from 'group/variable (dim1=ndim1,)'.
 
     Parameters
     ----------
     vardim : string
-        Variable name with dimensions, such as 'latitude (lat=32,lon=64)'.
+        Variable name with dimensions, such as 'latitude (lat=32,lon=64)'
+        or with group 'file1/latitude (lat=32,lon=64)'
 
     Returns
     -------
-    string
-        Variable name.
+    int, string
+        group index, variable name
 
     Examples
     --------
     >>> vardim2var('latitude (lat=32,lon=64)')
-    latitude
+    0 latitude
 
     """
-    return vardim[0:vardim.rfind('(')].rstrip()
+    var = vardim[0:vardim.rfind('(')].rstrip()
+    if '/' in var:
+        g = var[0:var.find('/')].rstrip()
+        ig = list(groups).index(g)
+    else:
+        ig = 0
+    return ig, var
 
 
 def zip_dim_name_length(ncvar):
@@ -856,7 +864,7 @@ def zip_dim_name_length(ncvar):
     >>> import netCDF4 as nc
     >>> ifile = 'test.nc'
     >>> fi = nc.Dataset(ifile, 'r')
-    >>> w_soil = fi.variables['w_soil']
+    >>> w_soil = fi['w_soil']
     >>> print(zip_dim_name_length(w_soil))
     ('ntime=17520', 'nsoil=30')
 

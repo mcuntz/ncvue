@@ -24,6 +24,7 @@ History
       Jan 2021, Matthias Cuntz
     * Write coordinates and value on bottom of plotting canvas,
       May 2021, Matthias Cuntz
+    * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz
 
 """
 from __future__ import absolute_import, division, print_function
@@ -234,7 +235,7 @@ class ncvContour(ttk.Frame):
             self.xd.append(xd)
             self.xdtip.append(xdtip)
         # y-axis selection
-        spacex = ttk.Label(self.rowxy, text=" "*3)
+        spacex = ttk.Label(self.rowxy, text=" " * 3)
         spacex.pack(side=tk.LEFT)
         self.blocky = ttk.Frame(self.rowxy)
         self.blocky.pack(side=tk.LEFT)
@@ -609,7 +610,7 @@ class ncvContour(ttk.Frame):
         vz = 'None'
         if (z != ''):
             # z axis
-            vz = vardim2var(z)
+            gz, vz = vardim2var(z, self.fi.groups.keys())
             if vz == self.tname:
                 # should throw an error later
                 if mesh:
@@ -619,7 +620,7 @@ class ncvContour(ttk.Frame):
                     zz = self.time
                     zlab = 'Date'
             else:
-                zz = self.fi.variables[vz]
+                zz = self.fi[vz]
                 zlab = set_axis_label(zz)
             zz = get_slice_miss(self, self.zd, zz)
             # both contourf and pcolormesh assume (row,col),
@@ -628,7 +629,7 @@ class ncvContour(ttk.Frame):
                 zz = zz.T
         if (y != ''):
             # y axis
-            vy = vardim2var(y)
+            gy, vy = vardim2var(y, self.fi.groups.keys())
             if vy == self.tname:
                 if mesh:
                     yy = self.dtime
@@ -637,12 +638,12 @@ class ncvContour(ttk.Frame):
                     yy = self.time
                     ylab = 'Date'
             else:
-                yy   = self.fi.variables[vy]
+                yy   = self.fi[vy]
                 ylab = set_axis_label(yy)
             yy = get_slice_miss(self, self.yd, yy)
         if (x != ''):
             # x axis
-            vx = vardim2var(x)
+            gx, vx = vardim2var(x, self.fi.groups.keys())
             if vx == self.tname:
                 if mesh:
                     xx = self.dtime
@@ -651,7 +652,7 @@ class ncvContour(ttk.Frame):
                     xx = self.time
                     xlab = 'Date'
             else:
-                xx   = self.fi.variables[vx]
+                xx   = self.fi[vx]
                 xlab = set_axis_label(xx)
             xx = get_slice_miss(self, self.xd, xx)
         # set z to nan if not selected

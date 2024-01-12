@@ -60,6 +60,7 @@ History
       Oct 2021, Matthias Cuntz
     * Do not default the unlimited dimension to 'all' if no lon/lat were found,
       (get_dim_var) Oct 2021, Matthias Cuntz
+    * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz
 
 """
 from __future__ import absolute_import, division, print_function
@@ -75,7 +76,7 @@ ncfill.update({np.dtype('O'): np.nan})
 ncfill.update({np.dtype('<M8[ms]'): np.datetime64('NaT')})
 
 
-__all__ = ['analyse_netcdf', 'analyse_netcdf_xarray',
+__all__ = ['analyse_netcdf',
            'get_miss', 'get_slice_miss',
            'set_dim_lat', 'set_dim_lon', 'set_dim_var',
            'set_dim_x', 'set_dim_y', 'set_dim_y2', 'set_dim_z']
@@ -140,7 +141,7 @@ def analyse_netcdf(self):
             else:
                 self.tname = 'datetime'
             try:
-                tunit = self.fi.variables[self.tvar].units
+                tunit = self.fi[self.tvar].units
             except AttributeError:
                 tunit = ''
             # assure 01, etc. if values < 10
@@ -153,10 +154,10 @@ def analyse_netcdf(self):
                 tt[2] = '-'.join(dd)
                 tunit = ' '.join(tt)
             try:
-                tcal = self.fi.variables[self.tvar].calendar
+                tcal = self.fi[self.tvar].calendar
             except AttributeError:
                 tcal = 'standard'
-            time = self.fi.variables[self.tvar][:]
+            time = self.fi[self.tvar][:]
             # time dimension "day as %Y%m%d.%f" from cdo.
             if ' as ' in tunit:
                 itunit = tunit.split()[2]
@@ -235,12 +236,12 @@ def analyse_netcdf(self):
     if self.time is not None:
         addt = [
             self.tname + ' ' +
-            str(tuple(zip_dim_name_length(self.fi.variables[self.tvar])))]
+            str(tuple(zip_dim_name_length(self.fi[self.tvar])))]
         self.cols += addt
     ivars = []
     for vv in self.fi.variables:
-        # ss = self.fi.variables[vv].shape
-        ss = tuple(zip_dim_name_length(self.fi.variables[vv]))
+        # ss = self.fi[vv].shape
+        ss = tuple(zip_dim_name_length(self.fi[vv]))
         self.maxdim = max(self.maxdim, len(ss))
         ivars.append((vv, ss, len(ss)))
     self.cols += sorted([ vv[0] + ' ' + str(vv[1])
@@ -254,15 +255,15 @@ def analyse_netcdf(self):
     if not self.latvar:
         for vv in self.fi.variables:
             try:
-                sname = self.fi.variables[vv].standard_name
+                sname = self.fi[vv].standard_name
             except AttributeError:
                 try:
-                    sname = self.fi.variables[vv].long_name
+                    sname = self.fi[vv].long_name
                 except AttributeError:
-                    sname = self.fi.variables[vv].name
+                    sname = self.fi[vv].name
             if sname.lower() == 'latitude':
                 try:
-                    sunit = self.fi.variables[vv].units
+                    sunit = self.fi[vv].units
                 except AttributeError:
                     sunit = ''
                 if sunit.lower() == 'degrees_north':
@@ -270,15 +271,15 @@ def analyse_netcdf(self):
     if not self.lonvar:
         for vv in self.fi.variables:
             try:
-                sname = self.fi.variables[vv].standard_name
+                sname = self.fi[vv].standard_name
             except AttributeError:
                 try:
-                    sname = self.fi.variables[vv].long_name
+                    sname = self.fi[vv].long_name
                 except AttributeError:
-                    sname = self.fi.variables[vv].name
+                    sname = self.fi[vv].name
             if sname.lower() == 'longitude':
                 try:
-                    sunit = self.fi.variables[vv].units
+                    sunit = self.fi[vv].units
                 except AttributeError:
                     sunit = ''
                 if sunit.lower() == 'degrees_east':
@@ -287,20 +288,20 @@ def analyse_netcdf(self):
     #               units must be "degrees_north"
     if not self.latvar:
         for vv in self.fi.variables:
-            sname = self.fi.variables[vv].name
+            sname = self.fi[vv].name
             if sname[0:3].lower() == 'lat':
                 try:
-                    sunit = self.fi.variables[vv].units
+                    sunit = self.fi[vv].units
                 except AttributeError:
                     sunit = ''
                 if sunit.lower() == 'degrees_north':
                     self.latvar = vv
     if not self.lonvar:
         for vv in self.fi.variables:
-            sname = self.fi.variables[vv].name
+            sname = self.fi[vv].name
             if sname[0:3].lower() == 'lon':
                 try:
-                    sunit = self.fi.variables[vv].units
+                    sunit = self.fi[vv].units
                 except AttributeError:
                     sunit = ''
                 if sunit.lower() == 'degrees_east':
@@ -309,22 +310,22 @@ def analyse_netcdf(self):
     #              units must be "degrees_north"
     if not self.latvar:
         for vv in self.fi.variables:
-            sname = self.fi.variables[vv].name
+            sname = self.fi[vv].name
             sname = sname.lower()
             if sname.find('lat') >= 0:
                 try:
-                    sunit = self.fi.variables[vv].units
+                    sunit = self.fi[vv].units
                 except AttributeError:
                     sunit = ''
                 if sunit.lower() == 'degrees_north':
                     self.latvar = vv
     if not self.lonvar:
         for vv in self.fi.variables:
-            sname = self.fi.variables[vv].name
+            sname = self.fi[vv].name
             sname = sname.lower()
             if sname.find('lon') >= 0:
                 try:
-                    sunit = self.fi.variables[vv].units
+                    sunit = self.fi[vv].units
                 except AttributeError:
                     sunit = ''
                 if sunit.lower() == 'degrees_east':
@@ -333,7 +334,7 @@ def analyse_netcdf(self):
     if not self.latvar:
         for vv in self.fi.variables:
             try:
-                saxis = self.fi.variables[vv].axis
+                saxis = self.fi[vv].axis
             except AttributeError:
                 saxis = ''
             if saxis.lower() == 'y':
@@ -341,7 +342,7 @@ def analyse_netcdf(self):
     if not self.lonvar:
         for vv in self.fi.variables:
             try:
-                saxis = self.fi.variables[vv].axis
+                saxis = self.fi[vv].axis
             except AttributeError:
                 saxis = ''
             if saxis.lower() == 'x':
@@ -350,15 +351,15 @@ def analyse_netcdf(self):
     if not self.latvar:
         for vv in self.fi.variables:
             try:
-                sname = self.fi.variables[vv].standard_name
+                sname = self.fi[vv].standard_name
             except AttributeError:
                 try:
-                    sname = self.fi.variables[vv].long_name
+                    sname = self.fi[vv].long_name
                 except AttributeError:
-                    sname = self.fi.variables[vv].name
+                    sname = self.fi[vv].name
             if sname.lower() == 'latitude':
                 try:
-                    sunit = self.fi.variables[vv].units
+                    sunit = self.fi[vv].units
                 except AttributeError:
                     sunit = ''
                 if sunit.lower() == 'degrees':
@@ -366,15 +367,15 @@ def analyse_netcdf(self):
     if not self.lonvar:
         for vv in self.fi.variables:
             try:
-                sname = self.fi.variables[vv].standard_name
+                sname = self.fi[vv].standard_name
             except AttributeError:
                 try:
-                    sname = self.fi.variables[vv].long_name
+                    sname = self.fi[vv].long_name
                 except AttributeError:
-                    sname = self.fi.variables[vv].name
+                    sname = self.fi[vv].name
             if sname.lower() == 'longitude':
                 try:
-                    sunit = self.fi.variables[vv].units
+                    sunit = self.fi[vv].units
                 except AttributeError:
                     sunit = ''
                 if sunit.lower() == 'degrees':
@@ -382,20 +383,20 @@ def analyse_netcdf(self):
     # sixth sweep: same as second but units can be "degrees"
     if not self.latvar:
         for vv in self.fi.variables:
-            sname = self.fi.variables[vv].name
+            sname = self.fi[vv].name
             if sname[0:3].lower() == 'lat':
                 try:
-                    sunit = self.fi.variables[vv].units
+                    sunit = self.fi[vv].units
                 except AttributeError:
                     sunit = ''
                 if sunit.lower() == 'degrees':
                     self.latvar = vv
     if not self.lonvar:
         for vv in self.fi.variables:
-            sname = self.fi.variables[vv].name
+            sname = self.fi[vv].name
             if sname[0:3].lower() == 'lon':
                 try:
-                    sunit = self.fi.variables[vv].units
+                    sunit = self.fi[vv].units
                 except AttributeError:
                     sunit = ''
                 if sunit.lower() == 'degrees':
@@ -403,22 +404,22 @@ def analyse_netcdf(self):
     # seventh sweep: same as third but units can be "degrees"
     if not self.latvar:
         for vv in self.fi.variables:
-            sname = self.fi.variables[vv].name
+            sname = self.fi[vv].name
             sname = sname.lower()
             if sname.find('lat') >= 0:
                 try:
-                    sunit = self.fi.variables[vv].units
+                    sunit = self.fi[vv].units
                 except AttributeError:
                     sunit = ''
                 if sunit.lower() == 'degrees':
                     self.latvar = vv
     if not self.lonvar:
         for vv in self.fi.variables:
-            sname = self.fi.variables[vv].name
+            sname = self.fi[vv].name
             sname = sname.lower()
             if sname.find('lon') >= 0:
                 try:
-                    sunit = self.fi.variables[vv].units
+                    sunit = self.fi[vv].units
                 except AttributeError:
                     sunit = ''
                 if sunit.lower() == 'degrees':
@@ -428,420 +429,38 @@ def analyse_netcdf(self):
     self.latdim = ''
     self.londim = ''
     if self.latvar:
-        latshape = self.fi.variables[self.latvar].shape
+        latshape = self.fi[self.latvar].shape
         if (len(latshape) < 1) or (len(latshape) > 2):
             estr  = 'Something went wrong determining lat/lon:'
             estr += ' latitude variable is not 1D or 2D.'
             print(estr)
             estr = 'latitude variable with dimensions:'
-            ldim = self.fi.variables[self.latvar].dimensions
+            ldim = self.fi[self.latvar].dimensions
             print(estr, self.latvar, ldim)
             self.latvar = ''
         else:
-            self.latdim = self.fi.variables[self.latvar].dimensions[0]
+            self.latdim = self.fi[self.latvar].dimensions[0]
     if self.lonvar:
-        lonshape = self.fi.variables[self.lonvar].shape
+        lonshape = self.fi[self.lonvar].shape
         if len(lonshape) == 1:
-            self.londim = self.fi.variables[self.lonvar].dimensions[0]
+            self.londim = self.fi[self.lonvar].dimensions[0]
         elif len(lonshape) == 2:
-            self.londim = self.fi.variables[self.lonvar].dimensions[1]
+            self.londim = self.fi[self.lonvar].dimensions[1]
         else:
             estr  = 'Something went wrong determining lat/lon:'
             estr += ' longitude variable is not 1D or 2D.'
             print(estr)
             estr = 'longitude variable with dimensions:'
-            ldim = self.fi.variables[self.lonvar].dimensions
+            ldim = self.fi[self.lonvar].dimensions
             print(estr, self.lonvar, ldim)
             self.lonvar = ''
     #
     # add units to lat/lon name
     if self.latvar:
-        idim = tuple(zip_dim_name_length(self.fi.variables[self.latvar]))
+        idim = tuple(zip_dim_name_length(self.fi[self.latvar]))
         self.latvar = self.latvar + ' ' + str(idim)
     if self.lonvar:
-        idim = tuple(zip_dim_name_length(self.fi.variables[self.lonvar]))
-        self.lonvar = self.lonvar + ' ' + str(idim)
-
-
-#
-# Analyse netcdf file with xarray
-#
-
-def analyse_netcdf_xarray(self):
-    """
-    Analyse netcdf files for the unlimited dimension, calculating datetime,
-    variables, latitudes/longitudes variables and dimensions.
-
-    Parameters
-    ----------
-    self : class
-        ncvue class
-
-    Returns
-    -------
-    Set variables:
-        self.dunlim,
-        self.time, self.tname, self.tvar, self.dtime,
-        self.cols,
-        self.latvar, self.lonvar, self.latdim, self.londim
-
-    Examples
-    --------
-    >>> analyse_netcdf(self)
-
-    """
-    import datetime as dt
-    try:
-        import cftime as cf
-    except ModuleNotFoundError:
-        import netCDF4 as cf
-    #
-    # search unlimited dimension
-    self.dunlim = ''
-    for dd in self.fi.dimensions:
-        if self.fi.dimensions[dd].isunlimited():
-            self.dunlim = dd
-            break
-    #
-    # search for time variable and make datetime variable
-    self.time  = None
-    self.tname = ''
-    self.tvar  = ''
-    self.dtime = None
-    for vv in self.fi.variables:
-        isunlim = False
-        if self.dunlim:
-            if vv.lower() == self.fi.dimensions[self.dunlim].name.lower():
-                isunlim = True
-        if ( isunlim or vv.lower().startswith('time_') or
-             (vv.lower() == 'time') or (vv.lower() == 'datetime') or
-             (vv.lower() == 'date') ):
-            self.tvar = vv
-            if vv.lower() == 'datetime':
-                self.tname = 'date'
-            else:
-                self.tname = 'datetime'
-            try:
-                tunit = self.fi.variables[self.tvar].units
-            except AttributeError:
-                tunit = ''
-            # assure 01, etc. if values < 10
-            if tunit.find('since') > 0:
-                tt = tunit.split()
-                dd = tt[2].split('-')
-                dd[0] = ('000'+dd[0])[-4:]
-                dd[1] = ('0'+dd[1])[-2:]
-                dd[2] = ('0'+dd[1])[-2:]
-                tt[2] = '-'.join(dd)
-                tunit = ' '.join(tt)
-            try:
-                tcal = self.fi.variables[self.tvar].calendar
-            except AttributeError:
-                tcal = 'standard'
-            time = self.fi.variables[self.tvar][:]
-            # time dimension "day as %Y%m%d.%f" from cdo.
-            if ' as ' in tunit:
-                itunit = tunit.split()[2]
-                dtime = []
-                for tt in time:
-                    stt = str(tt).split('.')
-                    sstt = ('00' + stt[0])[-8:] + '.' + stt[1]
-                    dtime.append(dt.datetime.strptime(sstt, itunit))
-                ntime = cf.date2num(dtime,
-                                    'days since 0001-01-01 00:00:00')
-                self.dtime = cf.num2date(ntime,
-                                         'days since 0001-01-01 00:00:00')
-            else:
-                try:
-                    self.dtime = cf.num2date(time, tunit, calendar=tcal)
-                except ValueError:
-                    self.dtime = None
-            if self.dtime is not None:
-                ntime = len(self.dtime)
-                if (tcal == '360_day'):
-                    ndays = [360.] * ntime
-                elif (tcal == '365_day'):
-                    ndays = [365.] * ntime
-                elif (tcal == 'noleap'):
-                    ndays = [365.] * ntime
-                elif (tcal == '366_day'):
-                    ndays = [366.] * ntime
-                elif (tcal == 'all_leap'):
-                    ndays = [366.] * ntime
-                else:
-                    ndays = [ 365. +
-                              float((((t.year % 4) == 0) &
-                                     ((t.year % 100) != 0)) |
-                                    ((t.year % 400) == 0))
-                              for t in self.dtime ]
-                self.dtime = np.array([
-                    t.year +
-                    (t.dayofyr - 1 + t.hour / 24. +
-                     t.minute / 1440 + t.second / 86400.) / ndays[i]
-                    for i, t in enumerate(self.dtime) ])
-            # make datetime variable
-            if self.time is None:
-                try:
-                    ttime = cf.num2date(
-                        time, tunit, calendar=tcal,
-                        only_use_cftime_datetimes=False,
-                        only_use_python_datetimes=True)
-                    self.time = np.array([ dd.isoformat()
-                                           for dd in ttime ],
-                                         dtype='datetime64[ms]')
-                except:
-                    self.time = None
-            if self.time is None:
-                try:
-                    # self.time = cf.num2date(time, tunit,
-                    ttime = cf.num2date(time, tunit,
-                                        calendar=tcal)
-                    self.time = np.array([ dd.isoformat()
-                                           for dd in ttime ],
-                                         dtype='datetime64[ms]')
-                except:
-                    self.time = None
-            if self.time is None:
-                # if not possible use decimal year
-                self.time = self.dtime
-            if self.time is None:
-                # could not interpret time at all,
-                # e.g. if units = "months since ..."
-                self.time  = time
-                self.dtime = time
-            # print('time:  ', self.time)
-            # print('dtime: ', self.dtime)
-            break
-    #
-    # construct list of variable names with dimensions
-    if self.time is not None:
-        addt = [
-            self.tname + ' ' +
-            str(tuple(zip_dim_name_length(self.fi.variables[self.tvar])))]
-        self.cols += addt
-    ivars = []
-    for vv in self.fi.variables:
-        # ss = self.fi.variables[vv].shape
-        ss = tuple(zip_dim_name_length(self.fi.variables[vv]))
-        self.maxdim = max(self.maxdim, len(ss))
-        ivars.append((vv, ss, len(ss)))
-    self.cols += sorted([ vv[0] + ' ' + str(vv[1])
-                          for vv in ivars ])
-    #
-    # search for lat/lon variables
-    self.latvar = ''
-    self.lonvar = ''
-    # first sweep: *name must be "latitude" and
-    #              units must be "degrees_north"
-    if not self.latvar:
-        for vv in self.fi.variables:
-            try:
-                sname = self.fi.variables[vv].standard_name
-            except AttributeError:
-                try:
-                    sname = self.fi.variables[vv].long_name
-                except AttributeError:
-                    sname = self.fi.variables[vv].name
-            if sname.lower() == 'latitude':
-                try:
-                    sunit = self.fi.variables[vv].units
-                except AttributeError:
-                    sunit = ''
-                if sunit.lower() == 'degrees_north':
-                    self.latvar = vv
-    if not self.lonvar:
-        for vv in self.fi.variables:
-            try:
-                sname = self.fi.variables[vv].standard_name
-            except AttributeError:
-                try:
-                    sname = self.fi.variables[vv].long_name
-                except AttributeError:
-                    sname = self.fi.variables[vv].name
-            if sname.lower() == 'longitude':
-                try:
-                    sunit = self.fi.variables[vv].units
-                except AttributeError:
-                    sunit = ''
-                if sunit.lower() == 'degrees_east':
-                    self.lonvar = vv
-    # second sweep: name must start with lat and
-    #               units must be "degrees_north"
-    if not self.latvar:
-        for vv in self.fi.variables:
-            sname = self.fi.variables[vv].name
-            if sname[0:3].lower() == 'lat':
-                try:
-                    sunit = self.fi.variables[vv].units
-                except AttributeError:
-                    sunit = ''
-                if sunit.lower() == 'degrees_north':
-                    self.latvar = vv
-    if not self.lonvar:
-        for vv in self.fi.variables:
-            sname = self.fi.variables[vv].name
-            if sname[0:3].lower() == 'lon':
-                try:
-                    sunit = self.fi.variables[vv].units
-                except AttributeError:
-                    sunit = ''
-                if sunit.lower() == 'degrees_east':
-                    self.lonvar = vv
-    # third sweep: name must contain lat and
-    #              units must be "degrees_north"
-    if not self.latvar:
-        for vv in self.fi.variables:
-            sname = self.fi.variables[vv].name
-            sname = sname.lower()
-            if sname.find('lat') >= 0:
-                try:
-                    sunit = self.fi.variables[vv].units
-                except AttributeError:
-                    sunit = ''
-                if sunit.lower() == 'degrees_north':
-                    self.latvar = vv
-    if not self.lonvar:
-        for vv in self.fi.variables:
-            sname = self.fi.variables[vv].name
-            sname = sname.lower()
-            if sname.find('lon') >= 0:
-                try:
-                    sunit = self.fi.variables[vv].units
-                except AttributeError:
-                    sunit = ''
-                if sunit.lower() == 'degrees_east':
-                    self.lonvar = vv
-    # fourth sweep: axis is 'Y' or 'y'
-    if not self.latvar:
-        for vv in self.fi.variables:
-            try:
-                saxis = self.fi.variables[vv].axis
-            except AttributeError:
-                saxis = ''
-            if saxis.lower() == 'y':
-                self.latvar = vv
-    if not self.lonvar:
-        for vv in self.fi.variables:
-            try:
-                saxis = self.fi.variables[vv].axis
-            except AttributeError:
-                saxis = ''
-            if saxis.lower() == 'x':
-                self.lonvar = vv
-    # fifth sweep: same as first but units can be "degrees"
-    if not self.latvar:
-        for vv in self.fi.variables:
-            try:
-                sname = self.fi.variables[vv].standard_name
-            except AttributeError:
-                try:
-                    sname = self.fi.variables[vv].long_name
-                except AttributeError:
-                    sname = self.fi.variables[vv].name
-            if sname.lower() == 'latitude':
-                try:
-                    sunit = self.fi.variables[vv].units
-                except AttributeError:
-                    sunit = ''
-                if sunit.lower() == 'degrees':
-                    self.latvar = vv
-    if not self.lonvar:
-        for vv in self.fi.variables:
-            try:
-                sname = self.fi.variables[vv].standard_name
-            except AttributeError:
-                try:
-                    sname = self.fi.variables[vv].long_name
-                except AttributeError:
-                    sname = self.fi.variables[vv].name
-            if sname.lower() == 'longitude':
-                try:
-                    sunit = self.fi.variables[vv].units
-                except AttributeError:
-                    sunit = ''
-                if sunit.lower() == 'degrees':
-                    self.lonvar = vv
-    # sixth sweep: same as second but units can be "degrees"
-    if not self.latvar:
-        for vv in self.fi.variables:
-            sname = self.fi.variables[vv].name
-            if sname[0:3].lower() == 'lat':
-                try:
-                    sunit = self.fi.variables[vv].units
-                except AttributeError:
-                    sunit = ''
-                if sunit.lower() == 'degrees':
-                    self.latvar = vv
-    if not self.lonvar:
-        for vv in self.fi.variables:
-            sname = self.fi.variables[vv].name
-            if sname[0:3].lower() == 'lon':
-                try:
-                    sunit = self.fi.variables[vv].units
-                except AttributeError:
-                    sunit = ''
-                if sunit.lower() == 'degrees':
-                    self.lonvar = vv
-    # seventh sweep: same as third but units can be "degrees"
-    if not self.latvar:
-        for vv in self.fi.variables:
-            sname = self.fi.variables[vv].name
-            sname = sname.lower()
-            if sname.find('lat') >= 0:
-                try:
-                    sunit = self.fi.variables[vv].units
-                except AttributeError:
-                    sunit = ''
-                if sunit.lower() == 'degrees':
-                    self.latvar = vv
-    if not self.lonvar:
-        for vv in self.fi.variables:
-            sname = self.fi.variables[vv].name
-            sname = sname.lower()
-            if sname.find('lon') >= 0:
-                try:
-                    sunit = self.fi.variables[vv].units
-                except AttributeError:
-                    sunit = ''
-                if sunit.lower() == 'degrees':
-                    self.lonvar = vv
-    #
-    # determine lat/lon dimensions
-    self.latdim = ''
-    self.londim = ''
-    if self.latvar:
-        latshape = self.fi.variables[self.latvar].shape
-        if (len(latshape) < 1) or (len(latshape) > 2):
-            estr  = 'Something went wrong determining lat/lon:'
-            estr += ' latitude variable is not 1D or 2D.'
-            print(estr)
-            estr = 'latitude variable with dimensions:'
-            ldim = self.fi.variables[self.latvar].dimensions
-            print(estr, self.latvar, ldim)
-            self.latvar = ''
-        else:
-            self.latdim = self.fi.variables[self.latvar].dimensions[0]
-    if self.lonvar:
-        lonshape = self.fi.variables[self.lonvar].shape
-        if len(lonshape) == 1:
-            self.londim = self.fi.variables[self.lonvar].dimensions[0]
-        elif len(lonshape) == 2:
-            self.londim = self.fi.variables[self.lonvar].dimensions[1]
-        else:
-            estr  = 'Something went wrong determining lat/lon:'
-            estr += ' longitude variable is not 1D or 2D.'
-            print(estr)
-            estr = 'longitude variable with dimensions:'
-            ldim = self.fi.variables[self.lonvar].dimensions
-            print(estr, self.lonvar, ldim)
-            self.lonvar = ''
-    #
-    # add units to lat/lon name
-    if self.latvar:
-        idim = tuple(zip_dim_name_length(self.fi.variables[self.latvar]))
-        self.latvar = self.latvar + ' ' + str(idim)
-    if self.lonvar:
-        idim = tuple(zip_dim_name_length(self.fi.variables[self.lonvar]))
+        idim = tuple(zip_dim_name_length(self.fi[self.lonvar]))
         self.lonvar = self.lonvar + ' ' + str(idim)
 
 
@@ -869,7 +488,7 @@ def get_miss(self, x):
 
     Examples
     --------
-    >>> x = fi.variables['time']
+    >>> x = fi['time']
     >>> miss = get_miss(self, x)
 
     """
@@ -920,7 +539,7 @@ def get_slice_miss(self, dimspins, x):
 
     Examples
     --------
-    >>> x = fi.variables['time']
+    >>> x = fi['time']
     >>> xx = get_slice_miss(self, x)
 
     """
@@ -971,10 +590,10 @@ def set_dim_lat(self):
     lat = self.lat.get()
     if lat != '':
         # set real dimensions
-        vl = vardim2var(lat)
+        gl, vl = vardim2var(lat, self.fi.groups.keys())
         if vl == self.tname:
             vl = self.tvar
-        ll = self.fi.variables[vl]
+        ll = self.fi[vl]
         for i in range(ll.ndim):
             ww = max(4, int(np.ceil(np.log10(ll.shape[i]))))
             self.latd[i].config(values=spinbox_values(ll.shape[i]), width=ww,
@@ -1023,10 +642,10 @@ def set_dim_lon(self):
     lon = self.lon.get()
     if lon != '':
         # set real dimensions
-        vl = vardim2var(lon)
+        gl, vl = vardim2var(lon, self.fi.groups.keys())
         if vl == self.tname:
             vl = self.tvar
-        ll = self.fi.variables[vl]
+        ll = self.fi[vl]
         for i in range(ll.ndim):
             ww = max(4, int(np.ceil(np.log10(ll.shape[i]))))
             self.lond[i].config(values=spinbox_values(ll.shape[i]), width=ww,
@@ -1079,10 +698,10 @@ def set_dim_var(self):
     v = self.v.get()
     if v != '':
         # set real dimensions
-        vz = vardim2var(v)
+        gz, vz = vardim2var(v, self.fi.groups.keys())
         if vz == self.tname:
             vz = self.tvar
-        vv = self.fi.variables[vz]
+        vv = self.fi[vz]
         nall = 0
         if self.latdim:
             if self.latdim in vv.dimensions:
@@ -1184,10 +803,10 @@ def set_dim_x(self):
     x = self.x.get()
     if x != '':
         # set real dimensions
-        vx = vardim2var(x)
+        gx, vx = vardim2var(x, self.fi.groups.keys())
         if vx == self.tname:
             vx = self.tvar
-        xx = self.fi.variables[vx]
+        xx = self.fi[vx]
         nall = 0
         if self.dunlim in xx.dimensions:
             i = xx.dimensions.index(self.dunlim)
@@ -1259,10 +878,10 @@ def set_dim_y(self):
     y = self.y.get()
     if y != '':
         # set real dimensions
-        vy = vardim2var(y)
+        gy, vy = vardim2var(y, self.fi.groups.keys())
         if vy == self.tname:
             vy = self.tvar
-        yy = self.fi.variables[vy]
+        yy = self.fi[vy]
         nall = 0
         if self.dunlim in yy.dimensions:
             i = yy.dimensions.index(self.dunlim)
@@ -1334,10 +953,10 @@ def set_dim_y2(self):
     y2 = self.y2.get()
     if y2 != '':
         # set real dimensions
-        vy2 = vardim2var(y2)
+        gy2, vy2 = vardim2var(y2, self.fi.groups.keys())
         if vy2 == self.tname:
             vy2 = self.tvar
-        yy2 = self.fi.variables[vy2]
+        yy2 = self.fi[vy2]
         nall = 0
         if self.dunlim in yy2.dimensions:
             i = yy2.dimensions.index(self.dunlim)
@@ -1410,10 +1029,10 @@ def set_dim_z(self):
     z = self.z.get()
     if z != '':
         # set real dimensions
-        vz = vardim2var(z)
+        gz, vz = vardim2var(z, self.fi.groups.keys())
         if vz == self.tname:
             vz = self.tvar
-        zz = self.fi.variables[vz]
+        zz = self.fi[vz]
         nall = 0
         if self.dunlim in zz.dimensions:
             i = zz.dimensions.index(self.dunlim)

@@ -26,6 +26,7 @@ History
       Jan 2021, Matthias Cuntz
     * Write left-hand side and right-hand side values on bottom of plotting
       canvas, May 2021, Matthias Cuntz
+    * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz
 
 """
 from __future__ import absolute_import, division, print_function
@@ -39,13 +40,13 @@ except Exception:
 from tkinter import filedialog
 import numpy as np
 import netCDF4 as nc
-from .ncvutils   import clone_ncvmain, format_coord_scatter
-from .ncvutils   import set_axis_label, vardim2var
+from .ncvutils import clone_ncvmain, format_coord_scatter
+from .ncvutils import set_axis_label, vardim2var
 from .ncvmethods import analyse_netcdf, get_slice_miss
 from .ncvmethods import set_dim_x, set_dim_y, set_dim_y2
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry
 from .ncvwidgets import add_spinbox, add_tooltip
-import matplotlib
+# import matplotlib
 # matplotlib.use('TkAgg')
 from matplotlib import pyplot as plt
 try:
@@ -207,7 +208,7 @@ class ncvScatter(ttk.Frame):
             self.xd.append(xd)
             self.xdtip.append(xdtip)
         # block y with dimensions
-        spacex = ttk.Label(self.rowxy, text=" "*3)
+        spacex = ttk.Label(self.rowxy, text=" " * 3)
         spacex.pack(side=tk.LEFT)
         self.blocky = ttk.Frame(self.rowxy)
         self.blocky.pack(side=tk.LEFT)
@@ -273,22 +274,22 @@ class ncvScatter(ttk.Frame):
         self.lclbl, self.lc, self.lctip = add_entry(
             self.rowxyopt, label="c", text=col1, width=7,
             command=self.entered_y,
-            tooltip="Line color:\n"+ctstr)
+            tooltip="Line color:\n" + ctstr)
         self.markerlbl, self.marker, self.markertip = add_entry(
             self.rowxyopt, label="marker", text='None', width=4,
             command=self.entered_y,
-            tooltip="Marker symbol:\n"+mtstr)
+            tooltip="Marker symbol:\n" + mtstr)
         self.mslbl, self.ms, self.mstip = add_entry(
             self.rowxyopt, label="ms", text='1', width=3,
             command=self.entered_y, tooltip="Marker size")
         self.mfclbl, self.mfc, self.mfctip = add_entry(
             self.rowxyopt, label="mfc", text=col1, width=7,
             command=self.entered_y,
-            tooltip="Marker fill color:\n"+ctstr)
+            tooltip="Marker fill color:\n" + ctstr)
         self.meclbl, self.mec, self.mectip = add_entry(
             self.rowxyopt, label="mec", text=col1, width=7,
             command=self.entered_y,
-            tooltip="Marker edge color:\n"+ctstr)
+            tooltip="Marker edge color:\n" + ctstr)
         self.mewlbl, self.mew, self.mewtip = add_entry(
             self.rowxyopt, label="mew", text='1', width=3,
             command=self.entered_y, tooltip="Marker edge width")
@@ -317,7 +318,7 @@ class ncvScatter(ttk.Frame):
             self.rowy2, label="invert y2", value=False,
             command=self.checked_y2,
             tooltip="Invert right-hand-side y-axis")
-        spacey2 = ttk.Label(self.rowy2, text=" "*1)
+        spacey2 = ttk.Label(self.rowy2, text=" " * 1)
         spacey2.pack(side=tk.LEFT)
         tstr = "Same limits for left-hand-side and right-hand-side y-axes"
         self.same_ylbl, self.same_y, self.same_ytip = add_checkbutton(
@@ -354,20 +355,20 @@ class ncvScatter(ttk.Frame):
         self.lc2lbl, self.lc2, self.lc2tip = add_entry(
             self.rowy2opt, label="c", text=col2, width=7,
             command=self.entered_y2,
-            tooltip="Line color:\n"+ctstr)
+            tooltip="Line color:\n" + ctstr)
         self.marker2lbl, self.marker2, self.marker2tip = add_entry(
             self.rowy2opt, label="marker", text='None', width=4,
             command=self.entered_y2,
-            tooltip="Marker symbol:\n"+mtstr)
+            tooltip="Marker symbol:\n" + mtstr)
         self.ms2lbl, self.ms2, self.ms2tip = add_entry(
             self.rowy2opt, label="ms", text='1', width=3,
             command=self.entered_y2, tooltip="Marker size")
         self.mfc2lbl, self.mfc2, self.mfc2tip = add_entry(
             self.rowy2opt, label="mfc", text=col2, width=7,
-            command=self.entered_y2, tooltip="Marker fill color:\n"+ctstr)
+            command=self.entered_y2, tooltip="Marker fill color:\n" + ctstr)
         self.mec2lbl, self.mec2, self.mec2tip = add_entry(
             self.rowy2opt, label="mec", text=col2, width=7,
-            command=self.entered_y2, tooltip="Marker edge color:\n"+ctstr)
+            command=self.entered_y2, tooltip="Marker edge color:\n" + ctstr)
         self.mew2lbl, self.mew2, self.mew2tip = add_entry(
             self.rowy2opt, label="mew", text='1', width=3,
             command=self.entered_y2, tooltip="Marker edge width")
@@ -405,10 +406,12 @@ class ncvScatter(ttk.Frame):
 
     def checked_yy2(self):
         """
-        Command called if any checkbutton was checked or unchecked that concerns
-        both, the left-hand-side and right-hand-side y-axes.
+        Command called if any checkbutton was checked or unchecked
+        that concerns both, the left-hand-side and right-hand-side
+        y-axes.
 
         Redraws left-hand-side and right-hand-side y-axes.
+
         """
         self.redraw_y()
         self.redraw_y2()
@@ -731,12 +734,12 @@ class ncvScatter(ttk.Frame):
                      'markerfacecolor': mfc,
                      'markeredgecolor': mec,
                      'markeredgewidth': mew}
-            vy = vardim2var(y)
+            gy, vy = vardim2var(y, self.fi.groups.keys())
             if vy == self.tname:
                 ylab = 'Date'
                 pargs['color'] = c
             else:
-                ylab = set_axis_label(self.fi.variables[vy])
+                ylab = set_axis_label(self.fi[vy])
                 # ToDo with dimensions
                 if len(self.line_y) == 1:
                     # set color only if single line,
@@ -835,12 +838,12 @@ class ncvScatter(ttk.Frame):
                      'markerfacecolor': mfc,
                      'markeredgecolor': mec,
                      'markeredgewidth': mew}
-            vy = vardim2var(y2)
+            gy, vy = vardim2var(y2, self.fi.groups.keys())
             if vy == self.tname:
                 ylab = 'Date'
                 pargs['color'] = c
             else:
-                ylab = set_axis_label(self.fi.variables[vy])
+                ylab = set_axis_label(self.fi[vy])
                 if len(self.line_y2) == 1:
                     # set color only if single line,
                     # None and 'None' do not work for multiple lines
@@ -913,7 +916,7 @@ class ncvScatter(ttk.Frame):
         self.axes2.clear()
         self.axes2.yaxis.set_label_position("right")
         self.axes2.yaxis.tick_right()
-        ylim  = [None, None]
+        ylim = [None, None]
         ylim2 = [None, None]
         # set x, y, axes labels
         vx  = 'None'
@@ -922,32 +925,32 @@ class ncvScatter(ttk.Frame):
         if (y != '') or (y2 != ''):
             # y axis
             if y != '':
-                vy = vardim2var(y)
+                gy, vy = vardim2var(y, self.fi.groups.keys())
                 if vy == self.tname:
                     yy   = self.time
                     ylab = 'Date'
                 else:
-                    yy   = self.fi.variables[vy]
+                    yy   = self.fi[vy]
                     ylab = set_axis_label(yy)
                 yy = get_slice_miss(self, self.yd, yy)
             # y2 axis
             if y2 != '':
-                vy2 = vardim2var(y2)
+                gy2, vy2 = vardim2var(y2, self.fi.groups.keys())
                 if vy2 == self.tname:
                     yy2   = self.time
                     ylab2 = 'Date'
                 else:
-                    yy2   = self.fi.variables[vy2]
+                    yy2   = self.fi[vy2]
                     ylab2 = set_axis_label(yy2)
                 yy2 = get_slice_miss(self, self.y2d, yy2)
             if (x != ''):
                 # x axis
-                vx = vardim2var(x)
+                gx, vx = vardim2var(x, self.fi.groups.keys())
                 if vx == self.tname:
                     xx   = self.time
                     xlab = 'Date'
                 else:
-                    xx   = self.fi.variables[vx]
+                    xx   = self.fi[vx]
                     xlab = set_axis_label(xx)
                 xx = get_slice_miss(self, self.xd, xx)
             else:

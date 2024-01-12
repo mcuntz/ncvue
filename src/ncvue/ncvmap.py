@@ -28,6 +28,7 @@ History
     * Larger pad for colorbar, Jun 2021, Matthias Cuntz
     * Work with files without an unlimited (time) dimension (set_tstep),
       Oct 2021, Matthias Cuntz
+    * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz
 
 """
 from __future__ import absolute_import, division, print_function
@@ -42,8 +43,8 @@ from tkinter import filedialog
 import os
 import numpy as np
 import netCDF4 as nc
-from .ncvutils   import add_cyclic, clone_ncvmain, format_coord_map
-from .ncvutils   import set_axis_label, set_miss, vardim2var
+from .ncvutils import add_cyclic, clone_ncvmain, format_coord_map
+from .ncvutils import set_axis_label, set_miss, vardim2var
 from .ncvmethods import analyse_netcdf, get_slice_miss, get_miss
 from .ncvmethods import set_dim_lon, set_dim_lat, set_dim_var
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry, add_imagemenu
@@ -118,7 +119,7 @@ class ncvMap(ttk.Frame):
                                   command=self.newnetcdf)
         self.newfile.pack(side=tk.LEFT)
         self.newfiletip = add_tooltip(self.newfile, 'Open a new netcdf file')
-        spacew = ttk.Label(self.rowwin, text=" "*3)
+        spacew = ttk.Label(self.rowwin, text=" " * 3)
         spacew.pack(side=tk.LEFT)
         time_label1 = ttk.Label(self.rowwin, text='Time: ')
         time_label1.pack(side=tk.LEFT)
@@ -197,7 +198,7 @@ class ncvMap(ttk.Frame):
             self.rowt, label="step", ini=0, from_=0, to=ntime,
             length=100, orient=tk.HORIZONTAL, command=self.tstep_t,
             tooltip="Slide to go to time step")
-        spacet = ttk.Label(self.rowt, text=" "*1)
+        spacet = ttk.Label(self.rowt, text=" " * 1)
         spacet.pack(side=tk.LEFT)
         # first t
         self.first_t = ttk.Button(self.rowt, text="|<<", width=3,
@@ -235,7 +236,7 @@ class ncvMap(ttk.Frame):
         self.last_t.pack(side=tk.LEFT)
         self.last_ttip = add_tooltip(self.last_t, 'Last time step')
         # repeat
-        spacer = ttk.Label(self.rowt, text=" "*1)
+        spacer = ttk.Label(self.rowt, text=" " * 1)
         spacer.pack(side=tk.LEFT)
         reps = ['once', 'repeat', 'reflect']
         tstr  = "Run time steps once, repeat from start when at end,"
@@ -246,7 +247,7 @@ class ncvMap(ttk.Frame):
         self.repeat.set('repeat')
         self.last_t.pack(side=tk.LEFT)
         # delay
-        spaced = ttk.Label(self.rowt, text=" "*1)
+        spaced = ttk.Label(self.rowt, text=" " * 1)
         spaced.pack(side=tk.LEFT)
         tstr = "Delay run between time steps from 1 to 1000 ms"
         self.delaylbl, self.delayval, self.delay, self.delaytip = add_scale(
@@ -282,7 +283,7 @@ class ncvMap(ttk.Frame):
             self.rowv, label="transpose var", value=False,
             command=self.checked,
             tooltip="Transpose array, i.e. exchanging lat and lon")
-        spacev = ttk.Label(self.rowv, text=" "*1)
+        spacev = ttk.Label(self.rowv, text=" " * 1)
         spacev.pack(side=tk.LEFT)
         self.vminlbl, self.vmin, self.vmintip = add_entry(
             self.rowv, label="vmin", text=0, width=11, command=self.entered_v,
@@ -350,7 +351,7 @@ class ncvMap(ttk.Frame):
             self.lond.append(lond)
             self.londtip.append(londtip)
         # lat-axis selection
-        spacex = ttk.Label(self.rowll, text=" "*3)
+        spacex = ttk.Label(self.rowll, text=" " * 3)
         spacex.pack(side=tk.LEFT)
         self.blocklat = ttk.Frame(self.rowll)
         self.blocklat.pack(side=tk.LEFT)
@@ -440,8 +441,8 @@ class ncvMap(ttk.Frame):
         # set global
         x = self.lon.get()
         if (x != ''):
-            vx = vardim2var(x)
-            xx = self.fi.variables[vx]
+            gx, vx = vardim2var(x, self.fi.groups.keys())
+            xx = self.fi[vx]
             xx = get_slice_miss(self, self.lond, xx)
             if np.any(np.isfinite(xx)):
                 xx = (xx + 360.) % 360.
@@ -580,7 +581,7 @@ class ncvMap(ttk.Frame):
         Command called if next frame button was pressed.
         """
         it = int(self.vdval[self.iunlim].get())
-        if it < self.nunlim-1:
+        if it < self.nunlim - 1:
             it += 1
             self.set_tstep(it)
             self.update(it, isframe=True)
@@ -806,10 +807,10 @@ class ncvMap(ttk.Frame):
         from numpy.random import default_rng
         v = self.v.get()
         if (v != ''):
-            vz = vardim2var(v)
+            gz, vz = vardim2var(v, self.fi.groups.keys())
             if vz == self.tname:
                 return (0, 1)
-            vv = self.fi.variables[vz]
+            vv = self.fi[vz]
             imiss = get_miss(self, vv)
             iall  = self.vall.get()
             if iall or (np.sum(vv.shape[:-2]) < 50):
@@ -823,9 +824,9 @@ class ncvMap(ttk.Frame):
                 for nn in range(50):
                     ss = []
                     for i in range(vv.ndim):
-                        if i < vv.ndim-2:
+                        if i < vv.ndim - 2:
                             idim = rng.integers(0, vv.shape[i])
-                            s = slice(idim, idim+1)
+                            s = slice(idim, idim + 1)
                         else:
                             s = slice(0, vv.shape[i])
                         ss.append(s)
@@ -940,8 +941,8 @@ class ncvMap(ttk.Frame):
             set_dim_lon(self)
         x = self.lon.get()
         if (x != ''):
-            vx = vardim2var(x)
-            xx = self.fi.variables[vx]
+            gx, vx = vardim2var(x, self.fi.groups.keys())
+            xx = self.fi[vx]
             xx = get_slice_miss(self, self.lond, xx)
             xx = xx + 360.
             if (xx.max() - xx.min()) > 150.:
@@ -971,7 +972,7 @@ class ncvMap(ttk.Frame):
         Set index and length of unlimited dimension of variable `v`.
 
         `v` (str) is the variable name as in the selection comboboxes, i.e.
-        `var = vardim2var(self.fi.variables[v)]`.
+        `gvar, var = vardim2var(self.fi[v)]`.
 
         Sets `self.nunlim` to the length of the unlimited dimension and
         `self.iunlim` to the index in variable.dimensions if
@@ -980,21 +981,21 @@ class ncvMap(ttk.Frame):
         Takes `self.iunlim=0` and `self.nunlim=variable.shape[0]` if
         self.dunlim == ''` or `self.dunlim` not in var.dimensions.
         """
-        vz = vardim2var(v)
+        gz, vz = vardim2var(v, self.fi.groups.keys())
         if vz == self.tname:
             self.iunlim = 0
             self.nunlim = self.time.size
         else:
             if self.dunlim:
-                if self.dunlim in self.fi.variables[vz].dimensions:
+                if self.dunlim in self.fi[vz].dimensions:
                     self.iunlim = (
-                        self.fi.variables[vz].dimensions.index(self.dunlim))
+                        self.fi[vz].dimensions.index(self.dunlim))
                 else:
                     self.iunlim = 0
             else:
                 self.iunlim = 0
-            if self.fi.variables[vz].ndim > 0:
-                self.nunlim = self.fi.variables[vz].shape[self.iunlim]
+            if self.fi[vz].ndim > 0:
+                self.nunlim = self.fi[vz].shape[self.iunlim]
             else:
                 self.nunlim = 0
 
@@ -1055,7 +1056,7 @@ class ncvMap(ttk.Frame):
         vz = 'None'
         if (v != ''):
             # variable
-            vz = vardim2var(v)
+            gz, vz = vardim2var(v, self.fi.groups.keys())
             if vz == self.tname:
                 # should throw an error later
                 if mesh:
@@ -1065,7 +1066,7 @@ class ncvMap(ttk.Frame):
                     vv = self.time
                     vlab = 'Date'
             else:
-                vv = self.fi.variables[vz]
+                vv = self.fi[vz]
                 vlab = set_axis_label(vv)
             vv = get_slice_miss(self, self.vd, vv)
             if trans_v:
@@ -1076,7 +1077,7 @@ class ncvMap(ttk.Frame):
             vlab = ''
         if (y != ''):
             # y axis
-            vy = vardim2var(y)
+            gy, vy = vardim2var(y, self.fi.groups.keys())
             if vy == self.tname:
                 if mesh:
                     yy = self.dtime
@@ -1085,14 +1086,14 @@ class ncvMap(ttk.Frame):
                     yy = self.time
                     ylab = 'Date'
             else:
-                yy   = self.fi.variables[vy]
+                yy   = self.fi[vy]
                 ylab = set_axis_label(yy)
             yy = get_slice_miss(self, self.latd, yy)
         else:
             ylab = ''
         if (x != ''):
             # x axis
-            vx = vardim2var(x)
+            gx, vx = vardim2var(x, self.fi.groups.keys())
             if vx == self.tname:
                 if mesh:
                     xx = self.dtime
@@ -1101,7 +1102,7 @@ class ncvMap(ttk.Frame):
                     xx = self.time
                     xlab = 'Date'
             else:
-                xx   = self.fi.variables[vx]
+                xx   = self.fi[vx]
                 xlab = set_axis_label(xx)
             xx = get_slice_miss(self, self.lond, xx)
             # set central longitude of projection
@@ -1314,15 +1315,15 @@ class ncvMap(ttk.Frame):
             inv_lon   = self.inv_lon.get()
             inv_lat   = self.inv_lat.get()
             shift_lon = self.shift_lon.get()
-            vz = vardim2var(v)
+            gz, vz = vardim2var(v, self.fi.groups.keys())
             if vz == self.tname:
                 vz = self.tvar
-            vv = self.fi.variables[vz]
+            vv = self.fi[vz]
             # slice
             try:
                 it = int(self.vdval[self.iunlim].get())
                 if not isframe:
-                    if (self.anim_inc == 1) and (it == self.nunlim-1):
+                    if (self.anim_inc == 1) and (it == self.nunlim - 1):
                         if rep == 'repeat':
                             it = 0
                         elif rep == 'reflect':
@@ -1353,7 +1354,7 @@ class ncvMap(ttk.Frame):
             if trans_v:
                 vv = vv.T
             if shift_lon:
-                vv = np.roll(vv, vv.shape[1]//2, axis=1)
+                vv = np.roll(vv, vv.shape[1] // 2, axis=1)
             self.ivv = vv
             # set data
             if mesh:
