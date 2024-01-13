@@ -1,124 +1,159 @@
 
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" />
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ncvue.ncvscatter &#8212; ncvue</title>
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ncvue.ncvscatter &mdash; ncvue 4.0.2.dev3 documentation</title>
   
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
 
   
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=628480d8" />
   
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
 
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
-    
+    <script src="../../_static/documentation_options.js?v=7670ec9e"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/ncvue/ncvscatter';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
-</head>
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-<body class="wy-body-for-nav">
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
 
-   
-  <div class="wy-grid-for-nav">
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
 
-          
-            <a href="../../index.html" class="icon icon-home"> ncvue
-          
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
 
-          
-          </a>
+  <header>
+  
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
+  
+  </header>
 
-          
-            
-            
-              <div class="version">
-                4.0.2.dev3
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
         
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-    <p class="link caption"><span class="link caption-text">Documentation</span></p>
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
     
-            
-            
-              
-            
-            
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../readme.html">ncvue - A GUI to view netCDF files</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../readme.html#about-ncvue">About ncvue</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../readme.html#quick-usage-guide">Quick usage guide</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../readme.html#general-layout">General layout</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../readme.html#map-panel">Map panel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../readme.html#scatter-line-panel">Scatter/Line panel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../readme.html#contour-panel">Contour panel</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../readme.html#license">License</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../install.html#binary-distributions">Binary distributions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../install.html#building-from-source">Building from source</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../install.html#dependencies">Dependencies</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../install.html#windows">Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../install.html#macos">macOS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../install.html#linux">Linux</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../package.html">API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../package.html#purpose">Purpose</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../package.html#subpackages">Subpackages</a></li>
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">ncvue</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">ncvue - A GUI to view netCDF files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../package.html">API</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvcontour.html">ncvue.ncvcontour</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvmain.html">ncvue.ncvmain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvmap.html">ncvue.ncvmap</a></li>
@@ -131,79 +166,153 @@
 </li>
 </ul>
 
-            
-          
-    <br />
-    <p class="link caption"><span class="link caption-text">ncvue Links</span></p>
-    <a href="https://github.com/mcuntz/ncvue">ncvue @ GitHub</a>
-    <a href="https://zenodo.org/record/4459598">ncvue Zenodo DOI</a>
-    <a href="https://pypi.org/project/ncvue">ncvue @ PyPI</a>
-    <br />
-    <br />
-    <a href="genindex.html">Index</a>
-    <a href="index.html">Sitemap</a>
+    </div>
+</nav></div>
+    </div>
   
-        </div>
-        
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
       </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
       
-      <nav class="wy-nav-top" aria-label="top navigation">
+      <main id="main-content" class="bd-main">
         
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">ncvue</a>
         
-      </nav>
 
+<div class="sbt-scroll-pixel-helper"></div>
 
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="../index.html">Module code</a> &raquo;</li>
-        
-      <li>ncvue.ncvscatter</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-      </li>
-    
-  </ul>
-
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
   
-  <hr/>
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/mcuntz/ncvue" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/mcuntz/ncvue/issues/new?title=Issue%20on%20page%20%2F_modules/ncvue/ncvscatter.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
             
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <h1>Source code for ncvue.ncvscatter</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="sd">&quot;&quot;&quot;</span>
@@ -233,6 +342,8 @@
 <span class="sd">      Jan 2021, Matthias Cuntz</span>
 <span class="sd">    * Write left-hand side and right-hand side values on bottom of plotting</span>
 <span class="sd">      canvas, May 2021, Matthias Cuntz</span>
+<span class="sd">    * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz</span>
+<span class="sd">    * Allow groups in netcdf files, Jan 2024, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span>
@@ -246,25 +357,31 @@
 <span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">filedialog</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">netCDF4</span> <span class="k">as</span> <span class="nn">nc</span>
-<span class="kn">from</span> <span class="nn">.ncvutils</span>   <span class="kn">import</span> <span class="n">clone_ncvmain</span><span class="p">,</span> <span class="n">format_coord_scatter</span>
-<span class="kn">from</span> <span class="nn">.ncvutils</span>   <span class="kn">import</span> <span class="n">set_axis_label</span><span class="p">,</span> <span class="n">vardim2var</span>
+<span class="kn">from</span> <span class="nn">.ncvutils</span> <span class="kn">import</span> <span class="n">clone_ncvmain</span><span class="p">,</span> <span class="n">format_coord_scatter</span>
+<span class="kn">from</span> <span class="nn">.ncvutils</span> <span class="kn">import</span> <span class="n">set_axis_label</span><span class="p">,</span> <span class="n">vardim2var</span>
 <span class="kn">from</span> <span class="nn">.ncvmethods</span> <span class="kn">import</span> <span class="n">analyse_netcdf</span><span class="p">,</span> <span class="n">get_slice_miss</span>
 <span class="kn">from</span> <span class="nn">.ncvmethods</span> <span class="kn">import</span> <span class="n">set_dim_x</span><span class="p">,</span> <span class="n">set_dim_y</span><span class="p">,</span> <span class="n">set_dim_y2</span>
 <span class="kn">from</span> <span class="nn">.ncvwidgets</span> <span class="kn">import</span> <span class="n">add_checkbutton</span><span class="p">,</span> <span class="n">add_combobox</span><span class="p">,</span> <span class="n">add_entry</span>
 <span class="kn">from</span> <span class="nn">.ncvwidgets</span> <span class="kn">import</span> <span class="n">add_spinbox</span><span class="p">,</span> <span class="n">add_tooltip</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="c1"># import matplotlib</span>
 <span class="c1"># matplotlib.use(&#39;TkAgg&#39;)</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-<span class="c1"># plt.style.use(&#39;seaborn-darkgrid&#39;)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-dark&#39;</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># plt.style.use(&#39;seaborn-v0_8-darkgrid&#39;)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8-dark&#39;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+    <span class="c1"># plt.style.use(&#39;seaborn-darkgrid&#39;)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-dark&#39;</span><span class="p">)</span>
 <span class="c1"># plt.style.use(&#39;fast&#39;)</span>
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ncvScatter&#39;</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="ncvScatter"><a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter">[docs]</a><span class="k">class</span> <span class="nc">ncvScatter</span><span class="p">(</span><span class="n">ttk</span><span class="o">.</span><span class="n">Frame</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="ncvScatter">
+<a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter">[docs]</a>
+<span class="k">class</span> <span class="nc">ncvScatter</span><span class="p">(</span><span class="n">ttk</span><span class="o">.</span><span class="n">Frame</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Panel for scatter and line plots.</span>
 
 <span class="sd">    Sets up the layout with the figure canvas, variable selectors, dimension</span>
@@ -410,7 +527,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">xd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xd</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">xdtip</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xdtip</span><span class="p">)</span>
         <span class="c1"># block y with dimensions</span>
-        <span class="n">spacex</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowxy</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">spacex</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowxy</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>
         <span class="n">spacex</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">blocky</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowxy</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">blocky</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
@@ -476,22 +593,22 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">lclbl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lc</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lctip</span> <span class="o">=</span> <span class="n">add_entry</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rowxyopt</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">col1</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
             <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">entered_y</span><span class="p">,</span>
-            <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;Line color:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">+</span><span class="n">ctstr</span><span class="p">)</span>
+            <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;Line color:</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">ctstr</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">markerlbl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">marker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">markertip</span> <span class="o">=</span> <span class="n">add_entry</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rowxyopt</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;marker&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
             <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">entered_y</span><span class="p">,</span>
-            <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;Marker symbol:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">+</span><span class="n">mtstr</span><span class="p">)</span>
+            <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;Marker symbol:</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">mtstr</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mslbl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ms</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mstip</span> <span class="o">=</span> <span class="n">add_entry</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rowxyopt</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;ms&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
             <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">entered_y</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;Marker size&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mfclbl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mfc</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mfctip</span> <span class="o">=</span> <span class="n">add_entry</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rowxyopt</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;mfc&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">col1</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
             <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">entered_y</span><span class="p">,</span>
-            <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;Marker fill color:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">+</span><span class="n">ctstr</span><span class="p">)</span>
+            <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;Marker fill color:</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">ctstr</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">meclbl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mec</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mectip</span> <span class="o">=</span> <span class="n">add_entry</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rowxyopt</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;mec&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">col1</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
             <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">entered_y</span><span class="p">,</span>
-            <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;Marker edge color:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">+</span><span class="n">ctstr</span><span class="p">)</span>
+            <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;Marker edge color:</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">ctstr</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mewlbl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mew</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mewtip</span> <span class="o">=</span> <span class="n">add_entry</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rowxyopt</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;mew&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
             <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">entered_y</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;Marker edge width&quot;</span><span class="p">)</span>
@@ -520,7 +637,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">rowy2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;invert y2&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">checked_y2</span><span class="p">,</span>
             <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;Invert right-hand-side y-axis&quot;</span><span class="p">)</span>
-        <span class="n">spacey2</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowy2</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="o">*</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">spacey2</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowy2</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">spacey2</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
         <span class="n">tstr</span> <span class="o">=</span> <span class="s2">&quot;Same limits for left-hand-side and right-hand-side y-axes&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">same_ylbl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">same_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">same_ytip</span> <span class="o">=</span> <span class="n">add_checkbutton</span><span class="p">(</span>
@@ -557,20 +674,20 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">lc2lbl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lc2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lc2tip</span> <span class="o">=</span> <span class="n">add_entry</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rowy2opt</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">col2</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
             <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">entered_y2</span><span class="p">,</span>
-            <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;Line color:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">+</span><span class="n">ctstr</span><span class="p">)</span>
+            <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;Line color:</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">ctstr</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">marker2lbl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">marker2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">marker2tip</span> <span class="o">=</span> <span class="n">add_entry</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rowy2opt</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;marker&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
             <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">entered_y2</span><span class="p">,</span>
-            <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;Marker symbol:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">+</span><span class="n">mtstr</span><span class="p">)</span>
+            <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;Marker symbol:</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">mtstr</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ms2lbl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ms2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ms2tip</span> <span class="o">=</span> <span class="n">add_entry</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rowy2opt</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;ms&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
             <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">entered_y2</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;Marker size&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mfc2lbl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mfc2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mfc2tip</span> <span class="o">=</span> <span class="n">add_entry</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rowy2opt</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;mfc&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">col2</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
-            <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">entered_y2</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;Marker fill color:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">+</span><span class="n">ctstr</span><span class="p">)</span>
+            <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">entered_y2</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;Marker fill color:</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">ctstr</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mec2lbl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mec2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mec2tip</span> <span class="o">=</span> <span class="n">add_entry</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rowy2opt</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;mec&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">col2</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
-            <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">entered_y2</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;Marker edge color:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">+</span><span class="n">ctstr</span><span class="p">)</span>
+            <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">entered_y2</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;Marker edge color:</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">ctstr</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mew2lbl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mew2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mew2tip</span> <span class="o">=</span> <span class="n">add_entry</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rowy2opt</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;mew&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
             <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">entered_y2</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;Marker edge width&quot;</span><span class="p">)</span>
@@ -579,8 +696,10 @@
     <span class="c1"># Event bindings</span>
     <span class="c1">#</span>
 
-<div class="viewcode-block" id="ncvScatter.checked_x"><a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.checked_x">[docs]</a>    <span class="k">def</span> <span class="nf">checked_x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="ncvScatter.checked_x">
+<a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.checked_x">[docs]</a>
+    <span class="k">def</span> <span class="nf">checked_x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if any checkbutton for x-axis was checked or unchecked.</span>
 
 <span class="sd">        Redraws left-hand-side and right-hand-side y-axes.</span>
@@ -588,8 +707,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw_y</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw_y2</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ncvScatter.checked_y"><a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.checked_y">[docs]</a>    <span class="k">def</span> <span class="nf">checked_y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvScatter.checked_y">
+<a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.checked_y">[docs]</a>
+    <span class="k">def</span> <span class="nf">checked_y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if any checkbutton for left-hand-side y-axis was checked</span>
 <span class="sd">        or unchecked.</span>
 
@@ -597,8 +719,11 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw_y</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ncvScatter.checked_y2"><a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.checked_y2">[docs]</a>    <span class="k">def</span> <span class="nf">checked_y2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvScatter.checked_y2">
+<a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.checked_y2">[docs]</a>
+    <span class="k">def</span> <span class="nf">checked_y2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if any checkbutton for right-hand-side y-axis was</span>
 <span class="sd">        checked or unchecked.</span>
 
@@ -606,34 +731,48 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw_y2</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ncvScatter.checked_yy2"><a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.checked_yy2">[docs]</a>    <span class="k">def</span> <span class="nf">checked_yy2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Command called if any checkbutton was checked or unchecked that concerns</span>
-<span class="sd">        both, the left-hand-side and right-hand-side y-axes.</span>
+
+<div class="viewcode-block" id="ncvScatter.checked_yy2">
+<a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.checked_yy2">[docs]</a>
+    <span class="k">def</span> <span class="nf">checked_yy2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Command called if any checkbutton was checked or unchecked</span>
+<span class="sd">        that concerns both, the left-hand-side and right-hand-side</span>
+<span class="sd">        y-axes.</span>
 
 <span class="sd">        Redraws left-hand-side and right-hand-side y-axes.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw_y</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw_y2</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ncvScatter.entered_y"><a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.entered_y">[docs]</a>    <span class="k">def</span> <span class="nf">entered_y</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvScatter.entered_y">
+<a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.entered_y">[docs]</a>
+    <span class="k">def</span> <span class="nf">entered_y</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if option was entered for left-hand-side y-axis.</span>
 
 <span class="sd">        Redraws left-hand-side y-axis.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw_y</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ncvScatter.entered_y2"><a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.entered_y2">[docs]</a>    <span class="k">def</span> <span class="nf">entered_y2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvScatter.entered_y2">
+<a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.entered_y2">[docs]</a>
+    <span class="k">def</span> <span class="nf">entered_y2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if option was entered for right-hand-side y-axis.</span>
 
 <span class="sd">        Redraws right-hand-side y-axis.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw_y2</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ncvScatter.next_y"><a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.next_y">[docs]</a>    <span class="k">def</span> <span class="nf">next_y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvScatter.next_y">
+<a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.next_y">[docs]</a>
+    <span class="k">def</span> <span class="nf">next_y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if next button for the left-hand-side y-variable was</span>
 <span class="sd">        pressed.</span>
 
@@ -649,6 +788,7 @@
             <span class="n">set_dim_y</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
 
+
     <span class="c1"># def onpick(self, event):</span>
     <span class="c1">#     print(&#39;in pick&#39;)</span>
     <span class="c1">#     print(&#39;you pressed&#39;, event.button, event.xdata, event.ydata)</span>
@@ -659,8 +799,10 @@
     <span class="c1">#     points = tuple(zip(xdata[ind], ydata[ind]))</span>
     <span class="c1">#     print(&#39;onpick points:&#39;, points)</span>
 
-<div class="viewcode-block" id="ncvScatter.prev_y"><a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.prev_y">[docs]</a>    <span class="k">def</span> <span class="nf">prev_y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="ncvScatter.prev_y">
+<a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.prev_y">[docs]</a>
+    <span class="k">def</span> <span class="nf">prev_y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if previous button for the left-hand-side y-variable was</span>
 <span class="sd">        pressed.</span>
 
@@ -676,8 +818,11 @@
             <span class="n">set_dim_y</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ncvScatter.newnetcdf"><a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.newnetcdf">[docs]</a>    <span class="k">def</span> <span class="nf">newnetcdf</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvScatter.newnetcdf">
+<a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.newnetcdf">[docs]</a>
+    <span class="k">def</span> <span class="nf">newnetcdf</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Open a new netcdf file and connect it to top.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># get new netcdf file name</span>
@@ -688,17 +833,17 @@
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
             <span class="c1"># reset empty defaults of top</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">dunlim</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>      <span class="c1"># name of unlimited dimension</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">time</span>   <span class="o">=</span> <span class="kc">None</span>    <span class="c1"># datetime variable</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">tname</span>  <span class="o">=</span> <span class="s1">&#39;&#39;</span>      <span class="c1"># datetime variable name</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">tvar</span>   <span class="o">=</span> <span class="s1">&#39;&#39;</span>      <span class="c1"># datetime variable name in netcdf</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">dtime</span>  <span class="o">=</span> <span class="kc">None</span>    <span class="c1"># decimal year</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">latvar</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>      <span class="c1"># name of latitude variable</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">lonvar</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>      <span class="c1"># name of longitude variable</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">latdim</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>      <span class="c1"># name of latitude dimension</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">londim</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>      <span class="c1"># name of longitude dimension</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">maxdim</span> <span class="o">=</span> <span class="mi">0</span>       <span class="c1"># maximum num of dims of all variables</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">cols</span>   <span class="o">=</span> <span class="p">[]</span>      <span class="c1"># variable list</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">dunlim</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># name of unlimited dimension</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">time</span>   <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># datetime variable</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">tname</span>  <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># datetime variable name</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">tvar</span>   <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># datetime variable name in netcdf</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">dtime</span>  <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># decimal year</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">latvar</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># name of latitude variable</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">lonvar</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># name of longitude variable</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">latdim</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># name of latitude dimension</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">londim</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># name of longitude dimension</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">maxdim</span> <span class="o">=</span> <span class="mi">0</span>   <span class="c1"># maximum num of dims of all variables</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">cols</span>   <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># variable list</span>
             <span class="c1"># open new netcdf file</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span> <span class="o">=</span> <span class="n">nc</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">ncfile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
             <span class="n">analyse_netcdf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
@@ -706,8 +851,11 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">reinit</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ncvScatter.selected_x"><a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.selected_x">[docs]</a>    <span class="k">def</span> <span class="nf">selected_x</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvScatter.selected_x">
+<a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.selected_x">[docs]</a>
+    <span class="k">def</span> <span class="nf">selected_x</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if x-variable was selected with combobox.</span>
 
 <span class="sd">        Triggering `event` was bound to the combobox.</span>
@@ -717,8 +865,11 @@
         <span class="n">set_dim_x</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ncvScatter.selected_y"><a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.selected_y">[docs]</a>    <span class="k">def</span> <span class="nf">selected_y</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvScatter.selected_y">
+<a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.selected_y">[docs]</a>
+    <span class="k">def</span> <span class="nf">selected_y</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if left-hand-side y-variable was selected with</span>
 <span class="sd">        combobox.</span>
 
@@ -729,8 +880,11 @@
         <span class="n">set_dim_y</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ncvScatter.selected_y2"><a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.selected_y2">[docs]</a>    <span class="k">def</span> <span class="nf">selected_y2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvScatter.selected_y2">
+<a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.selected_y2">[docs]</a>
+    <span class="k">def</span> <span class="nf">selected_y2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if right-hand-side y-variable was selected with</span>
 <span class="sd">        combobox.</span>
 
@@ -741,8 +895,11 @@
         <span class="n">set_dim_y2</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ncvScatter.spinned_x"><a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.spinned_x">[docs]</a>    <span class="k">def</span> <span class="nf">spinned_x</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvScatter.spinned_x">
+<a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.spinned_x">[docs]</a>
+    <span class="k">def</span> <span class="nf">spinned_x</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if spinbox of x-dimensions was changed.</span>
 
 <span class="sd">        Triggering `event` was bound to the spinbox.</span>
@@ -751,8 +908,11 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ncvScatter.spinned_y"><a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.spinned_y">[docs]</a>    <span class="k">def</span> <span class="nf">spinned_y</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvScatter.spinned_y">
+<a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.spinned_y">[docs]</a>
+    <span class="k">def</span> <span class="nf">spinned_y</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if spinbox of any dimension of left-hand-side</span>
 <span class="sd">        y-variable was changed.</span>
 
@@ -762,8 +922,11 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ncvScatter.spinned_y2"><a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.spinned_y2">[docs]</a>    <span class="k">def</span> <span class="nf">spinned_y2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvScatter.spinned_y2">
+<a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.spinned_y2">[docs]</a>
+    <span class="k">def</span> <span class="nf">spinned_y2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if spinbox of any dimension of right-hand-side</span>
 <span class="sd">        y-variable was changed.</span>
 
@@ -773,12 +936,15 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
 
+
     <span class="c1">#</span>
     <span class="c1"># Methods</span>
     <span class="c1">#</span>
 
-<div class="viewcode-block" id="ncvScatter.minmax_ylim"><a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.minmax_ylim">[docs]</a>    <span class="k">def</span> <span class="nf">minmax_ylim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ylim</span><span class="p">,</span> <span class="n">ylim2</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="ncvScatter.minmax_ylim">
+<a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.minmax_ylim">[docs]</a>
+    <span class="k">def</span> <span class="nf">minmax_ylim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ylim</span><span class="p">,</span> <span class="n">ylim2</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get minimum of first elements of lists `ylim` and `ylim2` and</span>
 <span class="sd">        maximum of second element of the two lists.</span>
 
@@ -800,8 +966,11 @@
                 <span class="n">ymax</span> <span class="o">=</span> <span class="n">ylim2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span></div>
 
-<div class="viewcode-block" id="ncvScatter.reinit"><a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.reinit">[docs]</a>    <span class="k">def</span> <span class="nf">reinit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvScatter.reinit">
+<a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.reinit">[docs]</a>
+    <span class="k">def</span> <span class="nf">reinit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Reinitialise the panel from top.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># reinit from top</span>
@@ -882,12 +1051,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">y2</span><span class="p">[</span><span class="s1">&#39;values&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">columns</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">y2</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></div>
 
+
     <span class="c1">#</span>
     <span class="c1"># Plot</span>
     <span class="c1">#</span>
 
-<div class="viewcode-block" id="ncvScatter.redraw_y"><a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.redraw_y">[docs]</a>    <span class="k">def</span> <span class="nf">redraw_y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="ncvScatter.redraw_y">
+<a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.redraw_y">[docs]</a>
+    <span class="k">def</span> <span class="nf">redraw_y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Redraw the left-hand-side y-axis.</span>
 
 <span class="sd">        Reads left-hand-side `y` variable name, the current settings of</span>
@@ -934,12 +1106,12 @@
                      <span class="s1">&#39;markerfacecolor&#39;</span><span class="p">:</span> <span class="n">mfc</span><span class="p">,</span>
                      <span class="s1">&#39;markeredgecolor&#39;</span><span class="p">:</span> <span class="n">mec</span><span class="p">,</span>
                      <span class="s1">&#39;markeredgewidth&#39;</span><span class="p">:</span> <span class="n">mew</span><span class="p">}</span>
-            <span class="n">vy</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">vy</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">:</span>
+            <span class="n">gy</span><span class="p">,</span> <span class="n">vy</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="k">if</span> <span class="n">vy</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">[</span><span class="n">gy</span><span class="p">]:</span>
                 <span class="n">ylab</span> <span class="o">=</span> <span class="s1">&#39;Date&#39;</span>
                 <span class="n">pargs</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">ylab</span> <span class="o">=</span> <span class="n">set_axis_label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vy</span><span class="p">])</span>
+                <span class="n">ylab</span> <span class="o">=</span> <span class="n">set_axis_label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="n">vy</span><span class="p">])</span>
                 <span class="c1"># ToDo with dimensions</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">line_y</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="c1"># set color only if single line,</span>
@@ -989,8 +1161,11 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ncvScatter.redraw_y2"><a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.redraw_y2">[docs]</a>    <span class="k">def</span> <span class="nf">redraw_y2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvScatter.redraw_y2">
+<a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.redraw_y2">[docs]</a>
+    <span class="k">def</span> <span class="nf">redraw_y2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Redraw the right-hand-side y-axis.</span>
 
 <span class="sd">        Reads right-hand-side `y` variable name, the current settings of</span>
@@ -1038,12 +1213,12 @@
                      <span class="s1">&#39;markerfacecolor&#39;</span><span class="p">:</span> <span class="n">mfc</span><span class="p">,</span>
                      <span class="s1">&#39;markeredgecolor&#39;</span><span class="p">:</span> <span class="n">mec</span><span class="p">,</span>
                      <span class="s1">&#39;markeredgewidth&#39;</span><span class="p">:</span> <span class="n">mew</span><span class="p">}</span>
-            <span class="n">vy</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">y2</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">vy</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">:</span>
+            <span class="n">gy</span><span class="p">,</span> <span class="n">vy</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">y2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="k">if</span> <span class="n">vy</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">[</span><span class="n">gy</span><span class="p">]:</span>
                 <span class="n">ylab</span> <span class="o">=</span> <span class="s1">&#39;Date&#39;</span>
                 <span class="n">pargs</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">ylab</span> <span class="o">=</span> <span class="n">set_axis_label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vy</span><span class="p">])</span>
+                <span class="n">ylab</span> <span class="o">=</span> <span class="n">set_axis_label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="n">vy</span><span class="p">])</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">line_y2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="c1"># set color only if single line,</span>
                     <span class="c1"># None and &#39;None&#39; do not work for multiple lines</span>
@@ -1093,8 +1268,11 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ncvScatter.redraw"><a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.redraw">[docs]</a>    <span class="k">def</span> <span class="nf">redraw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvScatter.redraw">
+<a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.redraw">[docs]</a>
+    <span class="k">def</span> <span class="nf">redraw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Redraw the left-hand-side and right-hand-side y-axis.</span>
 
 <span class="sd">        Reads the two `y` variable names, the current settings of</span>
@@ -1116,7 +1294,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">axes2</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">axes2</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_label_position</span><span class="p">(</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">axes2</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">tick_right</span><span class="p">()</span>
-        <span class="n">ylim</span>  <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+        <span class="n">ylim</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
         <span class="n">ylim2</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
         <span class="c1"># set x, y, axes labels</span>
         <span class="n">vx</span>  <span class="o">=</span> <span class="s1">&#39;None&#39;</span>
@@ -1125,32 +1303,32 @@
         <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">y2</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
             <span class="c1"># y axis</span>
             <span class="k">if</span> <span class="n">y</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
-                <span class="n">vy</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">vy</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">:</span>
-                    <span class="n">yy</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span>
+                <span class="n">gy</span><span class="p">,</span> <span class="n">vy</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+                <span class="k">if</span> <span class="n">vy</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">[</span><span class="n">gy</span><span class="p">]:</span>
+                    <span class="n">yy</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">gy</span><span class="p">]</span>
                     <span class="n">ylab</span> <span class="o">=</span> <span class="s1">&#39;Date&#39;</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">yy</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vy</span><span class="p">]</span>
+                    <span class="n">yy</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="n">vy</span><span class="p">]</span>
                     <span class="n">ylab</span> <span class="o">=</span> <span class="n">set_axis_label</span><span class="p">(</span><span class="n">yy</span><span class="p">)</span>
                 <span class="n">yy</span> <span class="o">=</span> <span class="n">get_slice_miss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">yd</span><span class="p">,</span> <span class="n">yy</span><span class="p">)</span>
             <span class="c1"># y2 axis</span>
             <span class="k">if</span> <span class="n">y2</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
-                <span class="n">vy2</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">y2</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">vy2</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">:</span>
-                    <span class="n">yy2</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span>
+                <span class="n">gy2</span><span class="p">,</span> <span class="n">vy2</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">y2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+                <span class="k">if</span> <span class="n">vy2</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">[</span><span class="n">gy2</span><span class="p">]:</span>
+                    <span class="n">yy2</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">gy2</span><span class="p">]</span>
                     <span class="n">ylab2</span> <span class="o">=</span> <span class="s1">&#39;Date&#39;</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">yy2</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vy2</span><span class="p">]</span>
+                    <span class="n">yy2</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="n">vy2</span><span class="p">]</span>
                     <span class="n">ylab2</span> <span class="o">=</span> <span class="n">set_axis_label</span><span class="p">(</span><span class="n">yy2</span><span class="p">)</span>
                 <span class="n">yy2</span> <span class="o">=</span> <span class="n">get_slice_miss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y2d</span><span class="p">,</span> <span class="n">yy2</span><span class="p">)</span>
             <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
                 <span class="c1"># x axis</span>
-                <span class="n">vx</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">vx</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">:</span>
-                    <span class="n">xx</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span>
+                <span class="n">gx</span><span class="p">,</span> <span class="n">vx</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+                <span class="k">if</span> <span class="n">vx</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">[</span><span class="n">gx</span><span class="p">]:</span>
+                    <span class="n">xx</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">gx</span><span class="p">]</span>
                     <span class="n">xlab</span> <span class="o">=</span> <span class="s1">&#39;Date&#39;</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">xx</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vx</span><span class="p">]</span>
+                    <span class="n">xx</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="n">vx</span><span class="p">]</span>
                     <span class="n">xlab</span> <span class="o">=</span> <span class="n">set_axis_label</span><span class="p">(</span><span class="n">xx</span><span class="p">)</span>
                 <span class="n">xx</span> <span class="o">=</span> <span class="n">get_slice_miss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">xd</span><span class="p">,</span> <span class="n">xx</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
@@ -1203,50 +1381,77 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">y0</span>  <span class="o">=</span> <span class="n">y</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">y20</span> <span class="o">=</span> <span class="n">y2</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>
+</div>
+
 </pre></div>
 
-           </div>
-           
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"></div>
+              
+            
           </div>
-          <footer>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &#169; Copyright 2020-2021, Matthias Cuntz.
-
-    </p>
-  </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
     
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-        </div>
-      </div>
-
-    </section>
+<p class="component-author">
+By Matthias Cuntz
+</p>
 
   </div>
   
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
+  <div class="footer-item">
     
-   
 
-</body>
+  <p class="copyright">
+    
+      © Copyright 2020-2024, Matthias Cuntz.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
 </html>

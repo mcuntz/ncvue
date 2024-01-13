@@ -7,7 +7,7 @@ Created Nov 2020-Jan 2021 by Matthias Cuntz.
 
 It is distributed under the MIT License (see LICENSE file and below).
 
-Copyright (c) 2020-2022 Matthias Cuntz
+Copyright (c) 2020-2024 Matthias Cuntz
 
 Main Author
 -----------

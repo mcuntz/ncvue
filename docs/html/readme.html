@@ -1,126 +1,162 @@
 
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" />
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ncvue - A GUI to view netCDF files &#8212; ncvue</title>
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ncvue - A GUI to view netCDF files &mdash; ncvue 4.1.2.dev0 documentation</title>
   
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
 
   
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=628480d8" />
   
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
 
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+    <script src="_static/documentation_options.js?v=7670ec9e"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'readme';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Installation" href="install.html" />
-    <link rel="prev" title="Contents" href="index.html" /> 
-</head>
+    <link rel="prev" title="Contents" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-<body class="wy-body-for-nav">
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
 
-   
-  <div class="wy-grid-for-nav">
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
 
-          
-            <a href="index.html" class="icon icon-home"> ncvue
-          
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
 
-          
-          </a>
+  <header>
+  
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
+  
+  </header>
 
-          
-            
-            
-              <div class="version">
-                4.1.2.dev0
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
         
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-    <p class="link caption"><span class="link caption-text">Documentation</span></p>
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
     
-            
-            
-              
-            
-            
-              <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">ncvue - A GUI to view netCDF files</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#about-ncvue">About ncvue</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#quick-usage-guide">Quick usage guide</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#general-layout">General layout</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#map-panel">Map panel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#scatter-line-panel">Scatter/Line panel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#contour-panel">Contour panel</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#license">License</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="install.html#binary-distributions">Binary distributions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="install.html#building-from-source">Building from source</a></li>
-<li class="toctree-l2"><a class="reference internal" href="install.html#dependencies">Dependencies</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="install.html#windows">Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="install.html#macos">macOS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="install.html#linux">Linux</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
-<li class="toctree-l1"><a class="reference internal" href="package.html">API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="package.html#purpose">Purpose</a></li>
-<li class="toctree-l2"><a class="reference internal" href="package.html#subpackages">Subpackages</a></li>
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">ncvue</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">ncvue - A GUI to view netCDF files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="package.html">API</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="ncvcontour.html">ncvue.ncvcontour</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvmain.html">ncvue.ncvmain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvmap.html">ncvue.ncvmap</a></li>
@@ -133,117 +169,265 @@
 </li>
 </ul>
 
-            
-          
-    <br />
-    <p class="link caption"><span class="link caption-text">ncvue Links</span></p>
-    <a href="https://github.com/mcuntz/ncvue">ncvue @ GitHub</a>
-    <a href="https://zenodo.org/record/4459598">ncvue Zenodo DOI</a>
-    <a href="https://pypi.org/project/ncvue">ncvue @ PyPI</a>
-    <br />
-    <br />
-    <a href="genindex.html">Index</a>
-    <a href="index.html">Sitemap</a>
+    </div>
+</nav></div>
+    </div>
   
-        </div>
-        
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">ncvue</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
-      <li>ncvue - A GUI to view netCDF files</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="_sources/readme.rst.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
   
-  <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
-      
-        <a href="install.html" class="btn btn-neutral float-right" title="Installation" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-      
-      
-        <a href="index.html" class="btn btn-neutral float-left" title="Contents" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-      
+  <div class="sidebar-primary-items__end sidebar-primary__section">
   </div>
   
-  <hr/>
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/mcuntz/ncvue" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/mcuntz/ncvue/edit/main/docs/readme.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/mcuntz/ncvue/issues/new?title=Issue%20on%20page%20%2Freadme.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/readme.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>ncvue - A GUI to view netCDF files</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
             
-  <div class="section" id="ncvue-a-gui-to-view-netcdf-files">
-<h1>ncvue - A GUI to view netCDF files<a class="headerlink" href="#ncvue-a-gui-to-view-netcdf-files" title="Permalink to this headline">¶</a></h1>
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#about-ncvue">About ncvue</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-usage-guide">Quick usage guide</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#general-layout">General layout</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#map-panel">Map panel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-line-panel">Scatter/Line panel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#contour-panel">Contour panel</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license">License</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="ncvue-a-gui-to-view-netcdf-files">
+<h1>ncvue - A GUI to view netCDF files<a class="headerlink" href="#ncvue-a-gui-to-view-netcdf-files" title="Link to this heading">#</a></h1>
 <p>A minimal GUI for a quick view of netCDF files. Aiming to be a drop-in
 replacement for <a class="reference external" href="http://meteora.ucsd.edu/~pierce/ncview_home_page.html">ncview</a> and <a class="reference external" href="https://www.giss.nasa.gov/tools/panoply/">panoply</a>.</p>
 <a class="reference external image-reference" href="https://doi.org/10.5281/zenodo.4459598"><img alt="Zenodo DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.4459598.svg" /></a>
 <a class="reference external image-reference" href="https://badge.fury.io/py/ncvue"><img alt="PyPI version" src="https://badge.fury.io/py/ncvue.svg" /></a>
 <a class="reference external image-reference" href="https://github.com/mcuntz/ncvue/blob/master/LICENSE"><img alt="License" src="http://img.shields.io/badge/license-MIT-blue.svg?style=flat" /></a>
 <a class="reference external image-reference" href="https://travis-ci.org/mcuntz/ncvue"><img alt="Build status" src="https://travis-ci.org/mcuntz/ncvue.svg?branch=main" /></a>
-<div class="section" id="about-ncvue">
-<h2>About ncvue<a class="headerlink" href="#about-ncvue" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is a minimal GUI for a quick view of netCDF files. It is aiming to be
-a drop-in replacement for <a class="reference external" href="http://meteora.ucsd.edu/~pierce/ncview_home_page.html">ncview</a> and <a class="reference external" href="https://www.giss.nasa.gov/tools/panoply/">panoply</a>, being slightly more general than
-ncview targeting maps but providing animations, zooming and panning capabilities
-unlike panoply. If <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is used with maps, it supports mostly structured
-grids, more precisely the grids supported by <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/">cartopy</a>.</p>
-<p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is a Python script that can be called from within Python or as a
-command line tool. It is not supposed to produce publication-ready plots but
-rather provide a quick overview of the netCDF file.</p>
+<section id="about-ncvue">
+<h2>About ncvue<a class="headerlink" href="#about-ncvue" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is a minimal GUI for a quick view of netCDF files. It is
+aiming to be a drop-in replacement for <a class="reference external" href="http://meteora.ucsd.edu/~pierce/ncview_home_page.html">ncview</a> and <a class="reference external" href="https://www.giss.nasa.gov/tools/panoply/">panoply</a>, being
+slightly more general than ncview targeting maps but providing
+animations, zooming and panning capabilities unlike panoply. If
+<code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is used with maps, it supports mostly structured grids, more
+precisely the grids supported by <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/">cartopy</a>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is a Python script that can be called from within Python or
+as a command line tool. It is not supposed to produce
+publication-ready plots but rather provide a quick overview of the
+netCDF file.</p>
 <p>The complete documentation for <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is available from:</p>
 <blockquote>
 <div><p><a class="reference external" href="https://mcuntz.github.io/ncvue/">https://mcuntz.github.io/ncvue/</a></p>
 </div></blockquote>
-</div>
-<div class="section" id="quick-usage-guide">
-<h2>Quick usage guide<a class="headerlink" href="#quick-usage-guide" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="quick-usage-guide">
+<h2>Quick usage guide<a class="headerlink" href="#quick-usage-guide" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> can be run from the command line:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ncvue netcdf_file.nc
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ncvue<span class="w"> </span>netcdf_file.nc
 </pre></div>
 </div>
 <p>or from within Python:</p>
@@ -251,167 +435,238 @@ rather provide a quick overview of the netCDF file.</p>
 <span class="n">ncvue</span><span class="p">(</span><span class="s1">&#39;netcdf_file.nc&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>where the netCDF file is optional. The latter can also be left out and a netCDF
-file can be opened with the “Open File” button from within <code class="docutils literal notranslate"><span class="pre">ncvue</span></code>.</p>
-<p>Note, <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> uses the <cite>TkAgg</cite> backend of <cite>matplotlib</cite>. It must be called
-before any other call to <cite>matplotlib</cite>. This also means that you cannot launch it
-from within <cite>iPython</cite> if it was launched with <cite>–pylab</cite>. It can be called from
-within a standard <cite>iPython</cite>, though, or using <cite>ipython –gui tk</cite>.</p>
-<p>When using <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> with <cite>jupyter</cite> notebooks, one has to set <cite>%matplotlib
-inline</cite> before the import and call of <code class="docutils literal notranslate"><span class="pre">ncvue</span></code>. You have set <cite>%matplotlib
-inline</cite> again if you want to continue having inline plots in <cite>jupyter</cite>
-afterwards.</p>
+<p>where the netCDF file is optional. The latter can also be left out and
+a netCDF file can be opened with the “Open File” button from within
+<code class="docutils literal notranslate"><span class="pre">ncvue</span></code>.</p>
+<p>Note, <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> uses the <cite>TkAgg</cite> backend of <cite>matplotlib</cite>. It must be
+called before any other call to <cite>matplotlib</cite>. This also means that you
+cannot launch it from within <cite>iPython</cite> if it was launched with
+<cite>–pylab</cite>. It can be called from within a standard <cite>iPython</cite>, though,
+or using <cite>ipython –gui tk</cite>.</p>
+<p>When using <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> with <cite>jupyter</cite> notebooks, one has to set
+<cite>%matplotlib inline</cite> before the import and call of <code class="docutils literal notranslate"><span class="pre">ncvue</span></code>. You have
+set <cite>%matplotlib inline</cite> again if you want to continue having inline
+plots in <cite>jupyter</cite> afterwards.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
 <span class="kn">from</span> <span class="nn">ncvue</span> <span class="kn">import</span> <span class="n">ncvue</span>
 <span class="n">ncvue</span><span class="p">(</span><span class="s1">&#39;netcdf_file.nc&#39;</span><span class="p">)</span>
 <span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
 </pre></div>
 </div>
-<p>One can also install standalone macOS or Windows applications that come with
-everything needed to run <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> including Python:</p>
+<p>One can also install standalone macOS or Windows applications that
+come with everything needed to run <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> including Python:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://www.macu.de/extra/ncvue-4.0.dmg">macOS app</a> (macOS &gt; 10.13 [High Sierra] on Intel)</p></li>
 <li><p><a class="reference external" href="http://www.macu.de/extra/ncvue-3.7-amd64.msi">Windows executable</a> (Windows 10)</p></li>
 </ul>
-<p>The macOS app should work from macOS 10.13 (High Sierra) onward on Intel
-processors. There is no standalone application for macOS on Apple Silicon (M1)
-chips because I do not have a paid Apple Developer ID. Other installation
-options work, though.</p>
-<p>A dialog box might pop up on macOS saying that the <code class="docutils literal notranslate"><span class="pre">ncvue.app</span></code> is from an
-unidentified developer. This is because <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is an open-source software.
-Depending on the macOS version, it offers to open it anyway. In later versions
-of macOS, this option is only given if you right-click (or control-click) on the
-<code class="docutils literal notranslate"><span class="pre">ncvue.app</span></code> and choose <cite>Open</cite>. You only have to do this once. It will open like
-any other application the next times.</p>
-<div class="section" id="general-layout">
-<h3>General layout<a class="headerlink" href="#general-layout" title="Permalink to this headline">¶</a></h3>
-<p>On opening, <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> presents three panels for different plotting types:
-Scatter or Line plots, Contour plots, and Maps. This is the look in macOS light
-mode (click on figures to open larger pictures):</p>
+<p>The macOS app should work from macOS 10.13 (High Sierra) onward on
+Intel processors. There is no standalone application for macOS on
+Apple Silicon (M1) chips because I do not have a paid Apple
+Developer ID. Other installation options work, though.</p>
+<p>A dialog box might pop up on macOS saying that the <code class="docutils literal notranslate"><span class="pre">ncvue.app</span></code> is
+from an unidentified developer. This is because <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is an
+open-source software.  Depending on the macOS version, it offers to
+open it anyway. In later versions of macOS, this option is only given
+if you right-click (or control-click) on the <code class="docutils literal notranslate"><span class="pre">ncvue.app</span></code> and choose
+<cite>Open</cite>. You only have to do this once. It will open like any other
+application the next times.</p>
+<section id="general-layout">
+<h3>General layout<a class="headerlink" href="#general-layout" title="Link to this heading">#</a></h3>
+<p>On opening, <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> presents three panels for different plotting
+types: Scatter or Line plots, Contour plots, and Maps. This is the
+look in macOS light mode (click on figures to open larger pictures):</p>
 <a class="reference internal image-reference" href="https://mcuntz.github.io/ncvue/images/scatter_panel_light.png"><img alt="Graphical documentation of ncvue layout" class="align-left" src="https://mcuntz.github.io/ncvue/images/scatter_panel_light.png" style="width: 860px;" /></a>
-<p>All three panes are organised in this fashion: the plotting canvas, the
-Matplotlib navigation toolbar and the pane, where one can choose the plotting
-variables and dimensions, as well as plotting options. You can always choose
-another panel on top, and open another, identical window for the same netCDF
-file with the button “New Window” on the top right.</p>
-</div>
-<div class="section" id="map-panel">
-<h3>Map panel<a class="headerlink" href="#map-panel" title="Permalink to this headline">¶</a></h3>
-<p>If <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> detects latitude and longitude variables with a size greater than
-1, it opens the Map panel by default. This is the Map panel in macOS dark mode,
-describing all buttons, sliders, entry boxes, spinboxes, and menus:</p>
+<p>All three panes are organised in this fashion: the plotting canvas,
+the Matplotlib navigation toolbar and the pane, where one can choose
+the plotting variables and dimensions, as well as plotting
+options. You can always choose another panel on top, and open another,
+identical window for the same netCDF file with the button “New Window”
+on the top right.</p>
+</section>
+<section id="map-panel">
+<h3>Map panel<a class="headerlink" href="#map-panel" title="Link to this heading">#</a></h3>
+<p>If <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> detects latitude and longitude variables with a size
+greater than 1, it opens the Map panel by default. This is the Map
+panel in macOS dark mode, describing all buttons, sliders, entry
+boxes, spinboxes, and menus:</p>
 <a class="reference internal image-reference" href="https://mcuntz.github.io/ncvue/images/map_panel_dark.png"><img alt="Graphical documentation of Map panel" class="align-left" src="https://mcuntz.github.io/ncvue/images/map_panel_dark.png" style="width: 860px;" /></a>
-<p>If it happens that the detection of latitudes and longitudes did not work
-automatically, you can choose the correct variables manually. Or you might use
-the empty entries on top of the dropdown menus of the latitudes and longitudes,
-which uses the index and one can hence display the matrix within the netCDF
-file. You might want to switch of the coastlines in this case.</p>
-<p>You might want to switch off the automatically detected “global” option
-sometimes if your data is on a rotated grid or excludes some regions such as
-below minus -60 °S.</p>
-<p>All dimensions can be set from 0 to the size of the dimension-1, to “all”, or to
-any of the arithmetic operators “mean”, “std” (standard deviation), “min”,
-“max”, “ptp” (point-to-point amplitude, i.e. max-min), “sum”, “median”, “var”
-(variance).</p>
-<p>Be aware that the underlying cartopy/matplotlib may (or may not) need a long
-time to plot the data (with the pseudocolor ‘mesh’ option) if you change the
-central longitude of the projection from the central longitude of your data,
-which is automatically detected if “central lon” is set to None. Setting
-“central lon” to the central longitude of the input data normally eliminates the
-problem.</p>
-</div>
-<div class="section" id="scatter-line-panel">
-<h3>Scatter/Line panel<a class="headerlink" href="#scatter-line-panel" title="Permalink to this headline">¶</a></h3>
-<p>If <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> does not detect latitude and longitude variables with a size
-greater than 1, it opens the Scatter/Line panel by default. This is the
-Scatter/Line panel in macOS dark mode, describing all buttons, sliders, entry
-boxes, spinboxes, and menus:</p>
+<p>If it happens that the detection of latitudes and longitudes did not
+work automatically, you can choose the correct variables manually. Or
+you might use the empty entries on top of the dropdown menus of the
+latitudes and longitudes, which uses the index and one can hence
+display the matrix within the netCDF file. You might want to switch of
+the coastlines in this case.</p>
+<p>You might want to switch off the automatically detected “global”
+option sometimes if your data is on a rotated grid or excludes some
+regions such as below minus -60 °S.</p>
+<p>All dimensions can be set from 0 to the size of the dimension-1, to
+“all”, or to any of the arithmetic operators “mean”, “std” (standard
+deviation), “min”, “max”, “ptp” (point-to-point amplitude,
+i.e. max-min), “sum”, “median”, “var” (variance).</p>
+<p>Be aware that the underlying cartopy/matplotlib may (or may not) need
+a long time to plot the data (with the pseudocolor ‘mesh’ option) if
+you change the central longitude of the projection from the central
+longitude of your data, which is automatically detected if “central
+lon” is set to None. Setting “central lon” to the central longitude of
+the input data normally eliminates the problem.</p>
+</section>
+<section id="scatter-line-panel">
+<h3>Scatter/Line panel<a class="headerlink" href="#scatter-line-panel" title="Link to this heading">#</a></h3>
+<p>If <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> does not detect latitude and longitude variables with a
+size greater than 1, it opens the Scatter/Line panel by default. This
+is the Scatter/Line panel in macOS dark mode, describing all buttons,
+sliders, entry boxes, spinboxes, and menus:</p>
 <a class="reference internal image-reference" href="https://mcuntz.github.io/ncvue/images/scatter_panel_dark.png"><img alt="Graphical documentation of Scatter/Line panel" class="align-left" src="https://mcuntz.github.io/ncvue/images/scatter_panel_dark.png" style="width: 860px;" /></a>
-<p>The default plot is a line plot with solid lines (line style ‘ls’ is ‘-‘). One
-can set line style ‘ls’ to None and set a marker symbol, e.g. ‘o’ for circles, to
-get a scatter plot. A large variety of line styles, marker symbols and color
-notations are supported.</p>
-<p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> builds automatically a <cite>datetime</cite> variable from the time axis. This is
-correctly interpreted by the underlying Matplotlib also when zooming into or
-panning the axes. But it is also much slower than using the index. Selecting the
-empty entry on top of the dropdown menu for <cite>x</cite> uses the index for the x-axis
-and is very fast. Plotting a line plot with 52608 time points takes about 2.2 s
-on my Macbook Pro using the <cite>datetime</cite> variable and about 0.3 s using the index
-(i.e. empty x-variable). This is especially true if one plots multiple lines
-with ‘all’ entries from a specific dimension. Plotting all 10 depths of soil
-water content for the 52608 time points, as in the example below, takes also
-about 0.3 s if using the index as x-variable but more than 11.1 s when using the
-<cite>datetime</cite> variable.</p>
+<p>The default plot is a line plot with solid lines (line style ‘ls’ is
+‘-‘). One can set line style ‘ls’ to None and set a marker symbol,
+e.g. ‘o’ for circles, to get a scatter plot. A large variety of line
+styles, marker symbols and color notations are supported.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> builds automatically a <cite>datetime</cite> variable from the time
+axis. This is correctly interpreted by the underlying Matplotlib also
+when zooming into or panning the axes. But it is also much slower than
+using the index. Selecting the empty entry on top of the dropdown menu
+for <cite>x</cite> uses the index for the x-axis and is very fast. Plotting a
+line plot with 52608 time points takes about 2.2 s on my Macbook Pro
+using the <cite>datetime</cite> variable and about 0.3 s using the index
+(i.e. empty x-variable). This is especially true if one plots multiple
+lines with ‘all’ entries from a specific dimension. Plotting all 10
+depths of soil water content for the 52608 time points, as in the
+example below, takes also about 0.3 s if using the index as x-variable
+but more than 11.1 s when using the <cite>datetime</cite> variable.</p>
 <a class="reference internal image-reference" href="https://mcuntz.github.io/ncvue/images/scatter_panel_dark_multiline.png"><img alt="Example of multiple lines in the Scatter/Line panel" class="align-center" src="https://mcuntz.github.io/ncvue/images/scatter_panel_dark_multiline.png" style="width: 407px;" /></a>
-</div>
-<div class="section" id="contour-panel">
-<h3>Contour panel<a class="headerlink" href="#contour-panel" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="contour-panel">
+<h3>Contour panel<a class="headerlink" href="#contour-panel" title="Link to this heading">#</a></h3>
 <p>The last panel provide by <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> draws contour plots. This is the
-Contour panel in macOS dark mode, describing all buttons, sliders, entry
-boxes, spinboxes, and menus:</p>
+Contour panel in macOS dark mode, describing all buttons, sliders,
+entry boxes, spinboxes, and menus:</p>
 <a class="reference internal image-reference" href="https://mcuntz.github.io/ncvue/images/contour_panel_dark.png"><img alt="Graphical documentation of Contour panel" class="align-left" src="https://mcuntz.github.io/ncvue/images/contour_panel_dark.png" style="width: 860px;" /></a>
 <p>This produces also either pseudocolor plots (‘mesh’ ticked) or filled
-contour plots (‘mesh’ unticked) just as the Map panel but without any map
-projection.</p>
-</div>
-</div>
-<div class="section" id="license">
-<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is distributed under the MIT License. See the <a class="reference external" href="https://github.com/mcuntz/ncvue/blob/main/LICENSE">LICENSE</a> file for
-details.</p>
-<p>Copyright (c) 2020-2021 Matthias Cuntz</p>
-<p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> uses the <a class="reference external" href="https://github.com/rdbende/Azure-ttk-theme">Azure</a> theme by <a class="reference external" href="https://github.com/rdbende">rdbende</a> on Linux and the <a class="reference external" href="https://github.com/rdbende/Sun-Valley-ttk-theme">Sun Valley</a> theme
-also by <a class="reference external" href="https://github.com/rdbende">rdbende</a> on Windows.</p>
-<p>Standalone applications are produced with <a class="reference external" href="https://cx-freeze.readthedocs.io/en/latest/">cx_Freeze</a>, currently maintained by
-<a class="reference external" href="https://github.com/marcelotduarte">Marcelo Duarte</a>.</p>
-<p>The project structure of <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> was very originally based on a <a class="reference external" href="https://github.com/MuellerSeb/template">template</a>
-provided by <a class="reference external" href="https://github.com/MuellerSeb">Sebastian Müller</a> but has evolved considerably.</p>
+contour plots (‘mesh’ unticked) just as the Map panel but without any
+map projection.</p>
+</section>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is distributed under the MIT License. See the <a class="reference external" href="https://github.com/mcuntz/ncvue/blob/main/LICENSE">LICENSE</a> file
+for details.</p>
+<p>Copyright (c) 2020-2024 Matthias Cuntz</p>
+<p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> uses the <a class="reference external" href="https://github.com/rdbende/Azure-ttk-theme">Azure</a> 2.0 theme by <a class="reference external" href="https://github.com/rdbende">rdbende</a> on Linux and Windows.</p>
+<p>Standalone applications are produced with <a class="reference external" href="https://cx-freeze.readthedocs.io/en/latest/">cx_Freeze</a>, currently
+maintained by <a class="reference external" href="https://github.com/marcelotduarte">Marcelo Duarte</a>.</p>
+<p>The project structure of <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> was very originally based on a
+<a class="reference external" href="https://github.com/MuellerSeb/template">template</a> provided by <a class="reference external" href="https://github.com/MuellerSeb">Sebastian Müller</a> but has evolved
+considerably.</p>
 <p>Different netCDF test files were provided by <a class="reference external" href="https://github.com/julemai">Juliane Mai</a>.</p>
-</div>
-</div>
+</section>
+</section>
 
 
-           </div>
-           
-          </div>
-          <footer>
+                </article>
+              
 
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &#169; Copyright 2020-2022, Matthias Cuntz.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-        </div>
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Contents</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="install.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Installation</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
-    </section>
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#about-ncvue">About ncvue</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-usage-guide">Quick usage guide</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#general-layout">General layout</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#map-panel">Map panel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-line-panel">Scatter/Line panel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#contour-panel">Contour panel</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license">License</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Matthias Cuntz
+</p>
 
   </div>
   
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
+  <div class="footer-item">
     
-   
 
-</body>
+  <p class="copyright">
+    
+      © Copyright 2020-2024, Matthias Cuntz.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
 </html>

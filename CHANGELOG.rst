@@ -2,6 +2,7 @@ Changelog
 ---------
 
 v4.2 (Jan 2024)
+    * Changed to sphinx_book_theme for documentation.
     * Use local copy of `tooltip.py` from idle.
     * Allow groups in netcdf files.
     * Made ``ncvue`` work with newer matplotlib versions, updating
@@ -114,7 +115,7 @@ v1.4 (Dec 2020)
     * Use unlimited dimension instead of first dimension in Scatter and Contour
       panels as default for 'all'.
     * Use slice function rather than numpy.take to extract slices of arrays,
-    i.e. reads only the current slice from disk.
+      i.e. reads only the current slice from disk.
     * Enhanced documentation with automatic API generation.
 
 v1.3 (Dec 2020)

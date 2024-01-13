@@ -3,7 +3,7 @@
 Make stand-alone version of ncvue with cx_Freeze.
 
 On macOS, use minimal virtual environment
-    pyenv virtualenv 3.8.9 install-ncvue
+    pyenv virtualenv 3.12.1 install-ncvue
     pyenv rehash
     pyenv local install-ncvue
     pip install --upgrade cython numpy pyshp six
@@ -18,10 +18,10 @@ On macOS, use minimal virtual environment
     pip install flake8  # for Emacs
     pip install cx_Freeze
     # libtiff.5.dylib version of PIL too old for pyproj -> use current from homebrew
-    mv ~/.pyenv/versions/3.8.9/envs/install-ncvue/lib/python3.8/site-packages/PIL/.dylibs/libtiff.5.dylib \
-       ~/.pyenv/versions/3.8.9/envs/install-ncvue/lib/python3.8/site-packages/PIL/.dylibs/libtiff.5.dylib.save
+    mv ~/.pyenv/versions/3.12.1/envs/install-ncvue/lib/python3.8/site-packages/PIL/.dylibs/libtiff.5.dylib \
+       ~/.pyenv/versions/3.12.1/envs/install-ncvue/lib/python3.8/site-packages/PIL/.dylibs/libtiff.5.dylib.save
     \cp /usr/local/lib/libtiff.5.dylib \
-        ~/.pyenv/versions/3.8.9/envs/install-ncvue/lib/python3.8/site-packages/PIL/.dylibs/libtiff.5.dylib
+        ~/.pyenv/versions/3.12.1/envs/install-ncvue/lib/python3.8/site-packages/PIL/.dylibs/libtiff.5.dylib
 
 On Windows, use conda-forge for everything because more up-to-date
     # Do not use mkl for smaller executable with PyInstaller/cx_Freeze
@@ -42,7 +42,6 @@ macOS dmg
 Windows installer
     python.exe cx_freeze_setup.py bdist_msi
 '''
-from __future__ import division, absolute_import, print_function
 import os
 import codecs
 import re
@@ -90,7 +89,8 @@ def _post_build_win(exedir):
             shutil.copy2(aa, exedir)
 
 
-# special build hook for macOS on Apple Silicon (M1) - add all .dylib also to base path
+# special build hook for macOS on Apple Silicon (M1) - add all .dylib
+# also to base path
 def _post_build_m1(exedir):
     adir = glob.glob(exedir + '/lib/**/*.dylib', recursive=True)
     for aa in adir:
@@ -124,7 +124,7 @@ doclines1 = 'A minimal GUI for a quick view of netcdf files'
 doclines  = doclines1 + ', aiming to be a drop-in replacement'
 doclines += ' for ncview and panoply.'
 author    = 'Matthias Cuntz'
-copyright = 'Copyright (c) 2020-2021 Matthias Cuntz - mc (at) macu (dot) de'
+copyright = 'Copyright (c) 2020-2024 Matthias Cuntz - mc (at) macu (dot) de'
 
 version = _find_version('src/' + package, '_version.py')
 
@@ -192,7 +192,7 @@ bdist_msi_options = {
     'summary_data': {'author': author,
                      'comments': doclines1,
                      'keywords': 'netcdf maps view GUI cartopy'},
-    'install_icon': icon,}
+    'install_icon': icon}
 #    'extensions': [{'extension': 'nc',  # open / view netcdf files (.nc)
 #                    'verb': 'open',
 #                    'executable': exe,
@@ -209,15 +209,14 @@ bdist_msi_options = {
 #                    'verb': 'view',
 #                    'executable': exe,
 #                    'context': 'View with ncvue'}]
-#}
 
-setup(name        = package,
-      version     = version,
-      description = doclines,
-      cmdclass    = {'build': build},
-      options     = {'build_exe': build_exe_options,
-                     'bdist_mac': bdist_mac_options,
-                     'bdist_dmg': bdist_dmg_options,
-                     'bdist_msi': bdist_msi_options},
-      executables = executables,
+setup(name=package,
+      version=version,
+      description=doclines,
+      cmdclass={'build': build},
+      options={'build_exe': build_exe_options,
+               'bdist_mac': bdist_mac_options,
+               'bdist_dmg': bdist_dmg_options,
+               'bdist_msi': bdist_msi_options},
+      executables=executables,
       )

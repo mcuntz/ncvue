@@ -1,0 +1,20 @@
+/** css/custom.css **/
+
+/* This line is theme specific - it includes the base theme CSS */
+@import '../basic.css';  /* for sphinx_book_theme */
+
+/* links to external functions and libraries */
+code.xref, a code {
+    background-color: transparent;
+    font-weight: normal;
+}
+
+/* .xref { */
+/*     font-family: Liberation Sans, DejaVu Sans, sans serif, sans; */
+/*     font-style: normal; */
+/*     font-size: 95%; */
+/*     height: 100%; */
+/*     margin: 0; */
+/*     padding: 0; */
+/*     color: #004B6B; */
+/* } */

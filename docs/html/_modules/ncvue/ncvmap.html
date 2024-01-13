@@ -1,124 +1,159 @@
 
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" />
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ncvue.ncvmap &#8212; ncvue</title>
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ncvue.ncvmap &mdash; ncvue 4.0.2.dev3 documentation</title>
   
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
 
   
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=628480d8" />
   
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
 
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
-    
+    <script src="../../_static/documentation_options.js?v=7670ec9e"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/ncvue/ncvmap';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
-</head>
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-<body class="wy-body-for-nav">
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
 
-   
-  <div class="wy-grid-for-nav">
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
 
-          
-            <a href="../../index.html" class="icon icon-home"> ncvue
-          
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
 
-          
-          </a>
+  <header>
+  
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
+  
+  </header>
 
-          
-            
-            
-              <div class="version">
-                4.0.2.dev3
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
         
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-    <p class="link caption"><span class="link caption-text">Documentation</span></p>
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
     
-            
-            
-              
-            
-            
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../readme.html">ncvue - A GUI to view netCDF files</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../readme.html#about-ncvue">About ncvue</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../readme.html#quick-usage-guide">Quick usage guide</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../readme.html#general-layout">General layout</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../readme.html#map-panel">Map panel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../readme.html#scatter-line-panel">Scatter/Line panel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../readme.html#contour-panel">Contour panel</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../readme.html#license">License</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../install.html#binary-distributions">Binary distributions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../install.html#building-from-source">Building from source</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../install.html#dependencies">Dependencies</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../install.html#windows">Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../install.html#macos">macOS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../install.html#linux">Linux</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../package.html">API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../package.html#purpose">Purpose</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../package.html#subpackages">Subpackages</a></li>
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">ncvue</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">ncvue - A GUI to view netCDF files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../package.html">API</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvcontour.html">ncvue.ncvcontour</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvmain.html">ncvue.ncvmain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvmap.html">ncvue.ncvmap</a></li>
@@ -131,79 +166,153 @@
 </li>
 </ul>
 
-            
-          
-    <br />
-    <p class="link caption"><span class="link caption-text">ncvue Links</span></p>
-    <a href="https://github.com/mcuntz/ncvue">ncvue @ GitHub</a>
-    <a href="https://zenodo.org/record/4459598">ncvue Zenodo DOI</a>
-    <a href="https://pypi.org/project/ncvue">ncvue @ PyPI</a>
-    <br />
-    <br />
-    <a href="genindex.html">Index</a>
-    <a href="index.html">Sitemap</a>
+    </div>
+</nav></div>
+    </div>
   
-        </div>
-        
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
       </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
       
-      <nav class="wy-nav-top" aria-label="top navigation">
+      <main id="main-content" class="bd-main">
         
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">ncvue</a>
         
-      </nav>
 
+<div class="sbt-scroll-pixel-helper"></div>
 
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="../index.html">Module code</a> &raquo;</li>
-        
-      <li>ncvue.ncvmap</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-      </li>
-    
-  </ul>
-
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
   
-  <hr/>
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/mcuntz/ncvue" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/mcuntz/ncvue/issues/new?title=Issue%20on%20page%20%2F_modules/ncvue/ncvmap.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
             
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <h1>Source code for ncvue.ncvmap</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="sd">&quot;&quot;&quot;</span>
@@ -235,6 +344,8 @@
 <span class="sd">    * Larger pad for colorbar, Jun 2021, Matthias Cuntz</span>
 <span class="sd">    * Work with files without an unlimited (time) dimension (set_tstep),</span>
 <span class="sd">      Oct 2021, Matthias Cuntz</span>
+<span class="sd">    * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz</span>
+<span class="sd">    * Allow groups in netcdf files, Jan 2024, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span>
@@ -249,8 +360,8 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">netCDF4</span> <span class="k">as</span> <span class="nn">nc</span>
-<span class="kn">from</span> <span class="nn">.ncvutils</span>   <span class="kn">import</span> <span class="n">add_cyclic</span><span class="p">,</span> <span class="n">clone_ncvmain</span><span class="p">,</span> <span class="n">format_coord_map</span>
-<span class="kn">from</span> <span class="nn">.ncvutils</span>   <span class="kn">import</span> <span class="n">set_axis_label</span><span class="p">,</span> <span class="n">set_miss</span><span class="p">,</span> <span class="n">vardim2var</span>
+<span class="kn">from</span> <span class="nn">.ncvutils</span> <span class="kn">import</span> <span class="n">add_cyclic</span><span class="p">,</span> <span class="n">clone_ncvmain</span><span class="p">,</span> <span class="n">format_coord_map</span>
+<span class="kn">from</span> <span class="nn">.ncvutils</span> <span class="kn">import</span> <span class="n">set_axis_label</span><span class="p">,</span> <span class="n">set_miss</span><span class="p">,</span> <span class="n">vardim2var</span>
 <span class="kn">from</span> <span class="nn">.ncvmethods</span> <span class="kn">import</span> <span class="n">analyse_netcdf</span><span class="p">,</span> <span class="n">get_slice_miss</span><span class="p">,</span> <span class="n">get_miss</span>
 <span class="kn">from</span> <span class="nn">.ncvmethods</span> <span class="kn">import</span> <span class="n">set_dim_lon</span><span class="p">,</span> <span class="n">set_dim_lat</span><span class="p">,</span> <span class="n">set_dim_var</span>
 <span class="kn">from</span> <span class="nn">.ncvwidgets</span> <span class="kn">import</span> <span class="n">add_checkbutton</span><span class="p">,</span> <span class="n">add_combobox</span><span class="p">,</span> <span class="n">add_entry</span><span class="p">,</span> <span class="n">add_imagemenu</span>
@@ -258,8 +369,12 @@
 <span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
 <span class="c1"># mpl.use(&#39;TkAgg&#39;)</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-<span class="c1"># plt.style.use(&#39;seaborn-darkgrid&#39;)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-dark&#39;</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># plt.style.use(&#39;seaborn-v0_8-darkgrid&#39;)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8-dark&#39;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+    <span class="c1"># plt.style.use(&#39;seaborn-darkgrid&#39;)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-dark&#39;</span><span class="p">)</span>
 <span class="c1"># plt.style.use(&#39;fast&#39;)</span>
 <span class="kn">import</span> <span class="nn">cartopy.crs</span> <span class="k">as</span> <span class="nn">ccrs</span>
 
@@ -267,8 +382,10 @@
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ncvMap&#39;</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="ncvMap"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap">[docs]</a><span class="k">class</span> <span class="nc">ncvMap</span><span class="p">(</span><span class="n">ttk</span><span class="o">.</span><span class="n">Frame</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="ncvMap">
+<a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap">[docs]</a>
+<span class="k">class</span> <span class="nc">ncvMap</span><span class="p">(</span><span class="n">ttk</span><span class="o">.</span><span class="n">Frame</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Panel for maps.</span>
 
 <span class="sd">    Sets up the layout with the figure canvas, variable selectors, dimension</span>
@@ -321,7 +438,7 @@
                                   <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">newnetcdf</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">newfile</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">newfiletip</span> <span class="o">=</span> <span class="n">add_tooltip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">newfile</span><span class="p">,</span> <span class="s1">&#39;Open a new netcdf file&#39;</span><span class="p">)</span>
-        <span class="n">spacew</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowwin</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">spacew</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowwin</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>
         <span class="n">spacew</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
         <span class="n">time_label1</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowwin</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;Time: &#39;</span><span class="p">)</span>
         <span class="n">time_label1</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
@@ -400,7 +517,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">rowt</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;step&quot;</span><span class="p">,</span> <span class="n">ini</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">to</span><span class="o">=</span><span class="n">ntime</span><span class="p">,</span>
             <span class="n">length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">HORIZONTAL</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tstep_t</span><span class="p">,</span>
             <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;Slide to go to time step&quot;</span><span class="p">)</span>
-        <span class="n">spacet</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowt</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="o">*</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">spacet</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowt</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">spacet</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
         <span class="c1"># first t</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">first_t</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowt</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;|&lt;&lt;&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
@@ -438,7 +555,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">last_t</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_ttip</span> <span class="o">=</span> <span class="n">add_tooltip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_t</span><span class="p">,</span> <span class="s1">&#39;Last time step&#39;</span><span class="p">)</span>
         <span class="c1"># repeat</span>
-        <span class="n">spacer</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowt</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="o">*</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">spacer</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowt</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">spacer</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
         <span class="n">reps</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;once&#39;</span><span class="p">,</span> <span class="s1">&#39;repeat&#39;</span><span class="p">,</span> <span class="s1">&#39;reflect&#39;</span><span class="p">]</span>
         <span class="n">tstr</span>  <span class="o">=</span> <span class="s2">&quot;Run time steps once, repeat from start when at end,&quot;</span>
@@ -449,7 +566,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">repeat</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;repeat&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_t</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
         <span class="c1"># delay</span>
-        <span class="n">spaced</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowt</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="o">*</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">spaced</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowt</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">spaced</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
         <span class="n">tstr</span> <span class="o">=</span> <span class="s2">&quot;Delay run between time steps from 1 to 1000 ms&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">delaylbl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">delayval</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">delay</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">delaytip</span> <span class="o">=</span> <span class="n">add_scale</span><span class="p">(</span>
@@ -485,7 +602,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">rowv</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;transpose var&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">checked</span><span class="p">,</span>
             <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;Transpose array, i.e. exchanging lat and lon&quot;</span><span class="p">)</span>
-        <span class="n">spacev</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowv</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="o">*</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">spacev</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowv</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">spacev</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vminlbl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vmin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vmintip</span> <span class="o">=</span> <span class="n">add_entry</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rowv</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;vmin&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">entered_v</span><span class="p">,</span>
@@ -553,7 +670,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">lond</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lond</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">londtip</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">londtip</span><span class="p">)</span>
         <span class="c1"># lat-axis selection</span>
-        <span class="n">spacex</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowll</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">spacex</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowll</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>
         <span class="n">spacex</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">blocklat</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowll</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">blocklat</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
@@ -630,12 +747,14 @@
             <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">entered_clon</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="n">tstr</span><span class="p">)</span>
 
         <span class="c1"># set lat/lon</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">latvar</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">lat</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">latvar</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">latvar</span><span class="p">):</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="p">[</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">latvar</span><span class="p">)</span> <span class="k">if</span> <span class="n">l</span> <span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lat</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">latvar</span><span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">inv_lat</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
             <span class="n">set_dim_lat</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">lon</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span><span class="p">):</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="p">[</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span><span class="p">)</span> <span class="k">if</span> <span class="n">l</span> <span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lon</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span><span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">inv_lon</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">shift_lon</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
             <span class="n">set_dim_lon</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -643,8 +762,8 @@
         <span class="c1"># set global</span>
         <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lon</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
-            <span class="n">vx</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-            <span class="n">xx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vx</span><span class="p">]</span>
+            <span class="n">gx</span><span class="p">,</span> <span class="n">vx</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="n">xx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="n">vx</span><span class="p">]</span>
             <span class="n">xx</span> <span class="o">=</span> <span class="n">get_slice_miss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lond</span><span class="p">,</span> <span class="n">xx</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">xx</span><span class="p">)):</span>
                 <span class="n">xx</span> <span class="o">=</span> <span class="p">(</span><span class="n">xx</span> <span class="o">+</span> <span class="mf">360.</span><span class="p">)</span> <span class="o">%</span> <span class="mf">360.</span>
@@ -662,25 +781,34 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">anim_first</span>   <span class="o">=</span> <span class="kc">True</span>   <span class="c1"># True: stops in self.update at first call</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">anim_running</span> <span class="o">=</span> <span class="kc">True</span>   <span class="c1"># True/False: animation running or not</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">anim_inc</span>     <span class="o">=</span> <span class="mi">1</span>      <span class="c1"># 1/-1: forward or backward run</span>
+        <span class="n">maxtime</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">vz</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tvar</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">vz</span><span class="p">:</span>
+                <span class="n">maxtime</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="n">vz</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">maxtime</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">anim</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">figure</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">,</span>
                                             <span class="n">init_func</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">,</span>
                                             <span class="n">interval</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">delayval</span><span class="o">.</span><span class="n">get</span><span class="p">(),</span>
-                                            <span class="n">repeat</span><span class="o">=</span><span class="n">irepeat</span><span class="p">)</span>
+                                            <span class="n">repeat</span><span class="o">=</span><span class="n">irepeat</span><span class="p">,</span> <span class="n">save_count</span><span class="o">=</span><span class="n">maxtime</span><span class="p">)</span>
 
     <span class="c1">#</span>
     <span class="c1"># Bindings</span>
     <span class="c1">#</span>
 
-<div class="viewcode-block" id="ncvMap.checked"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.checked">[docs]</a>    <span class="k">def</span> <span class="nf">checked</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="ncvMap.checked">
+<a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.checked">[docs]</a>
+    <span class="k">def</span> <span class="nf">checked</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if any checkbutton was checked or unchecked.</span>
 
 <span class="sd">        Redraws plot.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ncvMap.checked_all"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.checked_all">[docs]</a>    <span class="k">def</span> <span class="nf">checked_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvMap.checked_all">
+<a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.checked_all">[docs]</a>
+    <span class="k">def</span> <span class="nf">checked_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if any checkbutton &#39;all&#39; for vmin/vmax was checked or</span>
 <span class="sd">        unchecked.</span>
 
@@ -691,16 +819,22 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">vmax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">vmax</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ncvMap.delay_t"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.delay_t">[docs]</a>    <span class="k">def</span> <span class="nf">delay_t</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delay</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvMap.delay_t">
+<a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.delay_t">[docs]</a>
+    <span class="k">def</span> <span class="nf">delay_t</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delay</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if delay scale was changed.</span>
 
 <span class="sd">        `delay` is the chosen value on the scale slider.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">anim</span><span class="o">.</span><span class="n">event_source</span><span class="o">.</span><span class="n">interval</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">delay</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="ncvMap.entered_clon"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.entered_clon">[docs]</a>    <span class="k">def</span> <span class="nf">entered_clon</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvMap.entered_clon">
+<a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.entered_clon">[docs]</a>
+    <span class="k">def</span> <span class="nf">entered_clon</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if values central longitude was entered.</span>
 
 <span class="sd">        Triggering `event` was bound to entry.</span>
@@ -709,8 +843,11 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ncvMap.entered_v"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.entered_v">[docs]</a>    <span class="k">def</span> <span class="nf">entered_v</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvMap.entered_v">
+<a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.entered_v">[docs]</a>
+    <span class="k">def</span> <span class="nf">entered_v</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if values for `vmin`/`vmax` were entered.</span>
 
 <span class="sd">        Triggering `event` was bound to entry.</span>
@@ -719,24 +856,33 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ncvMap.first_t"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.first_t">[docs]</a>    <span class="k">def</span> <span class="nf">first_t</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvMap.first_t">
+<a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.first_t">[docs]</a>
+    <span class="k">def</span> <span class="nf">first_t</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if first frame button was pressed.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">it</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_tstep</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">isframe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="ncvMap.last_t"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.last_t">[docs]</a>    <span class="k">def</span> <span class="nf">last_t</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvMap.last_t">
+<a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.last_t">[docs]</a>
+    <span class="k">def</span> <span class="nf">last_t</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if last frame button was pressed.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">it</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nunlim</span> <span class="o">-</span> <span class="mi">1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_tstep</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">isframe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="ncvMap.newnetcdf"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.newnetcdf">[docs]</a>    <span class="k">def</span> <span class="nf">newnetcdf</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvMap.newnetcdf">
+<a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.newnetcdf">[docs]</a>
+    <span class="k">def</span> <span class="nf">newnetcdf</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Open a new netcdf file and connect it to top.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># stop animation if running</span>
@@ -751,17 +897,17 @@
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
             <span class="c1"># reset empty defaults of top</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">dunlim</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>      <span class="c1"># name of unlimited dimension</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">time</span>   <span class="o">=</span> <span class="kc">None</span>    <span class="c1"># datetime variable</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">tname</span>  <span class="o">=</span> <span class="s1">&#39;&#39;</span>      <span class="c1"># datetime variable name</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">tvar</span>   <span class="o">=</span> <span class="s1">&#39;&#39;</span>      <span class="c1"># datetime variable name in netcdf</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">dtime</span>  <span class="o">=</span> <span class="kc">None</span>    <span class="c1"># decimal year</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">latvar</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>      <span class="c1"># name of latitude variable</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">lonvar</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>      <span class="c1"># name of longitude variable</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">latdim</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>      <span class="c1"># name of latitude dimension</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">londim</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>      <span class="c1"># name of longitude dimension</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">maxdim</span> <span class="o">=</span> <span class="mi">0</span>       <span class="c1"># maximum num of dims of all variables</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">cols</span>   <span class="o">=</span> <span class="p">[]</span>      <span class="c1"># variable list</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">dunlim</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># name of unlimited dimension</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">time</span>   <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># datetime variable</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">tname</span>  <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># datetime variable name</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">tvar</span>   <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># datetime variable name in netcdf</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">dtime</span>  <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># decimal year</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">latvar</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># name of latitude variable</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">lonvar</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># name of longitude variable</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">latdim</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># name of latitude dimension</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">londim</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># name of longitude dimension</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">maxdim</span> <span class="o">=</span> <span class="mi">0</span>   <span class="c1"># maximum num of dims of all variables</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">cols</span>   <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># variable list</span>
             <span class="c1"># open new netcdf file</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span> <span class="o">=</span> <span class="n">nc</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">ncfile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
             <span class="n">analyse_netcdf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
@@ -769,8 +915,11 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">reinit</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ncvMap.nrun_t"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.nrun_t">[docs]</a>    <span class="k">def</span> <span class="nf">nrun_t</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvMap.nrun_t">
+<a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.nrun_t">[docs]</a>
+    <span class="k">def</span> <span class="nf">nrun_t</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if forward run button was pressed.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">anim_running</span><span class="p">:</span>
@@ -778,16 +927,22 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">anim</span><span class="o">.</span><span class="n">event_source</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">anim_running</span> <span class="o">=</span> <span class="kc">True</span></div>
 
-<div class="viewcode-block" id="ncvMap.next_t"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.next_t">[docs]</a>    <span class="k">def</span> <span class="nf">next_t</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvMap.next_t">
+<a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.next_t">[docs]</a>
+    <span class="k">def</span> <span class="nf">next_t</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if next frame button was pressed.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">it</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vdval</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">iunlim</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
-        <span class="k">if</span> <span class="n">it</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">nunlim</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">it</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vdval</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">iunlim</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="n">it</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">it</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">nunlim</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">it</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">):</span>
             <span class="n">it</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">set_tstep</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">isframe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">it</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">nunlim</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">rep</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">repeat</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">rep</span> <span class="o">!=</span> <span class="s1">&#39;once&#39;</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">rep</span> <span class="o">==</span> <span class="s1">&#39;repeat&#39;</span><span class="p">:</span>
@@ -797,8 +952,11 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">set_tstep</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">isframe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="ncvMap.next_v"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.next_v">[docs]</a>    <span class="k">def</span> <span class="nf">next_v</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvMap.next_v">
+<a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.next_v">[docs]</a>
+    <span class="k">def</span> <span class="nf">next_v</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if next button for the plotting variable was pressed.</span>
 
 <span class="sd">        Resets `vmin`/`vmax` and variable-dimensions. Redraws plot.</span>
@@ -818,24 +976,33 @@
             <span class="n">set_dim_var</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ncvMap.pause_t"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.pause_t">[docs]</a>    <span class="k">def</span> <span class="nf">pause_t</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvMap.pause_t">
+<a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.pause_t">[docs]</a>
+    <span class="k">def</span> <span class="nf">pause_t</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if pause button was pressed.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">anim_running</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">anim</span><span class="o">.</span><span class="n">event_source</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">anim_running</span> <span class="o">=</span> <span class="kc">False</span></div>
 
-<div class="viewcode-block" id="ncvMap.prev_t"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.prev_t">[docs]</a>    <span class="k">def</span> <span class="nf">prev_t</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvMap.prev_t">
+<a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.prev_t">[docs]</a>
+    <span class="k">def</span> <span class="nf">prev_t</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if previous frame button was pressed.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">it</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vdval</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">iunlim</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">it</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vdval</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">iunlim</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="n">it</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
         <span class="k">if</span> <span class="n">it</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">it</span> <span class="o">-=</span> <span class="mi">1</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">set_tstep</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">isframe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">it</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">rep</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">repeat</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">rep</span> <span class="o">!=</span> <span class="s1">&#39;once&#39;</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">rep</span> <span class="o">==</span> <span class="s1">&#39;repeat&#39;</span><span class="p">:</span>
@@ -845,8 +1012,11 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">set_tstep</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">isframe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="ncvMap.prev_v"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.prev_v">[docs]</a>    <span class="k">def</span> <span class="nf">prev_v</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvMap.prev_v">
+<a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.prev_v">[docs]</a>
+    <span class="k">def</span> <span class="nf">prev_v</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if previous button for the plotting variable was</span>
 <span class="sd">        pressed.</span>
 
@@ -867,8 +1037,11 @@
             <span class="n">set_dim_var</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ncvMap.prun_t"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.prun_t">[docs]</a>    <span class="k">def</span> <span class="nf">prun_t</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvMap.prun_t">
+<a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.prun_t">[docs]</a>
+    <span class="k">def</span> <span class="nf">prun_t</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if run backwards button was pressed.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">anim_running</span><span class="p">:</span>
@@ -876,8 +1049,11 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">anim</span><span class="o">.</span><span class="n">event_source</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">anim_running</span> <span class="o">=</span> <span class="kc">True</span></div>
 
-<div class="viewcode-block" id="ncvMap.repeat_t"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.repeat_t">[docs]</a>    <span class="k">def</span> <span class="nf">repeat_t</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvMap.repeat_t">
+<a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.repeat_t">[docs]</a>
+    <span class="k">def</span> <span class="nf">repeat_t</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if repeat option was chosen with combobox.</span>
 
 <span class="sd">        Triggering `event` was bound to the combobox.</span>
@@ -890,8 +1066,11 @@
             <span class="n">irepeat</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">anim</span><span class="o">.</span><span class="n">repeat</span> <span class="o">=</span> <span class="n">irepeat</span></div>
 
-<div class="viewcode-block" id="ncvMap.selected_cmap"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.selected_cmap">[docs]</a>    <span class="k">def</span> <span class="nf">selected_cmap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvMap.selected_cmap">
+<a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.selected_cmap">[docs]</a>
+    <span class="k">def</span> <span class="nf">selected_cmap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if cmap was chosen from menu.</span>
 
 <span class="sd">        `value` is the chosen colormap.</span>
@@ -902,8 +1081,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">cmap</span><span class="p">[</span><span class="s1">&#39;image&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">imaps</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">cmaps</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">value</span><span class="p">)]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ncvMap.selected_lat"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.selected_lat">[docs]</a>    <span class="k">def</span> <span class="nf">selected_lat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvMap.selected_lat">
+<a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.selected_lat">[docs]</a>
+    <span class="k">def</span> <span class="nf">selected_lat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if latitude-variable was selected with combobox.</span>
 
 <span class="sd">        Triggering `event` was bound to the combobox.</span>
@@ -914,8 +1096,11 @@
         <span class="n">set_dim_lat</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ncvMap.selected_lon"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.selected_lon">[docs]</a>    <span class="k">def</span> <span class="nf">selected_lon</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvMap.selected_lon">
+<a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.selected_lon">[docs]</a>
+    <span class="k">def</span> <span class="nf">selected_lon</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if x-variable was selected with combobox.</span>
 
 <span class="sd">        Triggering `event` was bound to the combobox.</span>
@@ -927,8 +1112,11 @@
         <span class="n">set_dim_lon</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ncvMap.selected_proj"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.selected_proj">[docs]</a>    <span class="k">def</span> <span class="nf">selected_proj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvMap.selected_proj">
+<a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.selected_proj">[docs]</a>
+    <span class="k">def</span> <span class="nf">selected_proj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if projection was chosen from menu.</span>
 
 <span class="sd">        `value` is the chosen projection.</span>
@@ -938,8 +1126,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">proj</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ncvMap.selected_v"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.selected_v">[docs]</a>    <span class="k">def</span> <span class="nf">selected_v</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvMap.selected_v">
+<a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.selected_v">[docs]</a>
+    <span class="k">def</span> <span class="nf">selected_v</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if plotting variable was selected with combobox.</span>
 
 <span class="sd">        Triggering `event` was bound to the combobox.</span>
@@ -956,8 +1147,11 @@
         <span class="n">set_dim_var</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ncvMap.spinned_lon"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.spinned_lon">[docs]</a>    <span class="k">def</span> <span class="nf">spinned_lon</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvMap.spinned_lon">
+<a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.spinned_lon">[docs]</a>
+    <span class="k">def</span> <span class="nf">spinned_lon</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if spinbox of x-dimensions was changed.</span>
 
 <span class="sd">        Triggering `event` was bound to the spinbox.</span>
@@ -966,8 +1160,11 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ncvMap.spinned_lat"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.spinned_lat">[docs]</a>    <span class="k">def</span> <span class="nf">spinned_lat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvMap.spinned_lat">
+<a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.spinned_lat">[docs]</a>
+    <span class="k">def</span> <span class="nf">spinned_lat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if spinbox of latitude-dimensions was changed.</span>
 
 <span class="sd">        Triggering `event` was bound to the spinbox.</span>
@@ -976,8 +1173,11 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ncvMap.spinned_v"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.spinned_v">[docs]</a>    <span class="k">def</span> <span class="nf">spinned_v</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvMap.spinned_v">
+<a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.spinned_v">[docs]</a>
+    <span class="k">def</span> <span class="nf">spinned_v</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if spinbox of variable-dimensions was changed.</span>
 
 <span class="sd">        Triggering `event` was bound to the spinbox.</span>
@@ -991,8 +1191,11 @@
             <span class="k">pass</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ncvMap.tstep_t"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.tstep_t">[docs]</a>    <span class="k">def</span> <span class="nf">tstep_t</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">step</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvMap.tstep_t">
+<a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.tstep_t">[docs]</a>
+    <span class="k">def</span> <span class="nf">tstep_t</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">step</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if tstep was changed.</span>
 
 <span class="sd">        `step` is the chosen value on the scale slider.</span>
@@ -1001,18 +1204,21 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">set_tstep</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">isframe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
+
     <span class="c1">#</span>
     <span class="c1"># Methods</span>
     <span class="c1">#</span>
 
-<div class="viewcode-block" id="ncvMap.get_vminmax"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.get_vminmax">[docs]</a>    <span class="k">def</span> <span class="nf">get_vminmax</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ncvMap.get_vminmax">
+<a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.get_vminmax">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_vminmax</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">default_rng</span>
         <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">v</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
-            <span class="n">vz</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">vz</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">:</span>
+            <span class="n">gz</span><span class="p">,</span> <span class="n">vz</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="k">if</span> <span class="n">vz</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">[</span><span class="n">gz</span><span class="p">]:</span>
                 <span class="k">return</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-            <span class="n">vv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vz</span><span class="p">]</span>
+            <span class="n">vv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="n">vz</span><span class="p">]</span>
             <span class="n">imiss</span> <span class="o">=</span> <span class="n">get_miss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vv</span><span class="p">)</span>
             <span class="n">iall</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vall</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">iall</span> <span class="ow">or</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">vv</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">):</span>
@@ -1026,9 +1232,9 @@
                 <span class="k">for</span> <span class="n">nn</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
                     <span class="n">ss</span> <span class="o">=</span> <span class="p">[]</span>
                     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">vv</span><span class="o">.</span><span class="n">ndim</span><span class="p">):</span>
-                        <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">vv</span><span class="o">.</span><span class="n">ndim</span><span class="o">-</span><span class="mi">2</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">vv</span><span class="o">.</span><span class="n">ndim</span> <span class="o">-</span> <span class="mi">2</span><span class="p">:</span>
                             <span class="n">idim</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">vv</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-                            <span class="n">s</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">idim</span><span class="p">,</span> <span class="n">idim</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+                            <span class="n">s</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">idim</span><span class="p">,</span> <span class="n">idim</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
                         <span class="k">else</span><span class="p">:</span>
                             <span class="n">s</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">vv</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
                         <span class="n">ss</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
@@ -1042,8 +1248,11 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="ncvMap.reinit"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.reinit">[docs]</a>    <span class="k">def</span> <span class="nf">reinit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvMap.reinit">
+<a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.reinit">[docs]</a>
+    <span class="k">def</span> <span class="nf">reinit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Reinitialise the panel from top.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># reinit from top</span>
@@ -1132,19 +1341,21 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">lon</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lat</span><span class="p">[</span><span class="s1">&#39;values&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">columns</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lat</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">latvar</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">lat</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">latvar</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">latvar</span><span class="p">):</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="p">[</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">latvar</span><span class="p">)</span> <span class="k">if</span> <span class="n">l</span> <span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lat</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">latvar</span><span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">inv_lat</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
             <span class="n">set_dim_lat</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">lon</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span><span class="p">):</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="p">[</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span><span class="p">)</span> <span class="k">if</span> <span class="n">l</span> <span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lon</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span><span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">inv_lon</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">shift_lon</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
             <span class="n">set_dim_lon</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lon</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
-            <span class="n">vx</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-            <span class="n">xx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vx</span><span class="p">]</span>
+            <span class="n">gx</span><span class="p">,</span> <span class="n">vx</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="n">xx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="n">vx</span><span class="p">]</span>
             <span class="n">xx</span> <span class="o">=</span> <span class="n">get_slice_miss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lond</span><span class="p">,</span> <span class="n">xx</span><span class="p">)</span>
             <span class="n">xx</span> <span class="o">=</span> <span class="n">xx</span> <span class="o">+</span> <span class="mf">360.</span>
             <span class="k">if</span> <span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">xx</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mf">150.</span><span class="p">:</span>
@@ -1152,8 +1363,11 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">iglobal</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="ncvMap.set_tstep"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.set_tstep">[docs]</a>    <span class="k">def</span> <span class="nf">set_tstep</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">it</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvMap.set_tstep">
+<a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.set_tstep">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_tstep</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">it</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Make all steps when changing time step.</span>
 
 <span class="sd">        `it` (int) is the time step.</span>
@@ -1161,20 +1375,30 @@
 <span class="sd">        Sets the time dimension spinbox, sets the time step scale,</span>
 <span class="sd">        write the time on top.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dunlim</span><span class="p">:</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">gz</span><span class="p">,</span> <span class="n">vz</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">has_unlim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dunlim</span><span class="p">[</span><span class="n">gz</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="n">vz</span><span class="p">]</span><span class="o">.</span><span class="n">dimensions</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="n">has_unlim</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># datetime</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dunlim</span><span class="p">[</span><span class="n">gz</span><span class="p">]</span> <span class="ow">and</span> <span class="n">has_unlim</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">vdval</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">iunlim</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tstepval</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+            <span class="n">time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">gz</span><span class="p">]</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">timelbl</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">it</span><span class="p">],</span> <span class="mi">4</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">timelbl</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="n">it</span><span class="p">],</span> <span class="mi">4</span><span class="p">))</span>
             <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">timelbl</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">it</span><span class="p">])</span></div>
+                <span class="bp">self</span><span class="o">.</span><span class="n">timelbl</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="n">it</span><span class="p">])</span></div>
 
-<div class="viewcode-block" id="ncvMap.set_unlim"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.set_unlim">[docs]</a>    <span class="k">def</span> <span class="nf">set_unlim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ncvMap.set_unlim">
+<a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.set_unlim">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_unlim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set index and length of unlimited dimension of variable `v`.</span>
 
 <span class="sd">        `v` (str) is the variable name as in the selection comboboxes, i.e.</span>
-<span class="sd">        `var = vardim2var(self.fi.variables[v)]`.</span>
+<span class="sd">        `gvar, var = vardim2var(self.fi[v)]`.</span>
 
 <span class="sd">        Sets `self.nunlim` to the length of the unlimited dimension and</span>
 <span class="sd">        `self.iunlim` to the index in variable.dimensions if</span>
@@ -1183,30 +1407,33 @@
 <span class="sd">        Takes `self.iunlim=0` and `self.nunlim=variable.shape[0]` if</span>
 <span class="sd">        self.dunlim == &#39;&#39;` or `self.dunlim` not in var.dimensions.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">vz</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">vz</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">:</span>
+        <span class="n">gz</span><span class="p">,</span> <span class="n">vz</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">vz</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">[</span><span class="n">gz</span><span class="p">]:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">iunlim</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">nunlim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">size</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nunlim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">gz</span><span class="p">]</span><span class="o">.</span><span class="n">size</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dunlim</span><span class="p">:</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dunlim</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vz</span><span class="p">]</span><span class="o">.</span><span class="n">dimensions</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dunlim</span><span class="p">[</span><span class="n">gz</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dunlim</span><span class="p">[</span><span class="n">gz</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="n">vz</span><span class="p">]</span><span class="o">.</span><span class="n">dimensions</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">iunlim</span> <span class="o">=</span> <span class="p">(</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vz</span><span class="p">]</span><span class="o">.</span><span class="n">dimensions</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dunlim</span><span class="p">))</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="n">vz</span><span class="p">]</span><span class="o">.</span><span class="n">dimensions</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dunlim</span><span class="p">[</span><span class="n">gz</span><span class="p">]))</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">iunlim</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">iunlim</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vz</span><span class="p">]</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">nunlim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vz</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">iunlim</span><span class="p">]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="n">vz</span><span class="p">]</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">nunlim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="n">vz</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">iunlim</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">nunlim</span> <span class="o">=</span> <span class="mi">0</span></div>
+
 
     <span class="c1">#</span>
     <span class="c1"># Plotting</span>
     <span class="c1">#</span>
 
-<div class="viewcode-block" id="ncvMap.redraw"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.redraw">[docs]</a>    <span class="k">def</span> <span class="nf">redraw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="ncvMap.redraw">
+<a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.redraw">[docs]</a>
+    <span class="k">def</span> <span class="nf">redraw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Redraws the plot.</span>
 
 <span class="sd">        Reads `lon`, `lat`, `variable` names, the current settings of</span>
@@ -1258,17 +1485,17 @@
         <span class="n">vz</span> <span class="o">=</span> <span class="s1">&#39;None&#39;</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">v</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
             <span class="c1"># variable</span>
-            <span class="n">vz</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">vz</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">:</span>
+            <span class="n">gz</span><span class="p">,</span> <span class="n">vz</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="k">if</span> <span class="n">vz</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">[</span><span class="n">gz</span><span class="p">]:</span>
                 <span class="c1"># should throw an error later</span>
                 <span class="k">if</span> <span class="n">mesh</span><span class="p">:</span>
-                    <span class="n">vv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtime</span>
+                    <span class="n">vv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtime</span><span class="p">[</span><span class="n">gz</span><span class="p">]</span>
                     <span class="n">vlab</span> <span class="o">=</span> <span class="s1">&#39;Year&#39;</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">vv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span>
+                    <span class="n">vv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">gz</span><span class="p">]</span>
                     <span class="n">vlab</span> <span class="o">=</span> <span class="s1">&#39;Date&#39;</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">vv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vz</span><span class="p">]</span>
+                <span class="n">vv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="n">vz</span><span class="p">]</span>
                 <span class="n">vlab</span> <span class="o">=</span> <span class="n">set_axis_label</span><span class="p">(</span><span class="n">vv</span><span class="p">)</span>
             <span class="n">vv</span> <span class="o">=</span> <span class="n">get_slice_miss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vd</span><span class="p">,</span> <span class="n">vv</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">trans_v</span><span class="p">:</span>
@@ -1279,32 +1506,32 @@
             <span class="n">vlab</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
             <span class="c1"># y axis</span>
-            <span class="n">vy</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">vy</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">:</span>
+            <span class="n">gy</span><span class="p">,</span> <span class="n">vy</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="k">if</span> <span class="n">vy</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">[</span><span class="n">gy</span><span class="p">]:</span>
                 <span class="k">if</span> <span class="n">mesh</span><span class="p">:</span>
-                    <span class="n">yy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtime</span>
+                    <span class="n">yy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtime</span><span class="p">[</span><span class="n">gy</span><span class="p">]</span>
                     <span class="n">ylab</span> <span class="o">=</span> <span class="s1">&#39;Year&#39;</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">yy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span>
+                    <span class="n">yy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">gy</span><span class="p">]</span>
                     <span class="n">ylab</span> <span class="o">=</span> <span class="s1">&#39;Date&#39;</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">yy</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vy</span><span class="p">]</span>
+                <span class="n">yy</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="n">vy</span><span class="p">]</span>
                 <span class="n">ylab</span> <span class="o">=</span> <span class="n">set_axis_label</span><span class="p">(</span><span class="n">yy</span><span class="p">)</span>
             <span class="n">yy</span> <span class="o">=</span> <span class="n">get_slice_miss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">latd</span><span class="p">,</span> <span class="n">yy</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">ylab</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
             <span class="c1"># x axis</span>
-            <span class="n">vx</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">vx</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">:</span>
+            <span class="n">gx</span><span class="p">,</span> <span class="n">vx</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="k">if</span> <span class="n">vx</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">[</span><span class="n">gx</span><span class="p">]:</span>
                 <span class="k">if</span> <span class="n">mesh</span><span class="p">:</span>
-                    <span class="n">xx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtime</span>
+                    <span class="n">xx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtime</span><span class="p">[</span><span class="n">gx</span><span class="p">]</span>
                     <span class="n">xlab</span> <span class="o">=</span> <span class="s1">&#39;Year&#39;</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">xx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span>
+                    <span class="n">xx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">gx</span><span class="p">]</span>
                     <span class="n">xlab</span> <span class="o">=</span> <span class="s1">&#39;Date&#39;</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">xx</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vx</span><span class="p">]</span>
+                <span class="n">xx</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="n">vx</span><span class="p">]</span>
                 <span class="n">xlab</span> <span class="o">=</span> <span class="n">set_axis_label</span><span class="p">(</span><span class="n">xx</span><span class="p">)</span>
             <span class="n">xx</span> <span class="o">=</span> <span class="n">get_slice_miss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lond</span><span class="p">,</span> <span class="n">xx</span><span class="p">)</span>
             <span class="c1"># set central longitude of projection</span>
@@ -1496,11 +1723,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>
 
+
     <span class="c1"># def update(self, frame, isframe=False):</span>
     <span class="c1">#     pass</span>
 
-<div class="viewcode-block" id="ncvMap.update"><a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame</span><span class="p">,</span> <span class="n">isframe</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="ncvMap.update">
+<a class="viewcode-back" href="../../ncvmap.html#ncvue.ncvmap.ncvMap.update">[docs]</a>
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame</span><span class="p">,</span> <span class="n">isframe</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Updates data of the current the plot.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">anim_first</span><span class="p">:</span>
@@ -1517,15 +1747,15 @@
             <span class="n">inv_lon</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inv_lon</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
             <span class="n">inv_lat</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inv_lat</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
             <span class="n">shift_lon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shift_lon</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-            <span class="n">vz</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">vz</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">:</span>
-                <span class="n">vz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tvar</span>
-            <span class="n">vv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vz</span><span class="p">]</span>
+            <span class="n">gz</span><span class="p">,</span> <span class="n">vz</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="k">if</span> <span class="n">vz</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">[</span><span class="n">gz</span><span class="p">]:</span>
+                <span class="n">vz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tvar</span><span class="p">[</span><span class="n">gz</span><span class="p">]</span>
+            <span class="n">vv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="n">vz</span><span class="p">]</span>
             <span class="c1"># slice</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">it</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vdval</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">iunlim</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">isframe</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">anim_inc</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">it</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">nunlim</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">anim_inc</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">it</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">nunlim</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
                         <span class="k">if</span> <span class="n">rep</span> <span class="o">==</span> <span class="s1">&#39;repeat&#39;</span><span class="p">:</span>
                             <span class="n">it</span> <span class="o">=</span> <span class="mi">0</span>
                         <span class="k">elif</span> <span class="n">rep</span> <span class="o">==</span> <span class="s1">&#39;reflect&#39;</span><span class="p">:</span>
@@ -1556,7 +1786,7 @@
             <span class="k">if</span> <span class="n">trans_v</span><span class="p">:</span>
                 <span class="n">vv</span> <span class="o">=</span> <span class="n">vv</span><span class="o">.</span><span class="n">T</span>
             <span class="k">if</span> <span class="n">shift_lon</span><span class="p">:</span>
-                <span class="n">vv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">vv</span><span class="p">,</span> <span class="n">vv</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">vv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">vv</span><span class="p">,</span> <span class="n">vv</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ivv</span> <span class="o">=</span> <span class="n">vv</span>
             <span class="c1"># set data</span>
             <span class="k">if</span> <span class="n">mesh</span><span class="p">:</span>
@@ -1593,50 +1823,77 @@
                     <span class="n">cmap</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">icmap</span><span class="p">,</span> <span class="n">extend</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">iextend</span><span class="p">,</span>
                     <span class="n">transform</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">itrans</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cc</span><span class="p">,</span></div></div>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cc</span><span class="p">,</span></div>
+</div>
+
 </pre></div>
 
-           </div>
-           
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"></div>
+              
+            
           </div>
-          <footer>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &#169; Copyright 2020-2021, Matthias Cuntz.
-
-    </p>
-  </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
     
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-        </div>
-      </div>
-
-    </section>
+<p class="component-author">
+By Matthias Cuntz
+</p>
 
   </div>
   
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
+  <div class="footer-item">
     
-   
 
-</body>
+  <p class="copyright">
+    
+      © Copyright 2020-2024, Matthias Cuntz.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
 </html>

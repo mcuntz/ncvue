@@ -1,226 +1,409 @@
 
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" />
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ncvue.ncvutils &#8212; ncvue</title>
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ncvue.ncvutils &mdash; ncvue 4.1.2.dev0 documentation</title>
   
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
 
   
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=628480d8" />
   
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
 
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+    <script src="_static/documentation_options.js?v=7670ec9e"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ncvutils';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="ncvue.ncvwidgets" href="ncvwidgets.html" />
-    <link rel="prev" title="ncvue.ncvue" href="ncvue.html" /> 
-</head>
+    <link rel="prev" title="ncvue.ncvue" href="ncvue.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-<body class="wy-body-for-nav">
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
 
-   
-  <div class="wy-grid-for-nav">
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
 
-          
-            <a href="index.html" class="icon icon-home"> ncvue
-          
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
 
-          
-          </a>
+  <header>
+  
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
+  
+  </header>
 
-          
-            
-            
-              <div class="version">
-                4.1.2.dev0
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
         
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-    <p class="link caption"><span class="link caption-text">Documentation</span></p>
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
     
-            
-            
-              
-            
-            
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="readme.html">ncvue - A GUI to view netCDF files</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="readme.html#about-ncvue">About ncvue</a></li>
-<li class="toctree-l2"><a class="reference internal" href="readme.html#quick-usage-guide">Quick usage guide</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="readme.html#general-layout">General layout</a></li>
-<li class="toctree-l3"><a class="reference internal" href="readme.html#map-panel">Map panel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="readme.html#scatter-line-panel">Scatter/Line panel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="readme.html#contour-panel">Contour panel</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="readme.html#license">License</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="install.html#binary-distributions">Binary distributions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="install.html#building-from-source">Building from source</a></li>
-<li class="toctree-l2"><a class="reference internal" href="install.html#dependencies">Dependencies</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="install.html#windows">Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="install.html#macos">macOS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="install.html#linux">Linux</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="package.html">API</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="package.html#purpose">Purpose</a></li>
-<li class="toctree-l2"><a class="reference internal" href="package.html#subpackages">Subpackages</a></li>
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">ncvue</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="readme.html">ncvue - A GUI to view netCDF files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="package.html">API</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="ncvcontour.html">ncvue.ncvcontour</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvmain.html">ncvue.ncvmain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvmap.html">ncvue.ncvmap</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvmethods.html">ncvue.ncvmethods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvscatter.html">ncvue.ncvscatter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvue.html">ncvue.ncvue</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">ncvue.ncvutils</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">ncvue.ncvutils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvwidgets.html">ncvue.ncvwidgets</a></li>
 </ul>
 </li>
 </ul>
 
-            
-          
-    <br />
-    <p class="link caption"><span class="link caption-text">ncvue Links</span></p>
-    <a href="https://github.com/mcuntz/ncvue">ncvue @ GitHub</a>
-    <a href="https://zenodo.org/record/4459598">ncvue Zenodo DOI</a>
-    <a href="https://pypi.org/project/ncvue">ncvue @ PyPI</a>
-    <br />
-    <br />
-    <a href="genindex.html">Index</a>
-    <a href="index.html">Sitemap</a>
+    </div>
+</nav></div>
+    </div>
   
-        </div>
-        
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">ncvue</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="package.html">API</a> &raquo;</li>
-        
-      <li>ncvue.ncvutils</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="_sources/ncvutils.rst.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
   
-  <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
-      
-        <a href="ncvwidgets.html" class="btn btn-neutral float-right" title="ncvue.ncvwidgets" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-      
-      
-        <a href="ncvue.html" class="btn btn-neutral float-left" title="ncvue.ncvue" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-      
+  <div class="sidebar-primary-items__end sidebar-primary__section">
   </div>
   
-  <hr/>
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/mcuntz/ncvue" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/mcuntz/ncvue/edit/main/docs/ncvutils.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/mcuntz/ncvue/issues/new?title=Issue%20on%20page%20%2Fncvutils.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/ncvutils.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>ncvue.ncvutils</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
             
-  <div class="section" id="module-ncvue.ncvutils">
-<span id="ncvue-ncvutils"></span><h1>ncvue.ncvutils<a class="headerlink" href="#module-ncvue.ncvutils" title="Permalink to this headline">¶</a></h1>
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.add_cyclic"><code class="docutils literal notranslate"><span class="pre">add_cyclic()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.clone_ncvmain"><code class="docutils literal notranslate"><span class="pre">clone_ncvmain()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.format_coord_contour"><code class="docutils literal notranslate"><span class="pre">format_coord_contour()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.format_coord_map"><code class="docutils literal notranslate"><span class="pre">format_coord_map()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.format_coord_scatter"><code class="docutils literal notranslate"><span class="pre">format_coord_scatter()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.get_slice"><code class="docutils literal notranslate"><span class="pre">get_slice()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.has_cyclic"><code class="docutils literal notranslate"><span class="pre">has_cyclic()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.list_intersection"><code class="docutils literal notranslate"><span class="pre">list_intersection()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.set_axis_label"><code class="docutils literal notranslate"><span class="pre">set_axis_label()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.set_miss"><code class="docutils literal notranslate"><span class="pre">set_miss()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.spinbox_values"><code class="docutils literal notranslate"><span class="pre">spinbox_values()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.vardim2var"><code class="docutils literal notranslate"><span class="pre">vardim2var()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.zip_dim_name_length"><code class="docutils literal notranslate"><span class="pre">zip_dim_name_length()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.DIMMETHODS"><code class="docutils literal notranslate"><span class="pre">DIMMETHODS</span></code></a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-ncvue.ncvutils">
+<span id="ncvue-ncvutils"></span><h1>ncvue.ncvutils<a class="headerlink" href="#module-ncvue.ncvutils" title="Link to this heading">#</a></h1>
 <p>Utility functions for ncvue.</p>
 <p>The utility functions do not depend on the ncvue class.
 Functions depending on the class are in ncvmethods.</p>
@@ -228,19 +411,15 @@ Functions depending on the class are in ncvmethods.</p>
 Recherche pour l’Agriculture, l’Alimentation et l’Environnement (INRAE), Nancy,
 France.</p>
 <dl class="field-list simple">
-<dt class="field-odd">copyright</dt>
+<dt class="field-odd">copyright<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Copyright 2020-2021 Matthias Cuntz - mc (at) macu (dot) de</p>
 </dd>
-<dt class="field-even">license</dt>
+<dt class="field-even">license<span class="colon">:</span></dt>
 <dd class="field-even"><p>MIT License, see LICENSE for details.</p>
 </dd>
 </dl>
 <p>The following functions are provided:</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvutils.DIMMETHODS" title="ncvue.ncvutils.DIMMETHODS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DIMMETHODS</span></code></a></p></td>
 <td><p>Arithmetic methods implemented on dimensions.</p></td>
@@ -275,8 +454,8 @@ France.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvutils.spinbox_values" title="ncvue.ncvutils.spinbox_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spinbox_values</span></code></a>(ndim)</p></td>
 <td><p>Tuple for Spinbox values with 'all' before range(<cite>ndim</cite>) and 'mean', 'std', etc.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvutils.vardim2var" title="ncvue.ncvutils.vardim2var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vardim2var</span></code></a>(vardim)</p></td>
-<td><p>Extract variable name from 'variable (dim1=ndim1,)' string.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvutils.vardim2var" title="ncvue.ncvutils.vardim2var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vardim2var</span></code></a>(vardim[, groups])</p></td>
+<td><p>Extract group index and variable name from 'group/variable (dim1=ndim1,)'.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvutils.zip_dim_name_length" title="ncvue.ncvutils.zip_dim_name_length"><code class="xref py py-obj docutils literal notranslate"><span class="pre">zip_dim_name_length</span></code></a>(ncvar)</p></td>
 <td><p>Combines dimension names and length of netcdf variable in list of strings.</p></td>
@@ -303,22 +482,22 @@ Jun 2021, Matthias Cuntz</p></li>
 <li><p>Removed SEPCHAR, Jun 2021, Matthias Cuntz</p></li>
 <li><p>Final add_cyclic, has_cyclic from cartopy v0.20.1,
 Nov 2021, Matthias Cuntz</p></li>
+<li><p>Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="ncvue.ncvutils.add_cyclic">
-<span class="sig-name descname"><span class="pre">add_cyclic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cyclic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">360</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#add_cyclic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.add_cyclic" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">add_cyclic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cyclic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">360</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#add_cyclic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.add_cyclic" title="Link to this definition">#</a></dt>
 <dd><p>Add a cyclic point to an array and optionally corresponding
 x/longitude and y/latitude coordinates.</p>
 <p>Checks all differences between the first and last
 x-coordinates along <code class="docutils literal notranslate"><span class="pre">axis</span></code> to be less than <code class="docutils literal notranslate"><span class="pre">precision</span></code>.</p>
-<dl class="field-list">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl>
-<dt><strong>data</strong><span class="classifier">ndarray</span></dt><dd><p>An n-dimensional array of data to add a cyclic point to.</p>
-</dd>
-<dt><strong>x</strong><span class="classifier">ndarray, optional</span></dt><dd><p>An n-dimensional array which specifies the x-coordinate values
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>ndarray</em>) – An n-dimensional array of data to add a cyclic point to.</p></li>
+<li><p><strong>x</strong> (<em>ndarray</em><em>, </em><em>optional</em>) – <p>An n-dimensional array which specifies the x-coordinate values
 for the dimension the cyclic point is to be added to, i.e. normally the
 longitudes. Defaults to None.</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">x</span></code> is given then <em>add_cyclic</em> checks if a cyclic point is
@@ -328,83 +507,74 @@ No point is added if a cyclic point was detected.</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">x</span></code> is 1- or 2-dimensional, <code class="docutils literal notranslate"><span class="pre">x.shape[-1]</span></code> must equal
 <code class="docutils literal notranslate"><span class="pre">data.shape[axis]</span></code>, otherwise <code class="docutils literal notranslate"><span class="pre">x.shape[axis]</span></code> must equal
 <code class="docutils literal notranslate"><span class="pre">data.shape[axis]</span></code>.</p>
-</dd>
-<dt><strong>y</strong><span class="classifier">ndarray, optional</span></dt><dd><p>An n-dimensional array with the values of the y-coordinate, i.e.
+</p></li>
+<li><p><strong>y</strong> (<em>ndarray</em><em>, </em><em>optional</em>) – <p>An n-dimensional array with the values of the y-coordinate, i.e.
 normally the latitudes.
 The cyclic point simply copies the last column. Defaults to None.</p>
 <p>No cyclic point is added if <code class="docutils literal notranslate"><span class="pre">y</span></code> is 1-dimensional.
 If <code class="docutils literal notranslate"><span class="pre">y</span></code> is 2-dimensional, <code class="docutils literal notranslate"><span class="pre">y.shape[-1]</span></code> must equal
 <code class="docutils literal notranslate"><span class="pre">data.shape[axis]</span></code>, otherwise <code class="docutils literal notranslate"><span class="pre">y.shape[axis]</span></code> must equal
 <code class="docutils literal notranslate"><span class="pre">data.shape[axis]</span></code>.</p>
+</p></li>
+<li><p><strong>axis</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – Specifies the axis of the arrays to add the cyclic point to,
+i.e. axis with changing x-coordinates. Defaults to the right-most axis.</p></li>
+<li><p><strong>cyclic</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em>, </em><em>optional</em>) – Width of periodic domain (default: 360).</p></li>
+<li><p><strong>precision</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em>, </em><em>optional</em>) – Maximal difference between first and last x-coordinate to detect
+cyclic point (default: 1e-4).</p></li>
+</ul>
 </dd>
-<dt><strong>axis</strong><span class="classifier">int, optional</span></dt><dd><p>Specifies the axis of the arrays to add the cyclic point to,
-i.e. axis with changing x-coordinates. Defaults to the right-most axis.</p>
-</dd>
-<dt><strong>cyclic</strong><span class="classifier">int or float, optional</span></dt><dd><p>Width of periodic domain (default: 360).</p>
-</dd>
-<dt><strong>precision</strong><span class="classifier">float, optional</span></dt><dd><p>Maximal difference between first and last x-coordinate to detect
-cyclic point (default: 1e-4).</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt>cyclic_data</dt><dd><p>The data array with a cyclic point added.</p>
-</dd>
-<dt>cyclic_x</dt><dd><p>The x-coordinate with a cyclic point, only returned if the <code class="docutils literal notranslate"><span class="pre">x</span></code>
-keyword was supplied.</p>
-</dd>
-<dt>cyclic_y</dt><dd><p>The y-coordinate with the last column of the cyclic axis duplicated,
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>cyclic_data</em> – The data array with a cyclic point added.</p></li>
+<li><p><em>cyclic_x</em> – The x-coordinate with a cyclic point, only returned if the <code class="docutils literal notranslate"><span class="pre">x</span></code>
+keyword was supplied.</p></li>
+<li><p><em>cyclic_y</em> – The y-coordinate with the last column of the cyclic axis duplicated,
 only returned if <code class="docutils literal notranslate"><span class="pre">x</span></code> was 2- or n-dimensional and the <code class="docutils literal notranslate"><span class="pre">y</span></code>
-keyword was supplied.</p>
-</dd>
-</dl>
+keyword was supplied.</p></li>
+</ul>
+</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <p>Adding a cyclic point to a data array, where the cyclic dimension is
-the right-most dimension.
-&gt;&gt;&gt; import numpy as np
-&gt;&gt;&gt; data = np.ones([5, 6]) * np.arange(6)
-&gt;&gt;&gt; cyclic_data = add_cyclic(data)
-&gt;&gt;&gt; print(cyclic_data)  # doctest: +NORMALIZE_WHITESPACE
-[[0. 1. 2. 3. 4. 5. 0.]</p>
-<blockquote>
-<div><p>[0. 1. 2. 3. 4. 5. 0.]
-[0. 1. 2. 3. 4. 5. 0.]
-[0. 1. 2. 3. 4. 5. 0.]
-[0. 1. 2. 3. 4. 5. 0.]]</p>
-</div></blockquote>
-<p>Adding a cyclic point to a data array and an associated x-coordinate.
-&gt;&gt;&gt; lons = np.arange(0, 360, 60)
-&gt;&gt;&gt; cyclic_data, cyclic_lons = add_cyclic(data, x=lons)
-&gt;&gt;&gt; print(cyclic_data)  # doctest: +NORMALIZE_WHITESPACE
-[[0. 1. 2. 3. 4. 5. 0.]</p>
-<blockquote>
-<div><p>[0. 1. 2. 3. 4. 5. 0.]
-[0. 1. 2. 3. 4. 5. 0.]
-[0. 1. 2. 3. 4. 5. 0.]
-[0. 1. 2. 3. 4. 5. 0.]]</p>
-</div></blockquote>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_lons</span><span class="p">)</span>
+the right-most dimension.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic_data</span> <span class="o">=</span> <span class="n">add_cyclic</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_data</span><span class="p">)</span>  
+<span class="go">[[0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="go"> [0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="go"> [0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="go"> [0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="go"> [0. 1. 2. 3. 4. 5. 0.]]</span>
+</pre></div>
+</div>
+<p>Adding a cyclic point to a data array and an associated x-coordinate.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lons</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic_data</span><span class="p">,</span> <span class="n">cyclic_lons</span> <span class="o">=</span> <span class="n">add_cyclic</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">lons</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_data</span><span class="p">)</span>  
+<span class="go">[[0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="go"> [0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="go"> [0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="go"> [0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="go"> [0. 1. 2. 3. 4. 5. 0.]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_lons</span><span class="p">)</span>
 <span class="go">[  0  60 120 180 240 300 360]</span>
 </pre></div>
 </div>
 <p>Adding a cyclic point to a data array and an associated 2-dimensional
-x-coordinate.
-&gt;&gt;&gt; lons = np.arange(0, 360, 60)
-&gt;&gt;&gt; lats = np.arange(-90, 90, 180/5)
-&gt;&gt;&gt; lon2d, lat2d = np.meshgrid(lons, lats)
-&gt;&gt;&gt; cyclic_data, cyclic_lon2d = add_cyclic(data, x=lon2d)
-&gt;&gt;&gt; print(cyclic_data)  # doctest: +NORMALIZE_WHITESPACE
-[[0. 1. 2. 3. 4. 5. 0.]</p>
-<blockquote>
-<div><p>[0. 1. 2. 3. 4. 5. 0.]
-[0. 1. 2. 3. 4. 5. 0.]
-[0. 1. 2. 3. 4. 5. 0.]
-[0. 1. 2. 3. 4. 5. 0.]]</p>
-</div></blockquote>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_lon2d</span><span class="p">)</span>
+x-coordinate.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lons</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">180</span><span class="o">/</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lon2d</span><span class="p">,</span> <span class="n">lat2d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">lons</span><span class="p">,</span> <span class="n">lats</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic_data</span><span class="p">,</span> <span class="n">cyclic_lon2d</span> <span class="o">=</span> <span class="n">add_cyclic</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">lon2d</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_data</span><span class="p">)</span>  
+<span class="go">[[0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="go"> [0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="go"> [0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="go"> [0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="go"> [0. 1. 2. 3. 4. 5. 0.]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_lon2d</span><span class="p">)</span>
 <span class="go">[[  0  60 120 180 240 300 360]</span>
 <span class="go"> [  0  60 120 180 240 300 360]</span>
 <span class="go"> [  0  60 120 180 240 300 360]</span>
@@ -413,21 +583,19 @@ x-coordinate.
 </pre></div>
 </div>
 <p>Adding a cyclic point to a data array and the associated 2-dimensional
-x- and y-coordinates.
-&gt;&gt;&gt; lons = np.arange(0, 360, 60)
-&gt;&gt;&gt; lats = np.arange(-90, 90, 180/5)
-&gt;&gt;&gt; lon2d, lat2d = np.meshgrid(lons, lats)
-&gt;&gt;&gt; cyclic_data, cyclic_lon2d, cyclic_lat2d = add_cyclic(
-…     data, x=lon2d, y=lat2d)
-&gt;&gt;&gt; print(cyclic_data)  # doctest: +NORMALIZE_WHITESPACE
-[[0. 1. 2. 3. 4. 5. 0.]</p>
-<blockquote>
-<div><p>[0. 1. 2. 3. 4. 5. 0.]
-[0. 1. 2. 3. 4. 5. 0.]
-[0. 1. 2. 3. 4. 5. 0.]
-[0. 1. 2. 3. 4. 5. 0.]]</p>
-</div></blockquote>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_lon2d</span><span class="p">)</span>
+x- and y-coordinates.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lons</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">180</span><span class="o">/</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lon2d</span><span class="p">,</span> <span class="n">lat2d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">lons</span><span class="p">,</span> <span class="n">lats</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic_data</span><span class="p">,</span> <span class="n">cyclic_lon2d</span><span class="p">,</span> <span class="n">cyclic_lat2d</span> <span class="o">=</span> <span class="n">add_cyclic</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">lon2d</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">lat2d</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_data</span><span class="p">)</span>  
+<span class="go">[[0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="go"> [0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="go"> [0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="go"> [0. 1. 2. 3. 4. 5. 0.]</span>
+<span class="go"> [0. 1. 2. 3. 4. 5. 0.]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_lon2d</span><span class="p">)</span>
 <span class="go">[[  0  60 120 180 240 300 360]</span>
 <span class="go"> [  0  60 120 180 240 300 360]</span>
 <span class="go"> [  0  60 120 180 240 300 360]</span>
@@ -441,21 +609,19 @@ x- and y-coordinates.
 <span class="go"> [ 54.  54.  54.  54.  54.  54.  54.]]</span>
 </pre></div>
 </div>
-<p>Not adding a cyclic point if cyclic point detected in x.
-&gt;&gt;&gt; lons = np.arange(0, 361, 72)
-&gt;&gt;&gt; lats = np.arange(-90, 90, 180/5)
-&gt;&gt;&gt; lon2d, lat2d = np.meshgrid(lons, lats)
-&gt;&gt;&gt; cyclic_data, cyclic_lon2d, cyclic_lat2d = add_cyclic(
-…     data, x=lon2d, y=lat2d)
-&gt;&gt;&gt; print(cyclic_data)  # doctest: +NORMALIZE_WHITESPACE
-[[0. 1. 2. 3. 4. 5.]</p>
-<blockquote>
-<div><p>[0. 1. 2. 3. 4. 5.]
-[0. 1. 2. 3. 4. 5.]
-[0. 1. 2. 3. 4. 5.]
-[0. 1. 2. 3. 4. 5.]]</p>
-</div></blockquote>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_lon2d</span><span class="p">)</span>
+<p>Not adding a cyclic point if cyclic point detected in x.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lons</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">361</span><span class="p">,</span> <span class="mi">72</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">180</span><span class="o">/</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lon2d</span><span class="p">,</span> <span class="n">lat2d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">lons</span><span class="p">,</span> <span class="n">lats</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic_data</span><span class="p">,</span> <span class="n">cyclic_lon2d</span><span class="p">,</span> <span class="n">cyclic_lat2d</span> <span class="o">=</span> <span class="n">add_cyclic</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">lon2d</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">lat2d</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_data</span><span class="p">)</span>  
+<span class="go">[[0. 1. 2. 3. 4. 5.]</span>
+<span class="go"> [0. 1. 2. 3. 4. 5.]</span>
+<span class="go"> [0. 1. 2. 3. 4. 5.]</span>
+<span class="go"> [0. 1. 2. 3. 4. 5.]</span>
+<span class="go"> [0. 1. 2. 3. 4. 5.]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_lon2d</span><span class="p">)</span>
 <span class="go">[[  0  72 144 216 288 360]</span>
 <span class="go"> [  0  72 144 216 288 360]</span>
 <span class="go"> [  0  72 144 216 288 360]</span>
@@ -473,19 +639,14 @@ x- and y-coordinates.
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ncvue.ncvutils.clone_ncvmain">
-<span class="sig-name descname"><span class="pre">clone_ncvmain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widget</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#clone_ncvmain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.clone_ncvmain" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">clone_ncvmain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widget</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#clone_ncvmain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.clone_ncvmain" title="Link to this definition">#</a></dt>
 <dd><p>Duplicate the main ncvue window.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>widget</strong><span class="classifier">ncvue.ncvMain</span></dt><dd><p>widget of ncvMain class.</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>widget</strong> (<em>ncvue.ncvMain</em>) – widget of ncvMain class.</p>
 </dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt>Another ncvue window will be created.</dt><dd></dd>
-</dl>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Another ncvue window will be created.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -498,23 +659,21 @@ x- and y-coordinates.
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ncvue.ncvutils.format_coord_contour">
-<span class="sig-name descname"><span class="pre">format_coord_contour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zz</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#format_coord_contour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.format_coord_contour" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">format_coord_contour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zz</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#format_coord_contour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.format_coord_contour" title="Link to this definition">#</a></dt>
 <dd><p>Formatter function for contour plot including value of nearest array cell.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>x, y</strong><span class="classifier">float</span></dt><dd><p>Data coordinates of <cite>ax</cite>.</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – Data coordinates of <cite>ax</cite>.</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – Data coordinates of <cite>ax</cite>.</p></li>
+<li><p><strong>ax</strong> (<em>matplotlib.axes._subplots.AxesSubplot</em>) – Matplotlib axes object for left-hand and right-hand y-axis, resp.</p></li>
+<li><p><strong>xx</strong> (<em>ndarray</em>) – Numpy arrays with x-values, y-values, and z-values</p></li>
+<li><p><strong>yy</strong> (<em>ndarray</em>) – Numpy arrays with x-values, y-values, and z-values</p></li>
+<li><p><strong>zz</strong> (<em>ndarray</em>) – Numpy arrays with x-values, y-values, and z-values</p></li>
+</ul>
 </dd>
-<dt><strong>ax: matplotlib.axes._subplots.AxesSubplot</strong></dt><dd><p>Matplotlib axes object for left-hand and right-hand y-axis, resp.</p>
-</dd>
-<dt><strong>xx, yy, zz: ndarray</strong></dt><dd><p>Numpy arrays with x-values, y-values, and z-values</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt>String with coordinateds.</dt><dd></dd>
-</dl>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>String with coordinateds.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -528,23 +687,21 @@ x- and y-coordinates.
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ncvue.ncvutils.format_coord_map">
-<span class="sig-name descname"><span class="pre">format_coord_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zz</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#format_coord_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.format_coord_map" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">format_coord_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zz</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#format_coord_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.format_coord_map" title="Link to this definition">#</a></dt>
 <dd><p>Formatter function for map including value of nearest array cell.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>x, y</strong><span class="classifier">float</span></dt><dd><p>Data coordinates of <cite>ax</cite>.</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – Data coordinates of <cite>ax</cite>.</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – Data coordinates of <cite>ax</cite>.</p></li>
+<li><p><strong>ax</strong> (<em>matplotlib.axes._subplots.AxesSubplot</em>) – Matplotlib axes object for left-hand and right-hand y-axis, resp.</p></li>
+<li><p><strong>xx</strong> (<em>ndarray</em>) – Numpy arrays with x-values, y-values, and z-values</p></li>
+<li><p><strong>yy</strong> (<em>ndarray</em>) – Numpy arrays with x-values, y-values, and z-values</p></li>
+<li><p><strong>zz</strong> (<em>ndarray</em>) – Numpy arrays with x-values, y-values, and z-values</p></li>
+</ul>
 </dd>
-<dt><strong>ax: matplotlib.axes._subplots.AxesSubplot</strong></dt><dd><p>Matplotlib axes object for left-hand and right-hand y-axis, resp.</p>
-</dd>
-<dt><strong>xx, yy, zz: ndarray</strong></dt><dd><p>Numpy arrays with x-values, y-values, and z-values</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt>String with coordinateds.</dt><dd></dd>
-</dl>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>String with coordinateds.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -558,25 +715,26 @@ x- and y-coordinates.
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ncvue.ncvutils.format_coord_scatter">
-<span class="sig-name descname"><span class="pre">format_coord_scatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xdtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ydtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y2dtype</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#format_coord_scatter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.format_coord_scatter" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">format_coord_scatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xdtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ydtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y2dtype</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#format_coord_scatter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.format_coord_scatter" title="Link to this definition">#</a></dt>
 <dd><p>Formatter function for scatter plot with left and right axis
 having the same x-axis.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>x, y</strong><span class="classifier">float</span></dt><dd><p>Data coordinates of <cite>ax2</cite>.</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – Data coordinates of <cite>ax2</cite>.</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – Data coordinates of <cite>ax2</cite>.</p></li>
+<li><p><strong>ax</strong> (<em>matplotlib.axes._subplots.AxesSubplot</em>) – Matplotlib axes object for left-hand and right-hand y-axis, resp.</p></li>
+<li><p><strong>ax2</strong> (<em>matplotlib.axes._subplots.AxesSubplot</em>) – Matplotlib axes object for left-hand and right-hand y-axis, resp.</p></li>
+<li><p><strong>xdtype</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dtype.html#numpy.dtype" title="(in NumPy v1.26)"><em>numpy.dtype</em></a>) – Numpy dtype of data of x-values (xdtype), left-hand side y-values
+(ydtype), and right-hand side y-values (y2dtype)</p></li>
+<li><p><strong>ydtype</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dtype.html#numpy.dtype" title="(in NumPy v1.26)"><em>numpy.dtype</em></a>) – Numpy dtype of data of x-values (xdtype), left-hand side y-values
+(ydtype), and right-hand side y-values (y2dtype)</p></li>
+<li><p><strong>y2dtype</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dtype.html#numpy.dtype" title="(in NumPy v1.26)"><em>numpy.dtype</em></a>) – Numpy dtype of data of x-values (xdtype), left-hand side y-values
+(ydtype), and right-hand side y-values (y2dtype)</p></li>
+</ul>
 </dd>
-<dt><strong>ax, ax2: matplotlib.axes._subplots.AxesSubplot</strong></dt><dd><p>Matplotlib axes object for left-hand and right-hand y-axis, resp.</p>
-</dd>
-<dt><strong>xdtype, ydtype, y2dtype: numpy.dtype</strong></dt><dd><p>Numpy dtype of data of x-values (xdtype), left-hand side y-values
-(ydtype), and right-hand side y-values (y2dtype)</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt>String with left-hand side and right hand-side coordinates.</dt><dd></dd>
-</dl>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>String with left-hand side and right hand-side coordinates.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -592,27 +750,25 @@ having the same x-axis.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ncvue.ncvutils.get_slice">
-<span class="sig-name descname"><span class="pre">get_slice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimspins</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#get_slice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.get_slice" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_slice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimspins</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#get_slice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.get_slice" title="Link to this definition">#</a></dt>
 <dd><p>Get slice of variable <cite>y</cite> inquiring the spinboxes <cite>dimspins</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>dimspins</strong><span class="classifier">list</span></dt><dd><p>List of tk.Spinbox widgets of dimensions</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dimspins</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – List of tk.Spinbox widgets of dimensions</p></li>
+<li><p><strong>y</strong> (<em>ndarray</em><em> or </em><em>netCDF4._netCDF4.Variable</em>) – Input array or netcdf variable</p></li>
+</ul>
 </dd>
-<dt><strong>y</strong><span class="classifier">ndarray or netCDF4._netCDF4.Variable</span></dt><dd><p>Input array or netcdf variable</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Slice of <cite>y</cite> chosen by with spinboxes.</p>
 </dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt>ndarray</dt><dd><p>Slice of <cite>y</cite> chosen by with spinboxes.</p>
-</dd>
-</dl>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vy</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">yy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">vy</span><span class="p">]</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gy</span><span class="p">,</span> <span class="n">vy</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">yy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="n">vy</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">miss</span> <span class="o">=</span> <span class="n">get_miss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">yy</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">yy</span> <span class="o">=</span> <span class="n">get_slice_y</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">yd</span><span class="p">,</span> <span class="n">yy</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">yy</span> <span class="o">=</span> <span class="n">set_miss</span><span class="p">(</span><span class="n">miss</span><span class="p">,</span> <span class="n">yy</span><span class="p">)</span>
@@ -622,30 +778,27 @@ having the same x-axis.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ncvue.ncvutils.has_cyclic">
-<span class="sig-name descname"><span class="pre">has_cyclic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cyclic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">360</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#has_cyclic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.has_cyclic" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">has_cyclic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cyclic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">360</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#has_cyclic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.has_cyclic" title="Link to this definition">#</a></dt>
 <dd><p>Check if x/longitude coordinates already have a cyclic point.</p>
 <p>Checks all differences between the first and last
 x-coordinates along <code class="docutils literal notranslate"><span class="pre">axis</span></code> to be less than <code class="docutils literal notranslate"><span class="pre">precision</span></code>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>x</strong><span class="classifier">ndarray</span></dt><dd><p>An array with the x-coordinate values to be checked for cyclic points.</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>ndarray</em>) – An array with the x-coordinate values to be checked for cyclic points.</p></li>
+<li><p><strong>axis</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – Specifies the axis of the <code class="docutils literal notranslate"><span class="pre">x</span></code> array to be checked.
+Defaults to the right-most axis.</p></li>
+<li><p><strong>cyclic</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em>, </em><em>optional</em>) – Width of periodic domain (default: 360).</p></li>
+<li><p><strong>precision</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em>, </em><em>optional</em>) – Maximal difference between first and last x-coordinate to detect
+cyclic point (default: 1e-4).</p></li>
+</ul>
 </dd>
-<dt><strong>axis</strong><span class="classifier">int, optional</span></dt><dd><p>Specifies the axis of the <code class="docutils literal notranslate"><span class="pre">x</span></code> array to be checked.
-Defaults to the right-most axis.</p>
-</dd>
-<dt><strong>cyclic</strong><span class="classifier">float, optional</span></dt><dd><p>Width of periodic domain (default: 360).</p>
-</dd>
-<dt><strong>precision</strong><span class="classifier">float, optional</span></dt><dd><p>Maximal difference between first and last x-coordinate to detect
-cyclic point (default: 1e-4).</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt>True if a cyclic point was detected along the given axis,</dt><dd></dd>
-<dt>False otherwise.</dt><dd></dd>
-</dl>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>True if a cyclic point was detected along the given axis,</em></p></li>
+<li><p><em>False otherwise.</em></p></li>
+</ul>
+</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -669,24 +822,24 @@ True</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ncvue.ncvutils.list_intersection">
-<span class="sig-name descname"><span class="pre">list_intersection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lst2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#list_intersection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.list_intersection" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">list_intersection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lst2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#list_intersection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.list_intersection" title="Link to this definition">#</a></dt>
 <dd><p>Intersection of two lists.</p>
 <p>From:
 <a class="reference external" href="https://stackoverflow.com/questions/3697432/how-to-find-list-intersection">https://stackoverflow.com/questions/3697432/how-to-find-list-intersection</a>
 Using list comprehension for small lists and set() method with builtin
 intersection for longer lists.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>lst1, lst2</strong><span class="classifier">list</span></dt><dd><p>Python lists</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lst1</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – Python lists</p></li>
+<li><p><strong>lst2</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – Python lists</p></li>
+</ul>
 </dd>
-</dl>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List with common elements in both input lists.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt>list</dt><dd><p>List with common elements in both input lists.</p>
-</dd>
-</dl>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)">list</a></p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -700,52 +853,47 @@ intersection for longer lists.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ncvue.ncvutils.set_axis_label">
-<span class="sig-name descname"><span class="pre">set_axis_label</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ncvar</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#set_axis_label"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.set_axis_label" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">set_axis_label</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ncvar</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#set_axis_label"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.set_axis_label" title="Link to this definition">#</a></dt>
 <dd><p>Set label plotting axis from name and unit of given variable
 <cite>ncvar</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>ncvar</strong><span class="classifier">netCDF4._netCDF4.Variable</span></dt><dd><p>netcdf variables class</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ncvar</strong> (<em>netCDF4._netCDF4.Variable</em>) – netcdf variables class</p>
 </dd>
-</dl>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Label string: name (unit)</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt>str</dt><dd><p>Label string: name (unit)</p>
-</dd>
-</dl>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ylab</span> <span class="o">=</span> <span class="n">set_axis_label</span><span class="p">(</span><span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;w_soil&#39;</span><span class="p">])</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ylab</span> <span class="o">=</span> <span class="n">set_axis_label</span><span class="p">(</span><span class="n">fi</span><span class="p">[</span><span class="s1">&#39;w_soil&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ncvue.ncvutils.set_miss">
-<span class="sig-name descname"><span class="pre">set_miss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">miss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#set_miss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.set_miss" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">set_miss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">miss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#set_miss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.set_miss" title="Link to this definition">#</a></dt>
 <dd><p>Set <cite>x</cite> to NaN or NaT for all values in miss.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>miss</strong><span class="classifier">iterable</span></dt><dd><p>values which shall be set to np.nan or np.datetime64(‘NaT’) in <cite>x</cite></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>miss</strong> (<em>iterable</em>) – values which shall be set to np.nan or np.datetime64(‘NaT’) in <cite>x</cite></p></li>
+<li><p><strong>x</strong> (<em>ndarray</em>) – numpy array</p></li>
+</ul>
 </dd>
-<dt><strong>x</strong><span class="classifier">ndarray</span></dt><dd><p>numpy array</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt>ndarray</dt><dd><p><cite>x</cite> with all values set np.nan or np.datetime64(‘NaT’)
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><cite>x</cite> with all values set np.nan or np.datetime64(‘NaT’)
 that are equal to any value in miss.</p>
 </dd>
-</dl>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">fi</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">miss</span> <span class="o">=</span> <span class="n">get_miss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">set_miss</span><span class="p">(</span><span class="n">miss</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 </pre></div>
@@ -754,23 +902,20 @@ that are equal to any value in miss.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ncvue.ncvutils.spinbox_values">
-<span class="sig-name descname"><span class="pre">spinbox_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ndim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#spinbox_values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.spinbox_values" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">spinbox_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ndim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#spinbox_values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.spinbox_values" title="Link to this definition">#</a></dt>
 <dd><p>Tuple for Spinbox values with ‘all’ before range(<cite>ndim</cite>) and
 ‘mean’, ‘std’, etc. after range(<cite>ndim</cite>) if <cite>ndim</cite>&gt;1,
 otherwise single entry (0,).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>ndim</strong><span class="classifier">int</span></dt><dd><p>Size of dimension.</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ndim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – Size of dimension.</p>
 </dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt>tuple</dt><dd><p>((‘all’,) + tuple(range(ndim)) + (‘mean’,’std’,…)) if ndim &gt; 1
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>((‘all’,) + tuple(range(ndim)) + (‘mean’,’std’,…)) if ndim &gt; 1
 (0,) else</p>
 </dd>
-</dl>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)">tuple</a></p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -781,52 +926,47 @@ otherwise single entry (0,).</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ncvue.ncvutils.vardim2var">
-<span class="sig-name descname"><span class="pre">vardim2var</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vardim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#vardim2var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.vardim2var" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extract variable name from ‘variable (dim1=ndim1,)’ string.</p>
+<span class="sig-name descname"><span class="pre">vardim2var</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vardim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#vardim2var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.vardim2var" title="Link to this definition">#</a></dt>
+<dd><p>Extract group index and variable name from ‘group/variable (dim1=ndim1,)’.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>vardim</strong><span class="classifier">string</span></dt><dd><p>Variable name with dimensions, such as ‘latitude (lat=32,lon=64)’.</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>vardim</strong> (<em>string</em>) – Variable name with dimensions, such as ‘latitude (lat=32,lon=64)’
+or with group ‘file1/latitude (lat=32,lon=64)’</p>
 </dd>
-</dl>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>group index, variable name</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt>string</dt><dd><p>Variable name.</p>
-</dd>
-</dl>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a>, string</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vardim2var</span><span class="p">(</span><span class="s1">&#39;latitude (lat=32,lon=64)&#39;</span><span class="p">)</span>
-<span class="go">latitude</span>
+<span class="go">0 latitude</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ncvue.ncvutils.zip_dim_name_length">
-<span class="sig-name descname"><span class="pre">zip_dim_name_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ncvar</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#zip_dim_name_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.zip_dim_name_length" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">zip_dim_name_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ncvar</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#zip_dim_name_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.zip_dim_name_length" title="Link to this definition">#</a></dt>
 <dd><p>Combines dimension names and length of netcdf variable in list of strings.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>ncvar</strong><span class="classifier">netCDF4._netCDF4.Variable</span></dt><dd><p>netcdf variables class</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ncvar</strong> (<em>netCDF4._netCDF4.Variable</em>) – netcdf variables class</p>
 </dd>
-</dl>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of dimension name and length in the form ‘dim=len’.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt>list</dt><dd><p>List of dimension name and length in the form ‘dim=len’.</p>
-</dd>
-</dl>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)">list</a></p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">netCDF4</span> <span class="k">as</span> <span class="nn">nc</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ifile</span> <span class="o">=</span> <span class="s1">&#39;test.nc&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span> <span class="o">=</span> <span class="n">nc</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">ifile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">w_soil</span> <span class="o">=</span> <span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;w_soil&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">w_soil</span> <span class="o">=</span> <span class="n">fi</span><span class="p">[</span><span class="s1">&#39;w_soil&#39;</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">zip_dim_name_length</span><span class="p">(</span><span class="n">w_soil</span><span class="p">))</span>
 <span class="go">(&#39;ntime=17520&#39;, &#39;nsoil=30&#39;)</span>
 </pre></div>
@@ -835,7 +975,7 @@ otherwise single entry (0,).</p>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="ncvue.ncvutils.DIMMETHODS">
-<span class="sig-name descname"><span class="pre">DIMMETHODS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">('mean',</span> <span class="pre">'std',</span> <span class="pre">'min',</span> <span class="pre">'max',</span> <span class="pre">'ptp',</span> <span class="pre">'sum',</span> <span class="pre">'median',</span> <span class="pre">'var')</span></em><a class="headerlink" href="#ncvue.ncvutils.DIMMETHODS" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">DIMMETHODS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('mean',</span> <span class="pre">'std',</span> <span class="pre">'min',</span> <span class="pre">'max',</span> <span class="pre">'ptp',</span> <span class="pre">'sum',</span> <span class="pre">'median',</span> <span class="pre">'var')</span></em><a class="headerlink" href="#ncvue.ncvutils.DIMMETHODS" title="Link to this definition">#</a></dt>
 <dd><p>Arithmetic methods implemented on dimensions.</p>
 <p>mean - average
 std - standard deviation
@@ -847,50 +987,119 @@ median - 50-percentile
 var - variance</p>
 </dd></dl>
 
-</div>
+</section>
 
 
-           </div>
-           
-          </div>
-          <footer>
+                </article>
+              
 
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &#169; Copyright 2020-2022, Matthias Cuntz.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-        </div>
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="ncvue.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">ncvue.ncvue</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="ncvwidgets.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">ncvue.ncvwidgets</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
-    </section>
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.add_cyclic"><code class="docutils literal notranslate"><span class="pre">add_cyclic()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.clone_ncvmain"><code class="docutils literal notranslate"><span class="pre">clone_ncvmain()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.format_coord_contour"><code class="docutils literal notranslate"><span class="pre">format_coord_contour()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.format_coord_map"><code class="docutils literal notranslate"><span class="pre">format_coord_map()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.format_coord_scatter"><code class="docutils literal notranslate"><span class="pre">format_coord_scatter()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.get_slice"><code class="docutils literal notranslate"><span class="pre">get_slice()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.has_cyclic"><code class="docutils literal notranslate"><span class="pre">has_cyclic()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.list_intersection"><code class="docutils literal notranslate"><span class="pre">list_intersection()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.set_axis_label"><code class="docutils literal notranslate"><span class="pre">set_axis_label()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.set_miss"><code class="docutils literal notranslate"><span class="pre">set_miss()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.spinbox_values"><code class="docutils literal notranslate"><span class="pre">spinbox_values()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.vardim2var"><code class="docutils literal notranslate"><span class="pre">vardim2var()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.zip_dim_name_length"><code class="docutils literal notranslate"><span class="pre">zip_dim_name_length()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.DIMMETHODS"><code class="docutils literal notranslate"><span class="pre">DIMMETHODS</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Matthias Cuntz
+</p>
 
   </div>
   
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
+  <div class="footer-item">
     
-   
 
-</body>
+  <p class="copyright">
+    
+      © Copyright 2020-2024, Matthias Cuntz.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
 </html>

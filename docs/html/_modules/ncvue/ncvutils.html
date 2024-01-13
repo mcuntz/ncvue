@@ -1,124 +1,159 @@
 
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" />
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ncvue.ncvutils &#8212; ncvue</title>
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ncvue.ncvutils &mdash; ncvue 4.0.2.dev3 documentation</title>
   
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
 
   
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=628480d8" />
   
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
 
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
-    
+    <script src="../../_static/documentation_options.js?v=7670ec9e"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/ncvue/ncvutils';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
-</head>
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-<body class="wy-body-for-nav">
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
 
-   
-  <div class="wy-grid-for-nav">
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
 
-          
-            <a href="../../index.html" class="icon icon-home"> ncvue
-          
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
 
-          
-          </a>
+  <header>
+  
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
+  
+  </header>
 
-          
-            
-            
-              <div class="version">
-                4.0.2.dev3
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
         
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-    <p class="link caption"><span class="link caption-text">Documentation</span></p>
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
     
-            
-            
-              
-            
-            
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../readme.html">ncvue - A GUI to view netCDF files</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../readme.html#about-ncvue">About ncvue</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../readme.html#quick-usage-guide">Quick usage guide</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../readme.html#general-layout">General layout</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../readme.html#map-panel">Map panel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../readme.html#scatter-line-panel">Scatter/Line panel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../readme.html#contour-panel">Contour panel</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../readme.html#license">License</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../install.html#binary-distributions">Binary distributions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../install.html#building-from-source">Building from source</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../install.html#dependencies">Dependencies</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../install.html#windows">Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../install.html#macos">macOS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../install.html#linux">Linux</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../package.html">API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../package.html#purpose">Purpose</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../package.html#subpackages">Subpackages</a></li>
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">ncvue</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">ncvue - A GUI to view netCDF files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../package.html">API</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvcontour.html">ncvue.ncvcontour</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvmain.html">ncvue.ncvmain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvmap.html">ncvue.ncvmap</a></li>
@@ -131,79 +166,153 @@
 </li>
 </ul>
 
-            
-          
-    <br />
-    <p class="link caption"><span class="link caption-text">ncvue Links</span></p>
-    <a href="https://github.com/mcuntz/ncvue">ncvue @ GitHub</a>
-    <a href="https://zenodo.org/record/4459598">ncvue Zenodo DOI</a>
-    <a href="https://pypi.org/project/ncvue">ncvue @ PyPI</a>
-    <br />
-    <br />
-    <a href="genindex.html">Index</a>
-    <a href="index.html">Sitemap</a>
+    </div>
+</nav></div>
+    </div>
   
-        </div>
-        
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
       </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
       
-      <nav class="wy-nav-top" aria-label="top navigation">
+      <main id="main-content" class="bd-main">
         
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">ncvue</a>
         
-      </nav>
 
+<div class="sbt-scroll-pixel-helper"></div>
 
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="../index.html">Module code</a> &raquo;</li>
-        
-      <li>ncvue.ncvutils</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-      </li>
-    
-  </ul>
-
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
   
-  <hr/>
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/mcuntz/ncvue" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/mcuntz/ncvue/issues/new?title=Issue%20on%20page%20%2F_modules/ncvue/ncvutils.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
             
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <h1>Source code for ncvue.ncvutils</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="sd">&quot;&quot;&quot;</span>
@@ -257,6 +366,7 @@
 <span class="sd">    * Removed SEPCHAR, Jun 2021, Matthias Cuntz</span>
 <span class="sd">    * Final add_cyclic, has_cyclic from cartopy v0.20.1,</span>
 <span class="sd">      Nov 2021, Matthias Cuntz</span>
+<span class="sd">    * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span>
@@ -291,7 +401,7 @@
 
 
 <span class="k">def</span> <span class="nf">_add_cyclic_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Add a cyclic point to a data array.</span>
 
 <span class="sd">    Parameters</span>
@@ -318,7 +428,7 @@
 
 
 <span class="k">def</span> <span class="nf">_add_cyclic_x</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">cyclic</span><span class="o">=</span><span class="mi">360</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Add a cyclic point to a x/longitude coordinate array.</span>
 
 <span class="sd">    Parameters</span>
@@ -351,8 +461,10 @@
     <span class="k">return</span> <span class="n">npc</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">cx</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="has_cyclic"><a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.has_cyclic">[docs]</a><span class="k">def</span> <span class="nf">has_cyclic</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">cyclic</span><span class="o">=</span><span class="mi">360</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="has_cyclic">
+<a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.has_cyclic">[docs]</a>
+<span class="k">def</span> <span class="nf">has_cyclic</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">cyclic</span><span class="o">=</span><span class="mi">360</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Check if x/longitude coordinates already have a cyclic point.</span>
 
 <span class="sd">    Checks all differences between the first and last</span>
@@ -407,9 +519,12 @@
         <span class="k">return</span> <span class="kc">False</span></div>
 
 
-<div class="viewcode-block" id="add_cyclic"><a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.add_cyclic">[docs]</a><span class="k">def</span> <span class="nf">add_cyclic</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+
+<div class="viewcode-block" id="add_cyclic">
+<a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.add_cyclic">[docs]</a>
+<span class="k">def</span> <span class="nf">add_cyclic</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
                <span class="n">cyclic</span><span class="o">=</span><span class="mi">360</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Add a cyclic point to an array and optionally corresponding</span>
 <span class="sd">    x/longitude and y/latitude coordinates.</span>
 
@@ -467,6 +582,7 @@
 <span class="sd">    --------</span>
 <span class="sd">    Adding a cyclic point to a data array, where the cyclic dimension is</span>
 <span class="sd">    the right-most dimension.</span>
+
 <span class="sd">    &gt;&gt;&gt; import numpy as np</span>
 <span class="sd">    &gt;&gt;&gt; data = np.ones([5, 6]) * np.arange(6)</span>
 <span class="sd">    &gt;&gt;&gt; cyclic_data = add_cyclic(data)</span>
@@ -478,6 +594,7 @@
 <span class="sd">     [0. 1. 2. 3. 4. 5. 0.]]</span>
 
 <span class="sd">    Adding a cyclic point to a data array and an associated x-coordinate.</span>
+
 <span class="sd">    &gt;&gt;&gt; lons = np.arange(0, 360, 60)</span>
 <span class="sd">    &gt;&gt;&gt; cyclic_data, cyclic_lons = add_cyclic(data, x=lons)</span>
 <span class="sd">    &gt;&gt;&gt; print(cyclic_data)  # doctest: +NORMALIZE_WHITESPACE</span>
@@ -491,6 +608,7 @@
 
 <span class="sd">    Adding a cyclic point to a data array and an associated 2-dimensional</span>
 <span class="sd">    x-coordinate.</span>
+
 <span class="sd">    &gt;&gt;&gt; lons = np.arange(0, 360, 60)</span>
 <span class="sd">    &gt;&gt;&gt; lats = np.arange(-90, 90, 180/5)</span>
 <span class="sd">    &gt;&gt;&gt; lon2d, lat2d = np.meshgrid(lons, lats)</span>
@@ -510,6 +628,7 @@
 
 <span class="sd">    Adding a cyclic point to a data array and the associated 2-dimensional</span>
 <span class="sd">    x- and y-coordinates.</span>
+
 <span class="sd">    &gt;&gt;&gt; lons = np.arange(0, 360, 60)</span>
 <span class="sd">    &gt;&gt;&gt; lats = np.arange(-90, 90, 180/5)</span>
 <span class="sd">    &gt;&gt;&gt; lon2d, lat2d = np.meshgrid(lons, lats)</span>
@@ -535,6 +654,7 @@
 <span class="sd">     [ 54.  54.  54.  54.  54.  54.  54.]]</span>
 
 <span class="sd">    Not adding a cyclic point if cyclic point detected in x.</span>
+
 <span class="sd">    &gt;&gt;&gt; lons = np.arange(0, 361, 72)</span>
 <span class="sd">    &gt;&gt;&gt; lats = np.arange(-90, 90, 180/5)</span>
 <span class="sd">    &gt;&gt;&gt; lon2d, lat2d = np.meshgrid(lons, lats)</span>
@@ -600,8 +720,11 @@
     <span class="k">return</span> <span class="n">out_data</span><span class="p">,</span> <span class="n">out_x</span><span class="p">,</span> <span class="n">out_y</span></div>
 
 
-<div class="viewcode-block" id="clone_ncvmain"><a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.clone_ncvmain">[docs]</a><span class="k">def</span> <span class="nf">clone_ncvmain</span><span class="p">(</span><span class="n">widget</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="clone_ncvmain">
+<a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.clone_ncvmain">[docs]</a>
+<span class="k">def</span> <span class="nf">clone_ncvmain</span><span class="p">(</span><span class="n">widget</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Duplicate the main ncvue window.</span>
 
 <span class="sd">    Parameters</span>
@@ -644,8 +767,11 @@
     <span class="k">return</span> <span class="n">clone</span></div>
 
 
-<div class="viewcode-block" id="format_coord_contour"><a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.format_coord_contour">[docs]</a><span class="k">def</span> <span class="nf">format_coord_contour</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">zz</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="format_coord_contour">
+<a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.format_coord_contour">[docs]</a>
+<span class="k">def</span> <span class="nf">format_coord_contour</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">zz</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Formatter function for contour plot including value of nearest array cell.</span>
 
 <span class="sd">    Parameters</span>
@@ -716,8 +842,11 @@
     <span class="k">return</span> <span class="n">out</span></div>
 
 
-<div class="viewcode-block" id="format_coord_map"><a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.format_coord_map">[docs]</a><span class="k">def</span> <span class="nf">format_coord_map</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">zz</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="format_coord_map">
+<a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.format_coord_map">[docs]</a>
+<span class="k">def</span> <span class="nf">format_coord_map</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">zz</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Formatter function for map including value of nearest array cell.</span>
 
 <span class="sd">    Parameters</span>
@@ -770,8 +899,11 @@
     <span class="k">return</span> <span class="n">out</span></div>
 
 
-<div class="viewcode-block" id="format_coord_scatter"><a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.format_coord_scatter">[docs]</a><span class="k">def</span> <span class="nf">format_coord_scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">xdtype</span><span class="p">,</span> <span class="n">ydtype</span><span class="p">,</span> <span class="n">y2dtype</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="format_coord_scatter">
+<a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.format_coord_scatter">[docs]</a>
+<span class="k">def</span> <span class="nf">format_coord_scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">xdtype</span><span class="p">,</span> <span class="n">ydtype</span><span class="p">,</span> <span class="n">y2dtype</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Formatter function for scatter plot with left and right axis</span>
 <span class="sd">    having the same x-axis.</span>
 
@@ -825,8 +957,11 @@
     <span class="k">return</span> <span class="n">out</span></div>
 
 
-<div class="viewcode-block" id="get_slice"><a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.get_slice">[docs]</a><span class="k">def</span> <span class="nf">get_slice</span><span class="p">(</span><span class="n">dimspins</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="get_slice">
+<a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.get_slice">[docs]</a>
+<span class="k">def</span> <span class="nf">get_slice</span><span class="p">(</span><span class="n">dimspins</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get slice of variable `y` inquiring the spinboxes `dimspins`.</span>
 
 <span class="sd">    Parameters</span>
@@ -843,8 +978,8 @@
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; vy = vardim2var(y)</span>
-<span class="sd">    &gt;&gt;&gt; yy = self.fi.variables[vy]</span>
+<span class="sd">    &gt;&gt;&gt; gy, vy = vardim2var(y, self.fi.groups.keys())</span>
+<span class="sd">    &gt;&gt;&gt; yy = self.fi[vy]</span>
 <span class="sd">    &gt;&gt;&gt; miss = get_miss(self, yy)</span>
 <span class="sd">    &gt;&gt;&gt; yy = get_slice_y(self.yd, yy).squeeze()</span>
 <span class="sd">    &gt;&gt;&gt; yy = set_miss(miss, yy)</span>
@@ -860,7 +995,7 @@
             <span class="n">s</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">idim</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
-            <span class="n">s</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">idim</span><span class="p">,</span> <span class="n">idim</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">idim</span><span class="p">,</span> <span class="n">idim</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">dd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
         <span class="n">ss</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ss</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -893,8 +1028,11 @@
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">y</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="list_intersection"><a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.list_intersection">[docs]</a><span class="k">def</span> <span class="nf">list_intersection</span><span class="p">(</span><span class="n">lst1</span><span class="p">,</span> <span class="n">lst2</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="list_intersection">
+<a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.list_intersection">[docs]</a>
+<span class="k">def</span> <span class="nf">list_intersection</span><span class="p">(</span><span class="n">lst1</span><span class="p">,</span> <span class="n">lst2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Intersection of two lists.</span>
 
 <span class="sd">    From:</span>
@@ -926,8 +1064,11 @@
         <span class="k">return</span> <span class="p">[</span> <span class="n">ll</span> <span class="k">for</span> <span class="n">ll</span> <span class="ow">in</span> <span class="n">lst1</span> <span class="k">if</span> <span class="n">ll</span> <span class="ow">in</span> <span class="n">lst2</span> <span class="p">]</span></div>
 
 
-<div class="viewcode-block" id="set_axis_label"><a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.set_axis_label">[docs]</a><span class="k">def</span> <span class="nf">set_axis_label</span><span class="p">(</span><span class="n">ncvar</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="set_axis_label">
+<a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.set_axis_label">[docs]</a>
+<span class="k">def</span> <span class="nf">set_axis_label</span><span class="p">(</span><span class="n">ncvar</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Set label plotting axis from name and unit of given variable</span>
 <span class="sd">    `ncvar`.</span>
 
@@ -943,7 +1084,7 @@
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; ylab = set_axis_label(fi.variables[&#39;w_soil&#39;])</span>
+<span class="sd">    &gt;&gt;&gt; ylab = set_axis_label(fi[&#39;w_soil&#39;])</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
@@ -960,8 +1101,11 @@
     <span class="k">return</span> <span class="n">lab</span></div>
 
 
-<div class="viewcode-block" id="set_miss"><a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.set_miss">[docs]</a><span class="k">def</span> <span class="nf">set_miss</span><span class="p">(</span><span class="n">miss</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="set_miss">
+<a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.set_miss">[docs]</a>
+<span class="k">def</span> <span class="nf">set_miss</span><span class="p">(</span><span class="n">miss</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Set `x` to NaN or NaT for all values in miss.</span>
 
 <span class="sd">    Parameters</span>
@@ -979,7 +1123,7 @@
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; x = fi.variables[&#39;time&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; x = fi[&#39;time&#39;]</span>
 <span class="sd">    &gt;&gt;&gt; miss = get_miss(self, x)</span>
 <span class="sd">    &gt;&gt;&gt; x = set_miss(miss, x)</span>
 
@@ -993,8 +1137,11 @@
     <span class="k">return</span> <span class="n">x</span></div>
 
 
-<div class="viewcode-block" id="spinbox_values"><a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.spinbox_values">[docs]</a><span class="k">def</span> <span class="nf">spinbox_values</span><span class="p">(</span><span class="n">ndim</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="spinbox_values">
+<a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.spinbox_values">[docs]</a>
+<span class="k">def</span> <span class="nf">spinbox_values</span><span class="p">(</span><span class="n">ndim</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Tuple for Spinbox values with &#39;all&#39; before range(`ndim`) and</span>
 <span class="sd">    &#39;mean&#39;, &#39;std&#39;, etc. after range(`ndim`) if `ndim`&gt;1,</span>
 <span class="sd">    otherwise single entry (0,).</span>
@@ -1021,31 +1168,44 @@
         <span class="k">return</span> <span class="p">(</span><span class="mi">0</span><span class="p">,)</span></div>
 
 
-<div class="viewcode-block" id="vardim2var"><a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.vardim2var">[docs]</a><span class="k">def</span> <span class="nf">vardim2var</span><span class="p">(</span><span class="n">vardim</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Extract variable name from &#39;variable (dim1=ndim1,)&#39; string.</span>
+
+<div class="viewcode-block" id="vardim2var">
+<a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.vardim2var">[docs]</a>
+<span class="k">def</span> <span class="nf">vardim2var</span><span class="p">(</span><span class="n">vardim</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="p">[]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract group index and variable name from &#39;group/variable (dim1=ndim1,)&#39;.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    vardim : string</span>
-<span class="sd">        Variable name with dimensions, such as &#39;latitude (lat=32,lon=64)&#39;.</span>
+<span class="sd">        Variable name with dimensions, such as &#39;latitude (lat=32,lon=64)&#39;</span>
+<span class="sd">        or with group &#39;file1/latitude (lat=32,lon=64)&#39;</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    string</span>
-<span class="sd">        Variable name.</span>
+<span class="sd">    int, string</span>
+<span class="sd">        group index, variable name</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; vardim2var(&#39;latitude (lat=32,lon=64)&#39;)</span>
-<span class="sd">    latitude</span>
+<span class="sd">    0 latitude</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">vardim</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">vardim</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="p">)]</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span></div>
+    <span class="n">var</span> <span class="o">=</span> <span class="n">vardim</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">vardim</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="p">)]</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+    <span class="k">if</span> <span class="s1">&#39;/&#39;</span> <span class="ow">in</span> <span class="n">var</span><span class="p">:</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">var</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)]</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+        <span class="n">ig</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">groups</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ig</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="n">ig</span><span class="p">,</span> <span class="n">var</span></div>
 
 
-<div class="viewcode-block" id="zip_dim_name_length"><a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.zip_dim_name_length">[docs]</a><span class="k">def</span> <span class="nf">zip_dim_name_length</span><span class="p">(</span><span class="n">ncvar</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="zip_dim_name_length">
+<a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.zip_dim_name_length">[docs]</a>
+<span class="k">def</span> <span class="nf">zip_dim_name_length</span><span class="p">(</span><span class="n">ncvar</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Combines dimension names and length of netcdf variable in list of strings.</span>
 
 <span class="sd">    Parameters</span>
@@ -1063,58 +1223,84 @@
 <span class="sd">    &gt;&gt;&gt; import netCDF4 as nc</span>
 <span class="sd">    &gt;&gt;&gt; ifile = &#39;test.nc&#39;</span>
 <span class="sd">    &gt;&gt;&gt; fi = nc.Dataset(ifile, &#39;r&#39;)</span>
-<span class="sd">    &gt;&gt;&gt; w_soil = fi.variables[&#39;w_soil&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; w_soil = fi[&#39;w_soil&#39;]</span>
 <span class="sd">    &gt;&gt;&gt; print(zip_dim_name_length(w_soil))</span>
 <span class="sd">    (&#39;ntime=17520&#39;, &#39;nsoil=30&#39;)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ncvar</span><span class="o">.</span><span class="n">ndim</span><span class="p">):</span>
-        <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ncvar</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;=&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">ncvar</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ncvar</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ncvar</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
     <span class="k">return</span> <span class="n">out</span></div>
+
 </pre></div>
 
-           </div>
-           
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"></div>
+              
+            
           </div>
-          <footer>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &#169; Copyright 2020-2021, Matthias Cuntz.
-
-    </p>
-  </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
     
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-        </div>
-      </div>
-
-    </section>
+<p class="component-author">
+By Matthias Cuntz
+</p>
 
   </div>
   
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
+  <div class="footer-item">
     
-   
 
-</body>
+  <p class="copyright">
+    
+      © Copyright 2020-2024, Matthias Cuntz.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
 </html>

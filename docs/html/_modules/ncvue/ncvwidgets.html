@@ -1,124 +1,159 @@
 
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" />
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ncvue.ncvwidgets &#8212; ncvue</title>
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ncvue.ncvwidgets &mdash; ncvue 4.0.2.dev3 documentation</title>
   
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
 
   
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=628480d8" />
   
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
 
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
-    
+    <script src="../../_static/documentation_options.js?v=7670ec9e"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/ncvue/ncvwidgets';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
-</head>
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-<body class="wy-body-for-nav">
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
 
-   
-  <div class="wy-grid-for-nav">
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
 
-          
-            <a href="../../index.html" class="icon icon-home"> ncvue
-          
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
 
-          
-          </a>
+  <header>
+  
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
+  
+  </header>
 
-          
-            
-            
-              <div class="version">
-                4.0.2.dev3
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
         
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-    <p class="link caption"><span class="link caption-text">Documentation</span></p>
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
     
-            
-            
-              
-            
-            
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../readme.html">ncvue - A GUI to view netCDF files</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../readme.html#about-ncvue">About ncvue</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../readme.html#quick-usage-guide">Quick usage guide</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../readme.html#general-layout">General layout</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../readme.html#map-panel">Map panel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../readme.html#scatter-line-panel">Scatter/Line panel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../readme.html#contour-panel">Contour panel</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../readme.html#license">License</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../install.html#binary-distributions">Binary distributions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../install.html#building-from-source">Building from source</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../install.html#dependencies">Dependencies</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../install.html#windows">Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../install.html#macos">macOS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../install.html#linux">Linux</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../package.html">API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../package.html#purpose">Purpose</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../package.html#subpackages">Subpackages</a></li>
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">ncvue</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">ncvue - A GUI to view netCDF files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../package.html">API</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvcontour.html">ncvue.ncvcontour</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvmain.html">ncvue.ncvmain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvmap.html">ncvue.ncvmap</a></li>
@@ -131,83 +166,157 @@
 </li>
 </ul>
 
-            
-          
-    <br />
-    <p class="link caption"><span class="link caption-text">ncvue Links</span></p>
-    <a href="https://github.com/mcuntz/ncvue">ncvue @ GitHub</a>
-    <a href="https://zenodo.org/record/4459598">ncvue Zenodo DOI</a>
-    <a href="https://pypi.org/project/ncvue">ncvue @ PyPI</a>
-    <br />
-    <br />
-    <a href="genindex.html">Index</a>
-    <a href="index.html">Sitemap</a>
+    </div>
+</nav></div>
+    </div>
   
-        </div>
-        
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
       </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
       
-      <nav class="wy-nav-top" aria-label="top navigation">
+      <main id="main-content" class="bd-main">
         
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">ncvue</a>
         
-      </nav>
 
+<div class="sbt-scroll-pixel-helper"></div>
 
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="../index.html">Module code</a> &raquo;</li>
-        
-      <li>ncvue.ncvwidgets</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-      </li>
-    
-  </ul>
-
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
   
-  <hr/>
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/mcuntz/ncvue" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/mcuntz/ncvue/issues/new?title=Issue%20on%20page%20%2F_modules/ncvue/ncvwidgets.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
             
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <h1>Source code for ncvue.ncvwidgets</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Widget functions for ncvue.</span>
+<span class="sd">Widget functions.</span>
 
 <span class="sd">Convenience functions for adding Tkinter widgets.</span>
 
@@ -215,7 +324,7 @@
 <span class="sd">Recherche pour l&#39;Agriculture, l&#39;Alimentation et l&#39;Environnement (INRAE), Nancy,</span>
 <span class="sd">France.</span>
 
-<span class="sd">:copyright: Copyright 2020-2021 Matthias Cuntz - mc (at) macu (dot) de</span>
+<span class="sd">:copyright: Copyright 2020-2023 Matthias Cuntz - mc (at) macu (dot) de</span>
 <span class="sd">:license: MIT License, see LICENSE for details.</span>
 
 <span class="sd">.. moduleauthor:: Matthias Cuntz</span>
@@ -223,6 +332,7 @@
 <span class="sd">The following functions are provided:</span>
 
 <span class="sd">.. autosummary::</span>
+<span class="sd">   callurl</span>
 <span class="sd">   Tooltip</span>
 <span class="sd">   add_checkbutton</span>
 <span class="sd">   add_combobox</span>
@@ -232,6 +342,7 @@
 <span class="sd">   add_scale</span>
 <span class="sd">   add_spinbox</span>
 <span class="sd">   add_tooltip</span>
+<span class="sd">   Treeview</span>
 
 <span class="sd">History</span>
 <span class="sd">    * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)</span>
@@ -239,38 +350,83 @@
 <span class="sd">      Jan 2021, Matthias Cuntz</span>
 <span class="sd">    * Added add_tooltip widget, Jan 2021, Matthias Cuntz</span>
 <span class="sd">    * add_spinbox returns also label widget, Jan 2021, Matthias Cuntz</span>
+<span class="sd">    * padlabel for add_entry to add space to previous widget,</span>
+<span class="sd">      Jul 2023, Matthias Cuntz</span>
+<span class="sd">    * labelwidth for add_entry to align columns with pack,</span>
+<span class="sd">      Jul 2023, Matthias Cuntz</span>
+<span class="sd">    * Replace tk constants with strings such as tk.LEFT with &#39;left&#39;,</span>
+<span class="sd">      Jul 2023, Matthias Cuntz</span>
+<span class="sd">    * Use Hovertip from local copy of tooltip.py, Jul 2023, Matthias Cuntz</span>
+<span class="sd">    * Added Treeview class with optional horizontal and vertical scroolbars,</span>
+<span class="sd">      Jul 2023, Matthias Cuntz</span>
+<span class="sd">    * Added callurl function, Dec 2023, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span>
 <span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">tkinter.ttk</span> <span class="k">as</span> <span class="nn">ttk</span>
-<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">sys</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Using the themed widget set introduced in Tk 8.5.&#39;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Try to use mcview.py, which uses wxpython instead.&#39;</span><span class="p">)</span>
-    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
-<span class="kn">from</span> <span class="nn">idlelib.tooltip</span> <span class="kn">import</span> <span class="n">Hovertip</span>
+<span class="kn">import</span> <span class="nn">tkinter.ttk</span> <span class="k">as</span> <span class="nn">ttk</span>
+<span class="kn">import</span> <span class="nn">webbrowser</span>
+<span class="kn">from</span> <span class="nn">.tooltip</span> <span class="kn">import</span> <span class="n">Hovertip</span>
 
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Tooltip&#39;</span><span class="p">,</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;callurl&#39;</span><span class="p">,</span> <span class="s1">&#39;Tooltip&#39;</span><span class="p">,</span>
            <span class="s1">&#39;add_checkbutton&#39;</span><span class="p">,</span> <span class="s1">&#39;add_combobox&#39;</span><span class="p">,</span> <span class="s1">&#39;add_entry&#39;</span><span class="p">,</span>
            <span class="s1">&#39;add_imagemenu&#39;</span><span class="p">,</span> <span class="s1">&#39;add_menu&#39;</span><span class="p">,</span> <span class="s1">&#39;add_scale&#39;</span><span class="p">,</span> <span class="s1">&#39;add_spinbox&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;add_tooltip&#39;</span><span class="p">]</span>
+           <span class="s1">&#39;add_tooltip&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;Treeview&#39;</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="Tooltip"><a class="viewcode-back" href="../../ncvwidgets.html#ncvue.ncvwidgets.Tooltip">[docs]</a><span class="k">class</span> <span class="nc">Tooltip</span><span class="p">(</span><span class="n">Hovertip</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># https://stackoverflow.com/questions/23482748/how-to-create-a-hyperlink-with-a-label-in-tkinter</span>
+<div class="viewcode-block" id="callurl">
+<a class="viewcode-back" href="../../ncvwidgets.html#ncvue.ncvwidgets.callurl">[docs]</a>
+<span class="k">def</span> <span class="nf">callurl</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Open url in external web browser</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    url : str</span>
+<span class="sd">        html url</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Opens *url* in external web browser</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; opthead = ttk.Frame(self)</span>
+<span class="sd">    &gt;&gt;&gt; opthead.pack(side=&#39;top&#39;, fill=&#39;x&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; optheadlabel1 = ttk.Label(opthead, text=&#39;Options for&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; optheadlabel1.pack(side=&#39;left&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; ttk.Style().configure(&#39;blue.TLabel&#39;, foreground=&#39;blue&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; optheadlabel2 = ttk.Label(opthead, text=&#39;pandas.read_csv&#39;,</span>
+<span class="sd">    ...                           style=&#39;blue.TLabel&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; optheadlabel2.pack(side=&#39;left&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; font = tkfont.Font(optheadlabel2, optheadlabel2.cget(&quot;font&quot;))</span>
+<span class="sd">    &gt;&gt;&gt; font.configure(underline=True)</span>
+<span class="sd">    &gt;&gt;&gt; optheadlabel2.configure(font=font)</span>
+<span class="sd">    &gt;&gt;&gt; optheadlabel2.bind(&quot;&lt;Button-1&gt;&quot;,</span>
+<span class="sd">    ...                    lambda e: callurl(&quot;https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html&quot;))</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">webbrowser</span><span class="o">.</span><span class="n">open_new</span><span class="p">(</span><span class="n">url</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Tooltip">
+<a class="viewcode-back" href="../../ncvwidgets.html#ncvue.ncvwidgets.Tooltip">[docs]</a>
+<span class="k">class</span> <span class="nc">Tooltip</span><span class="p">(</span><span class="n">Hovertip</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A tooltip that pops up when a mouse hovers over an anchor widget.</span>
 
-<span class="sd">    This is a copy of the class Hovertip of Python&#39;s idlelib/tooltip.py.</span>
+<span class="sd">    This is a copy/extension of the class Hovertip of Python&#39;s</span>
+<span class="sd">    idlelib/tooltip.py.</span>
 <span class="sd">    In addition, it sets the foreground colour to see the tip also in</span>
 <span class="sd">    macOS dark mode, and displays a textvariable rather than simple text</span>
 <span class="sd">    so one can change the tip during run time.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">anchor_widget</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">hover_delay</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a text tooltip with a mouse hover delay.</span>
 <span class="sd">        anchor_widget: the widget next to which the tooltip will be shown</span>
 <span class="sd">        text: tk.StringVar with text to display</span>
@@ -283,18 +439,24 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">Tooltip</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">anchor_widget</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span>
                                       <span class="n">hover_delay</span><span class="o">=</span><span class="n">hover_delay</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Tooltip.showcontents"><a class="viewcode-back" href="../../ncvwidgets.html#ncvue.ncvwidgets.Tooltip.showcontents">[docs]</a>    <span class="k">def</span> <span class="nf">showcontents</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Tooltip.showcontents">
+<a class="viewcode-back" href="../../ncvwidgets.html#ncvue.ncvwidgets.Tooltip.showcontents">[docs]</a>
+    <span class="k">def</span> <span class="nf">showcontents</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># light yellow = #ffffe0</span>
         <span class="n">label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tipwindow</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">,</span>
                          <span class="n">background</span><span class="o">=</span><span class="s2">&quot;#ffffe0&quot;</span><span class="p">,</span> <span class="n">foreground</span><span class="o">=</span><span class="s2">&quot;#000000&quot;</span><span class="p">,</span>
-                         <span class="n">justify</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">,</span> <span class="n">relief</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">FLAT</span><span class="p">,</span> <span class="n">borderwidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                         <span class="n">justify</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">relief</span><span class="o">=</span><span class="s1">&#39;flat&#39;</span><span class="p">,</span> <span class="n">borderwidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                          <span class="n">padx</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">label</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span></div></div>
+        <span class="n">label</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span></div>
+</div>
 
 
-<div class="viewcode-block" id="add_checkbutton"><a class="viewcode-back" href="../../ncvwidgets.html#ncvue.ncvwidgets.add_checkbutton">[docs]</a><span class="k">def</span> <span class="nf">add_checkbutton</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+
+<div class="viewcode-block" id="add_checkbutton">
+<a class="viewcode-back" href="../../ncvwidgets.html#ncvue.ncvwidgets.add_checkbutton">[docs]</a>
+<span class="k">def</span> <span class="nf">add_checkbutton</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
                     <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Add a left-aligned ttk.Checkbutton.</span>
 
 <span class="sd">    Parameters</span>
@@ -325,7 +487,7 @@
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; self.rowzxy = ttk.Frame(self)</span>
-<span class="sd">    &gt;&gt;&gt; self.rowzxy.pack(side=tk.TOP, fill=tk.X)</span>
+<span class="sd">    &gt;&gt;&gt; self.rowzxy.pack(side=&#39;top&#39;, fill=&#39;x&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; self.inv_xlbl, self.inv_x = add_checkbutton(</span>
 <span class="sd">    ...     self.rowzxy, label=&quot;invert x&quot;, value=False, command=self.checked)</span>
 
@@ -335,7 +497,7 @@
     <span class="n">bvar</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">BooleanVar</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
     <span class="n">cb</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Checkbutton</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">variable</span><span class="o">=</span><span class="n">bvar</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">check_label</span><span class="p">,</span>
                          <span class="n">command</span><span class="o">=</span><span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-    <span class="n">cb</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">cb</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">tooltip</span><span class="p">:</span>
         <span class="n">ttip</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
         <span class="n">ttip</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">tooltip</span><span class="p">)</span>
@@ -345,9 +507,12 @@
         <span class="k">return</span> <span class="n">check_label</span><span class="p">,</span> <span class="n">bvar</span></div>
 
 
-<div class="viewcode-block" id="add_combobox"><a class="viewcode-back" href="../../ncvwidgets.html#ncvue.ncvwidgets.add_combobox">[docs]</a><span class="k">def</span> <span class="nf">add_combobox</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">[],</span> <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+
+<div class="viewcode-block" id="add_combobox">
+<a class="viewcode-back" href="../../ncvwidgets.html#ncvue.ncvwidgets.add_combobox">[docs]</a>
+<span class="k">def</span> <span class="nf">add_combobox</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">[],</span> <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
                  <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Add a left-aligned ttk.Combobox with a ttk.Label before.</span>
 
 <span class="sd">    Parameters</span>
@@ -377,7 +542,7 @@
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; self.rowzxy = ttk.Frame(self)</span>
-<span class="sd">    &gt;&gt;&gt; self.rowzxy.pack(side=tk.TOP, fill=tk.X)</span>
+<span class="sd">    &gt;&gt;&gt; self.rowzxy.pack(side=&#39;top&#39;, fill=&#39;x&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; self.xlbl, self.x = add_combobox(</span>
 <span class="sd">    ...     self.rowzxy, label=&quot;x&quot;, values=columns, command=self.selected)</span>
 
@@ -386,13 +551,13 @@
     <span class="n">cb_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
     <span class="n">cb_label</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
     <span class="n">label</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">cb_label</span><span class="p">)</span>
-    <span class="n">label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+    <span class="n">label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
     <span class="n">cb</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Combobox</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">values</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="c1"># long = len(max(values, key=len))</span>
     <span class="c1"># cb.configure(width=(max(20, long//2)))</span>
     <span class="k">if</span> <span class="n">command</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">cb</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;&lt;ComboboxSelected&gt;&gt;&quot;</span><span class="p">,</span> <span class="n">command</span><span class="p">)</span>
-    <span class="n">cb</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+    <span class="n">cb</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">tooltip</span><span class="p">:</span>
         <span class="n">ttip</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
         <span class="n">ttip</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">tooltip</span><span class="p">)</span>
@@ -402,8 +567,12 @@
         <span class="k">return</span> <span class="n">cb_label</span><span class="p">,</span> <span class="n">cb</span></div>
 
 
-<div class="viewcode-block" id="add_entry"><a class="viewcode-back" href="../../ncvwidgets.html#ncvue.ncvwidgets.add_entry">[docs]</a><span class="k">def</span> <span class="nf">add_entry</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="add_entry">
+<a class="viewcode-back" href="../../ncvwidgets.html#ncvue.ncvwidgets.add_entry">[docs]</a>
+<span class="k">def</span> <span class="nf">add_entry</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+              <span class="n">padlabel</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">labelwidth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Add a left-aligned ttk.Entry with a ttk.Label before.</span>
 
 <span class="sd">    Parameters</span>
@@ -414,12 +583,18 @@
 <span class="sd">        Text that appears in front of the entry (default: &quot;&quot;)</span>
 <span class="sd">    text : str, optional</span>
 <span class="sd">        Initial text in the entry area (default: &quot;&quot;)</span>
-<span class="sd">    command : function, optional</span>
+<span class="sd">    command : function or list of functions, optional</span>
 <span class="sd">        Handler function to be bound to the entry for the events</span>
-<span class="sd">        &lt;Return&gt;, &#39;&lt;Key-Return&gt;&#39;, &lt;KP_Enter&gt;, and &#39;&lt;FocusOut&gt;&#39; (default: None).</span>
+<span class="sd">        &#39;&lt;FocusOut&gt;&#39;, &lt;Return&gt;, &#39;&lt;Key-Return&gt;&#39;, and &lt;KP_Enter&gt; (default: None).</span>
+<span class="sd">        If list is given than command[0] is bound to &#39;&lt;FocusOut&gt;&#39; and</span>
+<span class="sd">        command[1] is bound to the 3 events</span>
 <span class="sd">    tooltip : str, optional</span>
 <span class="sd">        Tooltip appearing after one second when hovering over</span>
 <span class="sd">        the entry (default: &quot;&quot; = no tooltip)</span>
+<span class="sd">    padlabel : int, optional</span>
+<span class="sd">        Prepend number of spaces to create distance other widgets (default: 0)</span>
+<span class="sd">    labelwidth : int, optional</span>
+<span class="sd">        If given, set width of Label</span>
 <span class="sd">    **kwargs : option=value pairs, optional</span>
 <span class="sd">        All other options will be passed to ttk.Entry</span>
 
@@ -434,25 +609,49 @@
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; self.rowxyopt = ttk.Frame(self)</span>
-<span class="sd">    &gt;&gt;&gt; self.rowxyopt.pack(side=tk.TOP, fill=tk.X)</span>
+<span class="sd">    &gt;&gt;&gt; self.rowxyopt.pack(side=&#39;top&#39;, fill=&#39;x&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; self.lslbl, self.ls = add_entry(</span>
 <span class="sd">    ...     self.rowxyopt, label=&quot;ls&quot;, text=&#39;-&#39;,</span>
 <span class="sd">    ...     width=4, command=self.selected_y)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">entry_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
-    <span class="n">entry_label</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
-    <span class="n">label</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">entry_label</span><span class="p">)</span>
-    <span class="n">label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+    <span class="n">nlab</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">label</span><span class="p">)</span> <span class="o">+</span> <span class="n">padlabel</span>
+    <span class="n">lab</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">label</span><span class="si">:</span><span class="s1">&gt;</span><span class="si">{</span><span class="n">nlab</span><span class="si">}</span><span class="s1">s</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="n">entry_label</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">lab</span><span class="p">)</span>
+    <span class="n">lkwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;textvariable&#39;</span><span class="p">:</span> <span class="n">entry_label</span><span class="p">}</span>
+    <span class="k">if</span> <span class="n">labelwidth</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">lkwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="n">labelwidth</span><span class="p">})</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="o">**</span><span class="n">lkwargs</span><span class="p">)</span>
+    <span class="c1"># print(label.configure())</span>
+    <span class="n">label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
     <span class="n">entry_text</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
-    <span class="n">entry_text</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">text</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">tt</span> <span class="o">=</span> <span class="s1">&#39;None&#39;</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">text</span><span class="p">:</span>
+            <span class="n">tt</span> <span class="o">=</span> <span class="s1">&#39;True&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tt</span> <span class="o">=</span> <span class="s1">&#39;False&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tt</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="n">entry_text</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">tt</span><span class="p">)</span>
     <span class="n">entry</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">entry_text</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">command</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">entry</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Return&gt;&#39;</span><span class="p">,</span> <span class="n">command</span><span class="p">)</span>      <span class="c1"># return</span>
-        <span class="n">entry</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Key-Return&gt;&#39;</span><span class="p">,</span> <span class="n">command</span><span class="p">)</span>  <span class="c1"># return</span>
-        <span class="n">entry</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;KP_Enter&gt;&#39;</span><span class="p">,</span> <span class="n">command</span><span class="p">)</span>    <span class="c1"># return of numeric keypad</span>
-        <span class="n">entry</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;FocusOut&gt;&#39;</span><span class="p">,</span> <span class="n">command</span><span class="p">)</span>    <span class="c1"># tab or click</span>
-    <span class="n">entry</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+            <span class="n">com0</span> <span class="o">=</span> <span class="n">command</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">command</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">com1</span> <span class="o">=</span> <span class="n">command</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">com1</span> <span class="o">=</span> <span class="n">command</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">com0</span> <span class="o">=</span> <span class="n">command</span>
+            <span class="n">com1</span> <span class="o">=</span> <span class="n">command</span>
+        <span class="n">entry</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;FocusOut&gt;&#39;</span><span class="p">,</span> <span class="n">com0</span><span class="p">)</span>    <span class="c1"># tab or click</span>
+        <span class="n">entry</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Return&gt;&#39;</span><span class="p">,</span> <span class="n">com1</span><span class="p">)</span>      <span class="c1"># return</span>
+        <span class="n">entry</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Key-Return&gt;&#39;</span><span class="p">,</span> <span class="n">com1</span><span class="p">)</span>  <span class="c1"># return</span>
+        <span class="n">entry</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;KP_Enter&gt;&#39;</span><span class="p">,</span> <span class="n">com1</span><span class="p">)</span>    <span class="c1"># return of numeric keypad</span>
+    <span class="n">entry</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">tooltip</span><span class="p">:</span>
         <span class="n">ttip</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
         <span class="n">ttip</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">tooltip</span><span class="p">)</span>
@@ -462,9 +661,12 @@
         <span class="k">return</span> <span class="n">entry_label</span><span class="p">,</span> <span class="n">entry_text</span></div>
 
 
-<div class="viewcode-block" id="add_imagemenu"><a class="viewcode-back" href="../../ncvwidgets.html#ncvue.ncvwidgets.add_imagemenu">[docs]</a><span class="k">def</span> <span class="nf">add_imagemenu</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">[],</span> <span class="n">images</span><span class="o">=</span><span class="p">[],</span> <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+
+<div class="viewcode-block" id="add_imagemenu">
+<a class="viewcode-back" href="../../ncvwidgets.html#ncvue.ncvwidgets.add_imagemenu">[docs]</a>
+<span class="k">def</span> <span class="nf">add_imagemenu</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">[],</span> <span class="n">images</span><span class="o">=</span><span class="p">[],</span> <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                   <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Add a left-aligned menu with menubuttons having text and images</span>
 <span class="sd">    with a ttk.Label before.</span>
 
@@ -497,7 +699,7 @@
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; self.rowcmap = ttk.Frame(self)</span>
-<span class="sd">    &gt;&gt;&gt; self.rowcmap.pack(side=tk.TOP, fill=tk.X)</span>
+<span class="sd">    &gt;&gt;&gt; self.rowcmap.pack(side=&#39;top&#39;, fill=&#39;x&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; self.cmaplbl, self.cmap = add_imagemenu(</span>
 <span class="sd">    ...     self.rowcmap, label=&quot;cmap&quot;, values=self.cmaps,</span>
 <span class="sd">    ...     images=self.imaps, command=self.selected_cmap)</span>
@@ -513,15 +715,15 @@
     <span class="n">mb_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
     <span class="n">mb_label</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
     <span class="n">label</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">mb_label</span><span class="p">)</span>
-    <span class="n">label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+    <span class="n">label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
     <span class="n">mb</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Menubutton</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">images</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">text</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                        <span class="n">compound</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+                        <span class="n">compound</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
     <span class="n">sb</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Menu</span><span class="p">(</span><span class="n">mb</span><span class="p">,</span> <span class="n">tearoff</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">mb</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">menu</span><span class="o">=</span><span class="n">sb</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
-        <span class="n">sb</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">v</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">images</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">compound</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">,</span>
+        <span class="n">sb</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">v</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">images</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">compound</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span>
                        <span class="n">command</span><span class="o">=</span><span class="n">partial</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
-    <span class="n">mb</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+    <span class="n">mb</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">tooltip</span><span class="p">:</span>
         <span class="n">ttip</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
         <span class="n">ttip</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">tooltip</span><span class="p">)</span>
@@ -531,8 +733,11 @@
         <span class="k">return</span> <span class="n">mb_label</span><span class="p">,</span> <span class="n">mb</span></div>
 
 
-<div class="viewcode-block" id="add_menu"><a class="viewcode-back" href="../../ncvwidgets.html#ncvue.ncvwidgets.add_menu">[docs]</a><span class="k">def</span> <span class="nf">add_menu</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">[],</span> <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="add_menu">
+<a class="viewcode-back" href="../../ncvwidgets.html#ncvue.ncvwidgets.add_menu">[docs]</a>
+<span class="k">def</span> <span class="nf">add_menu</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">[],</span> <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Add a left-aligned menu with menubuttons with a ttk.Label before.</span>
 
 <span class="sd">    Parameters</span>
@@ -561,7 +766,7 @@
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; self.rowzxy = ttk.Frame(self)</span>
-<span class="sd">    &gt;&gt;&gt; self.rowzxy.pack(side=tk.TOP, fill=tk.X)</span>
+<span class="sd">    &gt;&gt;&gt; self.rowzxy.pack(side=&#39;top&#39;, fill=&#39;x&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; self.xlbl, self.x = add_combobox(</span>
 <span class="sd">    ...     self.rowzxy, label=&quot;x&quot;, values=columns, command=self.selected)</span>
 
@@ -570,14 +775,14 @@
     <span class="n">mb_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
     <span class="n">mb_label</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
     <span class="n">label</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">mb_label</span><span class="p">)</span>
-    <span class="n">label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
-    <span class="n">mb</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Menubutton</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">compound</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+    <span class="n">label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+    <span class="n">mb</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Menubutton</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">compound</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
     <span class="n">sb</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Menu</span><span class="p">(</span><span class="n">mb</span><span class="p">,</span> <span class="n">tearoff</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">mb</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">menu</span><span class="o">=</span><span class="n">sb</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
-        <span class="n">sb</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">v</span><span class="p">,</span> <span class="n">compound</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">,</span>
+        <span class="n">sb</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">v</span><span class="p">,</span> <span class="n">compound</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span>
                        <span class="n">command</span><span class="o">=</span><span class="n">partial</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
-    <span class="n">mb</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+    <span class="n">mb</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">tooltip</span><span class="p">:</span>
         <span class="n">ttip</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
         <span class="n">ttip</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">tooltip</span><span class="p">)</span>
@@ -587,8 +792,11 @@
         <span class="k">return</span> <span class="n">mb_label</span><span class="p">,</span> <span class="n">mb</span></div>
 
 
-<div class="viewcode-block" id="add_scale"><a class="viewcode-back" href="../../ncvwidgets.html#ncvue.ncvwidgets.add_scale">[docs]</a><span class="k">def</span> <span class="nf">add_scale</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">ini</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="add_scale">
+<a class="viewcode-back" href="../../ncvwidgets.html#ncvue.ncvwidgets.add_scale">[docs]</a>
+<span class="k">def</span> <span class="nf">add_scale</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">ini</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Add a left-aligned ttk.Scale with a ttk.Label before.</span>
 
 <span class="sd">    Parameters</span>
@@ -617,7 +825,7 @@
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; self.rowzxy = ttk.Frame(self)</span>
-<span class="sd">    &gt;&gt;&gt; self.rowzxy.pack(side=tk.TOP, fill=tk.X)</span>
+<span class="sd">    &gt;&gt;&gt; self.rowzxy.pack(side=&#39;top&#39;, fill=&#39;x&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; self.xlbl, self.x = add_scale(</span>
 <span class="sd">    ...     self.rowzxy, label=&quot;x&quot;, values=columns, command=self.selected)</span>
 
@@ -625,11 +833,11 @@
     <span class="n">s_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
     <span class="n">s_label</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
     <span class="n">label</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">s_label</span><span class="p">)</span>
-    <span class="n">label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+    <span class="n">label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
     <span class="n">s_val</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">DoubleVar</span><span class="p">()</span>
     <span class="n">s_val</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ini</span><span class="p">)</span>
     <span class="n">s</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">variable</span><span class="o">=</span><span class="n">s_val</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-    <span class="n">s</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">tooltip</span><span class="p">:</span>
         <span class="n">ttip</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
         <span class="n">ttip</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">tooltip</span><span class="p">)</span>
@@ -639,9 +847,12 @@
         <span class="k">return</span> <span class="n">s_label</span><span class="p">,</span> <span class="n">s_val</span><span class="p">,</span> <span class="n">s</span></div>
 
 
-<div class="viewcode-block" id="add_spinbox"><a class="viewcode-back" href="../../ncvwidgets.html#ncvue.ncvwidgets.add_spinbox">[docs]</a><span class="k">def</span> <span class="nf">add_spinbox</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">[],</span> <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+
+<div class="viewcode-block" id="add_spinbox">
+<a class="viewcode-back" href="../../ncvwidgets.html#ncvue.ncvwidgets.add_spinbox">[docs]</a>
+<span class="k">def</span> <span class="nf">add_spinbox</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">[],</span> <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
                 <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Add a left-aligned tk.Spinbox with a ttk.Label before.</span>
 
 <span class="sd">    Parameters</span>
@@ -674,7 +885,7 @@
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; self.rowlev = ttk.Frame(self)</span>
-<span class="sd">    &gt;&gt;&gt; self.rowlev.pack(side=tk.TOP, fill=tk.X)</span>
+<span class="sd">    &gt;&gt;&gt; self.rowlev.pack(side=&#39;top&#39;, fill=&#39;x&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; self.dlval, self.dl, self.dval, self.d = add_spinbox(</span>
 <span class="sd">    ...     self.rowlev, label=&quot;dim&quot;, values=range(0,10),</span>
 <span class="sd">    ...     command=self.spinned)</span>
@@ -684,7 +895,7 @@
     <span class="n">sbl_val</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
     <span class="n">sbl_val</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
     <span class="n">sbl</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">sbl_val</span><span class="p">)</span>
-    <span class="n">sbl</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+    <span class="n">sbl</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
     <span class="n">sb_val</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">sb_val</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
@@ -695,7 +906,7 @@
         <span class="n">sb</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Key-Return&gt;&#39;</span><span class="p">,</span> <span class="n">command</span><span class="p">)</span>  <span class="c1"># return</span>
         <span class="n">sb</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;KP_Enter&gt;&#39;</span><span class="p">,</span> <span class="n">command</span><span class="p">)</span>    <span class="c1"># return of numeric keypad</span>
         <span class="n">sb</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;FocusOut&gt;&#39;</span><span class="p">,</span> <span class="n">command</span><span class="p">)</span>    <span class="c1"># tab or click</span>
-    <span class="n">sb</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+    <span class="n">sb</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">tooltip</span><span class="p">:</span>
         <span class="n">ttip</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
         <span class="n">ttip</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">tooltip</span><span class="p">)</span>
@@ -705,8 +916,11 @@
         <span class="k">return</span> <span class="n">sbl_val</span><span class="p">,</span> <span class="n">sbl</span><span class="p">,</span> <span class="n">sb_val</span><span class="p">,</span> <span class="n">sb</span></div>
 
 
-<div class="viewcode-block" id="add_tooltip"><a class="viewcode-back" href="../../ncvwidgets.html#ncvue.ncvwidgets.add_tooltip">[docs]</a><span class="k">def</span> <span class="nf">add_tooltip</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="add_tooltip">
+<a class="viewcode-back" href="../../ncvwidgets.html#ncvue.ncvwidgets.add_tooltip">[docs]</a>
+<span class="k">def</span> <span class="nf">add_tooltip</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Add a writeable tooltip to a widget using the class Tooltip.</span>
 
 <span class="sd">    Parameters</span>
@@ -727,7 +941,7 @@
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; self.rowlev = ttk.Frame(self)</span>
-<span class="sd">    &gt;&gt;&gt; self.rowlev.pack(side=tk.TOP, fill=tk.X)</span>
+<span class="sd">    &gt;&gt;&gt; self.rowlev.pack(side=&#39;top&#39;, fill=&#39;x&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; self.dlbl, self.dval, self.d = add_spinbox(</span>
 <span class="sd">    ...     self.rowlev, label=&quot;dim&quot;, values=range(0,10),</span>
 <span class="sd">    ...     command=self.spinned)</span>
@@ -738,49 +952,131 @@
     <span class="n">ttip</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">tooltip</span><span class="p">)</span>
     <span class="n">htip</span> <span class="o">=</span> <span class="n">Tooltip</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">ttip</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">ttip</span></div>
+
+
+
+<span class="c1"># https://pythonassets.com/posts/scrollbar-in-tk-tkinter/</span>
+<div class="viewcode-block" id="Treeview">
+<a class="viewcode-back" href="../../ncvwidgets.html#ncvue.ncvwidgets.Treeview">[docs]</a>
+<span class="k">class</span> <span class="nc">Treeview</span><span class="p">(</span><span class="n">ttk</span><span class="o">.</span><span class="n">Frame</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Treeview class with optional horizontal and vertical scrollbars</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Simple ttk.Treeview widget</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">       tree = Treeview(frame_widget)</span>
+
+<span class="sd">    ttk.Treeview widget with vertical scrollbar</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">       tree = Treeview(frame_widget, yscroll=True)</span>
+
+<span class="sd">    ttk.Treeview widget with vertical and horizontal scrollbars</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">       tree = Treeview(frame_widget, xscroll=True, yscroll=True)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">xscroll</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">yscroll</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="c1"># scrollbars</span>
+        <span class="k">if</span> <span class="n">xscroll</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hscrollbar</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Scrollbar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">yscroll</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vscrollbar</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Scrollbar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">)</span>
+        <span class="c1"># treeview</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tv</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Treeview</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="c1"># pack scrollbars and treeview together</span>
+        <span class="k">if</span> <span class="n">xscroll</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tv</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">xscrollcommand</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hscrollbar</span><span class="o">.</span><span class="n">set</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hscrollbar</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tv</span><span class="o">.</span><span class="n">xview</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hscrollbar</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">yscroll</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tv</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">yscrollcommand</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">vscrollbar</span><span class="o">.</span><span class="n">set</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vscrollbar</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tv</span><span class="o">.</span><span class="n">yview</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vscrollbar</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tv</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        <span class="c1"># convenience functions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tag_configure</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tv</span><span class="o">.</span><span class="n">tag_configure</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tv</span><span class="o">.</span><span class="n">config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">column</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tv</span><span class="o">.</span><span class="n">column</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">heading</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tv</span><span class="o">.</span><span class="n">heading</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">insert</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tv</span><span class="o">.</span><span class="n">insert</span></div>
+
 </pre></div>
 
-           </div>
-           
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"></div>
+              
+            
           </div>
-          <footer>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &#169; Copyright 2020-2021, Matthias Cuntz.
-
-    </p>
-  </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
     
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-        </div>
-      </div>
-
-    </section>
+<p class="component-author">
+By Matthias Cuntz
+</p>
 
   </div>
   
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
+  <div class="footer-item">
     
-   
 
-</body>
+  <p class="copyright">
+    
+      © Copyright 2020-2024, Matthias Cuntz.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
 </html>
