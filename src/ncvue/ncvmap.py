@@ -29,6 +29,7 @@ History
     * Work with files without an unlimited (time) dimension (set_tstep),
       Oct 2021, Matthias Cuntz
     * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz
+    * Allow groups in netcdf files, Jan 2024, Matthias Cuntz
 
 """
 from __future__ import absolute_import, division, print_function
@@ -428,12 +429,14 @@ class ncvMap(ttk.Frame):
             command=self.entered_clon, tooltip=tstr)
 
         # set lat/lon
-        if self.latvar:
-            self.lat.set(self.latvar)
+        if any(self.latvar):
+            idx = [ i for i, l in enumerate(self.latvar) if l ]
+            self.lat.set(self.latvar[idx[0]])
             self.inv_lat.set(0)
             set_dim_lat(self)
-        if self.lonvar:
-            self.lon.set(self.lonvar)
+        if any(self.lonvar):
+            idx = [ i for i, l in enumerate(self.lonvar) if l ]
+            self.lon.set(self.lonvar[idx[0]])
             self.inv_lon.set(0)
             self.shift_lon.set(0)
             set_dim_lon(self)
@@ -460,10 +463,14 @@ class ncvMap(ttk.Frame):
         self.anim_first   = True   # True: stops in self.update at first call
         self.anim_running = True   # True/False: animation running or not
         self.anim_inc     = 1      # 1/-1: forward or backward run
+        maxtime = 1
+        for vz in self.tvar:
+            if vz:
+                maxtime = max(self.fi[vz].size, maxtime)
         self.anim = animation.FuncAnimation(self.figure, self.update,
                                             init_func=self.redraw,
                                             interval=self.delayval.get(),
-                                            repeat=irepeat)
+                                            repeat=irepeat, save_count=maxtime)
 
     #
     # Bindings
@@ -549,17 +556,17 @@ class ncvMap(ttk.Frame):
             if self.top.fi:
                 self.top.fi.close()
             # reset empty defaults of top
-            self.top.dunlim = ''      # name of unlimited dimension
-            self.top.time   = None    # datetime variable
-            self.top.tname  = ''      # datetime variable name
-            self.top.tvar   = ''      # datetime variable name in netcdf
-            self.top.dtime  = None    # decimal year
-            self.top.latvar = ''      # name of latitude variable
-            self.top.lonvar = ''      # name of longitude variable
-            self.top.latdim = ''      # name of latitude dimension
-            self.top.londim = ''      # name of longitude dimension
-            self.top.maxdim = 0       # maximum num of dims of all variables
-            self.top.cols   = []      # variable list
+            self.top.dunlim = []  # name of unlimited dimension
+            self.top.time   = []  # datetime variable
+            self.top.tname  = []  # datetime variable name
+            self.top.tvar   = []  # datetime variable name in netcdf
+            self.top.dtime  = []  # decimal year
+            self.top.latvar = []  # name of latitude variable
+            self.top.lonvar = []  # name of longitude variable
+            self.top.latdim = []  # name of latitude dimension
+            self.top.londim = []  # name of longitude dimension
+            self.top.maxdim = 0   # maximum num of dims of all variables
+            self.top.cols   = []  # variable list
             # open new netcdf file
             self.top.fi = nc.Dataset(ncfile, 'r')
             analyse_netcdf(self.top)
@@ -580,12 +587,15 @@ class ncvMap(ttk.Frame):
         """
         Command called if next frame button was pressed.
         """
-        it = int(self.vdval[self.iunlim].get())
-        if it < self.nunlim - 1:
+        try:
+            it = int(self.vdval[self.iunlim].get())
+        except ValueError:
+            it = -1
+        if (it < self.nunlim - 1) and (it >= 0):
             it += 1
             self.set_tstep(it)
             self.update(it, isframe=True)
-        else:
+        elif it == self.nunlim - 1:
             rep = self.repeat.get()
             if rep != 'once':
                 if rep == 'repeat':
@@ -628,12 +638,15 @@ class ncvMap(ttk.Frame):
         """
         Command called if previous frame button was pressed.
         """
-        it = int(self.vdval[self.iunlim].get())
+        try:
+            it = int(self.vdval[self.iunlim].get())
+        except ValueError:
+            it = -1
         if it > 0:
             it -= 1
             self.set_tstep(it)
             self.update(it, isframe=True)
-        else:
+        elif it == 0:
             rep = self.repeat.get()
             if rep != 'once':
                 if rep == 'repeat':
@@ -808,7 +821,7 @@ class ncvMap(ttk.Frame):
         v = self.v.get()
         if (v != ''):
             gz, vz = vardim2var(v, self.fi.groups.keys())
-            if vz == self.tname:
+            if vz == self.tname[gz]:
                 return (0, 1)
             vv = self.fi[vz]
             imiss = get_miss(self, vv)
@@ -930,12 +943,14 @@ class ncvMap(ttk.Frame):
         self.lon.set(columns[0])
         self.lat['values'] = columns
         self.lat.set(columns[0])
-        if self.latvar:
-            self.lat.set(self.latvar)
+        if any(self.latvar):
+            idx = [ i for i, l in enumerate(self.latvar) if l ]
+            self.lat.set(self.latvar[idx[0]])
             self.inv_lat.set(0)
             set_dim_lat(self)
-        if self.lonvar:
-            self.lon.set(self.lonvar)
+        if any(self.lonvar):
+            idx = [ i for i, l in enumerate(self.lonvar) if l ]
+            self.lon.set(self.lonvar[idx[0]])
             self.inv_lon.set(0)
             self.shift_lon.set(0)
             set_dim_lon(self)
@@ -959,13 +974,20 @@ class ncvMap(ttk.Frame):
         Sets the time dimension spinbox, sets the time step scale,
         write the time on top.
         """
-        if self.dunlim:
+        v = self.v.get()
+        gz, vz = vardim2var(v, self.fi.groups.keys())
+        try:
+            has_unlim = self.dunlim[gz] in self.fi[vz].dimensions
+        except IndexError:
+            has_unlim = False  # datetime
+        if self.dunlim[gz] and has_unlim:
             self.vdval[self.iunlim].set(it)
             self.tstepval.set(it)
+            time = self.time[gz]
             try:
-                self.timelbl.set(np.around(self.time[it], 4))
+                self.timelbl.set(np.around(time[it], 4))
             except TypeError:
-                self.timelbl.set(self.time[it])
+                self.timelbl.set(time[it])
 
     def set_unlim(self, v):
         """
@@ -982,14 +1004,14 @@ class ncvMap(ttk.Frame):
         self.dunlim == ''` or `self.dunlim` not in var.dimensions.
         """
         gz, vz = vardim2var(v, self.fi.groups.keys())
-        if vz == self.tname:
+        if vz == self.tname[gz]:
             self.iunlim = 0
-            self.nunlim = self.time.size
+            self.nunlim = self.time[gz].size
         else:
-            if self.dunlim:
-                if self.dunlim in self.fi[vz].dimensions:
+            if self.dunlim[gz]:
+                if self.dunlim[gz] in self.fi[vz].dimensions:
                     self.iunlim = (
-                        self.fi[vz].dimensions.index(self.dunlim))
+                        self.fi[vz].dimensions.index(self.dunlim[gz]))
                 else:
                     self.iunlim = 0
             else:
@@ -1057,13 +1079,13 @@ class ncvMap(ttk.Frame):
         if (v != ''):
             # variable
             gz, vz = vardim2var(v, self.fi.groups.keys())
-            if vz == self.tname:
+            if vz == self.tname[gz]:
                 # should throw an error later
                 if mesh:
-                    vv = self.dtime
+                    vv = self.dtime[gz]
                     vlab = 'Year'
                 else:
-                    vv = self.time
+                    vv = self.time[gz]
                     vlab = 'Date'
             else:
                 vv = self.fi[vz]
@@ -1078,12 +1100,12 @@ class ncvMap(ttk.Frame):
         if (y != ''):
             # y axis
             gy, vy = vardim2var(y, self.fi.groups.keys())
-            if vy == self.tname:
+            if vy == self.tname[gy]:
                 if mesh:
-                    yy = self.dtime
+                    yy = self.dtime[gy]
                     ylab = 'Year'
                 else:
-                    yy = self.time
+                    yy = self.time[gy]
                     ylab = 'Date'
             else:
                 yy   = self.fi[vy]
@@ -1094,12 +1116,12 @@ class ncvMap(ttk.Frame):
         if (x != ''):
             # x axis
             gx, vx = vardim2var(x, self.fi.groups.keys())
-            if vx == self.tname:
+            if vx == self.tname[gx]:
                 if mesh:
-                    xx = self.dtime
+                    xx = self.dtime[gx]
                     xlab = 'Year'
                 else:
-                    xx = self.time
+                    xx = self.time[gx]
                     xlab = 'Date'
             else:
                 xx   = self.fi[vx]
@@ -1316,8 +1338,8 @@ class ncvMap(ttk.Frame):
             inv_lat   = self.inv_lat.get()
             shift_lon = self.shift_lon.get()
             gz, vz = vardim2var(v, self.fi.groups.keys())
-            if vz == self.tname:
-                vz = self.tvar
+            if vz == self.tname[gz]:
+                vz = self.tvar[gz]
             vv = self.fi[vz]
             # slice
             try:

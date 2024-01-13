@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Widget functions for ncvue.
+Widget functions.
 
 Convenience functions for adding Tkinter widgets.
 
@@ -8,7 +8,7 @@ This module was written by Matthias Cuntz while at Institut National de
 Recherche pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy,
 France.
 
-:copyright: Copyright 2020-2021 Matthias Cuntz - mc (at) macu (dot) de
+:copyright: Copyright 2020-2023 Matthias Cuntz - mc (at) macu (dot) de
 :license: MIT License, see LICENSE for details.
 
 .. moduleauthor:: Matthias Cuntz
@@ -16,6 +16,7 @@ France.
 The following functions are provided:
 
 .. autosummary::
+   callurl
    Tooltip
    add_checkbutton
    add_combobox
@@ -25,6 +26,7 @@ The following functions are provided:
    add_scale
    add_spinbox
    add_tooltip
+   Treeview
 
 History
     * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
@@ -32,31 +34,71 @@ History
       Jan 2021, Matthias Cuntz
     * Added add_tooltip widget, Jan 2021, Matthias Cuntz
     * add_spinbox returns also label widget, Jan 2021, Matthias Cuntz
+    * padlabel for add_entry to add space to previous widget,
+      Jul 2023, Matthias Cuntz
+    * labelwidth for add_entry to align columns with pack,
+      Jul 2023, Matthias Cuntz
+    * Replace tk constants with strings such as tk.LEFT with 'left',
+      Jul 2023, Matthias Cuntz
+    * Use Hovertip from local copy of tooltip.py, Jul 2023, Matthias Cuntz
+    * Added Treeview class with optional horizontal and vertical scroolbars,
+      Jul 2023, Matthias Cuntz
+    * Added callurl function, Dec 2023, Matthias Cuntz
 
 """
-from __future__ import absolute_import, division, print_function
 import tkinter as tk
-try:
-    import tkinter.ttk as ttk
-except Exception:
-    import sys
-    print('Using the themed widget set introduced in Tk 8.5.')
-    print('Try to use mcview.py, which uses wxpython instead.')
-    sys.exit()
-from idlelib.tooltip import Hovertip
+import tkinter.ttk as ttk
+import webbrowser
+from .tooltip import Hovertip
 
 
-__all__ = ['Tooltip',
+__all__ = ['callurl', 'Tooltip',
            'add_checkbutton', 'add_combobox', 'add_entry',
            'add_imagemenu', 'add_menu', 'add_scale', 'add_spinbox',
-           'add_tooltip']
+           'add_tooltip',
+           'Treeview']
+
+
+# https://stackoverflow.com/questions/23482748/how-to-create-a-hyperlink-with-a-label-in-tkinter
+def callurl(url):
+    """
+    Open url in external web browser
+
+    Parameters
+    ----------
+    url : str
+        html url
+
+    Returns
+    -------
+    Opens *url* in external web browser
+
+    Examples
+    --------
+    >>> opthead = ttk.Frame(self)
+    >>> opthead.pack(side='top', fill='x')
+    >>> optheadlabel1 = ttk.Label(opthead, text='Options for')
+    >>> optheadlabel1.pack(side='left')
+    >>> ttk.Style().configure('blue.TLabel', foreground='blue')
+    >>> optheadlabel2 = ttk.Label(opthead, text='pandas.read_csv',
+    ...                           style='blue.TLabel')
+    >>> optheadlabel2.pack(side='left')
+    >>> font = tkfont.Font(optheadlabel2, optheadlabel2.cget("font"))
+    >>> font.configure(underline=True)
+    >>> optheadlabel2.configure(font=font)
+    >>> optheadlabel2.bind("<Button-1>",
+    ...                    lambda e: callurl("https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html"))
+
+    """
+    webbrowser.open_new(url)
 
 
 class Tooltip(Hovertip):
     """
     A tooltip that pops up when a mouse hovers over an anchor widget.
 
-    This is a copy of the class Hovertip of Python's idlelib/tooltip.py.
+    This is a copy/extension of the class Hovertip of Python's
+    idlelib/tooltip.py.
     In addition, it sets the foreground colour to see the tip also in
     macOS dark mode, and displays a textvariable rather than simple text
     so one can change the tip during run time.
@@ -80,7 +122,7 @@ class Tooltip(Hovertip):
         # light yellow = #ffffe0
         label = tk.Label(self.tipwindow, textvariable=self.text,
                          background="#ffffe0", foreground="#000000",
-                         justify=tk.LEFT, relief=tk.FLAT, borderwidth=0,
+                         justify='left', relief='flat', borderwidth=0,
                          padx=1, pady=1)
         label.pack()
 
@@ -118,7 +160,7 @@ def add_checkbutton(frame, label="", value=False, command=None, tooltip="",
     Examples
     --------
     >>> self.rowzxy = ttk.Frame(self)
-    >>> self.rowzxy.pack(side=tk.TOP, fill=tk.X)
+    >>> self.rowzxy.pack(side='top', fill='x')
     >>> self.inv_xlbl, self.inv_x = add_checkbutton(
     ...     self.rowzxy, label="invert x", value=False, command=self.checked)
 
@@ -128,7 +170,7 @@ def add_checkbutton(frame, label="", value=False, command=None, tooltip="",
     bvar = tk.BooleanVar(value=value)
     cb = ttk.Checkbutton(frame, variable=bvar, textvariable=check_label,
                          command=command, **kwargs)
-    cb.pack(side=tk.LEFT, padx=3)
+    cb.pack(side='left', padx=3)
     if tooltip:
         ttip = tk.StringVar()
         ttip.set(tooltip)
@@ -170,7 +212,7 @@ def add_combobox(frame, label="", values=[], command=None, tooltip="",
     Examples
     --------
     >>> self.rowzxy = ttk.Frame(self)
-    >>> self.rowzxy.pack(side=tk.TOP, fill=tk.X)
+    >>> self.rowzxy.pack(side='top', fill='x')
     >>> self.xlbl, self.x = add_combobox(
     ...     self.rowzxy, label="x", values=columns, command=self.selected)
 
@@ -179,13 +221,13 @@ def add_combobox(frame, label="", values=[], command=None, tooltip="",
     cb_label = tk.StringVar()
     cb_label.set(label)
     label = ttk.Label(frame, textvariable=cb_label)
-    label.pack(side=tk.LEFT)
+    label.pack(side='left')
     cb = ttk.Combobox(frame, values=values, width=width, **kwargs)
     # long = len(max(values, key=len))
     # cb.configure(width=(max(20, long//2)))
     if command is not None:
         cb.bind("<<ComboboxSelected>>", command)
-    cb.pack(side=tk.LEFT)
+    cb.pack(side='left')
     if tooltip:
         ttip = tk.StringVar()
         ttip.set(tooltip)
@@ -195,7 +237,8 @@ def add_combobox(frame, label="", values=[], command=None, tooltip="",
         return cb_label, cb
 
 
-def add_entry(frame, label="", text="", command=None, tooltip="", **kwargs):
+def add_entry(frame, label="", text="", command=None, tooltip="",
+              padlabel=0, labelwidth=None, **kwargs):
     """
     Add a left-aligned ttk.Entry with a ttk.Label before.
 
@@ -207,12 +250,18 @@ def add_entry(frame, label="", text="", command=None, tooltip="", **kwargs):
         Text that appears in front of the entry (default: "")
     text : str, optional
         Initial text in the entry area (default: "")
-    command : function, optional
+    command : function or list of functions, optional
         Handler function to be bound to the entry for the events
-        <Return>, '<Key-Return>', <KP_Enter>, and '<FocusOut>' (default: None).
+        '<FocusOut>', <Return>, '<Key-Return>', and <KP_Enter> (default: None).
+        If list is given than command[0] is bound to '<FocusOut>' and
+        command[1] is bound to the 3 events
     tooltip : str, optional
         Tooltip appearing after one second when hovering over
         the entry (default: "" = no tooltip)
+    padlabel : int, optional
+        Prepend number of spaces to create distance other widgets (default: 0)
+    labelwidth : int, optional
+        If given, set width of Label
     **kwargs : option=value pairs, optional
         All other options will be passed to ttk.Entry
 
@@ -227,25 +276,49 @@ def add_entry(frame, label="", text="", command=None, tooltip="", **kwargs):
     Examples
     --------
     >>> self.rowxyopt = ttk.Frame(self)
-    >>> self.rowxyopt.pack(side=tk.TOP, fill=tk.X)
+    >>> self.rowxyopt.pack(side='top', fill='x')
     >>> self.lslbl, self.ls = add_entry(
     ...     self.rowxyopt, label="ls", text='-',
     ...     width=4, command=self.selected_y)
 
     """
     entry_label = tk.StringVar()
-    entry_label.set(label)
-    label = ttk.Label(frame, textvariable=entry_label)
-    label.pack(side=tk.LEFT)
+    nlab = len(label) + padlabel
+    lab = f'{label:>{nlab}s}'
+    entry_label.set(lab)
+    lkwargs = {'textvariable': entry_label}
+    if labelwidth is not None:
+        lkwargs.update({'width': labelwidth})
+    label = ttk.Label(frame, **lkwargs)
+    # print(label.configure())
+    label.pack(side='left')
     entry_text = tk.StringVar()
-    entry_text.set(text)
+    if text is None:
+        tt = 'None'
+    elif isinstance(text, bool):
+        if text:
+            tt = 'True'
+        else:
+            tt = 'False'
+    else:
+        tt = str(text)
+    entry_text.set(tt)
     entry = ttk.Entry(frame, textvariable=entry_text, **kwargs)
     if command is not None:
-        entry.bind('<Return>', command)      # return
-        entry.bind('<Key-Return>', command)  # return
-        entry.bind('<KP_Enter>', command)    # return of numeric keypad
-        entry.bind('<FocusOut>', command)    # tab or click
-    entry.pack(side=tk.LEFT)
+        if isinstance(command, (list, tuple)):
+            com0 = command[0]
+            if len(command) > 1:
+                com1 = command[1]
+            else:
+                com1 = command[0]
+        else:
+            com0 = command
+            com1 = command
+        entry.bind('<FocusOut>', com0)    # tab or click
+        entry.bind('<Return>', com1)      # return
+        entry.bind('<Key-Return>', com1)  # return
+        entry.bind('<KP_Enter>', com1)    # return of numeric keypad
+    entry.pack(side='left')
     if tooltip:
         ttip = tk.StringVar()
         ttip.set(tooltip)
@@ -290,7 +363,7 @@ def add_imagemenu(frame, label="", values=[], images=[], command=None,
     Examples
     --------
     >>> self.rowcmap = ttk.Frame(self)
-    >>> self.rowcmap.pack(side=tk.TOP, fill=tk.X)
+    >>> self.rowcmap.pack(side='top', fill='x')
     >>> self.cmaplbl, self.cmap = add_imagemenu(
     ...     self.rowcmap, label="cmap", values=self.cmaps,
     ...     images=self.imaps, command=self.selected_cmap)
@@ -306,15 +379,15 @@ def add_imagemenu(frame, label="", values=[], images=[], command=None,
     mb_label = tk.StringVar()
     mb_label.set(label)
     label = ttk.Label(frame, textvariable=mb_label)
-    label.pack(side=tk.LEFT)
+    label.pack(side='left')
     mb = ttk.Menubutton(frame, image=images[0], text=values[0],
-                        compound=tk.LEFT)
+                        compound='left')
     sb = tk.Menu(mb, tearoff=False)
     mb.config(menu=sb)
     for i, v in enumerate(values):
-        sb.add_command(label=v, image=images[i], compound=tk.LEFT,
+        sb.add_command(label=v, image=images[i], compound='left',
                        command=partial(command, v))
-    mb.pack(side=tk.LEFT)
+    mb.pack(side='left')
     if tooltip:
         ttip = tk.StringVar()
         ttip.set(tooltip)
@@ -354,7 +427,7 @@ def add_menu(frame, label="", values=[], command=None, tooltip="", **kwargs):
     Examples
     --------
     >>> self.rowzxy = ttk.Frame(self)
-    >>> self.rowzxy.pack(side=tk.TOP, fill=tk.X)
+    >>> self.rowzxy.pack(side='top', fill='x')
     >>> self.xlbl, self.x = add_combobox(
     ...     self.rowzxy, label="x", values=columns, command=self.selected)
 
@@ -363,14 +436,14 @@ def add_menu(frame, label="", values=[], command=None, tooltip="", **kwargs):
     mb_label = tk.StringVar()
     mb_label.set(label)
     label = ttk.Label(frame, textvariable=mb_label)
-    label.pack(side=tk.LEFT)
-    mb = ttk.Menubutton(frame, text=values[0], compound=tk.LEFT)
+    label.pack(side='left')
+    mb = ttk.Menubutton(frame, text=values[0], compound='left')
     sb = tk.Menu(mb, tearoff=False)
     mb.config(menu=sb)
     for i, v in enumerate(values):
-        sb.add_command(label=v, compound=tk.LEFT,
+        sb.add_command(label=v, compound='left',
                        command=partial(command, v))
-    mb.pack(side=tk.LEFT)
+    mb.pack(side='left')
     if tooltip:
         ttip = tk.StringVar()
         ttip.set(tooltip)
@@ -410,7 +483,7 @@ def add_scale(frame, label="", ini=0, tooltip="", **kwargs):
     Examples
     --------
     >>> self.rowzxy = ttk.Frame(self)
-    >>> self.rowzxy.pack(side=tk.TOP, fill=tk.X)
+    >>> self.rowzxy.pack(side='top', fill='x')
     >>> self.xlbl, self.x = add_scale(
     ...     self.rowzxy, label="x", values=columns, command=self.selected)
 
@@ -418,11 +491,11 @@ def add_scale(frame, label="", ini=0, tooltip="", **kwargs):
     s_label = tk.StringVar()
     s_label.set(label)
     label = ttk.Label(frame, textvariable=s_label)
-    label.pack(side=tk.LEFT)
+    label.pack(side='left')
     s_val = tk.DoubleVar()
     s_val.set(ini)
     s = ttk.Scale(frame, variable=s_val, **kwargs)
-    s.pack(side=tk.LEFT)
+    s.pack(side='left')
     if tooltip:
         ttip = tk.StringVar()
         ttip.set(tooltip)
@@ -467,7 +540,7 @@ def add_spinbox(frame, label="", values=[], command=None, tooltip="",
     Examples
     --------
     >>> self.rowlev = ttk.Frame(self)
-    >>> self.rowlev.pack(side=tk.TOP, fill=tk.X)
+    >>> self.rowlev.pack(side='top', fill='x')
     >>> self.dlval, self.dl, self.dval, self.d = add_spinbox(
     ...     self.rowlev, label="dim", values=range(0,10),
     ...     command=self.spinned)
@@ -477,7 +550,7 @@ def add_spinbox(frame, label="", values=[], command=None, tooltip="",
     sbl_val = tk.StringVar()
     sbl_val.set(label)
     sbl = ttk.Label(frame, textvariable=sbl_val)
-    sbl.pack(side=tk.LEFT)
+    sbl.pack(side='left')
     sb_val = tk.StringVar()
     if len(values) > 0:
         sb_val.set(str(values[0]))
@@ -488,7 +561,7 @@ def add_spinbox(frame, label="", values=[], command=None, tooltip="",
         sb.bind('<Key-Return>', command)  # return
         sb.bind('<KP_Enter>', command)    # return of numeric keypad
         sb.bind('<FocusOut>', command)    # tab or click
-    sb.pack(side=tk.LEFT)
+    sb.pack(side='left')
     if tooltip:
         ttip = tk.StringVar()
         ttip.set(tooltip)
@@ -520,7 +593,7 @@ def add_tooltip(frame, tooltip="", **kwargs):
     Examples
     --------
     >>> self.rowlev = ttk.Frame(self)
-    >>> self.rowlev.pack(side=tk.TOP, fill=tk.X)
+    >>> self.rowlev.pack(side='top', fill='x')
     >>> self.dlbl, self.dval, self.d = add_spinbox(
     ...     self.rowlev, label="dim", values=range(0,10),
     ...     command=self.spinned)
@@ -531,3 +604,56 @@ def add_tooltip(frame, tooltip="", **kwargs):
     ttip.set(tooltip)
     htip = Tooltip(frame, ttip)
     return ttip
+
+
+# https://pythonassets.com/posts/scrollbar-in-tk-tkinter/
+class Treeview(ttk.Frame):
+    """
+    Treeview class with optional horizontal and vertical scrollbars
+
+    Examples
+    --------
+    Simple ttk.Treeview widget
+
+    .. code-block:: python
+
+       tree = Treeview(frame_widget)
+
+    ttk.Treeview widget with vertical scrollbar
+
+    .. code-block:: python
+
+       tree = Treeview(frame_widget, yscroll=True)
+
+    ttk.Treeview widget with vertical and horizontal scrollbars
+
+    .. code-block:: python
+
+       tree = Treeview(frame_widget, xscroll=True, yscroll=True)
+
+    """
+    def __init__(self, *args, xscroll=False, yscroll=False, **kwargs):
+        super().__init__(*args, **kwargs)
+        # scrollbars
+        if xscroll:
+            self.hscrollbar = ttk.Scrollbar(self, orient='horizontal')
+        if yscroll:
+            self.vscrollbar = ttk.Scrollbar(self, orient='vertical')
+        # treeview
+        self.tv = ttk.Treeview(self)
+        # pack scrollbars and treeview together
+        if xscroll:
+            self.tv.config(xscrollcommand=self.hscrollbar.set)
+            self.hscrollbar.config(command=self.tv.xview)
+            self.hscrollbar.pack(side='bottom', fill='x')
+        if yscroll:
+            self.tv.config(yscrollcommand=self.vscrollbar.set)
+            self.vscrollbar.config(command=self.tv.yview)
+            self.vscrollbar.pack(side='right', fill='y')
+        self.tv.pack()
+        # convenience functions
+        self.tag_configure = self.tv.tag_configure
+        self.config = self.tv.config
+        self.column = self.tv.column
+        self.heading = self.tv.heading
+        self.insert = self.tv.insert

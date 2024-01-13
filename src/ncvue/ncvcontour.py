@@ -25,6 +25,7 @@ History
     * Write coordinates and value on bottom of plotting canvas,
       May 2021, Matthias Cuntz
     * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz
+    * Allow groups in netcdf files, Jan 2024, Matthias Cuntz
 
 """
 from __future__ import absolute_import, division, print_function
@@ -370,17 +371,17 @@ class ncvContour(ttk.Frame):
             if self.top.fi:
                 self.top.fi.close()
             # reset empty defaults of top
-            self.top.dunlim = ''      # name of unlimited dimension
-            self.top.time   = None    # datetime variable
-            self.top.tname  = ''      # datetime variable name
-            self.top.tvar   = ''      # datetime variable name in netcdf
-            self.top.dtime  = None    # decimal year
-            self.top.latvar = ''      # name of latitude variable
-            self.top.lonvar = ''      # name of longitude variable
-            self.top.latdim = ''      # name of latitude dimension
-            self.top.londim = ''      # name of longitude dimension
-            self.top.maxdim = 0       # maximum num of dims of all variables
-            self.top.cols   = []      # variable list
+            self.top.dunlim = []  # name of unlimited dimension
+            self.top.time   = []  # datetime variable
+            self.top.tname  = []  # datetime variable name
+            self.top.tvar   = []  # datetime variable name in netcdf
+            self.top.dtime  = []  # decimal year
+            self.top.latvar = []  # name of latitude variable
+            self.top.lonvar = []  # name of longitude variable
+            self.top.latdim = []  # name of latitude dimension
+            self.top.londim = []  # name of longitude dimension
+            self.top.maxdim = 0   # maximum num of dims of all variables
+            self.top.cols   = []  # variable list
             # open new netcdf file
             self.top.fi = nc.Dataset(ncfile, 'r')
             analyse_netcdf(self.top)
@@ -611,13 +612,13 @@ class ncvContour(ttk.Frame):
         if (z != ''):
             # z axis
             gz, vz = vardim2var(z, self.fi.groups.keys())
-            if vz == self.tname:
+            if vz == self.tname[gz]:
                 # should throw an error later
                 if mesh:
-                    zz = self.dtime
+                    zz = self.dtime[gz]
                     zlab = 'Year'
                 else:
-                    zz = self.time
+                    zz = self.time[gz]
                     zlab = 'Date'
             else:
                 zz = self.fi[vz]
@@ -630,12 +631,12 @@ class ncvContour(ttk.Frame):
         if (y != ''):
             # y axis
             gy, vy = vardim2var(y, self.fi.groups.keys())
-            if vy == self.tname:
+            if vy == self.tname[gy]:
                 if mesh:
-                    yy = self.dtime
+                    yy = self.dtime[gy]
                     ylab = 'Year'
                 else:
-                    yy = self.time
+                    yy = self.time[gy]
                     ylab = 'Date'
             else:
                 yy   = self.fi[vy]
@@ -644,12 +645,12 @@ class ncvContour(ttk.Frame):
         if (x != ''):
             # x axis
             gx, vx = vardim2var(x, self.fi.groups.keys())
-            if vx == self.tname:
+            if vx == self.tname[gx]:
                 if mesh:
-                    xx = self.dtime
+                    xx = self.dtime[gx]
                     xlab = 'Year'
                 else:
-                    xx = self.time
+                    xx = self.time[gx]
                     xlab = 'Date'
             else:
                 xx   = self.fi[vx]

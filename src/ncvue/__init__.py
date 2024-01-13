@@ -58,8 +58,42 @@ History
     * v4.1, final add_cyclic and has_cyclic as committed to cartopy,
       Nov 2021, Matthias Cuntz
     * v4.1.2, ncvue is gui_script entry_point, Jun 2022, Matthias Cuntz
+    * v4.2, allow groups in netcdf files, Jan 2024, Matthias Cuntz
 
 """
+# helper functions
+# copy from idle
+from .tooltip import TooltipBase, OnHoverTooltipBase, Hovertip
+# general helper function
+from .ncvutils import DIMMETHODS
+from .ncvutils import add_cyclic, has_cyclic, clone_ncvmain
+from .ncvutils import format_coord_contour, format_coord_map
+from .ncvutils import format_coord_scatter, get_slice
+from .ncvutils import list_intersection, set_axis_label, set_miss
+from .ncvutils import spinbox_values, vardim2var, zip_dim_name_length
+#
+# common methods of all panels
+from .ncvmethods import analyse_netcdf, get_miss, get_slice_miss
+from .ncvmethods import set_dim_lat, set_dim_lon, set_dim_var
+from .ncvmethods import set_dim_x, set_dim_y, set_dim_y2, set_dim_z
+#
+# adding widgets with labels, etc.
+from .ncvwidgets import Tooltip
+from .ncvwidgets import add_checkbutton, add_combobox, add_entry, add_imagemenu
+from .ncvwidgets import add_menu, add_scale, add_spinbox, add_tooltip
+#
+# scatter/line panel
+from .ncvscatter import ncvScatter
+# contour panel
+from .ncvcontour import ncvContour
+# map panel
+from .ncvmap import ncvMap
+# main window with panels
+from .ncvmain import ncvMain
+#
+# main calling program
+from .ncvue import ncvue
+#
 # version, author
 try:
     from ._version import __version__
@@ -68,40 +102,10 @@ except ImportError:  # pragma: nocover
     __version__ = "0.0.0.dev0"
 __author__  = "Matthias Cuntz"
 
-# helper functions
-# general helper function
-from .ncvutils   import DIMMETHODS
-from .ncvutils   import add_cyclic, has_cyclic, clone_ncvmain
-from .ncvutils   import format_coord_contour, format_coord_map
-from .ncvutils   import format_coord_scatter, get_slice
-from .ncvutils   import list_intersection, set_axis_label, set_miss
-from .ncvutils   import spinbox_values, vardim2var, zip_dim_name_length
 
-# common methods of all panels
-from .ncvmethods import analyse_netcdf, get_miss, get_slice_miss
-from .ncvmethods import set_dim_lat, set_dim_lon, set_dim_var
-from .ncvmethods import set_dim_x, set_dim_y, set_dim_y2, set_dim_z
-
-# adding widgets with labels, etc.
-from .ncvwidgets import Tooltip
-from .ncvwidgets import add_checkbutton, add_combobox, add_entry, add_imagemenu
-from .ncvwidgets import add_menu, add_scale, add_spinbox, add_tooltip
-
-# scatter/line panel
-from .ncvscatter import ncvScatter
-# contour panel
-from .ncvcontour import ncvContour
-# map panel
-from .ncvmap     import ncvMap
-# main window with panels
-from .ncvmain    import ncvMain
-
-# main calling program
-from .ncvue import ncvue
-
-
-__all__ = ["DIMMETHODS",
-           "add_cyclic", "clone_ncvmain",
+__all__ = ['TooltipBase', 'OnHoverTooltipBase', 'Hovertip',
+           "DIMMETHODS",
+           "add_cyclic", "has_cyclic", "clone_ncvmain",
            "format_coord_contour", "format_coord_map",
            "format_coord_scatter", "get_slice",
            "list_intersection", "set_axis_label", "set_miss",

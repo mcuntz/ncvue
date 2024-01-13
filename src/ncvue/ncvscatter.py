@@ -27,6 +27,7 @@ History
     * Write left-hand side and right-hand side values on bottom of plotting
       canvas, May 2021, Matthias Cuntz
     * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz
+    * Allow groups in netcdf files, Jan 2024, Matthias Cuntz
 
 """
 from __future__ import absolute_import, division, print_function
@@ -488,17 +489,17 @@ class ncvScatter(ttk.Frame):
             if self.top.fi:
                 self.top.fi.close()
             # reset empty defaults of top
-            self.top.dunlim = ''      # name of unlimited dimension
-            self.top.time   = None    # datetime variable
-            self.top.tname  = ''      # datetime variable name
-            self.top.tvar   = ''      # datetime variable name in netcdf
-            self.top.dtime  = None    # decimal year
-            self.top.latvar = ''      # name of latitude variable
-            self.top.lonvar = ''      # name of longitude variable
-            self.top.latdim = ''      # name of latitude dimension
-            self.top.londim = ''      # name of longitude dimension
-            self.top.maxdim = 0       # maximum num of dims of all variables
-            self.top.cols   = []      # variable list
+            self.top.dunlim = []  # name of unlimited dimension
+            self.top.time   = []  # datetime variable
+            self.top.tname  = []  # datetime variable name
+            self.top.tvar   = []  # datetime variable name in netcdf
+            self.top.dtime  = []  # decimal year
+            self.top.latvar = []  # name of latitude variable
+            self.top.lonvar = []  # name of longitude variable
+            self.top.latdim = []  # name of latitude dimension
+            self.top.londim = []  # name of longitude dimension
+            self.top.maxdim = 0   # maximum num of dims of all variables
+            self.top.cols   = []  # variable list
             # open new netcdf file
             self.top.fi = nc.Dataset(ncfile, 'r')
             analyse_netcdf(self.top)
@@ -735,7 +736,7 @@ class ncvScatter(ttk.Frame):
                      'markeredgecolor': mec,
                      'markeredgewidth': mew}
             gy, vy = vardim2var(y, self.fi.groups.keys())
-            if vy == self.tname:
+            if vy == self.tname[gy]:
                 ylab = 'Date'
                 pargs['color'] = c
             else:
@@ -839,7 +840,7 @@ class ncvScatter(ttk.Frame):
                      'markeredgecolor': mec,
                      'markeredgewidth': mew}
             gy, vy = vardim2var(y2, self.fi.groups.keys())
-            if vy == self.tname:
+            if vy == self.tname[gy]:
                 ylab = 'Date'
                 pargs['color'] = c
             else:
@@ -926,8 +927,8 @@ class ncvScatter(ttk.Frame):
             # y axis
             if y != '':
                 gy, vy = vardim2var(y, self.fi.groups.keys())
-                if vy == self.tname:
-                    yy   = self.time
+                if vy == self.tname[gy]:
+                    yy   = self.time[gy]
                     ylab = 'Date'
                 else:
                     yy   = self.fi[vy]
@@ -936,8 +937,8 @@ class ncvScatter(ttk.Frame):
             # y2 axis
             if y2 != '':
                 gy2, vy2 = vardim2var(y2, self.fi.groups.keys())
-                if vy2 == self.tname:
-                    yy2   = self.time
+                if vy2 == self.tname[gy2]:
+                    yy2   = self.time[gy2]
                     ylab2 = 'Date'
                 else:
                     yy2   = self.fi[vy2]
@@ -946,8 +947,8 @@ class ncvScatter(ttk.Frame):
             if (x != ''):
                 # x axis
                 gx, vx = vardim2var(x, self.fi.groups.keys())
-                if vx == self.tname:
-                    xx   = self.time
+                if vx == self.tname[gx]:
+                    xx   = self.time[gx]
                     xlab = 'Date'
                 else:
                     xx   = self.fi[vx]

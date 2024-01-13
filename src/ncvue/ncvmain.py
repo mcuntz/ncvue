@@ -24,6 +24,8 @@ History
     * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
     * Added check_new_netcdf method that re-initialises all panels if netcdf
       file changed, Jan 2021, Matthias Cuntz
+    * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz
+    * Allow groups in netcdf files, Jan 2024, Matthias Cuntz
 
 """
 from __future__ import absolute_import, division, print_function
@@ -80,13 +82,17 @@ class ncvMain(ttk.Frame):
         self.tab_map     = ncvMap(self)
 
         mapfirst = False
-        if self.top.latvar:
-            gl, vl = vardim2var(self.top.latvar, self.top.fi.groups.keys())
-            if np.prod(self.top.fi.variables[vl].shape) > 1:
+        if any(self.top.latvar):
+            idx = [ i for i, l in enumerate(self.top.latvar) if l ]
+            gl, vl = vardim2var(self.top.latvar[idx[0]],
+                                self.top.fi.groups.keys())
+            if np.prod(self.top.fi[vl].shape) > 1:
                 mapfirst = True
-        if self.top.lonvar:
-            gl, vl = vardim2var(self.top.lonvar, self.top.fi.groups.keys())
-            if np.prod(self.top.fi.variables[vl].shape) > 1:
+        if any(self.top.lonvar):
+            idx = [ i for i, l in enumerate(self.top.lonvar) if l ]
+            gl, vl = vardim2var(self.top.lonvar[idx[0]],
+                                self.top.fi.groups.keys())
+            if np.prod(self.top.fi[vl].shape) > 1:
                 mapfirst = True
 
         if mapfirst:

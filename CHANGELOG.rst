@@ -1,7 +1,9 @@
 Changelog
 ---------
 
-v4.2 (??? 2024)
+v4.2 (Jan 2024)
+    * Use local copy of `tooltip.py` from idle.
+    * Allow groups in netcdf files.
     * Made ``ncvue`` work with newer matplotlib versions, updating
       colormaps and using matplotlib.pyplot.style 'seaborn-v0_8-dark'.
     * Made ``ncvue`` work with newer Tcl/Tk versions (ttk.Style.theme_use).

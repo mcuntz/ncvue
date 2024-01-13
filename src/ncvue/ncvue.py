@@ -27,6 +27,7 @@ History
       jupyter, May 2021, Matthias Cuntz
     * Different themes for different OS, May 2021, Matthias Cuntz
     * Font size 13 on Windows for plots, Jun 2021, Matthias Cuntz
+    * Allow groups in netcdf files, Jan 2024, Matthias Cuntz
 
 """
 import sys
@@ -160,15 +161,15 @@ def ncvue(ncfile='', miss=np.nan):
     top.icon   = icon    # app icon
     top.fi     = ncfile  # file name or file handle
     top.miss   = miss    # extra missing value
-    top.dunlim = ''      # name of unlimited dimension
-    top.time   = None    # datetime variable
-    top.tname  = ''      # datetime variable name
-    top.tvar   = ''      # datetime variable name in netcdf file
-    top.dtime  = None    # decimal year
-    top.latvar = ''      # name of latitude variable
-    top.lonvar = ''      # name of longitude variable
-    top.latdim = ''      # name of latitude dimension
-    top.londim = ''      # name of longitude dimension
+    top.dunlim = []      # name of unlimited dimension
+    top.time   = []      # datetime variable
+    top.tname  = []      # datetime variable name
+    top.tvar   = []      # datetime variable name in netcdf file
+    top.dtime  = []      # decimal year
+    top.latvar = []      # name of latitude variable
+    top.lonvar = []      # name of longitude variable
+    top.latdim = []      # name of latitude dimension
+    top.londim = []      # name of longitude dimension
     top.maxdim = 1       # maximum number of dimensions of all variables
                          # > 0 so that dimension spinboxes present
     top.cols   = []      # variable list
