@@ -32,7 +32,6 @@ History
     * Allow groups in netcdf files, Jan 2024, Matthias Cuntz
 
 """
-from __future__ import absolute_import, division, print_function
 import sys
 import tkinter as tk
 try:

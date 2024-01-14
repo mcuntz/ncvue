@@ -62,6 +62,8 @@ History
       (get_dim_var) Oct 2021, Matthias Cuntz
     * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz
     * Allow groups in netcdf files, Jan 2024, Matthias Cuntz
+    * Squeeze output in get_slice_miss only if more than 1 dim,
+      Jan 2024, Matthias Cuntz
 
 """
 from __future__ import absolute_import, division, print_function
@@ -557,8 +559,10 @@ def get_slice_miss(self, dimspins, x):
 
     """
     miss = get_miss(self, x)
-    xx   = get_slice(dimspins, x).squeeze()
-    xx   = set_miss(miss, xx)
+    xx = get_slice(dimspins, x)
+    if xx.ndim > 1:
+        xx = xx.squeeze()
+    xx = set_miss(miss, xx)
     # catch variables that have only one string or similar
     try:
         sx = xx.shape[0]
