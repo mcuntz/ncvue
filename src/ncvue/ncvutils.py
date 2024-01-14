@@ -25,6 +25,7 @@ The following functions are provided:
    format_coord_scatter
    get_slice
    list_intersection
+   selvar
    set_axis_label
    set_miss
    spinbox_values
@@ -51,9 +52,9 @@ History
     * Final add_cyclic, has_cyclic from cartopy v0.20.1,
       Nov 2021, Matthias Cuntz
     * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz
+    * Add selvar to allow multiple netcdf files, Jan 2024, Matthias Cuntz
 
 """
-from __future__ import absolute_import, division, print_function
 import tkinter as tk
 import numpy as np
 import matplotlib.dates as mpld
@@ -64,7 +65,7 @@ __all__ = ['DIMMETHODS',
            'add_cyclic', 'has_cyclic', 'clone_ncvmain',
            'format_coord_contour', 'format_coord_map', 'format_coord_scatter',
            'get_slice',
-           'list_intersection', 'set_axis_label', 'set_miss',
+           'list_intersection', 'selvar', 'set_axis_label', 'set_miss',
            'spinbox_values', 'vardim2var', 'zip_dim_name_length']
 
 
@@ -642,8 +643,8 @@ def get_slice(dimspins, y):
 
     Examples
     --------
-    >>> gy, vy = vardim2var(y, self.fi.groups.keys())
-    >>> yy = self.fi[vy]
+    >>> gy, vy = vardim2var(y, self.groups)
+    >>> yy = selvar(self, vy)
     >>> miss = get_miss(self, yy)
     >>> yy = get_slice_y(self.yd, yy).squeeze()
     >>> yy = set_miss(miss, yy)
@@ -723,6 +724,45 @@ def list_intersection(lst1, lst2):
         return list(set(lst1).intersection(lst2))
     else:
         return [ ll for ll in lst1 if ll in lst2 ]
+
+
+def selvar(self, var):
+    """
+    Extract variable from correct file.
+
+    Parameters
+    ----------
+    self : class
+        ncvue Tk class having fi and groups
+    var : string
+        Variable name including group or file identifier,
+        such as 'Qle', 'group1/Qle', or 'file0001/Qle'
+
+    Returns
+    -------
+    netcdf variable
+        Pointer to variable in file
+
+    Examples
+    --------
+    selvar(self, var)
+
+    """
+    if len(self.fi) == 0:
+        return
+    elif len(self.fi) == 1:
+        fil = self.fi[0]
+        return fil[var]
+    else:
+        if '/' in var:
+            f = var[0:var.find('/')].rstrip()
+            idxf = list(self.groups).index(f)
+            vv = var[var.find('/') + 1:].rstrip()
+            fil = self.fi[idxf]
+            return fil[vv]
+        else:
+            fil = self.fi[0]
+            return fil[var]
 
 
 def set_axis_label(ncvar):

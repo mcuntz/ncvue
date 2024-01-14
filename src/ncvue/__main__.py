@@ -50,10 +50,10 @@ A minimal GUI for a quick view of netcdf files.""")
 
     del parser, args
 
-    if len(ncfile) > 0:
-        ncfile = ncfile[0]
-    else:
-        ncfile = ''
+    # if len(ncfile) == 0:
+    #     ncfile = ncfile[0]
+    # else:
+    #     ncfile = ''
 
     # This must be before any other call to matplotlib
     # because it uses the TkAgg backend.

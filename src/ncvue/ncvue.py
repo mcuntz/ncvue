@@ -28,37 +28,32 @@ History
     * Different themes for different OS, May 2021, Matthias Cuntz
     * Font size 13 on Windows for plots, Jun 2021, Matthias Cuntz
     * Allow groups in netcdf files, Jan 2024, Matthias Cuntz
+    * Allow multiple netcdf files, Jan 2024, Matthias Cuntz
 
 """
-import sys
-import tkinter as tk
-try:
-    import tkinter.ttk as ttk
-except Exception:
-    print('Using the themed widget set introduced in Tk 8.5.')
-    sys.exit()
 import os
 import platform
-import numpy as np
+import sys
+import tkinter as tk
+import tkinter.ttk as ttk
+from matplotlib import pyplot as plt
 import netCDF4 as nc
+import numpy as np
 from .ncvmethods import analyse_netcdf
 from .ncvmain import ncvMain
-# import matplotlib as mpl
-# mpl.use('TkAgg')
-from matplotlib import pyplot as plt
 
 
 __all__ = ['ncvue']
 
 
-def ncvue(ncfile='', miss=np.nan):
+def ncvue(ncfile=[], miss=np.nan):
     """
     The main function to start the data frame GUI.
 
     Parameters
     ----------
-    ncfile : str, optional
-        Name of netcdf file (default: '').
+    ncfile : list of str, optional
+        Name of netcdf file (default: []).
     miss : float, optional
         Add value to list of missing values: _FillValue, missing_value,
         and the standard netCDF missing value for current datatype from
@@ -152,14 +147,18 @@ def ncvue(ncfile='', miss=np.nan):
 
     root = tk.Toplevel()
     root.name = 'ncvOne'
-    root.title("ncvue " + ncfile)
+    if len(ncfile) == 1:
+        root.title("ncvue " + ncfile[0])
+    else:
+        root.title("ncvue")
     root.geometry('1000x800+100+100')
 
     # Connect netcdf file and extracted information to top
     top.os     = ios     # operating system
     top.theme  = theme   # current theme
     top.icon   = icon    # app icon
-    top.fi     = ncfile  # file name or file handle
+    top.fi     = []      # file name or file handle
+    top.groups = []      # filename with increasing index or group names
     top.miss   = miss    # extra missing value
     top.dunlim = []      # name of unlimited dimension
     top.time   = []      # datetime variable
@@ -173,17 +172,36 @@ def ncvue(ncfile='', miss=np.nan):
     top.maxdim = 1       # maximum number of dimensions of all variables
                          # > 0 so that dimension spinboxes present
     top.cols   = []      # variable list
-    if ncfile:
-        top.fi = nc.Dataset(ncfile, 'r')
+
+    if len(ncfile) > 0:
+        for ii, nn in enumerate(ncfile):
+            top.fi.append(nc.Dataset(nn, 'r'))
+            if len(ncfile) > 1:
+                top.groups.append(f'file{ii:04d}')
+        # Check groups
+        if len(ncfile) == 1:
+            top.groups = list(top.fi[0].groups.keys())
+        else:
+            for ii, nn in enumerate(ncfile):
+                if len(list(top.fi[ii].groups.keys())) > 0:
+                    print(f'Either multiple files or one file with groups'
+                          f' allowed as input. Multiple files and file {nn}'
+                          f' has groups.')
+                    for fi in top.fi:
+                        fi.close()
+                    top.quit()
+                    top.destroy()
         # Analyse netcdf file
         analyse_netcdf(top)
-    root.top = top
 
     def on_closing():
-        if top.fi:
-            top.fi.close()
+        if len(top.fi) > 0:
+            for fi in top.fi:
+                fi.close()
         top.quit()
         top.destroy()
+
+    root.top = top
     root.protocol("WM_DELETE_WINDOW", on_closing)
 
     # 1st plotting window

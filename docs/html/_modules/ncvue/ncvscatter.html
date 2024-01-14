@@ -344,20 +344,14 @@ document.write(`
 <span class="sd">      canvas, May 2021, Matthias Cuntz</span>
 <span class="sd">    * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz</span>
 <span class="sd">    * Allow groups in netcdf files, Jan 2024, Matthias Cuntz</span>
+<span class="sd">    * Allow multiple netcdf files, Jan 2024, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span>
 <span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">tkinter.ttk</span> <span class="k">as</span> <span class="nn">ttk</span>
-<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">sys</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Using the themed widget set introduced in Tk 8.5.&#39;</span><span class="p">)</span>
-    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
-<span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">filedialog</span>
+<span class="kn">import</span> <span class="nn">tkinter.ttk</span> <span class="k">as</span> <span class="nn">ttk</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">netCDF4</span> <span class="k">as</span> <span class="nn">nc</span>
-<span class="kn">from</span> <span class="nn">.ncvutils</span> <span class="kn">import</span> <span class="n">clone_ncvmain</span><span class="p">,</span> <span class="n">format_coord_scatter</span>
+<span class="kn">from</span> <span class="nn">.ncvutils</span> <span class="kn">import</span> <span class="n">clone_ncvmain</span><span class="p">,</span> <span class="n">format_coord_scatter</span><span class="p">,</span> <span class="n">selvar</span>
 <span class="kn">from</span> <span class="nn">.ncvutils</span> <span class="kn">import</span> <span class="n">set_axis_label</span><span class="p">,</span> <span class="n">vardim2var</span>
 <span class="kn">from</span> <span class="nn">.ncvmethods</span> <span class="kn">import</span> <span class="n">analyse_netcdf</span><span class="p">,</span> <span class="n">get_slice_miss</span>
 <span class="kn">from</span> <span class="nn">.ncvmethods</span> <span class="kn">import</span> <span class="n">set_dim_x</span><span class="p">,</span> <span class="n">set_dim_y</span><span class="p">,</span> <span class="n">set_dim_y2</span>
@@ -414,6 +408,7 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">top</span>    <span class="o">=</span> <span class="n">master</span><span class="o">.</span><span class="n">top</span>
         <span class="c1"># copy for ease of use</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fi</span>     <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">groups</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">groups</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">miss</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">miss</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dunlim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">dunlim</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">time</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">time</span>
@@ -826,13 +821,16 @@ document.write(`
 <span class="sd">        Open a new netcdf file and connect it to top.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># get new netcdf file name</span>
-        <span class="n">ncfile</span> <span class="o">=</span> <span class="n">filedialog</span><span class="o">.</span><span class="n">askopenfilename</span><span class="p">(</span>
-            <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Choose netcdf file&#39;</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">ncfile</span><span class="p">:</span>
+        <span class="n">ncfile</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">filedialog</span><span class="o">.</span><span class="n">askopenfilename</span><span class="p">(</span>
+            <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Choose netcdf file&#39;</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ncfile</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="c1"># close old netcdf file</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">fi</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span><span class="p">:</span>
+                    <span class="n">fi</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
             <span class="c1"># reset empty defaults of top</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span>     <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># file name or file handle</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">groups</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># filename with increasing index or group names</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">dunlim</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># name of unlimited dimension</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">time</span>   <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># datetime variable</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">tname</span>  <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># datetime variable name</span>
@@ -845,8 +843,25 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">maxdim</span> <span class="o">=</span> <span class="mi">0</span>   <span class="c1"># maximum num of dims of all variables</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">cols</span>   <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># variable list</span>
             <span class="c1"># open new netcdf file</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span> <span class="o">=</span> <span class="n">nc</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">ncfile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
-            <span class="n">analyse_netcdf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">nn</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ncfile</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nc</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">nn</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">))</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ncfile</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;file</span><span class="si">{</span><span class="n">ii</span><span class="si">:</span><span class="s1">04d</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="c1"># Check groups</span>
+            <span class="n">ianalyse</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ncfile</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">groups</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">nn</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ncfile</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Either multiple files or one file with groups&#39;</span>
+                              <span class="sa">f</span><span class="s1">&#39; allowed as input. Multiple files and file&#39;</span>
+                              <span class="sa">f</span><span class="s1">&#39; </span><span class="si">{</span><span class="n">nn</span><span class="si">}</span><span class="s1"> has groups.&#39;</span><span class="p">)</span>
+                        <span class="k">for</span> <span class="n">fi</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span><span class="p">:</span>
+                            <span class="n">fi</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                        <span class="n">ianalyse</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="n">ianalyse</span><span class="p">:</span>
+                <span class="n">analyse_netcdf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
             <span class="c1"># reset panel</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">reinit</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
@@ -975,6 +990,7 @@ document.write(`
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># reinit from top</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fi</span>     <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">groups</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">groups</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">miss</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">miss</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dunlim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">dunlim</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">time</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">time</span>
@@ -1106,12 +1122,13 @@ document.write(`
                      <span class="s1">&#39;markerfacecolor&#39;</span><span class="p">:</span> <span class="n">mfc</span><span class="p">,</span>
                      <span class="s1">&#39;markeredgecolor&#39;</span><span class="p">:</span> <span class="n">mec</span><span class="p">,</span>
                      <span class="s1">&#39;markeredgewidth&#39;</span><span class="p">:</span> <span class="n">mew</span><span class="p">}</span>
-            <span class="n">gy</span><span class="p">,</span> <span class="n">vy</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="n">gy</span><span class="p">,</span> <span class="n">vy</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">vy</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">[</span><span class="n">gy</span><span class="p">]:</span>
                 <span class="n">ylab</span> <span class="o">=</span> <span class="s1">&#39;Date&#39;</span>
                 <span class="n">pargs</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">ylab</span> <span class="o">=</span> <span class="n">set_axis_label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="n">vy</span><span class="p">])</span>
+                <span class="n">vvy</span> <span class="o">=</span> <span class="n">selvar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vy</span><span class="p">)</span>
+                <span class="n">ylab</span> <span class="o">=</span> <span class="n">set_axis_label</span><span class="p">(</span><span class="n">vvy</span><span class="p">)</span>
                 <span class="c1"># ToDo with dimensions</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">line_y</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="c1"># set color only if single line,</span>
@@ -1213,12 +1230,13 @@ document.write(`
                      <span class="s1">&#39;markerfacecolor&#39;</span><span class="p">:</span> <span class="n">mfc</span><span class="p">,</span>
                      <span class="s1">&#39;markeredgecolor&#39;</span><span class="p">:</span> <span class="n">mec</span><span class="p">,</span>
                      <span class="s1">&#39;markeredgewidth&#39;</span><span class="p">:</span> <span class="n">mew</span><span class="p">}</span>
-            <span class="n">gy</span><span class="p">,</span> <span class="n">vy</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">y2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="n">gy</span><span class="p">,</span> <span class="n">vy</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">y2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">vy</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">[</span><span class="n">gy</span><span class="p">]:</span>
                 <span class="n">ylab</span> <span class="o">=</span> <span class="s1">&#39;Date&#39;</span>
                 <span class="n">pargs</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">ylab</span> <span class="o">=</span> <span class="n">set_axis_label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="n">vy</span><span class="p">])</span>
+                <span class="n">vvy</span> <span class="o">=</span> <span class="n">selvar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vy</span><span class="p">)</span>
+                <span class="n">ylab</span> <span class="o">=</span> <span class="n">set_axis_label</span><span class="p">(</span><span class="n">vvy</span><span class="p">)</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">line_y2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="c1"># set color only if single line,</span>
                     <span class="c1"># None and &#39;None&#39; do not work for multiple lines</span>
@@ -1303,32 +1321,32 @@ document.write(`
         <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">y2</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
             <span class="c1"># y axis</span>
             <span class="k">if</span> <span class="n">y</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
-                <span class="n">gy</span><span class="p">,</span> <span class="n">vy</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+                <span class="n">gy</span><span class="p">,</span> <span class="n">vy</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">vy</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">[</span><span class="n">gy</span><span class="p">]:</span>
                     <span class="n">yy</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">gy</span><span class="p">]</span>
                     <span class="n">ylab</span> <span class="o">=</span> <span class="s1">&#39;Date&#39;</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">yy</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="n">vy</span><span class="p">]</span>
+                    <span class="n">yy</span> <span class="o">=</span> <span class="n">selvar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vy</span><span class="p">)</span>
                     <span class="n">ylab</span> <span class="o">=</span> <span class="n">set_axis_label</span><span class="p">(</span><span class="n">yy</span><span class="p">)</span>
                 <span class="n">yy</span> <span class="o">=</span> <span class="n">get_slice_miss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">yd</span><span class="p">,</span> <span class="n">yy</span><span class="p">)</span>
             <span class="c1"># y2 axis</span>
             <span class="k">if</span> <span class="n">y2</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
-                <span class="n">gy2</span><span class="p">,</span> <span class="n">vy2</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">y2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+                <span class="n">gy2</span><span class="p">,</span> <span class="n">vy2</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">y2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">vy2</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">[</span><span class="n">gy2</span><span class="p">]:</span>
                     <span class="n">yy2</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">gy2</span><span class="p">]</span>
                     <span class="n">ylab2</span> <span class="o">=</span> <span class="s1">&#39;Date&#39;</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">yy2</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="n">vy2</span><span class="p">]</span>
+                    <span class="n">yy2</span> <span class="o">=</span> <span class="n">selvar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vy2</span><span class="p">)</span>
                     <span class="n">ylab2</span> <span class="o">=</span> <span class="n">set_axis_label</span><span class="p">(</span><span class="n">yy2</span><span class="p">)</span>
                 <span class="n">yy2</span> <span class="o">=</span> <span class="n">get_slice_miss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y2d</span><span class="p">,</span> <span class="n">yy2</span><span class="p">)</span>
             <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
                 <span class="c1"># x axis</span>
-                <span class="n">gx</span><span class="p">,</span> <span class="n">vx</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+                <span class="n">gx</span><span class="p">,</span> <span class="n">vx</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">vx</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">[</span><span class="n">gx</span><span class="p">]:</span>
                     <span class="n">xx</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">gx</span><span class="p">]</span>
                     <span class="n">xlab</span> <span class="o">=</span> <span class="s1">&#39;Date&#39;</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">xx</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="n">vx</span><span class="p">]</span>
+                    <span class="n">xx</span> <span class="o">=</span> <span class="n">selvar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vx</span><span class="p">)</span>
                     <span class="n">xlab</span> <span class="o">=</span> <span class="n">set_axis_label</span><span class="p">(</span><span class="n">xx</span><span class="p">)</span>
                 <span class="n">xx</span> <span class="o">=</span> <span class="n">get_slice_miss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">xd</span><span class="p">,</span> <span class="n">xx</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>

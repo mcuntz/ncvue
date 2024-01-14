@@ -3,25 +3,33 @@
 Make stand-alone version of ncvue with cx_Freeze.
 
 On macOS, use minimal virtual environment
-    pyenv virtualenv 3.12.1 install-ncvue
-    pyenv rehash
-    pyenv local install-ncvue
-    pip install --upgrade cython numpy pyshp six
-    isshapely=$(pip freeze | grep shapely)
-    if [[ -z ${isshapely} ]] ; then pip uninstall -y shapely ; fi
-    pip install shapely --no-binary shapely
-    pip install scipy
-    pip install matplotlib
-    pip install pykdtree
-    pip install netcdf4
-    pip install cartopy
-    pip install flake8  # for Emacs
-    pip install cx_Freeze
-    # libtiff.5.dylib version of PIL too old for pyproj -> use current from homebrew
-    mv ~/.pyenv/versions/3.12.1/envs/install-ncvue/lib/python3.8/site-packages/PIL/.dylibs/libtiff.5.dylib \
-       ~/.pyenv/versions/3.12.1/envs/install-ncvue/lib/python3.8/site-packages/PIL/.dylibs/libtiff.5.dylib.save
-    \cp /usr/local/lib/libtiff.5.dylib \
-        ~/.pyenv/versions/3.12.1/envs/install-ncvue/lib/python3.8/site-packages/PIL/.dylibs/libtiff.5.dylib
+   # essential subset
+   if [[ "$(uname -m)" == "arm64" ]] ; then
+       export OPENBLAS="$(brew --prefix openblas)"
+       export HDF5_DIR="$(brew --prefix hdf5)"
+       export GEOS_DIR="$(brew --prefix geos)"
+       export GEOS_CONFIG="$(brew --prefix geos)/bin/geos-config"
+   fi
+   pyenv virtualenv 3.11.7 install-ncvue
+   pyenv rehash
+   pyenv local install-ncvue
+   pyenv rehash
+   # test if install works
+   python -m pip install --upgrade cython numpy pyshp six
+   [[ -z $(python -m pip freeze | grep shapely) ]] && \
+           python -m pip uninstall -y shapely
+   python -m pip install shapely --no-binary shapely
+   python -m pip install scipy matplotlib pykdtree
+   python -m pip install netcdf4 cartopy flake8
+   python -m pip install GDAL==$(gdal-config --version) \
+       --global-option=build_ext --global-option="-I${HOMEBREW_PREFIX}/include"
+   python -m pip install cartopy
+   python -m pip install cx_Freeze
+   # libtiff.5.dylib version of PIL too old for pyproj -> use current from homebrew
+   mv ~/.pyenv/versions/3.11.7/envs/install-ncvue/lib/python3.8/site-packages/PIL/.dylibs/libtiff.5.dylib \
+       ~/.pyenv/versions/3.11.7/envs/install-ncvue/lib/python3.8/site-packages/PIL/.dylibs/libtiff.5.dylib.save
+   \cp /usr/local/lib/libtiff.5.dylib \
+       ~/.pyenv/versions/3.11.7/envs/install-ncvue/lib/python3.8/site-packages/PIL/.dylibs/libtiff.5.dylib
 
 On Windows, use conda-forge for everything because more up-to-date
     # Do not use mkl for smaller executable with PyInstaller/cx_Freeze
@@ -41,6 +49,7 @@ macOS dmg
     python cx_freeze_setup.py bdist_dmg
 Windows installer
     python.exe cx_freeze_setup.py bdist_msi
+
 '''
 import os
 import codecs
@@ -51,7 +60,7 @@ import glob
 import shutil
 
 from cx_Freeze import setup, Executable
-from cx_Freeze.dist import build as _build
+# from cx_Freeze.dist import build as _build
 
 
 # find __version__
@@ -99,24 +108,24 @@ def _post_build_m1(exedir):
             shutil.copy2(aa, exedir)
 
 
-# post build hook
-# https://stackoverflow.com/questions/17806485/execute-a-python-script-post-install-using-distutils-setuptools
-class build(_build):
-    def run(self):
-        _build.run(self)
-        if sys.platform == 'win32':
-            self.execute(_post_build_win, (self.build_exe,),
-                         msg='Post-build on Windows')
-        elif sys.platform == 'darwin':
-            if platform.machine() == 'arm64':
-                # self.execute(_post_build_m1, (self.build_exe,),
-                #              msg='Post-build on macOS Apple Silicon (M1)')
-                pass
-            else:
-                self.execute(_post_build_mac, (self.build_exe,),
-                             msg='Post-build on macOS')
-        else:
-            pass
+# # post build hook
+# # https://stackoverflow.com/questions/17806485/execute-a-python-script-post-install-using-distutils-setuptools
+# class build(_build):
+#     def run(self):
+#         _build.run(self)
+#         if sys.platform == 'win32':
+#             self.execute(_post_build_win, (self.build_exe,),
+#                          msg='Post-build on Windows')
+#         elif sys.platform == 'darwin':
+#             if platform.machine() == 'arm64':
+#                 # self.execute(_post_build_m1, (self.build_exe,),
+#                 #              msg='Post-build on macOS Apple Silicon (M1)')
+#                 pass
+#             else:
+#                 self.execute(_post_build_mac, (self.build_exe,),
+#                              msg='Post-build on macOS')
+#         else:
+#             pass
 
 
 package   = 'ncvue'
@@ -128,7 +137,7 @@ copyright = 'Copyright (c) 2020-2024 Matthias Cuntz - mc (at) macu (dot) de'
 
 version = _find_version('src/' + package, '_version.py')
 
-script        = 'bin/ncvue'
+script        = 'bin.save/ncvue'  # 'src/ncvue/__main__.py'
 packages      = ['scipy', 'netCDF4']  # others detected automatically
 excludes      = ['pyflakes', 'mccabe', 'pycodestyle', 'flake8',  # flake8
                  'gtk', 'PyQt4', 'PyQt5', 'wx']                  # matplotlib
@@ -213,7 +222,7 @@ bdist_msi_options = {
 setup(name=package,
       version=version,
       description=doclines,
-      cmdclass={'build': build},
+      # cmdclass={'build': build},
       options={'build_exe': build_exe_options,
                'bdist_mac': bdist_mac_options,
                'bdist_dmg': bdist_dmg_options,

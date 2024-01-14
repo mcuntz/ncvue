@@ -30,27 +30,23 @@ History
       Oct 2021, Matthias Cuntz
     * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz
     * Allow groups in netcdf files, Jan 2024, Matthias Cuntz
+    * Allow multiple netcdf files, Jan 2024, Matthias Cuntz
 
 """
+import os
 import sys
 import tkinter as tk
-try:
-    import tkinter.ttk as ttk
-except Exception:
-    print('Using the themed widget set introduced in Tk 8.5.')
-    sys.exit()
-from tkinter import filedialog
-import os
-import numpy as np
+import tkinter.ttk as ttk
+import cartopy.crs as ccrs
 import netCDF4 as nc
-from .ncvutils import add_cyclic, clone_ncvmain, format_coord_map
+import numpy as np
+from .ncvutils import add_cyclic, clone_ncvmain, format_coord_map, selvar
 from .ncvutils import set_axis_label, set_miss, vardim2var
 from .ncvmethods import analyse_netcdf, get_slice_miss, get_miss
 from .ncvmethods import set_dim_lon, set_dim_lat, set_dim_var
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry, add_imagemenu
 from .ncvwidgets import add_menu, add_scale, add_spinbox, add_tooltip
 import matplotlib as mpl
-# mpl.use('TkAgg')
 from matplotlib import pyplot as plt
 try:
     # plt.style.use('seaborn-v0_8-darkgrid')
@@ -59,7 +55,6 @@ except OSError:
     # plt.style.use('seaborn-darkgrid')
     plt.style.use('seaborn-dark')
 # plt.style.use('fast')
-import cartopy.crs as ccrs
 
 
 __all__ = ['ncvMap']
@@ -95,6 +90,7 @@ class ncvMap(ttk.Frame):
         self.top    = master.top
         # copy for ease of use
         self.fi     = self.top.fi
+        self.groups = self.top.groups
         self.miss   = self.top.miss
         self.dunlim = self.top.dunlim
         self.time   = self.top.time
@@ -443,8 +439,8 @@ class ncvMap(ttk.Frame):
         # set global
         x = self.lon.get()
         if (x != ''):
-            gx, vx = vardim2var(x, self.fi.groups.keys())
-            xx = self.fi[vx]
+            gx, vx = vardim2var(x, self.groups)
+            xx = selvar(self, vx)
             xx = get_slice_miss(self, self.lond, xx)
             if np.any(np.isfinite(xx)):
                 xx = (xx + 360.) % 360.
@@ -465,7 +461,8 @@ class ncvMap(ttk.Frame):
         maxtime = 1
         for vz in self.tvar:
             if vz:
-                maxtime = max(self.fi[vz].size, maxtime)
+                zz = selvar(self, vz)
+                maxtime = max(zz.size, maxtime)
         self.anim = animation.FuncAnimation(self.figure, self.update,
                                             init_func=self.redraw,
                                             interval=self.delayval.get(),
@@ -543,18 +540,17 @@ class ncvMap(ttk.Frame):
         """
         Open a new netcdf file and connect it to top.
         """
-        # stop animation if running
-        if self.anim_running:
-            self.anim.event_source.stop()
-            self.anim_running = False
         # get new netcdf file name
-        ncfile = filedialog.askopenfilename(
-            parent=self, title='Choose netcdf file', multiple=False)
-        if ncfile:
+        ncfile = tk.filedialog.askopenfilename(
+            parent=self, title='Choose netcdf file', multiple=True)
+        if len(ncfile) > 0:
             # close old netcdf file
-            if self.top.fi:
-                self.top.fi.close()
+            if len(self.top.fi) > 0:
+                for fi in self.top.fi:
+                    fi.close()
             # reset empty defaults of top
+            self.top.fi     = []  # file name or file handle
+            self.top.groups = []  # filename with increasing index or group names
             self.top.dunlim = []  # name of unlimited dimension
             self.top.time   = []  # datetime variable
             self.top.tname  = []  # datetime variable name
@@ -567,8 +563,25 @@ class ncvMap(ttk.Frame):
             self.top.maxdim = 0   # maximum num of dims of all variables
             self.top.cols   = []  # variable list
             # open new netcdf file
-            self.top.fi = nc.Dataset(ncfile, 'r')
-            analyse_netcdf(self.top)
+            for ii, nn in enumerate(ncfile):
+                self.top.fi.append(nc.Dataset(nn, 'r'))
+                if len(ncfile) > 1:
+                    self.top.groups.append(f'file{ii:04d}')
+            # Check groups
+            ianalyse = True
+            if len(ncfile) == 1:
+                self.top.groups = list(self.top.fi[0].groups.keys())
+            else:
+                for ii, nn in enumerate(ncfile):
+                    if len(list(self.top.fi[ii].groups.keys())) > 0:
+                        print(f'Either multiple files or one file with groups'
+                              f' allowed as input. Multiple files and file'
+                              f' {nn} has groups.')
+                        for fi in self.top.fi:
+                            fi.close()
+                        ianalyse = False
+            if ianalyse:
+                analyse_netcdf(self.top)
             # reset panel
             self.reinit()
             self.redraw()
@@ -819,10 +832,10 @@ class ncvMap(ttk.Frame):
         from numpy.random import default_rng
         v = self.v.get()
         if (v != ''):
-            gz, vz = vardim2var(v, self.fi.groups.keys())
+            gz, vz = vardim2var(v, self.groups)
             if vz == self.tname[gz]:
                 return (0, 1)
-            vv = self.fi[vz]
+            vv = selvar(self, vz)
             imiss = get_miss(self, vv)
             iall  = self.vall.get()
             if iall or (np.sum(vv.shape[:-2]) < 50):
@@ -858,6 +871,7 @@ class ncvMap(ttk.Frame):
         """
         # reinit from top
         self.fi     = self.top.fi
+        self.groups = self.top.groups
         self.miss   = self.top.miss
         self.dunlim = self.top.dunlim
         self.time   = self.top.time
@@ -955,8 +969,8 @@ class ncvMap(ttk.Frame):
             set_dim_lon(self)
         x = self.lon.get()
         if (x != ''):
-            gx, vx = vardim2var(x, self.fi.groups.keys())
-            xx = self.fi[vx]
+            gx, vx = vardim2var(x, self.groups)
+            xx = selvar(self, vx)
             xx = get_slice_miss(self, self.lond, xx)
             xx = xx + 360.
             if (xx.max() - xx.min()) > 150.:
@@ -974,9 +988,10 @@ class ncvMap(ttk.Frame):
         write the time on top.
         """
         v = self.v.get()
-        gz, vz = vardim2var(v, self.fi.groups.keys())
+        gz, vz = vardim2var(v, self.groups)
         try:
-            has_unlim = self.dunlim[gz] in self.fi[vz].dimensions
+            zz = selvar(self, vz)
+            has_unlim = self.dunlim[gz] in zz.dimensions
         except IndexError:
             has_unlim = False  # datetime
         if self.dunlim[gz] and has_unlim:
@@ -1002,21 +1017,22 @@ class ncvMap(ttk.Frame):
         Takes `self.iunlim=0` and `self.nunlim=variable.shape[0]` if
         self.dunlim == ''` or `self.dunlim` not in var.dimensions.
         """
-        gz, vz = vardim2var(v, self.fi.groups.keys())
+        gz, vz = vardim2var(v, self.groups)
         if vz == self.tname[gz]:
             self.iunlim = 0
             self.nunlim = self.time[gz].size
         else:
+            zz = selvar(self, vz)
             if self.dunlim[gz]:
-                if self.dunlim[gz] in self.fi[vz].dimensions:
+                if self.dunlim[gz] in zz.dimensions:
                     self.iunlim = (
-                        self.fi[vz].dimensions.index(self.dunlim[gz]))
+                        zz.dimensions.index(self.dunlim[gz]))
                 else:
                     self.iunlim = 0
             else:
                 self.iunlim = 0
-            if self.fi[vz].ndim > 0:
-                self.nunlim = self.fi[vz].shape[self.iunlim]
+            if zz.ndim > 0:
+                self.nunlim = zz.shape[self.iunlim]
             else:
                 self.nunlim = 0
 
@@ -1077,7 +1093,7 @@ class ncvMap(ttk.Frame):
         vz = 'None'
         if (v != ''):
             # variable
-            gz, vz = vardim2var(v, self.fi.groups.keys())
+            gz, vz = vardim2var(v, self.groups)
             if vz == self.tname[gz]:
                 # should throw an error later
                 if mesh:
@@ -1087,7 +1103,7 @@ class ncvMap(ttk.Frame):
                     vv = self.time[gz]
                     vlab = 'Date'
             else:
-                vv = self.fi[vz]
+                vv = selvar(self, vz)
                 vlab = set_axis_label(vv)
             vv = get_slice_miss(self, self.vd, vv)
             if trans_v:
@@ -1098,7 +1114,7 @@ class ncvMap(ttk.Frame):
             vlab = ''
         if (y != ''):
             # y axis
-            gy, vy = vardim2var(y, self.fi.groups.keys())
+            gy, vy = vardim2var(y, self.groups)
             if vy == self.tname[gy]:
                 if mesh:
                     yy = self.dtime[gy]
@@ -1107,14 +1123,14 @@ class ncvMap(ttk.Frame):
                     yy = self.time[gy]
                     ylab = 'Date'
             else:
-                yy   = self.fi[vy]
+                yy = selvar(self, vy)
                 ylab = set_axis_label(yy)
             yy = get_slice_miss(self, self.latd, yy)
         else:
             ylab = ''
         if (x != ''):
             # x axis
-            gx, vx = vardim2var(x, self.fi.groups.keys())
+            gx, vx = vardim2var(x, self.groups)
             if vx == self.tname[gx]:
                 if mesh:
                     xx = self.dtime[gx]
@@ -1123,7 +1139,7 @@ class ncvMap(ttk.Frame):
                     xx = self.time[gx]
                     xlab = 'Date'
             else:
-                xx   = self.fi[vx]
+                xx = selvar(self, vx)
                 xlab = set_axis_label(xx)
             xx = get_slice_miss(self, self.lond, xx)
             # set central longitude of projection
@@ -1336,10 +1352,10 @@ class ncvMap(ttk.Frame):
             inv_lon   = self.inv_lon.get()
             inv_lat   = self.inv_lat.get()
             shift_lon = self.shift_lon.get()
-            gz, vz = vardim2var(v, self.fi.groups.keys())
+            gz, vz = vardim2var(v, self.groups)
             if vz == self.tname[gz]:
                 vz = self.tvar[gz]
-            vv = self.fi[vz]
+            vv = selvar(self, vz)
             # slice
             try:
                 it = int(self.vdval[self.iunlim].get())

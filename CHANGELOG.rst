@@ -1,7 +1,13 @@
 Changelog
 ---------
 
+v4.3 (Jan 2024)
+    * Added conda and continuous integration badges.
+    * Allow multiple netcdf files.
+    * Squeeze output in `get_slice_miss` only if more than 1 dimension.
+
 v4.2 (Jan 2024)
+    * Updated versions of github actions.
     * Changed to sphinx_book_theme for documentation.
     * Use local copy of `tooltip.py` from idle.
     * Allow groups in netcdf files.

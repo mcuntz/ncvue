@@ -28,20 +28,14 @@ History
       canvas, May 2021, Matthias Cuntz
     * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz
     * Allow groups in netcdf files, Jan 2024, Matthias Cuntz
+    * Allow multiple netcdf files, Jan 2024, Matthias Cuntz
 
 """
-from __future__ import absolute_import, division, print_function
 import tkinter as tk
-try:
-    import tkinter.ttk as ttk
-except Exception:
-    import sys
-    print('Using the themed widget set introduced in Tk 8.5.')
-    sys.exit()
-from tkinter import filedialog
+import tkinter.ttk as ttk
 import numpy as np
 import netCDF4 as nc
-from .ncvutils import clone_ncvmain, format_coord_scatter
+from .ncvutils import clone_ncvmain, format_coord_scatter, selvar
 from .ncvutils import set_axis_label, vardim2var
 from .ncvmethods import analyse_netcdf, get_slice_miss
 from .ncvmethods import set_dim_x, set_dim_y, set_dim_y2
@@ -96,6 +90,7 @@ class ncvScatter(ttk.Frame):
         self.top    = master.top
         # copy for ease of use
         self.fi     = self.top.fi
+        self.groups = self.top.groups
         self.miss   = self.top.miss
         self.dunlim = self.top.dunlim
         self.time   = self.top.time
@@ -482,13 +477,16 @@ class ncvScatter(ttk.Frame):
         Open a new netcdf file and connect it to top.
         """
         # get new netcdf file name
-        ncfile = filedialog.askopenfilename(
-            parent=self, title='Choose netcdf file', multiple=False)
-        if ncfile:
+        ncfile = tk.filedialog.askopenfilename(
+            parent=self, title='Choose netcdf file', multiple=True)
+        if len(ncfile) > 0:
             # close old netcdf file
-            if self.top.fi:
-                self.top.fi.close()
+            if len(self.top.fi) > 0:
+                for fi in self.top.fi:
+                    fi.close()
             # reset empty defaults of top
+            self.top.fi     = []  # file name or file handle
+            self.top.groups = []  # filename with increasing index or group names
             self.top.dunlim = []  # name of unlimited dimension
             self.top.time   = []  # datetime variable
             self.top.tname  = []  # datetime variable name
@@ -501,8 +499,25 @@ class ncvScatter(ttk.Frame):
             self.top.maxdim = 0   # maximum num of dims of all variables
             self.top.cols   = []  # variable list
             # open new netcdf file
-            self.top.fi = nc.Dataset(ncfile, 'r')
-            analyse_netcdf(self.top)
+            for ii, nn in enumerate(ncfile):
+                self.top.fi.append(nc.Dataset(nn, 'r'))
+                if len(ncfile) > 1:
+                    self.top.groups.append(f'file{ii:04d}')
+            # Check groups
+            ianalyse = True
+            if len(ncfile) == 1:
+                self.top.groups = list(self.top.fi[0].groups.keys())
+            else:
+                for ii, nn in enumerate(ncfile):
+                    if len(list(self.top.fi[ii].groups.keys())) > 0:
+                        print(f'Either multiple files or one file with groups'
+                              f' allowed as input. Multiple files and file'
+                              f' {nn} has groups.')
+                        for fi in self.top.fi:
+                            fi.close()
+                        ianalyse = False
+            if ianalyse:
+                analyse_netcdf(self.top)
             # reset panel
             self.reinit()
             self.redraw()
@@ -607,6 +622,7 @@ class ncvScatter(ttk.Frame):
         """
         # reinit from top
         self.fi     = self.top.fi
+        self.groups = self.top.groups
         self.miss   = self.top.miss
         self.dunlim = self.top.dunlim
         self.time   = self.top.time
@@ -735,12 +751,13 @@ class ncvScatter(ttk.Frame):
                      'markerfacecolor': mfc,
                      'markeredgecolor': mec,
                      'markeredgewidth': mew}
-            gy, vy = vardim2var(y, self.fi.groups.keys())
+            gy, vy = vardim2var(y, self.groups)
             if vy == self.tname[gy]:
                 ylab = 'Date'
                 pargs['color'] = c
             else:
-                ylab = set_axis_label(self.fi[vy])
+                vvy = selvar(self, vy)
+                ylab = set_axis_label(vvy)
                 # ToDo with dimensions
                 if len(self.line_y) == 1:
                     # set color only if single line,
@@ -839,12 +856,13 @@ class ncvScatter(ttk.Frame):
                      'markerfacecolor': mfc,
                      'markeredgecolor': mec,
                      'markeredgewidth': mew}
-            gy, vy = vardim2var(y2, self.fi.groups.keys())
+            gy, vy = vardim2var(y2, self.groups)
             if vy == self.tname[gy]:
                 ylab = 'Date'
                 pargs['color'] = c
             else:
-                ylab = set_axis_label(self.fi[vy])
+                vvy = selvar(self, vy)
+                ylab = set_axis_label(vvy)
                 if len(self.line_y2) == 1:
                     # set color only if single line,
                     # None and 'None' do not work for multiple lines
@@ -926,32 +944,32 @@ class ncvScatter(ttk.Frame):
         if (y != '') or (y2 != ''):
             # y axis
             if y != '':
-                gy, vy = vardim2var(y, self.fi.groups.keys())
+                gy, vy = vardim2var(y, self.groups)
                 if vy == self.tname[gy]:
                     yy   = self.time[gy]
                     ylab = 'Date'
                 else:
-                    yy   = self.fi[vy]
+                    yy = selvar(self, vy)
                     ylab = set_axis_label(yy)
                 yy = get_slice_miss(self, self.yd, yy)
             # y2 axis
             if y2 != '':
-                gy2, vy2 = vardim2var(y2, self.fi.groups.keys())
+                gy2, vy2 = vardim2var(y2, self.groups)
                 if vy2 == self.tname[gy2]:
                     yy2   = self.time[gy2]
                     ylab2 = 'Date'
                 else:
-                    yy2   = self.fi[vy2]
+                    yy2 = selvar(self, vy2)
                     ylab2 = set_axis_label(yy2)
                 yy2 = get_slice_miss(self, self.y2d, yy2)
             if (x != ''):
                 # x axis
-                gx, vx = vardim2var(x, self.fi.groups.keys())
+                gx, vx = vardim2var(x, self.groups)
                 if vx == self.tname[gx]:
                     xx   = self.time[gx]
                     xlab = 'Date'
                 else:
-                    xx   = self.fi[vx]
+                    xx = selvar(self, vx)
                     xlab = set_axis_label(xx)
                 xx = get_slice_miss(self, self.xd, xx)
             else:

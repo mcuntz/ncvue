@@ -26,18 +26,13 @@ History
       file changed, Jan 2021, Matthias Cuntz
     * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz
     * Allow groups in netcdf files, Jan 2024, Matthias Cuntz
+    * Allow multiple netcdf files, Jan 2024, Matthias Cuntz
 
 """
-from __future__ import absolute_import, division, print_function
 import tkinter as tk
-try:
-    import tkinter.ttk as ttk
-except Exception:
-    import sys
-    print('Using the themed widget set introduced in Tk 8.5.')
-    sys.exit()
+import tkinter.ttk as ttk
 import numpy as np
-from .ncvutils import vardim2var
+from .ncvutils import vardim2var, selvar
 from .ncvscatter import ncvScatter
 from .ncvcontour import ncvContour
 from .ncvmap import ncvMap
@@ -85,14 +80,16 @@ class ncvMain(ttk.Frame):
         if any(self.top.latvar):
             idx = [ i for i, l in enumerate(self.top.latvar) if l ]
             gl, vl = vardim2var(self.top.latvar[idx[0]],
-                                self.top.fi.groups.keys())
-            if np.prod(self.top.fi[vl].shape) > 1:
+                                self.top.groups)
+            vv = selvar(self.top, vl)
+            if np.prod(vv.shape) > 1:
                 mapfirst = True
         if any(self.top.lonvar):
             idx = [ i for i, l in enumerate(self.top.lonvar) if l ]
             gl, vl = vardim2var(self.top.lonvar[idx[0]],
-                                self.top.fi.groups.keys())
-            if np.prod(self.top.fi[vl].shape) > 1:
+                                self.top.groups)
+            vv = selvar(self.top, vl)
+            if np.prod(vv.shape) > 1:
                 mapfirst = True
 
         if mapfirst:

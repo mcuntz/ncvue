@@ -385,6 +385,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.get_slice"><code class="docutils literal notranslate"><span class="pre">get_slice()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.has_cyclic"><code class="docutils literal notranslate"><span class="pre">has_cyclic()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.list_intersection"><code class="docutils literal notranslate"><span class="pre">list_intersection()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.selvar"><code class="docutils literal notranslate"><span class="pre">selvar()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.set_axis_label"><code class="docutils literal notranslate"><span class="pre">set_axis_label()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.set_miss"><code class="docutils literal notranslate"><span class="pre">set_miss()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.spinbox_values"><code class="docutils literal notranslate"><span class="pre">spinbox_values()</span></code></a></li>
@@ -445,19 +446,22 @@ France.</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvutils.list_intersection" title="ncvue.ncvutils.list_intersection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list_intersection</span></code></a>(lst1, lst2)</p></td>
 <td><p>Intersection of two lists.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvutils.set_axis_label" title="ncvue.ncvutils.set_axis_label"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_axis_label</span></code></a>(ncvar)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvutils.selvar" title="ncvue.ncvutils.selvar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selvar</span></code></a>(self, var)</p></td>
+<td><p>Extract variable from correct file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvutils.set_axis_label" title="ncvue.ncvutils.set_axis_label"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_axis_label</span></code></a>(ncvar)</p></td>
 <td><p>Set label plotting axis from name and unit of given variable <cite>ncvar</cite>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvutils.set_miss" title="ncvue.ncvutils.set_miss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_miss</span></code></a>(miss, x)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvutils.set_miss" title="ncvue.ncvutils.set_miss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_miss</span></code></a>(miss, x)</p></td>
 <td><p>Set <cite>x</cite> to NaN or NaT for all values in miss.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvutils.spinbox_values" title="ncvue.ncvutils.spinbox_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spinbox_values</span></code></a>(ndim)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvutils.spinbox_values" title="ncvue.ncvutils.spinbox_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spinbox_values</span></code></a>(ndim)</p></td>
 <td><p>Tuple for Spinbox values with 'all' before range(<cite>ndim</cite>) and 'mean', 'std', etc.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvutils.vardim2var" title="ncvue.ncvutils.vardim2var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vardim2var</span></code></a>(vardim[, groups])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvutils.vardim2var" title="ncvue.ncvutils.vardim2var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vardim2var</span></code></a>(vardim[, groups])</p></td>
 <td><p>Extract group index and variable name from 'group/variable (dim1=ndim1,)'.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvutils.zip_dim_name_length" title="ncvue.ncvutils.zip_dim_name_length"><code class="xref py py-obj docutils literal notranslate"><span class="pre">zip_dim_name_length</span></code></a>(ncvar)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvutils.zip_dim_name_length" title="ncvue.ncvutils.zip_dim_name_length"><code class="xref py py-obj docutils literal notranslate"><span class="pre">zip_dim_name_length</span></code></a>(ncvar)</p></td>
 <td><p>Combines dimension names and length of netcdf variable in list of strings.</p></td>
 </tr>
 </tbody>
@@ -483,6 +487,7 @@ Jun 2021, Matthias Cuntz</p></li>
 <li><p>Final add_cyclic, has_cyclic from cartopy v0.20.1,
 Nov 2021, Matthias Cuntz</p></li>
 <li><p>Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz</p></li>
+<li><p>Add selvar to allow multiple netcdf files, Jan 2024, Matthias Cuntz</p></li>
 </ul>
 </dd>
 </dl>
@@ -767,8 +772,8 @@ having the same x-axis.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gy</span><span class="p">,</span> <span class="n">vy</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">yy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="n">vy</span><span class="p">]</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gy</span><span class="p">,</span> <span class="n">vy</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">yy</span> <span class="o">=</span> <span class="n">selvar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vy</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">miss</span> <span class="o">=</span> <span class="n">get_miss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">yy</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">yy</span> <span class="o">=</span> <span class="n">get_slice_y</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">yd</span><span class="p">,</span> <span class="n">yy</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">yy</span> <span class="o">=</span> <span class="n">set_miss</span><span class="p">(</span><span class="n">miss</span><span class="p">,</span> <span class="n">yy</span><span class="p">)</span>
@@ -849,6 +854,29 @@ intersection for longer lists.</p>
 <span class="go">[9, 11]</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ncvue.ncvutils.selvar">
+<span class="sig-name descname"><span class="pre">selvar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#selvar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.selvar" title="Link to this definition">#</a></dt>
+<dd><p>Extract variable from correct file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<em>class</em>) – ncvue Tk class having fi and groups</p></li>
+<li><p><strong>var</strong> (<em>string</em>) – Variable name including group or file identifier,
+such as ‘Qle’, ‘group1/Qle’, or ‘file0001/Qle’</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Pointer to variable in file</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>netcdf variable</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>selvar(self, var)</p>
 </dd></dl>
 
 <dl class="py function">
@@ -1042,6 +1070,7 @@ var - variance</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.get_slice"><code class="docutils literal notranslate"><span class="pre">get_slice()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.has_cyclic"><code class="docutils literal notranslate"><span class="pre">has_cyclic()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.list_intersection"><code class="docutils literal notranslate"><span class="pre">list_intersection()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.selvar"><code class="docutils literal notranslate"><span class="pre">selvar()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.set_axis_label"><code class="docutils literal notranslate"><span class="pre">set_axis_label()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.set_miss"><code class="docutils literal notranslate"><span class="pre">set_miss()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.spinbox_values"><code class="docutils literal notranslate"><span class="pre">spinbox_values()</span></code></a></li>

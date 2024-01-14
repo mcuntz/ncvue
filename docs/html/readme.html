@@ -405,8 +405,9 @@ document.write(`
 replacement for <a class="reference external" href="http://meteora.ucsd.edu/~pierce/ncview_home_page.html">ncview</a> and <a class="reference external" href="https://www.giss.nasa.gov/tools/panoply/">panoply</a>.</p>
 <a class="reference external image-reference" href="https://doi.org/10.5281/zenodo.4459598"><img alt="Zenodo DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.4459598.svg" /></a>
 <a class="reference external image-reference" href="https://badge.fury.io/py/ncvue"><img alt="PyPI version" src="https://badge.fury.io/py/ncvue.svg" /></a>
+<a class="reference external image-reference" href="https://anaconda.org/conda-forge/ncvue"><img alt="Conda version" src="https://img.shields.io/conda/vn/conda-forge/ncvue.svg" /></a>
 <a class="reference external image-reference" href="https://github.com/mcuntz/ncvue/blob/master/LICENSE"><img alt="License" src="http://img.shields.io/badge/license-MIT-blue.svg?style=flat" /></a>
-<a class="reference external image-reference" href="https://travis-ci.org/mcuntz/ncvue"><img alt="Build status" src="https://travis-ci.org/mcuntz/ncvue.svg?branch=main" /></a>
+<a class="reference external image-reference" href="https://github.com/mcuntz/ncvue/actions/workflows/main.yml"><img alt="Build status" src="https://github.com/mcuntz/ncvue/actions/workflows/main.yml/badge.svg?branch=main" /></a>
 <section id="about-ncvue">
 <h2>About ncvue<a class="headerlink" href="#about-ncvue" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is a minimal GUI for a quick view of netCDF files. It is
@@ -428,48 +429,23 @@ netCDF file.</p>
 <h2>Quick usage guide<a class="headerlink" href="#quick-usage-guide" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> can be run from the command line:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ncvue<span class="w"> </span>netcdf_file.nc
+ncvue<span class="w"> </span>netcdf_file1.nc<span class="w"> </span>netcdf_file2.nc
 </pre></div>
 </div>
 <p>or from within Python:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ncvue</span> <span class="kn">import</span> <span class="n">ncvue</span>
-<span class="n">ncvue</span><span class="p">(</span><span class="s1">&#39;netcdf_file.nc&#39;</span><span class="p">)</span>
+<span class="n">ncvue</span><span class="p">([</span><span class="s1">&#39;netcdf_file.nc&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>where the netCDF file is optional. The latter can also be left out and
 a netCDF file can be opened with the “Open File” button from within
-<code class="docutils literal notranslate"><span class="pre">ncvue</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">ncvue</span></code>. The netCDF has to be given in a list because several netcdf
+files can be given as in the second example from the command line.</p>
 <p>Note, <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> uses the <cite>TkAgg</cite> backend of <cite>matplotlib</cite>. It must be
 called before any other call to <cite>matplotlib</cite>. This also means that you
 cannot launch it from within <cite>iPython</cite> if it was launched with
 <cite>–pylab</cite>. It can be called from within a standard <cite>iPython</cite>, though,
 or using <cite>ipython –gui tk</cite>.</p>
-<p>When using <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> with <cite>jupyter</cite> notebooks, one has to set
-<cite>%matplotlib inline</cite> before the import and call of <code class="docutils literal notranslate"><span class="pre">ncvue</span></code>. You have
-set <cite>%matplotlib inline</cite> again if you want to continue having inline
-plots in <cite>jupyter</cite> afterwards.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
-<span class="kn">from</span> <span class="nn">ncvue</span> <span class="kn">import</span> <span class="n">ncvue</span>
-<span class="n">ncvue</span><span class="p">(</span><span class="s1">&#39;netcdf_file.nc&#39;</span><span class="p">)</span>
-<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
-</pre></div>
-</div>
-<p>One can also install standalone macOS or Windows applications that
-come with everything needed to run <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> including Python:</p>
-<ul class="simple">
-<li><p><a class="reference external" href="http://www.macu.de/extra/ncvue-4.0.dmg">macOS app</a> (macOS &gt; 10.13 [High Sierra] on Intel)</p></li>
-<li><p><a class="reference external" href="http://www.macu.de/extra/ncvue-3.7-amd64.msi">Windows executable</a> (Windows 10)</p></li>
-</ul>
-<p>The macOS app should work from macOS 10.13 (High Sierra) onward on
-Intel processors. There is no standalone application for macOS on
-Apple Silicon (M1) chips because I do not have a paid Apple
-Developer ID. Other installation options work, though.</p>
-<p>A dialog box might pop up on macOS saying that the <code class="docutils literal notranslate"><span class="pre">ncvue.app</span></code> is
-from an unidentified developer. This is because <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is an
-open-source software.  Depending on the macOS version, it offers to
-open it anyway. In later versions of macOS, this option is only given
-if you right-click (or control-click) on the <code class="docutils literal notranslate"><span class="pre">ncvue.app</span></code> and choose
-<cite>Open</cite>. You only have to do this once. It will open like any other
-application the next times.</p>
 <section id="general-layout">
 <h3>General layout<a class="headerlink" href="#general-layout" title="Link to this heading">#</a></h3>
 <p>On opening, <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> presents three panels for different plotting
@@ -552,8 +528,6 @@ map projection.</p>
 for details.</p>
 <p>Copyright (c) 2020-2024 Matthias Cuntz</p>
 <p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> uses the <a class="reference external" href="https://github.com/rdbende/Azure-ttk-theme">Azure</a> 2.0 theme by <a class="reference external" href="https://github.com/rdbende">rdbende</a> on Linux and Windows.</p>
-<p>Standalone applications are produced with <a class="reference external" href="https://cx-freeze.readthedocs.io/en/latest/">cx_Freeze</a>, currently
-maintained by <a class="reference external" href="https://github.com/marcelotduarte">Marcelo Duarte</a>.</p>
 <p>The project structure of <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> was very originally based on a
 <a class="reference external" href="https://github.com/MuellerSeb/template">template</a> provided by <a class="reference external" href="https://github.com/MuellerSeb">Sebastian Müller</a> but has evolved
 considerably.</p>

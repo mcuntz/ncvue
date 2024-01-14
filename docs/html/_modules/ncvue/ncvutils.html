@@ -341,6 +341,7 @@ document.write(`
 <span class="sd">   format_coord_scatter</span>
 <span class="sd">   get_slice</span>
 <span class="sd">   list_intersection</span>
+<span class="sd">   selvar</span>
 <span class="sd">   set_axis_label</span>
 <span class="sd">   set_miss</span>
 <span class="sd">   spinbox_values</span>
@@ -367,9 +368,9 @@ document.write(`
 <span class="sd">    * Final add_cyclic, has_cyclic from cartopy v0.20.1,</span>
 <span class="sd">      Nov 2021, Matthias Cuntz</span>
 <span class="sd">    * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz</span>
+<span class="sd">    * Add selvar to allow multiple netcdf files, Jan 2024, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span>
 <span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.dates</span> <span class="k">as</span> <span class="nn">mpld</span>
@@ -380,7 +381,7 @@ document.write(`
            <span class="s1">&#39;add_cyclic&#39;</span><span class="p">,</span> <span class="s1">&#39;has_cyclic&#39;</span><span class="p">,</span> <span class="s1">&#39;clone_ncvmain&#39;</span><span class="p">,</span>
            <span class="s1">&#39;format_coord_contour&#39;</span><span class="p">,</span> <span class="s1">&#39;format_coord_map&#39;</span><span class="p">,</span> <span class="s1">&#39;format_coord_scatter&#39;</span><span class="p">,</span>
            <span class="s1">&#39;get_slice&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;list_intersection&#39;</span><span class="p">,</span> <span class="s1">&#39;set_axis_label&#39;</span><span class="p">,</span> <span class="s1">&#39;set_miss&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;list_intersection&#39;</span><span class="p">,</span> <span class="s1">&#39;selvar&#39;</span><span class="p">,</span> <span class="s1">&#39;set_axis_label&#39;</span><span class="p">,</span> <span class="s1">&#39;set_miss&#39;</span><span class="p">,</span>
            <span class="s1">&#39;spinbox_values&#39;</span><span class="p">,</span> <span class="s1">&#39;vardim2var&#39;</span><span class="p">,</span> <span class="s1">&#39;zip_dim_name_length&#39;</span><span class="p">]</span>
 
 
@@ -978,8 +979,8 @@ document.write(`
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; gy, vy = vardim2var(y, self.fi.groups.keys())</span>
-<span class="sd">    &gt;&gt;&gt; yy = self.fi[vy]</span>
+<span class="sd">    &gt;&gt;&gt; gy, vy = vardim2var(y, self.groups)</span>
+<span class="sd">    &gt;&gt;&gt; yy = selvar(self, vy)</span>
 <span class="sd">    &gt;&gt;&gt; miss = get_miss(self, yy)</span>
 <span class="sd">    &gt;&gt;&gt; yy = get_slice_y(self.yd, yy).squeeze()</span>
 <span class="sd">    &gt;&gt;&gt; yy = set_miss(miss, yy)</span>
@@ -1062,6 +1063,48 @@ document.write(`
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">lst1</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">lst2</span><span class="p">))</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">[</span> <span class="n">ll</span> <span class="k">for</span> <span class="n">ll</span> <span class="ow">in</span> <span class="n">lst1</span> <span class="k">if</span> <span class="n">ll</span> <span class="ow">in</span> <span class="n">lst2</span> <span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="selvar">
+<a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.selvar">[docs]</a>
+<span class="k">def</span> <span class="nf">selvar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract variable from correct file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    self : class</span>
+<span class="sd">        ncvue Tk class having fi and groups</span>
+<span class="sd">    var : string</span>
+<span class="sd">        Variable name including group or file identifier,</span>
+<span class="sd">        such as &#39;Qle&#39;, &#39;group1/Qle&#39;, or &#39;file0001/Qle&#39;</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    netcdf variable</span>
+<span class="sd">        Pointer to variable in file</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    selvar(self, var)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">fil</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">fil</span><span class="p">[</span><span class="n">var</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;/&#39;</span> <span class="ow">in</span> <span class="n">var</span><span class="p">:</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">var</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)]</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+            <span class="n">idxf</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="n">vv</span> <span class="o">=</span> <span class="n">var</span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+            <span class="n">fil</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="n">idxf</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">fil</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fil</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">fil</span><span class="p">[</span><span class="n">var</span><span class="p">]</span></div>
 
 
 

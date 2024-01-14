@@ -64,13 +64,13 @@ History
     * Allow groups in netcdf files, Jan 2024, Matthias Cuntz
     * Squeeze output in get_slice_miss only if more than 1 dim,
       Jan 2024, Matthias Cuntz
+    * Allow multiple netcdf files, Jan 2024, Matthias Cuntz
 
 """
-from __future__ import absolute_import, division, print_function
 import tkinter as tk
 import numpy as np
 from .ncvutils import DIMMETHODS, get_slice, set_miss, spinbox_values
-from .ncvutils import vardim2var, zip_dim_name_length
+from .ncvutils import vardim2var, zip_dim_name_length, selvar
 import netCDF4 as nc
 # nc.default_fillvals but with keys as variables['var'].dtype
 nctypes = [ np.dtype(i) for i in nc.default_fillvals ]
@@ -118,17 +118,19 @@ def analyse_netcdf(self):
     except ModuleNotFoundError:
         import netCDF4 as cf
     #
-    # Check for groups (ngroups > 0)
-    groups = list(self.fi.groups.keys())
-    ngroups = len(groups)
-
+    ngroups = len(self.groups)
     for ig in range(max(ngroups, 1)):
-        if ngroups > 0:
-            fi = self.fi[groups[ig]]
-            gname = groups[ig] + '/'
+        if len(self.fi) == 1:
+            if ngroups > 0:
+                ffi = self.fi[0]
+                fi = ffi[self.groups[ig]]
+                gname = self.groups[ig] + '/'
+            else:
+                fi = self.fi[ig]
+                gname = ''
         else:
-            fi = self.fi
-            gname = ''
+            fi = self.fi[ig]
+            gname = self.groups[ig] + '/'
         #
         # search unlimited dimension
         self.dunlim.append('')
@@ -156,7 +158,8 @@ def analyse_netcdf(self):
                 else:
                     self.tname[ig] = gname + 'datetime'
                 try:
-                    tunit = self.fi[self.tvar[ig]].units
+                    ivar = selvar(self, self.tvar[ig])
+                    tunit = ivar.units
                 except AttributeError:
                     tunit = ''
                 # assure 01, etc. if values < 10
@@ -169,10 +172,12 @@ def analyse_netcdf(self):
                     tt[2] = '-'.join(dd)
                     tunit = ' '.join(tt)
                 try:
-                    tcal = self.fi[self.tvar[ig]].calendar
+                    ivar = selvar(self, self.tvar[ig])
+                    tcal = ivar.calendar
                 except AttributeError:
                     tcal = 'standard'
-                time = self.fi[self.tvar[ig]][:]
+                ivar = selvar(self, self.tvar[ig])
+                time = ivar[:]
                 # time dimension "day as %Y%m%d.%f" from cdo.
                 if ' as ' in tunit:
                     itunit = tunit.split()[2]
@@ -249,9 +254,9 @@ def analyse_netcdf(self):
         #
         # construct list of variable names with dimensions
         if self.time[ig] is not None:
-            addt = [
-                self.tname[ig] + ' ' +
-                str(tuple(zip_dim_name_length(self.fi[self.tvar[ig]])))]
+            ivar = selvar(self, self.tvar[ig])
+            addt = [self.tname[ig] + ' ' +
+                    str(tuple(zip_dim_name_length(ivar)))]
             self.cols += addt
         ivars = []
         for vv in fi.variables:
@@ -444,38 +449,42 @@ def analyse_netcdf(self):
         self.latdim.append('')
         self.londim.append('')
         if self.latvar[ig]:
-            latshape = self.fi[self.latvar[ig]].shape
+            ivar = selvar(self, self.latvar[ig])
+            latshape = ivar.shape
             if (len(latshape) < 1) or (len(latshape) > 2):
                 estr  = 'Something went wrong determining lat/lon:'
                 estr += ' latitude variable is not 1D or 2D.'
                 print(estr)
                 estr = 'latitude variable with dimensions:'
-                ldim = self.fi[self.latvar[ig]].dimensions
+                ldim = ivar.dimensions
                 print(estr, self.latvar[ig], ldim)
                 self.latvar[ig] = ''
             else:
-                self.latdim[ig] = self.fi[self.latvar[ig]].dimensions[0]
+                self.latdim[ig] = ivar.dimensions[0]
         if self.lonvar[ig]:
-            lonshape = self.fi[self.lonvar[ig]].shape
+            ivar = selvar(self, self.lonvar[ig])
+            lonshape = ivar.shape
             if len(lonshape) == 1:
-                self.londim[ig] = self.fi[self.lonvar[ig]].dimensions[0]
+                self.londim[ig] = ivar.dimensions[0]
             elif len(lonshape) == 2:
-                self.londim[ig] = self.fi[self.lonvar[ig]].dimensions[1]
+                self.londim[ig] = ivar.dimensions[1]
             else:
                 estr  = 'Something went wrong determining lat/lon:'
                 estr += ' longitude variable is not 1D or 2D.'
                 print(estr)
                 estr = 'longitude variable with dimensions:'
-                ldim = self.fi[self.lonvar[ig]].dimensions
+                ldim = ivar.dimensions
                 print(estr, self.lonvar[ig], ldim)
                 self.lonvar[ig] = ''
         #
         # add units to lat/lon name
         if self.latvar[ig]:
-            idim = tuple(zip_dim_name_length(self.fi[self.latvar[ig]]))
+            ivar = selvar(self, self.latvar[ig])
+            idim = tuple(zip_dim_name_length(ivar))
             self.latvar[ig] = self.latvar[ig] + ' ' + str(idim)
         if self.lonvar[ig]:
-            idim = tuple(zip_dim_name_length(self.fi[self.lonvar[ig]]))
+            ivar = selvar(self, self.lonvar[ig])
+            idim = tuple(zip_dim_name_length(ivar))
             self.lonvar[ig] = self.lonvar[ig] + ' ' + str(idim)
 
 
@@ -607,10 +616,10 @@ def set_dim_lat(self):
     lat = self.lat.get()
     if lat != '':
         # set real dimensions
-        gl, vl = vardim2var(lat, self.fi.groups.keys())
+        gl, vl = vardim2var(lat, self.groups)
         if vl == self.tname[gl]:
             vl = self.tvar[gl]
-        ll = self.fi[vl]
+        ll = selvar(self, vl)
         for i in range(ll.ndim):
             ww = max(4, int(np.ceil(np.log10(ll.shape[i]))))
             self.latd[i].config(values=spinbox_values(ll.shape[i]), width=ww,
@@ -659,10 +668,10 @@ def set_dim_lon(self):
     lon = self.lon.get()
     if lon != '':
         # set real dimensions
-        gl, vl = vardim2var(lon, self.fi.groups.keys())
+        gl, vl = vardim2var(lon, self.groups)
         if vl == self.tname[gl]:
             vl = self.tvar[gl]
-        ll = self.fi[vl]
+        ll = selvar(self, vl)
         for i in range(ll.ndim):
             ww = max(4, int(np.ceil(np.log10(ll.shape[i]))))
             self.lond[i].config(values=spinbox_values(ll.shape[i]), width=ww,
@@ -715,10 +724,10 @@ def set_dim_var(self):
     v = self.v.get()
     if v != '':
         # set real dimensions
-        gz, vz = vardim2var(v, self.fi.groups.keys())
+        gz, vz = vardim2var(v, self.groups)
         if vz == self.tname[gz]:
             vz = self.tvar[gz]
-        vv = self.fi[vz]
+        vv = selvar(self, vz)
         nall = 0
         if self.latdim[gz]:
             if self.latdim[gz] in vv.dimensions:
@@ -820,10 +829,10 @@ def set_dim_x(self):
     x = self.x.get()
     if x != '':
         # set real dimensions
-        gx, vx = vardim2var(x, self.fi.groups.keys())
+        gx, vx = vardim2var(x, self.groups)
         if vx == self.tname[gx]:
             vx = self.tvar[gx]
-        xx = self.fi[vx]
+        xx = selvar(self, vx)
         nall = 0
         if self.dunlim[gx] in xx.dimensions:
             i = xx.dimensions.index(self.dunlim[gx])
@@ -895,10 +904,10 @@ def set_dim_y(self):
     y = self.y.get()
     if y != '':
         # set real dimensions
-        gy, vy = vardim2var(y, self.fi.groups.keys())
+        gy, vy = vardim2var(y, self.groups)
         if vy == self.tname[gy]:
             vy = self.tvar[gy]
-        yy = self.fi[vy]
+        yy = selvar(self, vy)
         nall = 0
         if self.dunlim[gy] in yy.dimensions:
             i = yy.dimensions.index(self.dunlim[gy])
@@ -970,10 +979,10 @@ def set_dim_y2(self):
     y2 = self.y2.get()
     if y2 != '':
         # set real dimensions
-        gy2, vy2 = vardim2var(y2, self.fi.groups.keys())
+        gy2, vy2 = vardim2var(y2, self.groups)
         if vy2 == self.tname[gy2]:
             vy2 = self.tvar[gy2]
-        yy2 = self.fi[vy2]
+        yy2 = selvar(self, vy2)
         nall = 0
         if self.dunlim[gy2] in yy2.dimensions:
             i = yy2.dimensions.index(self.dunlim[gy2])
@@ -1046,10 +1055,10 @@ def set_dim_z(self):
     z = self.z.get()
     if z != '':
         # set real dimensions
-        gz, vz = vardim2var(z, self.fi.groups.keys())
+        gz, vz = vardim2var(z, self.groups)
         if vz == self.tname[gz]:
             vz = self.tvar[gz]
-        zz = self.fi[vz]
+        zz = selvar(self, vz)
         nall = 0
         if self.dunlim[gz] in zz.dimensions:
             i = zz.dimensions.index(self.dunlim[gz])
