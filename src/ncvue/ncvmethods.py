@@ -162,14 +162,12 @@ def analyse_netcdf(self):
                     tunit = ivar.units
                 except AttributeError:
                     tunit = ''
-                # assure 01, etc. if values < 10
+                # assure 01, etc. if values < 1000, 10, 10 in year, month, day
                 if tunit.find('since') > 0:
                     tt = tunit.split()
                     dd = tt[2].split('-')
-                    dd[0] = ('000' + dd[0])[-4:]
-                    dd[1] = ('0' + dd[1])[-2:]
-                    dd[2] = ('0' + dd[1])[-2:]
-                    tt[2] = '-'.join(dd)
+                    tt[2] = (f'{int(dd[0]):04d}-{int(dd[1]):02d}-'
+                             f'{int(dd[2]):02d}')
                     tunit = ' '.join(tt)
                 try:
                     ivar = selvar(self, self.tvar[ig])
@@ -188,11 +186,13 @@ def analyse_netcdf(self):
                         dtime.append(dt.datetime.strptime(sstt, itunit))
                     ntime = cf.date2num(dtime,
                                         'days since 0001-01-01 00:00:00')
-                    self.dtime[ig] = cf.num2date(ntime,
-                                                'days since 0001-01-01 00:00:00')
+                    self.dtime[ig] = cf.num2date(
+                        ntime,
+                        'days since 0001-01-01 00:00:00')
                 else:
                     try:
-                        self.dtime[ig] = cf.num2date(time, tunit, calendar=tcal)
+                        self.dtime[ig] = cf.num2date(time, tunit,
+                                                     calendar=tcal)
                     except ValueError:
                         self.dtime[ig] = None
                 if self.dtime[ig] is not None:
@@ -226,18 +226,17 @@ def analyse_netcdf(self):
                             only_use_cftime_datetimes=False,
                             only_use_python_datetimes=True)
                         self.time[ig] = np.array([ dd.isoformat()
-                                                  for dd in ttime ],
-                                                dtype='datetime64[ms]')
+                                                   for dd in ttime ],
+                                                 dtype='datetime64[ms]')
                     except:
                         self.time[ig] = None
                 if self.time[ig] is None:
                     try:
-                        # self.time = cf.num2date(time, tunit,
                         ttime = cf.num2date(time, tunit,
                                             calendar=tcal)
                         self.time[ig] = np.array([ dd.isoformat()
-                                                  for dd in ttime ],
-                                                dtype='datetime64[ms]')
+                                                   for dd in ttime ],
+                                                 dtype='datetime64[ms]')
                     except:
                         self.time[ig] = None
                 if self.time[ig] is None:
@@ -248,8 +247,6 @@ def analyse_netcdf(self):
                     # e.g. if units = "months since ..."
                     self.time[ig] = time
                     self.dtime[ig] = time
-                # print('time:  ', self.time[ig])
-                # print('dtime: ', self.dtime[ig])
                 break
         #
         # construct list of variable names with dimensions
@@ -367,7 +364,7 @@ def analyse_netcdf(self):
                     saxis = ''
                 if saxis.lower() == 'x':
                     self.lonvar[ig] = gname + vv
-        # fifth sweep: same as first but units can be "degrees"
+        # fifth sweep: same as first but units can be simply "degrees"
         if not self.latvar[ig]:
             for vv in fi.variables:
                 try:
@@ -400,7 +397,7 @@ def analyse_netcdf(self):
                         sunit = ''
                     if sunit.lower() == 'degrees':
                         self.lonvar[ig] = gname + vv
-        # sixth sweep: same as second but units can be "degrees"
+        # sixth sweep: same as second but units can be simply "degrees"
         if not self.latvar[ig]:
             for vv in fi.variables:
                 sname = fi[vv].name
@@ -421,7 +418,7 @@ def analyse_netcdf(self):
                         sunit = ''
                     if sunit.lower() == 'degrees':
                         self.lonvar[ig] = gname + vv
-        # seventh sweep: same as third but units can be "degrees"
+        # seventh sweep: same as third but units can be simply "degrees"
         if not self.latvar[ig]:
             for vv in fi.variables:
                 sname = fi[vv].name
@@ -452,8 +449,8 @@ def analyse_netcdf(self):
             ivar = selvar(self, self.latvar[ig])
             latshape = ivar.shape
             if (len(latshape) < 1) or (len(latshape) > 2):
-                estr  = 'Something went wrong determining lat/lon:'
-                estr += ' latitude variable is not 1D or 2D.'
+                estr  = ('Something went wrong determining lat/lon:'
+                         ' latitude variable is not 1D or 2D.')
                 print(estr)
                 estr = 'latitude variable with dimensions:'
                 ldim = ivar.dimensions
@@ -469,8 +466,8 @@ def analyse_netcdf(self):
             elif len(lonshape) == 2:
                 self.londim[ig] = ivar.dimensions[1]
             else:
-                estr  = 'Something went wrong determining lat/lon:'
-                estr += ' longitude variable is not 1D or 2D.'
+                estr  = ('Something went wrong determining lat/lon:'
+                         ' longitude variable is not 1D or 2D.')
                 print(estr)
                 estr = 'longitude variable with dimensions:'
                 ldim = ivar.dimensions
@@ -683,7 +680,7 @@ def set_dim_lon(self):
             self.londlblval[i].set(ll.dimensions[i])
             if ll.shape[i] > 1:
                 tstr  = "Specific dimension value: 0-{:d}\n".format(
-                    ll.shape[i]-1)
+                    ll.shape[i] - 1)
                 tstr += "or arithmetic operation on axis:\n"
                 tstr += "  " + ", ".join(DIMMETHODS)
             else:

@@ -1,6 +1,10 @@
 Changelog
 ---------
 
+v4.4 (??? 2024)
+    * Bugfix formatted string used wrong data type in `analyse_netcdf`.
+    * Move themes and images directories from src/ncvue to src directory.
+
 v4.3 (Jan 2024)
     * Added conda and continuous integration badges.
     * Allow multiple netcdf files.

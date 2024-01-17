@@ -29,6 +29,8 @@ History
     * Font size 13 on Windows for plots, Jun 2021, Matthias Cuntz
     * Allow groups in netcdf files, Jan 2024, Matthias Cuntz
     * Allow multiple netcdf files, Jan 2024, Matthias Cuntz
+    * Move themes/ and images/ directories from src/ncvue/ to src/ directory,
+      Jan 2024, Matthias Cuntz
 
 """
 import os
@@ -92,7 +94,8 @@ def ncvue(ncfile=[], miss=np.nan):
         top.option_add("*Font", "Helvetica 10")
         plt.rc('font', size=13)
         # standard Windows themes
-        # ('winnative', 'clam', 'alt', 'default', 'classic', 'vista', 'xpnative')
+        # ('winnative', 'clam', 'alt', 'default', 'classic', 'vista',
+        #  'xpnative')
         # theme = 'vista'
         # style = ttk.Style()
         # style.theme_use(theme)
@@ -100,7 +103,7 @@ def ncvue(ncfile=[], miss=np.nan):
         # style packages
         # Download from https://sourceforge.net/projects/tcl-awthemes/
         # top.tk.call('lappend', 'auto_path',
-        #             bundle_dir + '/themes/awthemes-10.3.2')
+        #             bundle_dir + '/../themes/awthemes-10.3.2')
         # theme = 'awdark'  # 'awlight', 'awdark'
         # top.tk.call('package', 'require', theme)
         # style = ttk.Style()
@@ -108,18 +111,20 @@ def ncvue(ncfile=[], miss=np.nan):
 
         # single file styles
         # 'azure' and 'azure-dark' v1.x, 'Breeze'
-        # top.tk.call('source', bundle_dir + '/themes/breeze/breeze.tcl')
+        # top.tk.call('source', bundle_dir + '/../themes/breeze/breeze.tcl')
         # theme = 'Breeze'
-        # top.tk.call('source', bundle_dir + '/themes/azure-1.3/azure.tcl')
+        # top.tk.call('source', bundle_dir + '/../themes/azure-1.3/azure.tcl')
         # theme = 'azure'
-        # top.tk.call('source', bundle_dir + '/themes/azure-1.3/azure-dark.tcl')
+        # top.tk.call('source', bundle_dir +
+        #             '/../themes/azure-1.3/azure-dark.tcl')
         # theme = 'azure-dark'
         # style = ttk.Style()
         # style.theme_use(theme)
 
         # 'azure' v2.x, 'sun-valley', 'forest' of rdbende
-        top.tk.call('source', bundle_dir + '/themes/azure-2.0/azure.tcl')
-        # top.tk.call('source', bundle_dir + '/themes/sun-valley-1.0/sun-valley.tcl')
+        top.tk.call('source', bundle_dir + '/../themes/azure-2.0/azure.tcl')
+        # top.tk.call('source', bundle_dir +
+        #             '/../themes/sun-valley-1.0/sun-valley.tcl')
         theme = 'light'  # light, dark
         top.tk.call("set_theme", theme)
     elif ios == 'Linux':
@@ -129,7 +134,7 @@ def ncvue(ncfile=[], miss=np.nan):
         # style.theme_use(theme)
 
         # 'azure' v2.x, 'sun-valley', 'forest' of rdbende
-        top.tk.call('source', bundle_dir + '/themes/azure-2.0/azure.tcl')
+        top.tk.call('source', bundle_dir + '/../themes/azure-2.0/azure.tcl')
         theme = 'light'  # light, dark
         top.tk.call("set_theme", theme)
 
@@ -140,7 +145,7 @@ def ncvue(ncfile=[], miss=np.nan):
     except NameError:
         whichpy = ''
     if not whichpy:
-        icon = tk.PhotoImage(file=bundle_dir + '/images/ncvue_icon.png')
+        icon = tk.PhotoImage(file=bundle_dir + '/../images/ncvue_icon.png')
         top.iconphoto(True, icon)  # True: apply to all future toplevels
     else:
         icon = None
@@ -177,7 +182,7 @@ def ncvue(ncfile=[], miss=np.nan):
         for ii, nn in enumerate(ncfile):
             top.fi.append(nc.Dataset(nn, 'r'))
             if len(ncfile) > 1:
-                top.groups.append(f'file{ii:04d}')
+                top.groups.append(f'file{ii:03d}')
         # Check groups
         if len(ncfile) == 1:
             top.groups = list(top.fi[0].groups.keys())

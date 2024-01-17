@@ -27,6 +27,8 @@ History
     * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz
     * Allow groups in netcdf files, Jan 2024, Matthias Cuntz
     * Allow multiple netcdf files, Jan 2024, Matthias Cuntz
+    * Move images/ directory from src/ncvue/ to src/ directory,
+      Jan 2024, Matthias Cuntz
 
 """
 import os
@@ -138,12 +140,12 @@ class ncvContour(ttk.Frame):
         self.cmaps  = [ i for i in allcmaps if not i.endswith('_r') ]
         self.cmaps.sort()
         # self.imaps  = [ tk.PhotoImage(file=os.path.dirname(__file__) +
-        #                               '/images/' + i + '.png')
+        #                               '/../images/' + i + '.png')
         #                 for i in self.cmaps ]
         bundle_dir = getattr(sys, '_MEIPASS',
                              os.path.abspath(os.path.dirname(__file__)))
         self.imaps  = [ tk.PhotoImage(file=bundle_dir +
-                                      '/images/' + i + '.png')
+                                      '/../images/' + i + '.png')
                         for i in self.cmaps ]
 
         # 1. row
@@ -385,7 +387,7 @@ class ncvContour(ttk.Frame):
             for ii, nn in enumerate(ncfile):
                 self.top.fi.append(nc.Dataset(nn, 'r'))
                 if len(ncfile) > 1:
-                    self.top.groups.append(f'file{ii:04d}')
+                    self.top.groups.append(f'file{ii:03d}')
             # Check groups
             ianalyse = True
             if len(ncfile) == 1:

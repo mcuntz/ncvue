@@ -502,7 +502,7 @@ class ncvScatter(ttk.Frame):
             for ii, nn in enumerate(ncfile):
                 self.top.fi.append(nc.Dataset(nn, 'r'))
                 if len(ncfile) > 1:
-                    self.top.groups.append(f'file{ii:04d}')
+                    self.top.groups.append(f'file{ii:03d}')
             # Check groups
             ianalyse = True
             if len(ncfile) == 1:
