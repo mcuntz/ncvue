@@ -17,12 +17,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
@@ -32,11 +32,11 @@
     <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=628480d8" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
-  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script src="../../_static/documentation_options.js?v=7670ec9e"></script>
+    <script src="../../_static/documentation_options.js?v=123f6dac"></script>
     <script src="../../_static/doctools.js?v=888ff710"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
@@ -55,7 +55,6 @@
   <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>
@@ -95,13 +94,10 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
-
-  <header>
   
-    <div class="bd-header navbar navbar-expand-lg bd-navbar">
-    </div>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
   
-  </header>
 
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
@@ -480,14 +476,12 @@ document.write(`
                     <span class="n">tunit</span> <span class="o">=</span> <span class="n">ivar</span><span class="o">.</span><span class="n">units</span>
                 <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
                     <span class="n">tunit</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-                <span class="c1"># assure 01, etc. if values &lt; 10</span>
+                <span class="c1"># assure 01, etc. if values &lt; 1000, 10, 10 in year, month, day</span>
                 <span class="k">if</span> <span class="n">tunit</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;since&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="n">tt</span> <span class="o">=</span> <span class="n">tunit</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
                     <span class="n">dd</span> <span class="o">=</span> <span class="n">tt</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
-                    <span class="n">dd</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;000&#39;</span> <span class="o">+</span> <span class="n">dd</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="o">-</span><span class="mi">4</span><span class="p">:]</span>
-                    <span class="n">dd</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;0&#39;</span> <span class="o">+</span> <span class="n">dd</span><span class="p">[</span><span class="mi">1</span><span class="p">])[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
-                    <span class="n">dd</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;0&#39;</span> <span class="o">+</span> <span class="n">dd</span><span class="p">[</span><span class="mi">1</span><span class="p">])[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
-                    <span class="n">tt</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dd</span><span class="p">)</span>
+                    <span class="n">tt</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">dd</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="si">:</span><span class="s1">04d</span><span class="si">}</span><span class="s1">-</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">dd</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="si">:</span><span class="s1">02d</span><span class="si">}</span><span class="s1">-&#39;</span>
+                             <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">dd</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="si">:</span><span class="s1">02d</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                     <span class="n">tunit</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tt</span><span class="p">)</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">ivar</span> <span class="o">=</span> <span class="n">selvar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tvar</span><span class="p">[</span><span class="n">ig</span><span class="p">])</span>
@@ -506,11 +500,13 @@ document.write(`
                         <span class="n">dtime</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">sstt</span><span class="p">,</span> <span class="n">itunit</span><span class="p">))</span>
                     <span class="n">ntime</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">date2num</span><span class="p">(</span><span class="n">dtime</span><span class="p">,</span>
                                         <span class="s1">&#39;days since 0001-01-01 00:00:00&#39;</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">dtime</span><span class="p">[</span><span class="n">ig</span><span class="p">]</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">num2date</span><span class="p">(</span><span class="n">ntime</span><span class="p">,</span>
-                                                <span class="s1">&#39;days since 0001-01-01 00:00:00&#39;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">dtime</span><span class="p">[</span><span class="n">ig</span><span class="p">]</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">num2date</span><span class="p">(</span>
+                        <span class="n">ntime</span><span class="p">,</span>
+                        <span class="s1">&#39;days since 0001-01-01 00:00:00&#39;</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">try</span><span class="p">:</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">dtime</span><span class="p">[</span><span class="n">ig</span><span class="p">]</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">num2date</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">tunit</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="n">tcal</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">dtime</span><span class="p">[</span><span class="n">ig</span><span class="p">]</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">num2date</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">tunit</span><span class="p">,</span>
+                                                     <span class="n">calendar</span><span class="o">=</span><span class="n">tcal</span><span class="p">)</span>
                     <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">dtime</span><span class="p">[</span><span class="n">ig</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtime</span><span class="p">[</span><span class="n">ig</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -544,18 +540,17 @@ document.write(`
                             <span class="n">only_use_cftime_datetimes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                             <span class="n">only_use_python_datetimes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">ig</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="n">dd</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
-                                                  <span class="k">for</span> <span class="n">dd</span> <span class="ow">in</span> <span class="n">ttime</span> <span class="p">],</span>
-                                                <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;datetime64[ms]&#39;</span><span class="p">)</span>
+                                                   <span class="k">for</span> <span class="n">dd</span> <span class="ow">in</span> <span class="n">ttime</span> <span class="p">],</span>
+                                                 <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;datetime64[ms]&#39;</span><span class="p">)</span>
                     <span class="k">except</span><span class="p">:</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">ig</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">ig</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="k">try</span><span class="p">:</span>
-                        <span class="c1"># self.time = cf.num2date(time, tunit,</span>
                         <span class="n">ttime</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">num2date</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">tunit</span><span class="p">,</span>
                                             <span class="n">calendar</span><span class="o">=</span><span class="n">tcal</span><span class="p">)</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">ig</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="n">dd</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
-                                                  <span class="k">for</span> <span class="n">dd</span> <span class="ow">in</span> <span class="n">ttime</span> <span class="p">],</span>
-                                                <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;datetime64[ms]&#39;</span><span class="p">)</span>
+                                                   <span class="k">for</span> <span class="n">dd</span> <span class="ow">in</span> <span class="n">ttime</span> <span class="p">],</span>
+                                                 <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;datetime64[ms]&#39;</span><span class="p">)</span>
                     <span class="k">except</span><span class="p">:</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">ig</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">ig</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -566,8 +561,6 @@ document.write(`
                     <span class="c1"># e.g. if units = &quot;months since ...&quot;</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">ig</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">dtime</span><span class="p">[</span><span class="n">ig</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
-                <span class="c1"># print(&#39;time:  &#39;, self.time[ig])</span>
-                <span class="c1"># print(&#39;dtime: &#39;, self.dtime[ig])</span>
                 <span class="k">break</span>
         <span class="c1">#</span>
         <span class="c1"># construct list of variable names with dimensions</span>
@@ -685,7 +678,7 @@ document.write(`
                     <span class="n">saxis</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
                 <span class="k">if</span> <span class="n">saxis</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;x&#39;</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span><span class="p">[</span><span class="n">ig</span><span class="p">]</span> <span class="o">=</span> <span class="n">gname</span> <span class="o">+</span> <span class="n">vv</span>
-        <span class="c1"># fifth sweep: same as first but units can be &quot;degrees&quot;</span>
+        <span class="c1"># fifth sweep: same as first but units can be simply &quot;degrees&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">latvar</span><span class="p">[</span><span class="n">ig</span><span class="p">]:</span>
             <span class="k">for</span> <span class="n">vv</span> <span class="ow">in</span> <span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
                 <span class="k">try</span><span class="p">:</span>
@@ -718,7 +711,7 @@ document.write(`
                         <span class="n">sunit</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
                     <span class="k">if</span> <span class="n">sunit</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;degrees&#39;</span><span class="p">:</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span><span class="p">[</span><span class="n">ig</span><span class="p">]</span> <span class="o">=</span> <span class="n">gname</span> <span class="o">+</span> <span class="n">vv</span>
-        <span class="c1"># sixth sweep: same as second but units can be &quot;degrees&quot;</span>
+        <span class="c1"># sixth sweep: same as second but units can be simply &quot;degrees&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">latvar</span><span class="p">[</span><span class="n">ig</span><span class="p">]:</span>
             <span class="k">for</span> <span class="n">vv</span> <span class="ow">in</span> <span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
                 <span class="n">sname</span> <span class="o">=</span> <span class="n">fi</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
@@ -739,7 +732,7 @@ document.write(`
                         <span class="n">sunit</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
                     <span class="k">if</span> <span class="n">sunit</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;degrees&#39;</span><span class="p">:</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">lonvar</span><span class="p">[</span><span class="n">ig</span><span class="p">]</span> <span class="o">=</span> <span class="n">gname</span> <span class="o">+</span> <span class="n">vv</span>
-        <span class="c1"># seventh sweep: same as third but units can be &quot;degrees&quot;</span>
+        <span class="c1"># seventh sweep: same as third but units can be simply &quot;degrees&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">latvar</span><span class="p">[</span><span class="n">ig</span><span class="p">]:</span>
             <span class="k">for</span> <span class="n">vv</span> <span class="ow">in</span> <span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
                 <span class="n">sname</span> <span class="o">=</span> <span class="n">fi</span><span class="p">[</span><span class="n">vv</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
@@ -770,8 +763,8 @@ document.write(`
             <span class="n">ivar</span> <span class="o">=</span> <span class="n">selvar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">latvar</span><span class="p">[</span><span class="n">ig</span><span class="p">])</span>
             <span class="n">latshape</span> <span class="o">=</span> <span class="n">ivar</span><span class="o">.</span><span class="n">shape</span>
             <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">latshape</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">latshape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">):</span>
-                <span class="n">estr</span>  <span class="o">=</span> <span class="s1">&#39;Something went wrong determining lat/lon:&#39;</span>
-                <span class="n">estr</span> <span class="o">+=</span> <span class="s1">&#39; latitude variable is not 1D or 2D.&#39;</span>
+                <span class="n">estr</span>  <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Something went wrong determining lat/lon:&#39;</span>
+                         <span class="s1">&#39; latitude variable is not 1D or 2D.&#39;</span><span class="p">)</span>
                 <span class="nb">print</span><span class="p">(</span><span class="n">estr</span><span class="p">)</span>
                 <span class="n">estr</span> <span class="o">=</span> <span class="s1">&#39;latitude variable with dimensions:&#39;</span>
                 <span class="n">ldim</span> <span class="o">=</span> <span class="n">ivar</span><span class="o">.</span><span class="n">dimensions</span>
@@ -787,8 +780,8 @@ document.write(`
             <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">lonshape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">londim</span><span class="p">[</span><span class="n">ig</span><span class="p">]</span> <span class="o">=</span> <span class="n">ivar</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">estr</span>  <span class="o">=</span> <span class="s1">&#39;Something went wrong determining lat/lon:&#39;</span>
-                <span class="n">estr</span> <span class="o">+=</span> <span class="s1">&#39; longitude variable is not 1D or 2D.&#39;</span>
+                <span class="n">estr</span>  <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Something went wrong determining lat/lon:&#39;</span>
+                         <span class="s1">&#39; longitude variable is not 1D or 2D.&#39;</span><span class="p">)</span>
                 <span class="nb">print</span><span class="p">(</span><span class="n">estr</span><span class="p">)</span>
                 <span class="n">estr</span> <span class="o">=</span> <span class="s1">&#39;longitude variable with dimensions:&#39;</span>
                 <span class="n">ldim</span> <span class="o">=</span> <span class="n">ivar</span><span class="o">.</span><span class="n">dimensions</span>
@@ -1013,7 +1006,7 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">londlblval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ll</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
             <span class="k">if</span> <span class="n">ll</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="n">tstr</span>  <span class="o">=</span> <span class="s2">&quot;Specific dimension value: 0-</span><span class="si">{:d}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">ll</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="n">ll</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
                 <span class="n">tstr</span> <span class="o">+=</span> <span class="s2">&quot;or arithmetic operation on axis:</span><span class="se">\n</span><span class="s2">&quot;</span>
                 <span class="n">tstr</span> <span class="o">+=</span> <span class="s2">&quot;  &quot;</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIMMETHODS</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
@@ -1505,8 +1498,8 @@ By Matthias Cuntz
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
   <footer class="bd-footer">
   </footer>

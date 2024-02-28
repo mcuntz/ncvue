@@ -131,7 +131,7 @@ greater than 1, it opens the Map panel by default. This is the Map
 panel in macOS dark mode, describing all buttons, sliders, entry
 boxes, spinboxes, and menus:
 
-.. image:: https://mcuntz.github.io/ncvue/images/map_panel_dark_small.png
+.. image:: https://mcuntz.github.io/ncvue/images/map_panel_light_small.png
    :width: 860 px
    :align: left
    :alt: Graphical documentation of Map panel

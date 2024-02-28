@@ -1,6 +1,6 @@
 prune **
 include src/ncvue/*.py
-graft src/images
+graft src/images/*.png
 graft src/themes/azure-2.0
 graft tests
 

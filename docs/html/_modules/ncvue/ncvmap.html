@@ -17,12 +17,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
@@ -32,11 +32,11 @@
     <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=628480d8" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
-  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script src="../../_static/documentation_options.js?v=7670ec9e"></script>
+    <script src="../../_static/documentation_options.js?v=123f6dac"></script>
     <script src="../../_static/doctools.js?v=888ff710"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
@@ -55,7 +55,6 @@
   <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>
@@ -95,13 +94,10 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
-
-  <header>
   
-    <div class="bd-header navbar navbar-expand-lg bd-navbar">
-    </div>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
   
-  </header>
 
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
@@ -347,6 +343,9 @@ document.write(`
 <span class="sd">    * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz</span>
 <span class="sd">    * Allow groups in netcdf files, Jan 2024, Matthias Cuntz</span>
 <span class="sd">    * Allow multiple netcdf files, Jan 2024, Matthias Cuntz</span>
+<span class="sd">    * Move images/ directory from src/ncvue/ to src/ directory,</span>
+<span class="sd">      Jan 2024, Matthias Cuntz</span>
+<span class="sd">    * Added borders, rivers, and lakes checkbuttons, Feb 2024, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">os</span>
@@ -354,6 +353,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
 <span class="kn">import</span> <span class="nn">tkinter.ttk</span> <span class="k">as</span> <span class="nn">ttk</span>
 <span class="kn">import</span> <span class="nn">cartopy.crs</span> <span class="k">as</span> <span class="nn">ccrs</span>
+<span class="kn">import</span> <span class="nn">cartopy.feature</span> <span class="k">as</span> <span class="nn">cfeature</span>
 <span class="kn">import</span> <span class="nn">netCDF4</span> <span class="k">as</span> <span class="nn">nc</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">.ncvutils</span> <span class="kn">import</span> <span class="n">add_cyclic</span><span class="p">,</span> <span class="n">clone_ncvmain</span><span class="p">,</span> <span class="n">format_coord_map</span><span class="p">,</span> <span class="n">selvar</span>
@@ -475,12 +475,12 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">cmaps</span>  <span class="o">=</span> <span class="p">[</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">allcmaps</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">i</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_r&#39;</span><span class="p">)</span> <span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cmaps</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
         <span class="c1"># self.imaps  = [ tk.PhotoImage(file=os.path.dirname(__file__) +</span>
-        <span class="c1">#                               &#39;/images/&#39; + i + &#39;.png&#39;)</span>
+        <span class="c1">#                               &#39;/../images/&#39; + i + &#39;.png&#39;)</span>
         <span class="c1">#                 for i in self.cmaps ]</span>
         <span class="n">bundle_dir</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="s1">&#39;_MEIPASS&#39;</span><span class="p">,</span>
                              <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">imaps</span>  <span class="o">=</span> <span class="p">[</span> <span class="n">tk</span><span class="o">.</span><span class="n">PhotoImage</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">bundle_dir</span> <span class="o">+</span>
-                                      <span class="s1">&#39;/images/&#39;</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span><span class="p">)</span>
+                                      <span class="s1">&#39;/../images/&#39;</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span><span class="p">)</span>
                         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmaps</span> <span class="p">]</span>
 
         <span class="c1"># only projections with keyword: central_longitude</span>
@@ -721,6 +721,18 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">rowcmap</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;coast&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">checked</span><span class="p">,</span>
             <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;Draw continental coast lines&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">borderslbl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">borders</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">borderstip</span> <span class="o">=</span> <span class="n">add_checkbutton</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rowcmap</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;borders&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">checked</span><span class="p">,</span>
+            <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;Draw country borders&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">riverslbl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rivers</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">riverstip</span> <span class="o">=</span> <span class="n">add_checkbutton</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rowcmap</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;rivers&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">checked</span><span class="p">,</span>
+            <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;Draw rivers&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lakeslbl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lakes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lakestip</span> <span class="o">=</span> <span class="n">add_checkbutton</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rowcmap</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;lakes&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">checked</span><span class="p">,</span>
+            <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;Draw major lakes&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gridlbl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gridtip</span> <span class="o">=</span> <span class="n">add_checkbutton</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rowcmap</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">checked</span><span class="p">,</span>
@@ -907,7 +919,7 @@ document.write(`
             <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">nn</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ncfile</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nc</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">nn</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">))</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ncfile</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;file</span><span class="si">{</span><span class="n">ii</span><span class="si">:</span><span class="s1">04d</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;file</span><span class="si">{</span><span class="n">ii</span><span class="si">:</span><span class="s1">03d</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
             <span class="c1"># Check groups</span>
             <span class="n">ianalyse</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ncfile</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
@@ -1489,8 +1501,11 @@ document.write(`
         <span class="n">rev_cmap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rev_cmap</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
         <span class="n">mesh</span>     <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">iiglobal</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iglobal</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-        <span class="n">grid</span>     <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
         <span class="n">coast</span>    <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coast</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">borders</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">borders</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">rivers</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rivers</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">lakes</span>    <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lakes</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">grid</span>     <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
         <span class="n">proj</span>     <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">proj</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">iproj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iprojs</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">projs</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">proj</span><span class="p">)]</span>
         <span class="n">clon</span>     <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">clon</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
@@ -1726,9 +1741,16 @@ document.write(`
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">iiglobal</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">set_global</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">coast</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">coastlines</span><span class="p">()</span>
+            <span class="c1"># self.axes.coastlines()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">COASTLINE</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">gridlines</span><span class="p">(</span><span class="n">draw_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                                 <span class="n">x_inline</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">y_inline</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">borders</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">BORDERS</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">rivers</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">RIVERS</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">lakes</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">LAKES</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_label_text</span><span class="p">(</span><span class="n">xlab</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_label_text</span><span class="p">(</span><span class="n">ylab</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">grid</span><span class="p">:</span>
@@ -1905,8 +1927,8 @@ By Matthias Cuntz
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
   <footer class="bd-footer">
   </footer>

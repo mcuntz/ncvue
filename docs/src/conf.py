@@ -263,7 +263,7 @@ intersphinx_mapping = {
     "Python":      ("https://docs.python.org/3/",                    None),
     "NumPy":       ("https://numpy.org/doc/stable/",                 None),
     "SciPy":       ("https://docs.scipy.org/doc/scipy/reference/",   None),
-    "matplotlib":  ("https://matplotlib.org/",                       None),
+    "matplotlib":  ("https://matplotlib.org/stable/",                None),
     "Pandas":      ("https://pandas.pydata.org/docs/",               None),
     "cython":      ("https://cython.readthedocs.io/en/latest/",      None),
     "cftime":      ("https://unidata.github.io/cftime/",             None),

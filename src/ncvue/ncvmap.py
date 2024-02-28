@@ -33,6 +33,7 @@ History
     * Allow multiple netcdf files, Jan 2024, Matthias Cuntz
     * Move images/ directory from src/ncvue/ to src/ directory,
       Jan 2024, Matthias Cuntz
+    * Added borders, rivers, and lakes checkbuttons, Feb 2024, Matthias Cuntz
 
 """
 import os
@@ -40,6 +41,7 @@ import sys
 import tkinter as tk
 import tkinter.ttk as ttk
 import cartopy.crs as ccrs
+import cartopy.feature as cfeature
 import netCDF4 as nc
 import numpy as np
 from .ncvutils import add_cyclic, clone_ncvmain, format_coord_map, selvar
@@ -405,6 +407,18 @@ class ncvMap(ttk.Frame):
             self.rowcmap, label="coast", value=True,
             command=self.checked,
             tooltip="Draw continental coast lines")
+        self.borderslbl, self.borders, self.borderstip = add_checkbutton(
+            self.rowcmap, label="borders", value=False,
+            command=self.checked,
+            tooltip="Draw country borders")
+        self.riverslbl, self.rivers, self.riverstip = add_checkbutton(
+            self.rowcmap, label="rivers", value=False,
+            command=self.checked,
+            tooltip="Draw rivers")
+        self.lakeslbl, self.lakes, self.lakestip = add_checkbutton(
+            self.rowcmap, label="lakes", value=False,
+            command=self.checked,
+            tooltip="Draw major lakes")
         self.gridlbl, self.grid, self.gridtip = add_checkbutton(
             self.rowcmap, label="grid", value=False,
             command=self.checked,
@@ -1084,8 +1098,11 @@ class ncvMap(ttk.Frame):
         rev_cmap = self.rev_cmap.get()
         mesh     = self.mesh.get()
         self.iiglobal = self.iglobal.get()
-        grid     = self.grid.get()
         coast    = self.coast.get()
+        borders  = self.borders.get()
+        rivers   = self.rivers.get()
+        lakes    = self.lakes.get()
+        grid     = self.grid.get()
         proj     = self.proj['text']
         self.iproj = self.iprojs[self.projs.index(proj)]
         clon     = self.clon.get()
@@ -1321,9 +1338,16 @@ class ncvMap(ttk.Frame):
         if self.iiglobal:
             self.axes.set_global()
         if coast:
-            self.axes.coastlines()
+            # self.axes.coastlines()
+            self.axes.add_feature(cfeature.COASTLINE)
             self.axes.gridlines(draw_labels=True, linewidth=0,
                                 x_inline=False, y_inline=False)
+        if borders:
+            self.axes.add_feature(cfeature.BORDERS, edgecolor='grey')
+        if rivers:
+            self.axes.add_feature(cfeature.RIVERS)
+        if lakes:
+            self.axes.add_feature(cfeature.LAKES, alpha=0.5)
         self.axes.xaxis.set_label_text(xlab)
         self.axes.yaxis.set_label_text(ylab)
         if grid:
