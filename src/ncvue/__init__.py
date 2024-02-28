@@ -60,6 +60,8 @@ History
     * v4.1.2, ncvue is gui_script entry_point, Jun 2022, Matthias Cuntz
     * v4.2, allow groups in netcdf files, Jan 2024, Matthias Cuntz
     * v4.3, allow multiple netcdf files, Jan 2024, Matthias Cuntz
+    * v4.4, Add borders, rivers, and lakes checkbuttons in map,
+      Feb 2024, Matthias Cuntz
 
 """
 # helper functions
