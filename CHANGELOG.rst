@@ -1,6 +1,9 @@
 Changelog
 ---------
 
+v4.4.1 (Feb 2024)
+    * Move themes and images back to src/ncvue.
+
 v4.4 (Feb 2024)
     * Added borders, rivers, and lakes checkbuttons in map.
     * Bugfix formatted string used wrong data type in `analyse_netcdf`.

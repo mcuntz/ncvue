@@ -62,6 +62,7 @@ History
     * v4.3, allow multiple netcdf files, Jan 2024, Matthias Cuntz
     * v4.4, Add borders, rivers, and lakes checkbuttons in map,
       Feb 2024, Matthias Cuntz
+    * v4.4.1 Move themes and images back to src/ncvue, Feb 2024, Matthias Cuntz
 
 """
 # helper functions

@@ -29,6 +29,7 @@ History
     * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz
     * Allow groups in netcdf files, Jan 2024, Matthias Cuntz
     * Allow multiple netcdf files, Jan 2024, Matthias Cuntz
+    * Move themes/ and images/ back to src/ncvue/, Feb 2024, Matthias Cuntz
 
 """
 import tkinter as tk

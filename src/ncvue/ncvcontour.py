@@ -29,6 +29,7 @@ History
     * Allow multiple netcdf files, Jan 2024, Matthias Cuntz
     * Move images/ directory from src/ncvue/ to src/ directory,
       Jan 2024, Matthias Cuntz
+    * Move themes/ and images/ back to src/ncvue/, Feb 2024, Matthias Cuntz
 
 """
 import os
@@ -145,7 +146,7 @@ class ncvContour(ttk.Frame):
         bundle_dir = getattr(sys, '_MEIPASS',
                              os.path.abspath(os.path.dirname(__file__)))
         self.imaps  = [ tk.PhotoImage(file=bundle_dir +
-                                      '/../images/' + i + '.png')
+                                      '/images/' + i + '.png')
                         for i in self.cmaps ]
 
         # 1. row
