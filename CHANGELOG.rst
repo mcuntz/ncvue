@@ -1,6 +1,11 @@
 Changelog
 ---------
 
+v4.4.2 (Jul 2024)
+    * Use `matplotlib.colormaps[name]` instead of
+      `matplotlib.colormaps.get_cmap(name)` to work with
+      matplotlib >= v3.9.0.
+
 v4.4.1 (Feb 2024)
     * Move themes and images back to src/ncvue.
 

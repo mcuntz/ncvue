@@ -6,9 +6,9 @@ Written  Matthias Cuntz, Dec 2020
 """
 from __future__ import absolute_import, division, print_function
 import numpy as np
-import matplotlib
+import matplotlib as mpl
 # PNG
-matplotlib.use('Agg')  # set directly after import matplotlib
+mpl.use('Agg')  # set directly after import matplotlib
 # PDF
 # matplotlib.use('PDF')  # set directly after import matplotlib
 # from matplotlib.backends.backend_pdf import PdfPages
@@ -37,11 +37,11 @@ if __name__ == "__main__":
         fig.subplots_adjust(top=1.0, bottom=0.0, left=0.0, right=1.0)
         sub = plt.subplot(1, 1, 1)
         sub.axis("off")
-        sub.imshow(a, aspect='auto', cmap=plt.get_cmap(m), origin="lower")
+        sub.imshow(a, aspect='auto', cmap=mpl.colormaps[m], origin="lower")
         # w/ text
         # plt.text(1.05, 0.1, m, transform=sub.transAxes, fontsize=8)
         # PNG
-        fig.savefig(m+".png", dpi=300, transparent=True, bbox_inches='tight',
+        fig.savefig(f"{m}.png", dpi=300, transparent=True, bbox_inches='tight',
                     pad_inches=0.0)
         # PDF
         # pdf_pages.savefig(fig)

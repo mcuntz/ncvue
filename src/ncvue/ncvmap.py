@@ -35,6 +35,8 @@ History
       Jan 2024, Matthias Cuntz
     * Added borders, rivers, and lakes checkbuttons, Feb 2024, Matthias Cuntz
     * Move themes/ and images/ back to src/ncvue/, Feb 2024, Matthias Cuntz
+    * Use matplotlib.colormaps[name] instead of
+      matplotlib.colormaps.get_cmap(name), Jul 2024, Matthias Cuntz
 
 """
 import os
@@ -1287,7 +1289,7 @@ class ncvMap(ttk.Frame):
             self.ivmin   = vmin
             self.ivmax   = vmax
             self.icmap   = cmap
-            self.ncmap   = mpl.cm.get_cmap(self.icmap).N
+            self.ncmap   = mpl.colormaps[self.icmap].N
             self.ncmap   = self.ncmap if self.ncmap < 256 else 15
             self.iextend = extend
             if mesh:
