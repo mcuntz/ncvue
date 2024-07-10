@@ -36,8 +36,8 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
   <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script src="../../_static/documentation_options.js?v=123f6dac"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/documentation_options.js?v=5fbe096f"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/ncvue/ncvue';</script>
@@ -343,6 +343,7 @@ document.write(`
 <span class="sd">    * Allow multiple netcdf files, Jan 2024, Matthias Cuntz</span>
 <span class="sd">    * Move themes/ and images/ directories from src/ncvue/ to src/ directory,</span>
 <span class="sd">      Jan 2024, Matthias Cuntz</span>
+<span class="sd">    * Move themes/ and images/ back to src/ncvue/, Feb 2024, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">os</span>
@@ -404,6 +405,9 @@ document.write(`
             <span class="n">style</span><span class="o">.</span><span class="n">theme_use</span><span class="p">(</span><span class="n">theme</span><span class="p">)</span>
         <span class="k">except</span><span class="p">:</span>
             <span class="k">pass</span>
+        <span class="c1"># top.tk.call(&#39;source&#39;, bundle_dir + &#39;/themes/azure-2.0/azure.tcl&#39;)</span>
+        <span class="c1"># theme = &#39;light&#39;  # light, dark</span>
+        <span class="c1"># top.tk.call(&quot;set_theme&quot;, theme)</span>
     <span class="k">elif</span> <span class="n">ios</span> <span class="o">==</span> <span class="s1">&#39;Windows&#39;</span><span class="p">:</span>
         <span class="n">top</span><span class="o">.</span><span class="n">option_add</span><span class="p">(</span><span class="s2">&quot;*Font&quot;</span><span class="p">,</span> <span class="s2">&quot;Helvetica 10&quot;</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;font&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
@@ -417,7 +421,7 @@ document.write(`
         <span class="c1"># style packages</span>
         <span class="c1"># Download from https://sourceforge.net/projects/tcl-awthemes/</span>
         <span class="c1"># top.tk.call(&#39;lappend&#39;, &#39;auto_path&#39;,</span>
-        <span class="c1">#             bundle_dir + &#39;/../themes/awthemes-10.3.2&#39;)</span>
+        <span class="c1">#             bundle_dir + &#39;/themes/awthemes-10.3.2&#39;)</span>
         <span class="c1"># theme = &#39;awdark&#39;  # &#39;awlight&#39;, &#39;awdark&#39;</span>
         <span class="c1"># top.tk.call(&#39;package&#39;, &#39;require&#39;, theme)</span>
         <span class="c1"># style = ttk.Style()</span>
@@ -425,20 +429,20 @@ document.write(`
 
         <span class="c1"># single file styles</span>
         <span class="c1"># &#39;azure&#39; and &#39;azure-dark&#39; v1.x, &#39;Breeze&#39;</span>
-        <span class="c1"># top.tk.call(&#39;source&#39;, bundle_dir + &#39;/../themes/breeze/breeze.tcl&#39;)</span>
+        <span class="c1"># top.tk.call(&#39;source&#39;, bundle_dir + &#39;/themes/breeze/breeze.tcl&#39;)</span>
         <span class="c1"># theme = &#39;Breeze&#39;</span>
-        <span class="c1"># top.tk.call(&#39;source&#39;, bundle_dir + &#39;/../themes/azure-1.3/azure.tcl&#39;)</span>
+        <span class="c1"># top.tk.call(&#39;source&#39;, bundle_dir + &#39;/themes/azure-1.3/azure.tcl&#39;)</span>
         <span class="c1"># theme = &#39;azure&#39;</span>
         <span class="c1"># top.tk.call(&#39;source&#39;, bundle_dir +</span>
-        <span class="c1">#             &#39;/../themes/azure-1.3/azure-dark.tcl&#39;)</span>
+        <span class="c1">#             &#39;/themes/azure-1.3/azure-dark.tcl&#39;)</span>
         <span class="c1"># theme = &#39;azure-dark&#39;</span>
         <span class="c1"># style = ttk.Style()</span>
         <span class="c1"># style.theme_use(theme)</span>
 
         <span class="c1"># &#39;azure&#39; v2.x, &#39;sun-valley&#39;, &#39;forest&#39; of rdbende</span>
-        <span class="n">top</span><span class="o">.</span><span class="n">tk</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">,</span> <span class="n">bundle_dir</span> <span class="o">+</span> <span class="s1">&#39;/../themes/azure-2.0/azure.tcl&#39;</span><span class="p">)</span>
+        <span class="n">top</span><span class="o">.</span><span class="n">tk</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">,</span> <span class="n">bundle_dir</span> <span class="o">+</span> <span class="s1">&#39;/themes/azure-2.0/azure.tcl&#39;</span><span class="p">)</span>
         <span class="c1"># top.tk.call(&#39;source&#39;, bundle_dir +</span>
-        <span class="c1">#             &#39;/../themes/sun-valley-1.0/sun-valley.tcl&#39;)</span>
+        <span class="c1">#             &#39;/themes/sun-valley-1.0/sun-valley.tcl&#39;)</span>
         <span class="n">theme</span> <span class="o">=</span> <span class="s1">&#39;light&#39;</span>  <span class="c1"># light, dark</span>
         <span class="n">top</span><span class="o">.</span><span class="n">tk</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&quot;set_theme&quot;</span><span class="p">,</span> <span class="n">theme</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">ios</span> <span class="o">==</span> <span class="s1">&#39;Linux&#39;</span><span class="p">:</span>
@@ -448,7 +452,7 @@ document.write(`
         <span class="c1"># style.theme_use(theme)</span>
 
         <span class="c1"># &#39;azure&#39; v2.x, &#39;sun-valley&#39;, &#39;forest&#39; of rdbende</span>
-        <span class="n">top</span><span class="o">.</span><span class="n">tk</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">,</span> <span class="n">bundle_dir</span> <span class="o">+</span> <span class="s1">&#39;/../themes/azure-2.0/azure.tcl&#39;</span><span class="p">)</span>
+        <span class="n">top</span><span class="o">.</span><span class="n">tk</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">,</span> <span class="n">bundle_dir</span> <span class="o">+</span> <span class="s1">&#39;/themes/azure-2.0/azure.tcl&#39;</span><span class="p">)</span>
         <span class="n">theme</span> <span class="o">=</span> <span class="s1">&#39;light&#39;</span>  <span class="c1"># light, dark</span>
         <span class="n">top</span><span class="o">.</span><span class="n">tk</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&quot;set_theme&quot;</span><span class="p">,</span> <span class="n">theme</span><span class="p">)</span>
 
@@ -459,7 +463,7 @@ document.write(`
     <span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
         <span class="n">whichpy</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">whichpy</span><span class="p">:</span>
-        <span class="n">icon</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">PhotoImage</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">bundle_dir</span> <span class="o">+</span> <span class="s1">&#39;/../images/ncvue_icon.png&#39;</span><span class="p">)</span>
+        <span class="n">icon</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">PhotoImage</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">bundle_dir</span> <span class="o">+</span> <span class="s1">&#39;/images/ncvue_icon.png&#39;</span><span class="p">)</span>
         <span class="n">top</span><span class="o">.</span><span class="n">iconphoto</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">icon</span><span class="p">)</span>  <span class="c1"># True: apply to all future toplevels</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">icon</span> <span class="o">=</span> <span class="kc">None</span>

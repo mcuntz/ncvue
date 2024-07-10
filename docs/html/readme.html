@@ -37,8 +37,8 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
   <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script src="_static/documentation_options.js?v=123f6dac"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/documentation_options.js?v=5fbe096f"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'readme';</script>
@@ -400,8 +400,10 @@ replacement for <a class="reference external" href="http://meteora.ucsd.edu/~pie
 <a class="reference external image-reference" href="https://doi.org/10.5281/zenodo.4459598"><img alt="Zenodo DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.4459598.svg" /></a>
 <a class="reference external image-reference" href="https://badge.fury.io/py/ncvue"><img alt="PyPI version" src="https://badge.fury.io/py/ncvue.svg" /></a>
 <a class="reference external image-reference" href="https://anaconda.org/conda-forge/ncvue"><img alt="Conda version" src="https://img.shields.io/conda/vn/conda-forge/ncvue.svg" /></a>
-<a class="reference external image-reference" href="https://github.com/mcuntz/ncvue/blob/master/LICENSE"><img alt="License" src="http://img.shields.io/badge/license-MIT-blue.svg?style=flat" /></a>
-<a class="reference external image-reference" href="https://github.com/mcuntz/ncvue/actions/workflows/main.yml"><img alt="Build status" src="https://github.com/mcuntz/ncvue/actions/workflows/main.yml/badge.svg?branch=main" /></a>
+<a class="reference external image-reference" href="https://github.com/mcuntz/ncvue/blob/master/LICENSE"><img alt="License" src="http://img.shields.io/badge/license-MIT-blue.svg?style=flat" />
+</a>
+<a class="reference external image-reference" href="https://github.com/mcuntz/ncvue/actions/workflows/main.yml"><img alt="Build status" src="https://github.com/mcuntz/ncvue/actions/workflows/main.yml/badge.svg?branch=main" />
+</a>
 <section id="about-ncvue">
 <h2>About ncvue<a class="headerlink" href="#about-ncvue" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is a minimal GUI for a quick view of netCDF files. It is
@@ -445,7 +447,8 @@ or using <cite>ipython –gui tk</cite>.</p>
 <p>On opening, <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> presents three panels for different plotting
 types: Scatter or Line plots, Contour plots, and Maps. This is the
 look in macOS light mode (click on figures to open larger pictures):</p>
-<a class="reference internal image-reference" href="https://mcuntz.github.io/ncvue/images/scatter_panel_light.png"><img alt="Graphical documentation of ncvue layout" class="align-left" src="https://mcuntz.github.io/ncvue/images/scatter_panel_light.png" style="width: 860px;" /></a>
+<a class="reference internal image-reference" href="https://mcuntz.github.io/ncvue/images/scatter_panel_light.png"><img alt="Graphical documentation of ncvue layout" class="align-left" src="https://mcuntz.github.io/ncvue/images/scatter_panel_light.png" style="width: 860px;" />
+</a>
 <p>All three panes are organised in this fashion: the plotting canvas,
 the Matplotlib navigation toolbar and the pane, where one can choose
 the plotting variables and dimensions, as well as plotting
@@ -459,7 +462,8 @@ on the top right.</p>
 greater than 1, it opens the Map panel by default. This is the Map
 panel in macOS dark mode, describing all buttons, sliders, entry
 boxes, spinboxes, and menus:</p>
-<a class="reference internal image-reference" href="https://mcuntz.github.io/ncvue/images/map_panel_light.png"><img alt="Graphical documentation of Map panel" class="align-left" src="https://mcuntz.github.io/ncvue/images/map_panel_light.png" style="width: 860px;" /></a>
+<a class="reference internal image-reference" href="https://mcuntz.github.io/ncvue/images/map_panel_light.png"><img alt="Graphical documentation of Map panel" class="align-left" src="https://mcuntz.github.io/ncvue/images/map_panel_light.png" style="width: 860px;" />
+</a>
 <p>If it happens that the detection of latitudes and longitudes did not
 work automatically, you can choose the correct variables manually. Or
 you might use the empty entries on top of the dropdown menus of the
@@ -486,7 +490,8 @@ the input data normally eliminates the problem.</p>
 size greater than 1, it opens the Scatter/Line panel by default. This
 is the Scatter/Line panel in macOS dark mode, describing all buttons,
 sliders, entry boxes, spinboxes, and menus:</p>
-<a class="reference internal image-reference" href="https://mcuntz.github.io/ncvue/images/scatter_panel_dark.png"><img alt="Graphical documentation of Scatter/Line panel" class="align-left" src="https://mcuntz.github.io/ncvue/images/scatter_panel_dark.png" style="width: 860px;" /></a>
+<a class="reference internal image-reference" href="https://mcuntz.github.io/ncvue/images/scatter_panel_dark.png"><img alt="Graphical documentation of Scatter/Line panel" class="align-left" src="https://mcuntz.github.io/ncvue/images/scatter_panel_dark.png" style="width: 860px;" />
+</a>
 <p>The default plot is a line plot with solid lines (line style ‘ls’ is
 ‘-‘). One can set line style ‘ls’ to None and set a marker symbol,
 e.g. ‘o’ for circles, to get a scatter plot. A large variety of line
@@ -503,14 +508,16 @@ lines with ‘all’ entries from a specific dimension. Plotting all 10
 depths of soil water content for the 52608 time points, as in the
 example below, takes also about 0.3 s if using the index as x-variable
 but more than 11.1 s when using the <cite>datetime</cite> variable.</p>
-<a class="reference internal image-reference" href="https://mcuntz.github.io/ncvue/images/scatter_panel_dark_multiline.png"><img alt="Example of multiple lines in the Scatter/Line panel" class="align-center" src="https://mcuntz.github.io/ncvue/images/scatter_panel_dark_multiline.png" style="width: 407px;" /></a>
+<a class="reference internal image-reference" href="https://mcuntz.github.io/ncvue/images/scatter_panel_dark_multiline.png"><img alt="Example of multiple lines in the Scatter/Line panel" class="align-center" src="https://mcuntz.github.io/ncvue/images/scatter_panel_dark_multiline.png" style="width: 407px;" />
+</a>
 </section>
 <section id="contour-panel">
 <h3>Contour panel<a class="headerlink" href="#contour-panel" title="Link to this heading">#</a></h3>
 <p>The last panel provide by <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> draws contour plots. This is the
 Contour panel in macOS dark mode, describing all buttons, sliders,
 entry boxes, spinboxes, and menus:</p>
-<a class="reference internal image-reference" href="https://mcuntz.github.io/ncvue/images/contour_panel_dark.png"><img alt="Graphical documentation of Contour panel" class="align-left" src="https://mcuntz.github.io/ncvue/images/contour_panel_dark.png" style="width: 860px;" /></a>
+<a class="reference internal image-reference" href="https://mcuntz.github.io/ncvue/images/contour_panel_dark.png"><img alt="Graphical documentation of Contour panel" class="align-left" src="https://mcuntz.github.io/ncvue/images/contour_panel_dark.png" style="width: 860px;" />
+</a>
 <p>This produces also either pseudocolor plots (‘mesh’ ticked) or filled
 contour plots (‘mesh’ unticked) just as the Map panel but without any
 map projection.</p>

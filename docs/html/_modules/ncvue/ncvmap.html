@@ -36,8 +36,8 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
   <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script src="../../_static/documentation_options.js?v=123f6dac"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/documentation_options.js?v=5fbe096f"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/ncvue/ncvmap';</script>
@@ -346,6 +346,9 @@ document.write(`
 <span class="sd">    * Move images/ directory from src/ncvue/ to src/ directory,</span>
 <span class="sd">      Jan 2024, Matthias Cuntz</span>
 <span class="sd">    * Added borders, rivers, and lakes checkbuttons, Feb 2024, Matthias Cuntz</span>
+<span class="sd">    * Move themes/ and images/ back to src/ncvue/, Feb 2024, Matthias Cuntz</span>
+<span class="sd">    * Use matplotlib.colormaps[name] instead of</span>
+<span class="sd">      matplotlib.colormaps.get_cmap(name), Jul 2024, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">os</span>
@@ -480,7 +483,7 @@ document.write(`
         <span class="n">bundle_dir</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="s1">&#39;_MEIPASS&#39;</span><span class="p">,</span>
                              <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">imaps</span>  <span class="o">=</span> <span class="p">[</span> <span class="n">tk</span><span class="o">.</span><span class="n">PhotoImage</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">bundle_dir</span> <span class="o">+</span>
-                                      <span class="s1">&#39;/../images/&#39;</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span><span class="p">)</span>
+                                      <span class="s1">&#39;/images/&#39;</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span><span class="p">)</span>
                         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmaps</span> <span class="p">]</span>
 
         <span class="c1"># only projections with keyword: central_longitude</span>
@@ -1689,7 +1692,7 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">ivmin</span>   <span class="o">=</span> <span class="n">vmin</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ivmax</span>   <span class="o">=</span> <span class="n">vmax</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">icmap</span>   <span class="o">=</span> <span class="n">cmap</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ncmap</span>   <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">icmap</span><span class="p">)</span><span class="o">.</span><span class="n">N</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ncmap</span>   <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colormaps</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">icmap</span><span class="p">]</span><span class="o">.</span><span class="n">N</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ncmap</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ncmap</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ncmap</span> <span class="o">&lt;</span> <span class="mi">256</span> <span class="k">else</span> <span class="mi">15</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">iextend</span> <span class="o">=</span> <span class="n">extend</span>
             <span class="k">if</span> <span class="n">mesh</span><span class="p">:</span>
