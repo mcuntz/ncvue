@@ -1,6 +1,11 @@
 Changelog
 ---------
 
+v4.4.3 (Jul 2024)
+    * Use `draw_idle` instead of `draw` in map update method for
+      faster animation.
+    * Change formatting of file string for multiple files.
+
 v4.4.2 (Jul 2024)
     * Use `matplotlib.colormaps[name]` instead of
       `matplotlib.colormaps.get_cmap(name)` to work with
@@ -11,7 +16,7 @@ v4.4.1 (Feb 2024)
 
 v4.4 (Feb 2024)
     * Added borders, rivers, and lakes checkbuttons in map.
-    * Bugfix formatted string used wrong data type in `analyse_netcdf`.
+    * Bugfix: formatted string used wrong data type in `analyse_netcdf`.
     * Move themes and images directories from src/ncvue to src directory.
 
 v4.3 (Jan 2024)

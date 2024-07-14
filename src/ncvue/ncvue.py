@@ -32,6 +32,8 @@ History
     * Move themes/ and images/ directories from src/ncvue/ to src/ directory,
       Jan 2024, Matthias Cuntz
     * Move themes/ and images/ back to src/ncvue/, Feb 2024, Matthias Cuntz
+    * Change formatting of file string for multiple files,
+      Jul 2024, Matthias Cuntz
 
 """
 import os
@@ -186,7 +188,8 @@ def ncvue(ncfile=[], miss=np.nan):
         for ii, nn in enumerate(ncfile):
             top.fi.append(nc.Dataset(nn, 'r'))
             if len(ncfile) > 1:
-                top.groups.append(f'file{ii:03d}')
+                nnc = np.ceil(np.log10(len(ncfile))).astype(int)
+                top.groups.append(f'file{ii:0{nnc}d}')
         # Check groups
         if len(ncfile) == 1:
             top.groups = list(top.fi[0].groups.keys())
@@ -194,8 +197,8 @@ def ncvue(ncfile=[], miss=np.nan):
             for ii, nn in enumerate(ncfile):
                 if len(list(top.fi[ii].groups.keys())) > 0:
                     print(f'Either multiple files or one file with groups'
-                          f' allowed as input. Multiple files and file {nn}'
-                          f' has groups.')
+                          f' allowed as input. Multiple files given but file'
+                          f' {nn} has groups.')
                     for fi in top.fi:
                         fi.close()
                     top.quit()

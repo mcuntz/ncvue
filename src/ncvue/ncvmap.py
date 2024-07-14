@@ -37,6 +37,8 @@ History
     * Move themes/ and images/ back to src/ncvue/, Feb 2024, Matthias Cuntz
     * Use matplotlib.colormaps[name] instead of
       matplotlib.colormaps.get_cmap(name), Jul 2024, Matthias Cuntz
+    * Use draw_idle instead of draw in update method for faster animation,
+      Jul 2024, Matthias Cuntz
 
 """
 import os
@@ -1365,7 +1367,8 @@ class ncvMap(ttk.Frame):
 
     def update(self, frame, isframe=False):
         """
-        Updates data of the current the plot.
+        Updates data of the current plot.
+
         """
         if self.anim_first:
             self.anim.event_source.stop()
@@ -1456,5 +1459,5 @@ class ncvMap(ttk.Frame):
                     vmin=self.ivmin, vmax=self.ivmax,
                     cmap=self.icmap, extend=self.iextend,
                     transform=self.itrans)
-            self.canvas.draw()
+            self.canvas.draw_idle()
             return self.cc,
