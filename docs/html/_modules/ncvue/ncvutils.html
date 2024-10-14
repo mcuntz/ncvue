@@ -321,7 +321,7 @@ document.write(`
 <span class="sd">Recherche pour l&#39;Agriculture, l&#39;Alimentation et l&#39;Environnement (INRAE), Nancy,</span>
 <span class="sd">France.</span>
 
-<span class="sd">:copyright: Copyright 2020-2021 Matthias Cuntz - mc (at) macu (dot) de</span>
+<span class="sd">:copyright: Copyright 2020- Matthias Cuntz - mc (at) macu (dot) de</span>
 <span class="sd">:license: MIT License, see LICENSE for details.</span>
 
 <span class="sd">.. moduleauthor:: Matthias Cuntz</span>
@@ -345,26 +345,28 @@ document.write(`
 <span class="sd">   zip_dim_name_length</span>
 
 <span class="sd">History</span>
-<span class="sd">    * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)</span>
-<span class="sd">    * General get_slice function from individual methods for x, y, y2, z,</span>
-<span class="sd">      Dec 2020, Matthias Cuntz</span>
-<span class="sd">    * Added arithmetics to apply on axis/dimensions such as mean, std, etc.,</span>
-<span class="sd">      Dec 2020, Matthias Cuntz</span>
-<span class="sd">    * Added clone_ncvmain, removing its own module, Dec 2020, Matthias Cuntz</span>
-<span class="sd">    * Added SEPCHAR and DIMMETHODS, Jan 2021, Matthias Cuntz</span>
-<span class="sd">    * Pass only ncvMain widget to clone_ncvmain, Jan 2021, Matthias Cuntz</span>
-<span class="sd">    * Pass only root widget to clone_ncvmain, Jan 2021, Matthias Cuntz</span>
-<span class="sd">    * Set correct missing value for date variable in numpy&#39;s datetime64[ms]</span>
-<span class="sd">      format May 2021, Matthias Cuntz</span>
-<span class="sd">    * Added format_coord functions for scatter, contour, and map,</span>
-<span class="sd">      May 2021, Matthias Cuntz</span>
-<span class="sd">    * Replaced add_cyclic_point with add_cyclic as submitted to cartopy,</span>
-<span class="sd">      Jun 2021, Matthias Cuntz</span>
-<span class="sd">    * Removed SEPCHAR, Jun 2021, Matthias Cuntz</span>
-<span class="sd">    * Final add_cyclic, has_cyclic from cartopy v0.20.1,</span>
-<span class="sd">      Nov 2021, Matthias Cuntz</span>
-<span class="sd">    * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz</span>
-<span class="sd">    * Add selvar to allow multiple netcdf files, Jan 2024, Matthias Cuntz</span>
+<span class="sd">   * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)</span>
+<span class="sd">   * General get_slice function from individual methods for x, y, y2, z,</span>
+<span class="sd">     Dec 2020, Matthias Cuntz</span>
+<span class="sd">   * Added arithmetics to apply on axis/dimensions such as mean, std, etc.,</span>
+<span class="sd">     Dec 2020, Matthias Cuntz</span>
+<span class="sd">   * Added clone_ncvmain, removing its own module, Dec 2020, Matthias Cuntz</span>
+<span class="sd">   * Added SEPCHAR and DIMMETHODS, Jan 2021, Matthias Cuntz</span>
+<span class="sd">   * Pass only ncvMain widget to clone_ncvmain, Jan 2021, Matthias Cuntz</span>
+<span class="sd">   * Pass only root widget to clone_ncvmain, Jan 2021, Matthias Cuntz</span>
+<span class="sd">   * Set correct missing value for date variable in numpy&#39;s datetime64[ms]</span>
+<span class="sd">     format May 2021, Matthias Cuntz</span>
+<span class="sd">   * Added format_coord functions for scatter, contour, and map,</span>
+<span class="sd">     May 2021, Matthias Cuntz</span>
+<span class="sd">   * Replaced add_cyclic_point with add_cyclic as submitted to cartopy,</span>
+<span class="sd">     Jun 2021, Matthias Cuntz</span>
+<span class="sd">   * Removed SEPCHAR, Jun 2021, Matthias Cuntz</span>
+<span class="sd">   * Final add_cyclic, has_cyclic from cartopy v0.20.1,</span>
+<span class="sd">     Nov 2021, Matthias Cuntz</span>
+<span class="sd">   * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz</span>
+<span class="sd">   * Add selvar to allow multiple netcdf files, Jan 2024, Matthias Cuntz</span>
+<span class="sd">   * Remove [ms] from check for datetime in format_coord on axes,</span>
+<span class="sd">     Oct 2024, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
@@ -798,16 +800,16 @@ document.write(`
         <span class="n">xarr</span> <span class="o">=</span> <span class="n">xx</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">xarr</span> <span class="o">=</span> <span class="n">xx</span>
-    <span class="k">if</span> <span class="n">xx</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;&lt;M8[ms]&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">xx</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;datetime64&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">type</span><span class="p">:</span>
         <span class="n">xarr</span> <span class="o">=</span> <span class="n">mpld</span><span class="o">.</span><span class="n">date2num</span><span class="p">(</span><span class="n">xarr</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">yy</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">yarr</span> <span class="o">=</span> <span class="n">yy</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">yarr</span> <span class="o">=</span> <span class="n">yy</span>
-    <span class="k">if</span> <span class="n">yy</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;&lt;M8[ms]&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">yy</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;datetime64&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">type</span><span class="p">:</span>
         <span class="n">yarr</span> <span class="o">=</span> <span class="n">mpld</span><span class="o">.</span><span class="n">date2num</span><span class="p">(</span><span class="n">yarr</span><span class="p">)</span>
-    <span class="k">if</span> <span class="p">((</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">xarr</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">xarr</span><span class="o">.</span><span class="n">max</span><span class="p">())</span> <span class="o">&amp;</span>
-        <span class="p">(</span><span class="n">y</span> <span class="o">&gt;</span> <span class="n">yarr</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="n">yarr</span><span class="o">.</span><span class="n">max</span><span class="p">())):</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">xarr</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">xarr</span><span class="o">.</span><span class="n">max</span><span class="p">())</span> <span class="o">&amp;</span>
+         <span class="p">(</span><span class="n">y</span> <span class="o">&gt;</span> <span class="n">yarr</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="n">yarr</span><span class="o">.</span><span class="n">max</span><span class="p">())</span> <span class="p">):</span>
         <span class="n">col</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">xarr</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
         <span class="n">row</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">yarr</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
         <span class="n">xout</span> <span class="o">=</span> <span class="n">xarr</span><span class="p">[</span><span class="n">col</span><span class="p">]</span>
@@ -816,26 +818,27 @@ document.write(`
     <span class="k">else</span><span class="p">:</span>
         <span class="n">xout</span> <span class="o">=</span> <span class="n">x</span>
         <span class="n">yout</span> <span class="o">=</span> <span class="n">y</span>
-        <span class="k">if</span> <span class="n">zz</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;&lt;M8[ms]&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">zz</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;datetime64&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">type</span><span class="p">:</span>
             <span class="n">zout</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">(</span><span class="s1">&#39;NaT&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">zout</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
 
     <span class="c1"># Special treatment for datetime</span>
     <span class="c1"># https://stackoverflow.com/questions/49267011/matplotlib-datetime-from-event-coordinates</span>
-    <span class="k">if</span> <span class="n">xx</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;&lt;M8[ms]&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">xx</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;datetime64&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">type</span><span class="p">:</span>
         <span class="n">xstr</span> <span class="o">=</span> <span class="n">mpld</span><span class="o">.</span><span class="n">num2date</span><span class="p">(</span><span class="n">xout</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">xstr</span>  <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.4g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">xout</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">yy</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;&lt;M8[ms]&#39;</span><span class="p">):</span>
+        <span class="n">xstr</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.4g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">xout</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">yy</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;datetime64&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">type</span><span class="p">:</span>
         <span class="n">ystr</span> <span class="o">=</span> <span class="n">mpld</span><span class="o">.</span><span class="n">num2date</span><span class="p">(</span><span class="n">yout</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">ystr</span>  <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.4g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">yout</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">zz</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;&lt;M8[ms]&#39;</span><span class="p">):</span>
+        <span class="n">ystr</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.4g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">yout</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">zz</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;datetime64&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">type</span><span class="p">:</span>
         <span class="n">zstr</span> <span class="o">=</span> <span class="n">mpld</span><span class="o">.</span><span class="n">num2date</span><span class="p">(</span><span class="n">zout</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">zstr</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.4g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">zout</span><span class="p">)</span>
-    <span class="n">out</span> <span class="o">=</span> <span class="s1">&#39;x=&#39;</span> <span class="o">+</span> <span class="n">xstr</span> <span class="o">+</span> <span class="s1">&#39;, y=&#39;</span> <span class="o">+</span> <span class="n">ystr</span> <span class="o">+</span> <span class="s1">&#39;, z=&#39;</span> <span class="o">+</span> <span class="n">zstr</span>
+    <span class="c1"># out = &#39;x=&#39; + xstr + &#39;, y=&#39; + ystr + &#39;, z=&#39; + zstr</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;x=</span><span class="si">{</span><span class="n">xstr</span><span class="si">}</span><span class="s1">, y=</span><span class="si">{</span><span class="n">ystr</span><span class="si">}</span><span class="s1">, z=</span><span class="si">{</span><span class="n">zstr</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="k">return</span> <span class="n">out</span></div>
 
 
@@ -891,8 +894,9 @@ document.write(`
     <span class="n">ew</span> <span class="o">=</span> <span class="s1">&#39;E&#39;</span> <span class="k">if</span> <span class="n">lon</span> <span class="o">&gt;=</span> <span class="mf">0.</span> <span class="k">else</span> <span class="s1">&#39;W&#39;</span>
     <span class="n">latstr</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;</span><span class="si">{:.4f}</span><span class="s1"> </span><span class="se">\u00b0</span><span class="si">{:s}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">lat</span><span class="p">),</span> <span class="n">ns</span><span class="p">)</span>
     <span class="n">lonstr</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;</span><span class="si">{:.4f}</span><span class="s1"> </span><span class="se">\u00b0</span><span class="si">{:s}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">lon</span><span class="p">),</span> <span class="n">ew</span><span class="p">)</span>
-    <span class="n">out</span>  <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;x=&#39;</span> <span class="o">+</span> <span class="n">xstr</span> <span class="o">+</span> <span class="s1">&#39;, y=&#39;</span> <span class="o">+</span> <span class="n">ystr</span> <span class="o">+</span> <span class="s1">&#39; (&#39;</span> <span class="o">+</span> <span class="n">lonstr</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span> <span class="o">+</span> <span class="n">latstr</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
-    <span class="n">out</span> <span class="o">+=</span> <span class="s1">&#39; z=&#39;</span> <span class="o">+</span> <span class="n">zstr</span>
+    <span class="c1"># out  = u&#39;x=&#39; + xstr + &#39;, y=&#39; + ystr + &#39; (&#39; + lonstr + &#39;, &#39; + latstr + &#39;)&#39;</span>
+    <span class="c1"># out += &#39; z=&#39; + zstr</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;x=</span><span class="si">{</span><span class="n">xstr</span><span class="si">}</span><span class="s1">, y=</span><span class="si">{</span><span class="n">ystr</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">lonstr</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">latstr</span><span class="si">}</span><span class="s1">), z=</span><span class="si">{</span><span class="n">zstr</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="k">return</span> <span class="n">out</span></div>
 
 
@@ -937,20 +941,19 @@ document.write(`
 
     <span class="c1"># Special treatment for datetime</span>
     <span class="c1"># https://stackoverflow.com/questions/49267011/matplotlib-datetime-from-event-coordinates</span>
-    <span class="k">if</span> <span class="n">xdtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;&lt;M8[ms]&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">xdtype</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;datetime64&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">type</span><span class="p">:</span>
         <span class="n">xstr</span> <span class="o">=</span> <span class="n">mpld</span><span class="o">.</span><span class="n">num2date</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">xstr</span>  <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.3g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">ydtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;&lt;M8[ms]&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">ydtype</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;datetime64&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">type</span><span class="p">:</span>
         <span class="n">ystr</span> <span class="o">=</span> <span class="n">mpld</span><span class="o">.</span><span class="n">num2date</span><span class="p">(</span><span class="n">ax_coord</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">ystr</span>  <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.3g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ax_coord</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-    <span class="k">if</span> <span class="n">y2dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;&lt;M8[ms]&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">y2dtype</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;datetime64&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">type</span><span class="p">:</span>
         <span class="n">y2str</span> <span class="o">=</span> <span class="n">mpld</span><span class="o">.</span><span class="n">num2date</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">y2str</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.3g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-    <span class="n">out</span>  <span class="o">=</span> <span class="s1">&#39;Left: (&#39;</span> <span class="o">+</span> <span class="n">xstr</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span> <span class="o">+</span> <span class="n">ystr</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
-    <span class="n">out</span> <span class="o">+=</span> <span class="s1">&#39; Right: (&#39;</span> <span class="o">+</span> <span class="n">xstr</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span> <span class="o">+</span> <span class="n">y2str</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Left: (</span><span class="si">{</span><span class="n">xstr</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">ystr</span><span class="si">}</span><span class="s1">) Right: (</span><span class="si">{</span><span class="n">xstr</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">y2str</span><span class="si">}</span><span class="s1">)&#39;</span>
     <span class="k">return</span> <span class="n">out</span></div>
 
 

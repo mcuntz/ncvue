@@ -42,7 +42,7 @@ jobs:
             libgeos-dev \
             libproj-dev
           python -m pip install --upgrade pip
-          pip install --editable .
+          python -m pip install --editable .
 
   build_sdist:
     name: sdist on ${{ matrix.os }} with py ${{ matrix.python-version }}
@@ -67,8 +67,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install dependencies on Linux
-        if: matrix.os == 'ubuntu-latest'
+      - name: Install dependencies
         run: |
           # Spatial system dependencies
           sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable
@@ -79,8 +78,8 @@ jobs:
             libgeos-dev \
             libproj-dev
           python -m pip install --upgrade pip
-          pip install build coveralls>=3.0.0
-          pip install --editable .[test]
+          python -m pip install build coveralls>=3.0.0
+          python -m pip install --editable .[test]
 
       - name: Install dependencies on macOS
         if: matrix.os == 'macos-latest'
@@ -89,8 +88,8 @@ jobs:
           brew install geos
           brew install proj
           python -m pip install --upgrade pip
-          pip install build coveralls>=3.0.0
-          pip install --editable .[test]
+          python -m pip install build coveralls>=3.0.0
+          python -m pip install --editable .[test]
 
       # - name: Run tests
       #   run: |
@@ -110,28 +109,27 @@ jobs:
   upload_to_pypi:
     needs: [build_sdist]
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
 
     steps:
-      - uses: actions/download-artifact@v4
+      - name: Retrieve release distributions
+        uses: actions/download-artifact@v4
         with:
           name: artifact
-          path: dist
+          path: dist/
 
-      - name: Publish to Test PyPI
+      - name: Publish test to Test.PyPI
         # only if working on main
         if: github.ref == 'refs/heads/main'
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          user: __token__
-          password: ${{ secrets.test_pypi_token }}
           repository-url: https://test.pypi.org/legacy/
           skip-existing: true
           # verbose: true
 
-      - name: Publish to PyPI
+      - name: Publish release to PyPI
         # only if tagged
         if: startsWith(github.ref, 'refs/tags')
         uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          user: __token__
-          password: ${{ secrets.pypi_token }}

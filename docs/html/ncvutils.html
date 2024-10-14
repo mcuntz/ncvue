@@ -409,7 +409,7 @@ Recherche pour l’Agriculture, l’Alimentation et l’Environnement (INRAE), N
 France.</p>
 <dl class="field-list simple">
 <dt class="field-odd">copyright<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Copyright 2020-2021 Matthias Cuntz - mc (at) macu (dot) de</p>
+<dd class="field-odd"><p>Copyright 2020- Matthias Cuntz - mc (at) macu (dot) de</p>
 </dd>
 <dt class="field-even">license<span class="colon">:</span></dt>
 <dd class="field-even"><p>MIT License, see LICENSE for details.</p>
@@ -484,6 +484,8 @@ Jun 2021, Matthias Cuntz</p></li>
 Nov 2021, Matthias Cuntz</p></li>
 <li><p>Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz</p></li>
 <li><p>Add selvar to allow multiple netcdf files, Jan 2024, Matthias Cuntz</p></li>
+<li><p>Remove [ms] from check for datetime in format_coord on axes,
+Oct 2024, Matthias Cuntz</p></li>
 </ul>
 </dd>
 </dl>
@@ -517,10 +519,10 @@ If <code class="docutils literal notranslate"><span class="pre">y</span></code> 
 <code class="docutils literal notranslate"><span class="pre">data.shape[axis]</span></code>, otherwise <code class="docutils literal notranslate"><span class="pre">y.shape[axis]</span></code> must equal
 <code class="docutils literal notranslate"><span class="pre">data.shape[axis]</span></code>.</p>
 </p></li>
-<li><p><strong>axis</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – Specifies the axis of the arrays to add the cyclic point to,
+<li><p><strong>axis</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – Specifies the axis of the arrays to add the cyclic point to,
 i.e. axis with changing x-coordinates. Defaults to the right-most axis.</p></li>
-<li><p><strong>cyclic</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em>, </em><em>optional</em>) – Width of periodic domain (default: 360).</p></li>
-<li><p><strong>precision</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em>, </em><em>optional</em>) – Maximal difference between first and last x-coordinate to detect
+<li><p><strong>cyclic</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><em>optional</em>) – Width of periodic domain (default: 360).</p></li>
+<li><p><strong>precision</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><em>optional</em>) – Maximal difference between first and last x-coordinate to detect
 cyclic point (default: 1e-4).</p></li>
 </ul>
 </dd>
@@ -665,8 +667,8 @@ x- and y-coordinates.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – Data coordinates of <cite>ax</cite>.</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – Data coordinates of <cite>ax</cite>.</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Data coordinates of <cite>ax</cite>.</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Data coordinates of <cite>ax</cite>.</p></li>
 <li><p><strong>ax</strong> (<em>matplotlib.axes._subplots.AxesSubplot</em>) – Matplotlib axes object for left-hand and right-hand y-axis, resp.</p></li>
 <li><p><strong>xx</strong> (<em>ndarray</em>) – Numpy arrays with x-values, y-values, and z-values</p></li>
 <li><p><strong>yy</strong> (<em>ndarray</em>) – Numpy arrays with x-values, y-values, and z-values</p></li>
@@ -693,8 +695,8 @@ x- and y-coordinates.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – Data coordinates of <cite>ax</cite>.</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – Data coordinates of <cite>ax</cite>.</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Data coordinates of <cite>ax</cite>.</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Data coordinates of <cite>ax</cite>.</p></li>
 <li><p><strong>ax</strong> (<em>matplotlib.axes._subplots.AxesSubplot</em>) – Matplotlib axes object for left-hand and right-hand y-axis, resp.</p></li>
 <li><p><strong>xx</strong> (<em>ndarray</em>) – Numpy arrays with x-values, y-values, and z-values</p></li>
 <li><p><strong>yy</strong> (<em>ndarray</em>) – Numpy arrays with x-values, y-values, and z-values</p></li>
@@ -722,15 +724,15 @@ having the same x-axis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – Data coordinates of <cite>ax2</cite>.</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – Data coordinates of <cite>ax2</cite>.</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Data coordinates of <cite>ax2</cite>.</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Data coordinates of <cite>ax2</cite>.</p></li>
 <li><p><strong>ax</strong> (<em>matplotlib.axes._subplots.AxesSubplot</em>) – Matplotlib axes object for left-hand and right-hand y-axis, resp.</p></li>
 <li><p><strong>ax2</strong> (<em>matplotlib.axes._subplots.AxesSubplot</em>) – Matplotlib axes object for left-hand and right-hand y-axis, resp.</p></li>
-<li><p><strong>xdtype</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dtype.html#numpy.dtype" title="(in NumPy v2.0)"><em>numpy.dtype</em></a>) – Numpy dtype of data of x-values (xdtype), left-hand side y-values
+<li><p><strong>xdtype</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dtype.html#numpy.dtype" title="(in NumPy v2.1)"><em>numpy.dtype</em></a>) – Numpy dtype of data of x-values (xdtype), left-hand side y-values
 (ydtype), and right-hand side y-values (y2dtype)</p></li>
-<li><p><strong>ydtype</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dtype.html#numpy.dtype" title="(in NumPy v2.0)"><em>numpy.dtype</em></a>) – Numpy dtype of data of x-values (xdtype), left-hand side y-values
+<li><p><strong>ydtype</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dtype.html#numpy.dtype" title="(in NumPy v2.1)"><em>numpy.dtype</em></a>) – Numpy dtype of data of x-values (xdtype), left-hand side y-values
 (ydtype), and right-hand side y-values (y2dtype)</p></li>
-<li><p><strong>y2dtype</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dtype.html#numpy.dtype" title="(in NumPy v2.0)"><em>numpy.dtype</em></a>) – Numpy dtype of data of x-values (xdtype), left-hand side y-values
+<li><p><strong>y2dtype</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dtype.html#numpy.dtype" title="(in NumPy v2.1)"><em>numpy.dtype</em></a>) – Numpy dtype of data of x-values (xdtype), left-hand side y-values
 (ydtype), and right-hand side y-values (y2dtype)</p></li>
 </ul>
 </dd>
@@ -756,7 +758,7 @@ having the same x-axis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>dimspins</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – List of tk.Spinbox widgets of dimensions</p></li>
+<li><p><strong>dimspins</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – List of tk.Spinbox widgets of dimensions</p></li>
 <li><p><strong>y</strong> (<em>ndarray</em><em> or </em><em>netCDF4._netCDF4.Variable</em>) – Input array or netcdf variable</p></li>
 </ul>
 </dd>
@@ -787,10 +789,10 @@ x-coordinates along <code class="docutils literal notranslate"><span class="pre"
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<em>ndarray</em>) – An array with the x-coordinate values to be checked for cyclic points.</p></li>
-<li><p><strong>axis</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – Specifies the axis of the <code class="docutils literal notranslate"><span class="pre">x</span></code> array to be checked.
+<li><p><strong>axis</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – Specifies the axis of the <code class="docutils literal notranslate"><span class="pre">x</span></code> array to be checked.
 Defaults to the right-most axis.</p></li>
-<li><p><strong>cyclic</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em>, </em><em>optional</em>) – Width of periodic domain (default: 360).</p></li>
-<li><p><strong>precision</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em>, </em><em>optional</em>) – Maximal difference between first and last x-coordinate to detect
+<li><p><strong>cyclic</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><em>optional</em>) – Width of periodic domain (default: 360).</p></li>
+<li><p><strong>precision</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><em>optional</em>) – Maximal difference between first and last x-coordinate to detect
 cyclic point (default: 1e-4).</p></li>
 </ul>
 </dd>
@@ -832,15 +834,15 @@ intersection for longer lists.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>lst1</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – Python lists</p></li>
-<li><p><strong>lst2</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – Python lists</p></li>
+<li><p><strong>lst1</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – Python lists</p></li>
+<li><p><strong>lst2</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – Python lists</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>List with common elements in both input lists.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)">list</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -888,7 +890,7 @@ such as ‘Qle’, ‘group1/Qle’, or ‘file0001/Qle’</p></li>
 <dd class="field-even"><p>Label string: name (unit)</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -932,14 +934,14 @@ that are equal to any value in miss.</p>
 otherwise single entry (0,).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>ndim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – Size of dimension.</p>
+<dd class="field-odd"><p><strong>ndim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Size of dimension.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>((‘all’,) + tuple(range(ndim)) + (‘mean’,’std’,…)) if ndim &gt; 1
 (0,) else</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)">tuple</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)">tuple</a></p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -961,7 +963,7 @@ or with group ‘file1/latitude (lat=32,lon=64)’</p>
 <dd class="field-even"><p>group index, variable name</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a>, string</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)">int</a>, string</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -983,7 +985,7 @@ or with group ‘file1/latitude (lat=32,lon=64)’</p>
 <dd class="field-even"><p>List of dimension name and length in the form ‘dim=len’.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)">list</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>

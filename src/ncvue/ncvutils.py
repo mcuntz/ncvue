@@ -9,7 +9,7 @@ This module was written by Matthias Cuntz while at Institut National de
 Recherche pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy,
 France.
 
-:copyright: Copyright 2020-2021 Matthias Cuntz - mc (at) macu (dot) de
+:copyright: Copyright 2020- Matthias Cuntz - mc (at) macu (dot) de
 :license: MIT License, see LICENSE for details.
 
 .. moduleauthor:: Matthias Cuntz
@@ -33,26 +33,28 @@ The following functions are provided:
    zip_dim_name_length
 
 History
-    * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
-    * General get_slice function from individual methods for x, y, y2, z,
-      Dec 2020, Matthias Cuntz
-    * Added arithmetics to apply on axis/dimensions such as mean, std, etc.,
-      Dec 2020, Matthias Cuntz
-    * Added clone_ncvmain, removing its own module, Dec 2020, Matthias Cuntz
-    * Added SEPCHAR and DIMMETHODS, Jan 2021, Matthias Cuntz
-    * Pass only ncvMain widget to clone_ncvmain, Jan 2021, Matthias Cuntz
-    * Pass only root widget to clone_ncvmain, Jan 2021, Matthias Cuntz
-    * Set correct missing value for date variable in numpy's datetime64[ms]
-      format May 2021, Matthias Cuntz
-    * Added format_coord functions for scatter, contour, and map,
-      May 2021, Matthias Cuntz
-    * Replaced add_cyclic_point with add_cyclic as submitted to cartopy,
-      Jun 2021, Matthias Cuntz
-    * Removed SEPCHAR, Jun 2021, Matthias Cuntz
-    * Final add_cyclic, has_cyclic from cartopy v0.20.1,
-      Nov 2021, Matthias Cuntz
-    * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz
-    * Add selvar to allow multiple netcdf files, Jan 2024, Matthias Cuntz
+   * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
+   * General get_slice function from individual methods for x, y, y2, z,
+     Dec 2020, Matthias Cuntz
+   * Added arithmetics to apply on axis/dimensions such as mean, std, etc.,
+     Dec 2020, Matthias Cuntz
+   * Added clone_ncvmain, removing its own module, Dec 2020, Matthias Cuntz
+   * Added SEPCHAR and DIMMETHODS, Jan 2021, Matthias Cuntz
+   * Pass only ncvMain widget to clone_ncvmain, Jan 2021, Matthias Cuntz
+   * Pass only root widget to clone_ncvmain, Jan 2021, Matthias Cuntz
+   * Set correct missing value for date variable in numpy's datetime64[ms]
+     format May 2021, Matthias Cuntz
+   * Added format_coord functions for scatter, contour, and map,
+     May 2021, Matthias Cuntz
+   * Replaced add_cyclic_point with add_cyclic as submitted to cartopy,
+     Jun 2021, Matthias Cuntz
+   * Removed SEPCHAR, Jun 2021, Matthias Cuntz
+   * Final add_cyclic, has_cyclic from cartopy v0.20.1,
+     Nov 2021, Matthias Cuntz
+   * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz
+   * Add selvar to allow multiple netcdf files, Jan 2024, Matthias Cuntz
+   * Remove [ms] from check for datetime in format_coord on axes,
+     Oct 2024, Matthias Cuntz
 
 """
 import tkinter as tk
@@ -475,16 +477,16 @@ def format_coord_contour(x, y, ax, xx, yy, zz):
         xarr = xx[0, :]
     else:
         xarr = xx
-    if xx.dtype == np.dtype('<M8[ms]'):
+    if xx.dtype.type == np.dtype('datetime64').type:
         xarr = mpld.date2num(xarr)
     if yy.ndim > 1:
         yarr = yy[:, 0]
     else:
         yarr = yy
-    if yy.dtype == np.dtype('<M8[ms]'):
+    if yy.dtype.type == np.dtype('datetime64').type:
         yarr = mpld.date2num(yarr)
-    if ((x > xarr.min()) & (x <= xarr.max()) &
-        (y > yarr.min()) & (y <= yarr.max())):
+    if ( (x > xarr.min()) & (x <= xarr.max()) &
+         (y > yarr.min()) & (y <= yarr.max()) ):
         col = np.searchsorted(xarr, x) - 1
         row = np.searchsorted(yarr, y) - 1
         xout = xarr[col]
@@ -493,26 +495,27 @@ def format_coord_contour(x, y, ax, xx, yy, zz):
     else:
         xout = x
         yout = y
-        if zz.dtype == np.dtype('<M8[ms]'):
+        if zz.dtype.type == np.dtype('datetime64').type:
             zout = np.datetime64('NaT')
         else:
             zout = np.nan
 
     # Special treatment for datetime
     # https://stackoverflow.com/questions/49267011/matplotlib-datetime-from-event-coordinates
-    if xx.dtype == np.dtype('<M8[ms]'):
+    if xx.dtype.type == np.dtype('datetime64').type:
         xstr = mpld.num2date(xout).strftime('%Y-%m-%d %H:%M:%S')
     else:
-        xstr  = '{:.4g}'.format(xout)
-    if yy.dtype == np.dtype('<M8[ms]'):
+        xstr = '{:.4g}'.format(xout)
+    if yy.dtype.type == np.dtype('datetime64').type:
         ystr = mpld.num2date(yout).strftime('%Y-%m-%d %H:%M:%S')
     else:
-        ystr  = '{:.4g}'.format(yout)
-    if zz.dtype == np.dtype('<M8[ms]'):
+        ystr = '{:.4g}'.format(yout)
+    if zz.dtype.type == np.dtype('datetime64').type:
         zstr = mpld.num2date(zout).strftime('%Y-%m-%d %H:%M:%S')
     else:
         zstr = '{:.4g}'.format(zout)
-    out = 'x=' + xstr + ', y=' + ystr + ', z=' + zstr
+    # out = 'x=' + xstr + ', y=' + ystr + ', z=' + zstr
+    out = f'x={xstr}, y={ystr}, z={zstr}'
     return out
 
 
@@ -565,8 +568,9 @@ def format_coord_map(x, y, ax, xx, yy, zz):
     ew = 'E' if lon >= 0. else 'W'
     latstr = u'{:.4f} \u00b0{:s}'.format(abs(lat), ns)
     lonstr = u'{:.4f} \u00b0{:s}'.format(abs(lon), ew)
-    out  = u'x=' + xstr + ', y=' + ystr + ' (' + lonstr + ', ' + latstr + ')'
-    out += ' z=' + zstr
+    # out  = u'x=' + xstr + ', y=' + ystr + ' (' + lonstr + ', ' + latstr + ')'
+    # out += ' z=' + zstr
+    out = f'x={xstr}, y={ystr} ({lonstr}, {latstr}), z={zstr}'
     return out
 
 
@@ -608,20 +612,19 @@ def format_coord_scatter(x, y, ax, ax2, xdtype, ydtype, y2dtype):
 
     # Special treatment for datetime
     # https://stackoverflow.com/questions/49267011/matplotlib-datetime-from-event-coordinates
-    if xdtype == np.dtype('<M8[ms]'):
+    if xdtype.type == np.dtype('datetime64').type:
         xstr = mpld.num2date(x).strftime('%Y-%m-%d %H:%M:%S')
     else:
         xstr  = '{:.3g}'.format(x)
-    if ydtype == np.dtype('<M8[ms]'):
+    if ydtype.type == np.dtype('datetime64').type:
         ystr = mpld.num2date(ax_coord[1]).strftime('%Y-%m-%d %H:%M:%S')
     else:
         ystr  = '{:.3g}'.format(ax_coord[1])
-    if y2dtype == np.dtype('<M8[ms]'):
+    if y2dtype.type == np.dtype('datetime64').type:
         y2str = mpld.num2date(y).strftime('%Y-%m-%d %H:%M:%S')
     else:
         y2str = '{:.3g}'.format(y)
-    out  = 'Left: (' + xstr + ', ' + ystr + ')'
-    out += ' Right: (' + xstr + ', ' + y2str + ')'
+    out = f'Left: ({xstr}, {ystr}) Right: ({xstr}, {y2str})'
     return out
 
 

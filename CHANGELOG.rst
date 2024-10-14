@@ -1,6 +1,10 @@
 Changelog
 ---------
 
+v4.5 (??? 2024)
+   * Correct datetime formatting in coordinate printing.
+   * Move from token to trusted publisher on PyPI.
+
 v4.4.3 (Jul 2024)
     * Use `draw_idle` instead of `draw` in map update method for
       faster animation.
