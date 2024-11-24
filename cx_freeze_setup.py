@@ -38,6 +38,9 @@ On Windows, use conda-forge for everything because more up-to-date
     conda install -c conda-forge cx_Freeze
     # pip install ncvue
 
+Have to install ncvue, e.g. in ncvue directory
+    python -m pip install -ve .
+
 Check in Windows Powershell
     $env:PYTHONPATH = "C:/Users/mcuntz/prog/github/ncvue"
     python.exe bin/ncvue
@@ -137,8 +140,9 @@ copyright = 'Copyright (c) 2020-2024 Matthias Cuntz - mc (at) macu (dot) de'
 
 version = _find_version('src/' + package, '_version.py')
 
-script        = 'bin.save/ncvue'  # 'src/ncvue/__main__.py'
-packages      = ['scipy', 'netCDF4']  # others detected automatically
+script        = 'src/ncvue/__main__.py'
+# script        = 'bin.save/ncvue'
+packages      = ['scipy', 'cftime', 'netCDF4']  # others detected automatically
 excludes      = ['pyflakes', 'mccabe', 'pycodestyle', 'flake8',  # flake8
                  'gtk', 'PyQt4', 'PyQt5', 'wx']                  # matplotlib
 includes      = []
