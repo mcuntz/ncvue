@@ -39,6 +39,7 @@ History
       matplotlib.colormaps.get_cmap(name), Jul 2024, Matthias Cuntz
     * Use draw_idle instead of draw in update method for faster animation,
       Jul 2024, Matthias Cuntz
+    * Add Quit button, Nov 2024, Matthias Cuntz
 
 """
 import os
@@ -443,6 +444,11 @@ class ncvMap(ttk.Frame):
         self.clonlbl, self.clon, self.clontip = add_entry(
             self.rowproj, label="central lon", text='None', width=4,
             command=self.entered_clon, tooltip=tstr)
+        # Quit button
+        self.bquit = ttk.Button(self.rowproj, text="Quit",
+                                command=self.master.top.destroy)
+        self.bquit.pack(side=tk.RIGHT)
+        self.bquittip = add_tooltip(self.bquit, 'Quit ncvue')
 
         # set lat/lon
         if any(self.latvar):
@@ -571,7 +577,7 @@ class ncvMap(ttk.Frame):
                     fi.close()
             # reset empty defaults of top
             self.top.fi     = []  # file name or file handle
-            self.top.groups = []  # filename with increasing index or group names
+            self.top.groups = []  # filename with incr. index or group names
             self.top.dunlim = []  # name of unlimited dimension
             self.top.time   = []  # datetime variable
             self.top.tname  = []  # datetime variable name
@@ -1133,7 +1139,7 @@ class ncvMap(ttk.Frame):
             if trans_v:
                 vv = vv.T
             if shift_lon:
-                vv = np.roll(vv, vv.shape[1]//2, axis=1)
+                vv = np.roll(vv, vv.shape[1] // 2, axis=1)
         else:
             vlab = ''
         if (y != ''):
@@ -1381,8 +1387,8 @@ class ncvMap(ttk.Frame):
             trans_v   = self.trans_v.get()
             mesh      = self.mesh.get()
             rep       = self.repeat.get()
-            inv_lon   = self.inv_lon.get()
-            inv_lat   = self.inv_lat.get()
+            # inv_lon   = self.inv_lon.get()
+            # inv_lat   = self.inv_lat.get()
             shift_lon = self.shift_lon.get()
             gz, vz = vardim2var(v, self.groups)
             if vz == self.tname[gz]:

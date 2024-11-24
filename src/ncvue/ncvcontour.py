@@ -30,6 +30,7 @@ History
     * Move images/ directory from src/ncvue/ to src/ directory,
       Jan 2024, Matthias Cuntz
     * Move themes/ and images/ back to src/ncvue/, Feb 2024, Matthias Cuntz
+    * Add Quit button, Nov 2024, Matthias Cuntz
 
 """
 import os
@@ -176,7 +177,7 @@ class ncvContour(ttk.Frame):
         self.trans_zlbl, self.trans_z, self.trans_ztip = add_checkbutton(
             self.rowz, label="transpose z", value=False, command=self.checked,
             tooltip="Transpose matrix")
-        spacez = ttk.Label(self.rowz, text=" "*1)
+        spacez = ttk.Label(self.rowz, text=" " * 1)
         spacez.pack(side=tk.LEFT)
         self.zminlbl, self.zmin, self.zmintip = add_entry(
             self.rowz, label="zmin", text='None', width=7,
@@ -286,6 +287,11 @@ class ncvContour(ttk.Frame):
             self.rowcmap, label="grid", value=False,
             command=self.checked,
             tooltip="Draw major grid lines")
+        # Quit button
+        self.bquit = ttk.Button(self.rowcmap, text="Quit",
+                                command=self.master.top.destroy)
+        self.bquit.pack(side=tk.RIGHT)
+        self.bquittip = add_tooltip(self.bquit, 'Quit ncvue')
 
     #
     # Bindings
@@ -372,7 +378,7 @@ class ncvContour(ttk.Frame):
                     fi.close()
             # reset empty defaults of top
             self.top.fi     = []  # file name or file handle
-            self.top.groups = []  # filename with increasing index or group names
+            self.top.groups = []  # filename with incr. index or group names
             self.top.dunlim = []  # name of unlimited dimension
             self.top.time   = []  # datetime variable
             self.top.tname  = []  # datetime variable name

@@ -2,6 +2,7 @@ Changelog
 ---------
 
 v4.5 (??? 2024)
+   * Add Quit button.
    * Correct datetime formatting in coordinate printing.
    * Move from token to trusted publisher on PyPI.
 

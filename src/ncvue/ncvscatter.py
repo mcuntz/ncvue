@@ -30,6 +30,7 @@ History
     * Allow groups in netcdf files, Jan 2024, Matthias Cuntz
     * Allow multiple netcdf files, Jan 2024, Matthias Cuntz
     * Move themes/ and images/ back to src/ncvue/, Feb 2024, Matthias Cuntz
+    * Add Quit button, Nov 2024, Matthias Cuntz
 
 """
 import tkinter as tk
@@ -369,6 +370,11 @@ class ncvScatter(ttk.Frame):
         self.mew2lbl, self.mew2, self.mew2tip = add_entry(
             self.rowy2opt, label="mew", text='1', width=3,
             command=self.entered_y2, tooltip="Marker edge width")
+        # Quit button
+        self.bquit = ttk.Button(self.rowy2opt, text="Quit",
+                                command=self.master.top.destroy)
+        self.bquit.pack(side=tk.RIGHT)
+        self.bquittip = add_tooltip(self.bquit, 'Quit ncvue')
 
     #
     # Event bindings
@@ -487,7 +493,7 @@ class ncvScatter(ttk.Frame):
                     fi.close()
             # reset empty defaults of top
             self.top.fi     = []  # file name or file handle
-            self.top.groups = []  # filename with increasing index or group names
+            self.top.groups = []  # filename with incr. index or group names
             self.top.dunlim = []  # name of unlimited dimension
             self.top.time   = []  # datetime variable
             self.top.tname  = []  # datetime variable name
@@ -936,8 +942,8 @@ class ncvScatter(ttk.Frame):
         self.axes2.clear()
         self.axes2.yaxis.set_label_position("right")
         self.axes2.yaxis.tick_right()
-        ylim = [None, None]
-        ylim2 = [None, None]
+        # ylim = [None, None]
+        # ylim2 = [None, None]
         # set x, y, axes labels
         vx  = 'None'
         vy  = 'None'

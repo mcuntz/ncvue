@@ -63,6 +63,9 @@ History
     * v4.4, Add borders, rivers, and lakes checkbuttons in map,
       Feb 2024, Matthias Cuntz
     * v4.4.1 Move themes and images back to src/ncvue, Feb 2024, Matthias Cuntz
+    * v4.4.2 Use matplotlib.colormaps[name], Jul 2024, Matthias Cuntz
+    * v4.4.3 Use draw_idle for faster animation, Jul 2024, Matthias Cuntz
+    * v4.5 Add Quit button, Nov 2024, Matthias Cuntz
 
 """
 # helper functions
