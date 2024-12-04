@@ -33,6 +33,7 @@ replacement for ncview_ and panoply_.
    :target: https://github.com/mcuntz/ncvue/actions/workflows/main.yml
    :alt: Build status
 
+
 About ncvue
 -----------
 
@@ -51,6 +52,7 @@ netCDF file.
 The complete documentation for ``ncvue`` is available from:
 
    https://mcuntz.github.io/ncvue/
+
 
 Quick usage guide
 -----------------
@@ -100,6 +102,7 @@ or using `ipython --gui tk`.
    `Open`. You only have to do this once. It will open like any other
    application the next times.
 
+
 General layout
 ^^^^^^^^^^^^^^
 
@@ -122,6 +125,7 @@ the plotting variables and dimensions, as well as plotting
 options. You can always choose another panel on top, and open another,
 identical window for the same netCDF file with the button "New Window"
 on the top right.
+
 
 Map panel
 ^^^^^^^^^
@@ -159,6 +163,7 @@ longitude of your data, which is automatically detected if "central
 lon" is set to None. Setting "central lon" to the central longitude of
 the input data normally eliminates the problem.
 
+
 Scatter/Line panel
 ^^^^^^^^^^^^^^^^^^
 
@@ -195,6 +200,7 @@ but more than 11.1 s when using the `datetime` variable.
    :align: center
    :alt: Example of multiple lines in the Scatter/Line panel
 
+
 Contour panel
 ^^^^^^^^^^^^^
 
@@ -210,6 +216,7 @@ entry boxes, spinboxes, and menus:
 This produces also either pseudocolor plots ('mesh' ticked) or filled
 contour plots ('mesh' unticked) just as the Map panel but without any
 map projection.
+
 
 Installation
 ------------
@@ -241,6 +248,7 @@ installing, for example, Miniconda_:
 See the installation instructions_ in the documentation_ for more
 information on installing `Cartopy` and ``ncvue with pip``.
 
+
 License
 -------
 
@@ -249,7 +257,8 @@ for details.
 
 Copyright (c) 2020-2024 Matthias Cuntz
 
-``ncvue`` uses the Azure_ 2.0 theme by rdbende_ on Linux and Windows.
+``ncvue`` uses CustomTkinter_ if installed. Otherwise it uses the
+Azure_ 2.0 theme by rdbende_ on Linux and Windows.
 
 ..
    Standalone applications are produced with `cx_Freeze`_, currently
@@ -257,7 +266,7 @@ Copyright (c) 2020-2024 Matthias Cuntz
 
 The project structure of ``ncvue`` was very originally based on a
 template_ provided by `Sebastian Müller`_ but has evolved
-considerably.
+considerably since.
 
 Different netCDF test files were provided by `Juliane Mai`_.
 
@@ -284,3 +293,4 @@ Different netCDF test files were provided by `Juliane Mai`_.
 .. _panoply: https://www.giss.nasa.gov/tools/panoply/
 .. _rdbende: https://github.com/rdbende
 .. _template: https://github.com/MuellerSeb/template
+.. _CustomTkinter: https://customtkinter.tomschimansky.com/

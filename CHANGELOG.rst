@@ -1,7 +1,8 @@
 Changelog
 ---------
 
-v4.5 (??? 2024)
+v5.0 (Dec 2024)
+   * Use CustomTkinter if installed.
    * Add Quit button.
    * Correct datetime formatting in coordinate printing.
    * Move from token to trusted publisher on PyPI.

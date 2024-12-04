@@ -8,7 +8,7 @@ This module was written by Matthias Cuntz while at Institut National de
 Recherche pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy,
 France.
 
-:copyright: Copyright 2020-2023 Matthias Cuntz - mc (at) macu (dot) de
+:copyright: Copyright 2020- Matthias Cuntz - mc (at) macu (dot) de
 :license: MIT License, see LICENSE for details.
 
 .. moduleauthor:: Matthias Cuntz
@@ -29,26 +29,55 @@ The following functions are provided:
    Treeview
 
 History
-    * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
-    * Added tooltips to all widgets with class Tooltip,
-      Jan 2021, Matthias Cuntz
-    * Added add_tooltip widget, Jan 2021, Matthias Cuntz
-    * add_spinbox returns also label widget, Jan 2021, Matthias Cuntz
-    * padlabel for add_entry to add space to previous widget,
-      Jul 2023, Matthias Cuntz
-    * labelwidth for add_entry to align columns with pack,
-      Jul 2023, Matthias Cuntz
-    * Replace tk constants with strings such as tk.LEFT with 'left',
-      Jul 2023, Matthias Cuntz
-    * Use Hovertip from local copy of tooltip.py, Jul 2023, Matthias Cuntz
-    * Added Treeview class with optional horizontal and vertical scroolbars,
-      Jul 2023, Matthias Cuntz
-    * Added callurl function, Dec 2023, Matthias Cuntz
+   * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
+   * Added tooltips to all widgets with class Tooltip,
+     Jan 2021, Matthias Cuntz
+   * Added add_tooltip widget, Jan 2021, Matthias Cuntz
+   * add_spinbox returns also label widget, Jan 2021, Matthias Cuntz
+   * padlabel for add_entry to add space to previous widget,
+     Jul 2023, Matthias Cuntz
+   * labelwidth for add_entry to align columns with pack,
+     Jul 2023, Matthias Cuntz
+   * Replace tk constants with strings such as tk.LEFT with 'left',
+     Jul 2023, Matthias Cuntz
+   * Use Hovertip from local copy of tooltip.py, Jul 2023, Matthias Cuntz
+   * Added Treeview class with optional horizontal and vertical scroolbars,
+     Jul 2023, Matthias Cuntz
+   * Added callurl function, Dec 2023, Matthias Cuntz
+   * Use CustomTkinter, Jun 2024, Matthias Cuntz
+   * Use CustomTkinter only if installed, Jun 2024, Matthias Cuntz
+   * Small bugfix in Combobox if no CustomTkinter, Nov 2024, Matthias Cuntz
+   * Pass width to Checkbutton if CustomTkinter, Dec 2024, Matthias Cuntz
+   * Pass padx for space between label and combobox, Dec 2024, Matthias Cuntz
+   * Use CustomTkinter also in add_menu and add_scale,
+     Dec 2024, Matthias Cuntz
+   * Bugfix: did not make new frame in add_spinbox, Dec 2024, Matthias Cuntz
 
 """
 import tkinter as tk
 import tkinter.ttk as ttk
+try:
+    from customtkinter import CTkFrame as Frame
+    from customtkinter import CTkLabel as Label
+    from customtkinter import CTkCheckBox as Checkbutton
+    from customtkinter import CTkComboBox as Combobox
+    from customtkinter import CTkEntry as Entry
+    from customtkinter import CTkOptionMenu as Menubutton
+    from customtkinter import CTkSlider as Scale
+    from customtkinter import CTkScrollbar as Scrollbar
+    ihavectk = True
+except ModuleNotFoundError:
+    from tkinter.ttk import Frame
+    from tkinter.ttk import Label
+    from tkinter.ttk import Checkbutton
+    from tkinter.ttk import Combobox
+    from tkinter.ttk import Entry
+    from tkinter.ttk import Menubutton
+    from tkinter.ttk import Scale
+    from tkinter.ttk import Scrollbar
+    ihavectk = False
 import webbrowser
+
 from .tooltip import Hovertip
 
 
@@ -75,13 +104,13 @@ def callurl(url):
 
     Examples
     --------
-    >>> opthead = ttk.Frame(self)
+    >>> opthead = Frame(self)
     >>> opthead.pack(side='top', fill='x')
-    >>> optheadlabel1 = ttk.Label(opthead, text='Options for')
+    >>> optheadlabel1 = Label(opthead, text='Options for')
     >>> optheadlabel1.pack(side='left')
     >>> ttk.Style().configure('blue.TLabel', foreground='blue')
-    >>> optheadlabel2 = ttk.Label(opthead, text='pandas.read_csv',
-    ...                           style='blue.TLabel')
+    >>> optheadlabel2 = Label(opthead, text='pandas.read_csv',
+    ...                              style='blue.TLabel')
     >>> optheadlabel2.pack(side='left')
     >>> font = tkfont.Font(optheadlabel2, optheadlabel2.cget("font"))
     >>> font.configure(underline=True)
@@ -120,21 +149,27 @@ class Tooltip(Hovertip):
 
     def showcontents(self):
         # light yellow = #ffffe0
-        label = tk.Label(self.tipwindow, textvariable=self.text,
-                         background="#ffffe0", foreground="#000000",
-                         justify='left', relief='flat', borderwidth=0,
-                         padx=1, pady=1)
+        if ihavectk:
+            label = Label(self.tipwindow, textvariable=self.text,
+                          fg_color="#ffffe0", text_color="#000000",
+                          justify='left', padx=1, pady=1)
+        else:
+            label = tk.Label(self.tipwindow, textvariable=self.text,
+                             background="#ffffe0", foreground="#000000",
+                             justify='left', relief='flat', borderwidth=0,
+                             padx=1, pady=1)
         label.pack()
+        # label.grid()
 
 
 def add_checkbutton(frame, label="", value=False, command=None, tooltip="",
                     **kwargs):
     """
-    Add a left-aligned ttk.Checkbutton.
+    Add a left-aligned Checkbutton.
 
     Parameters
     ----------
-    frame : tk widget
+    frame : CustomTkinter widget
         Parent widget
     label : str, optional
         Text that appears on the checkbutton (default: "")
@@ -147,7 +182,7 @@ def add_checkbutton(frame, label="", value=False, command=None, tooltip="",
         Tooltip appearing after one second when hovering over
         the checkbutton (default: "" = no tooltip)
     **kwargs : option=value pairs, optional
-        All other options will be passed to ttk.Checkbutton
+        All other options will be passed to Checkbutton
 
     Returns
     -------
@@ -159,35 +194,39 @@ def add_checkbutton(frame, label="", value=False, command=None, tooltip="",
 
     Examples
     --------
-    >>> self.rowzxy = ttk.Frame(self)
+    >>> self.rowzxy = Frame(self)
     >>> self.rowzxy.pack(side='top', fill='x')
     >>> self.inv_xlbl, self.inv_x = add_checkbutton(
     ...     self.rowzxy, label="invert x", value=False, command=self.checked)
 
     """
+    iframe = Frame(frame)
     check_label = tk.StringVar()
     check_label.set(label)
     bvar = tk.BooleanVar(value=value)
-    cb = ttk.Checkbutton(frame, variable=bvar, textvariable=check_label,
-                         command=command, **kwargs)
+    if ihavectk and ('width' not in kwargs):
+        width = len(label) * 9
+        kwargs.update({'width': width})
+    cb = Checkbutton(iframe, variable=bvar, textvariable=check_label,
+                     command=command, **kwargs)
     cb.pack(side='left', padx=3)
     if tooltip:
         ttip = tk.StringVar()
         ttip.set(tooltip)
         cbtip = Tooltip(cb, ttip)
-        return check_label, bvar, ttip
+        return iframe, check_label, bvar, ttip
     else:
-        return check_label, bvar
+        return iframe, check_label, bvar
 
 
 def add_combobox(frame, label="", values=[], command=None, tooltip="",
                  **kwargs):
     """
-    Add a left-aligned ttk.Combobox with a ttk.Label before.
+    Add a left-aligned Combobox with a Label before.
 
     Parameters
     ----------
-    frame : tk widget
+    frame : CustomTkinter widget
         Parent widget
     label : str, optional
         Text that appears in front of the combobox (default: "")
@@ -199,52 +238,64 @@ def add_combobox(frame, label="", values=[], command=None, tooltip="",
     tooltip : str, optional
         Tooltip appearing after one second when hovering over
         the combobox (default: "" = no tooltip)
+    padx : int, optional
+        Extra space in px added left and right of the label text (default: 1)
     **kwargs : option=value pairs, optional
-        All other options will be passed to ttk.Combobox
+        All other options will be passed to Combobox
 
     Returns
     -------
-    tk.StringVar, ttk.Combobox
+    tk.StringVar, Combobox
         variable for the text before the combobox, combobox widget
     tk.StringVar
         variable for the text of the tooltip, if given.
 
     Examples
     --------
-    >>> self.rowzxy = ttk.Frame(self)
+    >>> self.rowzxy = Frame(self)
     >>> self.rowzxy.pack(side='top', fill='x')
     >>> self.xlbl, self.x = add_combobox(
     ...     self.rowzxy, label="x", values=columns, command=self.selected)
 
     """
+    iframe = Frame(frame)
     width = kwargs.pop('width', 25)
     cb_label = tk.StringVar()
     cb_label.set(label)
-    label = ttk.Label(frame, textvariable=cb_label)
+    lkwargs = {'textvariable': cb_label}
+    if ihavectk:
+        lkwargs.update({'padx': kwargs.pop('padx', 1)})
+    else:
+        _ = kwargs.pop('padx', 1)
+    label = Label(iframe, **lkwargs)
     label.pack(side='left')
-    cb = ttk.Combobox(frame, values=values, width=width, **kwargs)
-    # long = len(max(values, key=len))
-    # cb.configure(width=(max(20, long//2)))
-    if command is not None:
-        cb.bind("<<ComboboxSelected>>", command)
+    if ihavectk:
+        cb = Combobox(iframe, values=values, width=width, command=command,
+                      **kwargs)
+    else:
+        cb = ttk.Combobox(iframe, values=values, width=width, **kwargs)
+        # long = len(max(values, key=len))
+        # cb.configure(width=(max(20, long//2)))
+        if command is not None:
+            cb.bind("<<ComboboxSelected>>", command)
     cb.pack(side='left')
     if tooltip:
         ttip = tk.StringVar()
         ttip.set(tooltip)
         cbtip = Tooltip(cb, ttip)
-        return cb_label, cb, ttip
+        return iframe, cb_label, cb, ttip
     else:
-        return cb_label, cb
+        return iframe, cb_label, cb
 
 
 def add_entry(frame, label="", text="", command=None, tooltip="",
               padlabel=0, labelwidth=None, **kwargs):
     """
-    Add a left-aligned ttk.Entry with a ttk.Label before.
+    Add a left-aligned Entry with a Label before.
 
     Parameters
     ----------
-    frame : tk widget
+    frame : CustomTkinter widget
         Parent widget
     label : str, optional
         Text that appears in front of the entry (default: "")
@@ -259,11 +310,13 @@ def add_entry(frame, label="", text="", command=None, tooltip="",
         Tooltip appearing after one second when hovering over
         the entry (default: "" = no tooltip)
     padlabel : int, optional
-        Prepend number of spaces to create distance other widgets (default: 0)
+        Prepend number of spaces to create distance to other widgets (default: 0)
+    padx : int, optional
+        Extra space in px added left and right of the label text (default: 1)
     labelwidth : int, optional
         If given, set width of Label
     **kwargs : option=value pairs, optional
-        All other options will be passed to ttk.Entry
+        All other options will be passed to Entry
 
     Returns
     -------
@@ -275,13 +328,15 @@ def add_entry(frame, label="", text="", command=None, tooltip="",
 
     Examples
     --------
-    >>> self.rowxyopt = ttk.Frame(self)
+    >>> self.rowxyopt = Frame(self)
     >>> self.rowxyopt.pack(side='top', fill='x')
     >>> self.lslbl, self.ls = add_entry(
     ...     self.rowxyopt, label="ls", text='-',
     ...     width=4, command=self.selected_y)
 
     """
+    # label
+    iframe = Frame(frame)
     entry_label = tk.StringVar()
     nlab = len(label) + padlabel
     lab = f'{label:>{nlab}s}'
@@ -289,9 +344,19 @@ def add_entry(frame, label="", text="", command=None, tooltip="",
     lkwargs = {'textvariable': entry_label}
     if labelwidth is not None:
         lkwargs.update({'width': labelwidth})
-    label = ttk.Label(frame, **lkwargs)
+    # if labelwidth is None:
+    #     labelwidth = len(lab)
+    #     if ihavectk:
+    #         labelwidth *= 9
+    # lkwargs.update({'width': labelwidth})
+    if ihavectk:
+        lkwargs.update({'padx': kwargs.pop('padx', 1)})
+    else:
+        _ = kwargs.pop('padx', 1)
+    label = Label(iframe, **lkwargs)
     # print(label.configure())
     label.pack(side='left')
+    # entry
     entry_text = tk.StringVar()
     if text is None:
         tt = 'None'
@@ -303,7 +368,7 @@ def add_entry(frame, label="", text="", command=None, tooltip="",
     else:
         tt = str(text)
     entry_text.set(tt)
-    entry = ttk.Entry(frame, textvariable=entry_text, **kwargs)
+    entry = Entry(iframe, textvariable=entry_text, **kwargs)
     if command is not None:
         if isinstance(command, (list, tuple)):
             com0 = command[0]
@@ -319,20 +384,21 @@ def add_entry(frame, label="", text="", command=None, tooltip="",
         entry.bind('<Key-Return>', com1)  # return
         entry.bind('<KP_Enter>', com1)    # return of numeric keypad
     entry.pack(side='left')
+    # tooltip
     if tooltip:
         ttip = tk.StringVar()
         ttip.set(tooltip)
         etip = Tooltip(entry, ttip)
-        return entry_label, entry_text, ttip
+        return iframe, entry_label, entry_text, ttip
     else:
-        return entry_label, entry_text
+        return iframe, entry_label, entry_text
 
 
 def add_imagemenu(frame, label="", values=[], images=[], command=None,
                   tooltip="", **kwargs):
     """
     Add a left-aligned menu with menubuttons having text and images
-    with a ttk.Label before.
+    with a Label before.
 
     Parameters
     ----------
@@ -362,7 +428,7 @@ def add_imagemenu(frame, label="", values=[], images=[], command=None,
 
     Examples
     --------
-    >>> self.rowcmap = ttk.Frame(self)
+    >>> self.rowcmap = Frame(self)
     >>> self.rowcmap.pack(side='top', fill='x')
     >>> self.cmaplbl, self.cmap = add_imagemenu(
     ...     self.rowcmap, label="cmap", values=self.cmaps,
@@ -372,15 +438,16 @@ def add_imagemenu(frame, label="", values=[], images=[], command=None,
 
     """
     from functools import partial
+    iframe = Frame(frame)
     estr  = 'Same number of values and images needed for add_imagemenu.'
     estr += ' values (' + str(len(values)) + '): ' + str(values)
     estr += ', images (' + str(len(images)) + '): ' + str(images)
     assert len(values) == len(images), estr
     mb_label = tk.StringVar()
     mb_label.set(label)
-    label = ttk.Label(frame, textvariable=mb_label)
+    label = Label(iframe, textvariable=mb_label)
     label.pack(side='left')
-    mb = ttk.Menubutton(frame, image=images[0], text=values[0],
+    mb = ttk.Menubutton(iframe, image=images[0], text=values[0],
                         compound='left')
     sb = tk.Menu(mb, tearoff=False)
     mb.config(menu=sb)
@@ -392,18 +459,18 @@ def add_imagemenu(frame, label="", values=[], images=[], command=None,
         ttip = tk.StringVar()
         ttip.set(tooltip)
         mbtip = Tooltip(mb, ttip)
-        return mb_label, mb, ttip
+        return iframe, mb_label, mb, ttip
     else:
-        return mb_label, mb
+        return iframe, mb_label, mb
 
 
 def add_menu(frame, label="", values=[], command=None, tooltip="", **kwargs):
     """
-    Add a left-aligned menu with menubuttons with a ttk.Label before.
+    Add a left-aligned menu with menubuttons with a Label before.
 
     Parameters
     ----------
-    frame : tk widget
+    frame : CustomTkinter widget
         Parent widget
     label : str, optional
         Text that appears in front of the menu (default: "")
@@ -415,51 +482,55 @@ def add_menu(frame, label="", values=[], command=None, tooltip="", **kwargs):
         Tooltip appearing after one second when hovering over
         the menu (default: "" = no tooltip)
     **kwargs : option=value pairs, optional
-        All other options will be passed to the main ttk.Menubutton
+        All other options will be passed to the main Menubutton
     tk.StringVar
         variable for the text of the tooltip, if given.
 
     Returns
     -------
-    tk.StringVar, ttk.Menubutton
+    tk.StringVar, Menubutton
         variable for the text before the menu, main tt.Menubutton widget
 
     Examples
     --------
-    >>> self.rowzxy = ttk.Frame(self)
+    >>> self.rowzxy = Frame(self)
     >>> self.rowzxy.pack(side='top', fill='x')
     >>> self.xlbl, self.x = add_combobox(
     ...     self.rowzxy, label="x", values=columns, command=self.selected)
 
     """
     from functools import partial
+    iframe = Frame(frame)
     mb_label = tk.StringVar()
     mb_label.set(label)
-    label = ttk.Label(frame, textvariable=mb_label)
+    label = Label(iframe, textvariable=mb_label)
     label.pack(side='left')
-    mb = ttk.Menubutton(frame, text=values[0], compound='left')
-    sb = tk.Menu(mb, tearoff=False)
-    mb.config(menu=sb)
-    for i, v in enumerate(values):
-        sb.add_command(label=v, compound='left',
-                       command=partial(command, v))
+    if ihavectk:
+        mb = Menubutton(iframe, values=values, command=command, **kwargs)
+    else:
+        mb = Menubutton(iframe, text=values[0], compound='left', **kwargs)
+        sb = tk.Menu(mb, tearoff=False)
+        mb.config(menu=sb)
+        for i, v in enumerate(values):
+            sb.add_command(label=v, compound='left',
+                           command=partial(command, v))
     mb.pack(side='left')
     if tooltip:
         ttip = tk.StringVar()
         ttip.set(tooltip)
         mbtip = Tooltip(mb, ttip)
-        return mb_label, mb, ttip
+        return iframe, mb_label, mb, ttip
     else:
-        return mb_label, mb
+        return iframe, mb_label, mb
 
 
 def add_scale(frame, label="", ini=0, tooltip="", **kwargs):
     """
-    Add a left-aligned ttk.Scale with a ttk.Label before.
+    Add a left-aligned Scale with a Label before.
 
     Parameters
     ----------
-    frame : tk widget
+    frame : CustomTkinter widget
         Parent widget
     label : str, optional
         Text that appears in front of the scale (default: "")
@@ -469,11 +540,11 @@ def add_scale(frame, label="", ini=0, tooltip="", **kwargs):
         Tooltip appearing after one second when hovering over
         the scale (default: "" = no tooltip)
     **kwargs : option=value pairs, optional
-        All other options will be passed to ttk.Scale
+        All other options will be passed to Scale
 
     Returns
     -------
-    tk.StringVar, tk.DoubleVar, ttk.Scale
+    tk.StringVar, tk.DoubleVar, Scale
         variable for the text before the scale,
         value of scale,
         scale widget
@@ -482,27 +553,42 @@ def add_scale(frame, label="", ini=0, tooltip="", **kwargs):
 
     Examples
     --------
-    >>> self.rowzxy = ttk.Frame(self)
+    >>> self.rowzxy = Frame(self)
     >>> self.rowzxy.pack(side='top', fill='x')
     >>> self.xlbl, self.x = add_scale(
     ...     self.rowzxy, label="x", values=columns, command=self.selected)
 
     """
+    iframe = Frame(frame)
     s_label = tk.StringVar()
     s_label.set(label)
-    label = ttk.Label(frame, textvariable=s_label)
+    label = Label(iframe, textvariable=s_label)
     label.pack(side='left')
     s_val = tk.DoubleVar()
     s_val.set(ini)
-    s = ttk.Scale(frame, variable=s_val, **kwargs)
+    if 'from_' not in kwargs:
+        kwargs.update({'from_': 0})
+    if 'to' not in kwargs:
+        kwargs.update({'to': 100})
+    if ihavectk:
+        kwargs.update({'number_of_steps': kwargs['to'] - kwargs['from_'] + 1})
+        length = kwargs.pop('length', -1)
+        orient = kwargs.pop('orient', tk.HORIZONTAL)
+        if length < 0:
+            length = 100
+        if orient == tk.HORIZONTAL:
+            kwargs.update({'width': length})
+        if orient == tk.VERTICAL:
+            kwargs.update({'height': length})
+    s = Scale(iframe, variable=s_val, **kwargs)
     s.pack(side='left')
     if tooltip:
         ttip = tk.StringVar()
         ttip.set(tooltip)
         stip = Tooltip(s, ttip)
-        return s_label, s_val, s, ttip
+        return iframe, s_label, s_val, s, ttip
     else:
-        return s_label, s_val, s
+        return iframe, s_label, s_val, s
 
 
 def add_spinbox(frame, label="", values=[], command=None, tooltip="",
@@ -546,15 +632,16 @@ def add_spinbox(frame, label="", values=[], command=None, tooltip="",
     ...     command=self.spinned)
 
     """
+    iframe = Frame(frame)
     width = kwargs.pop('width', 1)
     sbl_val = tk.StringVar()
     sbl_val.set(label)
-    sbl = ttk.Label(frame, textvariable=sbl_val)
+    sbl = ttk.Label(iframe, textvariable=sbl_val)
     sbl.pack(side='left')
     sb_val = tk.StringVar()
     if len(values) > 0:
         sb_val.set(str(values[0]))
-    sb = tk.Spinbox(frame, values=values, command=command, width=width,
+    sb = tk.Spinbox(iframe, values=values, command=command, width=width,
                     textvariable=sb_val, **kwargs)
     if command is not None:
         sb.bind('<Return>', command)      # return
@@ -566,9 +653,9 @@ def add_spinbox(frame, label="", values=[], command=None, tooltip="",
         ttip = tk.StringVar()
         ttip.set(tooltip)
         sbtip = Tooltip(sb, ttip)
-        return sbl_val, sbl, sb_val, sb, ttip
+        return iframe, sbl_val, sbl, sb_val, sb, ttip
     else:
-        return sbl_val, sbl, sb_val, sb
+        return iframe, sbl_val, sbl, sb_val, sb
 
 
 def add_tooltip(frame, tooltip="", **kwargs):
@@ -607,7 +694,7 @@ def add_tooltip(frame, tooltip="", **kwargs):
 
 
 # https://pythonassets.com/posts/scrollbar-in-tk-tkinter/
-class Treeview(ttk.Frame):
+class Treeview(Frame):
     """
     Treeview class with optional horizontal and vertical scrollbars
 
@@ -636,19 +723,25 @@ class Treeview(ttk.Frame):
         super().__init__(*args, **kwargs)
         # scrollbars
         if xscroll:
-            self.hscrollbar = ttk.Scrollbar(self, orient='horizontal')
+            if ihavectk:
+                self.hscrollbar = Scrollbar(self, orientation='horizontal')
+            else:
+                self.hscrollbar = Scrollbar(self, orient='horizontal')
         if yscroll:
-            self.vscrollbar = ttk.Scrollbar(self, orient='vertical')
+            if ihavectk:
+                self.vscrollbar = Scrollbar(self, orientation='vertical')
+            else:
+                self.vscrollbar = Scrollbar(self, orient='vertical')
         # treeview
         self.tv = ttk.Treeview(self)
         # pack scrollbars and treeview together
         if xscroll:
             self.tv.config(xscrollcommand=self.hscrollbar.set)
-            self.hscrollbar.config(command=self.tv.xview)
+            self.hscrollbar.configure(command=self.tv.xview)
             self.hscrollbar.pack(side='bottom', fill='x')
         if yscroll:
             self.tv.config(yscrollcommand=self.vscrollbar.set)
-            self.vscrollbar.config(command=self.tv.yview)
+            self.vscrollbar.configure(command=self.tv.yview)
             self.vscrollbar.pack(side='right', fill='y')
         self.tv.pack()
         # convenience functions

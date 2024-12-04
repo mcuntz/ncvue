@@ -55,12 +55,18 @@ History
    * Add selvar to allow multiple netcdf files, Jan 2024, Matthias Cuntz
    * Remove [ms] from check for datetime in format_coord on axes,
      Oct 2024, Matthias Cuntz
+   * Use CustomTkinter in clone_ncvmain if installed, Nov 2024, Matthias Cuntz
 
 """
 import tkinter as tk
+try:
+    from customtkinter import CTkToplevel as Toplevel
+except ModuleNotFoundError:
+    from tkinter import Toplevel
 import numpy as np
 import matplotlib.dates as mpld
 import cartopy.crs as ccrs
+import ncvue
 
 
 __all__ = ['DIMMETHODS',
@@ -429,7 +435,7 @@ def clone_ncvmain(widget):
         import sys
         sys.exit()
 
-    root = tk.Toplevel()
+    root = Toplevel()
     root.name = 'ncvClone'
     root.title("Secondary ncvue window")
     root.geometry('1000x800+150+100')
@@ -439,9 +445,15 @@ def clone_ncvmain(widget):
     # https://stackoverflow.com/questions/46505982/is-there-a-way-to-clone-a-tkinter-widget
     cls = widget.__class__
     clone = cls(root)
-    for key in widget.configure():
-        if key != 'class':
-            clone.configure({key: widget.cget(key)})
+    try:
+        for key in widget.configure():
+            if key != 'class':
+                clone.configure({key: widget.cget(key)})
+    except TypeError:
+        # in case of CustomTkinter
+        cls = ncvue.ncvMain
+        clone = cls(root)
+        clone.pack(fill=tk.BOTH, expand=1)
 
     return clone
 

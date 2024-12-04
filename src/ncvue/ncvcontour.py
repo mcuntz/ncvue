@@ -19,24 +19,36 @@ The following classes are provided:
    ncvContour
 
 History
-    * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
-    * Open new netcdf file, communicate via top widget,
-      Jan 2021, Matthias Cuntz
-    * Write coordinates and value on bottom of plotting canvas,
-      May 2021, Matthias Cuntz
-    * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz
-    * Allow groups in netcdf files, Jan 2024, Matthias Cuntz
-    * Allow multiple netcdf files, Jan 2024, Matthias Cuntz
-    * Move images/ directory from src/ncvue/ to src/ directory,
-      Jan 2024, Matthias Cuntz
-    * Move themes/ and images/ back to src/ncvue/, Feb 2024, Matthias Cuntz
-    * Add Quit button, Nov 2024, Matthias Cuntz
+   * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
+   * Open new netcdf file, communicate via top widget,
+     Jan 2021, Matthias Cuntz
+   * Write coordinates and value on bottom of plotting canvas,
+     May 2021, Matthias Cuntz
+   * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz
+   * Allow groups in netcdf files, Jan 2024, Matthias Cuntz
+   * Allow multiple netcdf files, Jan 2024, Matthias Cuntz
+   * Move images/ directory from src/ncvue/ to src/ directory,
+     Jan 2024, Matthias Cuntz
+   * Move themes/ and images/ back to src/ncvue/, Feb 2024, Matthias Cuntz
+   * Add Quit button, Nov 2024, Matthias Cuntz
+   * Use CustomTkinter if installed, Nov 2024, Matthias Cuntz
 
 """
 import os
 import sys
 import tkinter as tk
-import tkinter.ttk as ttk
+try:
+    from customtkinter import CTkFrame as Frame
+    from customtkinter import CTkButton as Button
+    from customtkinter import CTkLabel as Label
+    from customtkinter import CTkComboBox as Combobox
+    ihavectk = True
+except ModuleNotFoundError:
+    from tkinter.ttk import Frame
+    from tkinter.ttk import Button
+    from tkinter.ttk import Label
+    from tkinter.ttk import Combobox
+    ihavectk = False
 import netCDF4 as nc
 import numpy as np
 from .ncvutils import clone_ncvmain, format_coord_contour, selvar
@@ -60,7 +72,7 @@ except OSError:
 __all__ = ['ncvContour']
 
 
-class ncvContour(ttk.Frame):
+class ncvContour(Frame):
     """
     Panel for contour plots.
 
@@ -103,38 +115,6 @@ class ncvContour(ttk.Frame):
         self.maxdim = self.top.maxdim
         self.cols   = self.top.cols
 
-        # new window
-        self.rowwin = ttk.Frame(self)
-        self.rowwin.pack(side=tk.TOP, fill=tk.X)
-        self.newfile = ttk.Button(self.rowwin, text="Open File",
-                                  command=self.newnetcdf)
-        self.newfile.pack(side=tk.LEFT)
-        self.newfiletip = add_tooltip(self.newfile, 'Open a new netcdf file')
-        self.newwin = ttk.Button(
-            self.rowwin, text="New Window",
-            command=partial(clone_ncvmain, self.master))
-        self.newwin.pack(side=tk.RIGHT)
-        self.newwintip = add_tooltip(
-            self.newwin, 'Open secondary ncvue window')
-
-        # plotting canvas
-        self.figure = Figure(facecolor="white", figsize=(1, 1))
-        self.axes   = self.figure.add_subplot(111)
-        self.canvas = FigureCanvasTkAgg(self.figure, master=self)
-        self.canvas.draw()
-        # pack
-        self.canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
-        # grid instead of pack - does not work
-        # self.canvas.get_tk_widget().grid(column=0, row=0,
-        #     sticky=(tk.N, tk.S, tk.E, tk.W))
-        # self.canvas.get_tk_widget().columnconfigure(0, weight=1)
-        # self.canvas.get_tk_widget().rowconfigure(0, weight=1)
-
-        # matplotlib toolbar
-        self.toolbar = NavigationToolbar2Tk(self.canvas, self)
-        self.toolbar.update()
-        self.toolbar.pack(side=tk.TOP, fill=tk.X)
-
         # selections and options
         columns = [''] + self.cols
 
@@ -149,147 +129,243 @@ class ncvContour(ttk.Frame):
         self.imaps  = [ tk.PhotoImage(file=bundle_dir +
                                       '/images/' + i + '.png')
                         for i in self.cmaps ]
+        if ihavectk:
+            # width of combo boxes in px
+            combowidth = 288
+            # widths of entry widgets in px
+            ewsmall = 20
+            ewmed = 45
+            ewbig = 70
+            # pad between label and entry
+            padx = 5
+            # width of animation and variables buttons
+            bwidth = 35
+            # width of projections menu
+            mwidth = 70
+        else:
+            # width of combo boxes in characters
+            combowidth = 33
+            # widths of entry widgets in characters
+            ewsmall = 3
+            ewmed = 4
+            ewbig = 7
+            # pad between label and entry (not used)
+            padx = 5
+            # width of animation and variables buttons
+            bwidth = 1
+            # width of projections menu
+            mwidth = 13
+
+        # new window
+        self.rowwin = Frame(self)
+        self.rowwin.pack(side=tk.TOP, fill=tk.X)
+        self.newfile = Button(self.rowwin, text='Open File',
+                              command=self.newnetcdf)
+        self.newfile.pack(side=tk.LEFT)
+        self.newfiletip = add_tooltip(self.newfile, 'Open a new netcdf file')
+        self.newwin = Button(
+            self.rowwin, text='New Window',
+            command=partial(clone_ncvmain, self.master))
+        self.newwin.pack(side=tk.RIGHT)
+        self.newwintip = add_tooltip(
+            self.newwin, 'Open secondary ncvue window')
+
+        # plotting canvas
+        self.figure = Figure(facecolor='white', figsize=(1, 1))
+        self.axes   = self.figure.add_subplot(111)
+        self.axes2  = self.axes.twinx()
+        self.axes2.yaxis.set_label_position('right')
+        self.axes2.yaxis.tick_right()
+        self.canvas = FigureCanvasTkAgg(self.figure, master=self)
+        self.canvas.draw()
+        self.tkcanvas = self.canvas.get_tk_widget()
+        self.tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
+
+        # matplotlib toolbar
+        # toolbar uses pack internally -> put into frame
+        self.toolbar = NavigationToolbar2Tk(self.canvas, self,
+                                            pack_toolbar=True)
+        self.toolbar.update()
+        self.toolbar.pack(side=tk.TOP, fill=tk.X)
 
         # 1. row
         # z-axis selection
-        self.rowzz = ttk.Frame(self)
+        self.rowzz = Frame(self)
         self.rowzz.pack(side=tk.TOP, fill=tk.X)
-        self.blockz = ttk.Frame(self.rowzz)
+        self.blockz = Frame(self.rowzz)
         self.blockz.pack(side=tk.LEFT)
-        self.rowz = ttk.Frame(self.blockz)
+        self.rowz = Frame(self.blockz)
         self.rowz.pack(side=tk.TOP, fill=tk.X)
         self.zlbl = tk.StringVar()
-        self.zlbl.set("z")
-        zlab = ttk.Label(self.rowz, textvariable=self.zlbl)
+        self.zlbl.set('z')
+        lkwargs = {'textvariable': self.zlbl}
+        if ihavectk:
+            lkwargs.update({'padx': padx})
+        zlab = Label(self.rowz, **lkwargs)
         zlab.pack(side=tk.LEFT)
-        self.bprev_z = ttk.Button(self.rowz, text="<", width=1,
-                                  command=self.prev_z)
+        self.bprev_z = Button(self.rowz, text='<', width=bwidth,
+                              command=self.prev_z)
         self.bprev_z.pack(side=tk.LEFT)
         self.bprev_ztip = add_tooltip(self.bprev_z, 'Previous variable')
-        self.bnext_z = ttk.Button(self.rowz, text=">", width=1,
-                                  command=self.next_z)
+        self.bnext_z = Button(self.rowz, text='>', width=bwidth,
+                              command=self.next_z)
         self.bnext_z.pack(side=tk.LEFT)
         self.bnext_ztip = add_tooltip(self.bnext_z, 'Next variable')
-        self.z = ttk.Combobox(self.rowz, values=columns, width=25)
-        self.z.bind("<<ComboboxSelected>>", self.selected_z)
+        if ihavectk:
+            self.z = Combobox(self.rowz, values=columns, width=combowidth,
+                              command=self.selected_z)
+        else:
+            self.z = Combobox(self.rowz, values=columns, width=combowidth)
+            self.z.bind('<<ComboboxSelected>>', self.selected_z)
         self.z.pack(side=tk.LEFT)
         self.ztip = add_tooltip(self.z, 'Choose variable')
-        self.trans_zlbl, self.trans_z, self.trans_ztip = add_checkbutton(
-            self.rowz, label="transpose z", value=False, command=self.checked,
-            tooltip="Transpose matrix")
-        spacez = ttk.Label(self.rowz, text=" " * 1)
+        self.trans_zframe, self.trans_zlbl, self.trans_z, self.trans_ztip = (
+            add_checkbutton(self.rowz, label='transpose z', value=False,
+                            command=self.checked,
+                            tooltip='Transpose matrix'))
+        self.trans_zframe.pack(side=tk.LEFT)
+        spacez_label = tk.StringVar()
+        spacez_label.set(' ')
+        spacez = Label(self.rowz, textvariable=spacez_label)
         spacez.pack(side=tk.LEFT)
-        self.zminlbl, self.zmin, self.zmintip = add_entry(
-            self.rowz, label="zmin", text='None', width=7,
+        self.zminframe, self.zminlbl, self.zmin, self.zmintip = add_entry(
+            self.rowz, label='zmin', text='None', width=ewbig, padx=padx,
             command=self.entered_z,
-            tooltip="Minimal display value. Free scaling if 'None'.")
-        self.zmaxlbl, self.zmax, self.zmaxtip = add_entry(
-            self.rowz, label="zmax", text='None', width=7,
+            tooltip='Minimal display value. Free scaling if "None".')
+        self.zminframe.pack(side=tk.LEFT)
+        self.zmaxframe, self.zmaxlbl, self.zmax, self.zmaxtip = add_entry(
+            self.rowz, label='zmax', text='None', width=ewbig, padx=padx,
             command=self.entered_z,
-            tooltip="Maximal display value. Free scaling if 'None'.")
+            tooltip='Maximal display value. Free scaling if "None".')
+        self.zmaxframe.pack(side=tk.LEFT)
         # levels z
-        self.rowzd = ttk.Frame(self.blockz)
+        self.rowzd = Frame(self.blockz)
         self.rowzd.pack(side=tk.TOP, fill=tk.X)
+        self.zdframe = []
         self.zdlblval = []
         self.zdlbl    = []
         self.zdval    = []
         self.zd       = []
         self.zdtip    = []
         for i in range(self.maxdim):
-            zdlblval, zdlbl, zdval, zd, zdtip = add_spinbox(
+            zdframe, zdlblval, zdlbl, zdval, zd, zdtip = add_spinbox(
                 self.rowzd, label=str(i), values=(0,), wrap=True,
-                command=self.spinned_z, state=tk.DISABLED, tooltip="None")
+                command=self.spinned_z, state=tk.DISABLED, tooltip='None')
+            self.zdframe.append(zdframe)
             self.zdlblval.append(zdlblval)
             self.zdlbl.append(zdlbl)
             self.zdval.append(zdval)
             self.zd.append(zd)
             self.zdtip.append(zdtip)
+            zdframe.pack(side=tk.LEFT)
 
         # 2. row
         # x-axis selection
-        self.rowxy = ttk.Frame(self)
+        self.rowxy = Frame(self)
         self.rowxy.pack(side=tk.TOP, fill=tk.X)
-        self.blockx = ttk.Frame(self.rowxy)
+        self.blockx = Frame(self.rowxy)
         self.blockx.pack(side=tk.LEFT)
-        self.rowx = ttk.Frame(self.blockx)
+        self.rowx = Frame(self.blockx)
         self.rowx.pack(side=tk.TOP, fill=tk.X)
-        self.xlbl, self.x, self.xtip = add_combobox(
-            self.rowx, label="x", values=columns, command=self.selected_x,
-            tooltip="Choose variable of x-axis.\nTake index if 'None' (fast).")
-        self.inv_xlbl, self.inv_x, self.inv_xtip = add_checkbutton(
-            self.rowx, label="invert x", value=False, command=self.checked,
-            tooltip="Invert x-axis")
-        self.rowxd = ttk.Frame(self.blockx)
+        self.xframe, self.xlbl, self.x, self.xtip = add_combobox(
+            self.rowx, label='x', values=columns, command=self.selected_x,
+            width=combowidth, padx=padx,
+            tooltip=('Choose variable of x-axis.\nTakes index if "None",'
+                     ' which is much faster.'))
+        self.xframe.pack(side=tk.LEFT)
+        self.inv_xframe, self.inv_xlbl, self.inv_x, self.inv_xtip = (
+            add_checkbutton(self.rowx, label='invert x', value=False,
+                            command=self.checked,
+                            tooltip='Invert x-axis'))
+        self.inv_xframe.pack(side=tk.LEFT)
+        self.rowxd = Frame(self.blockx)
         self.rowxd.pack(side=tk.TOP, fill=tk.X)
+        self.xdframe = []
         self.xdlblval = []
         self.xdlbl    = []
         self.xdval    = []
         self.xd       = []
         self.xdtip    = []
         for i in range(self.maxdim):
-            xdlblval, xdlbl, xdval, xd, xdtip = add_spinbox(
+            xdframe, xdlblval, xdlbl, xdval, xd, xdtip = add_spinbox(
                 self.rowxd, label=str(i), values=(0,), wrap=True,
-                command=self.spinned_x, state=tk.DISABLED, tooltip="None")
+                command=self.spinned_x, state=tk.DISABLED, tooltip='None')
+            self.xdframe.append(xdframe)
             self.xdlblval.append(xdlblval)
             self.xdlbl.append(xdlbl)
             self.xdval.append(xdval)
             self.xd.append(xd)
             self.xdtip.append(xdtip)
+            xdframe.pack(side=tk.LEFT)
         # y-axis selection
-        spacex = ttk.Label(self.rowxy, text=" " * 3)
+        spacex_label = tk.StringVar()
+        spacex_label.set('   ')
+        spacex = Label(self.rowxy, textvariable=spacex_label)  # !!!
         spacex.pack(side=tk.LEFT)
-        self.blocky = ttk.Frame(self.rowxy)
+        self.blocky = Frame(self.rowxy)
         self.blocky.pack(side=tk.LEFT)
-        self.rowy = ttk.Frame(self.blocky)
+        self.rowy = Frame(self.blocky)
         self.rowy.pack(side=tk.TOP, fill=tk.X)
-        self.ylbl, self.y, self.ytip = add_combobox(
-            self.rowy, label="y", values=columns, command=self.selected_y,
-            tooltip="Choose variable of y-axis.\nTake index if 'None'.")
-        self.inv_ylbl, self.inv_y, self.inv_ytip = add_checkbutton(
-            self.rowy, label="invert y", value=False, command=self.checked,
-            tooltip="Invert y-axis")
-        self.rowyd = ttk.Frame(self.blocky)
+        self.yframe, self.ylbl, self.y, self.ytip = add_combobox(
+            self.rowy, label='y', values=columns, command=self.selected_y,
+            width=combowidth, padx=padx,
+            tooltip='Choose variable of y-axis.\nTakes index if "None".')
+        self.yframe.pack(side=tk.LEFT)
+        self.inv_yframe, self.inv_ylbl, self.inv_y, self.inv_ytip = (
+            add_checkbutton(self.rowy, label='invert y', value=False,
+                            command=self.checked,
+                            tooltip='Invert y-axis'))
+        self.inv_yframe.pack(side=tk.LEFT)
+        self.rowyd = Frame(self.blocky)
         self.rowyd.pack(side=tk.TOP, fill=tk.X)
+        self.ydframe  = []
         self.ydlblval = []
         self.ydlbl    = []
         self.ydval    = []
         self.yd       = []
         self.ydtip    = []
         for i in range(self.maxdim):
-            ydlblval, ydlbl, ydval, yd, ydtip = add_spinbox(
+            ydframe, ydlblval, ydlbl, ydval, yd, ydtip = add_spinbox(
                 self.rowyd, label=str(i), values=(0,), wrap=True,
-                command=self.spinned_y, state=tk.DISABLED, tooltip="None")
+                command=self.spinned_y, state=tk.DISABLED, tooltip='None')
+            self.ydframe.append(ydframe)
             self.ydlblval.append(ydlblval)
             self.ydlbl.append(ydlbl)
             self.ydval.append(ydval)
             self.yd.append(yd)
             self.ydtip.append(ydtip)
+            ydframe.pack(side=tk.LEFT)
 
         # 3. row
         # options
-        self.rowcmap = ttk.Frame(self)
+        self.rowcmap = Frame(self)
         self.rowcmap.pack(side=tk.TOP, fill=tk.X)
-        self.cmaplbl, self.cmap, self.cmaptip = add_imagemenu(
-            self.rowcmap, label="cmap", values=self.cmaps,
+        self.cmapframe, self.cmaplbl, self.cmap, self.cmaptip = add_imagemenu(
+            self.rowcmap, label='cmap', values=self.cmaps,
             images=self.imaps, command=self.selected_cmap,
-            tooltip="Choose colormap")
+            tooltip='Choose colormap')
+        self.cmapframe.pack(side=tk.LEFT)
         self.cmap['text']  = 'RdYlBu'
         self.cmap['image'] = self.imaps[self.cmaps.index('RdYlBu')]
-        self.rev_cmaplbl, self.rev_cmap, self.rev_cmaptip = add_checkbutton(
-            self.rowcmap, label="reverse cmap", value=False,
-            command=self.checked,
-            tooltip="Reverse colormap")
-        self.meshlbl, self.mesh, self.meshtip = add_checkbutton(
-            self.rowcmap, label="mesh", value=True,
-            command=self.checked,
-            tooltip="Pseudocolor plot if checked, plot contours if unchecked")
-        self.gridlbl, self.grid, self.gridtip = add_checkbutton(
-            self.rowcmap, label="grid", value=False,
-            command=self.checked,
-            tooltip="Draw major grid lines")
+        self.rev_cmapframe, self.rev_cmaplbl, self.rev_cmap, self.rev_cmaptip = (
+            add_checkbutton(self.rowcmap, label='reverse cmap', value=False,
+                            command=self.checked,
+                            tooltip='Reverse colormap'))
+        self.rev_cmapframe.pack(side=tk.LEFT)
+        self.meshframe, self.meshlbl, self.mesh, self.meshtip = (
+            add_checkbutton(self.rowcmap, label='mesh', value=True,
+                            command=self.checked,
+                            tooltip=('Pseudocolor plot if checked,'
+                                     ' plot contours if unchecked')))
+        self.meshframe.pack(side=tk.LEFT)
+        self.gridframe, self.gridlbl, self.grid, self.gridtip = (
+            add_checkbutton(self.rowcmap, label='grid', value=False,
+                            command=self.checked,
+                            tooltip='Draw major grid lines'))
+        self.gridframe.pack(side=tk.LEFT)
         # Quit button
-        self.bquit = ttk.Button(self.rowcmap, text="Quit",
-                                command=self.master.top.destroy)
+        self.bquit = Button(self.rowcmap, text='Quit',
+                            command=self.master.top.destroy)
         self.bquit.pack(side=tk.RIGHT)
         self.bquittip = add_tooltip(self.bquit, 'Quit ncvue')
 
@@ -302,6 +378,7 @@ class ncvContour(ttk.Frame):
         Command called if any checkbutton was checked or unchecked.
 
         Redraws plot.
+
         """
         self.redraw()
 
@@ -312,6 +389,7 @@ class ncvContour(ttk.Frame):
         Triggering `event` was bound to entry.
 
         Redraws plot.
+
         """
         self.redraw()
 
@@ -321,9 +399,13 @@ class ncvContour(ttk.Frame):
 
         Resets `zmin`/`zmax` and z-dimensions, resets `x` and `y` variables
         as well as their options and dimensions. Redraws plot.
+
         """
         z = self.z.get()
-        cols = self.z["values"]
+        if ihavectk:
+            cols = self.z.cget('values')
+        else:
+            cols = self.z['values']
         idx  = cols.index(z)
         idx += 1
         if idx < len(cols):
@@ -346,9 +428,13 @@ class ncvContour(ttk.Frame):
 
         Resets `zmin`/`zmax` and z-dimensions, resets `x` and `y` variables
         as well as their options and dimensions. Redraws plot.
+
         """
         z = self.z.get()
-        cols = self.z["values"]
+        if ihavectk:
+            cols = self.z.cget('values')
+        else:
+            cols = self.z['values']
         idx  = cols.index(z)
         idx -= 1
         if idx > 0:
@@ -367,6 +453,7 @@ class ncvContour(ttk.Frame):
     def newnetcdf(self):
         """
         Open a new netcdf file and connect it to top.
+
         """
         # get new netcdf file name
         ncfile = tk.filedialog.askopenfilename(
@@ -421,6 +508,7 @@ class ncvContour(ttk.Frame):
         `value` is the chosen colormap.
 
         Sets text and image on the menubutton.
+
         """
         self.cmap['text']  = value
         self.cmap['image'] = self.imaps[self.cmaps.index(value)]
@@ -433,6 +521,7 @@ class ncvContour(ttk.Frame):
         Triggering `event` was bound to the combobox.
 
         Resets `x` options and dimensions. Redraws plot.
+
         """
         self.inv_x.set(0)
         set_dim_x(self)
@@ -445,6 +534,7 @@ class ncvContour(ttk.Frame):
         Triggering `event` was bound to the combobox.
 
         Resets `y` options and dimensions. Redraws plot.
+
         """
         self.inv_y.set(0)
         set_dim_y(self)
@@ -458,6 +548,7 @@ class ncvContour(ttk.Frame):
 
         Resets `zmin`/`zmax` and z-dimensions, resets `x` and `y` variables
         as well as their options and dimensions. Redraws plot.
+
         """
         self.x.set('')
         self.y.set('')
@@ -477,6 +568,7 @@ class ncvContour(ttk.Frame):
         Triggering `event` was bound to the spinbox.
 
         Redraws plot.
+
         """
         self.redraw()
 
@@ -487,6 +579,7 @@ class ncvContour(ttk.Frame):
         Triggering `event` was bound to the spinbox.
 
         Redraws plot.
+
         """
         self.redraw()
 
@@ -497,6 +590,7 @@ class ncvContour(ttk.Frame):
         Triggering `event` was bound to the spinbox.
 
         Redraws plot.
+
         """
         self.redraw()
 
@@ -507,6 +601,7 @@ class ncvContour(ttk.Frame):
     def reinit(self):
         """
         Reinitialise the panel from top.
+
         """
         # reinit from top
         self.fi     = self.top.fi
@@ -528,15 +623,17 @@ class ncvContour(ttk.Frame):
             ll.destroy()
         for ll in self.zd:
             ll.destroy()
+        self.zdframe  = []
         self.zdlblval = []
         self.zdlbl    = []
         self.zdval    = []
         self.zd       = []
         self.zdtip    = []
         for i in range(self.maxdim):
-            zdlblval, zdlbl, zdval, zd, zdtip = add_spinbox(
+            zdframe, zdlblval, zdlbl, zdval, zd, zdtip = add_spinbox(
                 self.rowzd, label=str(i), values=(0,), wrap=True,
-                command=self.spinned_z, state=tk.DISABLED, tooltip="None")
+                command=self.spinned_z, state=tk.DISABLED, tooltip='None')
+            self.zdframe.append(zdframe)
             self.zdlblval.append(zdlblval)
             self.zdlbl.append(zdlbl)
             self.zdval.append(zdval)
@@ -546,15 +643,17 @@ class ncvContour(ttk.Frame):
             ll.destroy()
         for ll in self.xd:
             ll.destroy()
+        self.xdframe  = []
         self.xdlblval = []
         self.xdlbl    = []
         self.xdval    = []
         self.xd       = []
         self.xdtip    = []
         for i in range(self.maxdim):
-            xdlblval, xdlbl, xdval, xd, xdtip = add_spinbox(
+            xdframe, xdlblval, xdlbl, xdval, xd, xdtip = add_spinbox(
                 self.rowxd, label=str(i), values=(0,), wrap=True,
-                command=self.spinned_x, state=tk.DISABLED, tooltip="None")
+                command=self.spinned_x, state=tk.DISABLED, tooltip='None')
+            self.xdframe.append(xdframe)
             self.xdlblval.append(xdlblval)
             self.xdlbl.append(xdlbl)
             self.xdval.append(xdval)
@@ -564,15 +663,17 @@ class ncvContour(ttk.Frame):
             ll.destroy()
         for ll in self.yd:
             ll.destroy()
+        self.ydframe  = []
         self.ydlblval = []
         self.ydlbl    = []
         self.ydval    = []
         self.yd       = []
         self.ydtip    = []
         for i in range(self.maxdim):
-            ydlblval, ydlbl, ydval, yd, ydtip = add_spinbox(
+            ydframe, ydlblval, ydlbl, ydval, yd, ydtip = add_spinbox(
                 self.rowyd, label=str(i), values=(0,), wrap=True,
-                command=self.spinned_y, state=tk.DISABLED, tooltip="None")
+                command=self.spinned_y, state=tk.DISABLED, tooltip='None')
+            self.ydframe.append(ydframe)
             self.ydlblval.append(ydlblval)
             self.ydlbl.append(ydlbl)
             self.ydval.append(ydval)
@@ -580,13 +681,22 @@ class ncvContour(ttk.Frame):
             self.ydtip.append(ydtip)
         # set variables
         columns = [''] + self.cols
-        self.z['values'] = columns
+        if ihavectk:
+            self.z.configure(values=columns)
+        else:
+            self.z['values'] = columns
         self.z.set(columns[0])
         self.zmin.set('None')
         self.zmax.set('None')
-        self.x['values'] = columns
+        if ihavectk:
+            self.x.configure(values=columns)
+        else:
+            self.x['values'] = columns
         self.x.set(columns[0])
-        self.y['values'] = columns
+        if ihavectk:
+            self.y.configure(values=columns)
+        else:
+            self.y['values'] = columns
         self.y.set(columns[0])
 
     #
@@ -600,6 +710,7 @@ class ncvContour(ttk.Frame):
         Reads `x`, `y`, `z` variable names, the current settings of
         their dimension spinboxes, as well as all other plotting options.
         Then redraws the plot.
+
         """
         # get all states
         # rowz

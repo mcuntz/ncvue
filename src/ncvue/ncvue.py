@@ -20,20 +20,21 @@ The following functions are provided:
    ncvue
 
 History
-    * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
-    * Separate Tk() and Toplevel() widgets to communicate via Tk() between
-      windows, Jan 2021, Matthias Cuntz
-    * Set titlebar and taskbar icon only if "standalone" not in ipython or
-      jupyter, May 2021, Matthias Cuntz
-    * Different themes for different OS, May 2021, Matthias Cuntz
-    * Font size 13 on Windows for plots, Jun 2021, Matthias Cuntz
-    * Allow groups in netcdf files, Jan 2024, Matthias Cuntz
-    * Allow multiple netcdf files, Jan 2024, Matthias Cuntz
-    * Move themes/ and images/ directories from src/ncvue/ to src/ directory,
-      Jan 2024, Matthias Cuntz
-    * Move themes/ and images/ back to src/ncvue/, Feb 2024, Matthias Cuntz
-    * Change formatting of file string for multiple files,
-      Jul 2024, Matthias Cuntz
+   * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
+   * Separate Tk() and Toplevel() widgets to communicate via Tk() between
+     windows, Jan 2021, Matthias Cuntz
+   * Set titlebar and taskbar icon only if "standalone" not in ipython or
+     jupyter, May 2021, Matthias Cuntz
+   * Different themes for different OS, May 2021, Matthias Cuntz
+   * Font size 13 on Windows for plots, Jun 2021, Matthias Cuntz
+   * Allow groups in netcdf files, Jan 2024, Matthias Cuntz
+   * Allow multiple netcdf files, Jan 2024, Matthias Cuntz
+   * Move themes/ and images/ directories from src/ncvue/ to src/ directory,
+     Jan 2024, Matthias Cuntz
+   * Move themes/ and images/ back to src/ncvue/, Feb 2024, Matthias Cuntz
+   * Change formatting of file string for multiple files,
+     Jul 2024, Matthias Cuntz
+   * Use CustomTkinter if installed, Nov 2024, Matthias Cuntz
 
 """
 import os
@@ -41,6 +42,15 @@ import platform
 import sys
 import tkinter as tk
 import tkinter.ttk as ttk
+try:
+    import customtkinter
+    from customtkinter import CTk as Tk
+    from customtkinter import CTkToplevel as Toplevel
+    ihavectk = True
+except ModuleNotFoundError:
+    from tkinter import Tk
+    from tkinter import Toplevel
+    ihavectk = False
 from matplotlib import pyplot as plt
 import netCDF4 as nc
 import numpy as np
@@ -77,7 +87,7 @@ def ncvue(ncfile=[], miss=np.nan):
     bundle_dir = getattr(sys, '_MEIPASS',
                          os.path.abspath(os.path.dirname(__file__)))
 
-    top = tk.Tk()
+    top = Tk()
     top.withdraw()
     # top.option_add("*Font", "Helvetica 10")
 
@@ -144,6 +154,15 @@ def ncvue(ncfile=[], miss=np.nan):
         theme = 'light'  # light, dark
         top.tk.call("set_theme", theme)
 
+    if ihavectk:
+        # customtkinter.set_default_color_theme("blue")
+        # customtkinter.set_default_color_theme("dark-blue")
+        # customtkinter.set_default_color_theme("green")
+        # customtkinter.set_default_color_theme(
+        #     f'{bundle_dir}/themes/customtkinter/dark-blue.json')
+        customtkinter.set_default_color_theme(
+            f'{bundle_dir}/themes/customtkinter/ncvue-blue.json')
+
     # set titlebar and taskbar icon only if "standalone",
     # i.e. not ipython or jupyter
     try:
@@ -156,7 +175,7 @@ def ncvue(ncfile=[], miss=np.nan):
     else:
         icon = None
 
-    root = tk.Toplevel()
+    root = Toplevel()
     root.name = 'ncvOne'
     if len(ncfile) == 1:
         root.title("ncvue " + ncfile[0])
@@ -218,5 +237,6 @@ def ncvue(ncfile=[], miss=np.nan):
 
     # 1st plotting window
     main_frame = ncvMain(root)
+    main_frame.pack(fill=tk.BOTH, expand=1)
 
     top.mainloop()

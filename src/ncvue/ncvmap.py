@@ -20,32 +20,44 @@ The following classes are provided:
    ncvMap
 
 History
-    * Written Dec 2020-Jan 2021 by Matthias Cuntz (mc (at) macu (dot) de)
-    * Open new netcdf file, communicate via top widget,
-      Jan 2021, Matthias Cuntz
-    * Write coordinates and value on bottom of plotting canvas,
-      May 2021, Matthias Cuntz
-    * Larger pad for colorbar, Jun 2021, Matthias Cuntz
-    * Work with files without an unlimited (time) dimension (set_tstep),
-      Oct 2021, Matthias Cuntz
-    * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz
-    * Allow groups in netcdf files, Jan 2024, Matthias Cuntz
-    * Allow multiple netcdf files, Jan 2024, Matthias Cuntz
-    * Move images/ directory from src/ncvue/ to src/ directory,
-      Jan 2024, Matthias Cuntz
-    * Added borders, rivers, and lakes checkbuttons, Feb 2024, Matthias Cuntz
-    * Move themes/ and images/ back to src/ncvue/, Feb 2024, Matthias Cuntz
-    * Use matplotlib.colormaps[name] instead of
-      matplotlib.colormaps.get_cmap(name), Jul 2024, Matthias Cuntz
-    * Use draw_idle instead of draw in update method for faster animation,
-      Jul 2024, Matthias Cuntz
-    * Add Quit button, Nov 2024, Matthias Cuntz
+   * Written Dec 2020-Jan 2021 by Matthias Cuntz (mc (at) macu (dot) de)
+   * Open new netcdf file, communicate via top widget,
+     Jan 2021, Matthias Cuntz
+   * Write coordinates and value on bottom of plotting canvas,
+     May 2021, Matthias Cuntz
+   * Larger pad for colorbar, Jun 2021, Matthias Cuntz
+   * Work with files without an unlimited (time) dimension (set_tstep),
+     Oct 2021, Matthias Cuntz
+   * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz
+   * Allow groups in netcdf files, Jan 2024, Matthias Cuntz
+   * Allow multiple netcdf files, Jan 2024, Matthias Cuntz
+   * Move images/ directory from src/ncvue/ to src/ directory,
+     Jan 2024, Matthias Cuntz
+   * Added borders, rivers, and lakes checkbuttons, Feb 2024, Matthias Cuntz
+   * Move themes/ and images/ back to src/ncvue/, Feb 2024, Matthias Cuntz
+   * Use matplotlib.colormaps[name] instead of
+     matplotlib.colormaps.get_cmap(name), Jul 2024, Matthias Cuntz
+   * Use draw_idle instead of draw in update method for faster animation,
+     Jul 2024, Matthias Cuntz
+   * Add Quit button, Nov 2024, Matthias Cuntz
+   * Use CustomTkinter if installed, Nov 2024, Matthias Cuntz
 
 """
 import os
 import sys
 import tkinter as tk
-import tkinter.ttk as ttk
+try:
+    from customtkinter import CTkFrame as Frame
+    from customtkinter import CTkButton as Button
+    from customtkinter import CTkLabel as Label
+    from customtkinter import CTkComboBox as Combobox
+    ihavectk = True
+except ModuleNotFoundError:
+    from tkinter.ttk import Frame
+    from tkinter.ttk import Button
+    from tkinter.ttk import Label
+    from tkinter.ttk import Combobox
+    ihavectk = False
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 import netCDF4 as nc
@@ -70,7 +82,7 @@ except OSError:
 __all__ = ['ncvMap']
 
 
-class ncvMap(ttk.Frame):
+class ncvMap(Frame):
     """
     Panel for maps.
 
@@ -118,48 +130,6 @@ class ncvMap(ttk.Frame):
         self.iunlim = -1  # index of dunlim in dimensions of current var
         self.nunlim = 0   # length of dunlim of current plot variable
 
-        # new window
-        self.rowwin = ttk.Frame(self)
-        self.rowwin.pack(side=tk.TOP, fill=tk.X)
-        self.newfile = ttk.Button(self.rowwin, text="Open File",
-                                  command=self.newnetcdf)
-        self.newfile.pack(side=tk.LEFT)
-        self.newfiletip = add_tooltip(self.newfile, 'Open a new netcdf file')
-        spacew = ttk.Label(self.rowwin, text=" " * 3)
-        spacew.pack(side=tk.LEFT)
-        time_label1 = ttk.Label(self.rowwin, text='Time: ')
-        time_label1.pack(side=tk.LEFT)
-        self.timelbl = tk.StringVar()
-        self.timelbl.set('')
-        time_label2 = ttk.Label(self.rowwin, textvariable=self.timelbl)
-        time_label2.pack(side=tk.LEFT)
-        self.newwin = ttk.Button(
-            self.rowwin, text="New Window",
-            command=partial(clone_ncvmain, self.master))
-        self.newwin.pack(side=tk.RIGHT)
-        self.newwintip = add_tooltip(
-            self.newwin, 'Open secondary ncvue window')
-
-        # plotting canvas
-        self.figure = Figure(facecolor="white", figsize=(1, 1))
-        # self.axes   = self.figure.add_subplot(111)
-        self.axes   = self.figure.add_subplot(111,
-                                              projection=ccrs.PlateCarree())
-        self.canvas = FigureCanvasTkAgg(self.figure, master=self)
-        self.canvas.draw()
-        # pack
-        self.canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
-        # grid instead of pack - does not work
-        # self.canvas.get_tk_widget().grid(column=0, row=0,
-        #     sticky=(tk.N, tk.S, tk.E, tk.W))
-        # self.canvas.get_tk_widget().columnconfigure(0, weight=1)
-        # self.canvas.get_tk_widget().rowconfigure(0, weight=1)
-
-        # matplotlib toolbar
-        self.toolbar = NavigationToolbar2Tk(self.canvas, self)
-        self.toolbar.update()
-        self.toolbar.pack(side=tk.TOP, fill=tk.X)
-
         # selections and options
         columns = [''] + self.cols
 
@@ -194,259 +164,385 @@ class ncvMap(ttk.Frame):
                        ccrs.Mollweide, ccrs.NorthPolarStereo, ccrs.PlateCarree,
                        ccrs.Robinson, ccrs.Sinusoidal, ccrs.SouthPolarStereo,
                        ccrs.Stereographic]
+        if ihavectk:
+            # width of combo boxes in px
+            combowidth = 297
+            smallcombowidth = 81
+            # widths of entry widgets in px
+            ewsmall = 18
+            ewmed = 45
+            ewbig = 72
+            ewvbig = 117
+            # pad between label and entry
+            padx = 5
+            # width of animation and variables buttons
+            bwidth = 35
+            # width of projections menu
+            mwidth = 70
+        else:
+            # width of combo boxes in characters
+            combowidth = 32
+            smallcombowidth = 5
+            # widths of entry widgets in characters
+            ewsmall = 3
+            ewmed = 4
+            ewbig = 7
+            ewvbig = 11
+            # pad between label and entry (not used)
+            padx = 5
+            # width of animation and variables buttons
+            bwidth = 1
+            # width of projections menu
+            mwidth = 13
+
+        # new window
+        self.rowwin = Frame(self)
+        self.rowwin.pack(side=tk.TOP, fill=tk.X)
+        self.newfile = Button(self.rowwin, text='Open File',
+                              command=self.newnetcdf)
+        self.newfile.pack(side=tk.LEFT)
+        self.newfiletip = add_tooltip(self.newfile, 'Open a new netcdf file')
+        spacew_label = tk.StringVar()
+        spacew_label.set('   ')
+        spacew = Label(self.rowwin, textvariable=spacew_label)
+        spacew.pack(side=tk.LEFT)
+        time_label1text = tk.StringVar()
+        time_label1text.set('Time: ')
+        time_label1 = Label(self.rowwin, textvariable=time_label1text)
+        time_label1.pack(side=tk.LEFT)
+        self.timelbl = tk.StringVar()
+        self.timelbl.set('')
+        time_label2 = Label(self.rowwin, textvariable=self.timelbl)
+        time_label2.pack(side=tk.LEFT)
+        self.newwin = Button(
+            self.rowwin, text='New Window',
+            command=partial(clone_ncvmain, self.master))
+        self.newwin.pack(side=tk.RIGHT)
+        self.newwintip = add_tooltip(
+            self.newwin, 'Open secondary ncvue window')
+
+        # plotting canvas
+        self.figure = Figure(facecolor='white', figsize=(1, 1))
+        # self.axes   = self.figure.add_subplot(111)
+        self.axes   = self.figure.add_subplot(111,
+                                              projection=ccrs.PlateCarree())
+        self.canvas = FigureCanvasTkAgg(self.figure, master=self)
+        self.canvas.draw()
+        # pack
+        self.canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
+        # grid instead of pack - does not work
+        # self.canvas.get_tk_widget().grid(column=0, row=0,
+        #     sticky=(tk.N, tk.S, tk.E, tk.W))
+        # self.canvas.get_tk_widget().columnconfigure(0, weight=1)
+        # self.canvas.get_tk_widget().rowconfigure(0, weight=1)
+
+        # matplotlib toolbar
+        self.toolbar = NavigationToolbar2Tk(self.canvas, self)
+        self.toolbar.update()
+        self.toolbar.pack(side=tk.TOP, fill=tk.X)
 
         # 1. row
         # controls
-        self.rowt = ttk.Frame(self)
+        self.rowt = Frame(self)
         self.rowt.pack(side=tk.TOP, fill=tk.X)
         ntime = 1
-        self.tsteplbl, self.tstepval, self.tstep, self.tsteptip = add_scale(
-            self.rowt, label="step", ini=0, from_=0, to=ntime,
-            length=100, orient=tk.HORIZONTAL, command=self.tstep_t,
-            tooltip="Slide to go to time step")
-        spacet = ttk.Label(self.rowt, text=" " * 1)
+        self.tstepframe, self.tsteplbl, self.tstepval, self.tstep, self.tsteptip = (
+            add_scale(self.rowt, label='step', ini=0, from_=0, to=ntime,
+                      length=100, orient=tk.HORIZONTAL, command=self.tstep_t,
+                      tooltip='Slide to go to time step'))
+        self.tstepframe.pack(side=tk.LEFT)
+        spacet_label = tk.StringVar()
+        spacet_label.set(' ')
+        spacet = Label(self.rowt, textvariable=spacet_label)
+        spacet = Label(self.rowt, text=' ' * 1)
         spacet.pack(side=tk.LEFT)
         # first t
-        self.first_t = ttk.Button(self.rowt, text="|<<", width=3,
-                                  command=self.first_t)
+        self.first_t = Button(self.rowt, text='|<<', width=bwidth,
+                              command=self.first_t)
         self.first_t.pack(side=tk.LEFT)
         self.first_ttip = add_tooltip(self.first_t, 'First time step')
         # previous t
-        self.prev_t = ttk.Button(self.rowt, text="|<", width=2,
-                                 command=self.prev_t)
+        self.prev_t = Button(self.rowt, text='|<', width=bwidth,
+                             command=self.prev_t)
         self.prev_t.pack(side=tk.LEFT)
         self.prev_ttip = add_tooltip(self.prev_t, 'Previous time step')
         # run t backwards
-        self.prun_t = ttk.Button(self.rowt, text="<", width=1,
-                                 command=self.prun_t)
+        self.prun_t = Button(self.rowt, text='<', width=bwidth,
+                             command=self.prun_t)
         self.prun_t.pack(side=tk.LEFT)
         self.prun_ttip = add_tooltip(self.prun_t, 'Run backwards')
         # pause t
-        self.pause_t = ttk.Button(self.rowt, text="||", width=1,
-                                  command=self.pause_t)
+        self.pause_t = Button(self.rowt, text='||', width=bwidth,
+                              command=self.pause_t)
         self.pause_t.pack(side=tk.LEFT)
         self.pause_ttip = add_tooltip(self.pause_t, 'Pause/Stop')
         # run t forward
-        self.nrun_t = ttk.Button(self.rowt, text=">", width=1,
-                                 command=self.nrun_t)
+        self.nrun_t = Button(self.rowt, text='>', width=bwidth,
+                             command=self.nrun_t)
         self.nrun_t.pack(side=tk.LEFT)
         self.nrun_ttip = add_tooltip(self.nrun_t, 'Run forwards')
         # next t
-        self.next_t = ttk.Button(self.rowt, text=">|", width=2,
-                                 command=self.next_t)
+        self.next_t = Button(self.rowt, text='>|', width=bwidth,
+                             command=self.next_t)
         self.next_t.pack(side=tk.LEFT)
         self.next_ttip = add_tooltip(self.next_t, 'Next time step')
         # last t
-        self.last_t = ttk.Button(self.rowt, text=">>|", width=3,
-                                 command=self.last_t)
+        self.last_t = Button(self.rowt, text='>>|', width=bwidth,
+                             command=self.last_t)
         self.last_t.pack(side=tk.LEFT)
         self.last_ttip = add_tooltip(self.last_t, 'Last time step')
         # repeat
-        spacer = ttk.Label(self.rowt, text=" " * 1)
+        spacer = Label(self.rowt, text=' ' * 1)
         spacer.pack(side=tk.LEFT)
         reps = ['once', 'repeat', 'reflect']
-        tstr  = "Run time steps once, repeat from start when at end,"
-        tstr += " or continue running backwards when at end"
-        self.repeatlbl, self.repeat, self.repeattip = add_combobox(
-            self.rowt, label="repeat", values=reps, width=5,
-            command=self.repeat_t, tooltip=tstr)
+        tstr  = 'Run time steps once, repeat from start when at end,'
+        tstr += ' or continue running backwards when at end'
+        self.repeatframe, self.repeatlbl, self.repeat, self.repeattip = (
+            add_combobox(self.rowt, label='repeat', values=reps,
+                         width=smallcombowidth, padx=padx,
+                         command=self.repeat_t, tooltip=tstr))
         self.repeat.set('repeat')
-        self.last_t.pack(side=tk.LEFT)
+        self.repeatframe.pack(side=tk.LEFT)
         # delay
-        spaced = ttk.Label(self.rowt, text=" " * 1)
+        spaced = Label(self.rowt, text=' ' * 1)
         spaced.pack(side=tk.LEFT)
-        tstr = "Delay run between time steps from 1 to 1000 ms"
-        self.delaylbl, self.delayval, self.delay, self.delaytip = add_scale(
-            self.rowt, label="delay (ms)", ini=1, from_=1, to=1000,
-            length=100, orient=tk.HORIZONTAL, command=self.delay_t,
-            tooltip=tstr)
+        tstr = 'Delay run between time steps from 1 to 1000 ms'
+        self.delayframe, self.delaylbl, self.delayval, self.delay, self.delaytip = (
+            add_scale(self.rowt, label='delay (ms)', ini=1, from_=1, to=1000,
+                      length=100, orient=tk.HORIZONTAL, command=self.delay_t,
+                      tooltip=tstr))
+        self.delayframe.pack(side=tk.LEFT)
 
         # 2. row
         # variable-axis selection
-        self.rowvv = ttk.Frame(self)
+        self.rowvv = Frame(self)
         self.rowvv.pack(side=tk.TOP, fill=tk.X)
-        self.blockv = ttk.Frame(self.rowvv)
+        self.blockv = Frame(self.rowvv)
         self.blockv.pack(side=tk.LEFT)
-        self.rowv = ttk.Frame(self.blockv)
+        self.rowv = Frame(self.blockv)
         self.rowv.pack(side=tk.TOP, fill=tk.X)
         self.vlbl = tk.StringVar()
-        self.vlbl.set("var")
-        vlab = ttk.Label(self.rowv, textvariable=self.vlbl)
+        self.vlbl.set('var')
+        lkwargs = {'textvariable': self.vlbl}
+        if ihavectk:
+            lkwargs.update({'padx': padx})
+        vlab = Label(self.rowv, **lkwargs)
         vlab.pack(side=tk.LEFT)
-        self.bprev_v = ttk.Button(self.rowv, text="<", width=1,
-                                  command=self.prev_v)
+        self.bprev_v = Button(self.rowv, text='<', width=bwidth,
+                              command=self.prev_v)
         self.bprev_v.pack(side=tk.LEFT)
         self.bprev_vtip = add_tooltip(self.bprev_v, 'Previous variable')
-        self.bnext_v = ttk.Button(self.rowv, text=">", width=1,
-                                  command=self.next_v)
+        self.bnext_v = Button(self.rowv, text='>', width=bwidth,
+                              command=self.next_v)
         self.bnext_v.pack(side=tk.LEFT)
         self.bnext_vtip = add_tooltip(self.bnext_v, 'Next variable')
-        self.v = ttk.Combobox(self.rowv, values=columns, width=25)
-        self.v.bind("<<ComboboxSelected>>", self.selected_v)
+        if ihavectk:
+            self.v = Combobox(self.rowv, values=columns, width=combowidth,
+                              command=self.selected_v)
+        else:
+            self.v = Combobox(self.rowv, values=columns, width=combowidth)
+            self.v.bind('<<ComboboxSelected>>', self.selected_v)
         self.v.pack(side=tk.LEFT)
         self.vtip = add_tooltip(self.v, 'Choose variable')
-        self.trans_vlbl, self.trans_v, self.trans_vtip = add_checkbutton(
-            self.rowv, label="transpose var", value=False,
-            command=self.checked,
-            tooltip="Transpose array, i.e. exchanging lat and lon")
-        spacev = ttk.Label(self.rowv, text=" " * 1)
+        self.trans_vframe, self.trans_vlbl, self.trans_v, self.trans_vtip = (
+            add_checkbutton(self.rowv, label='transpose var', value=False,
+                            command=self.checked,
+                            tooltip=('Transpose array, i.e. exchanging lat and'
+                                     ' lon')))
+        self.trans_vframe.pack(side=tk.LEFT)
+        spacev = Label(self.rowv, text=' ' * 1)
         spacev.pack(side=tk.LEFT)
-        self.vminlbl, self.vmin, self.vmintip = add_entry(
-            self.rowv, label="vmin", text=0, width=11, command=self.entered_v,
-            tooltip="Minimal display value")
-        self.vmaxlbl, self.vmax, self.vmaxtip = add_entry(
-            self.rowv, label="vmax", text=1, width=11, command=self.entered_v,
-            tooltip="Maximal display value")
-        tstr  = "If checked, determine vmin/vmax from all fields,\n"
-        tstr += "otherwise from 50 random fields"
-        self.valllbl, self.vall, self.valltip = add_checkbutton(
-            self.rowv, label="all", value=False, command=self.checked_all,
-            tooltip=tstr)
+        self.vminframe, self.vminlbl, self.vmin, self.vmintip = add_entry(
+            self.rowv, label='vmin', text=0, width=ewvbig, command=self.entered_v,
+            tooltip='Minimal display value', padx=padx)
+        self.vminframe.pack(side=tk.LEFT)
+        self.vmaxframe, self.vmaxlbl, self.vmax, self.vmaxtip = add_entry(
+            self.rowv, label='vmax', text=1, width=ewvbig, command=self.entered_v,
+            tooltip='Maximal display value', padx=padx)
+        self.vmaxframe.pack(side=tk.LEFT)
+        tstr  = 'If checked, determine vmin/vmax from all fields,\n'
+        tstr += 'otherwise from 50 random fields'
+        self.vallframe, self.valllbl, self.vall, self.valltip = (
+            add_checkbutton(self.rowv, label='all', value=False,
+                            command=self.checked_all, tooltip=tstr))
+        self.vallframe.pack(side=tk.LEFT)
         # levels var
-        self.rowvd = ttk.Frame(self.blockv)
+        self.rowvd = Frame(self.blockv)
         self.rowvd.pack(side=tk.TOP, fill=tk.X)
+        self.vdframe  = []
         self.vdlblval = []
         self.vdlbl    = []
         self.vdval    = []
         self.vd       = []
         self.vdtip    = []
         for i in range(self.maxdim):
-            vdlblval, vdlbl, vdval, vd, vdtip = add_spinbox(
+            vdframe, vdlblval, vdlbl, vdval, vd, vdtip = add_spinbox(
                 self.rowvd, label=str(i), values=(0,), wrap=True,
-                command=self.spinned_v, state=tk.DISABLED, tooltip="None")
+                command=self.spinned_v, state=tk.DISABLED, tooltip='None')
+            self.vdframe.append(vdframe)
             self.vdlblval.append(vdlblval)
             self.vdlbl.append(vdlbl)
             self.vdval.append(vdval)
             self.vd.append(vd)
             self.vdtip.append(vdtip)
+            vdframe.pack(side=tk.LEFT)
 
         # 3. row
         # lon-axis selection
-        self.rowll = ttk.Frame(self)
+        self.rowll = Frame(self)
         self.rowll.pack(side=tk.TOP, fill=tk.X)
-        self.blocklon = ttk.Frame(self.rowll)
+        self.blocklon = Frame(self.rowll)
         self.blocklon.pack(side=tk.LEFT)
-        self.rowlon = ttk.Frame(self.blocklon)
+        self.rowlon = Frame(self.blocklon)
         self.rowlon.pack(side=tk.TOP, fill=tk.X)
-        self.lonlbl, self.lon, self.lontip = add_combobox(
-            self.rowlon, label="lon", values=columns,
-            command=self.selected_lon,
-            tooltip="Longitude variable.\nSet 'empty' for matrix plot.")
-        self.inv_lonlbl, self.inv_lon, self.inv_lontip = add_checkbutton(
-            self.rowlon, label="invert lon", value=False,
-            command=self.checked,
-            tooltip="Invert longitudes")
-        self.shift_lonlbl, self.shift_lon, self.shift_lontip = add_checkbutton(
-            self.rowlon, label="shift lon/2", value=False,
-            command=self.checked,
-            tooltip="Roll longitudes by half its size")
-        self.rowlond = ttk.Frame(self.blocklon)
+        self.lonframe, self.lonlbl, self.lon, self.lontip = add_combobox(
+            self.rowlon, label='lon', values=columns, padx=padx,
+            command=self.selected_lon, width=combowidth,
+            tooltip='Longitude variable.\nSet "empty" for matrix plot.')
+        self.lonframe.pack(side=tk.LEFT)
+        self.inv_lonframe, self.inv_lonlbl, self.inv_lon, self.inv_lontip = (
+            add_checkbutton(self.rowlon, label='invert lon', value=False,
+                            command=self.checked,
+                            tooltip='Invert longitudes'))
+        self.inv_lonframe.pack(side=tk.LEFT)
+        self.shift_lonframe, self.shift_lonlbl, self.shift_lon, self.shift_lontip = (
+            add_checkbutton(self.rowlon, label='shift lon/2', value=False,
+                            command=self.checked,
+                            tooltip='Roll longitudes by half its size'))
+        self.shift_lonframe.pack(side=tk.LEFT)
+        self.rowlond = Frame(self.blocklon)
         self.rowlond.pack(side=tk.TOP, fill=tk.X)
+        self.londframe  = []
         self.londlblval = []
         self.londlbl    = []
         self.londval    = []
         self.lond       = []
         self.londtip    = []
         for i in range(self.maxdim):
-            londlblval, londlbl, londval, lond, londtip = add_spinbox(
-                self.rowlond, label=str(i), values=(0,), wrap=True,
-                command=self.spinned_lon, state=tk.DISABLED, tooltip="None")
+            londframe, londlblval, londlbl, londval, lond, londtip = (
+                add_spinbox(self.rowlond, label=str(i), values=(0,), wrap=True,
+                            command=self.spinned_lon, state=tk.DISABLED,
+                            tooltip='None'))
+            self.londframe.append(londframe)
             self.londlblval.append(londlblval)
             self.londlbl.append(londlbl)
             self.londval.append(londval)
             self.lond.append(lond)
             self.londtip.append(londtip)
+            londframe.pack(side=tk.LEFT)
         # lat-axis selection
-        spacex = ttk.Label(self.rowll, text=" " * 3)
+        spacex = Label(self.rowll, text=' ' * 3)
         spacex.pack(side=tk.LEFT)
-        self.blocklat = ttk.Frame(self.rowll)
+        self.blocklat = Frame(self.rowll)
         self.blocklat.pack(side=tk.LEFT)
-        self.rowlat = ttk.Frame(self.blocklat)
+        self.rowlat = Frame(self.blocklat)
         self.rowlat.pack(side=tk.TOP, fill=tk.X)
-        self.latlbl, self.lat, self.lattip = add_combobox(
-            self.rowlat, label="lat", values=columns,
-            command=self.selected_lat,
-            tooltip="Longitude variable.\nSet 'empty' for matrix plot.")
-        self.inv_latlbl, self.inv_lat, self.inv_lattip = add_checkbutton(
-            self.rowlat, label="invert lat", value=False, command=self.checked,
-            tooltip="Invert longitudes")
-        self.rowlatd = ttk.Frame(self.blocklat)
+        self.latframe, self.latlbl, self.lat, self.lattip = add_combobox(
+            self.rowlat, label='lat', values=columns, padx=padx,
+            command=self.selected_lat, width=combowidth,
+            tooltip='Longitude variable.\nSet "empty" for matrix plot.')
+        self.latframe.pack(side=tk.LEFT)
+        self.inv_latframe, self.inv_latlbl, self.inv_lat, self.inv_lattip = (
+            add_checkbutton(self.rowlat, label='invert lat', value=False,
+                            command=self.checked,
+                            tooltip='Invert longitudes'))
+        self.inv_latframe.pack(side=tk.LEFT)
+        self.rowlatd = Frame(self.blocklat)
         self.rowlatd.pack(side=tk.TOP, fill=tk.X)
+        self.latdframe  = []
         self.latdlblval = []
         self.latdlbl    = []
         self.latdval    = []
         self.latd       = []
         self.latdtip    = []
         for i in range(self.maxdim):
-            latdlblval, latdlbl, latdval, latd, latdtip = add_spinbox(
-                self.rowlatd, label=str(i), values=(0,), wrap=True,
-                command=self.spinned_lat, state=tk.DISABLED, tooltip="None")
+            latdframe, latdlblval, latdlbl, latdval, latd, latdtip = (
+                add_spinbox(self.rowlatd, label=str(i), values=(0,), wrap=True,
+                            command=self.spinned_lat, state=tk.DISABLED,
+                            tooltip='None'))
+            self.latdframe.append(latdframe)
             self.latdlblval.append(latdlblval)
             self.latdlbl.append(latdlbl)
             self.latdval.append(latdval)
             self.latd.append(latd)
             self.latdtip.append(latdtip)
+            latdframe.pack(side=tk.LEFT)
 
         # 4. row
         # options
-        self.rowcmap = ttk.Frame(self)
+        self.rowcmap = Frame(self)
         self.rowcmap.pack(side=tk.TOP, fill=tk.X)
-        self.cmaplbl, self.cmap, self.cmaptip = add_imagemenu(
-            self.rowcmap, label="cmap", values=self.cmaps,
+        self.cmapframe, self.cmaplbl, self.cmap, self.cmaptip = add_imagemenu(
+            self.rowcmap, label='cmap', values=self.cmaps,
             images=self.imaps, command=self.selected_cmap,
-            tooltip="Choose colormap")
+            tooltip='Choose colormap')
         self.cmap['text']  = 'RdYlBu'
         self.cmap['image'] = self.imaps[self.cmaps.index('RdYlBu')]
-        self.rev_cmaplbl, self.rev_cmap, self.rev_cmaptip = add_checkbutton(
-            self.rowcmap, label="reverse cmap", value=False,
-            command=self.checked,
-            tooltip="Reverse colormap")
-        self.meshlbl, self.mesh, self.meshtip = add_checkbutton(
-            self.rowcmap, label="mesh", value=True,
-            command=self.checked,
-            tooltip="Pseudocolor plot if checked, plot contours if unchecked")
-        self.igloballbl, self.iglobal, self.iglobaltip = add_checkbutton(
-            self.rowcmap, label="global", value=False,
-            command=self.checked,
-            tooltip="Assume global extent")
-        self.coastlbl, self.coast, self.coasttip = add_checkbutton(
-            self.rowcmap, label="coast", value=True,
-            command=self.checked,
-            tooltip="Draw continental coast lines")
-        self.borderslbl, self.borders, self.borderstip = add_checkbutton(
-            self.rowcmap, label="borders", value=False,
-            command=self.checked,
-            tooltip="Draw country borders")
-        self.riverslbl, self.rivers, self.riverstip = add_checkbutton(
-            self.rowcmap, label="rivers", value=False,
-            command=self.checked,
-            tooltip="Draw rivers")
-        self.lakeslbl, self.lakes, self.lakestip = add_checkbutton(
-            self.rowcmap, label="lakes", value=False,
-            command=self.checked,
-            tooltip="Draw major lakes")
-        self.gridlbl, self.grid, self.gridtip = add_checkbutton(
-            self.rowcmap, label="grid", value=False,
-            command=self.checked,
-            tooltip="Draw major grid lines")
+        self.cmapframe.pack(side=tk.LEFT)
+        self.rev_cmapframe, self.rev_cmaplbl, self.rev_cmap, self.rev_cmaptip = (
+            add_checkbutton(self.rowcmap, label='reverse cmap', value=False,
+                            command=self.checked,
+                            tooltip='Reverse colormap'))
+        self.rev_cmapframe.pack(side=tk.LEFT)
+        self.meshframe, self.meshlbl, self.mesh, self.meshtip = (
+            add_checkbutton(self.rowcmap, label='mesh', value=True,
+                            command=self.checked,
+                            tooltip=('Pseudocolor plot if checked, plot '
+                                     'contours if unchecked')))
+        self.meshframe.pack(side=tk.LEFT)
+        self.iglobalframe, self.igloballbl, self.iglobal, self.iglobaltip = (
+            add_checkbutton(self.rowcmap, label='global', value=False,
+                            command=self.checked,
+                            tooltip='Assume global extent'))
+        self.iglobalframe.pack(side=tk.LEFT)
+        self.coastframe, self.coastlbl, self.coast, self.coasttip = (
+            add_checkbutton(self.rowcmap, label='coast', value=True,
+                            command=self.checked,
+                            tooltip='Draw continental coast lines'))
+        self.coastframe.pack(side=tk.LEFT)
+        self.bordersframe, self.borderslbl, self.borders, self.borderstip = (
+            add_checkbutton(self.rowcmap, label='borders', value=False,
+                            command=self.checked,
+                            tooltip='Draw country borders'))
+        self.bordersframe.pack(side=tk.LEFT)
+        self.riversframe, self.riverslbl, self.rivers, self.riverstip = (
+            add_checkbutton(self.rowcmap, label='rivers', value=False,
+                            command=self.checked,
+                            tooltip='Draw rivers'))
+        self.riversframe.pack(side=tk.LEFT)
+        self.lakesframe, self.lakeslbl, self.lakes, self.lakestip = (
+            add_checkbutton(self.rowcmap, label='lakes', value=False,
+                            command=self.checked,
+                            tooltip='Draw major lakes'))
+        self.lakesframe.pack(side=tk.LEFT)
+        self.gridframe, self.gridlbl, self.grid, self.gridtip = (
+            add_checkbutton(self.rowcmap, label='grid', value=False,
+                            command=self.checked,
+                            tooltip='Draw major grid lines'))
+        self.gridframe.pack(side=tk.LEFT)
 
         # 7. row
         # projections
-        self.rowproj = ttk.Frame(self)
+        self.rowproj = Frame(self)
         self.rowproj.pack(side=tk.TOP, fill=tk.X)
-        self.projlbl, self.proj, self.projtip = add_menu(
-            self.rowproj, label="projection", values=self.projs,
-            command=self.selected_proj, width=26,
-            tooltip="Choose projection")
-        self.proj['text'] = 'PlateCarree'
-        tstr  = "Central longitude of projection.\n"
-        tstr += "Determined from longitude variable if None."
-        self.clonlbl, self.clon, self.clontip = add_entry(
-            self.rowproj, label="central lon", text='None', width=4,
-            command=self.entered_clon, tooltip=tstr)
+        self.projframe, self.projlbl, self.proj, self.projtip = add_menu(
+            self.rowproj, label='projection', values=self.projs,
+            command=self.selected_proj, width=mwidth,
+            tooltip='Choose projection')
+        if ihavectk:
+            self.proj.set('PlateCarree')
+        else:
+            self.proj['text'] = 'PlateCarree'
+        self.projframe.pack(side=tk.LEFT)
+        tstr  = 'Central longitude of projection.\n'
+        tstr += 'Determined from longitude variable if None.'
+        self.clonframe, self.clonlbl, self.clon, self.clontip = add_entry(
+            self.rowproj, label='central lon', text='None', width=ewmed,
+            command=self.entered_clon, tooltip=tstr, padx=padx)
+        self.clonframe.pack(side=tk.LEFT)
         # Quit button
-        self.bquit = ttk.Button(self.rowproj, text="Quit",
-                                command=self.master.top.destroy)
+        self.bquit = Button(self.rowproj, text='Quit',
+                            command=self.master.top.destroy)
         self.bquit.pack(side=tk.RIGHT)
         self.bquittip = add_tooltip(self.bquit, 'Quit ncvue')
 
@@ -504,6 +600,7 @@ class ncvMap(ttk.Frame):
         Command called if any checkbutton was checked or unchecked.
 
         Redraws plot.
+
         """
         self.redraw()
 
@@ -513,6 +610,7 @@ class ncvMap(ttk.Frame):
         unchecked.
 
         Resets vmin/vmax, redraws plot.
+
         """
         vmin, vmax = self.get_vminmax()
         self.vmin.set(vmin)
@@ -524,6 +622,7 @@ class ncvMap(ttk.Frame):
         Command called if delay scale was changed.
 
         `delay` is the chosen value on the scale slider.
+
         """
         self.anim.event_source.interval = int(float(delay))
 
@@ -534,6 +633,7 @@ class ncvMap(ttk.Frame):
         Triggering `event` was bound to entry.
 
         Redraws plot.
+
         """
         self.redraw()
 
@@ -544,12 +644,14 @@ class ncvMap(ttk.Frame):
         Triggering `event` was bound to entry.
 
         Redraws plot.
+
         """
         self.redraw()
 
     def first_t(self):
         """
         Command called if first frame button was pressed.
+
         """
         it = 0
         self.set_tstep(it)
@@ -558,6 +660,7 @@ class ncvMap(ttk.Frame):
     def last_t(self):
         """
         Command called if last frame button was pressed.
+
         """
         it = self.nunlim - 1
         self.set_tstep(it)
@@ -566,6 +669,7 @@ class ncvMap(ttk.Frame):
     def newnetcdf(self):
         """
         Open a new netcdf file and connect it to top.
+
         """
         # get new netcdf file name
         ncfile = tk.filedialog.askopenfilename(
@@ -616,6 +720,7 @@ class ncvMap(ttk.Frame):
     def nrun_t(self):
         """
         Command called if forward run button was pressed.
+
         """
         if not self.anim_running:
             self.anim_inc = 1
@@ -625,6 +730,7 @@ class ncvMap(ttk.Frame):
     def next_t(self):
         """
         Command called if next frame button was pressed.
+
         """
         try:
             it = int(self.vdval[self.iunlim].get())
@@ -649,15 +755,25 @@ class ncvMap(ttk.Frame):
         Command called if next button for the plotting variable was pressed.
 
         Resets `vmin`/`vmax` and variable-dimensions. Redraws plot.
+
         """
         v = self.v.get()
-        cols = self.v["values"]
+        if ihavectk:
+            cols = self.v.cget('values')
+        else:
+            cols = self.v['values']
         idx  = cols.index(v)
         idx += 1
         if idx < len(cols):
             self.v.set(cols[idx])
             self.set_unlim(cols[idx])
-            self.tstep['to'] = self.nunlim - 1
+            if ihavectk:
+                self.tstep.configure(to=self.nunlim - 1)
+                from_ = self.tstep.cget('from_')
+                to = self.tstep.cget('to')
+                self.tstep.configure(number_of_steps=to - from_ + 1)
+            else:
+                self.tstep['to'] = self.nunlim - 1
             self.set_tstep(0)
             vmin, vmax = self.get_vminmax()
             self.vmin.set(vmin)
@@ -668,6 +784,7 @@ class ncvMap(ttk.Frame):
     def pause_t(self):
         """
         Command called if pause button was pressed.
+
         """
         if self.anim_running:
             self.anim.event_source.stop()
@@ -676,6 +793,7 @@ class ncvMap(ttk.Frame):
     def prev_t(self):
         """
         Command called if previous frame button was pressed.
+
         """
         try:
             it = int(self.vdval[self.iunlim].get())
@@ -701,15 +819,25 @@ class ncvMap(ttk.Frame):
         pressed.
 
         Resets `vmin`/`vmax` and v-dimensions. Redraws plot.
+
         """
         v = self.v.get()
-        cols = self.v["values"]
+        if ihavectk:
+            cols = self.v.cget('values')
+        else:
+            cols = self.v['values']
         idx  = cols.index(v)
         idx -= 1
         if idx > 0:
             self.v.set(cols[idx])
             self.set_unlim(cols[idx])
-            self.tstep['to'] = self.nunlim - 1
+            if ihavectk:
+                self.tstep.configure(to=self.nunlim - 1)
+                from_ = self.tstep.cget('from_')
+                to = self.tstep.cget('to')
+                self.tstep.configure(number_of_steps=to - from_ + 1)
+            else:
+                self.tstep['to'] = self.nunlim - 1
             self.set_tstep(0)
             vmin, vmax = self.get_vminmax()
             self.vmin.set(vmin)
@@ -720,6 +848,7 @@ class ncvMap(ttk.Frame):
     def prun_t(self):
         """
         Command called if run backwards button was pressed.
+
         """
         if not self.anim_running:
             self.anim_inc = -1
@@ -731,6 +860,7 @@ class ncvMap(ttk.Frame):
         Command called if repeat option was chosen with combobox.
 
         Triggering `event` was bound to the combobox.
+
         """
         rep = self.repeat.get()
         if rep == 'once':
@@ -747,6 +877,7 @@ class ncvMap(ttk.Frame):
         `value` is the chosen colormap.
 
         Sets text and image on the menubutton.
+
         """
         self.cmap['text']  = value
         self.cmap['image'] = self.imaps[self.cmaps.index(value)]
@@ -759,6 +890,7 @@ class ncvMap(ttk.Frame):
         Triggering `event` was bound to the combobox.
 
         Resets `lat` options and dimensions. Redraws plot.
+
         """
         self.inv_lat.set(0)
         set_dim_lat(self)
@@ -771,6 +903,7 @@ class ncvMap(ttk.Frame):
         Triggering `event` was bound to the combobox.
 
         Resets `x` options and dimensions. Redraws plot.
+
         """
         self.inv_lon.set(0)
         self.shift_lon.set(0)
@@ -784,8 +917,12 @@ class ncvMap(ttk.Frame):
         `value` is the chosen projection.
 
         Sets text on the menubutton.
+
         """
-        self.proj['text'] = value
+        if ihavectk:
+            self.proj.set(value)
+        else:
+            self.proj['text'] = value
         self.redraw()
 
     def selected_v(self, event):
@@ -795,10 +932,17 @@ class ncvMap(ttk.Frame):
         Triggering `event` was bound to the combobox.
 
         Resets `vmin`/`vmax` and variable-dimensions. Redraws plot.
+
         """
         v = self.v.get()
         self.set_unlim(v)
-        self.tstep['to'] = self.nunlim - 1
+        if ihavectk:
+            self.tstep.configure(to=self.nunlim - 1)
+            from_ = self.tstep.cget('from_')
+            to = self.tstep.cget('to')
+            self.tstep.configure(number_of_steps=to - from_ + 1)
+        else:
+            self.tstep['to'] = self.nunlim - 1
         self.set_tstep(0)
         vmin, vmax = self.get_vminmax()
         self.vmin.set(vmin)
@@ -813,6 +957,7 @@ class ncvMap(ttk.Frame):
         Triggering `event` was bound to the spinbox.
 
         Redraws plot.
+
         """
         self.redraw()
 
@@ -823,6 +968,7 @@ class ncvMap(ttk.Frame):
         Triggering `event` was bound to the spinbox.
 
         Redraws plot.
+
         """
         self.redraw()
 
@@ -833,6 +979,7 @@ class ncvMap(ttk.Frame):
         Triggering `event` was bound to the spinbox.
 
         Redraws plot.
+
         """
         try:
             it = int(self.vdval[self.iunlim].get())
@@ -846,6 +993,7 @@ class ncvMap(ttk.Frame):
         Command called if tstep was changed.
 
         `step` is the chosen value on the scale slider.
+
         """
         it = int(float(step))
         self.set_tstep(it)
@@ -895,6 +1043,7 @@ class ncvMap(ttk.Frame):
     def reinit(self):
         """
         Reinitialise the panel from top.
+
         """
         # reinit from top
         self.fi     = self.top.fi
@@ -918,15 +1067,17 @@ class ncvMap(ttk.Frame):
             ll.destroy()
         for ll in self.vd:
             ll.destroy()
+        self.vdframe  = []
         self.vdlblval = []
         self.vdlbl    = []
         self.vdval    = []
         self.vd       = []
         self.vdtip    = []
         for i in range(self.maxdim):
-            vdlblval, vdlbl, vdval, vd, vdtip = add_spinbox(
+            vdframe, vdlblval, vdlbl, vdval, vd, vdtip = add_spinbox(
                 self.rowvd, label=str(i), values=(0,), wrap=True,
-                command=self.spinned_v, state=tk.DISABLED, tooltip="None")
+                command=self.spinned_v, state=tk.DISABLED, tooltip='None')
+            self.vdframe.append(vdframe)
             self.vdlblval.append(vdlblval)
             self.vdlbl.append(vdlbl)
             self.vdval.append(vdval)
@@ -936,15 +1087,18 @@ class ncvMap(ttk.Frame):
             ll.destroy()
         for ll in self.latd:
             ll.destroy()
+        self.latdframe  = []
         self.latdlblval = []
         self.latdlbl    = []
         self.latdval    = []
         self.latd       = []
         self.latdtip    = []
         for i in range(self.maxdim):
-            latdlblval, latdlbl, latdval, latd, latdtip = add_spinbox(
-                self.rowlatd, label=str(i), values=(0,), wrap=True,
-                command=self.spinned_lat, state=tk.DISABLED, tooltip="None")
+            latdframe, latdlblval, latdlbl, latdval, latd, latdtip = (
+                add_spinbox(self.rowlatd, label=str(i), values=(0,), wrap=True,
+                            command=self.spinned_lat, state=tk.DISABLED,
+                            tooltip='None'))
+            self.latdframe.append(latdframe)
             self.latdlblval.append(latdlblval)
             self.latdlbl.append(latdlbl)
             self.latdval.append(latdval)
@@ -954,34 +1108,52 @@ class ncvMap(ttk.Frame):
             ll.destroy()
         for ll in self.lond:
             ll.destroy()
+        self.londframe  = []
         self.londlblval = []
         self.londlbl    = []
         self.londval    = []
         self.lond       = []
         self.londtip    = []
         for i in range(self.maxdim):
-            londlblval, londlbl, londval, lond, londtip = add_spinbox(
-                self.rowlond, label=str(i), values=(0,), wrap=True,
-                command=self.spinned_lon, state=tk.DISABLED, tooltip="None")
+            londframe, londlblval, londlbl, londval, lond, londtip = (
+                add_spinbox(self.rowlond, label=str(i), values=(0,), wrap=True,
+                            command=self.spinned_lon, state=tk.DISABLED,
+                            tooltip='None'))
+            self.londframe.append(londframe)
             self.londlblval.append(londlblval)
             self.londlbl.append(londlbl)
             self.londval.append(londval)
             self.lond.append(lond)
             self.londtip.append(londtip)
         # set time step
-        self.tstep['to'] = 0
+        if ihavectk:
+            self.tstep.configure(to=0)
+            from_ = self.tstep.cget('from_')
+            to = self.tstep.cget('to')
+            self.tstep.configure(number_of_steps=to - from_ + 1)
+        else:
+            self.tstep['to'] = 0
         self.tstepval.set(0)
         self.repeat.set('repeat')
         # set variables
         columns = [''] + self.cols
-        self.v['values'] = columns
+        if ihavectk:
+            self.v.configure(values=columns)
+        else:
+            self.v['values'] = columns
         self.v.set(columns[0])
         self.vmin.set('None')
         self.vmax.set('None')
         # set lat/lon
-        self.lon['values'] = columns
+        if ihavectk:
+            self.lon.configure(values=columns)
+        else:
+            self.lon['values'] = columns
         self.lon.set(columns[0])
-        self.lat['values'] = columns
+        if ihavectk:
+            self.lat.configure(values=columns)
+        else:
+            self.lat['values'] = columns
         self.lat.set(columns[0])
         if any(self.latvar):
             idx = [ i for i, l in enumerate(self.latvar) if l ]
@@ -1013,6 +1185,7 @@ class ncvMap(ttk.Frame):
 
         Sets the time dimension spinbox, sets the time step scale,
         write the time on top.
+
         """
         v = self.v.get()
         gz, vz = vardim2var(v, self.groups)
@@ -1043,6 +1216,7 @@ class ncvMap(ttk.Frame):
 
         Takes `self.iunlim=0` and `self.nunlim=variable.shape[0]` if
         self.dunlim == ''` or `self.dunlim` not in var.dimensions.
+
         """
         gz, vz = vardim2var(v, self.groups)
         if vz == self.tname[gz]:
@@ -1074,6 +1248,7 @@ class ncvMap(ttk.Frame):
         Reads `lon`, `lat`, `variable` names, the current settings of
         their dimension spinboxes, as well as all other plotting options.
         Then redraws the plot.
+
         """
         # stop animation
         self.anim.event_source.stop()
@@ -1114,7 +1289,10 @@ class ncvMap(ttk.Frame):
         rivers   = self.rivers.get()
         lakes    = self.lakes.get()
         grid     = self.grid.get()
-        proj     = self.proj['text']
+        if ihavectk:
+            proj = self.proj.get()
+        else:
+            proj = self.proj['text']
         self.iproj = self.iprojs[self.projs.index(proj)]
         clon     = self.clon.get()
         # set x, y, axes labels
@@ -1433,7 +1611,7 @@ class ncvMap(ttk.Frame):
             self.ivv = vv
             # set data
             if mesh:
-                # update works well on "normal" pcolormesh but not on Cartopy's
+                # update works well on 'normal' pcolormesh but not on Cartopy's
                 # self.cc.set_array(vv)
                 # Both, imshow and pcolormesh need to remove the old
                 # image.AxesImage or collections.QuadMesh first and then redraw

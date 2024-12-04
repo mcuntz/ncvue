@@ -21,16 +21,25 @@ The following classes are provided:
    ncvMain
 
 History
-    * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
-    * Added check_new_netcdf method that re-initialises all panels if netcdf
-      file changed, Jan 2021, Matthias Cuntz
-    * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz
-    * Allow groups in netcdf files, Jan 2024, Matthias Cuntz
-    * Allow multiple netcdf files, Jan 2024, Matthias Cuntz
+   * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)
+   * Added check_new_netcdf method that re-initialises all panels if netcdf
+     file changed, Jan 2021, Matthias Cuntz
+   * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz
+   * Allow groups in netcdf files, Jan 2024, Matthias Cuntz
+   * Allow multiple netcdf files, Jan 2024, Matthias Cuntz
+   * Use CustomTkinter if installed, Nov 2024, Matthias Cuntz
+   * Have same tab order and only select Map if detected,
+     Dec 2024, Matthias Cuntz
 
 """
 import tkinter as tk
 import tkinter.ttk as ttk
+try:
+    from customtkinter import CTkTabview as Frame
+    ihavectk = True
+except ModuleNotFoundError:
+    from tkinter.ttk import Frame
+    ihavectk = False
 import numpy as np
 from .ncvutils import vardim2var, selvar
 from .ncvscatter import ncvScatter
@@ -44,7 +53,7 @@ __all__ = ['ncvMain']
 # Window with plot panels
 #
 
-class ncvMain(ttk.Frame):
+class ncvMain(Frame):
     """
     Main ncvue notebook window with the plotting panels.
 
@@ -68,14 +77,6 @@ class ncvMain(ttk.Frame):
         self.master = master      # master window, i.e. root
         self.top    = master.top  # top window
 
-        # Notebook for tabs for future plot types
-        self.tabs = ttk.Notebook(self)
-        self.tabs.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
-
-        self.tab_scatter = ncvScatter(self)
-        self.tab_contour = ncvContour(self)
-        self.tab_map     = ncvMap(self)
-
         mapfirst = False
         if any(self.top.latvar):
             idx = [ i for i, l in enumerate(self.top.latvar) if l ]
@@ -92,15 +93,57 @@ class ncvMain(ttk.Frame):
             if np.prod(vv.shape) > 1:
                 mapfirst = True
 
-        if mapfirst:
-            self.tabs.add(self.tab_map, text=self.tab_map.name)
-        self.tabs.add(self.tab_scatter, text=self.tab_scatter.name)
-        self.tabs.add(self.tab_contour, text=self.tab_contour.name)
-        if not mapfirst:
+        if ihavectk:  # self is CTkTabview
+            stab = 'Scatter/Line'
+            self.add(stab)
+            istab = self.tab(stab)
+            istab.name   = self.name
+            istab.master = self.master
+            istab.top    = self.top
+            self.tab_scatter = ncvScatter(istab)
+            self.tab_scatter.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
+
+            ctab = 'Contour'
+            self.add(ctab)
+            ictab = self.tab(ctab)
+            ictab.name   = self.name
+            ictab.master = self.master
+            ictab.top    = self.top
+            self.tab_contour = ncvContour(ictab)
+            self.tab_contour.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
+
+            mtab = 'Map'
+            self.add(mtab)
+            imtab = self.tab(mtab)
+            imtab.name   = self.name
+            imtab.master = self.master
+            imtab.top    = self.top
+            self.tab_map = ncvMap(imtab)
+            self.tab_map.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
+
+            if mapfirst:
+                self.set("Map")
+
+            # self.bind("<<NotebookTabChanged>>", self.check_new_netcdf)
+            # self.bind("<Enter>", self.check_new_netcdf)
+        else:
+            # Notebook for tabs for future plot types
+            self.tabs = ttk.Notebook(self)
+            self.tabs.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
+
+            self.tab_scatter = ncvScatter(self)
+            self.tab_contour = ncvContour(self)
+            self.tab_map     = ncvMap(self)
+
+            self.tabs.add(self.tab_scatter, text=self.tab_scatter.name)
+            self.tabs.add(self.tab_contour, text=self.tab_contour.name)
             self.tabs.add(self.tab_map, text=self.tab_map.name)
 
-        self.tabs.bind("<<NotebookTabChanged>>", self.check_new_netcdf)
-        self.tabs.bind("<Enter>", self.check_new_netcdf)
+            if mapfirst:
+                self.tabs.select(self.tab_map)
+
+            self.tabs.bind("<<NotebookTabChanged>>", self.check_new_netcdf)
+            self.tabs.bind("<Enter>", self.check_new_netcdf)
 
     #
     # Methods
