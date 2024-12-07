@@ -8,8 +8,8 @@ pngfile=${pdffile%.pdf}.png
 pngfile2=${pdffile%.pdf}_small.png
 
 pdfcrop --margins 1 ${pdffile} ${tmpfile}
-convert -density 300 ${tmpfile} ${pngfile}
-convert -density 150 ${tmpfile} ${pngfile2}
+magick -density 300 ${tmpfile} ${pngfile}
+magick -density 150 ${tmpfile} ${pngfile2}
 rm ${tmpfile}
 
 exit

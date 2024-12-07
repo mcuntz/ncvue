@@ -310,7 +310,8 @@ def add_entry(frame, label="", text="", command=None, tooltip="",
         Tooltip appearing after one second when hovering over
         the entry (default: "" = no tooltip)
     padlabel : int, optional
-        Prepend number of spaces to create distance to other widgets (default: 0)
+        Prepend number of spaces to create distance to other widgets
+        (default: 0)
     padx : int, optional
         Extra space in px added left and right of the label text (default: 1)
     labelwidth : int, optional

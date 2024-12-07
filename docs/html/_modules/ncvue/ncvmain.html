@@ -36,7 +36,7 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
   <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script src="../../_static/documentation_options.js?v=5fbe096f"></script>
+    <script src="../../_static/documentation_options.js?v=6638150a"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
@@ -333,16 +333,25 @@ document.write(`
 <span class="sd">   ncvMain</span>
 
 <span class="sd">History</span>
-<span class="sd">    * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)</span>
-<span class="sd">    * Added check_new_netcdf method that re-initialises all panels if netcdf</span>
-<span class="sd">      file changed, Jan 2021, Matthias Cuntz</span>
-<span class="sd">    * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz</span>
-<span class="sd">    * Allow groups in netcdf files, Jan 2024, Matthias Cuntz</span>
-<span class="sd">    * Allow multiple netcdf files, Jan 2024, Matthias Cuntz</span>
+<span class="sd">   * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)</span>
+<span class="sd">   * Added check_new_netcdf method that re-initialises all panels if netcdf</span>
+<span class="sd">     file changed, Jan 2021, Matthias Cuntz</span>
+<span class="sd">   * Address fi.variables[name] directly by fi[name], Jan 2024, Matthias Cuntz</span>
+<span class="sd">   * Allow groups in netcdf files, Jan 2024, Matthias Cuntz</span>
+<span class="sd">   * Allow multiple netcdf files, Jan 2024, Matthias Cuntz</span>
+<span class="sd">   * Use CustomTkinter if installed, Nov 2024, Matthias Cuntz</span>
+<span class="sd">   * Have same tab order and only select Map if detected,</span>
+<span class="sd">     Dec 2024, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
 <span class="kn">import</span> <span class="nn">tkinter.ttk</span> <span class="k">as</span> <span class="nn">ttk</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">customtkinter</span> <span class="kn">import</span> <span class="n">CTkTabview</span> <span class="k">as</span> <span class="n">Frame</span>
+    <span class="n">ihavectk</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">tkinter.ttk</span> <span class="kn">import</span> <span class="n">Frame</span>
+    <span class="n">ihavectk</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">.ncvutils</span> <span class="kn">import</span> <span class="n">vardim2var</span><span class="p">,</span> <span class="n">selvar</span>
 <span class="kn">from</span> <span class="nn">.ncvscatter</span> <span class="kn">import</span> <span class="n">ncvScatter</span>
@@ -358,7 +367,7 @@ document.write(`
 
 <div class="viewcode-block" id="ncvMain">
 <a class="viewcode-back" href="../../ncvmain.html#ncvue.ncvmain.ncvMain">[docs]</a>
-<span class="k">class</span> <span class="nc">ncvMain</span><span class="p">(</span><span class="n">ttk</span><span class="o">.</span><span class="n">Frame</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">ncvMain</span><span class="p">(</span><span class="n">Frame</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Main ncvue notebook window with the plotting panels.</span>
 
@@ -382,14 +391,6 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">master</span> <span class="o">=</span> <span class="n">master</span>      <span class="c1"># master window, i.e. root</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">top</span>    <span class="o">=</span> <span class="n">master</span><span class="o">.</span><span class="n">top</span>  <span class="c1"># top window</span>
 
-        <span class="c1"># Notebook for tabs for future plot types</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Notebook</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">TOP</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">BOTH</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">tab_scatter</span> <span class="o">=</span> <span class="n">ncvScatter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tab_contour</span> <span class="o">=</span> <span class="n">ncvContour</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tab_map</span>     <span class="o">=</span> <span class="n">ncvMap</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
         <span class="n">mapfirst</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">latvar</span><span class="p">):</span>
             <span class="n">idx</span> <span class="o">=</span> <span class="p">[</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">latvar</span><span class="p">)</span> <span class="k">if</span> <span class="n">l</span> <span class="p">]</span>
@@ -406,15 +407,57 @@ document.write(`
             <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">vv</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="n">mapfirst</span> <span class="o">=</span> <span class="kc">True</span>
 
-        <span class="k">if</span> <span class="n">mapfirst</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_map</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_map</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_scatter</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_scatter</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_contour</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_contour</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">mapfirst</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">ihavectk</span><span class="p">:</span>  <span class="c1"># self is CTkTabview</span>
+            <span class="n">stab</span> <span class="o">=</span> <span class="s1">&#39;Scatter/Line&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">stab</span><span class="p">)</span>
+            <span class="n">istab</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tab</span><span class="p">(</span><span class="n">stab</span><span class="p">)</span>
+            <span class="n">istab</span><span class="o">.</span><span class="n">name</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+            <span class="n">istab</span><span class="o">.</span><span class="n">master</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">master</span>
+            <span class="n">istab</span><span class="o">.</span><span class="n">top</span>    <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tab_scatter</span> <span class="o">=</span> <span class="n">ncvScatter</span><span class="p">(</span><span class="n">istab</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tab_scatter</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">TOP</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">BOTH</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="n">ctab</span> <span class="o">=</span> <span class="s1">&#39;Contour&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ctab</span><span class="p">)</span>
+            <span class="n">ictab</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tab</span><span class="p">(</span><span class="n">ctab</span><span class="p">)</span>
+            <span class="n">ictab</span><span class="o">.</span><span class="n">name</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+            <span class="n">ictab</span><span class="o">.</span><span class="n">master</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">master</span>
+            <span class="n">ictab</span><span class="o">.</span><span class="n">top</span>    <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tab_contour</span> <span class="o">=</span> <span class="n">ncvContour</span><span class="p">(</span><span class="n">ictab</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tab_contour</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">TOP</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">BOTH</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="n">mtab</span> <span class="o">=</span> <span class="s1">&#39;Map&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">mtab</span><span class="p">)</span>
+            <span class="n">imtab</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tab</span><span class="p">(</span><span class="n">mtab</span><span class="p">)</span>
+            <span class="n">imtab</span><span class="o">.</span><span class="n">name</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+            <span class="n">imtab</span><span class="o">.</span><span class="n">master</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">master</span>
+            <span class="n">imtab</span><span class="o">.</span><span class="n">top</span>    <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tab_map</span> <span class="o">=</span> <span class="n">ncvMap</span><span class="p">(</span><span class="n">imtab</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tab_map</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">TOP</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">BOTH</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">mapfirst</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;Map&quot;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">check_new_netcdf</span><span class="p">)</span>
+            <span class="c1"># self.bind(&quot;&lt;&lt;NotebookTabChanged&gt;&gt;&quot;, self.check_new_netcdf)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Notebook for tabs for future plot types</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Notebook</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">TOP</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">BOTH</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">tab_scatter</span> <span class="o">=</span> <span class="n">ncvScatter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tab_contour</span> <span class="o">=</span> <span class="n">ncvContour</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tab_map</span>     <span class="o">=</span> <span class="n">ncvMap</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_scatter</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_scatter</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_contour</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_contour</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_map</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_map</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;&lt;NotebookTabChanged&gt;&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_new_netcdf</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;Enter&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_new_netcdf</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">mapfirst</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_map</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;&lt;NotebookTabChanged&gt;&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_new_netcdf</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;Enter&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_new_netcdf</span><span class="p">)</span>
 
     <span class="c1">#</span>
     <span class="c1"># Methods</span>
@@ -422,7 +465,7 @@ document.write(`
 
 <div class="viewcode-block" id="ncvMain.check_new_netcdf">
 <a class="viewcode-back" href="../../ncvmain.html#ncvue.ncvmain.ncvMain.check_new_netcdf">[docs]</a>
-    <span class="k">def</span> <span class="nf">check_new_netcdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">check_new_netcdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if notebook panel changed or mouse pointer enters a</span>
 <span class="sd">        window. It checks if netcdf file was changed in any panel of any window</span>

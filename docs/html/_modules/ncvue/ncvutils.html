@@ -36,7 +36,7 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
   <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script src="../../_static/documentation_options.js?v=5fbe096f"></script>
+    <script src="../../_static/documentation_options.js?v=6638150a"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
@@ -367,12 +367,18 @@ document.write(`
 <span class="sd">   * Add selvar to allow multiple netcdf files, Jan 2024, Matthias Cuntz</span>
 <span class="sd">   * Remove [ms] from check for datetime in format_coord on axes,</span>
 <span class="sd">     Oct 2024, Matthias Cuntz</span>
+<span class="sd">   * Use CustomTkinter in clone_ncvmain if installed, Nov 2024, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">customtkinter</span> <span class="kn">import</span> <span class="n">CTkToplevel</span> <span class="k">as</span> <span class="n">Toplevel</span>
+<span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">Toplevel</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.dates</span> <span class="k">as</span> <span class="nn">mpld</span>
 <span class="kn">import</span> <span class="nn">cartopy.crs</span> <span class="k">as</span> <span class="nn">ccrs</span>
+<span class="kn">import</span> <span class="nn">ncvue</span>
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;DIMMETHODS&#39;</span><span class="p">,</span>
@@ -749,7 +755,7 @@ document.write(`
         <span class="kn">import</span> <span class="nn">sys</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
 
-    <span class="n">root</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Toplevel</span><span class="p">()</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">Toplevel</span><span class="p">()</span>
     <span class="n">root</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;ncvClone&#39;</span>
     <span class="n">root</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Secondary ncvue window&quot;</span><span class="p">)</span>
     <span class="n">root</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="s1">&#39;1000x800+150+100&#39;</span><span class="p">)</span>
@@ -759,9 +765,15 @@ document.write(`
     <span class="c1"># https://stackoverflow.com/questions/46505982/is-there-a-way-to-clone-a-tkinter-widget</span>
     <span class="bp">cls</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="vm">__class__</span>
     <span class="n">clone</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">widget</span><span class="o">.</span><span class="n">configure</span><span class="p">():</span>
-        <span class="k">if</span> <span class="n">key</span> <span class="o">!=</span> <span class="s1">&#39;class&#39;</span><span class="p">:</span>
-            <span class="n">clone</span><span class="o">.</span><span class="n">configure</span><span class="p">({</span><span class="n">key</span><span class="p">:</span> <span class="n">widget</span><span class="o">.</span><span class="n">cget</span><span class="p">(</span><span class="n">key</span><span class="p">)})</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">widget</span><span class="o">.</span><span class="n">configure</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="o">!=</span> <span class="s1">&#39;class&#39;</span><span class="p">:</span>
+                <span class="n">clone</span><span class="o">.</span><span class="n">configure</span><span class="p">({</span><span class="n">key</span><span class="p">:</span> <span class="n">widget</span><span class="o">.</span><span class="n">cget</span><span class="p">(</span><span class="n">key</span><span class="p">)})</span>
+    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="c1"># in case of CustomTkinter</span>
+        <span class="bp">cls</span> <span class="o">=</span> <span class="n">ncvue</span><span class="o">.</span><span class="n">ncvMain</span>
+        <span class="n">clone</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+        <span class="n">clone</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">BOTH</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">clone</span></div>
 

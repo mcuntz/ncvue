@@ -36,7 +36,7 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
   <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script src="../../_static/documentation_options.js?v=5fbe096f"></script>
+    <script src="../../_static/documentation_options.js?v=6638150a"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
@@ -332,20 +332,21 @@ document.write(`
 <span class="sd">   ncvue</span>
 
 <span class="sd">History</span>
-<span class="sd">    * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)</span>
-<span class="sd">    * Separate Tk() and Toplevel() widgets to communicate via Tk() between</span>
-<span class="sd">      windows, Jan 2021, Matthias Cuntz</span>
-<span class="sd">    * Set titlebar and taskbar icon only if &quot;standalone&quot; not in ipython or</span>
-<span class="sd">      jupyter, May 2021, Matthias Cuntz</span>
-<span class="sd">    * Different themes for different OS, May 2021, Matthias Cuntz</span>
-<span class="sd">    * Font size 13 on Windows for plots, Jun 2021, Matthias Cuntz</span>
-<span class="sd">    * Allow groups in netcdf files, Jan 2024, Matthias Cuntz</span>
-<span class="sd">    * Allow multiple netcdf files, Jan 2024, Matthias Cuntz</span>
-<span class="sd">    * Move themes/ and images/ directories from src/ncvue/ to src/ directory,</span>
-<span class="sd">      Jan 2024, Matthias Cuntz</span>
-<span class="sd">    * Move themes/ and images/ back to src/ncvue/, Feb 2024, Matthias Cuntz</span>
-<span class="sd">    * Change formatting of file string for multiple files,</span>
-<span class="sd">      Jul 2024, Matthias Cuntz</span>
+<span class="sd">   * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)</span>
+<span class="sd">   * Separate Tk() and Toplevel() widgets to communicate via Tk() between</span>
+<span class="sd">     windows, Jan 2021, Matthias Cuntz</span>
+<span class="sd">   * Set titlebar and taskbar icon only if &quot;standalone&quot; not in ipython or</span>
+<span class="sd">     jupyter, May 2021, Matthias Cuntz</span>
+<span class="sd">   * Different themes for different OS, May 2021, Matthias Cuntz</span>
+<span class="sd">   * Font size 13 on Windows for plots, Jun 2021, Matthias Cuntz</span>
+<span class="sd">   * Allow groups in netcdf files, Jan 2024, Matthias Cuntz</span>
+<span class="sd">   * Allow multiple netcdf files, Jan 2024, Matthias Cuntz</span>
+<span class="sd">   * Move themes/ and images/ directories from src/ncvue/ to src/ directory,</span>
+<span class="sd">     Jan 2024, Matthias Cuntz</span>
+<span class="sd">   * Move themes/ and images/ back to src/ncvue/, Feb 2024, Matthias Cuntz</span>
+<span class="sd">   * Change formatting of file string for multiple files,</span>
+<span class="sd">     Jul 2024, Matthias Cuntz</span>
+<span class="sd">   * Use CustomTkinter if installed, Nov 2024, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">os</span>
@@ -353,6 +354,15 @@ document.write(`
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
 <span class="kn">import</span> <span class="nn">tkinter.ttk</span> <span class="k">as</span> <span class="nn">ttk</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">customtkinter</span>
+    <span class="kn">from</span> <span class="nn">customtkinter</span> <span class="kn">import</span> <span class="n">CTk</span> <span class="k">as</span> <span class="n">Tk</span>
+    <span class="kn">from</span> <span class="nn">customtkinter</span> <span class="kn">import</span> <span class="n">CTkToplevel</span> <span class="k">as</span> <span class="n">Toplevel</span>
+    <span class="n">ihavectk</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">Tk</span>
+    <span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">Toplevel</span>
+    <span class="n">ihavectk</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="kn">import</span> <span class="nn">netCDF4</span> <span class="k">as</span> <span class="nn">nc</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -391,7 +401,7 @@ document.write(`
     <span class="n">bundle_dir</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="s1">&#39;_MEIPASS&#39;</span><span class="p">,</span>
                          <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)))</span>
 
-    <span class="n">top</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Tk</span><span class="p">()</span>
+    <span class="n">top</span> <span class="o">=</span> <span class="n">Tk</span><span class="p">()</span>
     <span class="n">top</span><span class="o">.</span><span class="n">withdraw</span><span class="p">()</span>
     <span class="c1"># top.option_add(&quot;*Font&quot;, &quot;Helvetica 10&quot;)</span>
 
@@ -458,6 +468,15 @@ document.write(`
         <span class="n">theme</span> <span class="o">=</span> <span class="s1">&#39;light&#39;</span>  <span class="c1"># light, dark</span>
         <span class="n">top</span><span class="o">.</span><span class="n">tk</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&quot;set_theme&quot;</span><span class="p">,</span> <span class="n">theme</span><span class="p">)</span>
 
+    <span class="k">if</span> <span class="n">ihavectk</span><span class="p">:</span>
+        <span class="c1"># customtkinter.set_default_color_theme(&quot;blue&quot;)</span>
+        <span class="c1"># customtkinter.set_default_color_theme(&quot;dark-blue&quot;)</span>
+        <span class="c1"># customtkinter.set_default_color_theme(&quot;green&quot;)</span>
+        <span class="c1"># customtkinter.set_default_color_theme(</span>
+        <span class="c1">#     f&#39;{bundle_dir}/themes/customtkinter/dark-blue.json&#39;)</span>
+        <span class="n">customtkinter</span><span class="o">.</span><span class="n">set_default_color_theme</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">bundle_dir</span><span class="si">}</span><span class="s1">/themes/customtkinter/ncvue-blue.json&#39;</span><span class="p">)</span>
+
     <span class="c1"># set titlebar and taskbar icon only if &quot;standalone&quot;,</span>
     <span class="c1"># i.e. not ipython or jupyter</span>
     <span class="k">try</span><span class="p">:</span>
@@ -470,7 +489,7 @@ document.write(`
     <span class="k">else</span><span class="p">:</span>
         <span class="n">icon</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="n">root</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Toplevel</span><span class="p">()</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">Toplevel</span><span class="p">()</span>
     <span class="n">root</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;ncvOne&#39;</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ncfile</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">root</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;ncvue &quot;</span> <span class="o">+</span> <span class="n">ncfile</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -532,6 +551,7 @@ document.write(`
 
     <span class="c1"># 1st plotting window</span>
     <span class="n">main_frame</span> <span class="o">=</span> <span class="n">ncvMain</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+    <span class="n">main_frame</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">BOTH</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="n">top</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span></div>
 

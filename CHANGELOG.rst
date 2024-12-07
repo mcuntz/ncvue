@@ -1,6 +1,12 @@
 Changelog
 ---------
 
+v5.1 (Dec 2024)
+   * Bugfix: file not updated in all tabs when opened with file dialog
+     in one tab with CustomTkinter.
+   * Bugfix: dimensions not shown when file opened with file dialog.
+   * Updated documentation.
+
 v5.0 (Dec 2024)
    * Use CustomTkinter if installed.
    * Add Quit button.

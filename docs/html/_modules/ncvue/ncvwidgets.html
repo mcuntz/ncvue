@@ -36,7 +36,7 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
   <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script src="../../_static/documentation_options.js?v=5fbe096f"></script>
+    <script src="../../_static/documentation_options.js?v=6638150a"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
@@ -320,7 +320,7 @@ document.write(`
 <span class="sd">Recherche pour l&#39;Agriculture, l&#39;Alimentation et l&#39;Environnement (INRAE), Nancy,</span>
 <span class="sd">France.</span>
 
-<span class="sd">:copyright: Copyright 2020-2023 Matthias Cuntz - mc (at) macu (dot) de</span>
+<span class="sd">:copyright: Copyright 2020- Matthias Cuntz - mc (at) macu (dot) de</span>
 <span class="sd">:license: MIT License, see LICENSE for details.</span>
 
 <span class="sd">.. moduleauthor:: Matthias Cuntz</span>
@@ -341,26 +341,55 @@ document.write(`
 <span class="sd">   Treeview</span>
 
 <span class="sd">History</span>
-<span class="sd">    * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)</span>
-<span class="sd">    * Added tooltips to all widgets with class Tooltip,</span>
-<span class="sd">      Jan 2021, Matthias Cuntz</span>
-<span class="sd">    * Added add_tooltip widget, Jan 2021, Matthias Cuntz</span>
-<span class="sd">    * add_spinbox returns also label widget, Jan 2021, Matthias Cuntz</span>
-<span class="sd">    * padlabel for add_entry to add space to previous widget,</span>
-<span class="sd">      Jul 2023, Matthias Cuntz</span>
-<span class="sd">    * labelwidth for add_entry to align columns with pack,</span>
-<span class="sd">      Jul 2023, Matthias Cuntz</span>
-<span class="sd">    * Replace tk constants with strings such as tk.LEFT with &#39;left&#39;,</span>
-<span class="sd">      Jul 2023, Matthias Cuntz</span>
-<span class="sd">    * Use Hovertip from local copy of tooltip.py, Jul 2023, Matthias Cuntz</span>
-<span class="sd">    * Added Treeview class with optional horizontal and vertical scroolbars,</span>
-<span class="sd">      Jul 2023, Matthias Cuntz</span>
-<span class="sd">    * Added callurl function, Dec 2023, Matthias Cuntz</span>
+<span class="sd">   * Written Nov-Dec 2020 by Matthias Cuntz (mc (at) macu (dot) de)</span>
+<span class="sd">   * Added tooltips to all widgets with class Tooltip,</span>
+<span class="sd">     Jan 2021, Matthias Cuntz</span>
+<span class="sd">   * Added add_tooltip widget, Jan 2021, Matthias Cuntz</span>
+<span class="sd">   * add_spinbox returns also label widget, Jan 2021, Matthias Cuntz</span>
+<span class="sd">   * padlabel for add_entry to add space to previous widget,</span>
+<span class="sd">     Jul 2023, Matthias Cuntz</span>
+<span class="sd">   * labelwidth for add_entry to align columns with pack,</span>
+<span class="sd">     Jul 2023, Matthias Cuntz</span>
+<span class="sd">   * Replace tk constants with strings such as tk.LEFT with &#39;left&#39;,</span>
+<span class="sd">     Jul 2023, Matthias Cuntz</span>
+<span class="sd">   * Use Hovertip from local copy of tooltip.py, Jul 2023, Matthias Cuntz</span>
+<span class="sd">   * Added Treeview class with optional horizontal and vertical scroolbars,</span>
+<span class="sd">     Jul 2023, Matthias Cuntz</span>
+<span class="sd">   * Added callurl function, Dec 2023, Matthias Cuntz</span>
+<span class="sd">   * Use CustomTkinter, Jun 2024, Matthias Cuntz</span>
+<span class="sd">   * Use CustomTkinter only if installed, Jun 2024, Matthias Cuntz</span>
+<span class="sd">   * Small bugfix in Combobox if no CustomTkinter, Nov 2024, Matthias Cuntz</span>
+<span class="sd">   * Pass width to Checkbutton if CustomTkinter, Dec 2024, Matthias Cuntz</span>
+<span class="sd">   * Pass padx for space between label and combobox, Dec 2024, Matthias Cuntz</span>
+<span class="sd">   * Use CustomTkinter also in add_menu and add_scale,</span>
+<span class="sd">     Dec 2024, Matthias Cuntz</span>
+<span class="sd">   * Bugfix: did not make new frame in add_spinbox, Dec 2024, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
 <span class="kn">import</span> <span class="nn">tkinter.ttk</span> <span class="k">as</span> <span class="nn">ttk</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">customtkinter</span> <span class="kn">import</span> <span class="n">CTkFrame</span> <span class="k">as</span> <span class="n">Frame</span>
+    <span class="kn">from</span> <span class="nn">customtkinter</span> <span class="kn">import</span> <span class="n">CTkLabel</span> <span class="k">as</span> <span class="n">Label</span>
+    <span class="kn">from</span> <span class="nn">customtkinter</span> <span class="kn">import</span> <span class="n">CTkCheckBox</span> <span class="k">as</span> <span class="n">Checkbutton</span>
+    <span class="kn">from</span> <span class="nn">customtkinter</span> <span class="kn">import</span> <span class="n">CTkComboBox</span> <span class="k">as</span> <span class="n">Combobox</span>
+    <span class="kn">from</span> <span class="nn">customtkinter</span> <span class="kn">import</span> <span class="n">CTkEntry</span> <span class="k">as</span> <span class="n">Entry</span>
+    <span class="kn">from</span> <span class="nn">customtkinter</span> <span class="kn">import</span> <span class="n">CTkOptionMenu</span> <span class="k">as</span> <span class="n">Menubutton</span>
+    <span class="kn">from</span> <span class="nn">customtkinter</span> <span class="kn">import</span> <span class="n">CTkSlider</span> <span class="k">as</span> <span class="n">Scale</span>
+    <span class="kn">from</span> <span class="nn">customtkinter</span> <span class="kn">import</span> <span class="n">CTkScrollbar</span> <span class="k">as</span> <span class="n">Scrollbar</span>
+    <span class="n">ihavectk</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">tkinter.ttk</span> <span class="kn">import</span> <span class="n">Frame</span>
+    <span class="kn">from</span> <span class="nn">tkinter.ttk</span> <span class="kn">import</span> <span class="n">Label</span>
+    <span class="kn">from</span> <span class="nn">tkinter.ttk</span> <span class="kn">import</span> <span class="n">Checkbutton</span>
+    <span class="kn">from</span> <span class="nn">tkinter.ttk</span> <span class="kn">import</span> <span class="n">Combobox</span>
+    <span class="kn">from</span> <span class="nn">tkinter.ttk</span> <span class="kn">import</span> <span class="n">Entry</span>
+    <span class="kn">from</span> <span class="nn">tkinter.ttk</span> <span class="kn">import</span> <span class="n">Menubutton</span>
+    <span class="kn">from</span> <span class="nn">tkinter.ttk</span> <span class="kn">import</span> <span class="n">Scale</span>
+    <span class="kn">from</span> <span class="nn">tkinter.ttk</span> <span class="kn">import</span> <span class="n">Scrollbar</span>
+    <span class="n">ihavectk</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="kn">import</span> <span class="nn">webbrowser</span>
+
 <span class="kn">from</span> <span class="nn">.tooltip</span> <span class="kn">import</span> <span class="n">Hovertip</span>
 
 
@@ -389,13 +418,13 @@ document.write(`
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; opthead = ttk.Frame(self)</span>
+<span class="sd">    &gt;&gt;&gt; opthead = Frame(self)</span>
 <span class="sd">    &gt;&gt;&gt; opthead.pack(side=&#39;top&#39;, fill=&#39;x&#39;)</span>
-<span class="sd">    &gt;&gt;&gt; optheadlabel1 = ttk.Label(opthead, text=&#39;Options for&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; optheadlabel1 = Label(opthead, text=&#39;Options for&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; optheadlabel1.pack(side=&#39;left&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; ttk.Style().configure(&#39;blue.TLabel&#39;, foreground=&#39;blue&#39;)</span>
-<span class="sd">    &gt;&gt;&gt; optheadlabel2 = ttk.Label(opthead, text=&#39;pandas.read_csv&#39;,</span>
-<span class="sd">    ...                           style=&#39;blue.TLabel&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; optheadlabel2 = Label(opthead, text=&#39;pandas.read_csv&#39;,</span>
+<span class="sd">    ...                              style=&#39;blue.TLabel&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; optheadlabel2.pack(side=&#39;left&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; font = tkfont.Font(optheadlabel2, optheadlabel2.cget(&quot;font&quot;))</span>
 <span class="sd">    &gt;&gt;&gt; font.configure(underline=True)</span>
@@ -439,13 +468,19 @@ document.write(`
 <a class="viewcode-back" href="../../ncvwidgets.html#ncvue.ncvwidgets.Tooltip.showcontents">[docs]</a>
     <span class="k">def</span> <span class="nf">showcontents</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># light yellow = #ffffe0</span>
-        <span class="n">label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tipwindow</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">,</span>
-                         <span class="n">background</span><span class="o">=</span><span class="s2">&quot;#ffffe0&quot;</span><span class="p">,</span> <span class="n">foreground</span><span class="o">=</span><span class="s2">&quot;#000000&quot;</span><span class="p">,</span>
-                         <span class="n">justify</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">relief</span><span class="o">=</span><span class="s1">&#39;flat&#39;</span><span class="p">,</span> <span class="n">borderwidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                         <span class="n">padx</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ihavectk</span><span class="p">:</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tipwindow</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">,</span>
+                          <span class="n">fg_color</span><span class="o">=</span><span class="s2">&quot;#ffffe0&quot;</span><span class="p">,</span> <span class="n">text_color</span><span class="o">=</span><span class="s2">&quot;#000000&quot;</span><span class="p">,</span>
+                          <span class="n">justify</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tipwindow</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">,</span>
+                             <span class="n">background</span><span class="o">=</span><span class="s2">&quot;#ffffe0&quot;</span><span class="p">,</span> <span class="n">foreground</span><span class="o">=</span><span class="s2">&quot;#000000&quot;</span><span class="p">,</span>
+                             <span class="n">justify</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">relief</span><span class="o">=</span><span class="s1">&#39;flat&#39;</span><span class="p">,</span> <span class="n">borderwidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                             <span class="n">padx</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">label</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span></div>
 </div>
 
+        <span class="c1"># label.grid()</span>
 
 
 <div class="viewcode-block" id="add_checkbutton">
@@ -453,11 +488,11 @@ document.write(`
 <span class="k">def</span> <span class="nf">add_checkbutton</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
                     <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Add a left-aligned ttk.Checkbutton.</span>
+<span class="sd">    Add a left-aligned Checkbutton.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    frame : tk widget</span>
+<span class="sd">    frame : CustomTkinter widget</span>
 <span class="sd">        Parent widget</span>
 <span class="sd">    label : str, optional</span>
 <span class="sd">        Text that appears on the checkbutton (default: &quot;&quot;)</span>
@@ -470,7 +505,7 @@ document.write(`
 <span class="sd">        Tooltip appearing after one second when hovering over</span>
 <span class="sd">        the checkbutton (default: &quot;&quot; = no tooltip)</span>
 <span class="sd">    **kwargs : option=value pairs, optional</span>
-<span class="sd">        All other options will be passed to ttk.Checkbutton</span>
+<span class="sd">        All other options will be passed to Checkbutton</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -482,25 +517,29 @@ document.write(`
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; self.rowzxy = ttk.Frame(self)</span>
+<span class="sd">    &gt;&gt;&gt; self.rowzxy = Frame(self)</span>
 <span class="sd">    &gt;&gt;&gt; self.rowzxy.pack(side=&#39;top&#39;, fill=&#39;x&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; self.inv_xlbl, self.inv_x = add_checkbutton(</span>
 <span class="sd">    ...     self.rowzxy, label=&quot;invert x&quot;, value=False, command=self.checked)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">iframe</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
     <span class="n">check_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
     <span class="n">check_label</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
     <span class="n">bvar</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">BooleanVar</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
-    <span class="n">cb</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Checkbutton</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">variable</span><span class="o">=</span><span class="n">bvar</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">check_label</span><span class="p">,</span>
-                         <span class="n">command</span><span class="o">=</span><span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ihavectk</span> <span class="ow">and</span> <span class="p">(</span><span class="s1">&#39;width&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">label</span><span class="p">)</span> <span class="o">*</span> <span class="mi">9</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="n">width</span><span class="p">})</span>
+    <span class="n">cb</span> <span class="o">=</span> <span class="n">Checkbutton</span><span class="p">(</span><span class="n">iframe</span><span class="p">,</span> <span class="n">variable</span><span class="o">=</span><span class="n">bvar</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">check_label</span><span class="p">,</span>
+                     <span class="n">command</span><span class="o">=</span><span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="n">cb</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">tooltip</span><span class="p">:</span>
         <span class="n">ttip</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
         <span class="n">ttip</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">tooltip</span><span class="p">)</span>
         <span class="n">cbtip</span> <span class="o">=</span> <span class="n">Tooltip</span><span class="p">(</span><span class="n">cb</span><span class="p">,</span> <span class="n">ttip</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">check_label</span><span class="p">,</span> <span class="n">bvar</span><span class="p">,</span> <span class="n">ttip</span>
+        <span class="k">return</span> <span class="n">iframe</span><span class="p">,</span> <span class="n">check_label</span><span class="p">,</span> <span class="n">bvar</span><span class="p">,</span> <span class="n">ttip</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">check_label</span><span class="p">,</span> <span class="n">bvar</span></div>
+        <span class="k">return</span> <span class="n">iframe</span><span class="p">,</span> <span class="n">check_label</span><span class="p">,</span> <span class="n">bvar</span></div>
 
 
 
@@ -509,11 +548,11 @@ document.write(`
 <span class="k">def</span> <span class="nf">add_combobox</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">[],</span> <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
                  <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Add a left-aligned ttk.Combobox with a ttk.Label before.</span>
+<span class="sd">    Add a left-aligned Combobox with a Label before.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    frame : tk widget</span>
+<span class="sd">    frame : CustomTkinter widget</span>
 <span class="sd">        Parent widget</span>
 <span class="sd">    label : str, optional</span>
 <span class="sd">        Text that appears in front of the combobox (default: &quot;&quot;)</span>
@@ -525,42 +564,54 @@ document.write(`
 <span class="sd">    tooltip : str, optional</span>
 <span class="sd">        Tooltip appearing after one second when hovering over</span>
 <span class="sd">        the combobox (default: &quot;&quot; = no tooltip)</span>
+<span class="sd">    padx : int, optional</span>
+<span class="sd">        Extra space in px added left and right of the label text (default: 1)</span>
 <span class="sd">    **kwargs : option=value pairs, optional</span>
-<span class="sd">        All other options will be passed to ttk.Combobox</span>
+<span class="sd">        All other options will be passed to Combobox</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    tk.StringVar, ttk.Combobox</span>
+<span class="sd">    tk.StringVar, Combobox</span>
 <span class="sd">        variable for the text before the combobox, combobox widget</span>
 <span class="sd">    tk.StringVar</span>
 <span class="sd">        variable for the text of the tooltip, if given.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; self.rowzxy = ttk.Frame(self)</span>
+<span class="sd">    &gt;&gt;&gt; self.rowzxy = Frame(self)</span>
 <span class="sd">    &gt;&gt;&gt; self.rowzxy.pack(side=&#39;top&#39;, fill=&#39;x&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; self.xlbl, self.x = add_combobox(</span>
 <span class="sd">    ...     self.rowzxy, label=&quot;x&quot;, values=columns, command=self.selected)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">iframe</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
     <span class="n">width</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;width&#39;</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
     <span class="n">cb_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
     <span class="n">cb_label</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
-    <span class="n">label</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">cb_label</span><span class="p">)</span>
+    <span class="n">lkwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;textvariable&#39;</span><span class="p">:</span> <span class="n">cb_label</span><span class="p">}</span>
+    <span class="k">if</span> <span class="n">ihavectk</span><span class="p">:</span>
+        <span class="n">lkwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;padx&#39;</span><span class="p">:</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;padx&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)})</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;padx&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="n">iframe</span><span class="p">,</span> <span class="o">**</span><span class="n">lkwargs</span><span class="p">)</span>
     <span class="n">label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
-    <span class="n">cb</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Combobox</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">values</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-    <span class="c1"># long = len(max(values, key=len))</span>
-    <span class="c1"># cb.configure(width=(max(20, long//2)))</span>
-    <span class="k">if</span> <span class="n">command</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">cb</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;&lt;ComboboxSelected&gt;&gt;&quot;</span><span class="p">,</span> <span class="n">command</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ihavectk</span><span class="p">:</span>
+        <span class="n">cb</span> <span class="o">=</span> <span class="n">Combobox</span><span class="p">(</span><span class="n">iframe</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">values</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">command</span><span class="p">,</span>
+                      <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cb</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Combobox</span><span class="p">(</span><span class="n">iframe</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">values</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="c1"># long = len(max(values, key=len))</span>
+        <span class="c1"># cb.configure(width=(max(20, long//2)))</span>
+        <span class="k">if</span> <span class="n">command</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">cb</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;&lt;ComboboxSelected&gt;&gt;&quot;</span><span class="p">,</span> <span class="n">command</span><span class="p">)</span>
     <span class="n">cb</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">tooltip</span><span class="p">:</span>
         <span class="n">ttip</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
         <span class="n">ttip</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">tooltip</span><span class="p">)</span>
         <span class="n">cbtip</span> <span class="o">=</span> <span class="n">Tooltip</span><span class="p">(</span><span class="n">cb</span><span class="p">,</span> <span class="n">ttip</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">cb_label</span><span class="p">,</span> <span class="n">cb</span><span class="p">,</span> <span class="n">ttip</span>
+        <span class="k">return</span> <span class="n">iframe</span><span class="p">,</span> <span class="n">cb_label</span><span class="p">,</span> <span class="n">cb</span><span class="p">,</span> <span class="n">ttip</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">cb_label</span><span class="p">,</span> <span class="n">cb</span></div>
+        <span class="k">return</span> <span class="n">iframe</span><span class="p">,</span> <span class="n">cb_label</span><span class="p">,</span> <span class="n">cb</span></div>
 
 
 
@@ -569,11 +620,11 @@ document.write(`
 <span class="k">def</span> <span class="nf">add_entry</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
               <span class="n">padlabel</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">labelwidth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Add a left-aligned ttk.Entry with a ttk.Label before.</span>
+<span class="sd">    Add a left-aligned Entry with a Label before.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    frame : tk widget</span>
+<span class="sd">    frame : CustomTkinter widget</span>
 <span class="sd">        Parent widget</span>
 <span class="sd">    label : str, optional</span>
 <span class="sd">        Text that appears in front of the entry (default: &quot;&quot;)</span>
@@ -588,11 +639,14 @@ document.write(`
 <span class="sd">        Tooltip appearing after one second when hovering over</span>
 <span class="sd">        the entry (default: &quot;&quot; = no tooltip)</span>
 <span class="sd">    padlabel : int, optional</span>
-<span class="sd">        Prepend number of spaces to create distance other widgets (default: 0)</span>
+<span class="sd">        Prepend number of spaces to create distance to other widgets</span>
+<span class="sd">        (default: 0)</span>
+<span class="sd">    padx : int, optional</span>
+<span class="sd">        Extra space in px added left and right of the label text (default: 1)</span>
 <span class="sd">    labelwidth : int, optional</span>
 <span class="sd">        If given, set width of Label</span>
 <span class="sd">    **kwargs : option=value pairs, optional</span>
-<span class="sd">        All other options will be passed to ttk.Entry</span>
+<span class="sd">        All other options will be passed to Entry</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -604,13 +658,15 @@ document.write(`
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; self.rowxyopt = ttk.Frame(self)</span>
+<span class="sd">    &gt;&gt;&gt; self.rowxyopt = Frame(self)</span>
 <span class="sd">    &gt;&gt;&gt; self.rowxyopt.pack(side=&#39;top&#39;, fill=&#39;x&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; self.lslbl, self.ls = add_entry(</span>
 <span class="sd">    ...     self.rowxyopt, label=&quot;ls&quot;, text=&#39;-&#39;,</span>
 <span class="sd">    ...     width=4, command=self.selected_y)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># label</span>
+    <span class="n">iframe</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
     <span class="n">entry_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
     <span class="n">nlab</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">label</span><span class="p">)</span> <span class="o">+</span> <span class="n">padlabel</span>
     <span class="n">lab</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">label</span><span class="si">:</span><span class="s1">&gt;</span><span class="si">{</span><span class="n">nlab</span><span class="si">}</span><span class="s1">s</span><span class="si">}</span><span class="s1">&#39;</span>
@@ -618,9 +674,19 @@ document.write(`
     <span class="n">lkwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;textvariable&#39;</span><span class="p">:</span> <span class="n">entry_label</span><span class="p">}</span>
     <span class="k">if</span> <span class="n">labelwidth</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">lkwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="n">labelwidth</span><span class="p">})</span>
-    <span class="n">label</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="o">**</span><span class="n">lkwargs</span><span class="p">)</span>
+    <span class="c1"># if labelwidth is None:</span>
+    <span class="c1">#     labelwidth = len(lab)</span>
+    <span class="c1">#     if ihavectk:</span>
+    <span class="c1">#         labelwidth *= 9</span>
+    <span class="c1"># lkwargs.update({&#39;width&#39;: labelwidth})</span>
+    <span class="k">if</span> <span class="n">ihavectk</span><span class="p">:</span>
+        <span class="n">lkwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;padx&#39;</span><span class="p">:</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;padx&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)})</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;padx&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="n">iframe</span><span class="p">,</span> <span class="o">**</span><span class="n">lkwargs</span><span class="p">)</span>
     <span class="c1"># print(label.configure())</span>
     <span class="n">label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+    <span class="c1"># entry</span>
     <span class="n">entry_text</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">text</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">tt</span> <span class="o">=</span> <span class="s1">&#39;None&#39;</span>
@@ -632,7 +698,7 @@ document.write(`
     <span class="k">else</span><span class="p">:</span>
         <span class="n">tt</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
     <span class="n">entry_text</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">tt</span><span class="p">)</span>
-    <span class="n">entry</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">entry_text</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">entry</span> <span class="o">=</span> <span class="n">Entry</span><span class="p">(</span><span class="n">iframe</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">entry_text</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">command</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
             <span class="n">com0</span> <span class="o">=</span> <span class="n">command</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -648,13 +714,14 @@ document.write(`
         <span class="n">entry</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Key-Return&gt;&#39;</span><span class="p">,</span> <span class="n">com1</span><span class="p">)</span>  <span class="c1"># return</span>
         <span class="n">entry</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;KP_Enter&gt;&#39;</span><span class="p">,</span> <span class="n">com1</span><span class="p">)</span>    <span class="c1"># return of numeric keypad</span>
     <span class="n">entry</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+    <span class="c1"># tooltip</span>
     <span class="k">if</span> <span class="n">tooltip</span><span class="p">:</span>
         <span class="n">ttip</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
         <span class="n">ttip</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">tooltip</span><span class="p">)</span>
         <span class="n">etip</span> <span class="o">=</span> <span class="n">Tooltip</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="n">ttip</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">entry_label</span><span class="p">,</span> <span class="n">entry_text</span><span class="p">,</span> <span class="n">ttip</span>
+        <span class="k">return</span> <span class="n">iframe</span><span class="p">,</span> <span class="n">entry_label</span><span class="p">,</span> <span class="n">entry_text</span><span class="p">,</span> <span class="n">ttip</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">entry_label</span><span class="p">,</span> <span class="n">entry_text</span></div>
+        <span class="k">return</span> <span class="n">iframe</span><span class="p">,</span> <span class="n">entry_label</span><span class="p">,</span> <span class="n">entry_text</span></div>
 
 
 
@@ -664,7 +731,7 @@ document.write(`
                   <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Add a left-aligned menu with menubuttons having text and images</span>
-<span class="sd">    with a ttk.Label before.</span>
+<span class="sd">    with a Label before.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -694,7 +761,7 @@ document.write(`
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; self.rowcmap = ttk.Frame(self)</span>
+<span class="sd">    &gt;&gt;&gt; self.rowcmap = Frame(self)</span>
 <span class="sd">    &gt;&gt;&gt; self.rowcmap.pack(side=&#39;top&#39;, fill=&#39;x&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; self.cmaplbl, self.cmap = add_imagemenu(</span>
 <span class="sd">    ...     self.rowcmap, label=&quot;cmap&quot;, values=self.cmaps,</span>
@@ -704,15 +771,16 @@ document.write(`
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+    <span class="n">iframe</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
     <span class="n">estr</span>  <span class="o">=</span> <span class="s1">&#39;Same number of values and images needed for add_imagemenu.&#39;</span>
     <span class="n">estr</span> <span class="o">+=</span> <span class="s1">&#39; values (&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;): &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
     <span class="n">estr</span> <span class="o">+=</span> <span class="s1">&#39;, images (&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">images</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;): &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">images</span><span class="p">),</span> <span class="n">estr</span>
     <span class="n">mb_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
     <span class="n">mb_label</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
-    <span class="n">label</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">mb_label</span><span class="p">)</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="n">iframe</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">mb_label</span><span class="p">)</span>
     <span class="n">label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
-    <span class="n">mb</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Menubutton</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">images</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">text</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">mb</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Menubutton</span><span class="p">(</span><span class="n">iframe</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">images</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">text</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
                         <span class="n">compound</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
     <span class="n">sb</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Menu</span><span class="p">(</span><span class="n">mb</span><span class="p">,</span> <span class="n">tearoff</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">mb</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">menu</span><span class="o">=</span><span class="n">sb</span><span class="p">)</span>
@@ -724,9 +792,9 @@ document.write(`
         <span class="n">ttip</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
         <span class="n">ttip</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">tooltip</span><span class="p">)</span>
         <span class="n">mbtip</span> <span class="o">=</span> <span class="n">Tooltip</span><span class="p">(</span><span class="n">mb</span><span class="p">,</span> <span class="n">ttip</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">mb_label</span><span class="p">,</span> <span class="n">mb</span><span class="p">,</span> <span class="n">ttip</span>
+        <span class="k">return</span> <span class="n">iframe</span><span class="p">,</span> <span class="n">mb_label</span><span class="p">,</span> <span class="n">mb</span><span class="p">,</span> <span class="n">ttip</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">mb_label</span><span class="p">,</span> <span class="n">mb</span></div>
+        <span class="k">return</span> <span class="n">iframe</span><span class="p">,</span> <span class="n">mb_label</span><span class="p">,</span> <span class="n">mb</span></div>
 
 
 
@@ -734,11 +802,11 @@ document.write(`
 <a class="viewcode-back" href="../../ncvwidgets.html#ncvue.ncvwidgets.add_menu">[docs]</a>
 <span class="k">def</span> <span class="nf">add_menu</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">[],</span> <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Add a left-aligned menu with menubuttons with a ttk.Label before.</span>
+<span class="sd">    Add a left-aligned menu with menubuttons with a Label before.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    frame : tk widget</span>
+<span class="sd">    frame : CustomTkinter widget</span>
 <span class="sd">        Parent widget</span>
 <span class="sd">    label : str, optional</span>
 <span class="sd">        Text that appears in front of the menu (default: &quot;&quot;)</span>
@@ -750,42 +818,46 @@ document.write(`
 <span class="sd">        Tooltip appearing after one second when hovering over</span>
 <span class="sd">        the menu (default: &quot;&quot; = no tooltip)</span>
 <span class="sd">    **kwargs : option=value pairs, optional</span>
-<span class="sd">        All other options will be passed to the main ttk.Menubutton</span>
+<span class="sd">        All other options will be passed to the main Menubutton</span>
 <span class="sd">    tk.StringVar</span>
 <span class="sd">        variable for the text of the tooltip, if given.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    tk.StringVar, ttk.Menubutton</span>
+<span class="sd">    tk.StringVar, Menubutton</span>
 <span class="sd">        variable for the text before the menu, main tt.Menubutton widget</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; self.rowzxy = ttk.Frame(self)</span>
+<span class="sd">    &gt;&gt;&gt; self.rowzxy = Frame(self)</span>
 <span class="sd">    &gt;&gt;&gt; self.rowzxy.pack(side=&#39;top&#39;, fill=&#39;x&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; self.xlbl, self.x = add_combobox(</span>
 <span class="sd">    ...     self.rowzxy, label=&quot;x&quot;, values=columns, command=self.selected)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+    <span class="n">iframe</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
     <span class="n">mb_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
     <span class="n">mb_label</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
-    <span class="n">label</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">mb_label</span><span class="p">)</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="n">iframe</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">mb_label</span><span class="p">)</span>
     <span class="n">label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
-    <span class="n">mb</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Menubutton</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">compound</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
-    <span class="n">sb</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Menu</span><span class="p">(</span><span class="n">mb</span><span class="p">,</span> <span class="n">tearoff</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">mb</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">menu</span><span class="o">=</span><span class="n">sb</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
-        <span class="n">sb</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">v</span><span class="p">,</span> <span class="n">compound</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span>
-                       <span class="n">command</span><span class="o">=</span><span class="n">partial</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">ihavectk</span><span class="p">:</span>
+        <span class="n">mb</span> <span class="o">=</span> <span class="n">Menubutton</span><span class="p">(</span><span class="n">iframe</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">values</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">mb</span> <span class="o">=</span> <span class="n">Menubutton</span><span class="p">(</span><span class="n">iframe</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">compound</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">sb</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Menu</span><span class="p">(</span><span class="n">mb</span><span class="p">,</span> <span class="n">tearoff</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">mb</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">menu</span><span class="o">=</span><span class="n">sb</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
+            <span class="n">sb</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">v</span><span class="p">,</span> <span class="n">compound</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span>
+                           <span class="n">command</span><span class="o">=</span><span class="n">partial</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
     <span class="n">mb</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">tooltip</span><span class="p">:</span>
         <span class="n">ttip</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
         <span class="n">ttip</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">tooltip</span><span class="p">)</span>
         <span class="n">mbtip</span> <span class="o">=</span> <span class="n">Tooltip</span><span class="p">(</span><span class="n">mb</span><span class="p">,</span> <span class="n">ttip</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">mb_label</span><span class="p">,</span> <span class="n">mb</span><span class="p">,</span> <span class="n">ttip</span>
+        <span class="k">return</span> <span class="n">iframe</span><span class="p">,</span> <span class="n">mb_label</span><span class="p">,</span> <span class="n">mb</span><span class="p">,</span> <span class="n">ttip</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">mb_label</span><span class="p">,</span> <span class="n">mb</span></div>
+        <span class="k">return</span> <span class="n">iframe</span><span class="p">,</span> <span class="n">mb_label</span><span class="p">,</span> <span class="n">mb</span></div>
 
 
 
@@ -793,11 +865,11 @@ document.write(`
 <a class="viewcode-back" href="../../ncvwidgets.html#ncvue.ncvwidgets.add_scale">[docs]</a>
 <span class="k">def</span> <span class="nf">add_scale</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">ini</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Add a left-aligned ttk.Scale with a ttk.Label before.</span>
+<span class="sd">    Add a left-aligned Scale with a Label before.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    frame : tk widget</span>
+<span class="sd">    frame : CustomTkinter widget</span>
 <span class="sd">        Parent widget</span>
 <span class="sd">    label : str, optional</span>
 <span class="sd">        Text that appears in front of the scale (default: &quot;&quot;)</span>
@@ -807,11 +879,11 @@ document.write(`
 <span class="sd">        Tooltip appearing after one second when hovering over</span>
 <span class="sd">        the scale (default: &quot;&quot; = no tooltip)</span>
 <span class="sd">    **kwargs : option=value pairs, optional</span>
-<span class="sd">        All other options will be passed to ttk.Scale</span>
+<span class="sd">        All other options will be passed to Scale</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    tk.StringVar, tk.DoubleVar, ttk.Scale</span>
+<span class="sd">    tk.StringVar, tk.DoubleVar, Scale</span>
 <span class="sd">        variable for the text before the scale,</span>
 <span class="sd">        value of scale,</span>
 <span class="sd">        scale widget</span>
@@ -820,27 +892,42 @@ document.write(`
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; self.rowzxy = ttk.Frame(self)</span>
+<span class="sd">    &gt;&gt;&gt; self.rowzxy = Frame(self)</span>
 <span class="sd">    &gt;&gt;&gt; self.rowzxy.pack(side=&#39;top&#39;, fill=&#39;x&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; self.xlbl, self.x = add_scale(</span>
 <span class="sd">    ...     self.rowzxy, label=&quot;x&quot;, values=columns, command=self.selected)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">iframe</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
     <span class="n">s_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
     <span class="n">s_label</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
-    <span class="n">label</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">s_label</span><span class="p">)</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="n">iframe</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">s_label</span><span class="p">)</span>
     <span class="n">label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
     <span class="n">s_val</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">DoubleVar</span><span class="p">()</span>
     <span class="n">s_val</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ini</span><span class="p">)</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">variable</span><span class="o">=</span><span class="n">s_val</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;from_&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;from_&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span>
+    <span class="k">if</span> <span class="s1">&#39;to&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;to&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">})</span>
+    <span class="k">if</span> <span class="n">ihavectk</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;number_of_steps&#39;</span><span class="p">:</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;to&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;from_&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">})</span>
+        <span class="n">length</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;length&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">orient</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;orient&#39;</span><span class="p">,</span> <span class="n">tk</span><span class="o">.</span><span class="n">HORIZONTAL</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">length</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">length</span> <span class="o">=</span> <span class="mi">100</span>
+        <span class="k">if</span> <span class="n">orient</span> <span class="o">==</span> <span class="n">tk</span><span class="o">.</span><span class="n">HORIZONTAL</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="n">length</span><span class="p">})</span>
+        <span class="k">if</span> <span class="n">orient</span> <span class="o">==</span> <span class="n">tk</span><span class="o">.</span><span class="n">VERTICAL</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="n">length</span><span class="p">})</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">Scale</span><span class="p">(</span><span class="n">iframe</span><span class="p">,</span> <span class="n">variable</span><span class="o">=</span><span class="n">s_val</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="n">s</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">tooltip</span><span class="p">:</span>
         <span class="n">ttip</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
         <span class="n">ttip</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">tooltip</span><span class="p">)</span>
         <span class="n">stip</span> <span class="o">=</span> <span class="n">Tooltip</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">ttip</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">s_label</span><span class="p">,</span> <span class="n">s_val</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">ttip</span>
+        <span class="k">return</span> <span class="n">iframe</span><span class="p">,</span> <span class="n">s_label</span><span class="p">,</span> <span class="n">s_val</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">ttip</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">s_label</span><span class="p">,</span> <span class="n">s_val</span><span class="p">,</span> <span class="n">s</span></div>
+        <span class="k">return</span> <span class="n">iframe</span><span class="p">,</span> <span class="n">s_label</span><span class="p">,</span> <span class="n">s_val</span><span class="p">,</span> <span class="n">s</span></div>
 
 
 
@@ -887,15 +974,16 @@ document.write(`
 <span class="sd">    ...     command=self.spinned)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">iframe</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
     <span class="n">width</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;width&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
     <span class="n">sbl_val</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
     <span class="n">sbl_val</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
-    <span class="n">sbl</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">sbl_val</span><span class="p">)</span>
+    <span class="n">sbl</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">iframe</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">sbl_val</span><span class="p">)</span>
     <span class="n">sbl</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
     <span class="n">sb_val</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">sb_val</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-    <span class="n">sb</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Spinbox</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">values</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">command</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>
+    <span class="n">sb</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Spinbox</span><span class="p">(</span><span class="n">iframe</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">values</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">command</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>
                     <span class="n">textvariable</span><span class="o">=</span><span class="n">sb_val</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">command</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">sb</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Return&gt;&#39;</span><span class="p">,</span> <span class="n">command</span><span class="p">)</span>      <span class="c1"># return</span>
@@ -907,9 +995,9 @@ document.write(`
         <span class="n">ttip</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
         <span class="n">ttip</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">tooltip</span><span class="p">)</span>
         <span class="n">sbtip</span> <span class="o">=</span> <span class="n">Tooltip</span><span class="p">(</span><span class="n">sb</span><span class="p">,</span> <span class="n">ttip</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">sbl_val</span><span class="p">,</span> <span class="n">sbl</span><span class="p">,</span> <span class="n">sb_val</span><span class="p">,</span> <span class="n">sb</span><span class="p">,</span> <span class="n">ttip</span>
+        <span class="k">return</span> <span class="n">iframe</span><span class="p">,</span> <span class="n">sbl_val</span><span class="p">,</span> <span class="n">sbl</span><span class="p">,</span> <span class="n">sb_val</span><span class="p">,</span> <span class="n">sb</span><span class="p">,</span> <span class="n">ttip</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">sbl_val</span><span class="p">,</span> <span class="n">sbl</span><span class="p">,</span> <span class="n">sb_val</span><span class="p">,</span> <span class="n">sb</span></div>
+        <span class="k">return</span> <span class="n">iframe</span><span class="p">,</span> <span class="n">sbl_val</span><span class="p">,</span> <span class="n">sbl</span><span class="p">,</span> <span class="n">sb_val</span><span class="p">,</span> <span class="n">sb</span></div>
 
 
 
@@ -954,7 +1042,7 @@ document.write(`
 <span class="c1"># https://pythonassets.com/posts/scrollbar-in-tk-tkinter/</span>
 <div class="viewcode-block" id="Treeview">
 <a class="viewcode-back" href="../../ncvwidgets.html#ncvue.ncvwidgets.Treeview">[docs]</a>
-<span class="k">class</span> <span class="nc">Treeview</span><span class="p">(</span><span class="n">ttk</span><span class="o">.</span><span class="n">Frame</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">Treeview</span><span class="p">(</span><span class="n">Frame</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Treeview class with optional horizontal and vertical scrollbars</span>
 
@@ -983,19 +1071,25 @@ document.write(`
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="c1"># scrollbars</span>
         <span class="k">if</span> <span class="n">xscroll</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">hscrollbar</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Scrollbar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">ihavectk</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">hscrollbar</span> <span class="o">=</span> <span class="n">Scrollbar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">hscrollbar</span> <span class="o">=</span> <span class="n">Scrollbar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">yscroll</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">vscrollbar</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Scrollbar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">ihavectk</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">vscrollbar</span> <span class="o">=</span> <span class="n">Scrollbar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">vscrollbar</span> <span class="o">=</span> <span class="n">Scrollbar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">)</span>
         <span class="c1"># treeview</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tv</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Treeview</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="c1"># pack scrollbars and treeview together</span>
         <span class="k">if</span> <span class="n">xscroll</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tv</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">xscrollcommand</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hscrollbar</span><span class="o">.</span><span class="n">set</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">hscrollbar</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tv</span><span class="o">.</span><span class="n">xview</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hscrollbar</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tv</span><span class="o">.</span><span class="n">xview</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">hscrollbar</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">yscroll</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tv</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">yscrollcommand</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">vscrollbar</span><span class="o">.</span><span class="n">set</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">vscrollbar</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tv</span><span class="o">.</span><span class="n">yview</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vscrollbar</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tv</span><span class="o">.</span><span class="n">yview</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">vscrollbar</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tv</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
         <span class="c1"># convenience functions</span>

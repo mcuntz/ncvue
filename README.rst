@@ -196,7 +196,7 @@ example below, takes also about 0.3 s if using the index as x-variable
 but more than 11.1 s when using the `datetime` variable.
 
 .. image:: https://mcuntz.github.io/ncvue/images/scatter_panel_dark_multiline.png
-   :width: 407 px
+   :width: 507 px
    :align: center
    :alt: Example of multiple lines in the Scatter/Line panel
 

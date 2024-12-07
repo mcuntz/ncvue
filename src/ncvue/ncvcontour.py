@@ -639,6 +639,7 @@ class ncvContour(Frame):
             self.zdval.append(zdval)
             self.zd.append(zd)
             self.zdtip.append(zdtip)
+            zdframe.pack(side=tk.LEFT)
         for ll in self.xdlbl:
             ll.destroy()
         for ll in self.xd:
@@ -659,6 +660,7 @@ class ncvContour(Frame):
             self.xdval.append(xdval)
             self.xd.append(xd)
             self.xdtip.append(xdtip)
+            xdframe.pack(side=tk.LEFT)
         for ll in self.ydlbl:
             ll.destroy()
         for ll in self.yd:
@@ -679,6 +681,7 @@ class ncvContour(Frame):
             self.ydval.append(ydval)
             self.yd.append(yd)
             self.ydtip.append(ydtip)
+            ydframe.pack(side=tk.LEFT)
         # set variables
         columns = [''] + self.cols
         if ihavectk:
@@ -847,9 +850,9 @@ class ncvContour(Frame):
                 cb = self.figure.colorbar(cc, fraction=0.05, shrink=0.75,
                                           extend=extend)
             except Exception:
-                estr  = 'Contour: x (' + vx + '), y (' + vy + '),'
-                estr += ' z (' + vz + ') shapes do not match for'
-                estr += ' pcolormesh:'
+                estr  = ('Contour: x (' + vx + '), y (' + vy + '),'
+                         ' z (' + vz + ') shapes do not match for'
+                         ' pcolormesh:')
                 print(estr, xx.shape, yy.shape, zz.shape)
                 return
         else:
@@ -859,9 +862,9 @@ class ncvContour(Frame):
                                         cmap=cmap, extend=extend)
                 cb = self.figure.colorbar(cc, fraction=0.05, shrink=0.75)
             except Exception:
-                estr  = 'Contour: x (' + vx + '), y (' + vy + '),'
-                estr += ' z (' + vz + ') shapes do not match for'
-                estr += ' contourf:'
+                estr  = ('Contour: x (' + vx + '), y (' + vy + '),'
+                         ' z (' + vz + ') shapes do not match for'
+                         ' contourf:')
                 print(estr, xx.shape, yy.shape, zz.shape)
                 return
         # help(self.figure)

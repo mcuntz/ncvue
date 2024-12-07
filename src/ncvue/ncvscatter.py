@@ -159,7 +159,7 @@ class ncvScatter(Frame):
             mwidth = 70
         else:
             # width of combo boxes in characters
-            combowidth = 30
+            combowidth = 28
             # widths of entry widgets in characters
             ewsmall = 3
             ewmed = 4
@@ -763,6 +763,7 @@ class ncvScatter(Frame):
             self.xdval.append(xdval)
             self.xd.append(xd)
             self.xdtip.append(xdtip)
+            xdframe.pack(side=tk.LEFT)
         for ll in self.ydlbl:
             ll.destroy()
         for ll in self.yd:
@@ -783,6 +784,7 @@ class ncvScatter(Frame):
             self.ydval.append(ydval)
             self.yd.append(yd)
             self.ydtip.append(ydtip)
+            ydframe.pack(side=tk.LEFT)
         for ll in self.y2dlbl:
             ll.destroy()
         for ll in self.y2d:
@@ -803,6 +805,7 @@ class ncvScatter(Frame):
             self.y2dval.append(y2dval)
             self.y2d.append(y2d)
             self.y2dtip.append(y2dtip)
+            y2dframe.pack(side=tk.LEFT)
         # set variables
         columns = [''] + self.cols
         if ihavectk:
@@ -1118,8 +1121,8 @@ class ncvScatter(Frame):
                 # , picker=True, pickradius=5)
                 self.line_y = self.axes.plot(xx, yy)
             except Exception:
-                estr  = 'Scatter: x (' + vx + ') and y (' + vy + ')'
-                estr += ' shapes do not match for plot:'
+                estr  = ('Scatter: x (' + vx + ') and y (' + vy + ')'
+                         ' shapes do not match for plot:')
                 print(estr, xx.shape, yy.shape)
                 return
             self.axes.xaxis.set_label_text(xlab)
@@ -1129,8 +1132,8 @@ class ncvScatter(Frame):
                 # , picker=True, pickradius=5)
                 self.line_y2 = self.axes2.plot(xx, yy2)
             except Exception:
-                estr  = 'Scatter: x (' + vx + ') and y2 (' + vy2 + ')'
-                estr += ' shapes do not match for plot:'
+                estr  = ('Scatter: x (' + vx + ') and y2 (' + vy2 + ')'
+                         ' shapes do not match for plot:')
                 print(estr, xx.shape, yy2.shape)
                 return
             self.axes2.format_coord = lambda x, y: format_coord_scatter(

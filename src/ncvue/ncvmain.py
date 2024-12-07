@@ -124,8 +124,8 @@ class ncvMain(Frame):
             if mapfirst:
                 self.set("Map")
 
+            self.configure(command=self.check_new_netcdf)
             # self.bind("<<NotebookTabChanged>>", self.check_new_netcdf)
-            # self.bind("<Enter>", self.check_new_netcdf)
         else:
             # Notebook for tabs for future plot types
             self.tabs = ttk.Notebook(self)
@@ -149,7 +149,7 @@ class ncvMain(Frame):
     # Methods
     #
 
-    def check_new_netcdf(self, event):
+    def check_new_netcdf(self, event=None):
         """
         Command called if notebook panel changed or mouse pointer enters a
         window. It checks if netcdf file was changed in any panel of any window

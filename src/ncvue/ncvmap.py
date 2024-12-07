@@ -191,7 +191,7 @@ class ncvMap(Frame):
             # pad between label and entry (not used)
             padx = 5
             # width of animation and variables buttons
-            bwidth = 1
+            bwidth = 2
             # width of projections menu
             mwidth = 13
 
@@ -353,11 +353,13 @@ class ncvMap(Frame):
         spacev = Label(self.rowv, text=' ' * 1)
         spacev.pack(side=tk.LEFT)
         self.vminframe, self.vminlbl, self.vmin, self.vmintip = add_entry(
-            self.rowv, label='vmin', text=0, width=ewvbig, command=self.entered_v,
+            self.rowv, label='vmin', text=0, width=ewvbig,
+            command=self.entered_v,
             tooltip='Minimal display value', padx=padx)
         self.vminframe.pack(side=tk.LEFT)
         self.vmaxframe, self.vmaxlbl, self.vmax, self.vmaxtip = add_entry(
-            self.rowv, label='vmax', text=1, width=ewvbig, command=self.entered_v,
+            self.rowv, label='vmax', text=1, width=ewvbig,
+            command=self.entered_v,
             tooltip='Maximal display value', padx=padx)
         self.vmaxframe.pack(side=tk.LEFT)
         tstr  = 'If checked, determine vmin/vmax from all fields,\n'
@@ -1083,6 +1085,7 @@ class ncvMap(Frame):
             self.vdval.append(vdval)
             self.vd.append(vd)
             self.vdtip.append(vdtip)
+            vdframe.pack(side=tk.LEFT)
         for ll in self.latdlbl:
             ll.destroy()
         for ll in self.latd:
@@ -1104,6 +1107,7 @@ class ncvMap(Frame):
             self.latdval.append(latdval)
             self.latd.append(latd)
             self.latdtip.append(latdtip)
+            latdframe.pack(side=tk.LEFT)
         for ll in self.londlbl:
             ll.destroy()
         for ll in self.lond:
@@ -1125,14 +1129,15 @@ class ncvMap(Frame):
             self.londval.append(londval)
             self.lond.append(lond)
             self.londtip.append(londtip)
+            londframe.pack(side=tk.LEFT)
         # set time step
         if ihavectk:
-            self.tstep.configure(to=0)
+            self.tstep.configure(to=1)
             from_ = self.tstep.cget('from_')
             to = self.tstep.cget('to')
             self.tstep.configure(number_of_steps=to - from_ + 1)
         else:
-            self.tstep['to'] = 0
+            self.tstep['to'] = 1
         self.tstepval.set(0)
         self.repeat.set('repeat')
         # set variables
@@ -1443,8 +1448,8 @@ class ncvMap(Frame):
                 self.ixx = xx
                 self.iyy = yy
             else:
-                estr  = 'Map: lon (' + vx + '), lat (' + vy + ')'
-                estr += ' dimensions not 1D or 2D:'
+                estr  = ('Map: lon (' + vx + '), lat (' + vy + ')'
+                         ' dimensions not 1D or 2D:')
                 print(estr, xx.shape, yy.shape)
                 return
             if inv_lon:
@@ -1497,9 +1502,9 @@ class ncvMap(Frame):
                                                    shrink=0.75, pad=0.07,
                                                    extend=self.iextend)
                 except Exception:
-                    estr  = 'Map pcolormesh: lon (' + vx + '), '
-                    estr += ' lat (' + vy + '), var (' + vz + ') shapes do not'
-                    estr += ' match:'
+                    estr  = ('Map pcolormesh: lon (' + vx + '), '
+                             ' lat (' + vy + '), var (' + vz + ') '
+                             'shapes do not match:')
                     print(estr, self.ixx.shape, self.iyy.shape, self.ivv.shape)
                     return
             else:
@@ -1515,8 +1520,8 @@ class ncvMap(Frame):
                                                    shrink=0.75, pad=0.07)
                     # self.cc, = self.axes.plot(yy, vv[0,:])
                 except Exception:
-                    estr  = 'Map contourf: lon (' + vx + '), lat (' + vy + '),'
-                    estr += ' var (' + vz + ') shapes do not match for:'
+                    estr  = ('Map contourf: lon (' + vx + '), lat (' + vy +
+                             '), var (' + vz + ') shapes do not match for:')
                     print(estr, self.ixxc.shape, self.iyyc.shape,
                           self.ivvc.shape)
                     return
