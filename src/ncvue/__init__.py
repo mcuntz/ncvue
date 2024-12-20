@@ -66,6 +66,7 @@ History
     * v4.4.2 Use matplotlib.colormaps[name], Jul 2024, Matthias Cuntz
     * v4.4.3 Use draw_idle for faster animation, Jul 2024, Matthias Cuntz
     * v5.0 Use CustomTkinter if installed, Nov 2024, Matthias Cuntz
+    * v5.1 make notarized standalone versions, Dec 2024, Matthias Cuntz
 
 """
 # helper functions
