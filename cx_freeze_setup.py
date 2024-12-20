@@ -11,20 +11,20 @@ On macOS, use minimal virtual environment
    fi
    pyenv virtualenv 3.12.8 ncvue-install
    pyenv local ncvue-install
+   # or:
+   # pyenv virtualenv 3.12.8 ncvue-install-ctkinter
+   # pyenv local ncvue-install-ctkinter
    pyenv rehash
    python -m pip install -r requirements.txt
+   # if ncvue-install-ctkinter
+   # python -m pip install customtkinter
    python -m pip install -ve ./
    python -m pip install cx_freeze
-   # # libtiff.5.dylib version of PIL too old for pyproj -> use current from homebrew
-   # mv ~/.pyenv/versions/3.11.7/envs/install-ncvue/lib/python3.8/site-packages/PIL/.dylibs/libtiff.5.dylib \
-   #     ~/.pyenv/versions/3.11.7/envs/install-ncvue/lib/python3.8/site-packages/PIL/.dylibs/libtiff.5.dylib.save
-   # \cp /usr/local/lib/libtiff.5.dylib \
-   #     ~/.pyenv/versions/3.11.7/envs/install-ncvue/lib/python3.8/site-packages/PIL/.dylibs/libtiff.5.dylib
 
 On Windows, use conda-forge for everything because more up-to-date
     # Do not use mkl for smaller executable with PyInstaller/cx_Freeze
     conda install -c conda-forge nomkl cartopy
-    conda install -c conda-forge scipy cython pykdtree netcdf4
+    conda install -c conda-forge scipy cython pykdtree cftime netcdf4
     conda install -c conda-forge cx_Freeze
     # pip install ncvue
 
