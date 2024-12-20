@@ -14,33 +14,36 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-
-  
-  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=628480d8" />
   
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="_static/documentation_options.js?v=6638150a"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/documentation_options.js?v=e04695b1"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'ncvmap';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -48,6 +51,7 @@
     <link rel="prev" title="ncvue.ncvmain" href="ncvmain.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="5.1.dev1" />
   </head>
   
   
@@ -55,31 +59,16 @@
 
   
   
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -87,7 +76,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -95,10 +83,15 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
     </header>
   
 
@@ -107,7 +100,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -122,6 +116,8 @@
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="index.html">
   
@@ -135,22 +131,18 @@
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="readme.html">ncvue - A GUI to view netCDF files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="package.html">API</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="package.html">API</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="ncvcontour.html">ncvue.ncvcontour</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvmain.html">ncvue.ncvmain</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">ncvue.ncvmap</a></li>
@@ -160,7 +152,7 @@
 <li class="toctree-l2"><a class="reference internal" href="ncvutils.html">ncvue.ncvutils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvwidgets.html">ncvue.ncvwidgets</a></li>
 </ul>
-</li>
+</details></li>
 </ul>
 
     </div>
@@ -169,14 +161,19 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -185,14 +182,14 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -332,27 +329,19 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -433,10 +422,12 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.grid_rowconfigure"><code class="docutils literal notranslate"><span class="pre">ncvMap.grid_rowconfigure()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.grid_size"><code class="docutils literal notranslate"><span class="pre">ncvMap.grid_size()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.grid_slaves"><code class="docutils literal notranslate"><span class="pre">ncvMap.grid_slaves()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.identify"><code class="docutils literal notranslate"><span class="pre">ncvMap.identify()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.image_names"><code class="docutils literal notranslate"><span class="pre">ncvMap.image_names()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.image_types"><code class="docutils literal notranslate"><span class="pre">ncvMap.image_types()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.info"><code class="docutils literal notranslate"><span class="pre">ncvMap.info()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.info_patchlevel"><code class="docutils literal notranslate"><span class="pre">ncvMap.info_patchlevel()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.instate"><code class="docutils literal notranslate"><span class="pre">ncvMap.instate()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.keys"><code class="docutils literal notranslate"><span class="pre">ncvMap.keys()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.last_t"><code class="docutils literal notranslate"><span class="pre">ncvMap.last_t()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.lift"><code class="docutils literal notranslate"><span class="pre">ncvMap.lift()</span></code></a></li>
@@ -493,6 +484,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.spinned_lat"><code class="docutils literal notranslate"><span class="pre">ncvMap.spinned_lat()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.spinned_lon"><code class="docutils literal notranslate"><span class="pre">ncvMap.spinned_lon()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.spinned_v"><code class="docutils literal notranslate"><span class="pre">ncvMap.spinned_v()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.state"><code class="docutils literal notranslate"><span class="pre">ncvMap.state()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.tk_bisque"><code class="docutils literal notranslate"><span class="pre">ncvMap.tk_bisque()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.tk_focusFollowsMouse"><code class="docutils literal notranslate"><span class="pre">ncvMap.tk_focusFollowsMouse()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.tk_focusNext"><code class="docutils literal notranslate"><span class="pre">ncvMap.tk_focusNext()</span></code></a></li>
@@ -589,13 +581,14 @@ France.</p>
 </dd>
 </dl>
 <p>The following classes are provided:</p>
-<table class="autosummary longtable table autosummary">
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap" title="ncvue.ncvmap.ncvMap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ncvMap</span></code></a>(master, **kwargs)</p></td>
 <td><p>Panel for maps.</p></td>
 </tr>
 </tbody>
 </table>
+</div>
 <dl class="simple">
 <dt>History</dt><dd><ul class="simple">
 <li><p>Written Dec 2020-Jan 2021 by Matthias Cuntz (mc (at) macu (dot) de)</p></li>
@@ -625,14 +618,14 @@ Jul 2024, Matthias Cuntz</p></li>
 <dl class="py class">
 <dt class="sig sig-object py" id="ncvue.ncvmap.ncvMap">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ncvMap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">master</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvmap.html#ncvMap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvmap.ncvMap" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">CTkFrame</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Frame</span></code></p>
 <p>Panel for maps.</p>
 <p>Sets up the layout with the figure canvas, variable selectors, dimension
 spinboxes, and options in __init__.</p>
 <p>Contains various commands that manage what will be drawn or redrawn if
 something is selected, changed, checked, etc.</p>
 <p class="rubric">Methods</p>
-<table class="autosummary longtable table autosummary">
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.after" title="ncvue.ncvmap.ncvMap.after"><code class="xref py py-obj docutils literal notranslate"><span class="pre">after</span></code></a>(ms[, func])</p></td>
 <td><p>Call function once after given time.</p></td>
@@ -652,8 +645,8 @@ something is selected, changed, checked, etc.</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.bell" title="ncvue.ncvmap.ncvMap.bell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bell</span></code></a>([displayof])</p></td>
 <td><p>Ring a display's bell.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.bind" title="ncvue.ncvmap.ncvMap.bind"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bind</span></code></a>([sequence, command, add])</p></td>
-<td><p>called on the tkinter.Canvas</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.bind" title="ncvue.ncvmap.ncvMap.bind"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bind</span></code></a>([sequence, func, add])</p></td>
+<td><p>Bind to this widget at event SEQUENCE a call to function FUNC.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.bind_all" title="ncvue.ncvmap.ncvMap.bind_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bind_all</span></code></a>([sequence, func, add])</p></td>
 <td><p>Bind to all widgets at an event SEQUENCE a call to function FUNC.</p></td>
@@ -664,8 +657,8 @@ something is selected, changed, checked, etc.</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.bindtags" title="ncvue.ncvmap.ncvMap.bindtags"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bindtags</span></code></a>([tagList])</p></td>
 <td><p>Set or get the list of bindtags for this widget.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.cget" title="ncvue.ncvmap.ncvMap.cget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cget</span></code></a>(attribute_name)</p></td>
-<td><p>basic cget with bg_color, width, height support, calls cget of tkinter.Frame</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.cget" title="ncvue.ncvmap.ncvMap.cget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cget</span></code></a>(key)</p></td>
+<td><p>Return the resource value for a KEY given as string.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.checked" title="ncvue.ncvmap.ncvMap.checked"><code class="xref py py-obj docutils literal notranslate"><span class="pre">checked</span></code></a>()</p></td>
 <td><p>Command called if any checkbutton was checked or unchecked.</p></td>
@@ -685,11 +678,11 @@ something is selected, changed, checked, etc.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.columnconfigure" title="ncvue.ncvmap.ncvMap.columnconfigure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">columnconfigure</span></code></a>(index[, cnf])</p></td>
 <td><p>Configure column INDEX of a grid.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.config" title="ncvue.ncvmap.ncvMap.config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">config</span></code></a>(*args, **kwargs)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.config" title="ncvue.ncvmap.ncvMap.config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">config</span></code></a>([cnf])</p></td>
 <td><p>Configure resources of a widget.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.configure" title="ncvue.ncvmap.ncvMap.configure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">configure</span></code></a>([require_redraw])</p></td>
-<td><p>basic configure with bg_color, width, height support, calls configure of tkinter.Frame, updates in the end</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.configure" title="ncvue.ncvmap.ncvMap.configure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">configure</span></code></a>([cnf])</p></td>
+<td><p>Configure resources of a widget.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.delay_t" title="ncvue.ncvmap.ncvMap.delay_t"><code class="xref py py-obj docutils literal notranslate"><span class="pre">delay_t</span></code></a>(delay)</p></td>
 <td><p>Command called if delay scale was changed.</p></td>
@@ -763,8 +756,8 @@ something is selected, changed, checked, etc.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.grab_status" title="ncvue.ncvmap.ncvMap.grab_status"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grab_status</span></code></a>()</p></td>
 <td><p>Return None, &quot;local&quot; or &quot;global&quot; if this widget has no, a local or a global grab.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.grid" title="ncvue.ncvmap.ncvMap.grid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grid</span></code></a>(**kwargs)</p></td>
-<td><p>Position a widget in the parent widget in a grid.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.grid" title="ncvue.ncvmap.ncvMap.grid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grid</span></code></a>([cnf])</p></td>
+<td><p>Position a widget in the parent widget in a grid. Use as options: column=number - use cell identified with given column (starting with 0) columnspan=number - this widget will span several columns in=master - use master to contain this widget in_=master - see 'in' option description ipadx=amount - add internal padding in x direction ipady=amount - add internal padding in y direction padx=amount - add padding in x direction pady=amount - add padding in y direction row=number - use cell identified with given row (starting with 0) rowspan=number - this widget will span several rows sticky=NSEW - if cell is larger on which sides will this               widget stick to the cell boundary.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.grid_anchor" title="ncvue.ncvmap.ncvMap.grid_anchor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grid_anchor</span></code></a>([anchor])</p></td>
 <td><p>The anchor value controls how to place the grid within the master when no row/column has any weight.</p></td>
@@ -802,17 +795,23 @@ something is selected, changed, checked, etc.</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.grid_slaves" title="ncvue.ncvmap.ncvMap.grid_slaves"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grid_slaves</span></code></a>([row, column])</p></td>
 <td><p>Return a list of all slaves of this widget in its packing order.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.image_names" title="ncvue.ncvmap.ncvMap.image_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">image_names</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.identify" title="ncvue.ncvmap.ncvMap.identify"><code class="xref py py-obj docutils literal notranslate"><span class="pre">identify</span></code></a>(x, y)</p></td>
+<td><p>Returns the name of the element at position x, y, or the empty string if the point does not lie within any element.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.image_names" title="ncvue.ncvmap.ncvMap.image_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">image_names</span></code></a>()</p></td>
 <td><p>Return a list of all existing image names.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.image_types" title="ncvue.ncvmap.ncvMap.image_types"><code class="xref py py-obj docutils literal notranslate"><span class="pre">image_types</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.image_types" title="ncvue.ncvmap.ncvMap.image_types"><code class="xref py py-obj docutils literal notranslate"><span class="pre">image_types</span></code></a>()</p></td>
 <td><p>Return a list of all available image types (e.g. photo bitmap).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.info" title="ncvue.ncvmap.ncvMap.info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">info</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.info" title="ncvue.ncvmap.ncvMap.info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">info</span></code></a>()</p></td>
 <td><p>Return information about the packing options for this widget.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.info_patchlevel" title="ncvue.ncvmap.ncvMap.info_patchlevel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">info_patchlevel</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.info_patchlevel" title="ncvue.ncvmap.ncvMap.info_patchlevel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">info_patchlevel</span></code></a>()</p></td>
 <td><p>Returns the exact version of the Tcl library.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.instate" title="ncvue.ncvmap.ncvMap.instate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">instate</span></code></a>(statespec[, callback])</p></td>
+<td><p>Test the widget's state.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.keys" title="ncvue.ncvmap.ncvMap.keys"><code class="xref py py-obj docutils literal notranslate"><span class="pre">keys</span></code></a>()</p></td>
 <td><p>Return a list of all resource names of this widget.</p></td>
@@ -859,8 +858,8 @@ something is selected, changed, checked, etc.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.option_readfile" title="ncvue.ncvmap.ncvMap.option_readfile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">option_readfile</span></code></a>(fileName[, priority])</p></td>
 <td><p>Read file FILENAME into the option database.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.pack" title="ncvue.ncvmap.ncvMap.pack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack</span></code></a>(**kwargs)</p></td>
-<td><p>Pack a widget in the parent widget.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.pack" title="ncvue.ncvmap.ncvMap.pack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack</span></code></a>([cnf])</p></td>
+<td><p>Pack a widget in the parent widget. Use as options: after=widget - pack it after you have packed widget anchor=NSEW (or subset) - position widget according to                           given direction before=widget - pack it before you will pack widget expand=bool - expand widget if parent size grows fill=NONE or X or Y or BOTH - fill widget if widget grows in=master - use master to contain this widget in_=master - see 'in' option description ipadx=amount - add internal padding in x direction ipady=amount - add internal padding in y direction padx=amount - add padding in x direction pady=amount - add padding in y direction side=TOP or BOTTOM or LEFT or RIGHT -  where to add this widget.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.pack_configure" title="ncvue.ncvmap.ncvMap.pack_configure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack_configure</span></code></a>([cnf])</p></td>
 <td><p>Pack a widget in the parent widget. Use as options: after=widget - pack it after you have packed widget anchor=NSEW (or subset) - position widget according to                           given direction before=widget - pack it before you will pack widget expand=bool - expand widget if parent size grows fill=NONE or X or Y or BOTH - fill widget if widget grows in=master - use master to contain this widget in_=master - see 'in' option description ipadx=amount - add internal padding in x direction ipady=amount - add internal padding in y direction padx=amount - add padding in x direction pady=amount - add padding in y direction side=TOP or BOTTOM or LEFT or RIGHT -  where to add this widget.</p></td>
@@ -880,8 +879,8 @@ something is selected, changed, checked, etc.</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.pause_t" title="ncvue.ncvmap.ncvMap.pause_t"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pause_t</span></code></a>()</p></td>
 <td><p>Command called if pause button was pressed.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.place" title="ncvue.ncvmap.ncvMap.place"><code class="xref py py-obj docutils literal notranslate"><span class="pre">place</span></code></a>(**kwargs)</p></td>
-<td><p>Place a widget in the parent widget.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.place" title="ncvue.ncvmap.ncvMap.place"><code class="xref py py-obj docutils literal notranslate"><span class="pre">place</span></code></a>([cnf])</p></td>
+<td><p>Place a widget in the parent widget. Use as options: in=master - master relative to which the widget is placed in_=master - see 'in' option description x=amount - locate anchor of this widget at position x of master y=amount - locate anchor of this widget at position y of master relx=amount - locate anchor of this widget between 0.0 and 1.0               relative to width of master (1.0 is right edge) rely=amount - locate anchor of this widget between 0.0 and 1.0               relative to height of master (1.0 is bottom edge) anchor=NSEW (or subset) - position anchor according to given direction width=amount - width of this widget in pixel height=amount - height of this widget in pixel relwidth=amount - width of this widget between 0.0 and 1.0                   relative to width of master (1.0 is the same width                   as the master) relheight=amount - height of this widget between 0.0 and 1.0                    relative to height of master (1.0 is the same                    height as the master) bordermode=&quot;inside&quot; or &quot;outside&quot; - whether to take border width of                                    master widget into account.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.place_configure" title="ncvue.ncvmap.ncvMap.place_configure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">place_configure</span></code></a>([cnf])</p></td>
 <td><p>Place a widget in the parent widget. Use as options: in=master - master relative to which the widget is placed in_=master - see 'in' option description x=amount - locate anchor of this widget at position x of master y=amount - locate anchor of this widget at position y of master relx=amount - locate anchor of this widget between 0.0 and 1.0               relative to width of master (1.0 is right edge) rely=amount - locate anchor of this widget between 0.0 and 1.0               relative to height of master (1.0 is bottom edge) anchor=NSEW (or subset) - position anchor according to given direction width=amount - width of this widget in pixel height=amount - height of this widget in pixel relwidth=amount - width of this widget between 0.0 and 1.0                   relative to width of master (1.0 is the same width                   as the master) relheight=amount - height of this widget between 0.0 and 1.0                    relative to height of master (1.0 is the same                    height as the master) bordermode=&quot;inside&quot; or &quot;outside&quot; - whether to take border width of                                    master widget into account.</p></td>
@@ -982,207 +981,211 @@ something is selected, changed, checked, etc.</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.spinned_v" title="ncvue.ncvmap.ncvMap.spinned_v"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spinned_v</span></code></a>([event])</p></td>
 <td><p>Command called if spinbox of variable-dimensions was changed.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.tk_bisque" title="ncvue.ncvmap.ncvMap.tk_bisque"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tk_bisque</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.state" title="ncvue.ncvmap.ncvMap.state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">state</span></code></a>([statespec])</p></td>
+<td><p>Modify or inquire widget state.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.tk_bisque" title="ncvue.ncvmap.ncvMap.tk_bisque"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tk_bisque</span></code></a>()</p></td>
 <td><p>Change the color scheme to light brown as used in Tk 3.6 and before.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.tk_focusFollowsMouse" title="ncvue.ncvmap.ncvMap.tk_focusFollowsMouse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tk_focusFollowsMouse</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.tk_focusFollowsMouse" title="ncvue.ncvmap.ncvMap.tk_focusFollowsMouse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tk_focusFollowsMouse</span></code></a>()</p></td>
 <td><p>The widget under mouse will get automatically focus.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.tk_focusNext" title="ncvue.ncvmap.ncvMap.tk_focusNext"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tk_focusNext</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.tk_focusNext" title="ncvue.ncvmap.ncvMap.tk_focusNext"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tk_focusNext</span></code></a>()</p></td>
 <td><p>Return the next widget in the focus order which follows widget which has currently the focus.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.tk_focusPrev" title="ncvue.ncvmap.ncvMap.tk_focusPrev"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tk_focusPrev</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.tk_focusPrev" title="ncvue.ncvmap.ncvMap.tk_focusPrev"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tk_focusPrev</span></code></a>()</p></td>
 <td><p>Return previous widget in the focus order.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.tk_setPalette" title="ncvue.ncvmap.ncvMap.tk_setPalette"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tk_setPalette</span></code></a>(*args, **kw)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.tk_setPalette" title="ncvue.ncvmap.ncvMap.tk_setPalette"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tk_setPalette</span></code></a>(*args, **kw)</p></td>
 <td><p>Set a new color scheme for all widget elements.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.tk_strictMotif" title="ncvue.ncvmap.ncvMap.tk_strictMotif"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tk_strictMotif</span></code></a>([boolean])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.tk_strictMotif" title="ncvue.ncvmap.ncvMap.tk_strictMotif"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tk_strictMotif</span></code></a>([boolean])</p></td>
 <td><p>Set Tcl internal variable, whether the look and feel should adhere to Motif.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.tkraise" title="ncvue.ncvmap.ncvMap.tkraise"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tkraise</span></code></a>([aboveThis])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.tkraise" title="ncvue.ncvmap.ncvMap.tkraise"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tkraise</span></code></a>([aboveThis])</p></td>
 <td><p>Raise this widget in the stacking order.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.tstep_t" title="ncvue.ncvmap.ncvMap.tstep_t"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tstep_t</span></code></a>(step)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.tstep_t" title="ncvue.ncvmap.ncvMap.tstep_t"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tstep_t</span></code></a>(step)</p></td>
 <td><p>Command called if tstep was changed.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.unbind" title="ncvue.ncvmap.ncvMap.unbind"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unbind</span></code></a>([sequence, funcid])</p></td>
-<td><p>called on the tkinter.Canvas</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.unbind" title="ncvue.ncvmap.ncvMap.unbind"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unbind</span></code></a>(sequence[, funcid])</p></td>
+<td><p>Unbind for this widget the event SEQUENCE.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.unbind_all" title="ncvue.ncvmap.ncvMap.unbind_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unbind_all</span></code></a>(sequence)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.unbind_all" title="ncvue.ncvmap.ncvMap.unbind_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unbind_all</span></code></a>(sequence)</p></td>
 <td><p>Unbind for all widgets for event SEQUENCE all functions.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.unbind_class" title="ncvue.ncvmap.ncvMap.unbind_class"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unbind_class</span></code></a>(className, sequence)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.unbind_class" title="ncvue.ncvmap.ncvMap.unbind_class"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unbind_class</span></code></a>(className, sequence)</p></td>
 <td><p>Unbind for all widgets with bindtag CLASSNAME for event SEQUENCE all functions.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.update" title="ncvue.ncvmap.ncvMap.update"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update</span></code></a>(frame[, isframe])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.update" title="ncvue.ncvmap.ncvMap.update"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update</span></code></a>(frame[, isframe])</p></td>
 <td><p>Updates data of the current plot.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.update_idletasks" title="ncvue.ncvmap.ncvMap.update_idletasks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_idletasks</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.update_idletasks" title="ncvue.ncvmap.ncvMap.update_idletasks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_idletasks</span></code></a>()</p></td>
 <td><p>Enter event loop until all idle callbacks have been called.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.wait_variable" title="ncvue.ncvmap.ncvMap.wait_variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wait_variable</span></code></a>([name])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.wait_variable" title="ncvue.ncvmap.ncvMap.wait_variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wait_variable</span></code></a>([name])</p></td>
 <td><p>Wait until the variable is modified.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.wait_visibility" title="ncvue.ncvmap.ncvMap.wait_visibility"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wait_visibility</span></code></a>([window])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.wait_visibility" title="ncvue.ncvmap.ncvMap.wait_visibility"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wait_visibility</span></code></a>([window])</p></td>
 <td><p>Wait until the visibility of a WIDGET changes (e.g. it appears).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.wait_window" title="ncvue.ncvmap.ncvMap.wait_window"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wait_window</span></code></a>([window])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.wait_window" title="ncvue.ncvmap.ncvMap.wait_window"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wait_window</span></code></a>([window])</p></td>
 <td><p>Wait until a WIDGET is destroyed.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.waitvar" title="ncvue.ncvmap.ncvMap.waitvar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">waitvar</span></code></a>([name])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.waitvar" title="ncvue.ncvmap.ncvMap.waitvar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">waitvar</span></code></a>([name])</p></td>
 <td><p>Wait until the variable is modified.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_atom" title="ncvue.ncvmap.ncvMap.winfo_atom"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_atom</span></code></a>(name[, displayof])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_atom" title="ncvue.ncvmap.ncvMap.winfo_atom"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_atom</span></code></a>(name[, displayof])</p></td>
 <td><p>Return integer which represents atom NAME.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_atomname" title="ncvue.ncvmap.ncvMap.winfo_atomname"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_atomname</span></code></a>(id[, displayof])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_atomname" title="ncvue.ncvmap.ncvMap.winfo_atomname"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_atomname</span></code></a>(id[, displayof])</p></td>
 <td><p>Return name of atom with identifier ID.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_cells" title="ncvue.ncvmap.ncvMap.winfo_cells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_cells</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_cells" title="ncvue.ncvmap.ncvMap.winfo_cells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_cells</span></code></a>()</p></td>
 <td><p>Return number of cells in the colormap for this widget.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_children" title="ncvue.ncvmap.ncvMap.winfo_children"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_children</span></code></a>()</p></td>
-<td><p>winfo_children of CTkFrame without self.canvas widget, because it's not a child but part of the CTkFrame itself</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_children" title="ncvue.ncvmap.ncvMap.winfo_children"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_children</span></code></a>()</p></td>
+<td><p>Return a list of all widgets which are children of this widget.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_class" title="ncvue.ncvmap.ncvMap.winfo_class"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_class</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_class" title="ncvue.ncvmap.ncvMap.winfo_class"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_class</span></code></a>()</p></td>
 <td><p>Return window class name of this widget.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_colormapfull" title="ncvue.ncvmap.ncvMap.winfo_colormapfull"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_colormapfull</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_colormapfull" title="ncvue.ncvmap.ncvMap.winfo_colormapfull"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_colormapfull</span></code></a>()</p></td>
 <td><p>Return True if at the last color request the colormap was full.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_containing" title="ncvue.ncvmap.ncvMap.winfo_containing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_containing</span></code></a>(rootX, rootY[, displayof])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_containing" title="ncvue.ncvmap.ncvMap.winfo_containing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_containing</span></code></a>(rootX, rootY[, displayof])</p></td>
 <td><p>Return the widget which is at the root coordinates ROOTX, ROOTY.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_depth" title="ncvue.ncvmap.ncvMap.winfo_depth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_depth</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_depth" title="ncvue.ncvmap.ncvMap.winfo_depth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_depth</span></code></a>()</p></td>
 <td><p>Return the number of bits per pixel.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_exists" title="ncvue.ncvmap.ncvMap.winfo_exists"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_exists</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_exists" title="ncvue.ncvmap.ncvMap.winfo_exists"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_exists</span></code></a>()</p></td>
 <td><p>Return true if this widget exists.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_fpixels" title="ncvue.ncvmap.ncvMap.winfo_fpixels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_fpixels</span></code></a>(number)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_fpixels" title="ncvue.ncvmap.ncvMap.winfo_fpixels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_fpixels</span></code></a>(number)</p></td>
 <td><p>Return the number of pixels for the given distance NUMBER (e.g. &quot;3c&quot;) as float.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_geometry" title="ncvue.ncvmap.ncvMap.winfo_geometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_geometry</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_geometry" title="ncvue.ncvmap.ncvMap.winfo_geometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_geometry</span></code></a>()</p></td>
 <td><p>Return geometry string for this widget in the form &quot;widthxheight+X+Y&quot;.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_height" title="ncvue.ncvmap.ncvMap.winfo_height"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_height</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_height" title="ncvue.ncvmap.ncvMap.winfo_height"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_height</span></code></a>()</p></td>
 <td><p>Return height of this widget.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_id" title="ncvue.ncvmap.ncvMap.winfo_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_id</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_id" title="ncvue.ncvmap.ncvMap.winfo_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_id</span></code></a>()</p></td>
 <td><p>Return identifier ID for this widget.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_interps" title="ncvue.ncvmap.ncvMap.winfo_interps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_interps</span></code></a>([displayof])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_interps" title="ncvue.ncvmap.ncvMap.winfo_interps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_interps</span></code></a>([displayof])</p></td>
 <td><p>Return the name of all Tcl interpreters for this display.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_ismapped" title="ncvue.ncvmap.ncvMap.winfo_ismapped"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_ismapped</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_ismapped" title="ncvue.ncvmap.ncvMap.winfo_ismapped"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_ismapped</span></code></a>()</p></td>
 <td><p>Return true if this widget is mapped.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_manager" title="ncvue.ncvmap.ncvMap.winfo_manager"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_manager</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_manager" title="ncvue.ncvmap.ncvMap.winfo_manager"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_manager</span></code></a>()</p></td>
 <td><p>Return the window manager name for this widget.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_name" title="ncvue.ncvmap.ncvMap.winfo_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_name</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_name" title="ncvue.ncvmap.ncvMap.winfo_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_name</span></code></a>()</p></td>
 <td><p>Return the name of this widget.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_parent" title="ncvue.ncvmap.ncvMap.winfo_parent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_parent</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_parent" title="ncvue.ncvmap.ncvMap.winfo_parent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_parent</span></code></a>()</p></td>
 <td><p>Return the name of the parent of this widget.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_pathname" title="ncvue.ncvmap.ncvMap.winfo_pathname"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_pathname</span></code></a>(id[, displayof])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_pathname" title="ncvue.ncvmap.ncvMap.winfo_pathname"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_pathname</span></code></a>(id[, displayof])</p></td>
 <td><p>Return the pathname of the widget given by ID.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_pixels" title="ncvue.ncvmap.ncvMap.winfo_pixels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_pixels</span></code></a>(number)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_pixels" title="ncvue.ncvmap.ncvMap.winfo_pixels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_pixels</span></code></a>(number)</p></td>
 <td><p>Rounded integer value of winfo_fpixels.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_pointerx" title="ncvue.ncvmap.ncvMap.winfo_pointerx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_pointerx</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_pointerx" title="ncvue.ncvmap.ncvMap.winfo_pointerx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_pointerx</span></code></a>()</p></td>
 <td><p>Return the x coordinate of the pointer on the root window.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_pointerxy" title="ncvue.ncvmap.ncvMap.winfo_pointerxy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_pointerxy</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_pointerxy" title="ncvue.ncvmap.ncvMap.winfo_pointerxy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_pointerxy</span></code></a>()</p></td>
 <td><p>Return a tuple of x and y coordinates of the pointer on the root window.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_pointery" title="ncvue.ncvmap.ncvMap.winfo_pointery"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_pointery</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_pointery" title="ncvue.ncvmap.ncvMap.winfo_pointery"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_pointery</span></code></a>()</p></td>
 <td><p>Return the y coordinate of the pointer on the root window.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_reqheight" title="ncvue.ncvmap.ncvMap.winfo_reqheight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_reqheight</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_reqheight" title="ncvue.ncvmap.ncvMap.winfo_reqheight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_reqheight</span></code></a>()</p></td>
 <td><p>Return requested height of this widget.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_reqwidth" title="ncvue.ncvmap.ncvMap.winfo_reqwidth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_reqwidth</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_reqwidth" title="ncvue.ncvmap.ncvMap.winfo_reqwidth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_reqwidth</span></code></a>()</p></td>
 <td><p>Return requested width of this widget.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_rgb" title="ncvue.ncvmap.ncvMap.winfo_rgb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_rgb</span></code></a>(color)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_rgb" title="ncvue.ncvmap.ncvMap.winfo_rgb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_rgb</span></code></a>(color)</p></td>
 <td><p>Return a tuple of integer RGB values in range(65536) for color in this widget.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_rootx" title="ncvue.ncvmap.ncvMap.winfo_rootx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_rootx</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_rootx" title="ncvue.ncvmap.ncvMap.winfo_rootx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_rootx</span></code></a>()</p></td>
 <td><p>Return x coordinate of upper left corner of this widget on the root window.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_rooty" title="ncvue.ncvmap.ncvMap.winfo_rooty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_rooty</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_rooty" title="ncvue.ncvmap.ncvMap.winfo_rooty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_rooty</span></code></a>()</p></td>
 <td><p>Return y coordinate of upper left corner of this widget on the root window.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_screen" title="ncvue.ncvmap.ncvMap.winfo_screen"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_screen</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_screen" title="ncvue.ncvmap.ncvMap.winfo_screen"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_screen</span></code></a>()</p></td>
 <td><p>Return the screen name of this widget.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_screencells" title="ncvue.ncvmap.ncvMap.winfo_screencells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_screencells</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_screencells" title="ncvue.ncvmap.ncvMap.winfo_screencells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_screencells</span></code></a>()</p></td>
 <td><p>Return the number of the cells in the colormap of the screen of this widget.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_screendepth" title="ncvue.ncvmap.ncvMap.winfo_screendepth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_screendepth</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_screendepth" title="ncvue.ncvmap.ncvMap.winfo_screendepth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_screendepth</span></code></a>()</p></td>
 <td><p>Return the number of bits per pixel of the root window of the screen of this widget.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_screenheight" title="ncvue.ncvmap.ncvMap.winfo_screenheight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_screenheight</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_screenheight" title="ncvue.ncvmap.ncvMap.winfo_screenheight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_screenheight</span></code></a>()</p></td>
 <td><p>Return the number of pixels of the height of the screen of this widget in pixel.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_screenmmheight" title="ncvue.ncvmap.ncvMap.winfo_screenmmheight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_screenmmheight</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_screenmmheight" title="ncvue.ncvmap.ncvMap.winfo_screenmmheight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_screenmmheight</span></code></a>()</p></td>
 <td><p>Return the number of pixels of the height of the screen of this widget in mm.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_screenmmwidth" title="ncvue.ncvmap.ncvMap.winfo_screenmmwidth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_screenmmwidth</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_screenmmwidth" title="ncvue.ncvmap.ncvMap.winfo_screenmmwidth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_screenmmwidth</span></code></a>()</p></td>
 <td><p>Return the number of pixels of the width of the screen of this widget in mm.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_screenvisual" title="ncvue.ncvmap.ncvMap.winfo_screenvisual"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_screenvisual</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_screenvisual" title="ncvue.ncvmap.ncvMap.winfo_screenvisual"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_screenvisual</span></code></a>()</p></td>
 <td><p>Return one of the strings directcolor, grayscale, pseudocolor, staticcolor, staticgray, or truecolor for the default colormodel of this screen.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_screenwidth" title="ncvue.ncvmap.ncvMap.winfo_screenwidth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_screenwidth</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_screenwidth" title="ncvue.ncvmap.ncvMap.winfo_screenwidth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_screenwidth</span></code></a>()</p></td>
 <td><p>Return the number of pixels of the width of the screen of this widget in pixel.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_server" title="ncvue.ncvmap.ncvMap.winfo_server"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_server</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_server" title="ncvue.ncvmap.ncvMap.winfo_server"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_server</span></code></a>()</p></td>
 <td><p>Return information of the X-Server of the screen of this widget in the form &quot;XmajorRminor vendor vendorVersion&quot;.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_toplevel" title="ncvue.ncvmap.ncvMap.winfo_toplevel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_toplevel</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_toplevel" title="ncvue.ncvmap.ncvMap.winfo_toplevel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_toplevel</span></code></a>()</p></td>
 <td><p>Return the toplevel widget of this widget.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_viewable" title="ncvue.ncvmap.ncvMap.winfo_viewable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_viewable</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_viewable" title="ncvue.ncvmap.ncvMap.winfo_viewable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_viewable</span></code></a>()</p></td>
 <td><p>Return true if the widget and all its higher ancestors are mapped.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_visual" title="ncvue.ncvmap.ncvMap.winfo_visual"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_visual</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_visual" title="ncvue.ncvmap.ncvMap.winfo_visual"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_visual</span></code></a>()</p></td>
 <td><p>Return one of the strings directcolor, grayscale, pseudocolor, staticcolor, staticgray, or truecolor for the colormodel of this widget.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_visualid" title="ncvue.ncvmap.ncvMap.winfo_visualid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_visualid</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_visualid" title="ncvue.ncvmap.ncvMap.winfo_visualid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_visualid</span></code></a>()</p></td>
 <td><p>Return the X identifier for the visual for this widget.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_visualsavailable" title="ncvue.ncvmap.ncvMap.winfo_visualsavailable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_visualsavailable</span></code></a>([includeids])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_visualsavailable" title="ncvue.ncvmap.ncvMap.winfo_visualsavailable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_visualsavailable</span></code></a>([includeids])</p></td>
 <td><p>Return a list of all visuals available for the screen of this widget.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_vrootheight" title="ncvue.ncvmap.ncvMap.winfo_vrootheight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_vrootheight</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_vrootheight" title="ncvue.ncvmap.ncvMap.winfo_vrootheight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_vrootheight</span></code></a>()</p></td>
 <td><p>Return the height of the virtual root window associated with this widget in pixels.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_vrootwidth" title="ncvue.ncvmap.ncvMap.winfo_vrootwidth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_vrootwidth</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_vrootwidth" title="ncvue.ncvmap.ncvMap.winfo_vrootwidth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_vrootwidth</span></code></a>()</p></td>
 <td><p>Return the width of the virtual root window associated with this widget in pixel.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_vrootx" title="ncvue.ncvmap.ncvMap.winfo_vrootx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_vrootx</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_vrootx" title="ncvue.ncvmap.ncvMap.winfo_vrootx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_vrootx</span></code></a>()</p></td>
 <td><p>Return the x offset of the virtual root relative to the root window of the screen of this widget.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_vrooty" title="ncvue.ncvmap.ncvMap.winfo_vrooty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_vrooty</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_vrooty" title="ncvue.ncvmap.ncvMap.winfo_vrooty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_vrooty</span></code></a>()</p></td>
 <td><p>Return the y offset of the virtual root relative to the root window of the screen of this widget.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_width" title="ncvue.ncvmap.ncvMap.winfo_width"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_width</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_width" title="ncvue.ncvmap.ncvMap.winfo_width"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_width</span></code></a>()</p></td>
 <td><p>Return the width of this widget.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_x" title="ncvue.ncvmap.ncvMap.winfo_x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_x</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_x" title="ncvue.ncvmap.ncvMap.winfo_x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_x</span></code></a>()</p></td>
 <td><p>Return the x coordinate of the upper left corner of this widget in the parent.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_y" title="ncvue.ncvmap.ncvMap.winfo_y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_y</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvmap.ncvMap.winfo_y" title="ncvue.ncvmap.ncvMap.winfo_y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_y</span></code></a>()</p></td>
 <td><p>Return the y coordinate of the upper left corner of this widget in the parent.</p></td>
 </tr>
 </tbody>
 </table>
-<table class="table">
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
 <tbody>
 <tr class="row-odd"><td><p><strong>get_vminmax</strong></p></td>
 <td></td>
@@ -1195,6 +1198,7 @@ something is selected, changed, checked, etc.</p>
 </tr>
 </tbody>
 </table>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="ncvue.ncvmap.ncvMap.after">
 <span class="sig-name descname"><span class="pre">after</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.after" title="Link to this definition">#</a></dt>
@@ -1251,8 +1255,39 @@ corner in the master widget and the width and height.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ncvue.ncvmap.ncvMap.bind">
-<span class="sig-name descname"><span class="pre">bind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.bind" title="Link to this definition">#</a></dt>
-<dd><p>called on the tkinter.Canvas</p>
+<span class="sig-name descname"><span class="pre">bind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.bind" title="Link to this definition">#</a></dt>
+<dd><p>Bind to this widget at event SEQUENCE a call to function FUNC.</p>
+<p>SEQUENCE is a string of concatenated event
+patterns. An event pattern is of the form
+&lt;MODIFIER-MODIFIER-TYPE-DETAIL&gt; where MODIFIER is one
+of Control, Mod2, M2, Shift, Mod3, M3, Lock, Mod4, M4,
+Button1, B1, Mod5, M5 Button2, B2, Meta, M, Button3,
+B3, Alt, Button4, B4, Double, Button5, B5 Triple,
+Mod1, M1. TYPE is one of Activate, Enter, Map,
+ButtonPress, Button, Expose, Motion, ButtonRelease
+FocusIn, MouseWheel, Circulate, FocusOut, Property,
+Colormap, Gravity Reparent, Configure, KeyPress, Key,
+Unmap, Deactivate, KeyRelease Visibility, Destroy,
+Leave and DETAIL is the button number for ButtonPress,
+ButtonRelease and DETAIL is the Keysym for KeyPress and
+KeyRelease. Examples are
+&lt;Control-Button-1&gt; for pressing Control and mouse button 1 or
+&lt;Alt-A&gt; for pressing A and the Alt key (KeyPress can be omitted).
+An event pattern can also be a virtual event of the form
+&lt;&lt;AString&gt;&gt; where AString can be arbitrary. This
+event can be generated by event_generate.
+If events are concatenated they must appear shortly
+after each other.</p>
+<p>FUNC will be called if the event sequence occurs with an
+instance of Event as argument. If the return value of FUNC is
+“break” no further bound function is invoked.</p>
+<p>An additional boolean parameter ADD specifies whether FUNC will
+be called additionally to the other bound function or whether
+it will replace the previous function.</p>
+<p>Bind will return an identifier to allow deletion of the bound function with
+unbind without memory leak.</p>
+<p>If FUNC or SEQUENCE is omitted the bound function or list
+of bound events are returned.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1287,8 +1322,8 @@ processed (see bind).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ncvue.ncvmap.ncvMap.cget">
-<span class="sig-name descname"><span class="pre">cget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attribute_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">any</span></span></span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.cget" title="Link to this definition">#</a></dt>
-<dd><p>basic cget with bg_color, width, height support, calls cget of tkinter.Frame</p>
+<span class="sig-name descname"><span class="pre">cget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.cget" title="Link to this definition">#</a></dt>
+<dd><p>Return the resource value for a KEY given as string.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1348,7 +1383,7 @@ and pad (how much space to let additionally).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ncvue.ncvmap.ncvMap.config">
-<span class="sig-name descname"><span class="pre">config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.config" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.config" title="Link to this definition">#</a></dt>
 <dd><p>Configure resources of a widget.</p>
 <p>The values for resources are specified as keyword
 arguments. To get an overview about
@@ -1357,8 +1392,11 @@ the allowed keyword arguments call the method keys.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ncvue.ncvmap.ncvMap.configure">
-<span class="sig-name descname"><span class="pre">configure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">require_redraw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.configure" title="Link to this definition">#</a></dt>
-<dd><p>basic configure with bg_color, width, height support, calls configure of tkinter.Frame, updates in the end</p>
+<span class="sig-name descname"><span class="pre">configure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.configure" title="Link to this definition">#</a></dt>
+<dd><p>Configure resources of a widget.</p>
+<p>The values for resources are specified as keyword
+arguments. To get an overview about
+the allowed keyword arguments call the method keys.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1555,7 +1593,7 @@ no, a local or a global grab.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ncvue.ncvmap.ncvMap.grid">
-<span class="sig-name descname"><span class="pre">grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grid" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.grid" title="Link to this definition">#</a></dt>
 <dd><p>Position a widget in the parent widget in a grid. Use as options:
 column=number - use cell identified with given column (starting with 0)
 columnspan=number - this widget will span several columns
@@ -1567,7 +1605,10 @@ padx=amount - add padding in x direction
 pady=amount - add padding in y direction
 row=number - use cell identified with given row (starting with 0)
 rowspan=number - this widget will span several rows
-sticky=NSEW - if cell is larger on which sides will this widget stick to the cell boundary</p>
+sticky=NSEW - if cell is larger on which sides will this</p>
+<blockquote>
+<div><p>widget stick to the cell boundary</p>
+</div></blockquote>
 </dd></dl>
 
 <dl class="py method">
@@ -1679,6 +1720,14 @@ in its packing order.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="ncvue.ncvmap.ncvMap.identify">
+<span class="sig-name descname"><span class="pre">identify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.identify" title="Link to this definition">#</a></dt>
+<dd><p>Returns the name of the element at position x, y, or the empty
+string if the point does not lie within any element.</p>
+<p>x and y are pixel coordinates relative to the widget.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="ncvue.ncvmap.ncvMap.image_names">
 <span class="sig-name descname"><span class="pre">image_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.image_names" title="Link to this definition">#</a></dt>
 <dd><p>Return a list of all existing image names.</p>
@@ -1701,6 +1750,16 @@ for this widget.</p>
 <dt class="sig sig-object py" id="ncvue.ncvmap.ncvMap.info_patchlevel">
 <span class="sig-name descname"><span class="pre">info_patchlevel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.info_patchlevel" title="Link to this definition">#</a></dt>
 <dd><p>Returns the exact version of the Tcl library.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ncvue.ncvmap.ncvMap.instate">
+<span class="sig-name descname"><span class="pre">instate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">statespec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.instate" title="Link to this definition">#</a></dt>
+<dd><p>Test the widget’s state.</p>
+<p>If callback is not specified, returns True if the widget state
+matches statespec and False otherwise. If callback is specified,
+then it will be invoked with <a href="#id1"><span class="problematic" id="id2">*</span></a>args, <a href="#id3"><span class="problematic" id="id4">**</span></a>kw if the widget state
+matches statespec. statespec is expected to be a sequence.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1807,11 +1866,14 @@ priority.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ncvue.ncvmap.ncvMap.pack">
-<span class="sig-name descname"><span class="pre">pack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.pack" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">pack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.pack" title="Link to this definition">#</a></dt>
 <dd><p>Pack a widget in the parent widget. Use as options:
 after=widget - pack it after you have packed widget
-anchor=NSEW (or subset) - position widget according to given direction
-before=widget - pack it before you will pack widget
+anchor=NSEW (or subset) - position widget according to</p>
+<blockquote>
+<div><p>given direction</p>
+</div></blockquote>
+<p>before=widget - pack it before you will pack widget
 expand=bool - expand widget if parent size grows
 fill=NONE or X or Y or BOTH - fill widget if widget grows
 in=master - use master to contain this widget
@@ -1881,20 +1943,35 @@ in its packing order.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ncvue.ncvmap.ncvMap.place">
-<span class="sig-name descname"><span class="pre">place</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.place" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">place</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.place" title="Link to this definition">#</a></dt>
 <dd><p>Place a widget in the parent widget. Use as options:
 in=master - master relative to which the widget is placed
 in_=master - see ‘in’ option description
 x=amount - locate anchor of this widget at position x of master
 y=amount - locate anchor of this widget at position y of master
-relx=amount - locate anchor of this widget between 0.0 and 1.0 relative to width of master (1.0 is right edge)
-rely=amount - locate anchor of this widget between 0.0 and 1.0 relative to height of master (1.0 is bottom edge)
-anchor=NSEW (or subset) - position anchor according to given direction
+relx=amount - locate anchor of this widget between 0.0 and 1.0</p>
+<blockquote>
+<div><p>relative to width of master (1.0 is right edge)</p>
+</div></blockquote>
+<dl class="simple">
+<dt>rely=amount - locate anchor of this widget between 0.0 and 1.0</dt><dd><p>relative to height of master (1.0 is bottom edge)</p>
+</dd>
+</dl>
+<p>anchor=NSEW (or subset) - position anchor according to given direction
 width=amount - width of this widget in pixel
 height=amount - height of this widget in pixel
-relwidth=amount - width of this widget between 0.0 and 1.0 relative to width of master (1.0 is the same width as the master)
-relheight=amount - height of this widget between 0.0 and 1.0 relative to height of master (1.0 is the same height as the master)
-bordermode=”inside” or “outside” - whether to take border width of master widget into account</p>
+relwidth=amount - width of this widget between 0.0 and 1.0</p>
+<blockquote>
+<div><p>relative to width of master (1.0 is the same width
+as the master)</p>
+</div></blockquote>
+<dl class="simple">
+<dt>relheight=amount - height of this widget between 0.0 and 1.0</dt><dd><p>relative to height of master (1.0 is the same
+height as the master)</p>
+</dd>
+<dt>bordermode=”inside” or “outside” - whether to take border width of</dt><dd><p>master widget into account</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -2188,6 +2265,16 @@ in its packing order.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="ncvue.ncvmap.ncvMap.state">
+<span class="sig-name descname"><span class="pre">state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">statespec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.state" title="Link to this definition">#</a></dt>
+<dd><p>Modify or inquire widget state.</p>
+<p>Widget state is returned if statespec is None, otherwise it is
+set according to the statespec flags and then a new state spec
+is returned indicating which flags were changed. statespec is
+expected to be a sequence.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="ncvue.ncvmap.ncvMap.tk_bisque">
 <span class="sig-name descname"><span class="pre">tk_bisque</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.tk_bisque" title="Link to this definition">#</a></dt>
 <dd><p>Change the color scheme to light brown as used in Tk 3.6 and before.</p>
@@ -2257,8 +2344,12 @@ Returns the set value.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ncvue.ncvmap.ncvMap.unbind">
-<span class="sig-name descname"><span class="pre">unbind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">funcid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.unbind" title="Link to this definition">#</a></dt>
-<dd><p>called on the tkinter.Canvas</p>
+<span class="sig-name descname"><span class="pre">unbind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">funcid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.unbind" title="Link to this definition">#</a></dt>
+<dd><p>Unbind for this widget the event SEQUENCE.</p>
+<p>If FUNCID is given, only unbind the function identified with FUNCID
+and also delete the corresponding Tcl command.</p>
+<p>Otherwise destroy the current binding for SEQUENCE, leaving SEQUENCE
+unbound.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -2339,9 +2430,8 @@ BooleanVar must be given.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ncvue.ncvmap.ncvMap.winfo_children">
-<span class="sig-name descname"><span class="pre">winfo_children</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><span class="pre">any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_children" title="Link to this definition">#</a></dt>
-<dd><p>winfo_children of CTkFrame without self.canvas widget,
-because it’s not a child but part of the CTkFrame itself</p>
+<span class="sig-name descname"><span class="pre">winfo_children</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvmap.ncvMap.winfo_children" title="Link to this definition">#</a></dt>
+<dd><p>Return a list of all widgets which are children of this widget.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -2651,7 +2741,7 @@ in the parent.</p>
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
     <a class="left-prev"
@@ -2679,7 +2769,8 @@ in the parent.</p>
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -2748,10 +2839,12 @@ in the parent.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.grid_rowconfigure"><code class="docutils literal notranslate"><span class="pre">ncvMap.grid_rowconfigure()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.grid_size"><code class="docutils literal notranslate"><span class="pre">ncvMap.grid_size()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.grid_slaves"><code class="docutils literal notranslate"><span class="pre">ncvMap.grid_slaves()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.identify"><code class="docutils literal notranslate"><span class="pre">ncvMap.identify()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.image_names"><code class="docutils literal notranslate"><span class="pre">ncvMap.image_names()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.image_types"><code class="docutils literal notranslate"><span class="pre">ncvMap.image_types()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.info"><code class="docutils literal notranslate"><span class="pre">ncvMap.info()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.info_patchlevel"><code class="docutils literal notranslate"><span class="pre">ncvMap.info_patchlevel()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.instate"><code class="docutils literal notranslate"><span class="pre">ncvMap.instate()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.keys"><code class="docutils literal notranslate"><span class="pre">ncvMap.keys()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.last_t"><code class="docutils literal notranslate"><span class="pre">ncvMap.last_t()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.lift"><code class="docutils literal notranslate"><span class="pre">ncvMap.lift()</span></code></a></li>
@@ -2808,6 +2901,7 @@ in the parent.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.spinned_lat"><code class="docutils literal notranslate"><span class="pre">ncvMap.spinned_lat()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.spinned_lon"><code class="docutils literal notranslate"><span class="pre">ncvMap.spinned_lon()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.spinned_v"><code class="docutils literal notranslate"><span class="pre">ncvMap.spinned_v()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.state"><code class="docutils literal notranslate"><span class="pre">ncvMap.state()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.tk_bisque"><code class="docutils literal notranslate"><span class="pre">ncvMap.tk_bisque()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.tk_focusFollowsMouse"><code class="docutils literal notranslate"><span class="pre">ncvMap.tk_focusFollowsMouse()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvmap.ncvMap.tk_focusNext"><code class="docutils literal notranslate"><span class="pre">ncvMap.tk_focusNext()</span></code></a></li>
@@ -2924,8 +3018,8 @@ By Matthias Cuntz
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
   </footer>

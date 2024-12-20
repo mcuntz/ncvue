@@ -3,8 +3,8 @@
 Produces PNGs of all available colormaps in Matplotlib.
 
 Written  Matthias Cuntz, Dec 2020
+
 """
-from __future__ import absolute_import, division, print_function
 import numpy as np
 import matplotlib as mpl
 # PNG
@@ -28,6 +28,7 @@ if __name__ == "__main__":
     # adapted from scipy cookbook
     a = np.outer(np.ones(10), np.arange(0, 1, 0.01))
     for i, m in enumerate(cmaps):
+        print(m)
         # PDF
         # pdf_pages = PdfPages(m+".pdf")
         # w/o text

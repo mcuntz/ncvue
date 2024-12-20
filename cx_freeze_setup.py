@@ -1,35 +1,25 @@
 #!/usr/bin/env python
-'''
+r'''
 Make stand-alone version of ncvue with cx_Freeze.
 
 On macOS, use minimal virtual environment
-   # essential subset
    if [[ "$(uname -m)" == "arm64" ]] ; then
        export OPENBLAS="$(brew --prefix openblas)"
        export HDF5_DIR="$(brew --prefix hdf5)"
        export GEOS_DIR="$(brew --prefix geos)"
        export GEOS_CONFIG="$(brew --prefix geos)/bin/geos-config"
    fi
-   pyenv virtualenv 3.11.7 install-ncvue
+   pyenv virtualenv 3.12.8 ncvue-install
+   pyenv local ncvue-install
    pyenv rehash
-   pyenv local install-ncvue
-   pyenv rehash
-   # test if install works
-   python -m pip install --upgrade cython numpy pyshp six
-   [[ -z $(python -m pip freeze | grep shapely) ]] && \
-           python -m pip uninstall -y shapely
-   python -m pip install shapely --no-binary shapely
-   python -m pip install scipy matplotlib pykdtree
-   python -m pip install netcdf4 cartopy flake8
-   python -m pip install GDAL==$(gdal-config --version) \
-       --global-option=build_ext --global-option="-I${HOMEBREW_PREFIX}/include"
-   python -m pip install cartopy
-   python -m pip install cx_Freeze
-   # libtiff.5.dylib version of PIL too old for pyproj -> use current from homebrew
-   mv ~/.pyenv/versions/3.11.7/envs/install-ncvue/lib/python3.8/site-packages/PIL/.dylibs/libtiff.5.dylib \
-       ~/.pyenv/versions/3.11.7/envs/install-ncvue/lib/python3.8/site-packages/PIL/.dylibs/libtiff.5.dylib.save
-   \cp /usr/local/lib/libtiff.5.dylib \
-       ~/.pyenv/versions/3.11.7/envs/install-ncvue/lib/python3.8/site-packages/PIL/.dylibs/libtiff.5.dylib
+   python -m pip install -r requirements.txt
+   python -m pip install -ve ./
+   python -m pip install cx_freeze
+   # # libtiff.5.dylib version of PIL too old for pyproj -> use current from homebrew
+   # mv ~/.pyenv/versions/3.11.7/envs/install-ncvue/lib/python3.8/site-packages/PIL/.dylibs/libtiff.5.dylib \
+   #     ~/.pyenv/versions/3.11.7/envs/install-ncvue/lib/python3.8/site-packages/PIL/.dylibs/libtiff.5.dylib.save
+   # \cp /usr/local/lib/libtiff.5.dylib \
+   #     ~/.pyenv/versions/3.11.7/envs/install-ncvue/lib/python3.8/site-packages/PIL/.dylibs/libtiff.5.dylib
 
 On Windows, use conda-forge for everything because more up-to-date
     # Do not use mkl for smaller executable with PyInstaller/cx_Freeze
@@ -58,7 +48,7 @@ import os
 import codecs
 import re
 import sys
-import platform
+# import platform
 import glob
 import shutil
 
@@ -186,13 +176,29 @@ executables = [Executable(script,
                           shortcut_name=shortcutname,
                           shortcut_dir=shortcutdir)]
 
+# Check codesign
+#     spctl -a -t exec -vvv build/ncvue.app
 bdist_mac_options = {
     'iconfile': icon,
     'bundle_name': package,
+    # Create certificate
+    #     https://developer.apple.com/help/account/create-certificates/create-developer-id-certificates
+    # Check ID (Team ID is in parenthesis)
+    #     security find-identity -p codesigning -v
+    'codesign_identity': 'MATTHIAS OSKAR CUNTZ (R5T7LWQ224)',
+    'codesign_options': 'runtime',  # Ensure codesign uses 'hardened runtime'
+    'codesign_verify': True,  # Get more verbose logging for codesign
+    'spctl_assess': False,  # rejects codesign because not notarized yet
     'plist_items': [('NSPrincipalClass', 'NSApplication'),
                     ('NSHighResolutionCapable', True)]
 }
 
+# Install intermediate certificates as in answer of FrostyBagg on
+#     https://forums.developer.apple.com/forums/thread/86161
+# Do not change the trust settings.
+#     xcrun notarytool submit ncvue-5.1.dev1.dmg --keychain-profile "notarytool-password" --wait
+# Check codesign
+#     spctl -a -t open -vvv --context context:primary-signature build/ncvue-5.1.dev1.dmg
 bdist_dmg_options = {
     'applications_shortcut': True
 }

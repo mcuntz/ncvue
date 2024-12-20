@@ -2,6 +2,7 @@ Changelog
 ---------
 
 v5.1 (Dec 2024)
+   * Update images for new matplotlib cmaps.
    * Bugfix: file not updated in all tabs when opened with file dialog
      in one tab with CustomTkinter.
    * Bugfix: dimensions not shown when file opened with file dialog.
