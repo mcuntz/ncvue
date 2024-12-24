@@ -40,7 +40,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="_static/documentation_options.js?v=e04695b1"></script>
+    <script src="_static/documentation_options.js?v=f6ea6760"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -51,7 +51,7 @@
     <link rel="prev" title="Contents" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="5.1.dev1" />
+  <meta name="docsearch:version" content="5.2.dev0" />
   </head>
   
   
@@ -407,7 +407,7 @@ precisely the grids supported by <a class="reference external" href="https://sci
 <p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is a Python script that can be called from within Python or
 as a command line tool. It is not supposed to produce
 publication-ready plots but rather provide a quick overview of the
-netCDF file.</p>
+netCDF file(s).</p>
 <p>The complete documentation for <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is available from:</p>
 <blockquote>
 <div><p><a class="reference external" href="https://mcuntz.github.io/ncvue/">https://mcuntz.github.io/ncvue/</a></p>
@@ -434,6 +434,25 @@ called before any other call to <cite>matplotlib</cite>. This also means that yo
 cannot launch it from within <cite>iPython</cite> if it was launched with
 <cite>–pylab</cite>. It can be called from within a standard <cite>iPython</cite>, though,
 or using <cite>ipython –gui tk</cite>.</p>
+<p>We also provide standalone (Apple notarized) macOS applications that
+come with everything needed to run <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> including Python:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="http://www.macu.de/extra/ncvue-4.0.dmg">ncvue 4.0</a> for macOS 10.x with Intel processor</p></li>
+<li><p><a class="reference external" href="http://www.macu.de/extra/ncvue-5.1.aqua.intel.dmg">ncvue 5.1 (Aqua, Intel)</a> for macOS 14+ [Sonoma] in Aqua look on
+Intel processors</p></li>
+<li><p><a class="reference external" href="http://www.macu.de/extra/ncvue-5.1.aqua.arm64.dmg">ncvue 5.1 (Aqua, ARM)</a> for macOS 14+ [Sonoma] in Aqua look on
+ARM processors</p></li>
+<li><p><a class="reference external" href="http://www.macu.de/extra/ncvue-5.1.ctkinter.intel.dmg">ncvue 5.1 (CustomTkinter, Intel)</a> for macOS 14+ [Sonoma] in
+CustomTkinter look on Intel processors</p></li>
+<li><p><a class="reference external" href="http://www.macu.de/extra/ncvue-5.1.ctkinter.arm64.dmg">ncvue 5.1 (CustomTkinter, ARM)</a> for macOS 14+ [Sonoma] in
+CustomTkinter look on ARM processors</p></li>
+</ul>
+</div></blockquote>
+<p><cite>ncvue 4.0</cite> should work from macOS 10.13 (High Sierra) onward on Intel
+processors. <cite>ncvue &gt; 5.0</cite> is either for Intel processors or for Apple
+Silicon (ARM) chips. It comes in the standard Aqua look or uses the
+<a class="reference external" href="https://customtkinter.tomschimansky.com/">CustomTkinter</a> UI-library.</p>
 <section id="general-layout">
 <h3>General layout<a class="headerlink" href="#general-layout" title="Link to this heading">#</a></h3>
 <p>On opening, <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> presents three panels for different plotting
@@ -447,6 +466,11 @@ the plotting variables and dimensions, as well as plotting
 options. You can always choose another panel on top, and open another,
 identical window for the same netCDF file with the button “New Window”
 on the top right.</p>
+<p>If <a class="reference external" href="https://customtkinter.tomschimansky.com/">CustomTkinter</a> is installed (<cite>python -m pip install
+customtkinter</cite>), then the general layout looks like this:</p>
+<a class="reference internal image-reference" href="https://mcuntz.github.io/ncvue/images/scatter_panel_light_customtkinter_screenshot.png"><img alt="ncvue layout with CustomTkinter" class="align-left" src="https://mcuntz.github.io/ncvue/images/scatter_panel_light_customtkinter_screenshot.png" style="width: 507px;" />
+</a>
+<p><a class="reference external" href="https://customtkinter.tomschimansky.com/">CustomTkinter</a> does not work well with <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/">Conda</a>.</p>
 </section>
 <section id="map-panel">
 <h3>Map panel<a class="headerlink" href="#map-panel" title="Link to this heading">#</a></h3>
@@ -475,13 +499,16 @@ you change the central longitude of the projection from the central
 longitude of your data, which is automatically detected if “central
 lon” is set to None. Setting “central lon” to the central longitude of
 the input data normally eliminates the problem.</p>
+<p>The mapping window looks like this with <a class="reference external" href="https://customtkinter.tomschimansky.com/">CustomTkinter</a>:</p>
+<a class="reference internal image-reference" href="https://mcuntz.github.io/ncvue/images/map_panel_light_customtkinter_screenshot.png"><img alt="Map panel with CustomTkinter" class="align-left" src="https://mcuntz.github.io/ncvue/images/map_panel_light_customtkinter_screenshot.png" style="width: 507px;" />
+</a>
 </section>
 <section id="scatter-line-panel">
 <h3>Scatter/Line panel<a class="headerlink" href="#scatter-line-panel" title="Link to this heading">#</a></h3>
 <p>If <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> does not detect latitude and longitude variables with a
 size greater than 1, it opens the Scatter/Line panel by default. This
-is the Scatter/Line panel in macOS dark mode, describing all buttons,
-sliders, entry boxes, spinboxes, and menus:</p>
+is the Scatter/Line panel in macOS dark mode (Aqua look), describing
+all buttons, sliders, entry boxes, spinboxes, and menus:</p>
 <a class="reference internal image-reference" href="https://mcuntz.github.io/ncvue/images/scatter_panel_dark.png"><img alt="Graphical documentation of Scatter/Line panel" class="align-left" src="https://mcuntz.github.io/ncvue/images/scatter_panel_dark.png" style="width: 860px;" />
 </a>
 <p>The default plot is a line plot with solid lines (line style ‘ls’ is
@@ -500,7 +527,7 @@ lines with ‘all’ entries from a specific dimension. Plotting all 10
 depths of soil water content for the 52608 time points, as in the
 example below, takes also about 0.3 s if using the index as x-variable
 but more than 11.1 s when using the <cite>datetime</cite> variable.</p>
-<a class="reference internal image-reference" href="https://mcuntz.github.io/ncvue/images/scatter_panel_dark_multiline.png"><img alt="Example of multiple lines in the Scatter/Line panel" class="align-center" src="https://mcuntz.github.io/ncvue/images/scatter_panel_dark_multiline.png" style="width: 407px;" />
+<a class="reference internal image-reference" href="https://mcuntz.github.io/ncvue/images/scatter_panel_dark_multiline.png"><img alt="Example of multiple lines in the Scatter/Line panel" class="align-center" src="https://mcuntz.github.io/ncvue/images/scatter_panel_dark_multiline.png" style="width: 507px;" />
 </a>
 </section>
 <section id="contour-panel">
@@ -520,10 +547,11 @@ map projection.</p>
 <p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is distributed under the MIT License. See the <a class="reference external" href="https://github.com/mcuntz/ncvue/blob/main/LICENSE">LICENSE</a> file
 for details.</p>
 <p>Copyright (c) 2020-2024 Matthias Cuntz</p>
-<p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> uses the <a class="reference external" href="https://github.com/rdbende/Azure-ttk-theme">Azure</a> 2.0 theme by <a class="reference external" href="https://github.com/rdbende">rdbende</a> on Linux and Windows.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> uses <a class="reference external" href="https://customtkinter.tomschimansky.com/">CustomTkinter</a> if installed. Otherwise it uses the
+<a class="reference external" href="https://github.com/rdbende/Azure-ttk-theme">Azure</a> 2.0 theme by <a class="reference external" href="https://github.com/rdbende">rdbende</a> on Linux and Windows.</p>
 <p>The project structure of <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> was very originally based on a
 <a class="reference external" href="https://github.com/MuellerSeb/template">template</a> provided by <a class="reference external" href="https://github.com/MuellerSeb">Sebastian Müller</a> but has evolved
-considerably.</p>
+considerably since.</p>
 <p>Different netCDF test files were provided by <a class="reference external" href="https://github.com/julemai">Juliane Mai</a>.</p>
 </section>
 </section>
