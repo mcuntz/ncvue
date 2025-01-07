@@ -40,7 +40,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="_static/documentation_options.js?v=f6ea6760"></script>
+    <script src="_static/documentation_options.js?v=4d16e57d"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -51,7 +51,7 @@
     <link rel="prev" title="Contents" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="5.2.dev0" />
+  <meta name="docsearch:version" content="5.2.dev1" />
   </head>
   
   
@@ -370,6 +370,7 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#contour-panel">Contour panel</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license">License</a></li>
 </ul>
             </nav>
@@ -434,25 +435,6 @@ called before any other call to <cite>matplotlib</cite>. This also means that yo
 cannot launch it from within <cite>iPython</cite> if it was launched with
 <cite>–pylab</cite>. It can be called from within a standard <cite>iPython</cite>, though,
 or using <cite>ipython –gui tk</cite>.</p>
-<p>We also provide standalone (Apple notarized) macOS applications that
-come with everything needed to run <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> including Python:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><a class="reference external" href="http://www.macu.de/extra/ncvue-4.0.dmg">ncvue 4.0</a> for macOS 10.x with Intel processor</p></li>
-<li><p><a class="reference external" href="http://www.macu.de/extra/ncvue-5.1.aqua.intel.dmg">ncvue 5.1 (Aqua, Intel)</a> for macOS 14+ [Sonoma] in Aqua look on
-Intel processors</p></li>
-<li><p><a class="reference external" href="http://www.macu.de/extra/ncvue-5.1.aqua.arm64.dmg">ncvue 5.1 (Aqua, ARM)</a> for macOS 14+ [Sonoma] in Aqua look on
-ARM processors</p></li>
-<li><p><a class="reference external" href="http://www.macu.de/extra/ncvue-5.1.ctkinter.intel.dmg">ncvue 5.1 (CustomTkinter, Intel)</a> for macOS 14+ [Sonoma] in
-CustomTkinter look on Intel processors</p></li>
-<li><p><a class="reference external" href="http://www.macu.de/extra/ncvue-5.1.ctkinter.arm64.dmg">ncvue 5.1 (CustomTkinter, ARM)</a> for macOS 14+ [Sonoma] in
-CustomTkinter look on ARM processors</p></li>
-</ul>
-</div></blockquote>
-<p><cite>ncvue 4.0</cite> should work from macOS 10.13 (High Sierra) onward on Intel
-processors. <cite>ncvue &gt; 5.0</cite> is either for Intel processors or for Apple
-Silicon (ARM) chips. It comes in the standard Aqua look or uses the
-<a class="reference external" href="https://customtkinter.tomschimansky.com/">CustomTkinter</a> UI-library.</p>
 <section id="general-layout">
 <h3>General layout<a class="headerlink" href="#general-layout" title="Link to this heading">#</a></h3>
 <p>On opening, <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> presents three panels for different plotting
@@ -542,6 +524,50 @@ contour plots (‘mesh’ unticked) just as the Map panel but without any
 map projection.</p>
 </section>
 </section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is an application written in Python. If you have Python
+installed, then the best is to install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> within the Python
+universe. The easiest way to install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is thence via <cite>pip</cite> if
+you have <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/">cartopy</a> already installed:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>ncvue
+</pre></div>
+</div>
+<p><cite>Cartopy</cite> can, however, be more elaborate to <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/installing.html">install</a>. The easiest way
+to install <cite>Cartopy</cite> or directly <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is by using <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/">Conda</a>. After
+installing, for example, <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>ncvue
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> uses <a class="reference external" href="https://customtkinter.tomschimansky.com/">CustomTkinter</a> if it is installed. <a class="reference external" href="https://customtkinter.tomschimansky.com/">CustomTkinter</a> is
+not on <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/">Conda</a>.</p>
+<p>Sometimes <cite>tkinter</cite> is not enabled in the system’s Python version. One
+has to, for example, <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">python3-tk</span></code> or <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span>
+<span class="pre">install</span> <span class="pre">python-tk</span></code> on Linux or <code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">python3</span> <span class="pre">python-tk</span></code> on
+macOS with <a class="reference external" href="https://brew.sh">Homebrew</a>.</p>
+<p>We also provide standalone macOS applications that come with
+everything needed to run <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> including Python:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="http://www.macu.de/extra/ncvue-4.0.dmg">ncvue 4.0</a> for macOS 10.x with Intel processor</p></li>
+<li><p><a class="reference external" href="http://www.macu.de/extra/ncvue-5.1.aqua.intel.dmg">ncvue 5.1 (Aqua, Intel)</a> for macOS 14+ [Sonoma] in Aqua look on
+Intel processors</p></li>
+<li><p><a class="reference external" href="http://www.macu.de/extra/ncvue-5.1.aqua.arm64.dmg">ncvue 5.1 (Aqua, ARM)</a> for macOS 14+ [Sonoma] in Aqua look on
+ARM processors</p></li>
+<li><p><a class="reference external" href="http://www.macu.de/extra/ncvue-5.1.ctkinter.intel.dmg">ncvue 5.1 (CustomTkinter, Intel)</a> for macOS 14+ [Sonoma] in
+CustomTkinter look on Intel processors</p></li>
+<li><p><a class="reference external" href="http://www.macu.de/extra/ncvue-5.1.ctkinter.arm64.dmg">ncvue 5.1 (CustomTkinter, ARM)</a> for macOS 14+ [Sonoma] in
+CustomTkinter look on ARM processors</p></li>
+</ul>
+</div></blockquote>
+<p><cite>ncvue 4.0</cite> should work from macOS 10.13 (High Sierra) onward on Intel
+processors. <cite>ncvue &gt; 5.0</cite> is either for Intel processors or for Apple
+Silicon (ARM) chips. It comes in the standard Aqua look or uses the
+<a class="reference external" href="https://customtkinter.tomschimansky.com/">CustomTkinter</a> UI-library. The apps &gt; v5.0 are notarized by Apple and
+might take a short while on first opening.</p>
+<p>See the installation <a class="reference external" href="https://mcuntz.github.io/ncvue/html/install.html">instructions</a> in the <a class="reference external" href="https://mcuntz.github.io/ncvue/">documentation</a> for more
+information on installing <cite>Cartopy</cite> and <code class="docutils literal notranslate"><span class="pre">ncvue</span> <span class="pre">with</span> <span class="pre">pip</span></code>.</p>
+</section>
 <section id="license">
 <h2>License<a class="headerlink" href="#license" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is distributed under the MIT License. See the <a class="reference external" href="https://github.com/mcuntz/ncvue/blob/main/LICENSE">LICENSE</a> file
@@ -549,6 +575,8 @@ for details.</p>
 <p>Copyright (c) 2020-2024 Matthias Cuntz</p>
 <p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> uses <a class="reference external" href="https://customtkinter.tomschimansky.com/">CustomTkinter</a> if installed. Otherwise it uses the
 <a class="reference external" href="https://github.com/rdbende/Azure-ttk-theme">Azure</a> 2.0 theme by <a class="reference external" href="https://github.com/rdbende">rdbende</a> on Linux and Windows.</p>
+<p>Standalone applications are produced with <a class="reference external" href="https://cx-freeze.readthedocs.io/en/latest/">cx_Freeze</a>, currently
+maintained by <a class="reference external" href="https://github.com/marcelotduarte">Marcelo Duarte</a>.</p>
 <p>The project structure of <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> was very originally based on a
 <a class="reference external" href="https://github.com/MuellerSeb/template">template</a> provided by <a class="reference external" href="https://github.com/MuellerSeb">Sebastian Müller</a> but has evolved
 considerably since.</p>
@@ -610,6 +638,7 @@ considerably since.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#contour-panel">Contour panel</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license">License</a></li>
 </ul>
   </nav></div>
@@ -635,7 +664,7 @@ By Matthias Cuntz
 
   <p class="copyright">
     
-      © Copyright 2020-2024, Matthias Cuntz.
+      © Copyright 2020-2025, Matthias Cuntz.
       <br/>
     
   </p>

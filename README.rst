@@ -9,7 +9,6 @@ ncvue - A GUI to view netCDF files
       higher resolution images can be found in the documentation_
     with
       click on figures to open larger pictures
-    remove section "Installation"
 
 A minimal GUI for a quick view of netCDF files. Aiming to be a drop-in
 replacement for ncview_ and panoply_.
@@ -82,31 +81,6 @@ called before any other call to `matplotlib`. This also means that you
 cannot launch it from within `iPython` if it was launched with
 `--pylab`. It can be called from within a standard `iPython`, though,
 or using `ipython --gui tk`.
-
-..
-  One can also install standalone macOS or Windows applications that
-  come with everything needed to run ``ncvue`` including Python:
-
-We also provide standalone (Apple notarized) macOS applications that
-come with everything needed to run ``ncvue`` including Python:
-
-  - `ncvue 4.0`_ for macOS 10.x with Intel processor
-  - `ncvue 5.1 (Aqua, Intel)`_ for macOS 14+ [Sonoma] in Aqua look on
-    Intel processors
-  - `ncvue 5.1 (Aqua, ARM)`_ for macOS 14+ [Sonoma] in Aqua look on
-    ARM processors
-  - `ncvue 5.1 (CustomTkinter, Intel)`_ for macOS 14+ [Sonoma] in
-    CustomTkinter look on Intel processors
-  - `ncvue 5.1 (CustomTkinter, ARM)`_ for macOS 14+ [Sonoma] in
-    CustomTkinter look on ARM processors
-
-..
-  - `Windows executable`_ (Windows 10)
-
-`ncvue 4.0` should work from macOS 10.13 (High Sierra) onward on Intel
-processors. `ncvue > 5.0` is either for Intel processors or for Apple
-Silicon (ARM) chips. It comes in the standard Aqua look or uses the
-CustomTkinter_ UI-library.
 
 
 General layout
@@ -247,7 +221,7 @@ Installation
 ``ncvue`` is an application written in Python. If you have Python
 installed, then the best is to install ``ncvue`` within the Python
 universe. The easiest way to install ``ncvue`` is thence via `pip` if
-you have cartopy_ installed already:
+you have cartopy_ already installed:
 
 .. code-block:: bash
 
@@ -261,12 +235,35 @@ installing, for example, Miniconda_:
 
    conda install -c conda-forge ncvue
 
+``ncvue`` uses CustomTkinter_ if it is installed. CustomTkinter_ is
+not on Conda_.
+
+Sometimes `tkinter` is not enabled in the system's Python version. One
+has to, for example, ``sudo apt install python3-tk`` or ``sudo apt
+install python-tk`` on Linux or ``brew install python3 python-tk`` on
+macOS with Homebrew_.
+
+We also provide standalone macOS applications that come with
+everything needed to run ``ncvue`` including Python:
+
+  - `ncvue 4.0`_ for macOS 10.x with Intel processor
+  - `ncvue 5.1 (Aqua, Intel)`_ for macOS 14+ [Sonoma] in Aqua look on
+    Intel processors
+  - `ncvue 5.1 (Aqua, ARM)`_ for macOS 14+ [Sonoma] in Aqua look on
+    ARM processors
+  - `ncvue 5.1 (CustomTkinter, Intel)`_ for macOS 14+ [Sonoma] in
+    CustomTkinter look on Intel processors
+  - `ncvue 5.1 (CustomTkinter, ARM)`_ for macOS 14+ [Sonoma] in
+    CustomTkinter look on ARM processors
+
 ..
-   We also provide a standalone `macOS app`_ and a `Windows executable`_
-   that come with everything needed to run ``ncvue`` including
-   Python. The macOS app should work from macOS 10.13 (High Sierra)
-   onward. It is, however, only tested on macOS 10.15 (Catalina). Drop me
-   a message if it does not work on newer operating systems.
+  - `Windows executable`_ (Windows 10)
+
+`ncvue 4.0` should work from macOS 10.13 (High Sierra) onward on Intel
+processors. `ncvue > 5.0` is either for Intel processors or for Apple
+Silicon (ARM) chips. It comes in the standard Aqua look or uses the
+CustomTkinter_ UI-library. The apps > v5.0 are notarized by Apple and
+might take a short while on first opening.
 
 See the installation instructions_ in the documentation_ for more
 information on installing `Cartopy` and ``ncvue with pip``.
@@ -283,9 +280,8 @@ Copyright (c) 2020-2024 Matthias Cuntz
 ``ncvue`` uses CustomTkinter_ if installed. Otherwise it uses the
 Azure_ 2.0 theme by rdbende_ on Linux and Windows.
 
-..
-   Standalone applications are produced with `cx_Freeze`_, currently
-   maintained by `Marcelo Duarte`_.
+Standalone applications are produced with `cx_Freeze`_, currently
+maintained by `Marcelo Duarte`_.
 
 The project structure of ``ncvue`` was very originally based on a
 template_ provided by `Sebastian Müller`_ but has evolved
@@ -297,10 +293,12 @@ Different netCDF test files were provided by `Juliane Mai`_.
 .. _Azure: https://github.com/rdbende/Azure-ttk-theme
 .. _cartopy: https://scitools.org.uk/cartopy/docs/latest/
 .. _Conda: https://docs.conda.io/projects/conda/en/latest/
+.. _CustomTkinter: https://customtkinter.tomschimansky.com/
 .. _cx_Freeze: https://cx-freeze.readthedocs.io/en/latest/
 .. _documentation: https://mcuntz.github.io/ncvue/
 .. _Marcelo Duarte: https://github.com/marcelotduarte
 .. _Windows executable: http://www.macu.de/extra/ncvue-3.7-amd64.msi
+.. _Homebrew: https://brew.sh
 .. _install: https://scitools.org.uk/cartopy/docs/latest/installing.html
 .. _instructions: https://mcuntz.github.io/ncvue/html/install.html
 .. _LICENSE: https://github.com/mcuntz/ncvue/blob/main/LICENSE
@@ -308,16 +306,15 @@ Different netCDF test files were provided by `Juliane Mai`_.
 .. _Juliane Mai: https://github.com/julemai
 .. _Miniconda: https://docs.conda.io/en/latest/miniconda.html
 .. _Sebastian Müller: https://github.com/MuellerSeb
-.. _Sun Valley: https://github.com/rdbende/Sun-Valley-ttk-theme
 .. _ncview: http://meteora.ucsd.edu/~pierce/ncview_home_page.html
-.. _netcdf4: https://unidata.github.io/netcdf4-python/netCDF4/index.html
-.. _numpy: https://numpy.org/
-.. _panoply: https://www.giss.nasa.gov/tools/panoply/
-.. _rdbende: https://github.com/rdbende
-.. _template: https://github.com/MuellerSeb/template
-.. _CustomTkinter: https://customtkinter.tomschimansky.com/
 .. _ncvue 4.0: http://www.macu.de/extra/ncvue-4.0.dmg
 .. _ncvue 5.1 (Aqua, Intel): http://www.macu.de/extra/ncvue-5.1.aqua.intel.dmg
 .. _ncvue 5.1 (Aqua, ARM): http://www.macu.de/extra/ncvue-5.1.aqua.arm64.dmg
 .. _ncvue 5.1 (CustomTkinter, Intel): http://www.macu.de/extra/ncvue-5.1.ctkinter.intel.dmg
 .. _ncvue 5.1 (CustomTkinter, ARM): http://www.macu.de/extra/ncvue-5.1.ctkinter.arm64.dmg
+.. _netcdf4: https://unidata.github.io/netcdf4-python/netCDF4/index.html
+.. _numpy: https://numpy.org/
+.. _panoply: https://www.giss.nasa.gov/tools/panoply/
+.. _rdbende: https://github.com/rdbende
+.. _Sun Valley: https://github.com/rdbende/Sun-Valley-ttk-theme
+.. _template: https://github.com/MuellerSeb/template
