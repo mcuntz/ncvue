@@ -1,7 +1,11 @@
 Changelog
 ---------
 
+v5.2 (??? 2025)
+   * Increased number of digits in format_coord_scatter.
+
 v5.1 (Dec 2024)
+   * Use ncvue-specific theme with customtkinter.
    * Update images for new matplotlib cmaps.
    * Bugfix: file not updated in all tabs when opened with file dialog
      in one tab with CustomTkinter.

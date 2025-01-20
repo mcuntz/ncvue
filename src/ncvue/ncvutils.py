@@ -56,6 +56,7 @@ History
    * Remove [ms] from check for datetime in format_coord on axes,
      Oct 2024, Matthias Cuntz
    * Use CustomTkinter in clone_ncvmain if installed, Nov 2024, Matthias Cuntz
+   * Increased digits in format_coord_scatter, Jan 2025, Matthias Cuntz
 
 """
 import tkinter as tk
@@ -627,15 +628,15 @@ def format_coord_scatter(x, y, ax, ax2, xdtype, ydtype, y2dtype):
     if xdtype.type == np.dtype('datetime64').type:
         xstr = mpld.num2date(x).strftime('%Y-%m-%d %H:%M:%S')
     else:
-        xstr  = '{:.3g}'.format(x)
+        xstr  = '{:.6g}'.format(x)
     if ydtype.type == np.dtype('datetime64').type:
         ystr = mpld.num2date(ax_coord[1]).strftime('%Y-%m-%d %H:%M:%S')
     else:
-        ystr  = '{:.3g}'.format(ax_coord[1])
+        ystr  = '{:.6g}'.format(ax_coord[1])
     if y2dtype.type == np.dtype('datetime64').type:
         y2str = mpld.num2date(y).strftime('%Y-%m-%d %H:%M:%S')
     else:
-        y2str = '{:.3g}'.format(y)
+        y2str = '{:.6g}'.format(y)
     out = f'Left: ({xstr}, {ystr}) Right: ({xstr}, {y2str})'
     return out
 

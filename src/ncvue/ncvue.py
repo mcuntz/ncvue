@@ -35,6 +35,7 @@ History
    * Change formatting of file string for multiple files,
      Jul 2024, Matthias Cuntz
    * Use CustomTkinter if installed, Nov 2024, Matthias Cuntz
+   * Use own ncvue-blue theme for customtkinter, Dec 2024, Matthias Cuntz
 
 """
 import os
