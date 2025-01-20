@@ -57,6 +57,8 @@ History
      Oct 2024, Matthias Cuntz
    * Use CustomTkinter in clone_ncvmain if installed, Nov 2024, Matthias Cuntz
    * Increased digits in format_coord_scatter, Jan 2025, Matthias Cuntz
+   * Increased digits in format_coord_contour and format_coord_map,
+     Jan 2025, Matthias Cuntz
 
 """
 import tkinter as tk
@@ -518,15 +520,15 @@ def format_coord_contour(x, y, ax, xx, yy, zz):
     if xx.dtype.type == np.dtype('datetime64').type:
         xstr = mpld.num2date(xout).strftime('%Y-%m-%d %H:%M:%S')
     else:
-        xstr = '{:.4g}'.format(xout)
+        xstr = '{:.6g}'.format(xout)
     if yy.dtype.type == np.dtype('datetime64').type:
         ystr = mpld.num2date(yout).strftime('%Y-%m-%d %H:%M:%S')
     else:
-        ystr = '{:.4g}'.format(yout)
+        ystr = '{:.6g}'.format(yout)
     if zz.dtype.type == np.dtype('datetime64').type:
         zstr = mpld.num2date(zout).strftime('%Y-%m-%d %H:%M:%S')
     else:
-        zstr = '{:.4g}'.format(zout)
+        zstr = '{:.6g}'.format(zout)
     # out = 'x=' + xstr + ', y=' + ystr + ', z=' + zstr
     out = f'x={xstr}, y={ystr}, z={zstr}'
     return out
@@ -576,7 +578,7 @@ def format_coord_map(x, y, ax, xx, yy, zz):
     # ystr  = '{:.4g}'.format(yout)
     xstr  = '{:.4g}'.format(xout)
     ystr  = '{:.4g}'.format(yout)
-    zstr  = '{:.4g}'.format(zout)
+    zstr  = '{:.6g}'.format(zout)
     ns = 'N' if lat >= 0. else 'S'
     ew = 'E' if lon >= 0. else 'W'
     latstr = u'{:.4f} \u00b0{:s}'.format(abs(lat), ns)

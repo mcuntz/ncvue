@@ -2,7 +2,7 @@ Changelog
 ---------
 
 v5.2 (??? 2025)
-   * Increased number of digits in format_coord_scatter.
+   * Increased number of digits in coordinate formatters.
 
 v5.1 (Dec 2024)
    * Use ncvue-specific theme with customtkinter.
