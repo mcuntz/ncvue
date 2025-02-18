@@ -6,8 +6,8 @@ The calling routine sets up the toplevel root window, opens the netcdf file
 and gets an instance of the ncvMain class.
 
 This module was written by Matthias Cuntz while at Institut National de
-Recherche pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy,
-France.
+Recherche pour l'Agriculture, l'Alimentation et l'Environnement (INRAE),
+Nancy, France.
 
 :copyright: Copyright 2020-2021 Matthias Cuntz - mc (at) macu (dot) de
 :license: MIT License, see LICENSE for details.
@@ -36,6 +36,7 @@ History
      Jul 2024, Matthias Cuntz
    * Use CustomTkinter if installed, Nov 2024, Matthias Cuntz
    * Use own ncvue-blue theme for customtkinter, Dec 2024, Matthias Cuntz
+   * Include xarray to read input files, Feb 2025, Matthias Cuntz
 
 """
 import os
@@ -52,6 +53,11 @@ except ModuleNotFoundError:
     from tkinter import Tk
     from tkinter import Toplevel
     ihavectk = False
+try:
+    import xarray as xr
+    ihavex = True
+except ModuleNotFoundError:
+    ihavex = False
 from matplotlib import pyplot as plt
 import netCDF4 as nc
 import numpy as np
@@ -62,7 +68,7 @@ from .ncvmain import ncvMain
 __all__ = ['ncvue']
 
 
-def ncvue(ncfile=[], miss=np.nan):
+def ncvue(ncfile=[], miss=np.nan, usex=False):
     """
     The main function to start the data frame GUI.
 
@@ -74,6 +80,9 @@ def ncvue(ncfile=[], miss=np.nan):
         Add value to list of missing values: _FillValue, missing_value,
         and the standard netCDF missing value for current datatype from
         netcdf4.default_fillvals (default: np.nan).
+    usex : bool, optional
+        If True, use xarray to read input files.
+        Multiple input files will be read using xarray.open_mfdataset.
 
     """
     # print(mpl.get_backend())
@@ -188,6 +197,10 @@ def ncvue(ncfile=[], miss=np.nan):
     top.os     = ios     # operating system
     top.theme  = theme   # current theme
     top.icon   = icon    # app icon
+    if ihavex:
+        top.usex = usex   # use xarray
+    else:
+        top.usex = False  # use xarray
     top.fi     = []      # file name or file handle
     top.groups = []      # filename with increasing index or group names
     top.miss   = miss    # extra missing value
@@ -205,24 +218,30 @@ def ncvue(ncfile=[], miss=np.nan):
     top.cols   = []      # variable list
 
     if len(ncfile) > 0:
-        for ii, nn in enumerate(ncfile):
-            top.fi.append(nc.Dataset(nn, 'r'))
+        if top.usex:
             if len(ncfile) > 1:
-                nnc = np.ceil(np.log10(len(ncfile))).astype(int)
-                top.groups.append(f'file{ii:0{nnc}d}')
-        # Check groups
-        if len(ncfile) == 1:
-            top.groups = list(top.fi[0].groups.keys())
+                top.fi.append(xr.open_mfdataset(ncfile))
+            else:
+                top.fi.append(xr.open_dataset(ncfile[0]))
         else:
             for ii, nn in enumerate(ncfile):
-                if len(list(top.fi[ii].groups.keys())) > 0:
-                    print(f'Either multiple files or one file with groups'
-                          f' allowed as input. Multiple files given but file'
-                          f' {nn} has groups.')
-                    for fi in top.fi:
-                        fi.close()
-                    top.quit()
-                    top.destroy()
+                top.fi.append(nc.Dataset(nn, 'r'))
+                if len(ncfile) > 1:
+                    nnc = np.ceil(np.log10(len(ncfile))).astype(int)
+                    top.groups.append(f'file{ii:0{nnc}d}')
+            # Check groups
+            if len(ncfile) == 1:
+                top.groups = list(top.fi[0].groups.keys())
+            else:
+                for ii, nn in enumerate(ncfile):
+                    if len(list(top.fi[ii].groups.keys())) > 0:
+                        print(f'Either multiple files or one file with'
+                              f' groups allowed as input. Multiple files'
+                              f' given but file {nn} has groups.')
+                        for fi in top.fi:
+                            fi.close()
+                        top.quit()
+                        top.destroy()
         # Analyse netcdf file
         analyse_netcdf(top)
 

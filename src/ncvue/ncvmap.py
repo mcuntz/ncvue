@@ -708,8 +708,8 @@ class ncvMap(Frame):
                 for ii, nn in enumerate(ncfile):
                     if len(list(self.top.fi[ii].groups.keys())) > 0:
                         print(f'Either multiple files or one file with groups'
-                              f' allowed as input. Multiple files and file'
-                              f' {nn} has groups.')
+                              f' allowed as input. Multiple files given but'
+                              f' file {nn} has groups.')
                         for fi in self.top.fi:
                             fi.close()
                         ianalyse = False
