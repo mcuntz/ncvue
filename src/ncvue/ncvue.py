@@ -220,9 +220,9 @@ def ncvue(ncfile=[], miss=np.nan, usex=False):
     if len(ncfile) > 0:
         if top.usex:
             if len(ncfile) > 1:
-                top.fi.append(xr.open_mfdataset(ncfile))
+                top.fi = xr.open_mfdataset(ncfile)
             else:
-                top.fi.append(xr.open_dataset(ncfile[0]))
+                top.fi = xr.open_dataset(ncfile[0])
         else:
             for ii, nn in enumerate(ncfile):
                 top.fi.append(nc.Dataset(nn, 'r'))
@@ -246,9 +246,13 @@ def ncvue(ncfile=[], miss=np.nan, usex=False):
         analyse_netcdf(top)
 
     def on_closing():
-        if len(top.fi) > 0:
-            for fi in top.fi:
-                fi.close()
+        if top.usex:
+            if top.fi:
+                top.fi.close()
+        else:
+            if len(top.fi) > 0:
+                for fi in top.fi:
+                    fi.close()
         top.quit()
         top.destroy()
 

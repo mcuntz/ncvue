@@ -30,6 +30,7 @@ History
    * Use CustomTkinter if installed, Nov 2024, Matthias Cuntz
    * Have same tab order and only select Map if detected,
      Dec 2024, Matthias Cuntz
+   * Include xarray to read input files, Feb 2025, Matthias Cuntz
 
 """
 import tkinter as tk
@@ -78,20 +79,30 @@ class ncvMain(Frame):
         self.top    = master.top  # top window
 
         mapfirst = False
-        if any(self.top.latvar):
-            idx = [ i for i, l in enumerate(self.top.latvar) if l ]
-            gl, vl = vardim2var(self.top.latvar[idx[0]],
-                                self.top.groups)
-            vv = selvar(self.top, vl)
-            if np.prod(vv.shape) > 1:
-                mapfirst = True
-        if any(self.top.lonvar):
-            idx = [ i for i, l in enumerate(self.top.lonvar) if l ]
-            gl, vl = vardim2var(self.top.lonvar[idx[0]],
-                                self.top.groups)
-            vv = selvar(self.top, vl)
-            if np.prod(vv.shape) > 1:
-                mapfirst = True
+        if self.top.usex:
+            if self.top.latvar:
+                ivar = self.top.latvar[0:self.top.latvar.rfind('(')].rstrip()
+                if np.prod(self.top.fi[ivar].shape) > 1:
+                    mapfirst = True
+            if self.top.lonvar:
+                ivar = self.top.lonvar[0:self.top.lonvar.rfind('(')].rstrip()
+                if np.prod(self.top.fi[ivar].shape) > 1:
+                    mapfirst = True
+        else:
+            if any(self.top.latvar):
+                idx = [ i for i, l in enumerate(self.top.latvar) if l ]
+                gl, vl = vardim2var(self.top.latvar[idx[0]],
+                                    self.top.groups)
+                vv = selvar(self.top, vl)
+                if np.prod(vv.shape) > 1:
+                    mapfirst = True
+            if any(self.top.lonvar):
+                idx = [ i for i, l in enumerate(self.top.lonvar) if l ]
+                gl, vl = vardim2var(self.top.lonvar[idx[0]],
+                                    self.top.groups)
+                vv = selvar(self.top, vl)
+                if np.prod(vv.shape) > 1:
+                    mapfirst = True
 
         if ihavectk:  # self is CTkTabview
             stab = 'Scatter/Line'

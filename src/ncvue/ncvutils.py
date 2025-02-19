@@ -24,12 +24,15 @@ The following functions are provided:
    format_coord_map
    format_coord_scatter
    get_slice
+   get_standard_name
+   get_units
    list_intersection
    selvar
    set_axis_label
    set_miss
    spinbox_values
    vardim2var
+   xzip_dim_name_length
    zip_dim_name_length
 
 History
@@ -59,6 +62,9 @@ History
    * Increased digits in format_coord_scatter, Jan 2025, Matthias Cuntz
    * Increased digits in format_coord_contour and format_coord_map,
      Jan 2025, Matthias Cuntz
+   * Use formatted array in zip_dim_name_length, Feb 2025, Matthias Cuntz
+   * Added xzip_dim_name_length, get_standard_name, get_units,
+     Feb 2025, Matthias Cuntz
 
 """
 import tkinter as tk
@@ -75,9 +81,10 @@ import ncvue
 __all__ = ['DIMMETHODS',
            'add_cyclic', 'has_cyclic', 'clone_ncvmain',
            'format_coord_contour', 'format_coord_map', 'format_coord_scatter',
-           'get_slice',
+           'get_slice', 'get_standard_name', 'get_units',
            'list_intersection', 'selvar', 'set_axis_label', 'set_miss',
-           'spinbox_values', 'vardim2var', 'zip_dim_name_length']
+           'spinbox_values', 'vardim2var',
+           'xzip_dim_name_length', 'zip_dim_name_length']
 
 
 DIMMETHODS = ('mean', 'std', 'min', 'max', 'ptp', 'sum', 'median', 'var')
@@ -711,6 +718,58 @@ def get_slice(dimspins, y):
         return np.array([], dtype=y.dtype)
 
 
+def get_standard_name(ivar):
+    """
+    Get standard_name, long_name, or name attribute of netcdf variable
+
+    Parameters
+    ----------
+    ivar : netCDF4._netCDF4.Variable
+        netcdf variable
+
+    Returns
+    -------
+    string
+        standard_name, long_name, or name of variable `ivar`
+
+    Examples
+    --------
+    >>> name = get_standard_name(self.fi['Tair])
+
+    """
+    if hasattr(ivar, 'standard_name'):
+        return ivar.standard_name
+    elif hasattr(ivar, 'long_name'):
+        return ivar.long_name
+    else:
+        return ivar.name
+
+
+def get_units(ivar):
+    """
+    Get units attribute of netcdf variable
+
+    Parameters
+    ----------
+    ivar : netCDF4._netCDF4.Variable
+        netcdf variable
+
+    Returns
+    -------
+    string
+        units or empty string
+
+    Examples
+    --------
+    >>> units = get_units(self.fi['Tair])
+
+    """
+    if hasattr(ivar, 'units'):
+        return ivar.units
+    else:
+        return ''
+
+
 def list_intersection(lst1, lst2):
     """
     Intersection of two lists.
@@ -908,6 +967,36 @@ def vardim2var(vardim, groups=[]):
     return ig, var
 
 
+def xzip_dim_name_length(ncvar):
+    """
+    Combines dimension names and length of xarray variable in list of strings.
+
+    Parameters
+    ----------
+    ncvar : xarray.DataArray
+        xarray variable
+
+    Returns
+    -------
+    list
+        List of dimension name and length in the form 'dim=len'.
+
+    Examples
+    --------
+    >>> import xarray as xr
+    >>> ifile = 'test.nc'
+    >>> fi = xr.open_dataset(ifile)
+    >>> w_soil = fi['w_soil']
+    >>> print(zip_dim_name_length(w_soil))
+    ('ntime=17520', 'nsoil=30')
+
+    """
+    out = []
+    for i in range(ncvar.ndim):
+        out.append(f'{ncvar.dims[i]}={ncvar.shape[i]}')
+    return out
+
+
 def zip_dim_name_length(ncvar):
     """
     Combines dimension names and length of netcdf variable in list of strings.
@@ -934,5 +1023,5 @@ def zip_dim_name_length(ncvar):
     """
     out = []
     for i in range(ncvar.ndim):
-        out.append(ncvar.dimensions[i] + '=' + str(ncvar.shape[i]))
+        out.append(f'{ncvar.dimensions[i]}={ncvar.shape[i]}')
     return out
