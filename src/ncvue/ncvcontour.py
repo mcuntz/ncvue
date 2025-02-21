@@ -32,6 +32,8 @@ History
    * Move themes/ and images/ back to src/ncvue/, Feb 2024, Matthias Cuntz
    * Add Quit button, Nov 2024, Matthias Cuntz
    * Use CustomTkinter if installed, Nov 2024, Matthias Cuntz
+   * Use add_button, add_label widgets, Feb 2025, Matthias Cuntz
+   * Use add_combobox instead of Combobox directly, Feb 2025, Matthias Cuntz
 
 """
 import os
@@ -39,15 +41,9 @@ import sys
 import tkinter as tk
 try:
     from customtkinter import CTkFrame as Frame
-    from customtkinter import CTkButton as Button
-    from customtkinter import CTkLabel as Label
-    from customtkinter import CTkComboBox as Combobox
     ihavectk = True
 except ModuleNotFoundError:
     from tkinter.ttk import Frame
-    from tkinter.ttk import Button
-    from tkinter.ttk import Label
-    from tkinter.ttk import Combobox
     ihavectk = False
 import netCDF4 as nc
 import numpy as np
@@ -56,7 +52,7 @@ from .ncvutils import set_axis_label, vardim2var
 from .ncvmethods import analyse_netcdf, get_slice_miss
 from .ncvmethods import set_dim_x, set_dim_y, set_dim_z
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry, add_imagemenu
-from .ncvwidgets import add_spinbox, add_tooltip
+from .ncvwidgets import add_spinbox, add_label, add_button
 # import matplotlib
 # matplotlib.use('TkAgg')
 from matplotlib import pyplot as plt
@@ -159,16 +155,17 @@ class ncvContour(Frame):
         # new window
         self.rowwin = Frame(self)
         self.rowwin.pack(side=tk.TOP, fill=tk.X)
-        self.newfile = Button(self.rowwin, text='Open File',
-                              command=self.newnetcdf)
-        self.newfile.pack(side=tk.LEFT)
-        self.newfiletip = add_tooltip(self.newfile, 'Open a new netcdf file')
-        self.newwin = Button(
-            self.rowwin, text='New Window',
-            command=partial(clone_ncvmain, self.master))
+        newfile_label, self.newfile, self.newfiletip = add_button(
+            self.rowwin, 'Open File', command=self.newnetcdf,
+            tooltip='Open a new netcdf file')
+        spacew_label, spacew = add_label(self.rowwin, '   ')
+        time_label1text, time_label1 = add_label(self.rowwin, 'Time: ')
+        self.timelbl, time_label2 = add_label(self.rowwin, '')
+        newwin_label, self.newwin, self.newwintip = add_button(
+            self.rowwin, 'New Window', nopack=True,
+            command=partial(clone_ncvmain, self.master),
+            tooltip='Open secondary ncvue window')
         self.newwin.pack(side=tk.RIGHT)
-        self.newwintip = add_tooltip(
-            self.newwin, 'Open secondary ncvue window')
 
         # plotting canvas
         self.figure = Figure(facecolor='white', figsize=(1, 1))
@@ -196,38 +193,28 @@ class ncvContour(Frame):
         self.blockz.pack(side=tk.LEFT)
         self.rowz = Frame(self.blockz)
         self.rowz.pack(side=tk.TOP, fill=tk.X)
-        self.zlbl = tk.StringVar()
-        self.zlbl.set('z')
-        lkwargs = {'textvariable': self.zlbl}
+        lkwargs = {}
         if ihavectk:
             lkwargs.update({'padx': padx})
-        zlab = Label(self.rowz, **lkwargs)
-        zlab.pack(side=tk.LEFT)
-        self.bprev_z = Button(self.rowz, text='<', width=bwidth,
-                              command=self.prev_z)
-        self.bprev_z.pack(side=tk.LEFT)
-        self.bprev_ztip = add_tooltip(self.bprev_z, 'Previous variable')
-        self.bnext_z = Button(self.rowz, text='>', width=bwidth,
-                              command=self.next_z)
-        self.bnext_z.pack(side=tk.LEFT)
-        self.bnext_ztip = add_tooltip(self.bnext_z, 'Next variable')
-        if ihavectk:
-            self.z = Combobox(self.rowz, values=columns, width=combowidth,
-                              command=self.selected_z)
-        else:
-            self.z = Combobox(self.rowz, values=columns, width=combowidth)
-            self.z.bind('<<ComboboxSelected>>', self.selected_z)
-        self.z.pack(side=tk.LEFT)
-        self.ztip = add_tooltip(self.z, 'Choose variable')
+        self.zlbl, zlab = add_label(self.rowz, 'z', **lkwargs)
+        spacep_label, spacep = add_label(self.rowz, ' ' * 1)
+        bprev_z_label, self.bprev_z, self.bprev_ztip = add_button(
+            self.rowz, '<', command=self.prev_z, width=bwidth,
+            tooltip='Previous variable')
+        bnext_z_label, self.bnext_z, self.bnext_ztip = add_button(
+            self.rowz, '>', command=self.next_z, width=bwidth,
+            tooltip='Next variable')
+        self.zframe, self.zlbl, self.z, self.ztip = add_combobox(
+            self.rowz, label='', values=columns,
+            command=self.selected_z, width=combowidth, padx=0,
+            tooltip='Choose variable')
+        self.zframe.pack(side=tk.LEFT)
         self.trans_zframe, self.trans_zlbl, self.trans_z, self.trans_ztip = (
             add_checkbutton(self.rowz, label='transpose z', value=False,
                             command=self.checked,
                             tooltip='Transpose matrix'))
         self.trans_zframe.pack(side=tk.LEFT)
-        spacez_label = tk.StringVar()
-        spacez_label.set(' ')
-        spacez = Label(self.rowz, textvariable=spacez_label)
-        spacez.pack(side=tk.LEFT)
+        spacez_label, spacez = add_label(self.rowz, ' ')
         self.zminframe, self.zminlbl, self.zmin, self.zmintip = add_entry(
             self.rowz, label='zmin', text='None', width=ewbig, padx=padx,
             command=self.entered_z,
@@ -298,10 +285,7 @@ class ncvContour(Frame):
             self.xdtip.append(xdtip)
             xdframe.pack(side=tk.LEFT)
         # y-axis selection
-        spacex_label = tk.StringVar()
-        spacex_label.set('   ')
-        spacex = Label(self.rowxy, textvariable=spacex_label)  # !!!
-        spacex.pack(side=tk.LEFT)
+        spacex_label, spacex = add_label(self.rowxy, '   ')
         self.blocky = Frame(self.rowxy)
         self.blocky.pack(side=tk.LEFT)
         self.rowy = Frame(self.blocky)
@@ -364,10 +348,9 @@ class ncvContour(Frame):
                             tooltip='Draw major grid lines'))
         self.gridframe.pack(side=tk.LEFT)
         # Quit button
-        self.bquit = Button(self.rowcmap, text='Quit',
-                            command=self.master.top.destroy)
-        self.bquit.pack(side=tk.RIGHT)
-        self.bquittip = add_tooltip(self.bquit, 'Quit ncvue')
+        bquit_label, self.bquit, self.bquittip = add_button(
+            self.rowcmap, 'Quit', command=self.master.top.destroy, nopack=True,
+            tooltip='Quit ncvue')
 
     #
     # Bindings

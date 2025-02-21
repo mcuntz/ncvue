@@ -90,8 +90,9 @@ from .ncvmethods import set_dim_x, set_dim_y, set_dim_y2, set_dim_z
 #
 # adding widgets with labels, etc.
 from .ncvwidgets import Tooltip
-from .ncvwidgets import add_checkbutton, add_combobox, add_entry, add_imagemenu
-from .ncvwidgets import add_menu, add_scale, add_spinbox, add_tooltip
+from .ncvwidgets import add_button, add_checkbutton, add_combobox, add_entry
+from .ncvwidgets import add_imagemenu, add_label, add_menu, add_scale
+from .ncvwidgets import add_spinbox, add_tooltip
 #
 # scatter/line panel
 from .ncvscatter import ncvScatter
@@ -119,6 +120,7 @@ __all__ = ['TooltipBase', 'OnHoverTooltipBase', 'Hovertip',
            "add_cyclic", "has_cyclic", "clone_ncvmain",
            "format_coord_contour", "format_coord_map",
            "format_coord_scatter", "get_slice",
+           "get_standard_name", "get_units",
            "list_intersection", "selvar", "set_axis_label", "set_miss",
            "spinbox_values", "vardim2var",
            "xzip_dim_name_length", "zip_dim_name_length",
@@ -126,8 +128,9 @@ __all__ = ['TooltipBase', 'OnHoverTooltipBase', 'Hovertip',
            "set_dim_lat", "set_dim_lon", "set_dim_var",
            "set_dim_x", "set_dim_y", "set_dim_y2", "set_dim_z",
            "Tooltip",
-           "add_checkbutton", "add_combobox", "add_entry", "add_imagemenu",
-           "add_menu", "add_scale", "add_spinbox", "add_tooltip",
+           "add_button", "add_checkbutton", "add_combobox", "add_entry",
+           "add_imagemenu", "add_label", "add_menu", "add_scale",
+           "add_spinbox", "add_tooltip",
            "ncvScatter",
            "ncvContour",
            "ncvMap",

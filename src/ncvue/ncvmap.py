@@ -41,6 +41,9 @@ History
      Jul 2024, Matthias Cuntz
    * Add Quit button, Nov 2024, Matthias Cuntz
    * Use CustomTkinter if installed, Nov 2024, Matthias Cuntz
+   * Use add_button, add_label widgets, Feb 2025, Matthias Cuntz
+   * Use add_combobox instead of Combobox directly, Feb 2025, Matthias Cuntz
+   * Include xarray to read input files, Feb 2025, Matthias Cuntz
 
 """
 import os
@@ -48,15 +51,9 @@ import sys
 import tkinter as tk
 try:
     from customtkinter import CTkFrame as Frame
-    from customtkinter import CTkButton as Button
-    from customtkinter import CTkLabel as Label
-    from customtkinter import CTkComboBox as Combobox
     ihavectk = True
 except ModuleNotFoundError:
     from tkinter.ttk import Frame
-    from tkinter.ttk import Button
-    from tkinter.ttk import Label
-    from tkinter.ttk import Combobox
     ihavectk = False
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
@@ -66,8 +63,9 @@ from .ncvutils import add_cyclic, clone_ncvmain, format_coord_map, selvar
 from .ncvutils import set_axis_label, set_miss, vardim2var
 from .ncvmethods import analyse_netcdf, get_slice_miss, get_miss
 from .ncvmethods import set_dim_lon, set_dim_lat, set_dim_var
-from .ncvwidgets import add_checkbutton, add_combobox, add_entry, add_imagemenu
-from .ncvwidgets import add_menu, add_scale, add_spinbox, add_tooltip
+from .ncvwidgets import add_button, add_checkbutton, add_combobox, add_entry
+from .ncvwidgets import add_imagemenu, add_label, add_menu, add_scale
+from .ncvwidgets import add_spinbox
 import matplotlib as mpl
 from matplotlib import pyplot as plt
 try:
@@ -111,6 +109,8 @@ class ncvMap(Frame):
         self.master = master
         self.top    = master.top
         # copy for ease of use
+        self.usex   = self.top.usex
+
         self.fi     = self.top.fi
         self.groups = self.top.groups
         self.miss   = self.top.miss
@@ -195,46 +195,28 @@ class ncvMap(Frame):
             # width of projections menu
             mwidth = 13
 
-        # new window
+        # open file and new window buttons
         self.rowwin = Frame(self)
         self.rowwin.pack(side=tk.TOP, fill=tk.X)
-        self.newfile = Button(self.rowwin, text='Open File',
-                              command=self.newnetcdf)
-        self.newfile.pack(side=tk.LEFT)
-        self.newfiletip = add_tooltip(self.newfile, 'Open a new netcdf file')
-        spacew_label = tk.StringVar()
-        spacew_label.set('   ')
-        spacew = Label(self.rowwin, textvariable=spacew_label)
-        spacew.pack(side=tk.LEFT)
-        time_label1text = tk.StringVar()
-        time_label1text.set('Time: ')
-        time_label1 = Label(self.rowwin, textvariable=time_label1text)
-        time_label1.pack(side=tk.LEFT)
-        self.timelbl = tk.StringVar()
-        self.timelbl.set('')
-        time_label2 = Label(self.rowwin, textvariable=self.timelbl)
-        time_label2.pack(side=tk.LEFT)
-        self.newwin = Button(
-            self.rowwin, text='New Window',
-            command=partial(clone_ncvmain, self.master))
+        newfile_label, self.newfile, self.newfiletip = add_button(
+            self.rowwin, 'Open File', command=self.newnetcdf,
+            tooltip='Open a new netcdf file')
+        spacew_label, spacew = add_label(self.rowwin, '   ')
+        time_label1text, time_label1 = add_label(self.rowwin, 'Time: ')
+        self.timelbl, time_label2 = add_label(self.rowwin, '')
+        newwin_label, self.newwin, self.newwintip = add_button(
+            self.rowwin, 'New Window', nopack=True,
+            command=partial(clone_ncvmain, self.master),
+            tooltip='Open secondary ncvue window')
         self.newwin.pack(side=tk.RIGHT)
-        self.newwintip = add_tooltip(
-            self.newwin, 'Open secondary ncvue window')
 
         # plotting canvas
         self.figure = Figure(facecolor='white', figsize=(1, 1))
-        # self.axes   = self.figure.add_subplot(111)
-        self.axes   = self.figure.add_subplot(111,
-                                              projection=ccrs.PlateCarree())
+        self.axes = self.figure.add_subplot(
+            111, projection=ccrs.PlateCarree())
         self.canvas = FigureCanvasTkAgg(self.figure, master=self)
         self.canvas.draw()
-        # pack
         self.canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
-        # grid instead of pack - does not work
-        # self.canvas.get_tk_widget().grid(column=0, row=0,
-        #     sticky=(tk.N, tk.S, tk.E, tk.W))
-        # self.canvas.get_tk_widget().columnconfigure(0, weight=1)
-        # self.canvas.get_tk_widget().rowconfigure(0, weight=1)
 
         # matplotlib toolbar
         self.toolbar = NavigationToolbar2Tk(self.canvas, self)
@@ -251,49 +233,32 @@ class ncvMap(Frame):
                       length=100, orient=tk.HORIZONTAL, command=self.tstep_t,
                       tooltip='Slide to go to time step'))
         self.tstepframe.pack(side=tk.LEFT)
-        spacet_label = tk.StringVar()
-        spacet_label.set(' ')
-        spacet = Label(self.rowt, textvariable=spacet_label)
-        spacet = Label(self.rowt, text=' ' * 1)
-        spacet.pack(side=tk.LEFT)
-        # first t
-        self.first_t = Button(self.rowt, text='|<<', width=bwidth,
-                              command=self.first_t)
-        self.first_t.pack(side=tk.LEFT)
-        self.first_ttip = add_tooltip(self.first_t, 'First time step')
-        # previous t
-        self.prev_t = Button(self.rowt, text='|<', width=bwidth,
-                             command=self.prev_t)
-        self.prev_t.pack(side=tk.LEFT)
-        self.prev_ttip = add_tooltip(self.prev_t, 'Previous time step')
-        # run t backwards
-        self.prun_t = Button(self.rowt, text='<', width=bwidth,
-                             command=self.prun_t)
-        self.prun_t.pack(side=tk.LEFT)
-        self.prun_ttip = add_tooltip(self.prun_t, 'Run backwards')
-        # pause t
-        self.pause_t = Button(self.rowt, text='||', width=bwidth,
-                              command=self.pause_t)
-        self.pause_t.pack(side=tk.LEFT)
-        self.pause_ttip = add_tooltip(self.pause_t, 'Pause/Stop')
-        # run t forward
-        self.nrun_t = Button(self.rowt, text='>', width=bwidth,
-                             command=self.nrun_t)
-        self.nrun_t.pack(side=tk.LEFT)
-        self.nrun_ttip = add_tooltip(self.nrun_t, 'Run forwards')
-        # next t
-        self.next_t = Button(self.rowt, text='>|', width=bwidth,
-                             command=self.next_t)
-        self.next_t.pack(side=tk.LEFT)
-        self.next_ttip = add_tooltip(self.next_t, 'Next time step')
-        # last t
-        self.last_t = Button(self.rowt, text='>>|', width=bwidth,
-                             command=self.last_t)
-        self.last_t.pack(side=tk.LEFT)
-        self.last_ttip = add_tooltip(self.last_t, 'Last time step')
+        spacet_label, spacet = add_label(self.rowt, ' ' * 1)
+
+        # first t, previous t, etc.
+        first_t_label, self.first_t, self.first_ttip = add_button(
+            self.rowt, '|<<', command=self.first_t, width=bwidth,
+            tooltip='First time step')
+        prev_t_label, self.prev_t, self.prev_ttip = add_button(
+            self.rowt, '|<', command=self.prev_t, width=bwidth,
+            tooltip='Previous time step')
+        prun_t_label, self.prun_t, self.prun_ttip = add_button(
+            self.rowt, '<', command=self.prun_t, width=bwidth,
+            tooltip='Run backwards')
+        pause_t_label, self.pause_t, self.pause_ttip = add_button(
+            self.rowt, '||', command=self.pause_t, width=bwidth,
+            tooltip='Pause/Stop')
+        nrun_t_label, self.nrun_t, self.nrun_ttip = add_button(
+            self.rowt, '>', command=self.nrun_t, width=bwidth,
+            tooltip='Run forwards')
+        next_t_label, self.next_t, self.next_ttip = add_button(
+            self.rowt, '>|', command=self.next_t, width=bwidth,
+            tooltip='Next time ste')
+        last_t_label, self.last_t, self.last_ttip = add_button(
+            self.rowt, '>>|', command=self.last_t, width=bwidth,
+            tooltip='Last time step')
         # repeat
-        spacer = Label(self.rowt, text=' ' * 1)
-        spacer.pack(side=tk.LEFT)
+        spacer_label, spacer = add_label(self.rowt, ' ' * 1)
         reps = ['once', 'repeat', 'reflect']
         tstr  = 'Run time steps once, repeat from start when at end,'
         tstr += ' or continue running backwards when at end'
@@ -304,8 +269,7 @@ class ncvMap(Frame):
         self.repeat.set('repeat')
         self.repeatframe.pack(side=tk.LEFT)
         # delay
-        spaced = Label(self.rowt, text=' ' * 1)
-        spaced.pack(side=tk.LEFT)
+        spaced_label, spaced = add_label(self.rowt, ' ' * 1)
         tstr = 'Delay run between time steps from 1 to 1000 ms'
         self.delayframe, self.delaylbl, self.delayval, self.delay, self.delaytip = (
             add_scale(self.rowt, label='delay (ms)', ini=1, from_=1, to=1000,
@@ -321,37 +285,29 @@ class ncvMap(Frame):
         self.blockv.pack(side=tk.LEFT)
         self.rowv = Frame(self.blockv)
         self.rowv.pack(side=tk.TOP, fill=tk.X)
-        self.vlbl = tk.StringVar()
-        self.vlbl.set('var')
-        lkwargs = {'textvariable': self.vlbl}
+        lkwargs = {}
         if ihavectk:
             lkwargs.update({'padx': padx})
-        vlab = Label(self.rowv, **lkwargs)
-        vlab.pack(side=tk.LEFT)
-        self.bprev_v = Button(self.rowv, text='<', width=bwidth,
-                              command=self.prev_v)
-        self.bprev_v.pack(side=tk.LEFT)
-        self.bprev_vtip = add_tooltip(self.bprev_v, 'Previous variable')
-        self.bnext_v = Button(self.rowv, text='>', width=bwidth,
-                              command=self.next_v)
-        self.bnext_v.pack(side=tk.LEFT)
-        self.bnext_vtip = add_tooltip(self.bnext_v, 'Next variable')
-        if ihavectk:
-            self.v = Combobox(self.rowv, values=columns, width=combowidth,
-                              command=self.selected_v)
-        else:
-            self.v = Combobox(self.rowv, values=columns, width=combowidth)
-            self.v.bind('<<ComboboxSelected>>', self.selected_v)
-        self.v.pack(side=tk.LEFT)
-        self.vtip = add_tooltip(self.v, 'Choose variable')
+        self.vlbl, vlab = add_label(self.rowv, 'var', **lkwargs)
+        spacep_label, spacep = add_label(self.rowv, ' ' * 1)
+        bprev_v_label, self.bprev_v, self.bprev_vtip = add_button(
+            self.rowv, '<', command=self.prev_v, width=bwidth,
+            tooltip='Previous variable')
+        bnext_v_label, self.bnext_v, self.bnext_vtip = add_button(
+            self.rowv, '>', command=self.next_v, width=bwidth,
+            tooltip='Next variable')
+        self.vframe, self.vlbl, self.v, self.vtip = add_combobox(
+            self.rowv, label='', values=columns,
+            command=self.selected_v, width=combowidth, padx=0,
+            tooltip='Choose variable')
+        self.vframe.pack(side=tk.LEFT)
         self.trans_vframe, self.trans_vlbl, self.trans_v, self.trans_vtip = (
             add_checkbutton(self.rowv, label='transpose var', value=False,
                             command=self.checked,
                             tooltip=('Transpose array, i.e. exchanging lat and'
                                      ' lon')))
         self.trans_vframe.pack(side=tk.LEFT)
-        spacev = Label(self.rowv, text=' ' * 1)
-        spacev.pack(side=tk.LEFT)
+        spacev_label, spacev = add_label(self.rowv, ' ' * 1)
         self.vminframe, self.vminlbl, self.vmin, self.vmintip = add_entry(
             self.rowv, label='vmin', text=0, width=ewvbig,
             command=self.entered_v,
@@ -433,8 +389,7 @@ class ncvMap(Frame):
             self.londtip.append(londtip)
             londframe.pack(side=tk.LEFT)
         # lat-axis selection
-        spacex = Label(self.rowll, text=' ' * 3)
-        spacex.pack(side=tk.LEFT)
+        spacex_label, spacex = add_label(self.rowll, ' ' * 3)
         self.blocklat = Frame(self.rowll)
         self.blocklat.pack(side=tk.LEFT)
         self.rowlat = Frame(self.blocklat)
@@ -543,10 +498,10 @@ class ncvMap(Frame):
             command=self.entered_clon, tooltip=tstr, padx=padx)
         self.clonframe.pack(side=tk.LEFT)
         # Quit button
-        self.bquit = Button(self.rowproj, text='Quit',
-                            command=self.master.top.destroy)
+        bquit_label, self.bquit, self.bquittip = add_button(
+            self.rowproj, 'Quit', command=self.master.top.destroy, nopack=True,
+            tooltip='Quit ncvue')
         self.bquit.pack(side=tk.RIGHT)
-        self.bquittip = add_tooltip(self.bquit, 'Quit ncvue')
 
         # set lat/lon
         if any(self.latvar):

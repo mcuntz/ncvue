@@ -516,6 +516,7 @@ def analyse_netcdf_xarray(self):
             ivars.append((vv, ss, ndim))
     self.cols += sorted([ vv[0] + ' ' + str(vv[1])
                           for vv in ivars ])
+
     #
     # search for lat/lon variables
     # first sweep: units must be "degrees_north" and "degrees_east"

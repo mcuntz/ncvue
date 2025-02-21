@@ -32,20 +32,17 @@ History
    * Move themes/ and images/ back to src/ncvue/, Feb 2024, Matthias Cuntz
    * Add Quit button, Nov 2024, Matthias Cuntz
    * Use CustomTkinter if installed, Nov 2024, Matthias Cuntz
+   * Use add_button, add_label widgets, Feb 2025, Matthias Cuntz
+   * Use add_combobox instead of Combobox directly, Feb 2025, Matthias Cuntz
+   * Add previous and next for right-hand-side axis, Feb 2025, Matthias Cuntz
 
 """
 import tkinter as tk
 try:
     from customtkinter import CTkFrame as Frame
-    from customtkinter import CTkButton as Button
-    from customtkinter import CTkLabel as Label
-    from customtkinter import CTkComboBox as Combobox
     ihavectk = True
 except ModuleNotFoundError:
     from tkinter.ttk import Frame
-    from tkinter.ttk import Button
-    from tkinter.ttk import Label
-    from tkinter.ttk import Combobox
     ihavectk = False
 import numpy as np
 import netCDF4 as nc
@@ -54,7 +51,7 @@ from .ncvutils import set_axis_label, vardim2var
 from .ncvmethods import analyse_netcdf, get_slice_miss
 from .ncvmethods import set_dim_x, set_dim_y, set_dim_y2
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry
-from .ncvwidgets import add_spinbox, add_tooltip
+from .ncvwidgets import add_spinbox, add_label, add_button
 # import matplotlib
 # matplotlib.use('TkAgg')
 from matplotlib import pyplot as plt
@@ -174,15 +171,16 @@ class ncvScatter(Frame):
         # new window
         self.rowwin = Frame(self)
         self.rowwin.pack(side=tk.TOP, fill=tk.X)
-        self.newfile = Button(self.rowwin, text='Open File',
-                              command=self.newnetcdf)
-        self.newfiletip = add_tooltip(self.newfile, 'Open a new netcdf file')
-        self.newfile.pack(side=tk.LEFT)
-        self.newwin = Button(
-            self.rowwin, text='New Window',
-            command=partial(clone_ncvmain, self.master))
-        self.newwintip = add_tooltip(
-            self.newwin, 'Open secondary ncvue window')
+        newfile_label, self.newfile, self.newfiletip = add_button(
+            self.rowwin, 'Open File', command=self.newnetcdf,
+            tooltip='Open a new netcdf file')
+        spacew_label, spacew = add_label(self.rowwin, '   ')
+        time_label1text, time_label1 = add_label(self.rowwin, 'Time: ')
+        self.timelbl, time_label2 = add_label(self.rowwin, '')
+        newwin_label, self.newwin, self.newwintip = add_button(
+            self.rowwin, 'New Window', nopack=True,
+            command=partial(clone_ncvmain, self.master),
+            tooltip='Open secondary ncvue window')
         self.newwin.pack(side=tk.RIGHT)
 
         # plotting canvas
@@ -244,41 +242,29 @@ class ncvScatter(Frame):
             self.xdtip.append(xdtip)
             xdframe.pack(side=tk.LEFT)
         # space between x and y blocks
-        spacex_label = tk.StringVar()
-        spacex_label.set('   ')
-        spacex = Label(self.rowxy, textvariable=spacex_label)
-        spacex.pack(side=tk.LEFT)
+        spacex_label, spacex = add_label(self.rowxy, ' ' * 2)
         # block with y and its dimensions
         self.blocky = Frame(self.rowxy)
         self.blocky.pack(side=tk.LEFT)
         # y
         self.rowy = Frame(self.blocky)
         self.rowy.pack(side=tk.TOP, fill=tk.X)
-        self.ylbl = tk.StringVar()
-        self.ylbl.set('y')
-        lkwargs = {'textvariable': self.ylbl}
+        lkwargs = {}
         if ihavectk:
             lkwargs.update({'padx': padx})
-        ylab = Label(self.rowy, **lkwargs)
-        ylab.pack(side=tk.LEFT)
-        self.bprev_y = Button(self.rowy, text='<', width=bwidth,
-                              command=self.prev_y)
-        self.bprev_y.pack(side=tk.LEFT)
-        self.bprev_ytip = add_tooltip(self.bprev_y, 'Previous variable')
-        self.bnext_y = Button(self.rowy, text='>', width=bwidth,
-                              command=self.next_y)
-        self.bnext_y.pack(side=tk.LEFT)
-        self.bnext_ytip = add_tooltip(self.bnext_y, 'Next variable')
-        if ihavectk:
-            self.y = Combobox(self.rowy, values=columns, width=combowidth,
-                              command=self.selected_y)
-        else:
-            self.y = Combobox(self.rowy, values=columns, width=combowidth)
-            # long = len(max(columns, key=len))
-            # self.y.configure(width=(max(20, long//2)))
-            self.y.bind('<<ComboboxSelected>>', self.selected_y)
-        self.y.pack(side=tk.LEFT)
-        self.ytip = add_tooltip(self.y, 'Choose variable of y-axis')
+        self.ylbl, ylab = add_label(self.rowy, 'y', **lkwargs)
+        spacep_label, spacep = add_label(self.rowy, ' ' * 1)
+        bprev_y_label, self.bprev_y, self.bprev_ytip = add_button(
+            self.rowy, '<', command=self.prev_y, width=bwidth,
+            tooltip='Previous variable')
+        bnext_y_label, self.bnext_y, self.bnext_ytip = add_button(
+            self.rowy, '>', command=self.next_y, width=bwidth,
+            tooltip='Next variable')
+        self.yframe, self.yylbl, self.y, self.ytip = add_combobox(
+            self.rowy, label='', values=columns, command=self.selected_y,
+            width=combowidth, padx=0,
+            tooltip='Choose variable of y-axis')
+        self.yframe.pack(side=tk.LEFT)
         self.line_y = []
         self.inv_yframe, self.inv_ylbl, self.inv_y, self.inv_ytip = (
             add_checkbutton(self.rowy, label='invert y', value=False,
@@ -306,10 +292,10 @@ class ncvScatter(Frame):
             ydframe.pack(side=tk.LEFT)
 
         # redraw button
-        self.bredraw = Button(self.rowxy, text='Redraw',
-                              command=self.redraw)
+        bredraw_label, self.bredraw, self.bredrawtip = add_button(
+            self.rowxy, 'Redraw', command=self.redraw, nopack=True,
+            tooltip='Redraw, resetting zoom')
         self.bredraw.pack(side=tk.RIGHT)
-        self.bredrawtip = add_tooltip(self.bredraw, 'Redraw, resetting zoom')
 
         # 2. row
         # options for lhs y-axis
@@ -356,10 +342,7 @@ class ncvScatter(Frame):
         # space
         self.rowspace = Frame(self)
         self.rowspace.pack(side=tk.TOP, fill=tk.X)
-        rowspace_label = tk.StringVar()
-        rowspace_label.set(' ')
-        rowspace = Label(self.rowspace, textvariable=spacex_label)
-        rowspace.pack(side=tk.LEFT)
+        rowspace_label, rowspace = add_label(self.rowspace, ' ')
 
         # 3. row
         # rhs y-axis 2 selection
@@ -369,9 +352,20 @@ class ncvScatter(Frame):
         self.blocky2.pack(side=tk.LEFT)
         self.rowy2 = Frame(self.blocky2)
         self.rowy2.pack(side=tk.TOP, fill=tk.X)
+        lkwargs = {}
+        if ihavectk:
+            lkwargs.update({'padx': padx})
+        self.ylbl2, ylab2 = add_label(self.rowy2, 'y2', **lkwargs)
+        spacep2_label, spacep2 = add_label(self.rowy2, ' ' * 1)
+        bprev_y2_label, self.bprev_y2, self.bprev_y2tip = add_button(
+            self.rowy2, '<', command=self.prev_y2, width=bwidth,
+            tooltip='Previous variable')
+        bnext_y2_label, self.bnext_y2, self.bnext_y2tip = add_button(
+            self.rowy2, '>', command=self.next_y2, width=bwidth,
+            tooltip='Next variable')
         self.y2frame, self.y2lbl, self.y2, self.y2tip = add_combobox(
-            self.rowy2, label='y2', values=columns,
-            command=self.selected_y2, width=combowidth, padx=padx,
+            self.rowy2, label='', values=columns,
+            command=self.selected_y2, width=combowidth, padx=0,
             tooltip='Choose variable for right-hand-side y-axis')
         self.y2frame.pack(side=tk.LEFT)
         self.line_y2 = []
@@ -380,10 +374,7 @@ class ncvScatter(Frame):
                             command=self.checked_y2,
                             tooltip='Invert right-hand-side y-axis'))
         self.inv_y2frame.pack(side=tk.LEFT)
-        spacey2_label = tk.StringVar()
-        spacey2_label.set(' ')
-        spacey2 = Label(self.rowy2, textvariable=spacey2_label)
-        spacey2.pack(side=tk.LEFT)
+        spacey2_label, spacey2 = add_label(self.rowy2, ' ')
         tstr = 'Same limits for left-hand-side and right-hand-side y-axes'
         self.same_yframe, self.same_ylbl, self.same_y, self.same_ytip = (
             add_checkbutton(self.rowy2, label='same y-axes', value=False,
@@ -449,10 +440,10 @@ class ncvScatter(Frame):
             command=self.entered_y2, tooltip='Marker edge width')
         self.mew2frame.pack(side=tk.LEFT)
         # Quit button
-        self.bquit = Button(self.rowy2opt, text='Quit',
-                            command=self.master.top.destroy)
+        bquit_label, self.bquit, self.bquittip = add_button(
+            self.rowy2opt, 'Quit', command=self.master.top.destroy,
+            nopack=True, tooltip='Quit ncvue')
         self.bquit.pack(side=tk.RIGHT)
-        self.bquittip = add_tooltip(self.bquit, 'Quit ncvue')
 
     #
     # Event bindings
@@ -539,6 +530,27 @@ class ncvScatter(Frame):
             set_dim_y(self)
             self.redraw()
 
+    def next_y2(self):
+        """
+        Command called if next button for the right-hand-side y-variable was
+        pressed.
+
+        Resets dimensions of right-hand-side y-variable.
+        Redraws plot.
+
+        """
+        y2 = self.y2.get()
+        if ihavectk:
+            cols = self.y2.cget('values')
+        else:
+            cols = self.y2['values']
+        idx  = cols.index(y2)
+        idx += 1
+        if idx < len(cols):
+            self.y2.set(cols[idx])
+            set_dim_y2(self)
+            self.redraw()
+
     # def onpick(self, event):
     #     print('in pick')
     #     print('you pressed', event.button, event.xdata, event.ydata)
@@ -568,6 +580,27 @@ class ncvScatter(Frame):
         if idx > 0:
             self.y.set(cols[idx])
             set_dim_y(self)
+            self.redraw()
+
+    def prev_y2(self):
+        """
+        Command called if previous button for the right-hand-side y-variable
+        was pressed.
+
+        Resets dimensions of right-hand-side y-variable.
+        Redraws plot.
+
+        """
+        y2 = self.y2.get()
+        if ihavectk:
+            cols = self.y2.cget('values')
+        else:
+            cols = self.y2['values']
+        idx  = cols.index(y2)
+        idx -= 1
+        if idx > 0:
+            self.y2.set(cols[idx])
+            set_dim_y2(self)
             self.redraw()
 
     def newnetcdf(self):

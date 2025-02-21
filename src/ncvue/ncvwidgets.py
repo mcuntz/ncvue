@@ -18,10 +18,12 @@ The following functions are provided:
 .. autosummary::
    callurl
    Tooltip
+   add_button
    add_checkbutton
    add_combobox
    add_entry
    add_imagemenu
+   add_label
    add_menu
    add_scale
    add_spinbox
@@ -52,26 +54,29 @@ History
    * Use CustomTkinter also in add_menu and add_scale,
      Dec 2024, Matthias Cuntz
    * Bugfix: did not make new frame in add_spinbox, Dec 2024, Matthias Cuntz
+   * add_button, add_label, Feb 2025, Matthias Cuntz
 
 """
 import tkinter as tk
 import tkinter.ttk as ttk
 try:
-    from customtkinter import CTkFrame as Frame
-    from customtkinter import CTkLabel as Label
+    from customtkinter import CTkButton as Button
     from customtkinter import CTkCheckBox as Checkbutton
     from customtkinter import CTkComboBox as Combobox
     from customtkinter import CTkEntry as Entry
+    from customtkinter import CTkFrame as Frame
+    from customtkinter import CTkLabel as Label
     from customtkinter import CTkOptionMenu as Menubutton
     from customtkinter import CTkSlider as Scale
     from customtkinter import CTkScrollbar as Scrollbar
     ihavectk = True
 except ModuleNotFoundError:
-    from tkinter.ttk import Frame
-    from tkinter.ttk import Label
+    from tkinter.ttk import Button
     from tkinter.ttk import Checkbutton
     from tkinter.ttk import Combobox
     from tkinter.ttk import Entry
+    from tkinter.ttk import Frame
+    from tkinter.ttk import Label
     from tkinter.ttk import Menubutton
     from tkinter.ttk import Scale
     from tkinter.ttk import Scrollbar
@@ -82,9 +87,9 @@ from .tooltip import Hovertip
 
 
 __all__ = ['callurl', 'Tooltip',
-           'add_checkbutton', 'add_combobox', 'add_entry',
-           'add_imagemenu', 'add_menu', 'add_scale', 'add_spinbox',
-           'add_tooltip',
+           'add_button', 'add_checkbutton', 'add_combobox', 'add_entry',
+           'add_imagemenu', 'add_label', 'add_menu', 'add_scale',
+           'add_spinbox', 'add_tooltip',
            'Treeview']
 
 
@@ -160,6 +165,56 @@ class Tooltip(Hovertip):
                              padx=1, pady=1)
         label.pack()
         # label.grid()
+
+
+def add_button(frame, itext, command=None, tooltip="", nopack=False, **kwargs):
+    """
+    Add a Button with a textvariable
+
+    Parameters
+    ----------
+    frame : CustomTkinter widget
+        Parent widget
+    itext : str, optional
+        Text that appears on the button (default: "")
+    command : function, optional
+        Function to be called when the button is pressed (default: None).
+    tooltip : str, optional
+        Tooltip appearing after one second when hovering over
+        the checkbutton (default: "" = no tooltip)
+    nopack : bool, optional
+        If True, button will not be packed left.
+    **kwargs : option=value pairs, optional
+        All other options will be passed to Button
+
+    Returns
+    -------
+    tk.StringVar, widget
+        variable for the text on the button, the button widget
+    tk.StringVar
+        variable for the text of the tooltip, if given.
+
+    Examples
+    --------
+    >>> self.rowzxy = Frame(self)
+    >>> self.rowzxy.pack(side='top', fill='x')
+    >>> self.inv_xtxt, self.inv_x, self.inv_ttip = add_button(
+    ...     self.rowzxy, "invert x", command=self.checked,
+    ...     tooltip='Press button to invert the x-axis.')
+
+    """
+    buttext = tk.StringVar()
+    buttext.set(itext)
+    but = Button(frame, textvariable=buttext, command=command, **kwargs)
+    if not nopack:
+        but.pack(side='left')
+    if tooltip:
+        ttip = tk.StringVar()
+        ttip.set(tooltip)
+        buttip = Tooltip(but, ttip)
+        return buttext, but, ttip
+    else:
+        return buttext, but
 
 
 def add_checkbutton(frame, label="", value=False, command=None, tooltip="",
@@ -463,6 +518,38 @@ def add_imagemenu(frame, label="", values=[], images=[], command=None,
         return iframe, mb_label, mb, ttip
     else:
         return iframe, mb_label, mb
+
+
+def add_label(frame, itext="", **kwargs):
+    """
+    Add a label with a textvariable
+
+    Parameters
+    ----------
+    frame : CustomTkinter widget
+        Parent widget
+    itext : str, optional
+        Text that appears in the label (default: "")
+    **kwargs : option=value pairs, optional
+        All other options will be passed to the Label function
+
+    Returns
+    -------
+    tk.StringVar, Label
+        variable for the text of the label, Label widget
+
+    Examples
+    --------
+    >>> self.rowzxy = Frame(self)
+    >>> self.rowzxy.pack(side='top', fill='x')
+    >>> self.xlbltext, self.xlbl = add_label(self.rowzxy, "x")
+
+    """
+    ilbl_text = tk.StringVar()
+    ilbl_text.set(itext)
+    ilbl = Label(frame, textvariable=ilbl_text)
+    ilbl.pack(side='left')
+    return ilbl_text, ilbl
 
 
 def add_menu(frame, label="", values=[], command=None, tooltip="", **kwargs):
