@@ -34,6 +34,7 @@ History
    * Use CustomTkinter if installed, Nov 2024, Matthias Cuntz
    * Use add_button, add_label widgets, Feb 2025, Matthias Cuntz
    * Use add_combobox instead of Combobox directly, Feb 2025, Matthias Cuntz
+   * Include xarray to read input files, Feb 2025, Matthias Cuntz
 
 """
 import os
@@ -47,6 +48,11 @@ except ModuleNotFoundError:
     ihavectk = False
 import netCDF4 as nc
 import numpy as np
+try:
+    import xarray as xr
+    ihavex = True
+except ModuleNotFoundError:
+    ihavex = False
 from .ncvutils import clone_ncvmain, format_coord_contour, selvar
 from .ncvutils import set_axis_label, vardim2var
 from .ncvmethods import analyse_netcdf, get_slice_miss
@@ -96,6 +102,7 @@ class ncvContour(Frame):
         self.master = master
         self.top    = master.top
         # copy for ease of use
+        self.usex   = self.top.usex
         self.fi     = self.top.fi
         self.groups = self.top.groups
         self.miss   = self.top.miss
@@ -115,16 +122,12 @@ class ncvContour(Frame):
         columns = [''] + self.cols
 
         allcmaps = plt.colormaps()
-        self.cmaps  = [ i for i in allcmaps if not i.endswith('_r') ]
+        self.cmaps = [ i for i in allcmaps if not i.endswith('_r') ]
         self.cmaps.sort()
-        # self.imaps  = [ tk.PhotoImage(file=os.path.dirname(__file__) +
-        #                               '/../images/' + i + '.png')
-        #                 for i in self.cmaps ]
         bundle_dir = getattr(sys, '_MEIPASS',
                              os.path.abspath(os.path.dirname(__file__)))
-        self.imaps  = [ tk.PhotoImage(file=bundle_dir +
-                                      '/images/' + i + '.png')
-                        for i in self.cmaps ]
+        self.imaps = [ tk.PhotoImage(file=f'{bundle_dir}/images/{i}.png')
+                       for i in self.cmaps ]
         if ihavectk:
             # width of combo boxes in px
             combowidth = 288
@@ -155,14 +158,11 @@ class ncvContour(Frame):
         # new window
         self.rowwin = Frame(self)
         self.rowwin.pack(side=tk.TOP, fill=tk.X)
-        newfile_label, self.newfile, self.newfiletip = add_button(
-            self.rowwin, 'Open File', command=self.newnetcdf,
+        self.newfile, self.newfiletip = add_button(
+            self.rowwin, text='Open File', command=self.newnetcdf,
             tooltip='Open a new netcdf file')
-        spacew = add_label(self.rowwin, text='   ')
-        time_label1 = add_label(self.rowwin, text='Time: ')
-        self.timelbl, time_label2 = add_label(self.rowwin, '')
-        newwin_label, self.newwin, self.newwintip = add_button(
-            self.rowwin, 'New Window', nopack=True,
+        self.newwin, self.newwintip = add_button(
+            self.rowwin, text='New Window', nopack=True,
             command=partial(clone_ncvmain, self.master),
             tooltip='Open secondary ncvue window')
         self.newwin.pack(side=tk.RIGHT)
@@ -198,11 +198,11 @@ class ncvContour(Frame):
             lkwargs.update({'padx': padx})
         zlab = add_label(self.rowz, text='z', **lkwargs)
         spacep = add_label(self.rowz, text=' ' * 1)
-        bprev_z_label, self.bprev_z, self.bprev_ztip = add_button(
-            self.rowz, '<', command=self.prev_z, width=bwidth,
+        self.bprev_z, self.bprev_ztip = add_button(
+            self.rowz, text='<', command=self.prev_z, width=bwidth,
             tooltip='Previous variable')
-        bnext_z_label, self.bnext_z, self.bnext_ztip = add_button(
-            self.rowz, '>', command=self.next_z, width=bwidth,
+        self.bnext_z, self.bnext_ztip = add_button(
+            self.rowz, text='>', command=self.next_z, width=bwidth,
             tooltip='Next variable')
         self.zframe, self.zlbl, self.z, self.ztip = add_combobox(
             self.rowz, label='', values=columns,
@@ -340,7 +340,7 @@ class ncvContour(Frame):
             add_checkbutton(self.rowcmap, label='mesh', value=True,
                             command=self.checked,
                             tooltip=('Pseudocolor plot if checked,'
-                                     ' plot contours if unchecked')))
+                                     ' contours if unchecked')))
         self.meshframe.pack(side=tk.LEFT)
         self.gridframe, self.gridlbl, self.grid, self.gridtip = (
             add_checkbutton(self.rowcmap, label='grid', value=False,
@@ -348,9 +348,10 @@ class ncvContour(Frame):
                             tooltip='Draw major grid lines'))
         self.gridframe.pack(side=tk.LEFT)
         # Quit button
-        bquit_label, self.bquit, self.bquittip = add_button(
-            self.rowcmap, 'Quit', command=self.master.top.destroy, nopack=True,
-            tooltip='Quit ncvue')
+        self.bquit, self.bquittip = add_button(
+            self.rowcmap, text='Quit', command=self.master.top.destroy,
+            nopack=True, tooltip='Quit ncvue')
+        self.bquit.pack(side=tk.RIGHT)
 
     #
     # Bindings
@@ -443,9 +444,13 @@ class ncvContour(Frame):
             parent=self, title='Choose netcdf file', multiple=True)
         if len(ncfile) > 0:
             # close old netcdf file
-            if len(self.top.fi) > 0:
-                for fi in self.top.fi:
-                    fi.close()
+            if self.usex:
+                if self.top.fi:
+                    self.top.fi.close()
+            else:
+                if len(self.top.fi) > 0:
+                    for fi in self.top.fi:
+                        fi.close()
             # reset empty defaults of top
             self.top.fi     = []  # file name or file handle
             self.top.groups = []  # filename with incr. index or group names
@@ -461,23 +466,30 @@ class ncvContour(Frame):
             self.top.maxdim = 0   # maximum num of dims of all variables
             self.top.cols   = []  # variable list
             # open new netcdf file
-            for ii, nn in enumerate(ncfile):
-                self.top.fi.append(nc.Dataset(nn, 'r'))
-                if len(ncfile) > 1:
-                    self.top.groups.append(f'file{ii:03d}')
-            # Check groups
             ianalyse = True
-            if len(ncfile) == 1:
-                self.top.groups = list(self.top.fi[0].groups.keys())
+            if self.usex:
+                if len(ncfile) > 1:
+                    self.top.fi = xr.open_mfdataset(ncfile)
+                else:
+                    self.top.fi = xr.open_dataset(ncfile[0])
             else:
                 for ii, nn in enumerate(ncfile):
-                    if len(list(self.top.fi[ii].groups.keys())) > 0:
-                        print(f'Either multiple files or one file with groups'
-                              f' allowed as input. Multiple files and file'
-                              f' {nn} has groups.')
-                        for fi in self.top.fi:
-                            fi.close()
-                        ianalyse = False
+                    self.top.fi.append(nc.Dataset(nn, 'r'))
+                    if len(ncfile) > 1:
+                        nnc = np.ceil(np.log10(len(ncfile))).astype(int)
+                        self.top.groups.append(f'file{ii:0{nnc}d}')
+                # Check groups
+                if len(ncfile) == 1:
+                    self.top.groups = list(self.top.fi[0].groups.keys())
+                else:
+                    for ii, nn in enumerate(ncfile):
+                        if len(list(self.top.fi[ii].groups.keys())) > 0:
+                            print(f'Either multiple files or one file with'
+                                  f' groups allowed as input. Multiple files'
+                                  f' given but file {nn} has groups.')
+                            for fi in self.top.fi:
+                                fi.close()
+                            ianalyse = False
             if ianalyse:
                 analyse_netcdf(self.top)
             # reset panel
@@ -735,13 +747,21 @@ class ncvContour(Frame):
         if (z != ''):
             # z axis
             gz, vz = vardim2var(z, self.groups)
-            if vz == self.tname[gz]:
+            if self.usex:
+                tnamez = self.tname
+                dtimez = self.dtime
+                timez = self.time
+            else:
+                tnamez = self.tname[gz]
+                dtimez = self.dtime[gz]
+                timez = self.time[gz]
+            if vz == tnamez:
                 # should throw an error later
                 if mesh:
-                    zz = self.dtime[gz]
+                    zz = dtimez
                     zlab = 'Year'
                 else:
-                    zz = self.time[gz]
+                    zz = timez
                     zlab = 'Date'
             else:
                 zz = selvar(self, vz)
@@ -754,12 +774,20 @@ class ncvContour(Frame):
         if (y != ''):
             # y axis
             gy, vy = vardim2var(y, self.groups)
-            if vy == self.tname[gy]:
+            if self.usex:
+                tnamey = self.tname
+                dtimey = self.dtime
+                timey = self.time
+            else:
+                tnamey = self.tname[gy]
+                dtimey = self.dtime[gy]
+                timey = self.time[gy]
+            if vy == tnamey:
                 if mesh:
-                    yy = self.dtime[gy]
+                    yy = dtimey
                     ylab = 'Year'
                 else:
-                    yy = self.time[gy]
+                    yy = timey
                     ylab = 'Date'
             else:
                 yy = selvar(self, vy)
@@ -768,12 +796,20 @@ class ncvContour(Frame):
         if (x != ''):
             # x axis
             gx, vx = vardim2var(x, self.groups)
-            if vx == self.tname[gx]:
+            if self.usex:
+                tnamex = self.tname
+                dtimex = self.dtime
+                timex = self.time
+            else:
+                tnamex = self.tname[gx]
+                dtimex = self.dtime[gx]
+                timex = self.time[gx]
+            if vx == tnamex:
                 if mesh:
-                    xx = self.dtime[gx]
+                    xx = dtimex
                     xlab = 'Year'
                 else:
-                    xx = self.time[gx]
+                    xx = timex
                     xlab = 'Date'
             else:
                 xx = selvar(self, vx)

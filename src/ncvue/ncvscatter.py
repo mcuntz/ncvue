@@ -35,6 +35,7 @@ History
    * Use add_button, add_label widgets, Feb 2025, Matthias Cuntz
    * Use add_combobox instead of Combobox directly, Feb 2025, Matthias Cuntz
    * Add previous and next for right-hand-side axis, Feb 2025, Matthias Cuntz
+   * Include xarray to read input files, Feb 2025, Matthias Cuntz
 
 """
 import tkinter as tk
@@ -46,6 +47,11 @@ except ModuleNotFoundError:
     ihavectk = False
 import numpy as np
 import netCDF4 as nc
+try:
+    import xarray as xr
+    ihavex = True
+except ModuleNotFoundError:
+    ihavex = False
 from .ncvutils import clone_ncvmain, format_coord_scatter, selvar
 from .ncvutils import set_axis_label, vardim2var
 from .ncvmethods import analyse_netcdf, get_slice_miss
@@ -100,6 +106,7 @@ class ncvScatter(Frame):
         self.master = master
         self.top    = master.top
         # copy for ease of use
+        self.usex   = self.top.usex
         self.fi     = self.top.fi
         self.groups = self.top.groups
         self.miss   = self.top.miss
@@ -171,14 +178,11 @@ class ncvScatter(Frame):
         # new window
         self.rowwin = Frame(self)
         self.rowwin.pack(side=tk.TOP, fill=tk.X)
-        newfile_label, self.newfile, self.newfiletip = add_button(
-            self.rowwin, 'Open File', command=self.newnetcdf,
+        self.newfile, self.newfiletip = add_button(
+            self.rowwin, text='Open File', command=self.newnetcdf,
             tooltip='Open a new netcdf file')
-        spacew = add_label(self.rowwin, text='   ')
-        time_label1 = add_label(self.rowwin, text='Time: ')
-        self.timelbl, time_label2 = add_label(self.rowwin, '')
-        newwin_label, self.newwin, self.newwintip = add_button(
-            self.rowwin, 'New Window', nopack=True,
+        self.newwin, self.newwintip = add_button(
+            self.rowwin, text='New Window', nopack=True,
             command=partial(clone_ncvmain, self.master),
             tooltip='Open secondary ncvue window')
         self.newwin.pack(side=tk.RIGHT)
@@ -254,11 +258,11 @@ class ncvScatter(Frame):
             lkwargs.update({'padx': padx})
         ylab = add_label(self.rowy, text='y', **lkwargs)
         spacep = add_label(self.rowy, text=' ' * 1)
-        bprev_y_label, self.bprev_y, self.bprev_ytip = add_button(
-            self.rowy, '<', command=self.prev_y, width=bwidth,
+        self.bprev_y, self.bprev_ytip = add_button(
+            self.rowy, text='<', command=self.prev_y, width=bwidth,
             tooltip='Previous variable')
-        bnext_y_label, self.bnext_y, self.bnext_ytip = add_button(
-            self.rowy, '>', command=self.next_y, width=bwidth,
+        self.bnext_y, self.bnext_ytip = add_button(
+            self.rowy, text='>', command=self.next_y, width=bwidth,
             tooltip='Next variable')
         self.yframe, self.yylbl, self.y, self.ytip = add_combobox(
             self.rowy, label='', values=columns, command=self.selected_y,
@@ -292,8 +296,8 @@ class ncvScatter(Frame):
             ydframe.pack(side=tk.LEFT)
 
         # redraw button
-        bredraw_label, self.bredraw, self.bredrawtip = add_button(
-            self.rowxy, 'Redraw', command=self.redraw, nopack=True,
+        self.bredraw, self.bredrawtip = add_button(
+            self.rowxy, text='Redraw', command=self.redraw, nopack=True,
             tooltip='Redraw, resetting zoom')
         self.bredraw.pack(side=tk.RIGHT)
 
@@ -357,11 +361,11 @@ class ncvScatter(Frame):
             lkwargs.update({'padx': padx})
         ylab2 = add_label(self.rowy2, text='y2', **lkwargs)
         spacep2 = add_label(self.rowy2, text=' ' * 1)
-        bprev_y2_label, self.bprev_y2, self.bprev_y2tip = add_button(
-            self.rowy2, '<', command=self.prev_y2, width=bwidth,
+        self.bprev_y2, self.bprev_y2tip = add_button(
+            self.rowy2, text='<', command=self.prev_y2, width=bwidth,
             tooltip='Previous variable')
-        bnext_y2_label, self.bnext_y2, self.bnext_y2tip = add_button(
-            self.rowy2, '>', command=self.next_y2, width=bwidth,
+        self.bnext_y2, self.bnext_y2tip = add_button(
+            self.rowy2, text='>', command=self.next_y2, width=bwidth,
             tooltip='Next variable')
         self.y2frame, self.y2lbl, self.y2, self.y2tip = add_combobox(
             self.rowy2, label='', values=columns,
@@ -440,8 +444,8 @@ class ncvScatter(Frame):
             command=self.entered_y2, tooltip='Marker edge width')
         self.mew2frame.pack(side=tk.LEFT)
         # Quit button
-        bquit_label, self.bquit, self.bquittip = add_button(
-            self.rowy2opt, 'Quit', command=self.master.top.destroy,
+        self.bquit, self.bquittip = add_button(
+            self.rowy2opt, text='Quit', command=self.master.top.destroy,
             nopack=True, tooltip='Quit ncvue')
         self.bquit.pack(side=tk.RIGHT)
 
@@ -613,9 +617,13 @@ class ncvScatter(Frame):
             parent=self, title='Choose netcdf file', multiple=True)
         if len(ncfile) > 0:
             # close old netcdf file
-            if len(self.top.fi) > 0:
-                for fi in self.top.fi:
-                    fi.close()
+            if self.usex:
+                if self.top.fi:
+                    self.top.fi.close()
+            else:
+                if len(self.top.fi) > 0:
+                    for fi in self.top.fi:
+                        fi.close()
             # reset empty defaults of top
             self.top.fi     = []  # file name or file handle
             self.top.groups = []  # filename with incr. index or group names
@@ -631,23 +639,30 @@ class ncvScatter(Frame):
             self.top.maxdim = 0   # maximum num of dims of all variables
             self.top.cols   = []  # variable list
             # open new netcdf file
-            for ii, nn in enumerate(ncfile):
-                self.top.fi.append(nc.Dataset(nn, 'r'))
-                if len(ncfile) > 1:
-                    self.top.groups.append(f'file{ii:03d}')
-            # Check groups
             ianalyse = True
-            if len(ncfile) == 1:
-                self.top.groups = list(self.top.fi[0].groups.keys())
+            if self.usex:
+                if len(ncfile) > 1:
+                    self.top.fi = xr.open_mfdataset(ncfile)
+                else:
+                    self.top.fi = xr.open_dataset(ncfile[0])
             else:
                 for ii, nn in enumerate(ncfile):
-                    if len(list(self.top.fi[ii].groups.keys())) > 0:
-                        print(f'Either multiple files or one file with groups'
-                              f' allowed as input. Multiple files and file'
-                              f' {nn} has groups.')
-                        for fi in self.top.fi:
-                            fi.close()
-                        ianalyse = False
+                    self.top.fi.append(nc.Dataset(nn, 'r'))
+                    if len(ncfile) > 1:
+                        nnc = np.ceil(np.log10(len(ncfile))).astype(int)
+                        self.top.groups.append(f'file{ii:0{nnc}d}')
+                # Check groups
+                if len(ncfile) == 1:
+                    self.top.groups = list(self.top.fi[0].groups.keys())
+                else:
+                    for ii, nn in enumerate(ncfile):
+                        if len(list(self.top.fi[ii].groups.keys())) > 0:
+                            print(f'Either multiple files or one file with'
+                                  f' groups allowed as input. Multiple files'
+                                  f' given but file {nn} has groups.')
+                            for fi in self.top.fi:
+                                fi.close()
+                            ianalyse = False
             if ianalyse:
                 analyse_netcdf(self.top)
             # reset panel
@@ -911,7 +926,11 @@ class ncvScatter(Frame):
                      'markeredgecolor': mec,
                      'markeredgewidth': mew}
             gy, vy = vardim2var(y, self.groups)
-            if vy == self.tname[gy]:
+            if self.usex:
+                tnamey = self.tname
+            else:
+                tnamey = self.tname[gy]
+            if vy == tnamey:
                 ylab = 'Date'
                 pargs['color'] = c
             else:
@@ -1017,7 +1036,11 @@ class ncvScatter(Frame):
                      'markeredgecolor': mec,
                      'markeredgewidth': mew}
             gy, vy = vardim2var(y2, self.groups)
-            if vy == self.tname[gy]:
+            if self.usex:
+                tnamey = self.tname
+            else:
+                tnamey = self.tname[gy]
+            if vy == tnamey:
                 ylab = 'Date'
                 pargs['color'] = c
             else:
@@ -1104,8 +1127,14 @@ class ncvScatter(Frame):
             # y axis
             if y != '':
                 gy, vy = vardim2var(y, self.groups)
-                if vy == self.tname[gy]:
-                    yy   = self.time[gy]
+                if self.usex:
+                    tnamey = self.tname
+                    timey = self.time
+                else:
+                    tnamey = self.tname[gy]
+                    timey = self.time[gy]
+                if vy == tnamey:
+                    yy   = timey
                     ylab = 'Date'
                 else:
                     yy = selvar(self, vy)
@@ -1114,8 +1143,14 @@ class ncvScatter(Frame):
             # y2 axis
             if y2 != '':
                 gy2, vy2 = vardim2var(y2, self.groups)
-                if vy2 == self.tname[gy2]:
-                    yy2   = self.time[gy2]
+                if self.usex:
+                    tnamey2 = self.tname
+                    timey2 = self.time
+                else:
+                    tnamey2 = self.tname[gy2]
+                    timey2 = self.time[gy2]
+                if vy2 == tnamey2:
+                    yy2   = timey2
                     ylab2 = 'Date'
                 else:
                     yy2 = selvar(self, vy2)
@@ -1124,8 +1159,14 @@ class ncvScatter(Frame):
             if (x != ''):
                 # x axis
                 gx, vx = vardim2var(x, self.groups)
-                if vx == self.tname[gx]:
-                    xx   = self.time[gx]
+                if self.usex:
+                    tnamex = self.tname
+                    timex = self.time
+                else:
+                    tnamex = self.tname[gx]
+                    timex = self.time[gx]
+                if vx == tnamex:
+                    xx   = timex
                     xlab = 'Date'
                 else:
                     xx = selvar(self, vx)

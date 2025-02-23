@@ -679,6 +679,7 @@ def set_dim_lat(self):
         self.latd[i].config(values=(0,), width=1, state=tk.DISABLED)
         self.latdlblval[i].set(str(i))
         self.latdtip[i].set("")
+        self.latdframe[i].pack(side='left')
     lat = self.lat.get()
     if lat != '':
         # set real dimensions
@@ -697,11 +698,12 @@ def set_dim_lat(self):
             if (ll.shape[i] > 1):
                 self.latdval[i].set('all')
             else:
-                self.latdval[i].set(0)
+                self.latdval[i].set('0')
             if self.usex:
                 self.latdlblval[i].set(str(ll.dims[i]))
             else:
                 self.latdlblval[i].set(str(ll.dimensions[i]))
+            self.latdframe[i].pack(side='left')
             if ll.shape[i] > 1:
                 tstr  = "Specific dimension value: 0-{:d}\n".format(
                     ll.shape[i] - 1)
@@ -738,6 +740,7 @@ def set_dim_lon(self):
         self.lond[i].config(values=(0,), width=1, state=tk.DISABLED)
         self.londlblval[i].set(str(i))
         self.londtip[i].set("")
+        self.londframe[i].pack(side='left')
     lon = self.lon.get()
     if lon != '':
         # set real dimensions
@@ -756,11 +759,12 @@ def set_dim_lon(self):
             if (ll.shape[i] > 1):
                 self.londval[i].set('all')
             else:
-                self.londval[i].set(0)
+                self.londval[i].set('0')
             if self.usex:
                 self.londlblval[i].set(str(ll.dims[i]))
             else:
                 self.londlblval[i].set(str(ll.dimensions[i]))
+            self.londframe[i].pack(side='left')
             if ll.shape[i] > 1:
                 tstr  = "Specific dimension value: 0-{:d}\n".format(
                     ll.shape[i] - 1)
@@ -801,6 +805,7 @@ def set_dim_var(self):
         self.vd[i].config(values=(0,), width=1, state=tk.DISABLED)
         self.vdlblval[i].set(str(i))
         self.vdtip[i].set("")
+        self.vdframe[i].pack(side='left')
     v = self.v.get()
     if v != '':
         # set real dimensions
@@ -832,6 +837,7 @@ def set_dim_var(self):
                 nall += 1
                 self.vdval[i].set('all')
                 self.vdlblval[i].set(str(dims[i]))
+                self.vdframe[i].pack(side='left')
                 if vv.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
                         vv.shape[i] - 1)
@@ -849,6 +855,7 @@ def set_dim_var(self):
                 nall += 1
                 self.vdval[i].set('all')
                 self.vdlblval[i].set(str(dims[i]))
+                self.vdframe[i].pack(side='left')
                 if vv.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
                         vv.shape[i] - 1)
@@ -868,6 +875,7 @@ def set_dim_var(self):
                 nall += 1
                 self.vdval[i].set('all')
                 self.vdlblval[i].set(str(dims[i]))
+                self.vdframe[i].pack(side='left')
                 if vv.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
                         vv.shape[i] - 1)
@@ -878,8 +886,9 @@ def set_dim_var(self):
                 self.vdtip[i].set(tstr)
             elif ((dims[i] != latdim) and
                   (dims[i] != londim)):
-                self.vdval[i].set(0)
+                self.vdval[i].set('0')
                 self.vdlblval[i].set(str(dims[i]))
+                self.vdframe[i].pack(side='left')
                 if vv.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
                         vv.shape[i] - 1)
@@ -920,6 +929,7 @@ def set_dim_x(self):
         self.xd[i].config(values=(0,), width=1, state=tk.DISABLED)
         self.xdlblval[i].set(str(i))
         self.xdtip[i].set("")
+        self.xdframe[i].pack(side='left')
     x = self.x.get()
     if x != '':
         # set real dimensions
@@ -946,6 +956,7 @@ def set_dim_x(self):
             nall += 1
             self.xdval[i].set('all')
             self.xdlblval[i].set(str(dims[i]))
+            self.xdframe[i].pack(side='left')
             if xx.shape[i] > 1:
                 tstr  = "Specific dimension value: 0-{:d}\n".format(
                     xx.shape[i] - 1)
@@ -963,8 +974,9 @@ def set_dim_x(self):
                     nall += 1
                     self.xdval[i].set('all')
                 else:
-                    self.xdval[i].set(0)
+                    self.xdval[i].set('0')
                 self.xdlblval[i].set(str(dims[i]))
+                self.xdframe[i].pack(side='left')
                 if xx.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
                         xx.shape[i] - 1)
@@ -1005,6 +1017,7 @@ def set_dim_y(self):
         self.yd[i].config(values=(0,), width=1, state=tk.DISABLED)
         self.ydlblval[i].set(str(i))
         self.ydtip[i].set("")
+        self.ydframe[i].pack(side='left')
     y = self.y.get()
     if y != '':
         # set real dimensions
@@ -1031,6 +1044,7 @@ def set_dim_y(self):
             nall += 1
             self.ydval[i].set('all')
             self.ydlblval[i].set(str(dims[i]))
+            self.ydframe[i].pack(side='left')
             if yy.shape[i] > 1:
                 tstr  = "Specific dimension value: 0-{:d}\n".format(
                     yy.shape[i] - 1)
@@ -1048,8 +1062,9 @@ def set_dim_y(self):
                     nall += 1
                     self.ydval[i].set('all')
                 else:
-                    self.ydval[i].set(0)
+                    self.ydval[i].set('0')
                 self.ydlblval[i].set(str(dims[i]))
+                self.ydframe[i].pack(side='left')
                 if yy.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
                         yy.shape[i] - 1)
@@ -1090,6 +1105,7 @@ def set_dim_y2(self):
         self.y2d[i].config(values=(0,), width=1, state=tk.DISABLED)
         self.y2dlblval[i].set(str(i))
         self.y2dtip[i].set("")
+        self.y2dframe[i].pack(side='left')
     y2 = self.y2.get()
     if y2 != '':
         # set real dimensions
@@ -1116,6 +1132,7 @@ def set_dim_y2(self):
             nall += 1
             self.y2dval[i].set('all')
             self.y2dlblval[i].set(str(dims[i]))
+            self.y2dframe[i].pack(side='left')
             if yy2.shape[i] > 1:
                 tstr  = "Specific dimension value: 0-{:d}\n".format(
                     yy2.shape[i] - 1)
@@ -1133,8 +1150,9 @@ def set_dim_y2(self):
                     nall += 1
                     self.y2dval[i].set('all')
                 else:
-                    self.y2dval[i].set(0)
+                    self.y2dval[i].set('0')
                 self.y2dlblval[i].set(str(dims[i]))
+                self.y2dframe[i].pack(side='left')
                 if yy2.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
                         yy2.shape[i] - 1)
@@ -1176,6 +1194,7 @@ def set_dim_z(self):
         self.zd[i].config(values=(0,), width=1, state=tk.DISABLED)
         self.zdlblval[i].set(str(i))
         self.zdtip[i].set("")
+        self.zdframe[i].pack(side='left')
     z = self.z.get()
     if z != '':
         # set real dimensions
@@ -1202,6 +1221,7 @@ def set_dim_z(self):
             nall += 1
             self.zdval[i].set('all')
             self.zdlblval[i].set(str(dims[i]))
+            self.zdframe[i].pack(side='left')
             if zz.shape[i] > 1:
                 tstr  = "Specific dimension value: 0-{:d}\n".format(
                     zz.shape[i] - 1)
@@ -1219,8 +1239,9 @@ def set_dim_z(self):
                     nall += 1
                     self.zdval[i].set('all')
                 else:
-                    self.zdval[i].set(0)
+                    self.zdval[i].set('0')
                 self.zdlblval[i].set(str(dims[i]))
+                self.zdframe[i].pack(side='left')
                 if zz.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
                         zz.shape[i] - 1)

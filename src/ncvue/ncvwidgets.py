@@ -167,18 +167,17 @@ class Tooltip(Hovertip):
         # label.grid()
 
 
-def add_button(frame, itext, command=None, tooltip="", nopack=False, **kwargs):
+def add_button(frame, itext="", tooltip="", nopack=False, **kwargs):
     """
-    Add a Button with a textvariable
+    Add a Button with text or textvariable
 
     Parameters
     ----------
     frame : CustomTkinter widget
         Parent widget
     itext : str, optional
-        Text that appears on the button (default: "")
-    command : function, optional
-        Function to be called when the button is pressed (default: None).
+        Text that appears as a textvariable on the button (default: "")
+        If not textvariable needed, use text='something' instead.
     tooltip : str, optional
         Tooltip appearing after one second when hovering over
         the checkbutton (default: "" = no tooltip)
@@ -189,8 +188,11 @@ def add_button(frame, itext, command=None, tooltip="", nopack=False, **kwargs):
 
     Returns
     -------
-    tk.StringVar, widget
-        variable for the text on the button, the button widget
+    tk.StringVar, Button
+        variable for the text on the button, button widget
+    or
+    Button
+        Button widget, if text=text given as keyword argument
     tk.StringVar
         variable for the text of the tooltip, if given.
 
@@ -203,23 +205,26 @@ def add_button(frame, itext, command=None, tooltip="", nopack=False, **kwargs):
     ...     tooltip='Press button to invert the x-axis.')
 
     """
-    buttext = tk.StringVar()
-    buttext.set(itext)
-    if ihavectk:
+    if 'text' not in kwargs:
+        buttext = tk.StringVar()
+        buttext.set(itext)
         kwargs.update({'textvariable': buttext})
-    else:
-        # textvariable does not work for ttk.Button, don't know why
-        kwargs.update({'text': itext})
-    but = Button(frame, command=command, **kwargs)
+    but = Button(frame, **kwargs)
     if not nopack:
         but.pack(side='left')
     if tooltip:
         ttip = tk.StringVar()
         ttip.set(tooltip)
         buttip = Tooltip(but, ttip)
-        return buttext, but, ttip
+        if 'text' in kwargs:
+            return but, ttip
+        else:
+            return buttext, but, ttip
     else:
-        return buttext, but
+        if 'text' in kwargs:
+            return but
+        else:
+            return buttext, but
 
 
 def add_checkbutton(frame, label="", value=False, command=None, tooltip="",
@@ -534,7 +539,8 @@ def add_label(frame, itext="", **kwargs):
     frame : CustomTkinter widget
         Parent widget
     itext : str, optional
-        Text that appears in the label (default: "")
+        Text that appears as textvariable in the label (default: "")
+        If not textvariable needed, use text='something' instead.
     **kwargs : option=value pairs, optional
         All other options will be passed to the Label function
 

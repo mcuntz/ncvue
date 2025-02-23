@@ -115,7 +115,6 @@ class ncvMap(Frame):
         self.top    = master.top
         # copy for ease of use
         self.usex   = self.top.usex
-
         self.fi     = self.top.fi
         self.groups = self.top.groups
         self.miss   = self.top.miss
@@ -199,14 +198,14 @@ class ncvMap(Frame):
         # open file and new window buttons
         self.rowwin = Frame(self)
         self.rowwin.pack(side=tk.TOP, fill=tk.X)
-        newfile_label, self.newfile, self.newfiletip = add_button(
-            self.rowwin, 'Open File', command=self.newnetcdf,
+        self.newfile, self.newfiletip = add_button(
+            self.rowwin, text='Open File', command=self.newnetcdf,
             tooltip='Open a new netcdf file')
         spacew = add_label(self.rowwin, text='   ')
         time_label1 = add_label(self.rowwin, text='Time: ')
         self.timelbl, time_label2 = add_label(self.rowwin, '')
-        newwin_label, self.newwin, self.newwintip = add_button(
-            self.rowwin, 'New Window', nopack=True,
+        self.newwin, self.newwintip = add_button(
+            self.rowwin, text='New Window', nopack=True,
             command=partial(clone_ncvmain, self.master),
             tooltip='Open secondary ncvue window')
         self.newwin.pack(side=tk.RIGHT)
@@ -237,26 +236,26 @@ class ncvMap(Frame):
         spacet = add_label(self.rowt, text=' ' * 1)
 
         # first t, previous t, etc.
-        first_t_label, self.first_t, self.first_ttip = add_button(
-            self.rowt, '|<<', command=self.first_t, width=bwidth,
+        self.first_t, self.first_ttip = add_button(
+            self.rowt, text='|<<', command=self.first_t, width=bwidth,
             tooltip='First time step')
-        prev_t_label, self.prev_t, self.prev_ttip = add_button(
-            self.rowt, '|<', command=self.prev_t, width=bwidth,
+        self.prev_t, self.prev_ttip = add_button(
+            self.rowt, text='|<', command=self.prev_t, width=bwidth,
             tooltip='Previous time step')
-        prun_t_label, self.prun_t, self.prun_ttip = add_button(
-            self.rowt, '<', command=self.prun_t, width=bwidth,
+        self.prun_t, self.prun_ttip = add_button(
+            self.rowt, text='<', command=self.prun_t, width=bwidth,
             tooltip='Run backwards')
-        pause_t_label, self.pause_t, self.pause_ttip = add_button(
-            self.rowt, '||', command=self.pause_t, width=bwidth,
+        self.pause_t, self.pause_ttip = add_button(
+            self.rowt, text='||', command=self.pause_t, width=bwidth,
             tooltip='Pause/Stop')
-        nrun_t_label, self.nrun_t, self.nrun_ttip = add_button(
-            self.rowt, '>', command=self.nrun_t, width=bwidth,
+        self.nrun_t, self.nrun_ttip = add_button(
+            self.rowt, text='>', command=self.nrun_t, width=bwidth,
             tooltip='Run forwards')
-        next_t_label, self.next_t, self.next_ttip = add_button(
-            self.rowt, '>|', command=self.next_t, width=bwidth,
+        self.next_t, self.next_ttip = add_button(
+            self.rowt, text='>|', command=self.next_t, width=bwidth,
             tooltip='Next time ste')
-        last_t_label, self.last_t, self.last_ttip = add_button(
-            self.rowt, '>>|', command=self.last_t, width=bwidth,
+        self.last_t, self.last_ttip = add_button(
+            self.rowt, text='>>|', command=self.last_t, width=bwidth,
             tooltip='Last time step')
         # repeat
         spacer = add_label(self.rowt, text=' ' * 1)
@@ -293,11 +292,11 @@ class ncvMap(Frame):
             lkwargs.update({'padx': padx})
         vlab = add_label(self.rowv, text='var', **lkwargs)
         spacep = add_label(self.rowv, text=' ' * 1)
-        bprev_v_label, self.bprev_v, self.bprev_vtip = add_button(
-            self.rowv, '<', command=self.prev_v, width=bwidth,
+        self.bprev_v, self.bprev_vtip = add_button(
+            self.rowv, text='<', command=self.prev_v, width=bwidth,
             tooltip='Previous variable')
-        bnext_v_label, self.bnext_v, self.bnext_vtip = add_button(
-            self.rowv, '>', command=self.next_v, width=bwidth,
+        self.bnext_v, self.bnext_vtip = add_button(
+            self.rowv, text='>', command=self.next_v, width=bwidth,
             tooltip='Next variable')
         self.vframe, self.vlbl, self.v, self.vtip = add_combobox(
             self.rowv, label='', values=columns,
@@ -455,8 +454,8 @@ class ncvMap(Frame):
         self.meshframe, self.meshlbl, self.mesh, self.meshtip = (
             add_checkbutton(self.rowcmap, label='mesh', value=True,
                             command=self.checked,
-                            tooltip=('Pseudocolor plot if checked, plot '
-                                     'contours if unchecked')))
+                            tooltip=('Pseudocolor plot if checked,'
+                                     ' contours if unchecked')))
         self.meshframe.pack(side=tk.LEFT)
         self.iglobalframe, self.igloballbl, self.iglobal, self.iglobaltip = (
             add_checkbutton(self.rowcmap, label='global', value=False,
@@ -509,9 +508,9 @@ class ncvMap(Frame):
             command=self.entered_clon, tooltip=tstr, padx=padx)
         self.clonframe.pack(side=tk.LEFT)
         # Quit button
-        bquit_label, self.bquit, self.bquittip = add_button(
-            self.rowproj, 'Quit', command=self.master.top.destroy, nopack=True,
-            tooltip='Quit ncvue')
+        self.bquit, self.bquittip = add_button(
+            self.rowproj, text='Quit', command=self.master.top.destroy,
+            nopack=True, tooltip='Quit ncvue')
         self.bquit.pack(side=tk.RIGHT)
 
         # set lat/lon
@@ -1278,6 +1277,9 @@ class ncvMap(Frame):
     # Plotting
     #
 
+    # def redraw(self):
+    #     pass
+
     def redraw(self):
         """
         Redraws the plot.
@@ -1694,9 +1696,10 @@ class ncvMap(Frame):
                 #     origin='upper', extent=self.img_extent,
                 #     transform=self.itrans)
             else:
-                # http://matplotlib.1069221.n5.nabble.com/update-an-existing-contour-plot-with-new-data-td23889.html
-                for coll in self.cc.collections:
-                    self.axes.collections.remove(coll)
+                # # https://discourse.matplotlib.org/t/update-an-existing-contour-plot-with-new-data/13935
+                # for coll in self.cc.collections:
+                #     self.axes.collections.remove(coll)
+                self.cc.remove()
                 if self.iiglobal:
                     # self.ivvc = add_cyclic(self.ivv)
                     self.ivvc, self.ixxc = add_cyclic(
