@@ -200,7 +200,11 @@ class ncvMap(Frame):
         self.rowwin.pack(side=tk.TOP, fill=tk.X)
         self.newfile, self.newfiletip = add_button(
             self.rowwin, text='Open File', command=self.newnetcdf,
-            tooltip='Open a new netcdf file')
+            tooltip='Open new netcdf file(s)')
+        if ihavex:
+            self.newxarray, self.newxarraytip = add_button(
+                self.rowwin, text='Open xarray', command=self.newxarray,
+                tooltip='Open new netcdf file(s) with xarray')
         spacew = add_label(self.rowwin, text='   ')
         time_label1 = add_label(self.rowwin, text='Time: ')
         self.timelbl, time_label2 = add_label(self.rowwin, '')
@@ -268,14 +272,6 @@ class ncvMap(Frame):
                          command=self.repeat_t, tooltip=tstr))
         self.repeat.set('repeat')
         self.repeatframe.pack(side=tk.LEFT)
-        # delay
-        spaced = add_label(self.rowt, text=' ' * 1)
-        tstr = 'Delay run between time steps from 1 to 1000 ms'
-        self.delayframe, self.delaylbl, self.delayval, self.delay, self.delaytip = (
-            add_scale(self.rowt, label='delay (ms)', ini=1, from_=1, to=1000,
-                      length=100, orient=tk.HORIZONTAL, command=self.delay_t,
-                      tooltip=tstr))
-        self.delayframe.pack(side=tk.LEFT)
 
         # 2. row
         # variable-axis selection
@@ -570,10 +566,8 @@ class ncvMap(Frame):
                     zz = selvar(self, vz)
                     maxtime = max(zz.size, maxtime)
         self.anim = animation.FuncAnimation(
-            self.figure, self.update,
-            init_func=self.redraw,
-            interval=self.delayval.get(),
-            repeat=irepeat, save_count=maxtime)
+            self.figure, self.update, init_func=self.redraw,
+            interval=1, repeat=irepeat, save_count=maxtime)
 
     #
     # Bindings
@@ -600,15 +594,6 @@ class ncvMap(Frame):
         self.vmin.set(vmin)
         self.vmax.set(vmax)
         self.redraw()
-
-    def delay_t(self, delay):
-        """
-        Command called if delay scale was changed.
-
-        `delay` is the chosen value on the scale slider.
-
-        """
-        self.anim.event_source.interval = int(float(delay))
 
     def entered_clon(self, event):
         """
@@ -657,7 +642,7 @@ class ncvMap(Frame):
         """
         # get new netcdf file name
         ncfile = tk.filedialog.askopenfilename(
-            parent=self, title='Choose netcdf file', multiple=True)
+            parent=self, title='Choose netcdf file(s)', multiple=True)
         if len(ncfile) > 0:
             # close old netcdf file
             if self.usex:
@@ -668,6 +653,7 @@ class ncvMap(Frame):
                     for fi in self.top.fi:
                         fi.close()
             # reset empty defaults of top
+            self.top.usex   = False  # open file with netCDF4 or xarray
             self.top.fi     = []  # file name or file handle
             self.top.groups = []  # filename with incr. index or group names
             self.top.dunlim = []  # name of unlimited dimension
@@ -683,31 +669,67 @@ class ncvMap(Frame):
             self.top.cols   = []  # variable list
             # open new netcdf file
             ianalyse = True
-            if self.usex:
+            for ii, nn in enumerate(ncfile):
+                self.top.fi.append(nc.Dataset(nn, 'r'))
                 if len(ncfile) > 1:
-                    self.top.fi = xr.open_mfdataset(ncfile)
-                else:
-                    self.top.fi = xr.open_dataset(ncfile[0])
+                    nnc = np.ceil(np.log10(len(ncfile))).astype(int)
+                    self.top.groups.append(f'file{ii:0{nnc}d}')
+            # Check groups
+            if len(ncfile) == 1:
+                self.top.groups = list(self.top.fi[0].groups.keys())
             else:
                 for ii, nn in enumerate(ncfile):
-                    self.top.fi.append(nc.Dataset(nn, 'r'))
-                    if len(ncfile) > 1:
-                        nnc = np.ceil(np.log10(len(ncfile))).astype(int)
-                        self.top.groups.append(f'file{ii:0{nnc}d}')
-                # Check groups
-                if len(ncfile) == 1:
-                    self.top.groups = list(self.top.fi[0].groups.keys())
-                else:
-                    for ii, nn in enumerate(ncfile):
-                        if len(list(self.top.fi[ii].groups.keys())) > 0:
-                            print(f'Either multiple files or one file with'
-                                  f' groups allowed as input. Multiple files'
-                                  f' given but file {nn} has groups.')
-                            for fi in self.top.fi:
-                                fi.close()
-                            ianalyse = False
+                    if len(list(self.top.fi[ii].groups.keys())) > 0:
+                        print(f'Either multiple files or one file with'
+                              f' groups allowed as input. Multiple files'
+                              f' given but file {nn} has groups.')
+                        for fi in self.top.fi:
+                            fi.close()
+                        ianalyse = False
             if ianalyse:
                 analyse_netcdf(self.top)
+            # reset panel
+            self.reinit()
+            self.redraw()
+
+    def newxarray(self):
+        """
+        Open a new netcdf file and connect it to top.
+
+        """
+        # get new netcdf file name
+        ncfile = tk.filedialog.askopenfilename(
+            parent=self, title='Choose netcdf file(s)', multiple=True)
+        if len(ncfile) > 0:
+            # close old netcdf file
+            if self.usex:
+                if self.top.fi:
+                    self.top.fi.close()
+            else:
+                if len(self.top.fi) > 0:
+                    for fi in self.top.fi:
+                        fi.close()
+            # reset empty defaults of top
+            self.top.usex   = True  # open file with netCDF4 or xarray
+            self.top.fi     = []  # file name or file handle
+            self.top.groups = []  # filename with incr. index or group names
+            self.top.dunlim = []  # name of unlimited dimension
+            self.top.time   = []  # datetime variable
+            self.top.tname  = []  # datetime variable name
+            self.top.tvar   = []  # datetime variable name in netcdf
+            self.top.dtime  = []  # decimal year
+            self.top.latvar = []  # name of latitude variable
+            self.top.lonvar = []  # name of longitude variable
+            self.top.latdim = []  # name of latitude dimension
+            self.top.londim = []  # name of longitude dimension
+            self.top.maxdim = 0   # maximum num of dims of all variables
+            self.top.cols   = []  # variable list
+            # open new netcdf file
+            if len(ncfile) > 1:
+                self.top.fi = xr.open_mfdataset(ncfile)
+            else:
+                self.top.fi = xr.open_dataset(ncfile[0])
+            analyse_netcdf(self.top)
             # reset panel
             self.reinit()
             self.redraw()
@@ -1045,6 +1067,7 @@ class ncvMap(Frame):
 
         """
         # reinit from top
+        self.usex   = self.top.usex
         self.fi     = self.top.fi
         self.groups = self.top.groups
         self.miss   = self.top.miss
@@ -1065,6 +1088,8 @@ class ncvMap(Frame):
         for ll in self.vdlbl:
             ll.destroy()
         for ll in self.vd:
+            ll.destroy()
+        for ll in self.vdframe:
             ll.destroy()
         self.vdframe  = []
         self.vdlblval = []
@@ -1087,6 +1112,8 @@ class ncvMap(Frame):
             ll.destroy()
         for ll in self.latd:
             ll.destroy()
+        for ll in self.latdframe:
+            ll.destroy()
         self.latdframe  = []
         self.latdlblval = []
         self.latdlbl    = []
@@ -1108,6 +1135,8 @@ class ncvMap(Frame):
         for ll in self.londlbl:
             ll.destroy()
         for ll in self.lond:
+            ll.destroy()
+        for ll in self.londframe:
             ll.destroy()
         self.londframe  = []
         self.londlblval = []

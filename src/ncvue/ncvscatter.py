@@ -181,6 +181,10 @@ class ncvScatter(Frame):
         self.newfile, self.newfiletip = add_button(
             self.rowwin, text='Open File', command=self.newnetcdf,
             tooltip='Open a new netcdf file')
+        if ihavex:
+            self.newxarray, self.newxarraytip = add_button(
+                self.rowwin, text='Open xarray', command=self.newxarray,
+                tooltip='Open new netcdf file(s) with xarray')
         self.newwin, self.newwintip = add_button(
             self.rowwin, text='New Window', nopack=True,
             command=partial(clone_ncvmain, self.master),
@@ -245,6 +249,7 @@ class ncvScatter(Frame):
             self.xd.append(xd)
             self.xdtip.append(xdtip)
             xdframe.pack(side=tk.LEFT)
+
         # space between x and y blocks
         spacex = add_label(self.rowxy, text=' ' * 2)
         # block with y and its dimensions
@@ -614,7 +619,7 @@ class ncvScatter(Frame):
         """
         # get new netcdf file name
         ncfile = tk.filedialog.askopenfilename(
-            parent=self, title='Choose netcdf file', multiple=True)
+            parent=self, title='Choose netcdf file(s)', multiple=True)
         if len(ncfile) > 0:
             # close old netcdf file
             if self.usex:
@@ -625,6 +630,7 @@ class ncvScatter(Frame):
                     for fi in self.top.fi:
                         fi.close()
             # reset empty defaults of top
+            self.top.usex   = False  # open file with netCDF4 or xarray
             self.top.fi     = []  # file name or file handle
             self.top.groups = []  # filename with incr. index or group names
             self.top.dunlim = []  # name of unlimited dimension
@@ -640,31 +646,67 @@ class ncvScatter(Frame):
             self.top.cols   = []  # variable list
             # open new netcdf file
             ianalyse = True
-            if self.usex:
+            for ii, nn in enumerate(ncfile):
+                self.top.fi.append(nc.Dataset(nn, 'r'))
                 if len(ncfile) > 1:
-                    self.top.fi = xr.open_mfdataset(ncfile)
-                else:
-                    self.top.fi = xr.open_dataset(ncfile[0])
+                    nnc = np.ceil(np.log10(len(ncfile))).astype(int)
+                    self.top.groups.append(f'file{ii:0{nnc}d}')
+            # Check groups
+            if len(ncfile) == 1:
+                self.top.groups = list(self.top.fi[0].groups.keys())
             else:
                 for ii, nn in enumerate(ncfile):
-                    self.top.fi.append(nc.Dataset(nn, 'r'))
-                    if len(ncfile) > 1:
-                        nnc = np.ceil(np.log10(len(ncfile))).astype(int)
-                        self.top.groups.append(f'file{ii:0{nnc}d}')
-                # Check groups
-                if len(ncfile) == 1:
-                    self.top.groups = list(self.top.fi[0].groups.keys())
-                else:
-                    for ii, nn in enumerate(ncfile):
-                        if len(list(self.top.fi[ii].groups.keys())) > 0:
-                            print(f'Either multiple files or one file with'
-                                  f' groups allowed as input. Multiple files'
-                                  f' given but file {nn} has groups.')
-                            for fi in self.top.fi:
-                                fi.close()
-                            ianalyse = False
+                    if len(list(self.top.fi[ii].groups.keys())) > 0:
+                        print(f'Either multiple files or one file with'
+                              f' groups allowed as input. Multiple files'
+                              f' given but file {nn} has groups.')
+                        for fi in self.top.fi:
+                            fi.close()
+                        ianalyse = False
             if ianalyse:
                 analyse_netcdf(self.top)
+            # reset panel
+            self.reinit()
+            self.redraw()
+
+    def newxarray(self):
+        """
+        Open a new netcdf file and connect it to top.
+
+        """
+        # get new netcdf file name
+        ncfile = tk.filedialog.askopenfilename(
+            parent=self, title='Choose netcdf file(s)', multiple=True)
+        if len(ncfile) > 0:
+            # close old netcdf file
+            if self.top.usex:
+                if self.top.fi:
+                    self.top.fi.close()
+            else:
+                if len(self.top.fi) > 0:
+                    for fi in self.top.fi:
+                        fi.close()
+            # reset empty defaults of top
+            self.top.usex   = True  # open file with netCDF4 or xarray
+            self.top.fi     = []  # file name or file handle
+            self.top.groups = []  # filename with incr. index or group names
+            self.top.dunlim = []  # name of unlimited dimension
+            self.top.time   = []  # datetime variable
+            self.top.tname  = []  # datetime variable name
+            self.top.tvar   = []  # datetime variable name in netcdf
+            self.top.dtime  = []  # decimal year
+            self.top.latvar = []  # name of latitude variable
+            self.top.lonvar = []  # name of longitude variable
+            self.top.latdim = []  # name of latitude dimension
+            self.top.londim = []  # name of longitude dimension
+            self.top.maxdim = 0   # maximum num of dims of all variables
+            self.top.cols   = []  # variable list
+            # open new netcdf file
+            if len(ncfile) > 1:
+                self.top.fi = xr.open_mfdataset(ncfile)
+            else:
+                self.top.fi = xr.open_dataset(ncfile[0])
+            analyse_netcdf(self.top)
             # reset panel
             self.reinit()
             self.redraw()
@@ -776,6 +818,7 @@ class ncvScatter(Frame):
 
         """
         # reinit from top
+        self.usex   = self.top.usex
         self.fi     = self.top.fi
         self.groups = self.top.groups
         self.miss   = self.top.miss
@@ -794,6 +837,8 @@ class ncvScatter(Frame):
         for ll in self.xdlbl:
             ll.destroy()
         for ll in self.xd:
+            ll.destroy()
+        for ll in self.xdframe:
             ll.destroy()
         self.xdframe  = []
         self.xdlblval = []
@@ -816,6 +861,8 @@ class ncvScatter(Frame):
             ll.destroy()
         for ll in self.yd:
             ll.destroy()
+        for ll in self.ydframe:
+            ll.destroy()
         self.ydframe  = []
         self.ydlblval = []
         self.ydlbl    = []
@@ -836,6 +883,8 @@ class ncvScatter(Frame):
         for ll in self.y2dlbl:
             ll.destroy()
         for ll in self.y2d:
+            ll.destroy()
+        for ll in self.y2dframe:
             ll.destroy()
         self.y2dframe  = []
         self.y2dlblval = []

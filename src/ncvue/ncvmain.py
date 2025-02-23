@@ -166,12 +166,50 @@ class ncvMain(Frame):
         window. It checks if netcdf file was changed in any panel of any window
         and re-initialises all plot panels (of the current window).
         """
-        if self.tab_scatter.top.fi != self.tab_scatter.fi:
+        rescatter = False
+        if not (isinstance(self.tab_scatter.top.fi, list) and
+                isinstance(self.tab_scatter.fi, list)):
+            try:
+                if not self.tab_scatter.top.fi.equals(self.tab_scatter.fi):
+                    rescatter = True
+            except:
+                rescatter = True
+        else:
+            for i, c in enumerate(self.tab_scatter.fi):
+                if self.tab_scatter.fi[i] != self.tab_scatter.fi[i]:
+                    rescatter = True
+        if rescatter:
             self.tab_scatter.reinit()
             self.tab_scatter.redraw()
-        if self.tab_contour.top.fi != self.tab_contour.fi:
+
+        recontour = False
+        if not (isinstance(self.tab_contour.top.fi, list) and
+                isinstance(self.tab_contour.fi, list)):
+            try:
+                if not self.tab_contour.top.fi.equals(self.tab_contour.fi):
+                    recontour = True
+            except:
+                recontour = True
+        else:
+            for i, c in enumerate(self.tab_contour.fi):
+                if self.tab_contour.fi[i] != self.tab_contour.fi[i]:
+                    recontour = True
+        if recontour:
             self.tab_contour.reinit()
             self.tab_contour.redraw()
-        if self.tab_map.top.fi != self.tab_map.fi:
+
+        remap = False
+        if not (isinstance(self.tab_map.top.fi, list) and
+                isinstance(self.tab_map.fi, list)):
+            try:
+                if not self.tab_map.top.fi.equals(self.tab_map.fi):
+                    remap = True
+            except:
+                remap = True
+        else:
+            for i, c in enumerate(self.tab_map.fi):
+                if self.tab_map.fi[i] != self.tab_map.fi[i]:
+                    remap = True
+        if remap:
             self.tab_map.reinit()
             self.tab_map.redraw()

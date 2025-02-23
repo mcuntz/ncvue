@@ -488,6 +488,7 @@ def analyse_netcdf_xarray(self):
 
     #
     # search time
+    self.dunlim = None
     self.time = None
     self.tname = ''
     self.tvar = None
@@ -496,10 +497,14 @@ def analyse_netcdf_xarray(self):
         if np.issubdtype(self.fi.coords[cc].dtype, np.datetime64):
             self.dunlim = cc
             break
-    self.time = self.fi.coords[self.dunlim]
-    self.tname = self.dunlim
-    self.tvar = self.dunlim  # self.fi[self.dunlim]
-    self.dtime = self.time
+    if self.dunlim is None:
+        if 'time' in self.fi.coords:
+            self.dunlim = 'time'
+    if self.dunlim is not None:
+        self.time = self.fi.coords[self.dunlim]
+        self.tname = self.dunlim
+        self.tvar = self.dunlim
+        self.dtime = self.time
 
     #
     # construct list of variable names with dimensions
