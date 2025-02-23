@@ -174,8 +174,8 @@ class ncvScatter(Frame):
         newfile_label, self.newfile, self.newfiletip = add_button(
             self.rowwin, 'Open File', command=self.newnetcdf,
             tooltip='Open a new netcdf file')
-        spacew_label, spacew = add_label(self.rowwin, '   ')
-        time_label1text, time_label1 = add_label(self.rowwin, 'Time: ')
+        spacew = add_label(self.rowwin, text='   ')
+        time_label1 = add_label(self.rowwin, text='Time: ')
         self.timelbl, time_label2 = add_label(self.rowwin, '')
         newwin_label, self.newwin, self.newwintip = add_button(
             self.rowwin, 'New Window', nopack=True,
@@ -242,7 +242,7 @@ class ncvScatter(Frame):
             self.xdtip.append(xdtip)
             xdframe.pack(side=tk.LEFT)
         # space between x and y blocks
-        spacex_label, spacex = add_label(self.rowxy, ' ' * 2)
+        spacex = add_label(self.rowxy, text=' ' * 2)
         # block with y and its dimensions
         self.blocky = Frame(self.rowxy)
         self.blocky.pack(side=tk.LEFT)
@@ -252,8 +252,8 @@ class ncvScatter(Frame):
         lkwargs = {}
         if ihavectk:
             lkwargs.update({'padx': padx})
-        self.ylbl, ylab = add_label(self.rowy, 'y', **lkwargs)
-        spacep_label, spacep = add_label(self.rowy, ' ' * 1)
+        ylab = add_label(self.rowy, text='y', **lkwargs)
+        spacep = add_label(self.rowy, text=' ' * 1)
         bprev_y_label, self.bprev_y, self.bprev_ytip = add_button(
             self.rowy, '<', command=self.prev_y, width=bwidth,
             tooltip='Previous variable')
@@ -342,7 +342,7 @@ class ncvScatter(Frame):
         # space
         self.rowspace = Frame(self)
         self.rowspace.pack(side=tk.TOP, fill=tk.X)
-        rowspace_label, rowspace = add_label(self.rowspace, ' ')
+        rowspace = add_label(self.rowspace, text=' ')
 
         # 3. row
         # rhs y-axis 2 selection
@@ -355,8 +355,8 @@ class ncvScatter(Frame):
         lkwargs = {}
         if ihavectk:
             lkwargs.update({'padx': padx})
-        self.ylbl2, ylab2 = add_label(self.rowy2, 'y2', **lkwargs)
-        spacep2_label, spacep2 = add_label(self.rowy2, ' ' * 1)
+        ylab2 = add_label(self.rowy2, text='y2', **lkwargs)
+        spacep2 = add_label(self.rowy2, text=' ' * 1)
         bprev_y2_label, self.bprev_y2, self.bprev_y2tip = add_button(
             self.rowy2, '<', command=self.prev_y2, width=bwidth,
             tooltip='Previous variable')
@@ -374,7 +374,7 @@ class ncvScatter(Frame):
                             command=self.checked_y2,
                             tooltip='Invert right-hand-side y-axis'))
         self.inv_y2frame.pack(side=tk.LEFT)
-        spacey2_label, spacey2 = add_label(self.rowy2, ' ')
+        spacey2 = add_label(self.rowy2, text=' ')
         tstr = 'Same limits for left-hand-side and right-hand-side y-axes'
         self.same_yframe, self.same_ylbl, self.same_y, self.same_ytip = (
             add_checkbutton(self.rowy2, label='same y-axes', value=False,

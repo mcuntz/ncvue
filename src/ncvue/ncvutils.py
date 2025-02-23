@@ -671,7 +671,7 @@ def get_slice(dimspins, y):
     >>> gy, vy = vardim2var(y, self.groups)
     >>> yy = selvar(self, vy)
     >>> miss = get_miss(self, yy)
-    >>> yy = get_slice_y(self.yd, yy).squeeze()
+    >>> yy = get_slice(self.yd, yy).squeeze()
     >>> yy = set_miss(miss, yy)
 
     """
@@ -827,6 +827,8 @@ def selvar(self, var):
     """
     if len(self.fi) == 0:
         return
+    elif self.usex:
+        return self.fi[var]
     elif len(self.fi) == 1:
         fil = self.fi[0]
         return fil[var]
@@ -900,7 +902,7 @@ def set_miss(miss, x):
     >>> x = set_miss(miss, x)
 
     """
-    if x.dtype == np.dtype('<M8[ms]'):
+    if np.issubdtype(x.dtype, np.datetime64):
         default = np.datetime64('NaT')
     else:
         default = np.nan

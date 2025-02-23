@@ -498,14 +498,14 @@ def analyse_netcdf_xarray(self):
             break
     self.time = self.fi.coords[self.dunlim]
     self.tname = self.dunlim
-    self.tvar = self.fi[self.dunlim]
+    self.tvar = self.dunlim  # self.fi[self.dunlim]
     self.dtime = self.time
 
     #
     # construct list of variable names with dimensions
     if self.time is not None:
         addt = [self.tname + ' ' +
-                str(tuple(xzip_dim_name_length(self.tvar)))]
+                str(tuple(xzip_dim_name_length(self.fi[self.tvar])))]
         self.cols += addt
     ivars = []
     for vv in self.fi.variables:
@@ -683,8 +683,12 @@ def set_dim_lat(self):
     if lat != '':
         # set real dimensions
         gl, vl = vardim2var(lat, self.groups)
-        if vl == self.tname[gl]:
-            vl = self.tvar[gl]
+        if self.usex:
+            if vl == self.tname:
+                vl = self.tvar
+        else:
+            if vl == self.tname[gl]:
+                vl = self.tvar[gl]
         ll = selvar(self, vl)
         for i in range(ll.ndim):
             ww = max(4, int(np.ceil(np.log10(ll.shape[i]))))
@@ -694,7 +698,10 @@ def set_dim_lat(self):
                 self.latdval[i].set('all')
             else:
                 self.latdval[i].set(0)
-            self.latdlblval[i].set(ll.dimensions[i])
+            if self.usex:
+                self.latdlblval[i].set(str(ll.dims[i]))
+            else:
+                self.latdlblval[i].set(str(ll.dimensions[i]))
             if ll.shape[i] > 1:
                 tstr  = "Specific dimension value: 0-{:d}\n".format(
                     ll.shape[i] - 1)
@@ -735,8 +742,12 @@ def set_dim_lon(self):
     if lon != '':
         # set real dimensions
         gl, vl = vardim2var(lon, self.groups)
-        if vl == self.tname[gl]:
-            vl = self.tvar[gl]
+        if self.usex:
+            if vl == self.tname:
+                vl = self.tvar
+        else:
+            if vl == self.tname[gl]:
+                vl = self.tvar[gl]
         ll = selvar(self, vl)
         for i in range(ll.ndim):
             ww = max(4, int(np.ceil(np.log10(ll.shape[i]))))
@@ -746,7 +757,10 @@ def set_dim_lon(self):
                 self.londval[i].set('all')
             else:
                 self.londval[i].set(0)
-            self.londlblval[i].set(ll.dimensions[i])
+            if self.usex:
+                self.londlblval[i].set(str(ll.dims[i]))
+            else:
+                self.londlblval[i].set(str(ll.dimensions[i]))
             if ll.shape[i] > 1:
                 tstr  = "Specific dimension value: 0-{:d}\n".format(
                     ll.shape[i] - 1)
@@ -791,19 +805,33 @@ def set_dim_var(self):
     if v != '':
         # set real dimensions
         gz, vz = vardim2var(v, self.groups)
-        if vz == self.tname[gz]:
-            vz = self.tvar[gz]
+        if self.usex:
+            if vz == self.tname:
+                vz = self.tvar
+        else:
+            if vz == self.tname[gz]:
+                vz = self.tvar[gz]
         vv = selvar(self, vz)
+        if self.usex:
+            latdim = self.latdim
+            londim = self.londim
+            dunlim = self.dunlim
+            dims = vv.dims
+        else:
+            latdim = self.latdim[gz]
+            londim = self.londim[gz]
+            dunlim = self.dunlim[gz]
+            dims = vv.dimensions
         nall = 0
-        if self.latdim[gz]:
-            if self.latdim[gz] in vv.dimensions:
-                i = vv.dimensions.index(self.latdim[gz])
+        if latdim:
+            if latdim in dims:
+                i = dims.index(latdim)
                 ww = max(5, int(np.ceil(np.log10(vv.shape[i]))))  # 5~median
                 self.vd[i].config(values=spinbox_values(vv.shape[i]), width=ww,
                                   state=tk.NORMAL)
                 nall += 1
                 self.vdval[i].set('all')
-                self.vdlblval[i].set(vv.dimensions[i])
+                self.vdlblval[i].set(str(dims[i]))
                 if vv.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
                         vv.shape[i] - 1)
@@ -812,15 +840,15 @@ def set_dim_var(self):
                 else:
                     tstr = "Single dimension: 0"
                 self.vdtip[i].set(tstr)
-        if self.londim[gz]:
-            if self.londim[gz] in vv.dimensions:
-                i = vv.dimensions.index(self.londim[gz])
+        if londim:
+            if londim in dims:
+                i = vv.dimensions.index(londim)
                 ww = max(5, int(np.ceil(np.log10(vv.shape[i]))))  # 5~median
                 self.vd[i].config(values=spinbox_values(vv.shape[i]), width=ww,
                                   state=tk.NORMAL)
                 nall += 1
                 self.vdval[i].set('all')
-                self.vdlblval[i].set(vv.dimensions[i])
+                self.vdlblval[i].set(str(dims[i]))
                 if vv.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
                         vv.shape[i] - 1)
@@ -833,13 +861,13 @@ def set_dim_var(self):
             ww = max(5, int(np.ceil(np.log10(vv.shape[i]))))  # 5~median
             self.vd[i].config(values=spinbox_values(vv.shape[i]), width=ww,
                               state=tk.NORMAL)
-            if ( (vv.dimensions[i] != self.latdim[gz]) and
-                 (vv.dimensions[i] != self.londim[gz]) and
-                 (vv.dimensions[i] != self.dunlim[gz]) and
+            if ( (dims[i] != latdim) and
+                 (dims[i] != londim) and
+                 (dims[i] != dunlim) and
                  (nall <= 1) and (vv.shape[i] > 1) ):
                 nall += 1
                 self.vdval[i].set('all')
-                self.vdlblval[i].set(vv.dimensions[i])
+                self.vdlblval[i].set(str(dims[i]))
                 if vv.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
                         vv.shape[i] - 1)
@@ -848,10 +876,10 @@ def set_dim_var(self):
                 else:
                     tstr = "Single dimension: 0"
                 self.vdtip[i].set(tstr)
-            elif ((vv.dimensions[i] != self.latdim[gz]) and
-                  (vv.dimensions[i] != self.londim[gz])):
+            elif ((dims[i] != latdim) and
+                  (dims[i] != londim)):
                 self.vdval[i].set(0)
-                self.vdlblval[i].set(vv.dimensions[i])
+                self.vdlblval[i].set(str(dims[i]))
                 if vv.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
                         vv.shape[i] - 1)
@@ -896,18 +924,28 @@ def set_dim_x(self):
     if x != '':
         # set real dimensions
         gx, vx = vardim2var(x, self.groups)
-        if vx == self.tname[gx]:
-            vx = self.tvar[gx]
+        if self.usex:
+            if vx == self.tname:
+                vx = self.tvar
+        else:
+            if vx == self.tname[gx]:
+                vx = self.tvar[gx]
         xx = selvar(self, vx)
+        if self.usex:
+            dunlim = self.dunlim
+            dims = xx.dims
+        else:
+            dunlim = self.dunlim[gx]
+            dims = xx.dimensions
         nall = 0
-        if self.dunlim[gx] in xx.dimensions:
-            i = xx.dimensions.index(self.dunlim[gx])
+        if dunlim in dims:
+            i = xx.dimensions.index(dunlim)
             ww = max(5, int(np.ceil(np.log10(xx.shape[i]))))  # 5~median
             self.xd[i].config(values=spinbox_values(xx.shape[i]), width=ww,
                               state=tk.NORMAL)
             nall += 1
             self.xdval[i].set('all')
-            self.xdlblval[i].set(xx.dimensions[i])
+            self.xdlblval[i].set(str(dims[i]))
             if xx.shape[i] > 1:
                 tstr  = "Specific dimension value: 0-{:d}\n".format(
                     xx.shape[i] - 1)
@@ -917,7 +955,7 @@ def set_dim_x(self):
                 tstr = "Single dimension: 0"
             self.xdtip[i].set(tstr)
         for i in range(xx.ndim):
-            if xx.dimensions[i] != self.dunlim[gx]:
+            if dims[i] != dunlim:
                 ww = max(5, int(np.ceil(np.log10(xx.shape[i]))))
                 self.xd[i].config(values=spinbox_values(xx.shape[i]), width=ww,
                                   state=tk.NORMAL)
@@ -926,7 +964,7 @@ def set_dim_x(self):
                     self.xdval[i].set('all')
                 else:
                     self.xdval[i].set(0)
-                self.xdlblval[i].set(xx.dimensions[i])
+                self.xdlblval[i].set(str(dims[i]))
                 if xx.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
                         xx.shape[i] - 1)
@@ -971,18 +1009,28 @@ def set_dim_y(self):
     if y != '':
         # set real dimensions
         gy, vy = vardim2var(y, self.groups)
-        if vy == self.tname[gy]:
-            vy = self.tvar[gy]
+        if self.usex:
+            if vy == self.tname:
+                vy = self.tvar
+        else:
+            if vy == self.tname[gy]:
+                vy = self.tvar[gy]
         yy = selvar(self, vy)
+        if self.usex:
+            dunlim = self.dunlim
+            dims = yy.dims
+        else:
+            dunlim = self.dunlim[gy]
+            dims = yy.dimensions
         nall = 0
-        if self.dunlim[gy] in yy.dimensions:
-            i = yy.dimensions.index(self.dunlim[gy])
+        if dunlim in dims:
+            i = dims.index(dunlim)
             ww = max(5, int(np.ceil(np.log10(yy.shape[i]))))  # 5~median
             self.yd[i].config(values=spinbox_values(yy.shape[i]), width=ww,
                               state=tk.NORMAL)
             nall += 1
             self.ydval[i].set('all')
-            self.ydlblval[i].set(yy.dimensions[i])
+            self.ydlblval[i].set(str(dims[i]))
             if yy.shape[i] > 1:
                 tstr  = "Specific dimension value: 0-{:d}\n".format(
                     yy.shape[i] - 1)
@@ -992,7 +1040,7 @@ def set_dim_y(self):
                 tstr = "Single dimension: 0"
             self.ydtip[i].set(tstr)
         for i in range(yy.ndim):
-            if yy.dimensions[i] != self.dunlim[gy]:
+            if dims[i] != dunlim:
                 ww = max(5, int(np.ceil(np.log10(yy.shape[i]))))
                 self.yd[i].config(values=spinbox_values(yy.shape[i]), width=ww,
                                   state=tk.NORMAL)
@@ -1001,7 +1049,7 @@ def set_dim_y(self):
                     self.ydval[i].set('all')
                 else:
                     self.ydval[i].set(0)
-                self.ydlblval[i].set(yy.dimensions[i])
+                self.ydlblval[i].set(str(dims[i]))
                 if yy.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
                         yy.shape[i] - 1)
@@ -1046,18 +1094,28 @@ def set_dim_y2(self):
     if y2 != '':
         # set real dimensions
         gy2, vy2 = vardim2var(y2, self.groups)
-        if vy2 == self.tname[gy2]:
-            vy2 = self.tvar[gy2]
+        if self.usex:
+            if vy2 == self.tname:
+                vy2 = self.tvar
+        else:
+            if vy2 == self.tname[gy2]:
+                vy2 = self.tvar[gy2]
         yy2 = selvar(self, vy2)
+        if self.usex:
+            dunlim = self.dunlim
+            dims = yy2.dims
+        else:
+            dunlim = self.dunlim[gy2]
+            dims = yy2.dimensions
         nall = 0
-        if self.dunlim[gy2] in yy2.dimensions:
-            i = yy2.dimensions.index(self.dunlim[gy2])
+        if dunlim in dims:
+            i = dims.index(dunlim)
             ww = max(5, int(np.ceil(np.log10(yy2.shape[i]))))  # 5~median
             self.y2d[i].config(values=spinbox_values(yy2.shape[i]), width=ww,
                                state=tk.NORMAL)
             nall += 1
             self.y2dval[i].set('all')
-            self.y2dlblval[i].set(yy2.dimensions[i])
+            self.y2dlblval[i].set(str(dims[i]))
             if yy2.shape[i] > 1:
                 tstr  = "Specific dimension value: 0-{:d}\n".format(
                     yy2.shape[i] - 1)
@@ -1067,7 +1125,7 @@ def set_dim_y2(self):
                 tstr = "Single dimension: 0"
             self.y2dtip[i].set(tstr)
         for i in range(yy2.ndim):
-            if yy2.dimensions[i] != self.dunlim[gy2]:
+            if dims[i] != dunlim:
                 ww = max(5, int(np.ceil(np.log10(yy2.shape[i]))))
                 self.y2d[i].config(values=spinbox_values(yy2.shape[i]),
                                    width=ww, state=tk.NORMAL)
@@ -1076,7 +1134,7 @@ def set_dim_y2(self):
                     self.y2dval[i].set('all')
                 else:
                     self.y2dval[i].set(0)
-                self.y2dlblval[i].set(yy2.dimensions[i])
+                self.y2dlblval[i].set(str(dims[i]))
                 if yy2.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
                         yy2.shape[i] - 1)
@@ -1122,18 +1180,28 @@ def set_dim_z(self):
     if z != '':
         # set real dimensions
         gz, vz = vardim2var(z, self.groups)
-        if vz == self.tname[gz]:
-            vz = self.tvar[gz]
+        if self.usex:
+            if vz == self.tname:
+                vz = self.tvar
+        else:
+            if vz == self.tname[gz]:
+                vz = self.tvar[gz]
         zz = selvar(self, vz)
+        if self.usex:
+            dunlim = self.dunlim
+            dims = zz.dims
+        else:
+            dunlim = self.dunlim[gz]
+            dims = zz.dimensions
         nall = 0
-        if self.dunlim[gz] in zz.dimensions:
-            i = zz.dimensions.index(self.dunlim[gz])
+        if dunlim in dims:
+            i = dims.index(dunlim)
             ww = max(5, int(np.ceil(np.log10(zz.shape[i]))))  # 5~median
             self.zd[i].config(values=spinbox_values(zz.shape[i]), width=ww,
                               state=tk.NORMAL)
             nall += 1
             self.zdval[i].set('all')
-            self.zdlblval[i].set(zz.dimensions[i])
+            self.zdlblval[i].set(str(dims[i]))
             if zz.shape[i] > 1:
                 tstr  = "Specific dimension value: 0-{:d}\n".format(
                     zz.shape[i] - 1)
@@ -1143,7 +1211,7 @@ def set_dim_z(self):
                 tstr = "Single dimension: 0"
             self.zdtip[i].set(tstr)
         for i in range(zz.ndim):
-            if zz.dimensions[i] != self.dunlim[gz]:
+            if dims[i] != dunlim:
                 ww = max(5, int(np.ceil(np.log10(zz.shape[i]))))
                 self.zd[i].config(values=spinbox_values(zz.shape[i]), width=ww,
                                   state=tk.NORMAL)
@@ -1152,7 +1220,7 @@ def set_dim_z(self):
                     self.zdval[i].set('all')
                 else:
                     self.zdval[i].set(0)
-                self.zdlblval[i].set(zz.dimensions[i])
+                self.zdlblval[i].set(str(dims[i]))
                 if zz.shape[i] > 1:
                     tstr  = "Specific dimension value: 0-{:d}\n".format(
                         zz.shape[i] - 1)

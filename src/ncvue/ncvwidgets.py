@@ -205,7 +205,12 @@ def add_button(frame, itext, command=None, tooltip="", nopack=False, **kwargs):
     """
     buttext = tk.StringVar()
     buttext.set(itext)
-    but = Button(frame, textvariable=buttext, command=command, **kwargs)
+    if ihavectk:
+        kwargs.update({'textvariable': buttext})
+    else:
+        # textvariable does not work for ttk.Button, don't know why
+        kwargs.update({'text': itext})
+    but = Button(frame, command=command, **kwargs)
     if not nopack:
         but.pack(side='left')
     if tooltip:
@@ -537,6 +542,9 @@ def add_label(frame, itext="", **kwargs):
     -------
     tk.StringVar, Label
         variable for the text of the label, Label widget
+    or
+    Label
+        Label widget, if text=text given as keyword argument
 
     Examples
     --------
@@ -545,11 +553,16 @@ def add_label(frame, itext="", **kwargs):
     >>> self.xlbltext, self.xlbl = add_label(self.rowzxy, "x")
 
     """
-    ilbl_text = tk.StringVar()
-    ilbl_text.set(itext)
-    ilbl = Label(frame, textvariable=ilbl_text)
+    if 'text' not in kwargs:
+        ilbl_text = tk.StringVar()
+        ilbl_text.set(itext)
+        kwargs.update({'textvariable': ilbl_text})
+    ilbl = Label(frame, **kwargs)
     ilbl.pack(side='left')
-    return ilbl_text, ilbl
+    if 'text' in kwargs:
+        return ilbl
+    else:
+        return ilbl_text, ilbl
 
 
 def add_menu(frame, label="", values=[], command=None, tooltip="", **kwargs):

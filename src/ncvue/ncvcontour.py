@@ -158,8 +158,8 @@ class ncvContour(Frame):
         newfile_label, self.newfile, self.newfiletip = add_button(
             self.rowwin, 'Open File', command=self.newnetcdf,
             tooltip='Open a new netcdf file')
-        spacew_label, spacew = add_label(self.rowwin, '   ')
-        time_label1text, time_label1 = add_label(self.rowwin, 'Time: ')
+        spacew = add_label(self.rowwin, text='   ')
+        time_label1 = add_label(self.rowwin, text='Time: ')
         self.timelbl, time_label2 = add_label(self.rowwin, '')
         newwin_label, self.newwin, self.newwintip = add_button(
             self.rowwin, 'New Window', nopack=True,
@@ -196,8 +196,8 @@ class ncvContour(Frame):
         lkwargs = {}
         if ihavectk:
             lkwargs.update({'padx': padx})
-        self.zlbl, zlab = add_label(self.rowz, 'z', **lkwargs)
-        spacep_label, spacep = add_label(self.rowz, ' ' * 1)
+        zlab = add_label(self.rowz, text='z', **lkwargs)
+        spacep = add_label(self.rowz, text=' ' * 1)
         bprev_z_label, self.bprev_z, self.bprev_ztip = add_button(
             self.rowz, '<', command=self.prev_z, width=bwidth,
             tooltip='Previous variable')
@@ -214,7 +214,7 @@ class ncvContour(Frame):
                             command=self.checked,
                             tooltip='Transpose matrix'))
         self.trans_zframe.pack(side=tk.LEFT)
-        spacez_label, spacez = add_label(self.rowz, ' ')
+        spacez = add_label(self.rowz, text=' ')
         self.zminframe, self.zminlbl, self.zmin, self.zmintip = add_entry(
             self.rowz, label='zmin', text='None', width=ewbig, padx=padx,
             command=self.entered_z,
@@ -285,7 +285,7 @@ class ncvContour(Frame):
             self.xdtip.append(xdtip)
             xdframe.pack(side=tk.LEFT)
         # y-axis selection
-        spacex_label, spacex = add_label(self.rowxy, '   ')
+        spacex = add_label(self.rowxy, text='   ')
         self.blocky = Frame(self.rowxy)
         self.blocky.pack(side=tk.LEFT)
         self.rowy = Frame(self.blocky)

@@ -59,6 +59,11 @@ import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 import netCDF4 as nc
 import numpy as np
+try:
+    import xarray as xr
+    ihavex = True
+except ModuleNotFoundError:
+    ihavex = False
 from .ncvutils import add_cyclic, clone_ncvmain, format_coord_map, selvar
 from .ncvutils import set_axis_label, set_miss, vardim2var
 from .ncvmethods import analyse_netcdf, get_slice_miss, get_miss
@@ -98,10 +103,10 @@ class ncvMap(Frame):
 
     def __init__(self, master, **kwargs):
         from functools import partial
+        from matplotlib import animation
+        from matplotlib.figure import Figure
         from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
         from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
-        from matplotlib.figure import Figure
-        from matplotlib import animation
 
         super().__init__(master, **kwargs)
 
@@ -136,13 +141,9 @@ class ncvMap(Frame):
         allcmaps = plt.colormaps()
         self.cmaps  = [ i for i in allcmaps if not i.endswith('_r') ]
         self.cmaps.sort()
-        # self.imaps  = [ tk.PhotoImage(file=os.path.dirname(__file__) +
-        #                               '/../images/' + i + '.png')
-        #                 for i in self.cmaps ]
         bundle_dir = getattr(sys, '_MEIPASS',
                              os.path.abspath(os.path.dirname(__file__)))
-        self.imaps  = [ tk.PhotoImage(file=bundle_dir +
-                                      '/images/' + i + '.png')
+        self.imaps  = [ tk.PhotoImage(file=f'{bundle_dir}/images/{i}.png')
                         for i in self.cmaps ]
 
         # only projections with keyword: central_longitude
@@ -201,8 +202,8 @@ class ncvMap(Frame):
         newfile_label, self.newfile, self.newfiletip = add_button(
             self.rowwin, 'Open File', command=self.newnetcdf,
             tooltip='Open a new netcdf file')
-        spacew_label, spacew = add_label(self.rowwin, '   ')
-        time_label1text, time_label1 = add_label(self.rowwin, 'Time: ')
+        spacew = add_label(self.rowwin, text='   ')
+        time_label1 = add_label(self.rowwin, text='Time: ')
         self.timelbl, time_label2 = add_label(self.rowwin, '')
         newwin_label, self.newwin, self.newwintip = add_button(
             self.rowwin, 'New Window', nopack=True,
@@ -233,7 +234,7 @@ class ncvMap(Frame):
                       length=100, orient=tk.HORIZONTAL, command=self.tstep_t,
                       tooltip='Slide to go to time step'))
         self.tstepframe.pack(side=tk.LEFT)
-        spacet_label, spacet = add_label(self.rowt, ' ' * 1)
+        spacet = add_label(self.rowt, text=' ' * 1)
 
         # first t, previous t, etc.
         first_t_label, self.first_t, self.first_ttip = add_button(
@@ -258,10 +259,10 @@ class ncvMap(Frame):
             self.rowt, '>>|', command=self.last_t, width=bwidth,
             tooltip='Last time step')
         # repeat
-        spacer_label, spacer = add_label(self.rowt, ' ' * 1)
+        spacer = add_label(self.rowt, text=' ' * 1)
         reps = ['once', 'repeat', 'reflect']
-        tstr  = 'Run time steps once, repeat from start when at end,'
-        tstr += ' or continue running backwards when at end'
+        tstr = ('Run time steps once, repeat from start when at end,'
+                ' or continue running backwards when at end')
         self.repeatframe, self.repeatlbl, self.repeat, self.repeattip = (
             add_combobox(self.rowt, label='repeat', values=reps,
                          width=smallcombowidth, padx=padx,
@@ -269,7 +270,7 @@ class ncvMap(Frame):
         self.repeat.set('repeat')
         self.repeatframe.pack(side=tk.LEFT)
         # delay
-        spaced_label, spaced = add_label(self.rowt, ' ' * 1)
+        spaced = add_label(self.rowt, text=' ' * 1)
         tstr = 'Delay run between time steps from 1 to 1000 ms'
         self.delayframe, self.delaylbl, self.delayval, self.delay, self.delaytip = (
             add_scale(self.rowt, label='delay (ms)', ini=1, from_=1, to=1000,
@@ -281,15 +282,17 @@ class ncvMap(Frame):
         # variable-axis selection
         self.rowvv = Frame(self)
         self.rowvv.pack(side=tk.TOP, fill=tk.X)
+
         self.blockv = Frame(self.rowvv)
         self.blockv.pack(side=tk.LEFT)
+
         self.rowv = Frame(self.blockv)
         self.rowv.pack(side=tk.TOP, fill=tk.X)
         lkwargs = {}
         if ihavectk:
             lkwargs.update({'padx': padx})
-        self.vlbl, vlab = add_label(self.rowv, 'var', **lkwargs)
-        spacep_label, spacep = add_label(self.rowv, ' ' * 1)
+        vlab = add_label(self.rowv, text='var', **lkwargs)
+        spacep = add_label(self.rowv, text=' ' * 1)
         bprev_v_label, self.bprev_v, self.bprev_vtip = add_button(
             self.rowv, '<', command=self.prev_v, width=bwidth,
             tooltip='Previous variable')
@@ -302,12 +305,12 @@ class ncvMap(Frame):
             tooltip='Choose variable')
         self.vframe.pack(side=tk.LEFT)
         self.trans_vframe, self.trans_vlbl, self.trans_v, self.trans_vtip = (
-            add_checkbutton(self.rowv, label='transpose var', value=False,
-                            command=self.checked,
-                            tooltip=('Transpose array, i.e. exchanging lat and'
-                                     ' lon')))
+            add_checkbutton(
+                self.rowv, label='transpose var', value=False,
+                command=self.checked,
+                tooltip='Transpose array, i.e. exchanging lat and lon'))
         self.trans_vframe.pack(side=tk.LEFT)
-        spacev_label, spacev = add_label(self.rowv, ' ' * 1)
+        spacev = add_label(self.rowv, text=' ' * 1)
         self.vminframe, self.vminlbl, self.vmin, self.vmintip = add_entry(
             self.rowv, label='vmin', text=0, width=ewvbig,
             command=self.entered_v,
@@ -318,12 +321,13 @@ class ncvMap(Frame):
             command=self.entered_v,
             tooltip='Maximal display value', padx=padx)
         self.vmaxframe.pack(side=tk.LEFT)
-        tstr  = 'If checked, determine vmin/vmax from all fields,\n'
-        tstr += 'otherwise from 50 random fields'
+        tstr  = ('If checked, determine vmin/vmax from all fields,\n'
+                 'otherwise from 50 random fields')
         self.vallframe, self.valllbl, self.vall, self.valltip = (
             add_checkbutton(self.rowv, label='all', value=False,
                             command=self.checked_all, tooltip=tstr))
         self.vallframe.pack(side=tk.LEFT)
+
         # levels var
         self.rowvd = Frame(self.blockv)
         self.rowvd.pack(side=tk.TOP, fill=tk.X)
@@ -349,8 +353,10 @@ class ncvMap(Frame):
         # lon-axis selection
         self.rowll = Frame(self)
         self.rowll.pack(side=tk.TOP, fill=tk.X)
+
         self.blocklon = Frame(self.rowll)
         self.blocklon.pack(side=tk.LEFT)
+
         self.rowlon = Frame(self.blocklon)
         self.rowlon.pack(side=tk.TOP, fill=tk.X)
         self.lonframe, self.lonlbl, self.lon, self.lontip = add_combobox(
@@ -368,6 +374,7 @@ class ncvMap(Frame):
                             command=self.checked,
                             tooltip='Roll longitudes by half its size'))
         self.shift_lonframe.pack(side=tk.LEFT)
+
         self.rowlond = Frame(self.blocklon)
         self.rowlond.pack(side=tk.TOP, fill=tk.X)
         self.londframe  = []
@@ -388,10 +395,13 @@ class ncvMap(Frame):
             self.lond.append(lond)
             self.londtip.append(londtip)
             londframe.pack(side=tk.LEFT)
+
         # lat-axis selection
-        spacex_label, spacex = add_label(self.rowll, ' ' * 3)
+        spacex = add_label(self.rowll, text=' ' * 3)
+
         self.blocklat = Frame(self.rowll)
         self.blocklat.pack(side=tk.LEFT)
+
         self.rowlat = Frame(self.blocklat)
         self.rowlat.pack(side=tk.TOP, fill=tk.X)
         self.latframe, self.latlbl, self.lat, self.lattip = add_combobox(
@@ -404,6 +414,7 @@ class ncvMap(Frame):
                             command=self.checked,
                             tooltip='Invert longitudes'))
         self.inv_latframe.pack(side=tk.LEFT)
+
         self.rowlatd = Frame(self.blocklat)
         self.rowlatd.pack(side=tk.TOP, fill=tk.X)
         self.latdframe  = []
@@ -491,8 +502,8 @@ class ncvMap(Frame):
         else:
             self.proj['text'] = 'PlateCarree'
         self.projframe.pack(side=tk.LEFT)
-        tstr  = 'Central longitude of projection.\n'
-        tstr += 'Determined from longitude variable if None.'
+        tstr = ('Central longitude of projection.\n'
+                'Determined from longitude variable if None.')
         self.clonframe, self.clonlbl, self.clon, self.clontip = add_entry(
             self.rowproj, label='central lon', text='None', width=ewmed,
             command=self.entered_clon, tooltip=tstr, padx=padx)
@@ -504,17 +515,28 @@ class ncvMap(Frame):
         self.bquit.pack(side=tk.RIGHT)
 
         # set lat/lon
-        if any(self.latvar):
-            idx = [ i for i, l in enumerate(self.latvar) if l ]
-            self.lat.set(self.latvar[idx[0]])
-            self.inv_lat.set(0)
-            set_dim_lat(self)
-        if any(self.lonvar):
-            idx = [ i for i, l in enumerate(self.lonvar) if l ]
-            self.lon.set(self.lonvar[idx[0]])
-            self.inv_lon.set(0)
-            self.shift_lon.set(0)
-            set_dim_lon(self)
+        if self.usex:
+            if self.lonvar:
+                self.lon.set(self.lonvar)
+                self.inv_lon.set(0)
+                self.shift_lon.set(0)
+                set_dim_lon(self)
+            if self.latvar:
+                self.lat.set(self.latvar)
+                self.inv_lat.set(0)
+                set_dim_lat(self)
+        else:
+            if any(self.lonvar):
+                idx = [ i for i, l in enumerate(self.lonvar) if l ]
+                self.lon.set(self.lonvar[idx[0]])
+                self.inv_lon.set(0)
+                self.shift_lon.set(0)
+                set_dim_lon(self)
+            if any(self.latvar):
+                idx = [ i for i, l in enumerate(self.latvar) if l ]
+                self.lat.set(self.latvar[idx[0]])
+                self.inv_lat.set(0)
+                set_dim_lat(self)
 
         # set global
         x = self.lon.get()
@@ -539,14 +561,20 @@ class ncvMap(Frame):
         self.anim_running = True   # True/False: animation running or not
         self.anim_inc     = 1      # 1/-1: forward or backward run
         maxtime = 1
-        for vz in self.tvar:
-            if vz:
-                zz = selvar(self, vz)
+        if self.usex:
+            if self.tvar:
+                zz = selvar(self, self.tvar)
                 maxtime = max(zz.size, maxtime)
-        self.anim = animation.FuncAnimation(self.figure, self.update,
-                                            init_func=self.redraw,
-                                            interval=self.delayval.get(),
-                                            repeat=irepeat, save_count=maxtime)
+        else:
+            for vz in self.tvar:
+                if vz:
+                    zz = selvar(self, vz)
+                    maxtime = max(zz.size, maxtime)
+        self.anim = animation.FuncAnimation(
+            self.figure, self.update,
+            init_func=self.redraw,
+            interval=self.delayval.get(),
+            repeat=irepeat, save_count=maxtime)
 
     #
     # Bindings
@@ -633,9 +661,13 @@ class ncvMap(Frame):
             parent=self, title='Choose netcdf file', multiple=True)
         if len(ncfile) > 0:
             # close old netcdf file
-            if len(self.top.fi) > 0:
-                for fi in self.top.fi:
-                    fi.close()
+            if self.usex:
+                if self.top.fi:
+                    self.top.fi.close()
+            else:
+                if len(self.top.fi) > 0:
+                    for fi in self.top.fi:
+                        fi.close()
             # reset empty defaults of top
             self.top.fi     = []  # file name or file handle
             self.top.groups = []  # filename with incr. index or group names
@@ -651,23 +683,30 @@ class ncvMap(Frame):
             self.top.maxdim = 0   # maximum num of dims of all variables
             self.top.cols   = []  # variable list
             # open new netcdf file
-            for ii, nn in enumerate(ncfile):
-                self.top.fi.append(nc.Dataset(nn, 'r'))
-                if len(ncfile) > 1:
-                    self.top.groups.append(f'file{ii:03d}')
-            # Check groups
             ianalyse = True
-            if len(ncfile) == 1:
-                self.top.groups = list(self.top.fi[0].groups.keys())
+            if self.usex:
+                if len(ncfile) > 1:
+                    self.top.fi = xr.open_mfdataset(ncfile)
+                else:
+                    self.top.fi = xr.open_dataset(ncfile[0])
             else:
                 for ii, nn in enumerate(ncfile):
-                    if len(list(self.top.fi[ii].groups.keys())) > 0:
-                        print(f'Either multiple files or one file with groups'
-                              f' allowed as input. Multiple files given but'
-                              f' file {nn} has groups.')
-                        for fi in self.top.fi:
-                            fi.close()
-                        ianalyse = False
+                    self.top.fi.append(nc.Dataset(nn, 'r'))
+                    if len(ncfile) > 1:
+                        nnc = np.ceil(np.log10(len(ncfile))).astype(int)
+                        self.top.groups.append(f'file{ii:0{nnc}d}')
+                # Check groups
+                if len(ncfile) == 1:
+                    self.top.groups = list(self.top.fi[0].groups.keys())
+                else:
+                    for ii, nn in enumerate(ncfile):
+                        if len(list(self.top.fi[ii].groups.keys())) > 0:
+                            print(f'Either multiple files or one file with'
+                                  f' groups allowed as input. Multiple files'
+                                  f' given but file {nn} has groups.')
+                            for fi in self.top.fi:
+                                fi.close()
+                            ianalyse = False
             if ianalyse:
                 analyse_netcdf(self.top)
             # reset panel
@@ -965,7 +1004,11 @@ class ncvMap(Frame):
         v = self.v.get()
         if (v != ''):
             gz, vz = vardim2var(v, self.groups)
-            if vz == self.tname[gz]:
+            if self.usex:
+                tname = self.tname
+            else:
+                tname = self.tname[gz]
+            if vz == tname:
                 return (0, 1)
             vv = selvar(self, vz)
             imiss = get_miss(self, vv)
@@ -1115,17 +1158,28 @@ class ncvMap(Frame):
         else:
             self.lat['values'] = columns
         self.lat.set(columns[0])
-        if any(self.latvar):
-            idx = [ i for i, l in enumerate(self.latvar) if l ]
-            self.lat.set(self.latvar[idx[0]])
-            self.inv_lat.set(0)
-            set_dim_lat(self)
-        if any(self.lonvar):
-            idx = [ i for i, l in enumerate(self.lonvar) if l ]
-            self.lon.set(self.lonvar[idx[0]])
-            self.inv_lon.set(0)
-            self.shift_lon.set(0)
-            set_dim_lon(self)
+        if self.usex:
+            if self.latvar:
+                self.lat.set(self.latvar)
+                self.inv_lat.set(0)
+                set_dim_lat(self)
+            if self.lonvar:
+                self.lon.set(self.lonvar)
+                self.inv_lon.set(0)
+                self.shift_lon.set(0)
+                set_dim_lon(self)
+        else:
+            if any(self.latvar):
+                idx = [ i for i, l in enumerate(self.latvar) if l ]
+                self.lat.set(self.latvar[idx[0]])
+                self.inv_lat.set(0)
+                set_dim_lat(self)
+            if any(self.lonvar):
+                idx = [ i for i, l in enumerate(self.lonvar) if l ]
+                self.lon.set(self.lonvar[idx[0]])
+                self.inv_lon.set(0)
+                self.shift_lon.set(0)
+                set_dim_lon(self)
         x = self.lon.get()
         if (x != ''):
             gx, vx = vardim2var(x, self.groups)
@@ -1149,19 +1203,31 @@ class ncvMap(Frame):
         """
         v = self.v.get()
         gz, vz = vardim2var(v, self.groups)
+        if self.usex:
+            dunlim = self.dunlim
+            time = self.time
+        else:
+            dunlim = self.dunlim[gz]
+            time = self.time[gz]
         try:
             zz = selvar(self, vz)
-            has_unlim = self.dunlim[gz] in zz.dimensions
+            if self.usex:
+                dims = zz.dims
+            else:
+                dims = zz.dimensions
+            has_unlim = dunlim in dims
         except IndexError:
             has_unlim = False  # datetime
-        if self.dunlim[gz] and has_unlim:
+        if dunlim and has_unlim:
             self.vdval[self.iunlim].set(it)
             self.tstepval.set(it)
-            time = self.time[gz]
-            try:
-                self.timelbl.set(np.around(time[it], 4))
-            except TypeError:
-                self.timelbl.set(time[it])
+            if self.usex:
+                self.timelbl.set(str(time.values[it]))
+            else:
+                try:
+                    self.timelbl.set(np.around(time[it], 4))
+                except TypeError:
+                    self.timelbl.set(time[it])
 
     def set_unlim(self, v):
         """
@@ -1179,15 +1245,26 @@ class ncvMap(Frame):
 
         """
         gz, vz = vardim2var(v, self.groups)
-        if vz == self.tname[gz]:
+        if self.usex:
+            tname = self.tname
+            time = self.time
+            dunlim = self.dunlim
+        else:
+            tname = self.tname[gz]
+            time = self.time[gz]
+            dunlim = self.dunlim[gz]
+        if vz == tname:
             self.iunlim = 0
-            self.nunlim = self.time[gz].size
+            self.nunlim = time.size
         else:
             zz = selvar(self, vz)
-            if self.dunlim[gz]:
-                if self.dunlim[gz] in zz.dimensions:
-                    self.iunlim = (
-                        zz.dimensions.index(self.dunlim[gz]))
+            if self.usex:
+                dims = zz.dims
+            else:
+                dims = zz.dimensions
+            if dunlim:
+                if dunlim in dims:
+                    self.iunlim = dims.index(dunlim)
                 else:
                     self.iunlim = 0
             else:
@@ -1262,13 +1339,21 @@ class ncvMap(Frame):
         if (v != ''):
             # variable
             gz, vz = vardim2var(v, self.groups)
-            if vz == self.tname[gz]:
+            if self.usex:
+                tnamez = self.tname
+                dtimez = self.dtime
+                timez = self.time
+            else:
+                tnamez = self.tname[gz]
+                dtimez = self.dtime[gz]
+                timez = self.time[gz]
+            if vz == tnamez:
                 # should throw an error later
                 if mesh:
-                    vv = self.dtime[gz]
+                    vv = dtimez
                     vlab = 'Year'
                 else:
-                    vv = self.time[gz]
+                    vv = timez
                     vlab = 'Date'
             else:
                 vv = selvar(self, vz)
@@ -1283,12 +1368,20 @@ class ncvMap(Frame):
         if (y != ''):
             # y axis
             gy, vy = vardim2var(y, self.groups)
-            if vy == self.tname[gy]:
+            if self.usex:
+                tnamey = self.tname
+                dtimey = self.dtime
+                timey = self.time
+            else:
+                tnamey = self.tname[gy]
+                dtimey = self.dtime[gy]
+                timey = self.time[gy]
+            if vy == tnamey:
                 if mesh:
-                    yy = self.dtime[gy]
+                    yy = dtimey
                     ylab = 'Year'
                 else:
-                    yy = self.time[gy]
+                    yy = timey
                     ylab = 'Date'
             else:
                 yy = selvar(self, vy)
@@ -1299,12 +1392,20 @@ class ncvMap(Frame):
         if (x != ''):
             # x axis
             gx, vx = vardim2var(x, self.groups)
-            if vx == self.tname[gx]:
+            if self.usex:
+                tnamex = self.tname
+                dtimex = self.dtime
+                timex = self.time
+            else:
+                tnamex = self.tname[gx]
+                dtimex = self.dtime[gx]
+                timex = self.time[gx]
+            if vx == tnamex:
                 if mesh:
-                    xx = self.dtime[gx]
+                    xx = dtimex
                     xlab = 'Year'
                 else:
-                    xx = self.time[gx]
+                    xx = timex
                     xlab = 'Date'
             else:
                 xx = selvar(self, vx)
@@ -1522,15 +1623,19 @@ class ncvMap(Frame):
         # variable
         v = self.v.get()
         if (v != ''):
-            trans_v   = self.trans_v.get()
-            mesh      = self.mesh.get()
-            rep       = self.repeat.get()
-            # inv_lon   = self.inv_lon.get()
-            # inv_lat   = self.inv_lat.get()
+            trans_v = self.trans_v.get()
+            mesh = self.mesh.get()
+            rep = self.repeat.get()
+            # inv_lon = self.inv_lon.get()
+            # inv_lat = self.inv_lat.get()
             shift_lon = self.shift_lon.get()
             gz, vz = vardim2var(v, self.groups)
-            if vz == self.tname[gz]:
-                vz = self.tvar[gz]
+            if self.usex:
+                if vz == self.tname:
+                    vz = self.tvar
+            else:
+                if vz == self.tname[gz]:
+                    vz = self.tvar[gz]
             vv = selvar(self, vz)
             # slice
             try:
