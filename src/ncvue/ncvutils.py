@@ -62,9 +62,10 @@ History
    * Increased digits in format_coord_scatter, Jan 2025, Matthias Cuntz
    * Increased digits in format_coord_contour and format_coord_map,
      Jan 2025, Matthias Cuntz
-   * Use formatted array in zip_dim_name_length, Feb 2025, Matthias Cuntz
+   * Use f-string in zip_dim_name_length, Feb 2025, Matthias Cuntz
    * Added xzip_dim_name_length, get_standard_name, get_units,
      Feb 2025, Matthias Cuntz
+   * Allow xarray in selvar, Feb 2025, Matthias Cuntz
 
 """
 import tkinter as tk
@@ -75,6 +76,11 @@ except ModuleNotFoundError:
 import numpy as np
 import matplotlib.dates as mpld
 import cartopy.crs as ccrs
+try:
+    import xarray as xr
+    ihavex = True
+except ModuleNotFoundError:
+    ihavex = False
 import ncvue
 
 
@@ -664,7 +670,7 @@ def get_slice(dimspins, y):
     Returns
     -------
     ndarray
-        Slice of `y` chosen by with spinboxes.
+        Slice of `y` chosen with spinboxes.
 
     Examples
     --------
@@ -675,6 +681,10 @@ def get_slice(dimspins, y):
     >>> yy = set_miss(miss, yy)
 
     """
+    isxarray = False
+    if ihavex:
+        if isinstance(y, xr.DataArray):
+            isxarray = True
     methods = ['all']
     methods.extend(DIMMETHODS)
     dd = []
@@ -691,7 +701,11 @@ def get_slice(dimspins, y):
     if len(ss) > 0:
         imeth = list_intersection(dd, DIMMETHODS)
         if len(imeth) > 0:
-            yout = y[tuple(ss)]
+            if isxarray:
+                sargs = dict(zip(y.dims, ss))
+                yout = y.isel(**sargs).to_numpy()
+            else:
+                yout = y[tuple(ss)]
             ii = [ i for i, d in enumerate(dd) if d in imeth ]
             ii.reverse()  # last axis first
             for i in ii:
@@ -713,7 +727,12 @@ def get_slice(dimspins, y):
                     yout = np.ma.var(yout, axis=i)
             return yout
         else:
-            return y[tuple(ss)]
+            if isxarray:
+                sargs = dict(zip(y.dims, ss))
+                yout = y.isel(**sargs).to_numpy()
+            else:
+                yout = y[tuple(ss)]
+            return yout
     else:
         return np.array([], dtype=y.dtype)
 

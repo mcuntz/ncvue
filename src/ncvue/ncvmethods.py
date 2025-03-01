@@ -425,12 +425,10 @@ def analyse_netcdf_ncvue(self):
             ivar = selvar(self, self.latvar[ig])
             latshape = ivar.shape
             if (len(latshape) < 1) or (len(latshape) > 2):
-                estr  = ('Something went wrong determining lat/lon:'
-                         ' latitude variable is not 1D or 2D.')
-                print(estr)
-                estr = 'latitude variable with dimensions:'
-                ldim = ivar.dimensions
-                print(estr, self.latvar[ig], ldim)
+                print('Something went wrong determining lat/lon:'
+                      ' latitude variable is not 1D or 2D.\n'
+                      'latitude variable with dimensions:',
+                      self.latvar[ig], ivar.dimensions)
                 self.latvar[ig] = ''
             else:
                 self.latdim[ig] = ivar.dimensions[0]
@@ -442,12 +440,10 @@ def analyse_netcdf_ncvue(self):
             elif len(lonshape) == 2:
                 self.londim[ig] = ivar.dimensions[1]
             else:
-                estr  = ('Something went wrong determining lat/lon:'
-                         ' longitude variable is not 1D or 2D.')
-                print(estr)
-                estr = 'longitude variable with dimensions:'
-                ldim = ivar.dimensions
-                print(estr, self.lonvar[ig], ldim)
+                print('Something went wrong determining lat/lon:'
+                      ' longitude variable is not 1D or 2D.\n'
+                      'longitude variable with dimensions:',
+                      self.lonvar[ig], ivar.dimensions)
                 self.lonvar[ig] = ''
         #
         # add units to lat/lon name

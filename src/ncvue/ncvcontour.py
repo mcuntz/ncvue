@@ -876,8 +876,7 @@ class ncvContour(Frame):
             zz = np.ones((ny, nx)) * np.nan
             zlab = ''
         if zz.ndim < 2:
-            estr  = 'Contour: z (' + vz + ') is not 2-dimensional:'
-            print(estr, zz.shape)
+            print('Contour: z ({vz}) is not 2-dimensional:', zz.shape)
             return
         # set x and y to index if not selected
         if (x == ''):
@@ -917,10 +916,8 @@ class ncvContour(Frame):
                 cb = self.figure.colorbar(cc, fraction=0.05, shrink=0.75,
                                           extend=extend)
             except Exception:
-                estr  = ('Contour: x (' + vx + '), y (' + vy + '),'
-                         ' z (' + vz + ') shapes do not match for'
-                         ' pcolormesh:')
-                print(estr, xx.shape, yy.shape, zz.shape)
+                print(f'Contour: x ({vx}), y ({vy}), z ({vz}) shapes do not'
+                      f' match for pcolormesh:', xx.shape, yy.shape, zz.shape)
                 return
         else:
             try:
@@ -929,10 +926,8 @@ class ncvContour(Frame):
                                         cmap=cmap, extend=extend)
                 cb = self.figure.colorbar(cc, fraction=0.05, shrink=0.75)
             except Exception:
-                estr  = ('Contour: x (' + vx + '), y (' + vy + '),'
-                         ' z (' + vz + ') shapes do not match for'
-                         ' contourf:')
-                print(estr, xx.shape, yy.shape, zz.shape)
+                print(f'Contour: x ({vx}), y ({vy}), z ({vz}) shapes do not'
+                      f' match for contourf:', xx.shape, yy.shape, zz.shape)
                 return
         # help(self.figure)
         cb.set_label(zlab)

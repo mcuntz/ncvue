@@ -43,6 +43,7 @@ History
    * Use CustomTkinter if installed, Nov 2024, Matthias Cuntz
    * Use add_button, add_label widgets, Feb 2025, Matthias Cuntz
    * Use add_combobox instead of Combobox directly, Feb 2025, Matthias Cuntz
+   * Remove delay, Feb 2025, Matthias Cuntz
    * Include xarray to read input files, Feb 2025, Matthias Cuntz
 
 """
@@ -240,25 +241,22 @@ class ncvMap(Frame):
         spacet = add_label(self.rowt, text=' ' * 1)
 
         # first t, previous t, etc.
-        self.first_t, self.first_ttip = add_button(
+        self.first_time, self.first_timetip = add_button(
             self.rowt, text='|<<', command=self.first_t, width=bwidth,
             tooltip='First time step')
-        self.prev_t, self.prev_ttip = add_button(
+        self.prev_time, self.prev_timetip = add_button(
             self.rowt, text='|<', command=self.prev_t, width=bwidth,
             tooltip='Previous time step')
-        self.prun_t, self.prun_ttip = add_button(
-            self.rowt, text='<', command=self.prun_t, width=bwidth,
+        self.prun_timelbl, self.prun_time, self.prun_timetip = add_button(
+            self.rowt, '<', command=self.prun_t, width=bwidth,
             tooltip='Run backwards')
-        self.pause_t, self.pause_ttip = add_button(
-            self.rowt, text='||', command=self.pause_t, width=bwidth,
-            tooltip='Pause/Stop')
-        self.nrun_t, self.nrun_ttip = add_button(
-            self.rowt, text='>', command=self.nrun_t, width=bwidth,
+        self.nrun_timelbl, self.nrun_time, self.nrun_timetip = add_button(
+            self.rowt, '>', command=self.nrun_t, width=bwidth,
             tooltip='Run forwards')
-        self.next_t, self.next_ttip = add_button(
+        self.next_time, self.next_timetip = add_button(
             self.rowt, text='>|', command=self.next_t, width=bwidth,
-            tooltip='Next time ste')
-        self.last_t, self.last_ttip = add_button(
+            tooltip='Next time step')
+        self.last_time, self.last_timetip = add_button(
             self.rowt, text='>>|', command=self.last_t, width=bwidth,
             tooltip='Last time step')
         # repeat
@@ -739,10 +737,18 @@ class ncvMap(Frame):
         Command called if forward run button was pressed.
 
         """
-        if not self.anim_running:
-            self.anim_inc = 1
-            self.anim.event_source.start()
-            self.anim_running = True
+        srun = self.nrun_timelbl.get()
+        if srun == '>':
+            if not self.anim_running:
+                self.anim_inc = 1
+                self.anim.event_source.start()
+                self.anim_running = True
+                self.nrun_timelbl.set('||')
+        elif srun == '||':
+            if self.anim_running:
+                self.anim.event_source.stop()
+                self.anim_running = False
+                self.nrun_timelbl.set('>')
 
     def next_t(self):
         """
@@ -797,15 +803,6 @@ class ncvMap(Frame):
             self.vmax.set(vmax)
             set_dim_var(self)
             self.redraw()
-
-    def pause_t(self):
-        """
-        Command called if pause button was pressed.
-
-        """
-        if self.anim_running:
-            self.anim.event_source.stop()
-            self.anim_running = False
 
     def prev_t(self):
         """
@@ -867,10 +864,18 @@ class ncvMap(Frame):
         Command called if run backwards button was pressed.
 
         """
-        if not self.anim_running:
-            self.anim_inc = -1
-            self.anim.event_source.start()
-            self.anim_running = True
+        srun = self.prun_timelbl.get()
+        if srun == '<':
+            if not self.anim_running:
+                self.anim_inc = -1
+                self.anim.event_source.start()
+                self.anim_running = True
+                self.prun_timelbl.set('||')
+        elif srun == '||':
+            if self.anim_running:
+                self.anim.event_source.stop()
+                self.anim_running = False
+                self.prun_timelbl.set('<')
 
     def repeat_t(self, event):
         """
@@ -1490,8 +1495,7 @@ class ncvMap(Frame):
         # plot only if variable given
         if (v != ''):
             if vv.ndim < 2:
-                estr  = 'Map: var (' + vz + ') is not 2-dimensional:'
-                print(estr, vv.shape)
+                print(f'Map: var ({vz}) is not 2-dimensional:', vv.shape)
                 return
             # set x and y to index if not selected
             if (x == ''):
@@ -1535,9 +1539,8 @@ class ncvMap(Frame):
                 self.ixx = xx
                 self.iyy = yy
             else:
-                estr  = ('Map: lon (' + vx + '), lat (' + vy + ')'
-                         ' dimensions not 1D or 2D:')
-                print(estr, xx.shape, yy.shape)
+                print(f'Map: lon ({vx}), lat ({vy}) dimensions not 1D or 2D:',
+                      xx.shape, yy.shape)
                 return
             if inv_lon:
                 self.ixx = np.fliplr(self.ixx)
@@ -1589,10 +1592,9 @@ class ncvMap(Frame):
                                                    shrink=0.75, pad=0.07,
                                                    extend=self.iextend)
                 except Exception:
-                    estr  = ('Map pcolormesh: lon (' + vx + '), '
-                             ' lat (' + vy + '), var (' + vz + ') '
-                             'shapes do not match:')
-                    print(estr, self.ixx.shape, self.iyy.shape, self.ivv.shape)
+                    print(f'Map pcolormesh: lon ({vx}), lat ({vy}),'
+                          f' var ({vz}) shapes do not match:',
+                          self.ixx.shape, self.iyy.shape, self.ivv.shape)
                     return
             else:
                 try:
@@ -1607,10 +1609,9 @@ class ncvMap(Frame):
                                                    shrink=0.75, pad=0.07)
                     # self.cc, = self.axes.plot(yy, vv[0,:])
                 except Exception:
-                    estr  = ('Map contourf: lon (' + vx + '), lat (' + vy +
-                             '), var (' + vz + ') shapes do not match for:')
-                    print(estr, self.ixxc.shape, self.iyyc.shape,
-                          self.ivvc.shape)
+                    print('Map contourf: lon ({vx}), lat ({vy}),'
+                          f' var ({vz}) shapes do not match for:',
+                          self.ixxc.shape, self.iyyc.shape, self.ivvc.shape)
                     return
             self.cb.set_label(vlab)
             self.axes.format_coord = lambda x, y: format_coord_map(

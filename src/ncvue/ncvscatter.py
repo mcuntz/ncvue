@@ -1244,9 +1244,9 @@ class ncvScatter(Frame):
                 # , picker=True, pickradius=5)
                 self.line_y = self.axes.plot(xx, yy)
             except Exception:
-                estr  = ('Scatter: x (' + vx + ') and y (' + vy + ')'
-                         ' shapes do not match for plot:')
-                print(estr, xx.shape, yy.shape)
+                print(f'Scatter: x ({vx}) and y ({vy})'
+                      f' shapes do not match for plot:',
+                      xx.shape, yy.shape)
                 return
             self.axes.xaxis.set_label_text(xlab)
             self.axes.yaxis.set_label_text(ylab)
@@ -1255,9 +1255,9 @@ class ncvScatter(Frame):
                 # , picker=True, pickradius=5)
                 self.line_y2 = self.axes2.plot(xx, yy2)
             except Exception:
-                estr  = ('Scatter: x (' + vx + ') and y2 (' + vy2 + ')'
-                         ' shapes do not match for plot:')
-                print(estr, xx.shape, yy2.shape)
+                print(f'Scatter: x ({vx}) and y2 ({vy2})'
+                      f' shapes do not match for plot:',
+                      xx.shape, yy2.shape)
                 return
             self.axes2.format_coord = lambda x, y: format_coord_scatter(
                 x, y, self.axes, self.axes2, xx.dtype, yy.dtype, yy2.dtype)

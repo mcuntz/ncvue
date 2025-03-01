@@ -1,7 +1,15 @@
 Changelog
 ---------
 
-v5.2 (??? 2025)
+v6.0 (Mar 2025)
+   * Use exclusively `add_*` for widget creation.
+   * Remove delay in `ncvmap`.
+   * Add `analyse_netcdf_xarray`.
+   * New utility functions `xzip_dim_name_length`, `get_standard_name`,
+     and `get_units` used in `ncvmethods`.
+   * Add xarray support for reading files.
+   * Use f-strings for most string operations.
+   * New widgets `add_button` and `add_label`.
    * Increased number of digits in coordinate formatters.
 
 v5.1 (Dec 2024)
