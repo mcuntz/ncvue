@@ -431,7 +431,7 @@ class ncvScatter(Frame):
             add_entry(self.rowy2opt, label='marker', text='None', width=ewmed,
                       command=self.entered_y2, padx=padx,
                       tooltip='Marker symbol:\n' + mtstr))
-        self.markerframe.pack(side=tk.LEFT)
+        self.marker2frame.pack(side=tk.LEFT)
         self.ms2frame, self.ms2lbl, self.ms2, self.ms2tip = add_entry(
             self.rowy2opt, label='ms', text='1', width=ewsmall, padx=padx,
             command=self.entered_y2, tooltip='Marker size')

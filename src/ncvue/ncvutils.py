@@ -505,13 +505,15 @@ def format_coord_contour(x, y, ax, xx, yy, zz):
         xarr = xx[0, :]
     else:
         xarr = xx
-    if xx.dtype.type == np.dtype('datetime64').type:
+    # if xx.dtype.type == np.dtype('datetime64').type:
+    if np.issubdtype(xx.dtype, np.datetime64):
         xarr = mpld.date2num(xarr)
     if yy.ndim > 1:
         yarr = yy[:, 0]
     else:
         yarr = yy
-    if yy.dtype.type == np.dtype('datetime64').type:
+    # if yy.dtype.type == np.dtype('datetime64').type:
+    if np.issubdtype(yy.dtype, np.datetime64):
         yarr = mpld.date2num(yarr)
     if ( (x > xarr.min()) & (x <= xarr.max()) &
          (y > yarr.min()) & (y <= yarr.max()) ):
@@ -523,22 +525,26 @@ def format_coord_contour(x, y, ax, xx, yy, zz):
     else:
         xout = x
         yout = y
-        if zz.dtype.type == np.dtype('datetime64').type:
+        # if zz.dtype.type == np.dtype('datetime64').type:
+        if np.issubdtype(zz.dtype, np.datetime64):
             zout = np.datetime64('NaT')
         else:
             zout = np.nan
 
     # Special treatment for datetime
     # https://stackoverflow.com/questions/49267011/matplotlib-datetime-from-event-coordinates
-    if xx.dtype.type == np.dtype('datetime64').type:
+    # if xx.dtype.type == np.dtype('datetime64').type:
+    if np.issubdtype(xx.dtype, np.datetime64):
         xstr = mpld.num2date(xout).strftime('%Y-%m-%d %H:%M:%S')
     else:
         xstr = '{:.6g}'.format(xout)
-    if yy.dtype.type == np.dtype('datetime64').type:
+    # if yy.dtype.type == np.dtype('datetime64').type:
+    if np.issubdtype(yy.dtype, np.datetime64):
         ystr = mpld.num2date(yout).strftime('%Y-%m-%d %H:%M:%S')
     else:
         ystr = '{:.6g}'.format(yout)
-    if zz.dtype.type == np.dtype('datetime64').type:
+    # if zz.dtype.type == np.dtype('datetime64').type:
+    if np.issubdtype(zz.dtype, np.datetime64):
         zstr = mpld.num2date(zout).strftime('%Y-%m-%d %H:%M:%S')
     else:
         zstr = '{:.6g}'.format(zout)
@@ -640,15 +646,18 @@ def format_coord_scatter(x, y, ax, ax2, xdtype, ydtype, y2dtype):
 
     # Special treatment for datetime
     # https://stackoverflow.com/questions/49267011/matplotlib-datetime-from-event-coordinates
-    if xdtype.type == np.dtype('datetime64').type:
+    # if xdtype.type == np.dtype('datetime64').type:
+    if np.issubdtype(xdtype, np.datetime64):
         xstr = mpld.num2date(x).strftime('%Y-%m-%d %H:%M:%S')
     else:
         xstr  = '{:.6g}'.format(x)
-    if ydtype.type == np.dtype('datetime64').type:
+    # if ydtype.type == np.dtype('datetime64').type:
+    if np.issubdtype(ydtype, np.datetime64):
         ystr = mpld.num2date(ax_coord[1]).strftime('%Y-%m-%d %H:%M:%S')
     else:
         ystr  = '{:.6g}'.format(ax_coord[1])
-    if y2dtype.type == np.dtype('datetime64').type:
+    # if y2dtype.type == np.dtype('datetime64').type:
+    if np.issubdtype(y2dtype, np.datetime64):
         y2str = mpld.num2date(y).strftime('%Y-%m-%d %H:%M:%S')
     else:
         y2str = '{:.6g}'.format(y)

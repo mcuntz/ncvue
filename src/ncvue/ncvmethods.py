@@ -950,7 +950,7 @@ def set_dim_x(self):
             dims = xx.dimensions
         nall = 0
         if dunlim in dims:
-            i = xx.dimensions.index(dunlim)
+            i = dims.index(dunlim)
             ww = max(5, int(np.ceil(np.log10(xx.shape[i]))))  # 5~median
             self.xd[i].config(values=spinbox_values(xx.shape[i]), width=ww,
                               state=tk.NORMAL)
