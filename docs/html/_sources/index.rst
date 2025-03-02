@@ -2,7 +2,7 @@
 Contents
 --------
 
-.. image:: ../images/map_panel_dark_xr_ctk_screenshot
+.. image:: ../images/map_panel_dark_xr_ctk_screenshot.png
    :width: 860 px
    :align: left
    :alt: Map panel of ncvue
