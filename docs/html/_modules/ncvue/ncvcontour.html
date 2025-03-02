@@ -15,31 +15,28 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!--
-    this give us a css class that will be invisible only if js is disabled
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=628480d8" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <script src="../../_static/documentation_options.js?v=4d16e57d"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=48fd97d2" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=92a5e652"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -48,7 +45,6 @@
     <link rel="search" title="Search" href="../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="5.2.dev1" />
   </head>
   
   
@@ -64,8 +60,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../../search.html"
       method="get">
@@ -73,6 +80,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -80,8 +88,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -99,8 +107,7 @@
       
         
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -130,17 +137,19 @@
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../readme.html">ncvue - A GUI to view netCDF files</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../package.html">API</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvcontour.html">ncvue.ncvcontour</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvmain.html">ncvue.ncvmain</a></li>
@@ -152,6 +161,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../ncvwidgets.html">ncvue.ncvwidgets</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Authors</a></li>
 </ul>
 
     </div>
@@ -160,14 +171,9 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
-      <div class="sidebar-primary-item">
-<div id="ethical-ad-placement"
-      class="flat"
-      data-ea-publisher="readthedocs"
-      data-ea-type="readthedocs-sidebar"
-      data-ea-manual="true">
-</div></div>
   </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -263,16 +269,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 
 </div></div>
       
@@ -333,34 +347,36 @@
 <span class="sd">   * Move themes/ and images/ back to src/ncvue/, Feb 2024, Matthias Cuntz</span>
 <span class="sd">   * Add Quit button, Nov 2024, Matthias Cuntz</span>
 <span class="sd">   * Use CustomTkinter if installed, Nov 2024, Matthias Cuntz</span>
+<span class="sd">   * Use add_button, add_label widgets, Feb 2025, Matthias Cuntz</span>
+<span class="sd">   * Use add_combobox instead of Combobox directly, Feb 2025, Matthias Cuntz</span>
+<span class="sd">   * Include xarray to read input files, Feb 2025, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tkinter</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tk</span>
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">customtkinter</span> <span class="kn">import</span> <span class="n">CTkFrame</span> <span class="k">as</span> <span class="n">Frame</span>
-    <span class="kn">from</span> <span class="nn">customtkinter</span> <span class="kn">import</span> <span class="n">CTkButton</span> <span class="k">as</span> <span class="n">Button</span>
-    <span class="kn">from</span> <span class="nn">customtkinter</span> <span class="kn">import</span> <span class="n">CTkLabel</span> <span class="k">as</span> <span class="n">Label</span>
-    <span class="kn">from</span> <span class="nn">customtkinter</span> <span class="kn">import</span> <span class="n">CTkComboBox</span> <span class="k">as</span> <span class="n">Combobox</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">customtkinter</span><span class="w"> </span><span class="kn">import</span> <span class="n">CTkFrame</span> <span class="k">as</span> <span class="n">Frame</span>
     <span class="n">ihavectk</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">tkinter.ttk</span> <span class="kn">import</span> <span class="n">Frame</span>
-    <span class="kn">from</span> <span class="nn">tkinter.ttk</span> <span class="kn">import</span> <span class="n">Button</span>
-    <span class="kn">from</span> <span class="nn">tkinter.ttk</span> <span class="kn">import</span> <span class="n">Label</span>
-    <span class="kn">from</span> <span class="nn">tkinter.ttk</span> <span class="kn">import</span> <span class="n">Combobox</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">tkinter.ttk</span><span class="w"> </span><span class="kn">import</span> <span class="n">Frame</span>
     <span class="n">ihavectk</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="kn">import</span> <span class="nn">netCDF4</span> <span class="k">as</span> <span class="nn">nc</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">.ncvutils</span> <span class="kn">import</span> <span class="n">clone_ncvmain</span><span class="p">,</span> <span class="n">format_coord_contour</span><span class="p">,</span> <span class="n">selvar</span>
-<span class="kn">from</span> <span class="nn">.ncvutils</span> <span class="kn">import</span> <span class="n">set_axis_label</span><span class="p">,</span> <span class="n">vardim2var</span>
-<span class="kn">from</span> <span class="nn">.ncvmethods</span> <span class="kn">import</span> <span class="n">analyse_netcdf</span><span class="p">,</span> <span class="n">get_slice_miss</span>
-<span class="kn">from</span> <span class="nn">.ncvmethods</span> <span class="kn">import</span> <span class="n">set_dim_x</span><span class="p">,</span> <span class="n">set_dim_y</span><span class="p">,</span> <span class="n">set_dim_z</span>
-<span class="kn">from</span> <span class="nn">.ncvwidgets</span> <span class="kn">import</span> <span class="n">add_checkbutton</span><span class="p">,</span> <span class="n">add_combobox</span><span class="p">,</span> <span class="n">add_entry</span><span class="p">,</span> <span class="n">add_imagemenu</span>
-<span class="kn">from</span> <span class="nn">.ncvwidgets</span> <span class="kn">import</span> <span class="n">add_spinbox</span><span class="p">,</span> <span class="n">add_tooltip</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">netCDF4</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nc</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+    <span class="n">ihavex</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
+    <span class="n">ihavex</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.ncvutils</span><span class="w"> </span><span class="kn">import</span> <span class="n">clone_ncvmain</span><span class="p">,</span> <span class="n">format_coord_contour</span><span class="p">,</span> <span class="n">selvar</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.ncvutils</span><span class="w"> </span><span class="kn">import</span> <span class="n">set_axis_label</span><span class="p">,</span> <span class="n">vardim2var</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.ncvmethods</span><span class="w"> </span><span class="kn">import</span> <span class="n">analyse_netcdf</span><span class="p">,</span> <span class="n">get_slice_miss</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.ncvmethods</span><span class="w"> </span><span class="kn">import</span> <span class="n">set_dim_x</span><span class="p">,</span> <span class="n">set_dim_y</span><span class="p">,</span> <span class="n">set_dim_z</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.ncvwidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_checkbutton</span><span class="p">,</span> <span class="n">add_combobox</span><span class="p">,</span> <span class="n">add_entry</span><span class="p">,</span> <span class="n">add_imagemenu</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.ncvwidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_spinbox</span><span class="p">,</span> <span class="n">add_label</span><span class="p">,</span> <span class="n">add_button</span>
 <span class="c1"># import matplotlib</span>
 <span class="c1"># matplotlib.use(&#39;TkAgg&#39;)</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="k">try</span><span class="p">:</span>
     <span class="c1"># plt.style.use(&#39;seaborn-v0_8-darkgrid&#39;)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8-dark&#39;</span><span class="p">)</span>
@@ -375,7 +391,7 @@
 
 <div class="viewcode-block" id="ncvContour">
 <a class="viewcode-back" href="../../ncvcontour.html#ncvue.ncvcontour.ncvContour">[docs]</a>
-<span class="k">class</span> <span class="nc">ncvContour</span><span class="p">(</span><span class="n">Frame</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ncvContour</span><span class="p">(</span><span class="n">Frame</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Panel for contour plots.</span>
 
@@ -391,11 +407,11 @@
     <span class="c1"># Panel setup</span>
     <span class="c1">#</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
-        <span class="kn">from</span> <span class="nn">matplotlib.backends.backend_tkagg</span> <span class="kn">import</span> <span class="n">FigureCanvasTkAgg</span>
-        <span class="kn">from</span> <span class="nn">matplotlib.backends.backend_tkagg</span> <span class="kn">import</span> <span class="n">NavigationToolbar2Tk</span>
-        <span class="kn">from</span> <span class="nn">matplotlib.figure</span> <span class="kn">import</span> <span class="n">Figure</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">partial</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.backends.backend_tkagg</span><span class="w"> </span><span class="kn">import</span> <span class="n">FigureCanvasTkAgg</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.backends.backend_tkagg</span><span class="w"> </span><span class="kn">import</span> <span class="n">NavigationToolbar2Tk</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.figure</span><span class="w"> </span><span class="kn">import</span> <span class="n">Figure</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">master</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
@@ -403,6 +419,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">master</span> <span class="o">=</span> <span class="n">master</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">top</span>    <span class="o">=</span> <span class="n">master</span><span class="o">.</span><span class="n">top</span>
         <span class="c1"># copy for ease of use</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">usex</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">usex</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fi</span>     <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">groups</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">groups</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">miss</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">miss</span>
@@ -422,16 +439,12 @@
         <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">cols</span>
 
         <span class="n">allcmaps</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colormaps</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cmaps</span>  <span class="o">=</span> <span class="p">[</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">allcmaps</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">i</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_r&#39;</span><span class="p">)</span> <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cmaps</span> <span class="o">=</span> <span class="p">[</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">allcmaps</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">i</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_r&#39;</span><span class="p">)</span> <span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cmaps</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-        <span class="c1"># self.imaps  = [ tk.PhotoImage(file=os.path.dirname(__file__) +</span>
-        <span class="c1">#                               &#39;/../images/&#39; + i + &#39;.png&#39;)</span>
-        <span class="c1">#                 for i in self.cmaps ]</span>
         <span class="n">bundle_dir</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="s1">&#39;_MEIPASS&#39;</span><span class="p">,</span>
                              <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">imaps</span>  <span class="o">=</span> <span class="p">[</span> <span class="n">tk</span><span class="o">.</span><span class="n">PhotoImage</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">bundle_dir</span> <span class="o">+</span>
-                                      <span class="s1">&#39;/images/&#39;</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span><span class="p">)</span>
-                        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmaps</span> <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">imaps</span> <span class="o">=</span> <span class="p">[</span> <span class="n">tk</span><span class="o">.</span><span class="n">PhotoImage</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">bundle_dir</span><span class="si">}</span><span class="s1">/images/</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">.png&#39;</span><span class="p">)</span>
+                       <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmaps</span> <span class="p">]</span>
         <span class="k">if</span> <span class="n">ihavectk</span><span class="p">:</span>
             <span class="c1"># width of combo boxes in px</span>
             <span class="n">combowidth</span> <span class="o">=</span> <span class="mi">288</span>
@@ -462,16 +475,18 @@
         <span class="c1"># new window</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rowwin</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rowwin</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">TOP</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">newfile</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowwin</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;Open File&#39;</span><span class="p">,</span>
-                              <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">newnetcdf</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">newfile</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">newfiletip</span> <span class="o">=</span> <span class="n">add_tooltip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">newfile</span><span class="p">,</span> <span class="s1">&#39;Open a new netcdf file&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">newwin</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">rowwin</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;New Window&#39;</span><span class="p">,</span>
-            <span class="n">command</span><span class="o">=</span><span class="n">partial</span><span class="p">(</span><span class="n">clone_ncvmain</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">newfile</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">newfiletip</span> <span class="o">=</span> <span class="n">add_button</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rowwin</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;Open File&#39;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">newnetcdf</span><span class="p">,</span>
+            <span class="n">tooltip</span><span class="o">=</span><span class="s1">&#39;Open a new netcdf file&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ihavex</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">newxarray</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">newxarraytip</span> <span class="o">=</span> <span class="n">add_button</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">rowwin</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;Open xarray&#39;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">newxarray</span><span class="p">,</span>
+                <span class="n">tooltip</span><span class="o">=</span><span class="s1">&#39;Open new netcdf file(s) with xarray&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">newwin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">newwintip</span> <span class="o">=</span> <span class="n">add_button</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rowwin</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;New Window&#39;</span><span class="p">,</span> <span class="n">nopack</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">command</span><span class="o">=</span><span class="n">partial</span><span class="p">(</span><span class="n">clone_ncvmain</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="p">),</span>
+            <span class="n">tooltip</span><span class="o">=</span><span class="s1">&#39;Open secondary ncvue window&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">newwin</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">RIGHT</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">newwintip</span> <span class="o">=</span> <span class="n">add_tooltip</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">newwin</span><span class="p">,</span> <span class="s1">&#39;Open secondary ncvue window&#39;</span><span class="p">)</span>
 
         <span class="c1"># plotting canvas</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">figure</span> <span class="o">=</span> <span class="n">Figure</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
@@ -499,38 +514,28 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">blockz</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rowz</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">blockz</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rowz</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">TOP</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">zlbl</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">zlbl</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;z&#39;</span><span class="p">)</span>
-        <span class="n">lkwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;textvariable&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">zlbl</span><span class="p">}</span>
+        <span class="n">lkwargs</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="n">ihavectk</span><span class="p">:</span>
             <span class="n">lkwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;padx&#39;</span><span class="p">:</span> <span class="n">padx</span><span class="p">})</span>
-        <span class="n">zlab</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowz</span><span class="p">,</span> <span class="o">**</span><span class="n">lkwargs</span><span class="p">)</span>
-        <span class="n">zlab</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">bprev_z</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowz</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;&lt;&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">bwidth</span><span class="p">,</span>
-                              <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">prev_z</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">bprev_z</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">bprev_ztip</span> <span class="o">=</span> <span class="n">add_tooltip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bprev_z</span><span class="p">,</span> <span class="s1">&#39;Previous variable&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">bnext_z</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowz</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;&gt;&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">bwidth</span><span class="p">,</span>
-                              <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">next_z</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">bnext_z</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">bnext_ztip</span> <span class="o">=</span> <span class="n">add_tooltip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bnext_z</span><span class="p">,</span> <span class="s1">&#39;Next variable&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">ihavectk</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">Combobox</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowz</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">combowidth</span><span class="p">,</span>
-                              <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_z</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">Combobox</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowz</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">combowidth</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">z</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;&lt;ComboboxSelected&gt;&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_z</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">z</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ztip</span> <span class="o">=</span> <span class="n">add_tooltip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="s1">&#39;Choose variable&#39;</span><span class="p">)</span>
+        <span class="n">zlab</span> <span class="o">=</span> <span class="n">add_label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowz</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;z&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">lkwargs</span><span class="p">)</span>
+        <span class="n">spacep</span> <span class="o">=</span> <span class="n">add_label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowz</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bprev_z</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bprev_ztip</span> <span class="o">=</span> <span class="n">add_button</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rowz</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;&lt;&#39;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">prev_z</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">bwidth</span><span class="p">,</span>
+            <span class="n">tooltip</span><span class="o">=</span><span class="s1">&#39;Previous variable&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bnext_z</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bnext_ztip</span> <span class="o">=</span> <span class="n">add_button</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rowz</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;&gt;&#39;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">next_z</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">bwidth</span><span class="p">,</span>
+            <span class="n">tooltip</span><span class="o">=</span><span class="s1">&#39;Next variable&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">zframe</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">zlbl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ztip</span> <span class="o">=</span> <span class="n">add_combobox</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rowz</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span>
+            <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_z</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">combowidth</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">tooltip</span><span class="o">=</span><span class="s1">&#39;Choose variable&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">zframe</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">trans_zframe</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">trans_zlbl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">trans_z</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">trans_ztip</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">add_checkbutton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowz</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;transpose z&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                             <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">checked</span><span class="p">,</span>
                             <span class="n">tooltip</span><span class="o">=</span><span class="s1">&#39;Transpose matrix&#39;</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">trans_zframe</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
-        <span class="n">spacez_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
-        <span class="n">spacez_label</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
-        <span class="n">spacez</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowz</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">spacez_label</span><span class="p">)</span>
-        <span class="n">spacez</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+        <span class="n">spacez</span> <span class="o">=</span> <span class="n">add_label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowz</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">zminframe</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">zminlbl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">zmin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">zmintip</span> <span class="o">=</span> <span class="n">add_entry</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rowz</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;zmin&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">ewbig</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="n">padx</span><span class="p">,</span>
             <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">entered_z</span><span class="p">,</span>
@@ -601,10 +606,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">xdtip</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xdtip</span><span class="p">)</span>
             <span class="n">xdframe</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
         <span class="c1"># y-axis selection</span>
-        <span class="n">spacex_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
-        <span class="n">spacex_label</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;   &#39;</span><span class="p">)</span>
-        <span class="n">spacex</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowxy</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">spacex_label</span><span class="p">)</span>  <span class="c1"># !!!</span>
-        <span class="n">spacex</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+        <span class="n">spacex</span> <span class="o">=</span> <span class="n">add_label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowxy</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;   &#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">blocky</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowxy</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">blocky</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rowy</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">blocky</span><span class="p">)</span>
@@ -659,7 +661,7 @@
             <span class="n">add_checkbutton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowcmap</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;mesh&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                             <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">checked</span><span class="p">,</span>
                             <span class="n">tooltip</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;Pseudocolor plot if checked,&#39;</span>
-                                     <span class="s1">&#39; plot contours if unchecked&#39;</span><span class="p">)))</span>
+                                     <span class="s1">&#39; contours if unchecked&#39;</span><span class="p">)))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">meshframe</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gridframe</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gridlbl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gridtip</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">add_checkbutton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowcmap</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;grid&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -667,10 +669,10 @@
                             <span class="n">tooltip</span><span class="o">=</span><span class="s1">&#39;Draw major grid lines&#39;</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gridframe</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
         <span class="c1"># Quit button</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">bquit</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowcmap</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;Quit&#39;</span><span class="p">,</span>
-                            <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">destroy</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bquit</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bquittip</span> <span class="o">=</span> <span class="n">add_button</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rowcmap</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;Quit&#39;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">destroy</span><span class="p">,</span>
+            <span class="n">nopack</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s1">&#39;Quit ncvue&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bquit</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">RIGHT</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">bquittip</span> <span class="o">=</span> <span class="n">add_tooltip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bquit</span><span class="p">,</span> <span class="s1">&#39;Quit ncvue&#39;</span><span class="p">)</span>
 
     <span class="c1">#</span>
     <span class="c1"># Bindings</span>
@@ -678,7 +680,7 @@
 
 <div class="viewcode-block" id="ncvContour.checked">
 <a class="viewcode-back" href="../../ncvcontour.html#ncvue.ncvcontour.ncvContour.checked">[docs]</a>
-    <span class="k">def</span> <span class="nf">checked</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">checked</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if any checkbutton was checked or unchecked.</span>
 
@@ -690,7 +692,7 @@
 
 <div class="viewcode-block" id="ncvContour.entered_z">
 <a class="viewcode-back" href="../../ncvcontour.html#ncvue.ncvcontour.ncvContour.entered_z">[docs]</a>
-    <span class="k">def</span> <span class="nf">entered_z</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">entered_z</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if values for `zmin`/`zmax` were entered.</span>
 
@@ -704,7 +706,7 @@
 
 <div class="viewcode-block" id="ncvContour.next_z">
 <a class="viewcode-back" href="../../ncvcontour.html#ncvue.ncvcontour.ncvContour.next_z">[docs]</a>
-    <span class="k">def</span> <span class="nf">next_z</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">next_z</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if next button for the plotting variable was pressed.</span>
 
@@ -735,7 +737,7 @@
 
 <div class="viewcode-block" id="ncvContour.prev_z">
 <a class="viewcode-back" href="../../ncvcontour.html#ncvue.ncvcontour.ncvContour.prev_z">[docs]</a>
-    <span class="k">def</span> <span class="nf">prev_z</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">prev_z</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if previous button for the plotting variable was</span>
 <span class="sd">        pressed.</span>
@@ -767,20 +769,25 @@
 
 <div class="viewcode-block" id="ncvContour.newnetcdf">
 <a class="viewcode-back" href="../../ncvcontour.html#ncvue.ncvcontour.ncvContour.newnetcdf">[docs]</a>
-    <span class="k">def</span> <span class="nf">newnetcdf</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">newnetcdf</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Open a new netcdf file and connect it to top.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># get new netcdf file name</span>
         <span class="n">ncfile</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">filedialog</span><span class="o">.</span><span class="n">askopenfilename</span><span class="p">(</span>
-            <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Choose netcdf file&#39;</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Choose netcdf file(s)&#39;</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ncfile</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="c1"># close old netcdf file</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">fi</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span><span class="p">:</span>
-                    <span class="n">fi</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">usex</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">fi</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span><span class="p">:</span>
+                        <span class="n">fi</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
             <span class="c1"># reset empty defaults of top</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">usex</span>   <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># open file with netCDF4 or xarray</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span>     <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># file name or file handle</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">groups</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># filename with incr. index or group names</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">dunlim</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># name of unlimited dimension</span>
@@ -795,20 +802,21 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">maxdim</span> <span class="o">=</span> <span class="mi">0</span>   <span class="c1"># maximum num of dims of all variables</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">cols</span>   <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># variable list</span>
             <span class="c1"># open new netcdf file</span>
+            <span class="n">ianalyse</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">nn</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ncfile</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nc</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">nn</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">))</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ncfile</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;file</span><span class="si">{</span><span class="n">ii</span><span class="si">:</span><span class="s1">03d</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                    <span class="n">nnc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ncfile</span><span class="p">)))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;file</span><span class="si">{</span><span class="n">ii</span><span class="si">:</span><span class="s1">0</span><span class="si">{</span><span class="n">nnc</span><span class="si">}</span><span class="s1">d</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
             <span class="c1"># Check groups</span>
-            <span class="n">ianalyse</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ncfile</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">groups</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">nn</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ncfile</span><span class="p">):</span>
                     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Either multiple files or one file with groups&#39;</span>
-                              <span class="sa">f</span><span class="s1">&#39; allowed as input. Multiple files and file&#39;</span>
-                              <span class="sa">f</span><span class="s1">&#39; </span><span class="si">{</span><span class="n">nn</span><span class="si">}</span><span class="s1"> has groups.&#39;</span><span class="p">)</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Either multiple files or one file with&#39;</span>
+                              <span class="sa">f</span><span class="s1">&#39; groups allowed as input. Multiple files&#39;</span>
+                              <span class="sa">f</span><span class="s1">&#39; given but file </span><span class="si">{</span><span class="n">nn</span><span class="si">}</span><span class="s1"> has groups.&#39;</span><span class="p">)</span>
                         <span class="k">for</span> <span class="n">fi</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span><span class="p">:</span>
                             <span class="n">fi</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
                         <span class="n">ianalyse</span> <span class="o">=</span> <span class="kc">False</span>
@@ -819,9 +827,54 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
 
 
+<div class="viewcode-block" id="ncvContour.newxarray">
+<a class="viewcode-back" href="../../ncvcontour.html#ncvue.ncvcontour.ncvContour.newxarray">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">newxarray</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Open a new netcdf file and connect it to top.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># get new netcdf file name</span>
+        <span class="n">ncfile</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">filedialog</span><span class="o">.</span><span class="n">askopenfilename</span><span class="p">(</span>
+            <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Choose netcdf file(s)&#39;</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ncfile</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># close old netcdf file</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">usex</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">fi</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span><span class="p">:</span>
+                        <span class="n">fi</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="c1"># reset empty defaults of top</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">usex</span>   <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># open file with netCDF4 or xarray</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span>     <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># file name or file handle</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">groups</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># filename with incr. index or group names</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">dunlim</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># name of unlimited dimension</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">time</span>   <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># datetime variable</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">tname</span>  <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># datetime variable name</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">tvar</span>   <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># datetime variable name in netcdf</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">dtime</span>  <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># decimal year</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">latvar</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># name of latitude variable</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">lonvar</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># name of longitude variable</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">latdim</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># name of latitude dimension</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">londim</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># name of longitude dimension</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">maxdim</span> <span class="o">=</span> <span class="mi">0</span>   <span class="c1"># maximum num of dims of all variables</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">cols</span>   <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># variable list</span>
+            <span class="c1"># open new netcdf file</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ncfile</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_mfdataset</span><span class="p">(</span><span class="n">ncfile</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">ncfile</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">analyse_netcdf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
+            <span class="c1"># reset panel</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reinit</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
+
+
 <div class="viewcode-block" id="ncvContour.selected_cmap">
 <a class="viewcode-back" href="../../ncvcontour.html#ncvue.ncvcontour.ncvContour.selected_cmap">[docs]</a>
-    <span class="k">def</span> <span class="nf">selected_cmap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">selected_cmap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if cmap was chosen from menu.</span>
 
@@ -837,7 +890,7 @@
 
 <div class="viewcode-block" id="ncvContour.selected_x">
 <a class="viewcode-back" href="../../ncvcontour.html#ncvue.ncvcontour.ncvContour.selected_x">[docs]</a>
-    <span class="k">def</span> <span class="nf">selected_x</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">selected_x</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if x-variable was selected with combobox.</span>
 
@@ -853,7 +906,7 @@
 
 <div class="viewcode-block" id="ncvContour.selected_y">
 <a class="viewcode-back" href="../../ncvcontour.html#ncvue.ncvcontour.ncvContour.selected_y">[docs]</a>
-    <span class="k">def</span> <span class="nf">selected_y</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">selected_y</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if y-variable was selected with combobox.</span>
 
@@ -869,7 +922,7 @@
 
 <div class="viewcode-block" id="ncvContour.selected_z">
 <a class="viewcode-back" href="../../ncvcontour.html#ncvue.ncvcontour.ncvContour.selected_z">[docs]</a>
-    <span class="k">def</span> <span class="nf">selected_z</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">selected_z</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if plotting variable was selected with combobox.</span>
 
@@ -893,7 +946,7 @@
 
 <div class="viewcode-block" id="ncvContour.spinned_x">
 <a class="viewcode-back" href="../../ncvcontour.html#ncvue.ncvcontour.ncvContour.spinned_x">[docs]</a>
-    <span class="k">def</span> <span class="nf">spinned_x</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">spinned_x</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if spinbox of x-dimensions was changed.</span>
 
@@ -907,7 +960,7 @@
 
 <div class="viewcode-block" id="ncvContour.spinned_y">
 <a class="viewcode-back" href="../../ncvcontour.html#ncvue.ncvcontour.ncvContour.spinned_y">[docs]</a>
-    <span class="k">def</span> <span class="nf">spinned_y</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">spinned_y</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if spinbox of y-dimensions was changed.</span>
 
@@ -921,7 +974,7 @@
 
 <div class="viewcode-block" id="ncvContour.spinned_z">
 <a class="viewcode-back" href="../../ncvcontour.html#ncvue.ncvcontour.ncvContour.spinned_z">[docs]</a>
-    <span class="k">def</span> <span class="nf">spinned_z</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">spinned_z</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Command called if spinbox of z-dimensions was changed.</span>
 
@@ -939,12 +992,13 @@
 
 <div class="viewcode-block" id="ncvContour.reinit">
 <a class="viewcode-back" href="../../ncvcontour.html#ncvue.ncvcontour.ncvContour.reinit">[docs]</a>
-    <span class="k">def</span> <span class="nf">reinit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reinit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Reinitialise the panel from top.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># reinit from top</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">usex</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">usex</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fi</span>     <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">fi</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">groups</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">groups</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">miss</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">miss</span>
@@ -963,6 +1017,8 @@
         <span class="k">for</span> <span class="n">ll</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">zdlbl</span><span class="p">:</span>
             <span class="n">ll</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">ll</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">zd</span><span class="p">:</span>
+            <span class="n">ll</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">ll</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">zdframe</span><span class="p">:</span>
             <span class="n">ll</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">zdframe</span>  <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">zdlblval</span> <span class="o">=</span> <span class="p">[]</span>
@@ -985,6 +1041,8 @@
             <span class="n">ll</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">ll</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">xd</span><span class="p">:</span>
             <span class="n">ll</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">ll</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">xdframe</span><span class="p">:</span>
+            <span class="n">ll</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">xdframe</span>  <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">xdlblval</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">xdlbl</span>    <span class="o">=</span> <span class="p">[]</span>
@@ -1005,6 +1063,8 @@
         <span class="k">for</span> <span class="n">ll</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ydlbl</span><span class="p">:</span>
             <span class="n">ll</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">ll</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">yd</span><span class="p">:</span>
+            <span class="n">ll</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">ll</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ydframe</span><span class="p">:</span>
             <span class="n">ll</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ydframe</span>  <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ydlblval</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1050,7 +1110,7 @@
 
 <div class="viewcode-block" id="ncvContour.redraw">
 <a class="viewcode-back" href="../../ncvcontour.html#ncvue.ncvcontour.ncvContour.redraw">[docs]</a>
-    <span class="k">def</span> <span class="nf">redraw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">redraw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Redraws the plot.</span>
 
@@ -1096,13 +1156,21 @@
         <span class="k">if</span> <span class="p">(</span><span class="n">z</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
             <span class="c1"># z axis</span>
             <span class="n">gz</span><span class="p">,</span> <span class="n">vz</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">vz</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">[</span><span class="n">gz</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">usex</span><span class="p">:</span>
+                <span class="n">tnamez</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span>
+                <span class="n">dtimez</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtime</span>
+                <span class="n">timez</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tnamez</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">[</span><span class="n">gz</span><span class="p">]</span>
+                <span class="n">dtimez</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtime</span><span class="p">[</span><span class="n">gz</span><span class="p">]</span>
+                <span class="n">timez</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">gz</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">vz</span> <span class="o">==</span> <span class="n">tnamez</span><span class="p">:</span>
                 <span class="c1"># should throw an error later</span>
                 <span class="k">if</span> <span class="n">mesh</span><span class="p">:</span>
-                    <span class="n">zz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtime</span><span class="p">[</span><span class="n">gz</span><span class="p">]</span>
+                    <span class="n">zz</span> <span class="o">=</span> <span class="n">dtimez</span>
                     <span class="n">zlab</span> <span class="o">=</span> <span class="s1">&#39;Year&#39;</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">zz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">gz</span><span class="p">]</span>
+                    <span class="n">zz</span> <span class="o">=</span> <span class="n">timez</span>
                     <span class="n">zlab</span> <span class="o">=</span> <span class="s1">&#39;Date&#39;</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">zz</span> <span class="o">=</span> <span class="n">selvar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vz</span><span class="p">)</span>
@@ -1115,12 +1183,20 @@
         <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
             <span class="c1"># y axis</span>
             <span class="n">gy</span><span class="p">,</span> <span class="n">vy</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">vy</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">[</span><span class="n">gy</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">usex</span><span class="p">:</span>
+                <span class="n">tnamey</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span>
+                <span class="n">dtimey</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtime</span>
+                <span class="n">timey</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tnamey</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">[</span><span class="n">gy</span><span class="p">]</span>
+                <span class="n">dtimey</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtime</span><span class="p">[</span><span class="n">gy</span><span class="p">]</span>
+                <span class="n">timey</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">gy</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">vy</span> <span class="o">==</span> <span class="n">tnamey</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">mesh</span><span class="p">:</span>
-                    <span class="n">yy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtime</span><span class="p">[</span><span class="n">gy</span><span class="p">]</span>
+                    <span class="n">yy</span> <span class="o">=</span> <span class="n">dtimey</span>
                     <span class="n">ylab</span> <span class="o">=</span> <span class="s1">&#39;Year&#39;</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">yy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">gy</span><span class="p">]</span>
+                    <span class="n">yy</span> <span class="o">=</span> <span class="n">timey</span>
                     <span class="n">ylab</span> <span class="o">=</span> <span class="s1">&#39;Date&#39;</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">yy</span> <span class="o">=</span> <span class="n">selvar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vy</span><span class="p">)</span>
@@ -1129,12 +1205,20 @@
         <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
             <span class="c1"># x axis</span>
             <span class="n">gx</span><span class="p">,</span> <span class="n">vx</span> <span class="o">=</span> <span class="n">vardim2var</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">vx</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">[</span><span class="n">gx</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">usex</span><span class="p">:</span>
+                <span class="n">tnamex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span>
+                <span class="n">dtimex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtime</span>
+                <span class="n">timex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tnamex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tname</span><span class="p">[</span><span class="n">gx</span><span class="p">]</span>
+                <span class="n">dtimex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtime</span><span class="p">[</span><span class="n">gx</span><span class="p">]</span>
+                <span class="n">timex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">gx</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">vx</span> <span class="o">==</span> <span class="n">tnamex</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">mesh</span><span class="p">:</span>
-                    <span class="n">xx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtime</span><span class="p">[</span><span class="n">gx</span><span class="p">]</span>
+                    <span class="n">xx</span> <span class="o">=</span> <span class="n">dtimex</span>
                     <span class="n">xlab</span> <span class="o">=</span> <span class="s1">&#39;Year&#39;</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">xx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">gx</span><span class="p">]</span>
+                    <span class="n">xx</span> <span class="o">=</span> <span class="n">timex</span>
                     <span class="n">xlab</span> <span class="o">=</span> <span class="s1">&#39;Date&#39;</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">xx</span> <span class="o">=</span> <span class="n">selvar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vx</span><span class="p">)</span>
@@ -1153,8 +1237,7 @@
             <span class="n">zz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">ny</span><span class="p">,</span> <span class="n">nx</span><span class="p">))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
             <span class="n">zlab</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
         <span class="k">if</span> <span class="n">zz</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="n">estr</span>  <span class="o">=</span> <span class="s1">&#39;Contour: z (&#39;</span> <span class="o">+</span> <span class="n">vz</span> <span class="o">+</span> <span class="s1">&#39;) is not 2-dimensional:&#39;</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">estr</span><span class="p">,</span> <span class="n">zz</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Contour: z (</span><span class="si">{vz}</span><span class="s1">) is not 2-dimensional:&#39;</span><span class="p">,</span> <span class="n">zz</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
             <span class="k">return</span>
         <span class="c1"># set x and y to index if not selected</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
@@ -1194,10 +1277,8 @@
                 <span class="n">cb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">cc</span><span class="p">,</span> <span class="n">fraction</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span>
                                           <span class="n">extend</span><span class="o">=</span><span class="n">extend</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-                <span class="n">estr</span>  <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Contour: x (&#39;</span> <span class="o">+</span> <span class="n">vx</span> <span class="o">+</span> <span class="s1">&#39;), y (&#39;</span> <span class="o">+</span> <span class="n">vy</span> <span class="o">+</span> <span class="s1">&#39;),&#39;</span>
-                         <span class="s1">&#39; z (&#39;</span> <span class="o">+</span> <span class="n">vz</span> <span class="o">+</span> <span class="s1">&#39;) shapes do not match for&#39;</span>
-                         <span class="s1">&#39; pcolormesh:&#39;</span><span class="p">)</span>
-                <span class="nb">print</span><span class="p">(</span><span class="n">estr</span><span class="p">,</span> <span class="n">xx</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">yy</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">zz</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Contour: x (</span><span class="si">{</span><span class="n">vx</span><span class="si">}</span><span class="s1">), y (</span><span class="si">{</span><span class="n">vy</span><span class="si">}</span><span class="s1">), z (</span><span class="si">{</span><span class="n">vz</span><span class="si">}</span><span class="s1">) shapes do not&#39;</span>
+                      <span class="sa">f</span><span class="s1">&#39; match for pcolormesh:&#39;</span><span class="p">,</span> <span class="n">xx</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">yy</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">zz</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
                 <span class="k">return</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
@@ -1206,10 +1287,8 @@
                                         <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">extend</span><span class="o">=</span><span class="n">extend</span><span class="p">)</span>
                 <span class="n">cb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">cc</span><span class="p">,</span> <span class="n">fraction</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-                <span class="n">estr</span>  <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Contour: x (&#39;</span> <span class="o">+</span> <span class="n">vx</span> <span class="o">+</span> <span class="s1">&#39;), y (&#39;</span> <span class="o">+</span> <span class="n">vy</span> <span class="o">+</span> <span class="s1">&#39;),&#39;</span>
-                         <span class="s1">&#39; z (&#39;</span> <span class="o">+</span> <span class="n">vz</span> <span class="o">+</span> <span class="s1">&#39;) shapes do not match for&#39;</span>
-                         <span class="s1">&#39; contourf:&#39;</span><span class="p">)</span>
-                <span class="nb">print</span><span class="p">(</span><span class="n">estr</span><span class="p">,</span> <span class="n">xx</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">yy</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">zz</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Contour: x (</span><span class="si">{</span><span class="n">vx</span><span class="si">}</span><span class="s1">), y (</span><span class="si">{</span><span class="n">vy</span><span class="si">}</span><span class="s1">), z (</span><span class="si">{</span><span class="n">vz</span><span class="si">}</span><span class="s1">) shapes do not&#39;</span>
+                      <span class="sa">f</span><span class="s1">&#39; match for contourf:&#39;</span><span class="p">,</span> <span class="n">xx</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">yy</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">zz</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
                 <span class="k">return</span>
         <span class="c1"># help(self.figure)</span>
         <span class="n">cb</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="n">zlab</span><span class="p">)</span>
@@ -1316,8 +1395,8 @@ By Matthias Cuntz
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

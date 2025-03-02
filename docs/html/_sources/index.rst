@@ -2,7 +2,7 @@
 Contents
 --------
 
-.. image:: ../images/map_panel_dark_ylorbr.png
+.. image:: ../images/map_panel_dark_xr_ctk_screenshot
    :width: 860 px
    :align: left
    :alt: Map panel of ncvue
@@ -10,9 +10,9 @@ Contents
 
 .. toctree::
    :includehidden:
-   :maxdepth: 3
+   :maxdepth: 2
 
    readme
-   install
-   changelog
    package
+   changelog
+   authors

@@ -2,13 +2,6 @@ ncvue - A GUI to view netCDF files
 ==================================
 ..
   pandoc -f rst -o README.html -t html README.rst
-  As docs/src/readme.rst:
-    replace _customtkinter_small with _customtkinter_screenshot
-    remove all _small in figures
-    replace
-      higher resolution images can be found in the documentation_
-    with
-      click on figures to open larger pictures
 
 A minimal GUI for a quick view of netCDF files. Aiming to be a drop-in
 replacement for ncview_ and panoply_.
@@ -54,6 +47,63 @@ The complete documentation for ``ncvue`` is available from:
    https://mcuntz.github.io/ncvue/
 
 
+Installation
+------------
+
+``ncvue`` is an application written in Python. If you have Python
+installed, then the best is to install ``ncvue`` within the Python
+universe. The easiest way to install ``ncvue`` is thence via `pip`:
+
+.. code-block:: bash
+
+   pip install ncvue
+
+or using Conda_:
+
+.. code-block:: bash
+
+   conda install -c conda-forge ncvue
+
+``ncvue`` uses CustomTkinter_ if it is installed. CustomTkinter_ is
+not on Conda_. ``ncvue`` can also use xarray_ to open netCDF files if
+it is installed. If you also want to open multiple files with xarray
+(`xarray.open_mfdataset`_), dask_ needs to be installed.
+
+.. code-block:: bash
+
+   pip install dask xarray customtkinter
+
+or:
+
+.. code-block:: bash
+
+   conda install -c conda-forge dask xarray
+
+Sometimes `tkinter` is not enabled in the system's Python version. One
+has to do, for example, ``sudo apt install python3-tk`` on Linux or
+``brew install python3 python-tk`` on macOS with Homebrew_.
+
+We also provide standalone macOS applications that come with
+everything needed to run ``ncvue`` including Python:
+
+  - `ncvue 4.0`_ for macOS 10.x with Intel processor
+  - `ncvue 5.1 Intel`_ and `ncvue 5.1 ARM`_ for Intel and ARM
+    processors, resp., for macOS 14 and 15 [Sonoma, Sequoia] in Aqua
+    look
+  - `ncvue 5.1 CTk Intel`_ and `ncvue 5.1 CTk ARM`_ for Intel and ARM
+    processors, resp., for macOS 14 and 15 [Sonoma, Sequoia] using
+    CustomTkinter_
+
+..
+  - `Windows executable`_ (Windows 10)
+
+`ncvue 4.0` should work from macOS 10.13 (High Sierra) onward on Intel
+processors. `ncvue > 5.0` is either for Intel processors or for Apple
+Silicon (ARM) chips. It comes in the standard Aqua look or uses the
+CustomTkinter_ UI-library. The apps > v5.0 are notarized by Apple and
+might take a short while on first opening.
+
+
 Quick usage guide
 -----------------
 
@@ -61,26 +111,53 @@ Quick usage guide
 
 .. code-block:: bash
 
+   ncvue
    ncvue netcdf_file.nc
    ncvue netcdf_file1.nc netcdf_file2.nc
 
-or from within Python:
+A new netCDF file can be opened from within ``ncvue`` using the
+buttons `Open File` or `Open xarray`.
+
+``ncvue`` analyses the netCDF file looking for unlimited dimensions,
+longitude, latitude, and treats datetime variables. If several files
+are given, they are treated the same as groups in a netCDF file.
+
+One can set another missing value on the command line on top of the
+`_FillValue` and `missing_value` attributes:
+
+.. code-block:: bash
+
+   ncvue -m '-9999' netcdf_file.nc
+
+The command line option `-h` gives a quick usage message.
+
+One can also use xarray_ to open the netCDF file(s) using the command
+line option `-x`
+
+.. code-block:: bash
+
+   ncvue -x netcdf_file.nc
+
+If several files are given with `-x`, then `xarray.open_mfdataset`_ is
+used to open the files as a single dataset:
+
+.. code-block:: bash
+
+   ncvue -x netcdf_file1.nc netcdf_file2.nc
+
+``ncvue`` can be called from  within Python:
 
 .. code-block:: python
 
    from ncvue import ncvue
    ncvue(['netcdf_file.nc'])
 
-where the netCDF file is optional. The latter can also be left out and
-a netCDF file can be opened with the "Open File" button from within
-``ncvue``. The netCDF has to be given in a list because several netcdf
-files can be given as in the second example from the command line.
+The netCDF has to be given in a list within Python.
 
 Note, ``ncvue`` uses the `TkAgg` backend of `matplotlib`. It must be
 called before any other call to `matplotlib`. This also means that you
-cannot launch it from within `iPython` if it was launched with
-`--pylab`. It can be called from within a standard `iPython`, though,
-or using `ipython --gui tk`.
+cannot launch it from `ipython --pylab`. It can be called from within
+a standard `iPython`, though, or using `ipython --gui tk`.
 
 
 General layout
@@ -88,12 +165,11 @@ General layout
 
 On opening, ``ncvue`` presents three panels for different plotting
 types: Scatter or Line plots, Contour plots, and Maps. This is the
-look in macOS light mode (higher resolution images can be found in the
-documentation_):
+look in macOS light mode:
 
-.. image:: https://mcuntz.github.io/ncvue/images/scatter_panel_light_small.png
+.. image:: https://mcuntz.github.io/ncvue/images/scatter_panel_light.png
    :width: 860 px
-   :align: left
+   :align: center
    :alt: Graphical documentation of ncvue layout
 
 ..
@@ -103,16 +179,22 @@ All three panes are organised in this fashion: the plotting canvas,
 the Matplotlib navigation toolbar and the pane, where one can choose
 the plotting variables and dimensions, as well as plotting
 options. You can always choose another panel on top, and open another,
-identical window for the same netCDF file with the button "New Window"
+identical window for the same netCDF file(s) with the button "New Window"
 on the top right.
 
-If CustomTkinter_ is installed (`python -m pip install
-customtkinter`), then the general layout looks like this:
+If CustomTkinter_ is installed, then the general layout looks like:
 
-.. image:: https://mcuntz.github.io/ncvue/images/scatter_panel_light_customtkinter_small.png
+.. image:: https://mcuntz.github.io/ncvue/images/scatter_panel_light_ctk_screenshot.png
    :width: 507 px
-   :align: left
-   :alt: ncvue layout with CustomTkinter
+   :align: center
+   :alt: ncvue layout with CustomTkinter in light mode
+
+or in dark mode:
+
+.. image:: https://mcuntz.github.io/ncvue/images/scatter_panel_dark_ctk_screenshot.png
+   :width: 507 px
+   :align: center
+   :alt: ncvue layout with CustomTkinter in dark mode
 
 CustomTkinter_ does not work well with Conda_.
 
@@ -122,24 +204,24 @@ Map panel
 
 If ``ncvue`` detects latitude and longitude variables with a size
 greater than 1, it opens the Map panel by default. This is the Map
-panel in macOS dark mode, describing all buttons, sliders, entry
-boxes, spinboxes, and menus:
+panel on macOS, describing all buttons, sliders, entry boxes,
+spinboxes, and menus:
 
-.. image:: https://mcuntz.github.io/ncvue/images/map_panel_light_small.png
+.. image:: https://mcuntz.github.io/ncvue/images/map_panel_light.png
    :width: 860 px
-   :align: left
+   :align: center
    :alt: Graphical documentation of Map panel
 
 If it happens that the detection of latitudes and longitudes did not
 work automatically, you can choose the correct variables manually. Or
-you might use the empty entries on top of the dropdown menus of the
-latitudes and longitudes, which uses the index and one can hence
-display the matrix within the netCDF file. You might want to switch of
-the coastlines in this case.
+you might also leave the latitudes and longitudes empty, which uses
+then the indexes, and one can hence display the matrix within the
+netCDF file(s). You might want to switch off the coastlines in this
+case.
 
 You might want to switch off the automatically detected "global"
-option sometimes if your data is on a rotated grid or excludes some
-regions such as below minus -60 °S.
+option sometimes if your data is on a rotated grid, or if you want to
+exclude some regions such as below minus -60 °S.
 
 All dimensions can be set from 0 to the size of the dimension-1, to
 "all", or to any of the arithmetic operators "mean", "std" (standard
@@ -148,17 +230,10 @@ i.e. max-min), "sum", "median", "var" (variance).
 
 Be aware that the underlying cartopy/matplotlib may (or may not) need
 a long time to plot the data (with the pseudocolor 'mesh' option) if
-you change the central longitude of the projection from the central
-longitude of your data, which is automatically detected if "central
-lon" is set to None. Setting "central lon" to the central longitude of
-the input data normally eliminates the problem.
-
-The mapping window looks like this with CustomTkinter_:
-
-.. image:: https://mcuntz.github.io/ncvue/images/map_panel_light_customtkinter_small.png
-   :width: 507 px
-   :align: left
-   :alt: Map panel with CustomTkinter
+you change the central longitude of the projection to anything else
+than the central longitude of your data, which is automatically
+detected if "central lon" is set to None. Setting "central lon" to the
+central longitude of the input data normally eliminates the problem.
 
 
 Scatter/Line panel
@@ -169,30 +244,32 @@ size greater than 1, it opens the Scatter/Line panel by default. This
 is the Scatter/Line panel in macOS dark mode (Aqua look), describing
 all buttons, sliders, entry boxes, spinboxes, and menus:
 
-.. image:: https://mcuntz.github.io/ncvue/images/scatter_panel_dark_small.png
+.. image:: https://mcuntz.github.io/ncvue/images/scatter_panel_dark.png
    :width: 860 px
-   :align: left
+   :align: center
    :alt: Graphical documentation of Scatter/Line panel
 
 The default plot is a line plot with solid lines (line style 'ls' is
-'-'). One can set line style 'ls' to None and set a marker symbol,
-e.g. 'o' for circles, to get a scatter plot. A large variety of line
-styles, marker symbols and color notations are supported.
+'-'). One can set line style 'ls' to None and set a marker symbol
+(marker), e.g. 'o' for circles, to get a scatter plot. A large variety
+of line styles, marker symbols, and color notations are
+supported. They are listed in the tooltips that appear if you hove
+longer than 0.5 s above an entry field.
 
 ``ncvue`` builds automatically a `datetime` variable from the time
-axis. This is correctly interpreted by the underlying Matplotlib also
-when zooming into or panning the axes. But it is also much slower than
-using the index. Selecting the empty entry on top of the dropdown menu
-for `x` uses the index for the x-axis and is very fast. Plotting a
-line plot with 52608 time points takes about 2.2 s on my Macbook Pro
-using the `datetime` variable and about 0.3 s using the index
-(i.e. empty x-variable). This is especially true if one plots multiple
-lines with 'all' entries from a specific dimension. Plotting all 10
-depths of soil water content for the 52608 time points, as in the
-example below, takes also about 0.3 s if using the index as x-variable
-but more than 11.1 s when using the `datetime` variable.
+axis. This is correctly interpreted by the underlying matplotlib_ also
+when zooming or panning the axes. But it is also much slower than
+using the index. Leaving `x` empty uses the index for the x-axis and
+is very fast. Plotting a line plot with 52608 time points takes about
+2.2 s on my MacBook Pro using the `datetime` variable and about 0.3 s
+using the index (i.e. empty x-variable). This is especially true if
+one plots multiple lines with 'all' entries from a specific
+dimension. Plotting all 10 depths of soil water content for the 52608
+time points, as in the example below, takes also about 0.3 s if using
+the index as x-variable but more than 11.1 s when using the `datetime`
+variable.
 
-.. image:: https://mcuntz.github.io/ncvue/images/scatter_panel_dark_multiline.png
+.. image:: https://mcuntz.github.io/ncvue/images/scatter_panel_dark_multiline_screenshot.png
    :width: 507 px
    :align: center
    :alt: Example of multiple lines in the Scatter/Line panel
@@ -205,68 +282,14 @@ The last panel provide by ``ncvue`` draws contour plots. This is the
 Contour panel in macOS dark mode, describing all buttons, sliders,
 entry boxes, spinboxes, and menus:
 
-.. image:: https://mcuntz.github.io/ncvue/images/contour_panel_dark_small.png
+.. image:: https://mcuntz.github.io/ncvue/images/contour_panel_dark.png
    :width: 860 px
-   :align: left
+   :align: center
    :alt: Graphical documentation of Contour panel
 
 This produces also either pseudocolor plots ('mesh' ticked) or filled
 contour plots ('mesh' unticked) just as the Map panel but without any
 map projection.
-
-
-Installation
-------------
-
-``ncvue`` is an application written in Python. If you have Python
-installed, then the best is to install ``ncvue`` within the Python
-universe. The easiest way to install ``ncvue`` is thence via `pip` if
-you have cartopy_ already installed:
-
-.. code-block:: bash
-
-   pip install ncvue
-
-`Cartopy` can, however, be more elaborate to install_. The easiest way
-to install `Cartopy` or directly ``ncvue`` is by using Conda_. After
-installing, for example, Miniconda_:
-
-.. code-block:: bash
-
-   conda install -c conda-forge ncvue
-
-``ncvue`` uses CustomTkinter_ if it is installed. CustomTkinter_ is
-not on Conda_.
-
-Sometimes `tkinter` is not enabled in the system's Python version. One
-has to, for example, ``sudo apt install python3-tk`` or ``sudo apt
-install python-tk`` on Linux or ``brew install python3 python-tk`` on
-macOS with Homebrew_.
-
-We also provide standalone macOS applications that come with
-everything needed to run ``ncvue`` including Python:
-
-  - `ncvue 4.0`_ for macOS 10.x with Intel processor
-  - `ncvue 5.1 (Aqua, Intel)`_ for macOS 14+ [Sonoma] in Aqua look on
-    Intel processors
-  - `ncvue 5.1 (Aqua, ARM)`_ for macOS 14+ [Sonoma] in Aqua look on
-    ARM processors
-  - `ncvue 5.1 (CustomTkinter, Intel)`_ for macOS 14+ [Sonoma] in
-    CustomTkinter look on Intel processors
-  - `ncvue 5.1 (CustomTkinter, ARM)`_ for macOS 14+ [Sonoma] in
-    CustomTkinter look on ARM processors
-
-..
-  - `Windows executable`_ (Windows 10)
-
-`ncvue 4.0` should work from macOS 10.13 (High Sierra) onward on Intel
-processors. `ncvue > 5.0` is either for Intel processors or for Apple
-Silicon (ARM) chips. It comes in the standard Aqua look or uses the
-CustomTkinter_ UI-library. The apps > v5.0 are notarized by Apple and
-might take a short while on first opening.
-
-See the installation instructions_ in the documentation_ for more
-information on installing `Cartopy` and ``ncvue with pip``.
 
 
 License
@@ -275,7 +298,7 @@ License
 ``ncvue`` is distributed under the MIT License. See the LICENSE_ file
 for details.
 
-Copyright (c) 2020-2024 Matthias Cuntz
+Copyright (c) 2020-2025 Matthias Cuntz
 
 ``ncvue`` uses CustomTkinter_ if installed. Otherwise it uses the
 Azure_ 2.0 theme by rdbende_ on Linux and Windows.
@@ -289,32 +312,27 @@ considerably since.
 
 Different netCDF test files were provided by `Juliane Mai`_.
 
-.. _Anaconda: https://www.anaconda.com/products/individual
 .. _Azure: https://github.com/rdbende/Azure-ttk-theme
 .. _cartopy: https://scitools.org.uk/cartopy/docs/latest/
 .. _Conda: https://docs.conda.io/projects/conda/en/latest/
 .. _CustomTkinter: https://customtkinter.tomschimansky.com/
 .. _cx_Freeze: https://cx-freeze.readthedocs.io/en/latest/
-.. _documentation: https://mcuntz.github.io/ncvue/
 .. _Marcelo Duarte: https://github.com/marcelotduarte
 .. _Windows executable: http://www.macu.de/extra/ncvue-3.7-amd64.msi
 .. _Homebrew: https://brew.sh
-.. _install: https://scitools.org.uk/cartopy/docs/latest/installing.html
-.. _instructions: https://mcuntz.github.io/ncvue/html/install.html
 .. _LICENSE: https://github.com/mcuntz/ncvue/blob/main/LICENSE
 .. _matplotlib: https://matplotlib.org/
 .. _Juliane Mai: https://github.com/julemai
-.. _Miniconda: https://docs.conda.io/en/latest/miniconda.html
 .. _Sebastian Müller: https://github.com/MuellerSeb
+.. _dask: https://docs.dask.org/
 .. _ncview: http://meteora.ucsd.edu/~pierce/ncview_home_page.html
 .. _ncvue 4.0: http://www.macu.de/extra/ncvue-4.0.dmg
-.. _ncvue 5.1 (Aqua, Intel): http://www.macu.de/extra/ncvue-5.1.aqua.intel.dmg
-.. _ncvue 5.1 (Aqua, ARM): http://www.macu.de/extra/ncvue-5.1.aqua.arm64.dmg
-.. _ncvue 5.1 (CustomTkinter, Intel): http://www.macu.de/extra/ncvue-5.1.ctkinter.intel.dmg
-.. _ncvue 5.1 (CustomTkinter, ARM): http://www.macu.de/extra/ncvue-5.1.ctkinter.arm64.dmg
-.. _netcdf4: https://unidata.github.io/netcdf4-python/netCDF4/index.html
-.. _numpy: https://numpy.org/
+.. _ncvue 5.1 Intel: http://www.macu.de/extra/ncvue-5.1.aqua.intel.dmg
+.. _ncvue 5.1 ARM: http://www.macu.de/extra/ncvue-5.1.aqua.arm64.dmg
+.. _ncvue 5.1 CTk Intel: http://www.macu.de/extra/ncvue-5.1.ctkinter.intel.dmg
+.. _ncvue 5.1 CTk ARM: http://www.macu.de/extra/ncvue-5.1.ctkinter.arm64.dmg
 .. _panoply: https://www.giss.nasa.gov/tools/panoply/
 .. _rdbende: https://github.com/rdbende
-.. _Sun Valley: https://github.com/rdbende/Sun-Valley-ttk-theme
 .. _template: https://github.com/MuellerSeb/template
+.. _xarray: https://docs.xarray.dev/
+.. _xarray.open_mfdataset: https://docs.xarray.dev/en/stable/generated/xarray.open_mfdataset.html

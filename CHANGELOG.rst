@@ -2,6 +2,7 @@ Changelog
 ---------
 
 v6.0 (Mar 2025)
+   * Set delay for tooltips from 1 s to 0.5 s.
    * Use exclusively `add_*` for widget creation.
    * Remove delay in `ncvmap`.
    * Add `analyse_netcdf_xarray`.

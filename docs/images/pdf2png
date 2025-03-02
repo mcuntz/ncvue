@@ -5,11 +5,11 @@ pdffile=${1}
 pid=$$
 tmpfile=${pdffile%.pdf}.${pid}.pdf
 pngfile=${pdffile%.pdf}.png
-pngfile2=${pdffile%.pdf}_small.png
+# pngfile2=${pdffile%.pdf}_small.png
 
 pdfcrop --margins 1 ${pdffile} ${tmpfile}
 magick -density 300 ${tmpfile} ${pngfile}
-magick -density 150 ${tmpfile} ${pngfile2}
+# magick -density 150 ${tmpfile} ${pngfile2}
 rm ${tmpfile}
 
 exit

@@ -9,6 +9,10 @@ code.xref, a code {
     font-weight: normal;
 }
 
+a:visited {
+    color: #9437FF;
+}
+
 /* .xref { */
 /*     font-family: Liberation Sans, DejaVu Sans, sans serif, sans; */
 /*     font-style: normal; */

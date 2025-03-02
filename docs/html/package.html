@@ -16,31 +16,28 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!--
-    this give us a css class that will be invisible only if js is disabled
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=628480d8" />
   
-  <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <script src="_static/documentation_options.js?v=4d16e57d"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=48fd97d2" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=92a5e652"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -48,10 +45,9 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="ncvue.ncvcontour" href="ncvcontour.html" />
-    <link rel="prev" title="Changelog" href="changelog.html" />
+    <link rel="prev" title="ncvue - A GUI to view netCDF files" href="readme.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="5.2.dev1" />
   </head>
   
   
@@ -67,8 +63,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -76,6 +83,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -83,8 +91,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -100,8 +108,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -131,17 +138,19 @@
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="readme.html">ncvue - A GUI to view netCDF files</a></li>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 <li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">API</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="ncvcontour.html">ncvue.ncvcontour</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvmain.html">ncvue.ncvmain</a></li>
@@ -153,6 +162,8 @@
 <li class="toctree-l2"><a class="reference internal" href="ncvwidgets.html">ncvue.ncvwidgets</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
 </ul>
 
     </div>
@@ -161,14 +172,9 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
-      <div class="sidebar-primary-item">
-<div id="ethical-ad-placement"
-      class="flat"
-      data-ea-publisher="readthedocs"
-      data-ea-type="readthedocs-sidebar"
-      data-ea-manual="true">
-</div></div>
   </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -329,16 +335,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -385,7 +399,7 @@ being slightly more general than ncview targeting maps but providing
 animations, zooming and panning capabilities unlike panoply.</p>
 <dl class="field-list simple">
 <dt class="field-odd">copyright<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Copyright 2020-2021 Matthias Cuntz - mc (at) macu (dot) de</p>
+<dd class="field-odd"><p>Copyright 2020- Matthias Cuntz - mc (at) macu (dot) de</p>
 </dd>
 <dt class="field-even">license<span class="colon">:</span></dt>
 <dd class="field-even"><p>MIT License, see LICENSE for details.</p>
@@ -394,7 +408,7 @@ animations, zooming and panning capabilities unlike panoply.</p>
 </section>
 <section id="subpackages">
 <h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading">#</a></h2>
-<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="ncvcontour.html#module-ncvue.ncvcontour" title="ncvue.ncvcontour"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ncvcontour</span></code></a></p></td>
 <td><p>Contour panel of ncvue.</p></td>
@@ -411,7 +425,7 @@ animations, zooming and panning capabilities unlike panoply.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="ncvscatter.html#module-ncvue.ncvscatter" title="ncvue.ncvscatter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ncvscatter</span></code></a></p></td>
 <td><p>Scatter/Line panel of ncvue.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="ncvue.html#module-ncvue.ncvue" title="ncvue.ncvue"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ncvue</span></code></a>([ncfile, miss])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="ncvue.html#module-ncvue.ncvue" title="ncvue.ncvue"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ncvue</span></code></a>([ncfile, miss, usex])</p></td>
 <td><p>The main function to start the data frame GUI.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="ncvutils.html#module-ncvue.ncvutils" title="ncvue.ncvutils"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ncvutils</span></code></a></p></td>
@@ -468,6 +482,7 @@ Feb 2024, Matthias Cuntz</p></li>
 <li><p>v4.4.3 Use draw_idle for faster animation, Jul 2024, Matthias Cuntz</p></li>
 <li><p>v5.0 Use CustomTkinter if installed, Nov 2024, Matthias Cuntz</p></li>
 <li><p>v5.1 make notarized standalone versions, Dec 2024, Matthias Cuntz</p></li>
+<li><p>v6.0 Include xarray to read input files, Feb 2025, Matthias Cuntz</p></li>
 </ul>
 </dd>
 </dl>
@@ -530,12 +545,10 @@ Feb 2024, Matthias Cuntz</p></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvcontour.html#ncvue.ncvcontour.ncvContour.grid_rowconfigure"><code class="docutils literal notranslate"><span class="pre">ncvContour.grid_rowconfigure()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvcontour.html#ncvue.ncvcontour.ncvContour.grid_size"><code class="docutils literal notranslate"><span class="pre">ncvContour.grid_size()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvcontour.html#ncvue.ncvcontour.ncvContour.grid_slaves"><code class="docutils literal notranslate"><span class="pre">ncvContour.grid_slaves()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="ncvcontour.html#ncvue.ncvcontour.ncvContour.identify"><code class="docutils literal notranslate"><span class="pre">ncvContour.identify()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvcontour.html#ncvue.ncvcontour.ncvContour.image_names"><code class="docutils literal notranslate"><span class="pre">ncvContour.image_names()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvcontour.html#ncvue.ncvcontour.ncvContour.image_types"><code class="docutils literal notranslate"><span class="pre">ncvContour.image_types()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvcontour.html#ncvue.ncvcontour.ncvContour.info"><code class="docutils literal notranslate"><span class="pre">ncvContour.info()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvcontour.html#ncvue.ncvcontour.ncvContour.info_patchlevel"><code class="docutils literal notranslate"><span class="pre">ncvContour.info_patchlevel()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="ncvcontour.html#ncvue.ncvcontour.ncvContour.instate"><code class="docutils literal notranslate"><span class="pre">ncvContour.instate()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvcontour.html#ncvue.ncvcontour.ncvContour.keys"><code class="docutils literal notranslate"><span class="pre">ncvContour.keys()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvcontour.html#ncvue.ncvcontour.ncvContour.lift"><code class="docutils literal notranslate"><span class="pre">ncvContour.lift()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvcontour.html#ncvue.ncvcontour.ncvContour.location"><code class="docutils literal notranslate"><span class="pre">ncvContour.location()</span></code></a></li>
@@ -543,6 +556,7 @@ Feb 2024, Matthias Cuntz</p></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvcontour.html#ncvue.ncvcontour.ncvContour.mainloop"><code class="docutils literal notranslate"><span class="pre">ncvContour.mainloop()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvcontour.html#ncvue.ncvcontour.ncvContour.nametowidget"><code class="docutils literal notranslate"><span class="pre">ncvContour.nametowidget()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvcontour.html#ncvue.ncvcontour.ncvContour.newnetcdf"><code class="docutils literal notranslate"><span class="pre">ncvContour.newnetcdf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ncvcontour.html#ncvue.ncvcontour.ncvContour.newxarray"><code class="docutils literal notranslate"><span class="pre">ncvContour.newxarray()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvcontour.html#ncvue.ncvcontour.ncvContour.next_z"><code class="docutils literal notranslate"><span class="pre">ncvContour.next_z()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvcontour.html#ncvue.ncvcontour.ncvContour.option_add"><code class="docutils literal notranslate"><span class="pre">ncvContour.option_add()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvcontour.html#ncvue.ncvcontour.ncvContour.option_clear"><code class="docutils literal notranslate"><span class="pre">ncvContour.option_clear()</span></code></a></li>
@@ -582,7 +596,6 @@ Feb 2024, Matthias Cuntz</p></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvcontour.html#ncvue.ncvcontour.ncvContour.spinned_x"><code class="docutils literal notranslate"><span class="pre">ncvContour.spinned_x()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvcontour.html#ncvue.ncvcontour.ncvContour.spinned_y"><code class="docutils literal notranslate"><span class="pre">ncvContour.spinned_y()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvcontour.html#ncvue.ncvcontour.ncvContour.spinned_z"><code class="docutils literal notranslate"><span class="pre">ncvContour.spinned_z()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="ncvcontour.html#ncvue.ncvcontour.ncvContour.state"><code class="docutils literal notranslate"><span class="pre">ncvContour.state()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvcontour.html#ncvue.ncvcontour.ncvContour.tk_bisque"><code class="docutils literal notranslate"><span class="pre">ncvContour.tk_bisque()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvcontour.html#ncvue.ncvcontour.ncvContour.tk_focusFollowsMouse"><code class="docutils literal notranslate"><span class="pre">ncvContour.tk_focusFollowsMouse()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvcontour.html#ncvue.ncvcontour.ncvContour.tk_focusNext"><code class="docutils literal notranslate"><span class="pre">ncvContour.tk_focusNext()</span></code></a></li>
@@ -654,6 +667,7 @@ Feb 2024, Matthias Cuntz</p></li>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ncvmain.html">ncvue.ncvmain</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain"><code class="docutils literal notranslate"><span class="pre">ncvMain</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.add"><code class="docutils literal notranslate"><span class="pre">ncvMain.add()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.after"><code class="docutils literal notranslate"><span class="pre">ncvMain.after()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.after_cancel"><code class="docutils literal notranslate"><span class="pre">ncvMain.after_cancel()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.after_idle"><code class="docutils literal notranslate"><span class="pre">ncvMain.after_idle()</span></code></a></li>
@@ -672,6 +686,7 @@ Feb 2024, Matthias Cuntz</p></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.columnconfigure"><code class="docutils literal notranslate"><span class="pre">ncvMain.columnconfigure()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.config"><code class="docutils literal notranslate"><span class="pre">ncvMain.config()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.configure"><code class="docutils literal notranslate"><span class="pre">ncvMain.configure()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.delete"><code class="docutils literal notranslate"><span class="pre">ncvMain.delete()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.deletecommand"><code class="docutils literal notranslate"><span class="pre">ncvMain.deletecommand()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.destroy"><code class="docutils literal notranslate"><span class="pre">ncvMain.destroy()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.event_add"><code class="docutils literal notranslate"><span class="pre">ncvMain.event_add()</span></code></a></li>
@@ -685,6 +700,7 @@ Feb 2024, Matthias Cuntz</p></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.focus_lastfor"><code class="docutils literal notranslate"><span class="pre">ncvMain.focus_lastfor()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.focus_set"><code class="docutils literal notranslate"><span class="pre">ncvMain.focus_set()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.forget"><code class="docutils literal notranslate"><span class="pre">ncvMain.forget()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.get"><code class="docutils literal notranslate"><span class="pre">ncvMain.get()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.getboolean"><code class="docutils literal notranslate"><span class="pre">ncvMain.getboolean()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.getdouble"><code class="docutils literal notranslate"><span class="pre">ncvMain.getdouble()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.getint"><code class="docutils literal notranslate"><span class="pre">ncvMain.getint()</span></code></a></li>
@@ -707,17 +723,18 @@ Feb 2024, Matthias Cuntz</p></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.grid_rowconfigure"><code class="docutils literal notranslate"><span class="pre">ncvMain.grid_rowconfigure()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.grid_size"><code class="docutils literal notranslate"><span class="pre">ncvMain.grid_size()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.grid_slaves"><code class="docutils literal notranslate"><span class="pre">ncvMain.grid_slaves()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.identify"><code class="docutils literal notranslate"><span class="pre">ncvMain.identify()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.image_names"><code class="docutils literal notranslate"><span class="pre">ncvMain.image_names()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.image_types"><code class="docutils literal notranslate"><span class="pre">ncvMain.image_types()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.index"><code class="docutils literal notranslate"><span class="pre">ncvMain.index()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.info"><code class="docutils literal notranslate"><span class="pre">ncvMain.info()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.info_patchlevel"><code class="docutils literal notranslate"><span class="pre">ncvMain.info_patchlevel()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.instate"><code class="docutils literal notranslate"><span class="pre">ncvMain.instate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.insert"><code class="docutils literal notranslate"><span class="pre">ncvMain.insert()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.keys"><code class="docutils literal notranslate"><span class="pre">ncvMain.keys()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.lift"><code class="docutils literal notranslate"><span class="pre">ncvMain.lift()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.location"><code class="docutils literal notranslate"><span class="pre">ncvMain.location()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.lower"><code class="docutils literal notranslate"><span class="pre">ncvMain.lower()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.mainloop"><code class="docutils literal notranslate"><span class="pre">ncvMain.mainloop()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.move"><code class="docutils literal notranslate"><span class="pre">ncvMain.move()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.nametowidget"><code class="docutils literal notranslate"><span class="pre">ncvMain.nametowidget()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.option_add"><code class="docutils literal notranslate"><span class="pre">ncvMain.option_add()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.option_clear"><code class="docutils literal notranslate"><span class="pre">ncvMain.option_clear()</span></code></a></li>
@@ -737,6 +754,7 @@ Feb 2024, Matthias Cuntz</p></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.propagate"><code class="docutils literal notranslate"><span class="pre">ncvMain.propagate()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.quit"><code class="docutils literal notranslate"><span class="pre">ncvMain.quit()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.register"><code class="docutils literal notranslate"><span class="pre">ncvMain.register()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.rename"><code class="docutils literal notranslate"><span class="pre">ncvMain.rename()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.rowconfigure"><code class="docutils literal notranslate"><span class="pre">ncvMain.rowconfigure()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.selection_clear"><code class="docutils literal notranslate"><span class="pre">ncvMain.selection_clear()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.selection_get"><code class="docutils literal notranslate"><span class="pre">ncvMain.selection_get()</span></code></a></li>
@@ -744,10 +762,11 @@ Feb 2024, Matthias Cuntz</p></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.selection_own"><code class="docutils literal notranslate"><span class="pre">ncvMain.selection_own()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.selection_own_get"><code class="docutils literal notranslate"><span class="pre">ncvMain.selection_own_get()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.send"><code class="docutils literal notranslate"><span class="pre">ncvMain.send()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.set"><code class="docutils literal notranslate"><span class="pre">ncvMain.set()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.setvar"><code class="docutils literal notranslate"><span class="pre">ncvMain.setvar()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.size"><code class="docutils literal notranslate"><span class="pre">ncvMain.size()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.slaves"><code class="docutils literal notranslate"><span class="pre">ncvMain.slaves()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.state"><code class="docutils literal notranslate"><span class="pre">ncvMain.state()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.tab"><code class="docutils literal notranslate"><span class="pre">ncvMain.tab()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.tk_bisque"><code class="docutils literal notranslate"><span class="pre">ncvMain.tk_bisque()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.tk_focusFollowsMouse"><code class="docutils literal notranslate"><span class="pre">ncvMain.tk_focusFollowsMouse()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmain.html#ncvue.ncvmain.ncvMain.tk_focusNext"><code class="docutils literal notranslate"><span class="pre">ncvMain.tk_focusNext()</span></code></a></li>
@@ -838,7 +857,6 @@ Feb 2024, Matthias Cuntz</p></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.columnconfigure"><code class="docutils literal notranslate"><span class="pre">ncvMap.columnconfigure()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.config"><code class="docutils literal notranslate"><span class="pre">ncvMap.config()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.configure"><code class="docutils literal notranslate"><span class="pre">ncvMap.configure()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.delay_t"><code class="docutils literal notranslate"><span class="pre">ncvMap.delay_t()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.deletecommand"><code class="docutils literal notranslate"><span class="pre">ncvMap.deletecommand()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.destroy"><code class="docutils literal notranslate"><span class="pre">ncvMap.destroy()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.entered_clon"><code class="docutils literal notranslate"><span class="pre">ncvMap.entered_clon()</span></code></a></li>
@@ -878,12 +896,10 @@ Feb 2024, Matthias Cuntz</p></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.grid_rowconfigure"><code class="docutils literal notranslate"><span class="pre">ncvMap.grid_rowconfigure()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.grid_size"><code class="docutils literal notranslate"><span class="pre">ncvMap.grid_size()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.grid_slaves"><code class="docutils literal notranslate"><span class="pre">ncvMap.grid_slaves()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.identify"><code class="docutils literal notranslate"><span class="pre">ncvMap.identify()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.image_names"><code class="docutils literal notranslate"><span class="pre">ncvMap.image_names()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.image_types"><code class="docutils literal notranslate"><span class="pre">ncvMap.image_types()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.info"><code class="docutils literal notranslate"><span class="pre">ncvMap.info()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.info_patchlevel"><code class="docutils literal notranslate"><span class="pre">ncvMap.info_patchlevel()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.instate"><code class="docutils literal notranslate"><span class="pre">ncvMap.instate()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.keys"><code class="docutils literal notranslate"><span class="pre">ncvMap.keys()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.last_t"><code class="docutils literal notranslate"><span class="pre">ncvMap.last_t()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.lift"><code class="docutils literal notranslate"><span class="pre">ncvMap.lift()</span></code></a></li>
@@ -892,6 +908,7 @@ Feb 2024, Matthias Cuntz</p></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.mainloop"><code class="docutils literal notranslate"><span class="pre">ncvMap.mainloop()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.nametowidget"><code class="docutils literal notranslate"><span class="pre">ncvMap.nametowidget()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.newnetcdf"><code class="docutils literal notranslate"><span class="pre">ncvMap.newnetcdf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.newxarray"><code class="docutils literal notranslate"><span class="pre">ncvMap.newxarray()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.next_t"><code class="docutils literal notranslate"><span class="pre">ncvMap.next_t()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.next_v"><code class="docutils literal notranslate"><span class="pre">ncvMap.next_v()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.nrun_t"><code class="docutils literal notranslate"><span class="pre">ncvMap.nrun_t()</span></code></a></li>
@@ -905,7 +922,6 @@ Feb 2024, Matthias Cuntz</p></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.pack_info"><code class="docutils literal notranslate"><span class="pre">ncvMap.pack_info()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.pack_propagate"><code class="docutils literal notranslate"><span class="pre">ncvMap.pack_propagate()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.pack_slaves"><code class="docutils literal notranslate"><span class="pre">ncvMap.pack_slaves()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.pause_t"><code class="docutils literal notranslate"><span class="pre">ncvMap.pause_t()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.place"><code class="docutils literal notranslate"><span class="pre">ncvMap.place()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.place_configure"><code class="docutils literal notranslate"><span class="pre">ncvMap.place_configure()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.place_forget"><code class="docutils literal notranslate"><span class="pre">ncvMap.place_forget()</span></code></a></li>
@@ -940,7 +956,6 @@ Feb 2024, Matthias Cuntz</p></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.spinned_lat"><code class="docutils literal notranslate"><span class="pre">ncvMap.spinned_lat()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.spinned_lon"><code class="docutils literal notranslate"><span class="pre">ncvMap.spinned_lon()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.spinned_v"><code class="docutils literal notranslate"><span class="pre">ncvMap.spinned_v()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.state"><code class="docutils literal notranslate"><span class="pre">ncvMap.state()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.tk_bisque"><code class="docutils literal notranslate"><span class="pre">ncvMap.tk_bisque()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.tk_focusFollowsMouse"><code class="docutils literal notranslate"><span class="pre">ncvMap.tk_focusFollowsMouse()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvmap.html#ncvue.ncvmap.ncvMap.tk_focusNext"><code class="docutils literal notranslate"><span class="pre">ncvMap.tk_focusNext()</span></code></a></li>
@@ -1084,12 +1099,10 @@ Feb 2024, Matthias Cuntz</p></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.grid_rowconfigure"><code class="docutils literal notranslate"><span class="pre">ncvScatter.grid_rowconfigure()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.grid_size"><code class="docutils literal notranslate"><span class="pre">ncvScatter.grid_size()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.grid_slaves"><code class="docutils literal notranslate"><span class="pre">ncvScatter.grid_slaves()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.identify"><code class="docutils literal notranslate"><span class="pre">ncvScatter.identify()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.image_names"><code class="docutils literal notranslate"><span class="pre">ncvScatter.image_names()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.image_types"><code class="docutils literal notranslate"><span class="pre">ncvScatter.image_types()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.info"><code class="docutils literal notranslate"><span class="pre">ncvScatter.info()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.info_patchlevel"><code class="docutils literal notranslate"><span class="pre">ncvScatter.info_patchlevel()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.instate"><code class="docutils literal notranslate"><span class="pre">ncvScatter.instate()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.keys"><code class="docutils literal notranslate"><span class="pre">ncvScatter.keys()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.lift"><code class="docutils literal notranslate"><span class="pre">ncvScatter.lift()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.location"><code class="docutils literal notranslate"><span class="pre">ncvScatter.location()</span></code></a></li>
@@ -1098,7 +1111,9 @@ Feb 2024, Matthias Cuntz</p></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.minmax_ylim"><code class="docutils literal notranslate"><span class="pre">ncvScatter.minmax_ylim()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.nametowidget"><code class="docutils literal notranslate"><span class="pre">ncvScatter.nametowidget()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.newnetcdf"><code class="docutils literal notranslate"><span class="pre">ncvScatter.newnetcdf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.newxarray"><code class="docutils literal notranslate"><span class="pre">ncvScatter.newxarray()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.next_y"><code class="docutils literal notranslate"><span class="pre">ncvScatter.next_y()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.next_y2"><code class="docutils literal notranslate"><span class="pre">ncvScatter.next_y2()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.option_add"><code class="docutils literal notranslate"><span class="pre">ncvScatter.option_add()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.option_clear"><code class="docutils literal notranslate"><span class="pre">ncvScatter.option_clear()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.option_get"><code class="docutils literal notranslate"><span class="pre">ncvScatter.option_get()</span></code></a></li>
@@ -1115,6 +1130,7 @@ Feb 2024, Matthias Cuntz</p></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.place_info"><code class="docutils literal notranslate"><span class="pre">ncvScatter.place_info()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.place_slaves"><code class="docutils literal notranslate"><span class="pre">ncvScatter.place_slaves()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.prev_y"><code class="docutils literal notranslate"><span class="pre">ncvScatter.prev_y()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.prev_y2"><code class="docutils literal notranslate"><span class="pre">ncvScatter.prev_y2()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.propagate"><code class="docutils literal notranslate"><span class="pre">ncvScatter.propagate()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.quit"><code class="docutils literal notranslate"><span class="pre">ncvScatter.quit()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.redraw"><code class="docutils literal notranslate"><span class="pre">ncvScatter.redraw()</span></code></a></li>
@@ -1138,7 +1154,6 @@ Feb 2024, Matthias Cuntz</p></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.spinned_x"><code class="docutils literal notranslate"><span class="pre">ncvScatter.spinned_x()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.spinned_y"><code class="docutils literal notranslate"><span class="pre">ncvScatter.spinned_y()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.spinned_y2"><code class="docutils literal notranslate"><span class="pre">ncvScatter.spinned_y2()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.state"><code class="docutils literal notranslate"><span class="pre">ncvScatter.state()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.tk_bisque"><code class="docutils literal notranslate"><span class="pre">ncvScatter.tk_bisque()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.tk_focusFollowsMouse"><code class="docutils literal notranslate"><span class="pre">ncvScatter.tk_focusFollowsMouse()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvscatter.html#ncvue.ncvscatter.ncvScatter.tk_focusNext"><code class="docutils literal notranslate"><span class="pre">ncvScatter.tk_focusNext()</span></code></a></li>
@@ -1219,6 +1234,8 @@ Feb 2024, Matthias Cuntz</p></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvutils.html#ncvue.ncvutils.format_coord_map"><code class="docutils literal notranslate"><span class="pre">format_coord_map()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvutils.html#ncvue.ncvutils.format_coord_scatter"><code class="docutils literal notranslate"><span class="pre">format_coord_scatter()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvutils.html#ncvue.ncvutils.get_slice"><code class="docutils literal notranslate"><span class="pre">get_slice()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="ncvutils.html#ncvue.ncvutils.get_standard_name"><code class="docutils literal notranslate"><span class="pre">get_standard_name()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="ncvutils.html#ncvue.ncvutils.get_units"><code class="docutils literal notranslate"><span class="pre">get_units()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvutils.html#ncvue.ncvutils.has_cyclic"><code class="docutils literal notranslate"><span class="pre">has_cyclic()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvutils.html#ncvue.ncvutils.list_intersection"><code class="docutils literal notranslate"><span class="pre">list_intersection()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvutils.html#ncvue.ncvutils.selvar"><code class="docutils literal notranslate"><span class="pre">selvar()</span></code></a></li>
@@ -1226,6 +1243,7 @@ Feb 2024, Matthias Cuntz</p></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvutils.html#ncvue.ncvutils.set_miss"><code class="docutils literal notranslate"><span class="pre">set_miss()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvutils.html#ncvue.ncvutils.spinbox_values"><code class="docutils literal notranslate"><span class="pre">spinbox_values()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvutils.html#ncvue.ncvutils.vardim2var"><code class="docutils literal notranslate"><span class="pre">vardim2var()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="ncvutils.html#ncvue.ncvutils.xzip_dim_name_length"><code class="docutils literal notranslate"><span class="pre">xzip_dim_name_length()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvutils.html#ncvue.ncvutils.zip_dim_name_length"><code class="docutils literal notranslate"><span class="pre">zip_dim_name_length()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvutils.html#ncvue.ncvutils.DIMMETHODS"><code class="docutils literal notranslate"><span class="pre">DIMMETHODS</span></code></a></li>
 </ul>
@@ -1294,12 +1312,10 @@ Feb 2024, Matthias Cuntz</p></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvwidgets.html#ncvue.ncvwidgets.Treeview.grid_rowconfigure"><code class="docutils literal notranslate"><span class="pre">Treeview.grid_rowconfigure()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvwidgets.html#ncvue.ncvwidgets.Treeview.grid_size"><code class="docutils literal notranslate"><span class="pre">Treeview.grid_size()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvwidgets.html#ncvue.ncvwidgets.Treeview.grid_slaves"><code class="docutils literal notranslate"><span class="pre">Treeview.grid_slaves()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="ncvwidgets.html#ncvue.ncvwidgets.Treeview.identify"><code class="docutils literal notranslate"><span class="pre">Treeview.identify()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvwidgets.html#ncvue.ncvwidgets.Treeview.image_names"><code class="docutils literal notranslate"><span class="pre">Treeview.image_names()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvwidgets.html#ncvue.ncvwidgets.Treeview.image_types"><code class="docutils literal notranslate"><span class="pre">Treeview.image_types()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvwidgets.html#ncvue.ncvwidgets.Treeview.info"><code class="docutils literal notranslate"><span class="pre">Treeview.info()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvwidgets.html#ncvue.ncvwidgets.Treeview.info_patchlevel"><code class="docutils literal notranslate"><span class="pre">Treeview.info_patchlevel()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="ncvwidgets.html#ncvue.ncvwidgets.Treeview.instate"><code class="docutils literal notranslate"><span class="pre">Treeview.instate()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvwidgets.html#ncvue.ncvwidgets.Treeview.keys"><code class="docutils literal notranslate"><span class="pre">Treeview.keys()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvwidgets.html#ncvue.ncvwidgets.Treeview.lift"><code class="docutils literal notranslate"><span class="pre">Treeview.lift()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvwidgets.html#ncvue.ncvwidgets.Treeview.location"><code class="docutils literal notranslate"><span class="pre">Treeview.location()</span></code></a></li>
@@ -1334,7 +1350,6 @@ Feb 2024, Matthias Cuntz</p></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvwidgets.html#ncvue.ncvwidgets.Treeview.setvar"><code class="docutils literal notranslate"><span class="pre">Treeview.setvar()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvwidgets.html#ncvue.ncvwidgets.Treeview.size"><code class="docutils literal notranslate"><span class="pre">Treeview.size()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvwidgets.html#ncvue.ncvwidgets.Treeview.slaves"><code class="docutils literal notranslate"><span class="pre">Treeview.slaves()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="ncvwidgets.html#ncvue.ncvwidgets.Treeview.state"><code class="docutils literal notranslate"><span class="pre">Treeview.state()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvwidgets.html#ncvue.ncvwidgets.Treeview.tk_bisque"><code class="docutils literal notranslate"><span class="pre">Treeview.tk_bisque()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvwidgets.html#ncvue.ncvwidgets.Treeview.tk_focusFollowsMouse"><code class="docutils literal notranslate"><span class="pre">Treeview.tk_focusFollowsMouse()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvwidgets.html#ncvue.ncvwidgets.Treeview.tk_focusNext"><code class="docutils literal notranslate"><span class="pre">Treeview.tk_focusNext()</span></code></a></li>
@@ -1402,10 +1417,12 @@ Feb 2024, Matthias Cuntz</p></li>
 <li class="toctree-l3"><a class="reference internal" href="ncvwidgets.html#ncvue.ncvwidgets.Treeview.winfo_y"><code class="docutils literal notranslate"><span class="pre">Treeview.winfo_y()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="ncvwidgets.html#ncvue.ncvwidgets.add_button"><code class="docutils literal notranslate"><span class="pre">add_button()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvwidgets.html#ncvue.ncvwidgets.add_checkbutton"><code class="docutils literal notranslate"><span class="pre">add_checkbutton()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvwidgets.html#ncvue.ncvwidgets.add_combobox"><code class="docutils literal notranslate"><span class="pre">add_combobox()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvwidgets.html#ncvue.ncvwidgets.add_entry"><code class="docutils literal notranslate"><span class="pre">add_entry()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvwidgets.html#ncvue.ncvwidgets.add_imagemenu"><code class="docutils literal notranslate"><span class="pre">add_imagemenu()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="ncvwidgets.html#ncvue.ncvwidgets.add_label"><code class="docutils literal notranslate"><span class="pre">add_label()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvwidgets.html#ncvue.ncvwidgets.add_menu"><code class="docutils literal notranslate"><span class="pre">add_menu()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvwidgets.html#ncvue.ncvwidgets.add_scale"><code class="docutils literal notranslate"><span class="pre">add_scale()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvwidgets.html#ncvue.ncvwidgets.add_spinbox"><code class="docutils literal notranslate"><span class="pre">add_spinbox()</span></code></a></li>
@@ -1429,12 +1446,12 @@ Feb 2024, Matthias Cuntz</p></li>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="changelog.html"
+       href="readme.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Changelog</p>
+        <p class="prev-next-title">ncvue - A GUI to view netCDF files</p>
       </div>
     </a>
     <a class="right-next"
@@ -1453,8 +1470,7 @@ Feb 2024, Matthias Cuntz</p></li>
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1513,8 +1529,8 @@ By Matthias Cuntz
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

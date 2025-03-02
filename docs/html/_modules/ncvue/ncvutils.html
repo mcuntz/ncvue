@@ -15,31 +15,28 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!--
-    this give us a css class that will be invisible only if js is disabled
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=628480d8" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <script src="../../_static/documentation_options.js?v=4d16e57d"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=48fd97d2" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=92a5e652"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -48,7 +45,6 @@
     <link rel="search" title="Search" href="../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="5.2.dev1" />
   </head>
   
   
@@ -64,8 +60,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../../search.html"
       method="get">
@@ -73,6 +80,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -80,8 +88,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -99,8 +107,7 @@
       
         
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -130,17 +137,19 @@
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../readme.html">ncvue - A GUI to view netCDF files</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../package.html">API</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvcontour.html">ncvue.ncvcontour</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ncvmain.html">ncvue.ncvmain</a></li>
@@ -152,6 +161,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../ncvwidgets.html">ncvue.ncvwidgets</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Authors</a></li>
 </ul>
 
     </div>
@@ -160,14 +171,9 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
-      <div class="sidebar-primary-item">
-<div id="ethical-ad-placement"
-      class="flat"
-      data-ea-publisher="readthedocs"
-      data-ea-type="readthedocs-sidebar"
-      data-ea-manual="true">
-</div></div>
   </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -263,16 +269,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 
 </div></div>
       
@@ -325,12 +339,15 @@
 <span class="sd">   format_coord_map</span>
 <span class="sd">   format_coord_scatter</span>
 <span class="sd">   get_slice</span>
+<span class="sd">   get_standard_name</span>
+<span class="sd">   get_units</span>
 <span class="sd">   list_intersection</span>
 <span class="sd">   selvar</span>
 <span class="sd">   set_axis_label</span>
 <span class="sd">   set_miss</span>
 <span class="sd">   spinbox_values</span>
 <span class="sd">   vardim2var</span>
+<span class="sd">   xzip_dim_name_length</span>
 <span class="sd">   zip_dim_name_length</span>
 
 <span class="sd">History</span>
@@ -357,25 +374,38 @@
 <span class="sd">   * Remove [ms] from check for datetime in format_coord on axes,</span>
 <span class="sd">     Oct 2024, Matthias Cuntz</span>
 <span class="sd">   * Use CustomTkinter in clone_ncvmain if installed, Nov 2024, Matthias Cuntz</span>
+<span class="sd">   * Increased digits in format_coord_scatter, Jan 2025, Matthias Cuntz</span>
+<span class="sd">   * Increased digits in format_coord_contour and format_coord_map,</span>
+<span class="sd">     Jan 2025, Matthias Cuntz</span>
+<span class="sd">   * Use f-string in zip_dim_name_length, Feb 2025, Matthias Cuntz</span>
+<span class="sd">   * Added xzip_dim_name_length, get_standard_name, get_units,</span>
+<span class="sd">     Feb 2025, Matthias Cuntz</span>
+<span class="sd">   * Allow xarray in selvar, Feb 2025, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tkinter</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tk</span>
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">customtkinter</span> <span class="kn">import</span> <span class="n">CTkToplevel</span> <span class="k">as</span> <span class="n">Toplevel</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">customtkinter</span><span class="w"> </span><span class="kn">import</span> <span class="n">CTkToplevel</span> <span class="k">as</span> <span class="n">Toplevel</span>
 <span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">Toplevel</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.dates</span> <span class="k">as</span> <span class="nn">mpld</span>
-<span class="kn">import</span> <span class="nn">cartopy.crs</span> <span class="k">as</span> <span class="nn">ccrs</span>
-<span class="kn">import</span> <span class="nn">ncvue</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">tkinter</span><span class="w"> </span><span class="kn">import</span> <span class="n">Toplevel</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.dates</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpld</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cartopy.crs</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ccrs</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+    <span class="n">ihavex</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
+    <span class="n">ihavex</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">ncvue</span>
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;DIMMETHODS&#39;</span><span class="p">,</span>
            <span class="s1">&#39;add_cyclic&#39;</span><span class="p">,</span> <span class="s1">&#39;has_cyclic&#39;</span><span class="p">,</span> <span class="s1">&#39;clone_ncvmain&#39;</span><span class="p">,</span>
            <span class="s1">&#39;format_coord_contour&#39;</span><span class="p">,</span> <span class="s1">&#39;format_coord_map&#39;</span><span class="p">,</span> <span class="s1">&#39;format_coord_scatter&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;get_slice&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;get_slice&#39;</span><span class="p">,</span> <span class="s1">&#39;get_standard_name&#39;</span><span class="p">,</span> <span class="s1">&#39;get_units&#39;</span><span class="p">,</span>
            <span class="s1">&#39;list_intersection&#39;</span><span class="p">,</span> <span class="s1">&#39;selvar&#39;</span><span class="p">,</span> <span class="s1">&#39;set_axis_label&#39;</span><span class="p">,</span> <span class="s1">&#39;set_miss&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;spinbox_values&#39;</span><span class="p">,</span> <span class="s1">&#39;vardim2var&#39;</span><span class="p">,</span> <span class="s1">&#39;zip_dim_name_length&#39;</span><span class="p">]</span>
+           <span class="s1">&#39;spinbox_values&#39;</span><span class="p">,</span> <span class="s1">&#39;vardim2var&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;xzip_dim_name_length&#39;</span><span class="p">,</span> <span class="s1">&#39;zip_dim_name_length&#39;</span><span class="p">]</span>
 
 
 <span class="n">DIMMETHODS</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">,</span> <span class="s1">&#39;ptp&#39;</span><span class="p">,</span> <span class="s1">&#39;sum&#39;</span><span class="p">,</span> <span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="s1">&#39;var&#39;</span><span class="p">)</span>
@@ -394,7 +424,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 
-<span class="k">def</span> <span class="nf">_add_cyclic_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_add_cyclic_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Add a cyclic point to a data array.</span>
 
@@ -421,7 +451,7 @@
     <span class="k">return</span> <span class="n">npc</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">slicer</span><span class="p">)]),</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_add_cyclic_x</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">cyclic</span><span class="o">=</span><span class="mi">360</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_add_cyclic_x</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">cyclic</span><span class="o">=</span><span class="mi">360</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Add a cyclic point to a x/longitude coordinate array.</span>
 
@@ -457,7 +487,7 @@
 
 <div class="viewcode-block" id="has_cyclic">
 <a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.has_cyclic">[docs]</a>
-<span class="k">def</span> <span class="nf">has_cyclic</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">cyclic</span><span class="o">=</span><span class="mi">360</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">has_cyclic</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">cyclic</span><span class="o">=</span><span class="mi">360</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Check if x/longitude coordinates already have a cyclic point.</span>
 
@@ -516,7 +546,7 @@
 
 <div class="viewcode-block" id="add_cyclic">
 <a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.add_cyclic">[docs]</a>
-<span class="k">def</span> <span class="nf">add_cyclic</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_cyclic</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
                <span class="n">cyclic</span><span class="o">=</span><span class="mi">360</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Add a cyclic point to an array and optionally corresponding</span>
@@ -717,7 +747,7 @@
 
 <div class="viewcode-block" id="clone_ncvmain">
 <a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.clone_ncvmain">[docs]</a>
-<span class="k">def</span> <span class="nf">clone_ncvmain</span><span class="p">(</span><span class="n">widget</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">clone_ncvmain</span><span class="p">(</span><span class="n">widget</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Duplicate the main ncvue window.</span>
 
@@ -741,7 +771,7 @@
     <span class="k">if</span> <span class="n">widget</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;ncvMain&#39;</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;clone_ncvmain failed. Widget should be ncvMain.&#39;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;widget.name is: &#39;</span><span class="p">,</span> <span class="n">widget</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-        <span class="kn">import</span> <span class="nn">sys</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
 
     <span class="n">root</span> <span class="o">=</span> <span class="n">Toplevel</span><span class="p">()</span>
@@ -770,7 +800,7 @@
 
 <div class="viewcode-block" id="format_coord_contour">
 <a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.format_coord_contour">[docs]</a>
-<span class="k">def</span> <span class="nf">format_coord_contour</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">zz</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">format_coord_contour</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">zz</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Formatter function for contour plot including value of nearest array cell.</span>
 
@@ -801,13 +831,15 @@
         <span class="n">xarr</span> <span class="o">=</span> <span class="n">xx</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">xarr</span> <span class="o">=</span> <span class="n">xx</span>
-    <span class="k">if</span> <span class="n">xx</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;datetime64&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">type</span><span class="p">:</span>
+    <span class="c1"># if xx.dtype.type == np.dtype(&#39;datetime64&#39;).type:</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">):</span>
         <span class="n">xarr</span> <span class="o">=</span> <span class="n">mpld</span><span class="o">.</span><span class="n">date2num</span><span class="p">(</span><span class="n">xarr</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">yy</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">yarr</span> <span class="o">=</span> <span class="n">yy</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">yarr</span> <span class="o">=</span> <span class="n">yy</span>
-    <span class="k">if</span> <span class="n">yy</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;datetime64&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">type</span><span class="p">:</span>
+    <span class="c1"># if yy.dtype.type == np.dtype(&#39;datetime64&#39;).type:</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">yy</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">):</span>
         <span class="n">yarr</span> <span class="o">=</span> <span class="n">mpld</span><span class="o">.</span><span class="n">date2num</span><span class="p">(</span><span class="n">yarr</span><span class="p">)</span>
     <span class="k">if</span> <span class="p">(</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">xarr</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">xarr</span><span class="o">.</span><span class="n">max</span><span class="p">())</span> <span class="o">&amp;</span>
          <span class="p">(</span><span class="n">y</span> <span class="o">&gt;</span> <span class="n">yarr</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="n">yarr</span><span class="o">.</span><span class="n">max</span><span class="p">())</span> <span class="p">):</span>
@@ -819,25 +851,29 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">xout</span> <span class="o">=</span> <span class="n">x</span>
         <span class="n">yout</span> <span class="o">=</span> <span class="n">y</span>
-        <span class="k">if</span> <span class="n">zz</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;datetime64&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">type</span><span class="p">:</span>
+        <span class="c1"># if zz.dtype.type == np.dtype(&#39;datetime64&#39;).type:</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">zz</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">):</span>
             <span class="n">zout</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">(</span><span class="s1">&#39;NaT&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">zout</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
 
     <span class="c1"># Special treatment for datetime</span>
     <span class="c1"># https://stackoverflow.com/questions/49267011/matplotlib-datetime-from-event-coordinates</span>
-    <span class="k">if</span> <span class="n">xx</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;datetime64&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">type</span><span class="p">:</span>
+    <span class="c1"># if xx.dtype.type == np.dtype(&#39;datetime64&#39;).type:</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">):</span>
         <span class="n">xstr</span> <span class="o">=</span> <span class="n">mpld</span><span class="o">.</span><span class="n">num2date</span><span class="p">(</span><span class="n">xout</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">xstr</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.4g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">xout</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">yy</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;datetime64&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">type</span><span class="p">:</span>
+        <span class="n">xstr</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.6g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">xout</span><span class="p">)</span>
+    <span class="c1"># if yy.dtype.type == np.dtype(&#39;datetime64&#39;).type:</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">yy</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">):</span>
         <span class="n">ystr</span> <span class="o">=</span> <span class="n">mpld</span><span class="o">.</span><span class="n">num2date</span><span class="p">(</span><span class="n">yout</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">ystr</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.4g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">yout</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">zz</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;datetime64&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">type</span><span class="p">:</span>
+        <span class="n">ystr</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.6g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">yout</span><span class="p">)</span>
+    <span class="c1"># if zz.dtype.type == np.dtype(&#39;datetime64&#39;).type:</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">zz</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">):</span>
         <span class="n">zstr</span> <span class="o">=</span> <span class="n">mpld</span><span class="o">.</span><span class="n">num2date</span><span class="p">(</span><span class="n">zout</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">zstr</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.4g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">zout</span><span class="p">)</span>
+        <span class="n">zstr</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.6g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">zout</span><span class="p">)</span>
     <span class="c1"># out = &#39;x=&#39; + xstr + &#39;, y=&#39; + ystr + &#39;, z=&#39; + zstr</span>
     <span class="n">out</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;x=</span><span class="si">{</span><span class="n">xstr</span><span class="si">}</span><span class="s1">, y=</span><span class="si">{</span><span class="n">ystr</span><span class="si">}</span><span class="s1">, z=</span><span class="si">{</span><span class="n">zstr</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="k">return</span> <span class="n">out</span></div>
@@ -846,7 +882,7 @@
 
 <div class="viewcode-block" id="format_coord_map">
 <a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.format_coord_map">[docs]</a>
-<span class="k">def</span> <span class="nf">format_coord_map</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">zz</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">format_coord_map</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">zz</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Formatter function for map including value of nearest array cell.</span>
 
@@ -890,7 +926,7 @@
     <span class="c1"># ystr  = &#39;{:.4g}&#39;.format(yout)</span>
     <span class="n">xstr</span>  <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.4g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">xout</span><span class="p">)</span>
     <span class="n">ystr</span>  <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.4g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">yout</span><span class="p">)</span>
-    <span class="n">zstr</span>  <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.4g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">zout</span><span class="p">)</span>
+    <span class="n">zstr</span>  <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.6g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">zout</span><span class="p">)</span>
     <span class="n">ns</span> <span class="o">=</span> <span class="s1">&#39;N&#39;</span> <span class="k">if</span> <span class="n">lat</span> <span class="o">&gt;=</span> <span class="mf">0.</span> <span class="k">else</span> <span class="s1">&#39;S&#39;</span>
     <span class="n">ew</span> <span class="o">=</span> <span class="s1">&#39;E&#39;</span> <span class="k">if</span> <span class="n">lon</span> <span class="o">&gt;=</span> <span class="mf">0.</span> <span class="k">else</span> <span class="s1">&#39;W&#39;</span>
     <span class="n">latstr</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;</span><span class="si">{:.4f}</span><span class="s1"> </span><span class="se">\u00b0</span><span class="si">{:s}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">lat</span><span class="p">),</span> <span class="n">ns</span><span class="p">)</span>
@@ -904,7 +940,7 @@
 
 <div class="viewcode-block" id="format_coord_scatter">
 <a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.format_coord_scatter">[docs]</a>
-<span class="k">def</span> <span class="nf">format_coord_scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">xdtype</span><span class="p">,</span> <span class="n">ydtype</span><span class="p">,</span> <span class="n">y2dtype</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">format_coord_scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">xdtype</span><span class="p">,</span> <span class="n">ydtype</span><span class="p">,</span> <span class="n">y2dtype</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Formatter function for scatter plot with left and right axis</span>
 <span class="sd">    having the same x-axis.</span>
@@ -942,18 +978,21 @@
 
     <span class="c1"># Special treatment for datetime</span>
     <span class="c1"># https://stackoverflow.com/questions/49267011/matplotlib-datetime-from-event-coordinates</span>
-    <span class="k">if</span> <span class="n">xdtype</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;datetime64&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">type</span><span class="p">:</span>
+    <span class="c1"># if xdtype.type == np.dtype(&#39;datetime64&#39;).type:</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">xdtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">):</span>
         <span class="n">xstr</span> <span class="o">=</span> <span class="n">mpld</span><span class="o">.</span><span class="n">num2date</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">xstr</span>  <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.3g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">ydtype</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;datetime64&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">type</span><span class="p">:</span>
+        <span class="n">xstr</span>  <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.6g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="c1"># if ydtype.type == np.dtype(&#39;datetime64&#39;).type:</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">ydtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">):</span>
         <span class="n">ystr</span> <span class="o">=</span> <span class="n">mpld</span><span class="o">.</span><span class="n">num2date</span><span class="p">(</span><span class="n">ax_coord</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">ystr</span>  <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.3g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ax_coord</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-    <span class="k">if</span> <span class="n">y2dtype</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;datetime64&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">type</span><span class="p">:</span>
+        <span class="n">ystr</span>  <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.6g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ax_coord</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="c1"># if y2dtype.type == np.dtype(&#39;datetime64&#39;).type:</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">y2dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">):</span>
         <span class="n">y2str</span> <span class="o">=</span> <span class="n">mpld</span><span class="o">.</span><span class="n">num2date</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">y2str</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.3g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y2str</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.6g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
     <span class="n">out</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Left: (</span><span class="si">{</span><span class="n">xstr</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">ystr</span><span class="si">}</span><span class="s1">) Right: (</span><span class="si">{</span><span class="n">xstr</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">y2str</span><span class="si">}</span><span class="s1">)&#39;</span>
     <span class="k">return</span> <span class="n">out</span></div>
 
@@ -961,7 +1000,7 @@
 
 <div class="viewcode-block" id="get_slice">
 <a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.get_slice">[docs]</a>
-<span class="k">def</span> <span class="nf">get_slice</span><span class="p">(</span><span class="n">dimspins</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_slice</span><span class="p">(</span><span class="n">dimspins</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get slice of variable `y` inquiring the spinboxes `dimspins`.</span>
 
@@ -975,17 +1014,21 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    ndarray</span>
-<span class="sd">        Slice of `y` chosen by with spinboxes.</span>
+<span class="sd">        Slice of `y` chosen with spinboxes.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; gy, vy = vardim2var(y, self.groups)</span>
 <span class="sd">    &gt;&gt;&gt; yy = selvar(self, vy)</span>
 <span class="sd">    &gt;&gt;&gt; miss = get_miss(self, yy)</span>
-<span class="sd">    &gt;&gt;&gt; yy = get_slice_y(self.yd, yy).squeeze()</span>
+<span class="sd">    &gt;&gt;&gt; yy = get_slice(self.yd, yy).squeeze()</span>
 <span class="sd">    &gt;&gt;&gt; yy = set_miss(miss, yy)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">isxarray</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="n">ihavex</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">):</span>
+            <span class="n">isxarray</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;all&#39;</span><span class="p">]</span>
     <span class="n">methods</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">DIMMETHODS</span><span class="p">)</span>
     <span class="n">dd</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1002,7 +1045,11 @@
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ss</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">imeth</span> <span class="o">=</span> <span class="n">list_intersection</span><span class="p">(</span><span class="n">dd</span><span class="p">,</span> <span class="n">DIMMETHODS</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">imeth</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">yout</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">ss</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="n">isxarray</span><span class="p">:</span>
+                <span class="n">sargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span> <span class="n">ss</span><span class="p">))</span>
+                <span class="n">yout</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="o">**</span><span class="n">sargs</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">yout</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">ss</span><span class="p">)]</span>
             <span class="n">ii</span> <span class="o">=</span> <span class="p">[</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dd</span><span class="p">)</span> <span class="k">if</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">imeth</span> <span class="p">]</span>
             <span class="n">ii</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>  <span class="c1"># last axis first</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ii</span><span class="p">:</span>
@@ -1024,15 +1071,78 @@
                     <span class="n">yout</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">yout</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">yout</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">y</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">ss</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="n">isxarray</span><span class="p">:</span>
+                <span class="n">sargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span> <span class="n">ss</span><span class="p">))</span>
+                <span class="n">yout</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="o">**</span><span class="n">sargs</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">yout</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">ss</span><span class="p">)]</span>
+            <span class="k">return</span> <span class="n">yout</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">y</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span></div>
 
 
 
+<div class="viewcode-block" id="get_standard_name">
+<a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.get_standard_name">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_standard_name</span><span class="p">(</span><span class="n">ivar</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get standard_name, long_name, or name attribute of netcdf variable</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ivar : netCDF4._netCDF4.Variable</span>
+<span class="sd">        netcdf variable</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    string</span>
+<span class="sd">        standard_name, long_name, or name of variable `ivar`</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; name = get_standard_name(self.fi[&#39;Tair])</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">ivar</span><span class="p">,</span> <span class="s1">&#39;standard_name&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">ivar</span><span class="o">.</span><span class="n">standard_name</span>
+    <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">ivar</span><span class="p">,</span> <span class="s1">&#39;long_name&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">ivar</span><span class="o">.</span><span class="n">long_name</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">ivar</span><span class="o">.</span><span class="n">name</span></div>
+
+
+
+<div class="viewcode-block" id="get_units">
+<a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.get_units">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_units</span><span class="p">(</span><span class="n">ivar</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get units attribute of netcdf variable</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ivar : netCDF4._netCDF4.Variable</span>
+<span class="sd">        netcdf variable</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    string</span>
+<span class="sd">        units or empty string</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; units = get_units(self.fi[&#39;Tair])</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">ivar</span><span class="p">,</span> <span class="s1">&#39;units&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">ivar</span><span class="o">.</span><span class="n">units</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;</span></div>
+
+
+
 <div class="viewcode-block" id="list_intersection">
 <a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.list_intersection">[docs]</a>
-<span class="k">def</span> <span class="nf">list_intersection</span><span class="p">(</span><span class="n">lst1</span><span class="p">,</span> <span class="n">lst2</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">list_intersection</span><span class="p">(</span><span class="n">lst1</span><span class="p">,</span> <span class="n">lst2</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Intersection of two lists.</span>
 
@@ -1068,7 +1178,7 @@
 
 <div class="viewcode-block" id="selvar">
 <a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.selvar">[docs]</a>
-<span class="k">def</span> <span class="nf">selvar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">selvar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Extract variable from correct file.</span>
 
@@ -1092,6 +1202,8 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span>
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">usex</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="n">var</span><span class="p">]</span>
     <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">fil</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">fil</span><span class="p">[</span><span class="n">var</span><span class="p">]</span>
@@ -1110,7 +1222,7 @@
 
 <div class="viewcode-block" id="set_axis_label">
 <a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.set_axis_label">[docs]</a>
-<span class="k">def</span> <span class="nf">set_axis_label</span><span class="p">(</span><span class="n">ncvar</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">set_axis_label</span><span class="p">(</span><span class="n">ncvar</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Set label plotting axis from name and unit of given variable</span>
 <span class="sd">    `ncvar`.</span>
@@ -1147,7 +1259,7 @@
 
 <div class="viewcode-block" id="set_miss">
 <a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.set_miss">[docs]</a>
-<span class="k">def</span> <span class="nf">set_miss</span><span class="p">(</span><span class="n">miss</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">set_miss</span><span class="p">(</span><span class="n">miss</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Set `x` to NaN or NaT for all values in miss.</span>
 
@@ -1171,7 +1283,7 @@
 <span class="sd">    &gt;&gt;&gt; x = set_miss(miss, x)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;&lt;M8[ms]&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">):</span>
         <span class="n">default</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">(</span><span class="s1">&#39;NaT&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">default</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
@@ -1183,7 +1295,7 @@
 
 <div class="viewcode-block" id="spinbox_values">
 <a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.spinbox_values">[docs]</a>
-<span class="k">def</span> <span class="nf">spinbox_values</span><span class="p">(</span><span class="n">ndim</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">spinbox_values</span><span class="p">(</span><span class="n">ndim</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Tuple for Spinbox values with &#39;all&#39; before range(`ndim`) and</span>
 <span class="sd">    &#39;mean&#39;, &#39;std&#39;, etc. after range(`ndim`) if `ndim`&gt;1,</span>
@@ -1214,7 +1326,7 @@
 
 <div class="viewcode-block" id="vardim2var">
 <a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.vardim2var">[docs]</a>
-<span class="k">def</span> <span class="nf">vardim2var</span><span class="p">(</span><span class="n">vardim</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="p">[]):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">vardim2var</span><span class="p">(</span><span class="n">vardim</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="p">[]):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Extract group index and variable name from &#39;group/variable (dim1=ndim1,)&#39;.</span>
 
@@ -1245,9 +1357,42 @@
 
 
 
+<div class="viewcode-block" id="xzip_dim_name_length">
+<a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.xzip_dim_name_length">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">xzip_dim_name_length</span><span class="p">(</span><span class="n">ncvar</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Combines dimension names and length of xarray variable in list of strings.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ncvar : xarray.DataArray</span>
+<span class="sd">        xarray variable</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list</span>
+<span class="sd">        List of dimension name and length in the form &#39;dim=len&#39;.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import xarray as xr</span>
+<span class="sd">    &gt;&gt;&gt; ifile = &#39;test.nc&#39;</span>
+<span class="sd">    &gt;&gt;&gt; fi = xr.open_dataset(ifile)</span>
+<span class="sd">    &gt;&gt;&gt; w_soil = fi[&#39;w_soil&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; print(zip_dim_name_length(w_soil))</span>
+<span class="sd">    (&#39;ntime=17520&#39;, &#39;nsoil=30&#39;)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ncvar</span><span class="o">.</span><span class="n">ndim</span><span class="p">):</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ncvar</span><span class="o">.</span><span class="n">dims</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s1">=</span><span class="si">{</span><span class="n">ncvar</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span></div>
+
+
+
 <div class="viewcode-block" id="zip_dim_name_length">
 <a class="viewcode-back" href="../../ncvutils.html#ncvue.ncvutils.zip_dim_name_length">[docs]</a>
-<span class="k">def</span> <span class="nf">zip_dim_name_length</span><span class="p">(</span><span class="n">ncvar</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">zip_dim_name_length</span><span class="p">(</span><span class="n">ncvar</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Combines dimension names and length of netcdf variable in list of strings.</span>
 
@@ -1273,7 +1418,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ncvar</span><span class="o">.</span><span class="n">ndim</span><span class="p">):</span>
-        <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ncvar</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ncvar</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ncvar</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s1">=</span><span class="si">{</span><span class="n">ncvar</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">out</span></div>
 
 </pre></div>
@@ -1338,8 +1483,8 @@ By Matthias Cuntz
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>
