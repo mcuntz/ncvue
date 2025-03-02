@@ -55,6 +55,7 @@ History
      Dec 2024, Matthias Cuntz
    * Bugfix: did not make new frame in add_spinbox, Dec 2024, Matthias Cuntz
    * add_button, add_label, Feb 2025, Matthias Cuntz
+   * Default delay for tooltips from 1 s to 0.5 s, Mar 2025, Matthias Cuntz
 
 """
 import tkinter as tk
@@ -138,7 +139,7 @@ class Tooltip(Hovertip):
     so one can change the tip during run time.
 
     """
-    def __init__(self, anchor_widget, text, hover_delay=1000):
+    def __init__(self, anchor_widget, text, hover_delay=500):
         """
         Create a text tooltip with a mouse hover delay.
         anchor_widget: the widget next to which the tooltip will be shown
