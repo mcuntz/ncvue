@@ -93,6 +93,10 @@ everything needed to run ``ncvue`` including Python:
   - `ncvue 5.1 CTk Intel`_ and `ncvue 5.1 CTk ARM`_ for Intel and ARM
     processors, resp., for macOS 14 and 15 [Sonoma, Sequoia] using
     CustomTkinter_
+  - `ncvue 6.0 Intel`_ and `ncvue 6.0 ARM`_ for Intel and ARM
+    processors, resp., for macOS 15 [Sequoia] in Aqua look
+  - `ncvue 6.0 CTk Intel`_ and `ncvue 6.0 CTk ARM`_ for Intel and ARM
+    processors, resp., for macOS 15 [Sequoia] using CustomTkinter_
 
 ..
   - `Windows executable`_ (Windows 10)
@@ -331,6 +335,10 @@ Different netCDF test files were provided by `Juliane Mai`_.
 .. _ncvue 5.1 ARM: http://www.macu.de/extra/ncvue-5.1.aqua.arm64.dmg
 .. _ncvue 5.1 CTk Intel: http://www.macu.de/extra/ncvue-5.1.ctkinter.intel.dmg
 .. _ncvue 5.1 CTk ARM: http://www.macu.de/extra/ncvue-5.1.ctkinter.arm64.dmg
+.. _ncvue 6.0 Intel: http://www.macu.de/extra/ncvue-6.0.aqua.intel.dmg
+.. _ncvue 6.0 ARM: http://www.macu.de/extra/ncvue-6.0.aqua.arm64.dmg
+.. _ncvue 6.0 CTk Intel: http://www.macu.de/extra/ncvue-6.0.ctk.intel.dmg
+.. _ncvue 6.0 CTk ARM: http://www.macu.de/extra/ncvue-6.0.ctk.arm64.dmg
 .. _panoply: https://www.giss.nasa.gov/tools/panoply/
 .. _rdbende: https://github.com/rdbende
 .. _template: https://github.com/MuellerSeb/template

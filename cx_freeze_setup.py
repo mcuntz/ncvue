@@ -15,8 +15,9 @@ On macOS, use minimal virtual environment
    # pyenv virtualenv 3.12.8 ncvue-install-ctkinter
    # pyenv local ncvue-install-ctkinter
    pyenv rehash
+   # requirements.txt includes dask and xarray
    python -m pip install -r requirements.txt
-   # if ncvue-install-ctkinter
+   # if ncvue-install-ctk
    # python -m pip install customtkinter
    python -m pip install -ve ./
    python -m pip install cx_freeze
@@ -126,7 +127,7 @@ doclines1 = 'A minimal GUI for a quick view of netcdf files'
 doclines  = doclines1 + ', aiming to be a drop-in replacement'
 doclines += ' for ncview and panoply.'
 author    = 'Matthias Cuntz'
-copyright = 'Copyright (c) 2020-2024 Matthias Cuntz - mc (at) macu (dot) de'
+copyright = 'Copyright (c) 2020-2025 Matthias Cuntz - mc (at) macu (dot) de'
 
 version = _find_version('src/' + package, '_version.py')
 
