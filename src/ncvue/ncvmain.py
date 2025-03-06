@@ -165,6 +165,7 @@ class ncvMain(Frame):
         Command called if notebook panel changed or mouse pointer enters a
         window. It checks if netcdf file was changed in any panel of any window
         and re-initialises all plot panels (of the current window).
+
         """
         rescatter = False
         if not (isinstance(self.tab_scatter.top.fi, list) and
@@ -175,9 +176,13 @@ class ncvMain(Frame):
             except:
                 rescatter = True
         else:
-            for i, c in enumerate(self.tab_scatter.fi):
-                if self.tab_scatter.fi[i] != self.tab_scatter.fi[i]:
-                    rescatter = True
+            if len(self.tab_scatter.top.fi) == len(self.tab_scatter.fi):
+                for i, c in enumerate(self.tab_scatter.top.fi):
+                    if self.tab_scatter.fi[i] != self.tab_scatter.top.fi[i]:
+                        rescatter = True
+            else:
+                rescatter = True
+
         if rescatter:
             self.tab_scatter.reinit()
             self.tab_scatter.redraw()
@@ -191,9 +196,12 @@ class ncvMain(Frame):
             except:
                 recontour = True
         else:
-            for i, c in enumerate(self.tab_contour.fi):
-                if self.tab_contour.fi[i] != self.tab_contour.fi[i]:
-                    recontour = True
+            if len(self.tab_contour.top.fi) == len(self.tab_contour.fi):
+                for i, c in enumerate(self.tab_contour.top.fi):
+                    if self.tab_contour.fi[i] != self.tab_contour.top.fi[i]:
+                        recontour = True
+            else:
+                recontour = True
         if recontour:
             self.tab_contour.reinit()
             self.tab_contour.redraw()
@@ -207,9 +215,12 @@ class ncvMain(Frame):
             except:
                 remap = True
         else:
-            for i, c in enumerate(self.tab_map.fi):
-                if self.tab_map.fi[i] != self.tab_map.fi[i]:
-                    remap = True
+            if len(self.tab_map.top.fi) == len(self.tab_map.fi):
+                for i, c in enumerate(self.tab_map.top.fi):
+                    if self.tab_map.fi[i] != self.tab_map.top.fi[i]:
+                        remap = True
+            else:
+                remap = True
         if remap:
             self.tab_map.reinit()
             self.tab_map.redraw()
