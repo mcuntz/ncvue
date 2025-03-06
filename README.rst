@@ -98,8 +98,9 @@ everything needed to run ``ncvue`` including Python:
   - `ncvue 6.0 CTk Intel`_ and `ncvue 6.0 CTk ARM`_ for Intel and ARM
     processors, resp., for macOS 15 [Sequoia] using CustomTkinter_
 
-..
-  - `Windows executable`_ (Windows 10)
+and a tentative Windows installer (to be checked):
+
+  - `ncvue 6.0 Windows`_
 
 `ncvue 4.0` should work from macOS 10.13 (High Sierra) onward on Intel
 processors. `ncvue > 5.0` is either for Intel processors or for Apple
@@ -339,6 +340,7 @@ Different netCDF test files were provided by `Juliane Mai`_.
 .. _ncvue 6.0 ARM: http://www.macu.de/extra/ncvue-6.0.aqua.arm64.dmg
 .. _ncvue 6.0 CTk Intel: http://www.macu.de/extra/ncvue-6.0.ctk.intel.dmg
 .. _ncvue 6.0 CTk ARM: http://www.macu.de/extra/ncvue-6.0.ctk.arm64.dmg
+.. _ncvue 6.0 Windows: http://www.macu.de/extra/ncvue-6.0.win64.msi
 .. _panoply: https://www.giss.nasa.gov/tools/panoply/
 .. _rdbende: https://github.com/rdbende
 .. _template: https://github.com/MuellerSeb/template
