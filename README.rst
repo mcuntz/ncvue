@@ -18,7 +18,7 @@ replacement for ncview_ and panoply_.
    :target: https://anaconda.org/conda-forge/ncvue
    :alt: Conda version
 
-.. image:: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
+.. image:: https://img.shields.io/badge/license-MIT-blue.svg?style=flat
    :target: https://github.com/mcuntz/ncvue/blob/master/LICENSE
    :alt: License
 
@@ -323,7 +323,7 @@ Different netCDF test files were provided by `Juliane Mai`_.
 .. _CustomTkinter: https://customtkinter.tomschimansky.com/
 .. _cx_Freeze: https://cx-freeze.readthedocs.io/en/latest/
 .. _Marcelo Duarte: https://github.com/marcelotduarte
-.. _Windows executable: http://www.macu.de/extra/ncvue-3.7-amd64.msi
+.. _Windows executable: https://www.macu.de/extra/ncvue-3.7-amd64.msi
 .. _Homebrew: https://brew.sh
 .. _LICENSE: https://github.com/mcuntz/ncvue/blob/main/LICENSE
 .. _matplotlib: https://matplotlib.org/
@@ -331,16 +331,16 @@ Different netCDF test files were provided by `Juliane Mai`_.
 .. _Sebastian Müller: https://github.com/MuellerSeb
 .. _dask: https://docs.dask.org/
 .. _ncview: http://meteora.ucsd.edu/~pierce/ncview_home_page.html
-.. _ncvue 4.0: http://www.macu.de/extra/ncvue-4.0.dmg
-.. _ncvue 5.1 Intel: http://www.macu.de/extra/ncvue-5.1.aqua.intel.dmg
-.. _ncvue 5.1 ARM: http://www.macu.de/extra/ncvue-5.1.aqua.arm64.dmg
-.. _ncvue 5.1 CTk Intel: http://www.macu.de/extra/ncvue-5.1.ctkinter.intel.dmg
-.. _ncvue 5.1 CTk ARM: http://www.macu.de/extra/ncvue-5.1.ctkinter.arm64.dmg
-.. _ncvue 6.0 Intel: http://www.macu.de/extra/ncvue-6.0.aqua.intel.dmg
-.. _ncvue 6.0 ARM: http://www.macu.de/extra/ncvue-6.0.aqua.arm64.dmg
-.. _ncvue 6.0 CTk Intel: http://www.macu.de/extra/ncvue-6.0.ctk.intel.dmg
-.. _ncvue 6.0 CTk ARM: http://www.macu.de/extra/ncvue-6.0.ctk.arm64.dmg
-.. _ncvue 6.0 Windows: http://www.macu.de/extra/ncvue-6.0.win64.msi
+.. _ncvue 4.0: https://www.macu.de/extra/ncvue-4.0.dmg
+.. _ncvue 5.1 Intel: https://www.macu.de/extra/ncvue-5.1.aqua.intel.dmg
+.. _ncvue 5.1 ARM: https://www.macu.de/extra/ncvue-5.1.aqua.arm64.dmg
+.. _ncvue 5.1 CTk Intel: https://www.macu.de/extra/ncvue-5.1.ctkinter.intel.dmg
+.. _ncvue 5.1 CTk ARM: https://www.macu.de/extra/ncvue-5.1.ctkinter.arm64.dmg
+.. _ncvue 6.0 Intel: https://www.macu.de/extra/ncvue-6.0.aqua.intel.dmg
+.. _ncvue 6.0 ARM: https://www.macu.de/extra/ncvue-6.0.aqua.arm64.dmg
+.. _ncvue 6.0 CTk Intel: https://www.macu.de/extra/ncvue-6.0.ctk.intel.dmg
+.. _ncvue 6.0 CTk ARM: https://www.macu.de/extra/ncvue-6.0.ctk.arm64.dmg
+.. _ncvue 6.0 Windows: https://www.macu.de/extra/ncvue-6.0.win64.msi
 .. _panoply: https://www.giss.nasa.gov/tools/panoply/
 .. _rdbende: https://github.com/rdbende
 .. _template: https://github.com/MuellerSeb/template
