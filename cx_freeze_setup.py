@@ -12,8 +12,8 @@ On macOS, use minimal virtual environment
    pyenv virtualenv 3.12.8 ncvue-install
    pyenv local ncvue-install
    # or:
-   # pyenv virtualenv 3.12.8 ncvue-install-ctkinter
-   # pyenv local ncvue-install-ctkinter
+   # pyenv virtualenv 3.12.8 ncvue-install-ctk
+   # pyenv local ncvue-install-ctk
    pyenv rehash
    # requirements.txt includes dask and xarray
    python -m pip install -r requirements.txt
@@ -24,17 +24,19 @@ On macOS, use minimal virtual environment
 
 On Windows, use conda-forge for everything because more up-to-date
     # Do not use mkl for smaller executable with PyInstaller/cx_Freeze
+    conda create -n ncvue-install-ctk python=3.12
+    conda activate ncvue-install-ctk
     conda install -c conda-forge nomkl cartopy
-    conda install -c conda-forge scipy cython pykdtree cftime netcdf4
+    conda install -c conda-forge scipy cython pykdtree cftime netcdf4 dask xarray
+    python -m pip install customtkinter
     conda install -c conda-forge cx_Freeze
-    # pip install ncvue
-
+    
 Have to install ncvue, e.g. in ncvue directory
     python -m pip install -ve .
 
 Check in Windows Powershell
-    $env:PYTHONPATH = "C:/Users/mcuntz/prog/github/ncvue"
-    python.exe bin/ncvue
+    $env:PYTHONPATH = "J:/prog/github/ncvue"
+    ncvue
 Executable for testing
     python cx_freeze_setup.py build
 macOS app
@@ -42,19 +44,18 @@ macOS app
 macOS dmg
     python cx_freeze_setup.py bdist_dmg
 Windows installer
-    python.exe cx_freeze_setup.py bdist_msi
+    python cx_freeze_setup.py bdist_msi
 
 '''
 import os
 import codecs
 import re
 import sys
-# import platform
 import glob
 import shutil
+import pyproj
 
 from cx_Freeze import setup, Executable
-# from cx_Freeze.dist import build as _build
 
 
 # find __version__
@@ -75,53 +76,6 @@ def _find_version(*file_paths):
     raise RuntimeError('Unable to find version string.')
 
 
-# special build hook for macOS - remove redundant dylibs
-def _post_build_mac(exedir):
-    adir = glob.glob(exedir + '/lib/*/.dylibs')
-    for aa in adir:
-        print('rm -r', aa)
-        shutil.rmtree(aa)
-
-
-# special build hook for Windows - add all .dll also to base path
-def _post_build_win(exedir):
-    adir = glob.glob(exedir + '/lib/**/*.dll', recursive=True)
-    for aa in adir:
-        if not os.path.exists(exedir + '/' + os.path.basename(aa)):
-            print('cp ', aa, exedir)
-            shutil.copy2(aa, exedir)
-
-
-# special build hook for macOS on Apple Silicon (M1) - add all .dylib
-# also to base path
-def _post_build_m1(exedir):
-    adir = glob.glob(exedir + '/lib/**/*.dylib', recursive=True)
-    for aa in adir:
-        if not os.path.exists(exedir + '/' + os.path.basename(aa)):
-            print('cp ', aa, exedir)
-            shutil.copy2(aa, exedir)
-
-
-# # post build hook
-# # https://stackoverflow.com/questions/17806485/execute-a-python-script-post-install-using-distutils-setuptools
-# class build(_build):
-#     def run(self):
-#         _build.run(self)
-#         if sys.platform == 'win32':
-#             self.execute(_post_build_win, (self.build_exe,),
-#                          msg='Post-build on Windows')
-#         elif sys.platform == 'darwin':
-#             if platform.machine() == 'arm64':
-#                 # self.execute(_post_build_m1, (self.build_exe,),
-#                 #              msg='Post-build on macOS Apple Silicon (M1)')
-#                 pass
-#             else:
-#                 self.execute(_post_build_mac, (self.build_exe,),
-#                              msg='Post-build on macOS')
-#         else:
-#             pass
-
-
 package   = 'ncvue'
 doclines1 = 'A minimal GUI for a quick view of netcdf files'
 doclines  = doclines1 + ', aiming to be a drop-in replacement'
@@ -132,14 +86,14 @@ copyright = 'Copyright (c) 2020-2025 Matthias Cuntz - mc (at) macu (dot) de'
 version = _find_version('src/' + package, '_version.py')
 
 script        = 'src/ncvue/__main__.py'
-# script        = 'bin.save/ncvue'
 packages      = ['scipy', 'cftime', 'netCDF4']  # others detected automatically
 excludes      = ['pyflakes', 'mccabe', 'pycodestyle', 'flake8',  # flake8
                  'gtk', 'PyQt4', 'PyQt5', 'wx']                  # matplotlib
 includes      = []
 # no need to include images and themes because ncvue gets installed as module
 # include_files = [('ncvue/images', 'images'), ('ncvue/themes', 'themes')]
-include_files = []
+# since pyproj v9.1
+include_files = [(pyproj.datadir.get_data_dir(), 'Library/share/proj')]
 
 if sys.platform == 'win32':
     base = 'Win32GUI'
@@ -233,7 +187,6 @@ bdist_msi_options = {
 setup(name=package,
       version=version,
       description=doclines,
-      # cmdclass={'build': build},
       options={'build_exe': build_exe_options,
                'bdist_mac': bdist_mac_options,
                'bdist_dmg': bdist_dmg_options,
