@@ -433,7 +433,7 @@ netCDF file(s).</p>
 <p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is an application written in Python. If you have Python
 installed, then the best is to install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> within the Python
 universe. The easiest way to install <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> is thence via <cite>pip</cite>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>ncvue
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>ncvue
 </pre></div>
 </div>
 <p>or using <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/">Conda</a>:</p>
@@ -443,8 +443,10 @@ universe. The easiest way to install <code class="docutils literal notranslate">
 <p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> uses <a class="reference external" href="https://customtkinter.tomschimansky.com/">CustomTkinter</a> if it is installed. <a class="reference external" href="https://customtkinter.tomschimansky.com/">CustomTkinter</a> is
 not on <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/">Conda</a>. <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> can also use <a class="reference external" href="https://docs.xarray.dev/">xarray</a> to open netCDF files if
 it is installed. If you also want to open multiple files with xarray
-(<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_mfdataset.html">xarray.open_mfdataset</a>), <a class="reference external" href="https://docs.dask.org/">dask</a> needs to be installed.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>dask<span class="w"> </span>xarray<span class="w"> </span>customtkinter
+(<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_mfdataset.html">xarray.open_mfdataset</a>), <a class="reference external" href="https://docs.dask.org/">dask</a> needs to be installed. One can
+install <a class="reference external" href="https://customtkinter.tomschimansky.com/">CustomTkinter</a> with pip on <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/">Conda</a>, which works well except for
+Linux.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>dask<span class="w"> </span>xarray<span class="w"> </span>customtkinter
 </pre></div>
 </div>
 <p>or:</p>
@@ -454,27 +456,27 @@ it is installed. If you also want to open multiple files with xarray
 <p>Sometimes <cite>tkinter</cite> is not enabled in the system’s Python version. One
 has to do, for example, <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">python3-tk</span></code> on Linux or
 <code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">python3</span> <span class="pre">python-tk</span></code> on macOS with <a class="reference external" href="https://brew.sh">Homebrew</a>.</p>
-<p>We also provide standalone macOS applications that come with
-everything needed to run <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> including Python:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><a class="reference external" href="https://www.macu.de/extra/ncvue-4.0.dmg">ncvue 4.0</a> for macOS 10.x with Intel processor</p></li>
-<li><p><a class="reference external" href="https://www.macu.de/extra/ncvue-5.1.aqua.intel.dmg">ncvue 5.1 Intel</a> and <a class="reference external" href="https://www.macu.de/extra/ncvue-5.1.aqua.arm64.dmg">ncvue 5.1 ARM</a> for Intel and ARM
-processors, resp., for macOS 14 and 15 [Sonoma, Sequoia] in Aqua
-look</p></li>
-<li><p><a class="reference external" href="https://www.macu.de/extra/ncvue-5.1.ctkinter.intel.dmg">ncvue 5.1 CTk Intel</a> and <a class="reference external" href="https://www.macu.de/extra/ncvue-5.1.ctkinter.arm64.dmg">ncvue 5.1 CTk ARM</a> for Intel and ARM
-processors, resp., for macOS 14 and 15 [Sonoma, Sequoia] using
-<a class="reference external" href="https://customtkinter.tomschimansky.com/">CustomTkinter</a></p></li>
-<li><p><a class="reference external" href="https://www.macu.de/extra/ncvue-6.0.aqua.intel.dmg">ncvue 6.0 Intel</a> and <a class="reference external" href="https://www.macu.de/extra/ncvue-6.0.aqua.arm64.dmg">ncvue 6.0 ARM</a> for Intel and ARM
-processors, resp., for macOS 15 [Sequoia] in Aqua look</p></li>
-<li><p><a class="reference external" href="https://www.macu.de/extra/ncvue-6.0.ctk.intel.dmg">ncvue 6.0 CTk Intel</a> and <a class="reference external" href="https://www.macu.de/extra/ncvue-6.0.ctk.arm64.dmg">ncvue 6.0 CTk ARM</a> for Intel and ARM
-processors, resp., for macOS 15 [Sequoia] using <a class="reference external" href="https://customtkinter.tomschimansky.com/">CustomTkinter</a></p></li>
-</ul>
-</div></blockquote>
-<p>and a tentative Windows installer (to be checked):</p>
+<p>We also provide standalone applications for Windows and macOS that
+come with everything needed to run <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> including Python:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p><a class="reference external" href="https://www.macu.de/extra/ncvue-6.1.dev4-win64.msi">ncvue 6.1.dev4 Windows</a></p></li>
+<li><p><a class="reference external" href="https://www.macu.de/extra/ncvue-6.0.ctk.intel.dmg">ncvue 6.0 CTk Intel</a> and <a class="reference external" href="https://www.macu.de/extra/ncvue-6.0.ctk.arm64.dmg">ncvue 6.0 CTk ARM</a> for Intel and ARM
+processors, resp., for macOS 15 [Sequoia] using <a class="reference external" href="https://customtkinter.tomschimansky.com/">CustomTkinter</a></p></li>
+<li><p><a class="reference external" href="https://www.macu.de/extra/ncvue-6.0.aqua.intel.dmg">ncvue 6.0 Intel</a> and <a class="reference external" href="https://www.macu.de/extra/ncvue-6.0.aqua.arm64.dmg">ncvue 6.0 ARM</a> for Intel and ARM
+processors, resp., for macOS 15 [Sequoia] in Aqua look</p></li>
+</ul>
+</div></blockquote>
+<p>Older versions are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://www.macu.de/extra/ncvue-5.1.ctkinter.intel.dmg">ncvue 5.1 CTk Intel</a> and <a class="reference external" href="https://www.macu.de/extra/ncvue-5.1.ctkinter.arm64.dmg">ncvue 5.1 CTk ARM</a> for Intel and ARM
+processors, resp., for macOS 14 and 15 [Sonoma, Sequoia] using
+<a class="reference external" href="https://customtkinter.tomschimansky.com/">CustomTkinter</a></p></li>
+<li><p><a class="reference external" href="https://www.macu.de/extra/ncvue-5.1.aqua.intel.dmg">ncvue 5.1 Intel</a> and <a class="reference external" href="https://www.macu.de/extra/ncvue-5.1.aqua.arm64.dmg">ncvue 5.1 ARM</a> for Intel and ARM
+processors, resp., for macOS 14 and 15 [Sonoma, Sequoia] in Aqua
+look</p></li>
+<li><p><a class="reference external" href="https://www.macu.de/extra/ncvue-4.0.dmg">ncvue 4.0</a> for macOS 10.x with Intel processor</p></li>
 </ul>
 </div></blockquote>
 <p><cite>ncvue 4.0</cite> should work from macOS 10.13 (High Sierra) onward on Intel
@@ -492,32 +494,34 @@ ncvue<span class="w"> </span>netcdf_file1.nc<span class="w"> </span>netcdf_file2
 </pre></div>
 </div>
 <p>A new netCDF file can be opened from within <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> using the
-buttons <cite>Open File</cite> or <cite>Open xarray</cite>.</p>
-<p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> analyses the netCDF file looking for unlimited dimensions,
-longitude, latitude, and treats datetime variables. If several files
-are given, they are treated the same as groups in a netCDF file.</p>
+buttons <cite>Open File</cite>. or <cite>Open xarray</cite>.</p>
+<p>One can also use <a class="reference external" href="https://docs.xarray.dev/">xarray</a> to open the netCDF file(s) using the command
+line option <cite>-x</cite> or the button <cite>Open xarray</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ncvue<span class="w"> </span>-x<span class="w"> </span>netcdf_file.nc
+ncvue<span class="w"> </span>-x<span class="w"> </span>netcdf_file1.nc<span class="w"> </span>netcdf_file2.nc
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> either analyses the netCDF file looking for unlimited
+dimensions, longitude, latitude, and treats datetime variables, or
+lets <a class="reference external" href="https://docs.xarray.dev/">xarray</a> do the job. The real difference between using or not
+using <a class="reference external" href="https://docs.xarray.dev/">xarray</a> is in case of several input files: the files will be
+opened as a single dataset with <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_mfdataset.html">xarray.open_mfdataset</a> if <a class="reference external" href="https://docs.xarray.dev/">xarray</a> is
+used. The files will be combined by xarray’s coordinates. This
+requires <a class="reference external" href="https://docs.dask.org/">dask</a> to be installed. The files are treated like groups of a
+single netCDF file if xarray is not used. This allows the comparison
+of different files in scatter plots, for example.</p>
 <p>One can set another missing value on the command line on top of the
 <cite>_FillValue</cite> and <cite>missing_value</cite> attributes:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ncvue<span class="w"> </span>-m<span class="w"> </span><span class="s1">&#39;-9999&#39;</span><span class="w"> </span>netcdf_file.nc
 </pre></div>
 </div>
 <p>The command line option <cite>-h</cite> gives a quick usage message.</p>
-<p>One can also use <a class="reference external" href="https://docs.xarray.dev/">xarray</a> to open the netCDF file(s) using the command
-line option <cite>-x</cite></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ncvue<span class="w"> </span>-x<span class="w"> </span>netcdf_file.nc
-</pre></div>
-</div>
-<p>If several files are given with <cite>-x</cite>, then <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_mfdataset.html">xarray.open_mfdataset</a> is
-used to open the files as a single dataset:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ncvue<span class="w"> </span>-x<span class="w"> </span>netcdf_file1.nc<span class="w"> </span>netcdf_file2.nc
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> can be called from  within Python:</p>
+<p><code class="docutils literal notranslate"><span class="pre">ncvue</span></code> can be called from within Python; the filenames have to be
+given in a list then:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ncvue</span><span class="w"> </span><span class="kn">import</span> <span class="n">ncvue</span>
 <span class="n">ncvue</span><span class="p">([</span><span class="s1">&#39;netcdf_file.nc&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>The netCDF has to be given in a list within Python.</p>
 <p>Note, <code class="docutils literal notranslate"><span class="pre">ncvue</span></code> uses the <cite>TkAgg</cite> backend of <cite>matplotlib</cite>. It must be
 called before any other call to <cite>matplotlib</cite>. This also means that you
 cannot launch it from <cite>ipython –pylab</cite>. It can be called from within

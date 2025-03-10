@@ -56,7 +56,7 @@ universe. The easiest way to install ``ncvue`` is thence via `pip`:
 
 .. code-block:: bash
 
-   pip install ncvue
+   python -m pip install ncvue
 
 or using Conda_:
 
@@ -67,11 +67,13 @@ or using Conda_:
 ``ncvue`` uses CustomTkinter_ if it is installed. CustomTkinter_ is
 not on Conda_. ``ncvue`` can also use xarray_ to open netCDF files if
 it is installed. If you also want to open multiple files with xarray
-(`xarray.open_mfdataset`_), dask_ needs to be installed.
+(`xarray.open_mfdataset`_), dask_ needs to be installed. One can
+install CustomTkinter_ with pip on Conda_, which works well except for
+Linux.
 
 .. code-block:: bash
 
-   pip install dask xarray customtkinter
+   python -m pip install dask xarray customtkinter
 
 or:
 
@@ -83,24 +85,24 @@ Sometimes `tkinter` is not enabled in the system's Python version. One
 has to do, for example, ``sudo apt install python3-tk`` on Linux or
 ``brew install python3 python-tk`` on macOS with Homebrew_.
 
-We also provide standalone macOS applications that come with
-everything needed to run ``ncvue`` including Python:
+We also provide standalone applications for Windows and macOS that
+come with everything needed to run ``ncvue`` including Python:
 
-  - `ncvue 4.0`_ for macOS 10.x with Intel processor
-  - `ncvue 5.1 Intel`_ and `ncvue 5.1 ARM`_ for Intel and ARM
-    processors, resp., for macOS 14 and 15 [Sonoma, Sequoia] in Aqua
-    look
+  - `ncvue 6.1.dev4 Windows`_
+  - `ncvue 6.0 CTk Intel`_ and `ncvue 6.0 CTk ARM`_ for Intel and ARM
+    processors, resp., for macOS 15 [Sequoia] using CustomTkinter_
+  - `ncvue 6.0 Intel`_ and `ncvue 6.0 ARM`_ for Intel and ARM
+    processors, resp., for macOS 15 [Sequoia] in Aqua look
+
+Older versions are:
+
   - `ncvue 5.1 CTk Intel`_ and `ncvue 5.1 CTk ARM`_ for Intel and ARM
     processors, resp., for macOS 14 and 15 [Sonoma, Sequoia] using
     CustomTkinter_
-  - `ncvue 6.0 Intel`_ and `ncvue 6.0 ARM`_ for Intel and ARM
-    processors, resp., for macOS 15 [Sequoia] in Aqua look
-  - `ncvue 6.0 CTk Intel`_ and `ncvue 6.0 CTk ARM`_ for Intel and ARM
-    processors, resp., for macOS 15 [Sequoia] using CustomTkinter_
-
-and a tentative Windows installer (to be checked):
-
-  - `ncvue 6.1.dev4 Windows`_
+  - `ncvue 5.1 Intel`_ and `ncvue 5.1 ARM`_ for Intel and ARM
+    processors, resp., for macOS 14 and 15 [Sonoma, Sequoia] in Aqua
+    look
+  - `ncvue 4.0`_ for macOS 10.x with Intel processor
 
 `ncvue 4.0` should work from macOS 10.13 (High Sierra) onward on Intel
 processors. `ncvue > 5.0` is either for Intel processors or for Apple
@@ -121,11 +123,25 @@ Quick usage guide
    ncvue netcdf_file1.nc netcdf_file2.nc
 
 A new netCDF file can be opened from within ``ncvue`` using the
-buttons `Open File` or `Open xarray`.
+buttons `Open File`. or `Open xarray`.
 
-``ncvue`` analyses the netCDF file looking for unlimited dimensions,
-longitude, latitude, and treats datetime variables. If several files
-are given, they are treated the same as groups in a netCDF file.
+One can also use xarray_ to open the netCDF file(s) using the command
+line option `-x` or the button `Open xarray`:
+
+.. code-block:: bash
+
+   ncvue -x netcdf_file.nc
+   ncvue -x netcdf_file1.nc netcdf_file2.nc
+
+``ncvue`` either analyses the netCDF file looking for unlimited
+dimensions, longitude, latitude, and treats datetime variables, or
+lets xarray_ do the job. The real difference between using or not
+using xarray_ is in case of several input files: the files will be
+opened as a single dataset with `xarray.open_mfdataset`_ if xarray_ is
+used. The files will be combined by xarray's coordinates. This
+requires dask_ to be installed. The files are treated like groups of a
+single netCDF file if xarray is not used. This allows the comparison
+of different files in scatter plots, for example.
 
 One can set another missing value on the command line on top of the
 `_FillValue` and `missing_value` attributes:
@@ -136,28 +152,13 @@ One can set another missing value on the command line on top of the
 
 The command line option `-h` gives a quick usage message.
 
-One can also use xarray_ to open the netCDF file(s) using the command
-line option `-x`
-
-.. code-block:: bash
-
-   ncvue -x netcdf_file.nc
-
-If several files are given with `-x`, then `xarray.open_mfdataset`_ is
-used to open the files as a single dataset:
-
-.. code-block:: bash
-
-   ncvue -x netcdf_file1.nc netcdf_file2.nc
-
-``ncvue`` can be called from  within Python:
+``ncvue`` can be called from within Python; the filenames have to be
+given in a list then:
 
 .. code-block:: python
 
    from ncvue import ncvue
    ncvue(['netcdf_file.nc'])
-
-The netCDF has to be given in a list within Python.
 
 Note, ``ncvue`` uses the `TkAgg` backend of `matplotlib`. It must be
 called before any other call to `matplotlib`. This also means that you
