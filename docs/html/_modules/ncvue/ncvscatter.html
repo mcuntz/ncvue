@@ -351,6 +351,8 @@ document.write(`
 <span class="sd">   * Use add_combobox instead of Combobox directly, Feb 2025, Matthias Cuntz</span>
 <span class="sd">   * Add previous and next for right-hand-side axis, Feb 2025, Matthias Cuntz</span>
 <span class="sd">   * Include xarray to read input files, Feb 2025, Matthias Cuntz</span>
+<span class="sd">   * Add xlim, ylim, and y2lim options, Jun 2025, Matthias Cuntz</span>
+<span class="sd">   * Bugfix for setting axes limits, Jun 2025, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">tkinter</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tk</span>
@@ -368,7 +370,7 @@ document.write(`
 <span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
     <span class="n">ihavex</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.ncvutils</span><span class="w"> </span><span class="kn">import</span> <span class="n">clone_ncvmain</span><span class="p">,</span> <span class="n">format_coord_scatter</span><span class="p">,</span> <span class="n">selvar</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">.ncvutils</span><span class="w"> </span><span class="kn">import</span> <span class="n">set_axis_label</span><span class="p">,</span> <span class="n">vardim2var</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.ncvutils</span><span class="w"> </span><span class="kn">import</span> <span class="n">set_axis_label</span><span class="p">,</span> <span class="n">vardim2var</span><span class="p">,</span> <span class="n">parse_entry</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.ncvmethods</span><span class="w"> </span><span class="kn">import</span> <span class="n">analyse_netcdf</span><span class="p">,</span> <span class="n">get_slice_miss</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.ncvmethods</span><span class="w"> </span><span class="kn">import</span> <span class="n">set_dim_x</span><span class="p">,</span> <span class="n">set_dim_y</span><span class="p">,</span> <span class="n">set_dim_y2</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.ncvwidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_checkbutton</span><span class="p">,</span> <span class="n">add_combobox</span><span class="p">,</span> <span class="n">add_entry</span>
@@ -386,6 +388,31 @@ document.write(`
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ncvScatter&#39;</span><span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_minmax_ylim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ylim</span><span class="p">,</span> <span class="n">ylim2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get minimum of first elements of lists `ylim` and `ylim2` and</span>
+<span class="sd">    maximum of second element of the two lists.</span>
+
+<span class="sd">    Returns minimum, maximum.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ylim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ylim2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="n">ymin</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">ylim</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ylim2</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">ylim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="n">ymin</span> <span class="o">=</span> <span class="n">ylim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ymin</span> <span class="o">=</span> <span class="n">ylim2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ylim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ylim2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="n">ymax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">ylim</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ylim2</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">ylim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="n">ymax</span> <span class="o">=</span> <span class="n">ylim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ymax</span> <span class="o">=</span> <span class="n">ylim2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span>
 
 
 <div class="viewcode-block" id="ncvScatter">
@@ -472,8 +499,9 @@ document.write(`
             <span class="n">ewsmall</span> <span class="o">=</span> <span class="mi">20</span>
             <span class="n">ewmed</span> <span class="o">=</span> <span class="mi">45</span>
             <span class="n">ewbig</span> <span class="o">=</span> <span class="mi">70</span>
+            <span class="n">ew2big</span> <span class="o">=</span> <span class="mi">100</span>
             <span class="c1"># pad between label and entry</span>
-            <span class="n">padx</span> <span class="o">=</span> <span class="mi">5</span>
+            <span class="n">padx</span> <span class="o">=</span> <span class="mi">3</span>
             <span class="c1"># width of animation and variables buttons</span>
             <span class="n">bwidth</span> <span class="o">=</span> <span class="mi">35</span>
             <span class="c1"># width of projections menu</span>
@@ -485,6 +513,7 @@ document.write(`
             <span class="n">ewsmall</span> <span class="o">=</span> <span class="mi">3</span>
             <span class="n">ewmed</span> <span class="o">=</span> <span class="mi">4</span>
             <span class="n">ewbig</span> <span class="o">=</span> <span class="mi">7</span>
+            <span class="n">ew2big</span> <span class="o">=</span> <span class="mi">10</span>
             <span class="c1"># pad between label and entry (not used)</span>
             <span class="n">padx</span> <span class="o">=</span> <span class="mi">5</span>
             <span class="c1"># width of animation and variables buttons</span>
@@ -526,7 +555,7 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">TOP</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>
 
-        <span class="c1"># 1. row : x- and lhs y-axis selection</span>
+        <span class="c1"># 1. row: x- and lhs y-axis selection</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rowxy</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rowxy</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">TOP</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>
         <span class="c1"># block with x and its dimensions</span>
@@ -569,6 +598,7 @@ document.write(`
 
         <span class="c1"># space between x and y blocks</span>
         <span class="n">spacex</span> <span class="o">=</span> <span class="n">add_label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowxy</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+
         <span class="c1"># block with y and its dimensions</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">blocky</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowxy</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">blocky</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
@@ -586,7 +616,7 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">bnext_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bnext_ytip</span> <span class="o">=</span> <span class="n">add_button</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rowy</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;&gt;&#39;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">next_y</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">bwidth</span><span class="p">,</span>
             <span class="n">tooltip</span><span class="o">=</span><span class="s1">&#39;Next variable&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">yframe</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">yylbl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ytip</span> <span class="o">=</span> <span class="n">add_combobox</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">yframe</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ylbl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ytip</span> <span class="o">=</span> <span class="n">add_combobox</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rowy</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_y</span><span class="p">,</span>
             <span class="n">width</span><span class="o">=</span><span class="n">combowidth</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
             <span class="n">tooltip</span><span class="o">=</span><span class="s1">&#39;Choose variable of y-axis&#39;</span><span class="p">)</span>
@@ -665,7 +695,22 @@ document.write(`
             <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">entered_y</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s1">&#39;Marker edge width&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mewframe</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
 
-        <span class="c1"># space</span>
+        <span class="c1"># x- and y-limit</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rowxlim</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rowxlim</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">TOP</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xlimframe</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">xlimlbl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">xlim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">xlimtip</span> <span class="o">=</span> <span class="n">add_entry</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rowxlim</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;xlim&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">ew2big</span><span class="p">,</span>
+            <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">entered_y</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="n">padx</span><span class="p">,</span>
+            <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;xmin, xmax</span><span class="se">\n</span><span class="s2">Set to None for free scaling.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xlimframe</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+        <span class="n">space3</span> <span class="o">=</span> <span class="n">add_label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowxlim</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ylimframe</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ylimlbl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ylim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ylimtip</span> <span class="o">=</span> <span class="n">add_entry</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rowxlim</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;ylim&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">ew2big</span><span class="p">,</span>
+            <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">entered_y</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="n">padx</span><span class="p">,</span>
+            <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;ymin, ymax</span><span class="se">\n</span><span class="s2">Set to None for free scaling.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ylimframe</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+
+        <span class="c1"># empty row</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rowspace</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rowspace</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">TOP</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>
         <span class="n">rowspace</span> <span class="o">=</span> <span class="n">add_label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowspace</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
@@ -765,9 +810,22 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">rowy2opt</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;mew&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">ewsmall</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="n">padx</span><span class="p">,</span>
             <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">entered_y2</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s1">&#39;Marker edge width&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mew2frame</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+        
         <span class="c1"># Quit button</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rowquit</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rowquit</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">TOP</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>
+
+        <span class="c1"># block with y2lim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blocky2lim</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowquit</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blocky2lim</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y2limframe</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y2limlbl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y2lim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y2limtip</span> <span class="o">=</span> <span class="n">add_entry</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">blocky2lim</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;y2lim&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">ew2big</span><span class="p">,</span>
+            <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">entered_y2</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="n">padx</span><span class="p">,</span>
+            <span class="n">tooltip</span><span class="o">=</span><span class="s2">&quot;y2min, y2max</span><span class="se">\n</span><span class="s2">Set to None for free scaling.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y2limframe</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">bquit</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bquittip</span> <span class="o">=</span> <span class="n">add_button</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">rowy2opt</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;Quit&#39;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">destroy</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rowquit</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;Quit&#39;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">destroy</span><span class="p">,</span>
             <span class="n">nopack</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s1">&#39;Quit ncvue&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bquit</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">RIGHT</span><span class="p">)</span>
 
@@ -825,6 +883,8 @@ document.write(`
 <span class="sd">        Redraws left-hand-side and right-hand-side y-axes.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ylim</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y2lim</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw_y</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw_y2</span><span class="p">()</span></div>
 
@@ -874,6 +934,7 @@ document.write(`
         <span class="k">if</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">cols</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cols</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
             <span class="n">set_dim_y</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ylim</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
 
 
@@ -898,6 +959,7 @@ document.write(`
         <span class="k">if</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">cols</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">y2</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cols</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
             <span class="n">set_dim_y2</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">y2lim</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
 
 
@@ -932,6 +994,7 @@ document.write(`
         <span class="k">if</span> <span class="n">idx</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cols</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
             <span class="n">set_dim_y</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ylim</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
 
 
@@ -956,6 +1019,7 @@ document.write(`
         <span class="k">if</span> <span class="n">idx</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">y2</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cols</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
             <span class="n">set_dim_y2</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">y2lim</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
 
 
@@ -1076,6 +1140,7 @@ document.write(`
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">set_dim_x</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xlim</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
 
 
@@ -1092,6 +1157,7 @@ document.write(`
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">set_dim_y</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ylim</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
 
 
@@ -1108,6 +1174,7 @@ document.write(`
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">set_dim_y2</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y2lim</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span></div>
 
 
@@ -1158,33 +1225,6 @@ document.write(`
     <span class="c1">#</span>
     <span class="c1"># Methods</span>
     <span class="c1">#</span>
-
-<div class="viewcode-block" id="ncvScatter.minmax_ylim">
-<a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.minmax_ylim">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">minmax_ylim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ylim</span><span class="p">,</span> <span class="n">ylim2</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get minimum of first elements of lists `ylim` and `ylim2` and</span>
-<span class="sd">        maximum of second element of the two lists.</span>
-
-<span class="sd">        Returns minimum, maximum.</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">ylim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ylim2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
-            <span class="n">ymin</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">ylim</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ylim2</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">ylim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
-                <span class="n">ymin</span> <span class="o">=</span> <span class="n">ylim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">ymin</span> <span class="o">=</span> <span class="n">ylim2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">ylim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ylim2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
-            <span class="n">ymax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">ylim</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ylim2</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">ylim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
-                <span class="n">ymax</span> <span class="o">=</span> <span class="n">ylim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">ymax</span> <span class="o">=</span> <span class="n">ylim2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span></div>
-
 
 <div class="viewcode-block" id="ncvScatter.reinit">
 <a class="viewcode-back" href="../../ncvscatter.html#ncvue.ncvscatter.ncvScatter.reinit">[docs]</a>
@@ -1286,16 +1326,19 @@ document.write(`
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;values&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">columns</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xlim</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">ihavectk</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="s1">&#39;values&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">columns</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ylim</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">ihavectk</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">y2</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">y2</span><span class="p">[</span><span class="s1">&#39;values&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">columns</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">y2</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y2</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y2lim</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">)</span></div>
 
 
     <span class="c1">#</span>
@@ -1318,6 +1361,8 @@ document.write(`
         <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">y</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
             <span class="n">inv_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inv_y</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+            <span class="n">ylim</span> <span class="o">=</span> <span class="n">parse_entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ylim</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+            <span class="n">ylim2</span> <span class="o">=</span> <span class="n">parse_entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y2lim</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
             <span class="c1"># rowxyopt</span>
             <span class="n">ls</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ls</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
             <span class="n">lw</span>  <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lw</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
@@ -1380,35 +1425,39 @@ document.write(`
                     <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="n">ic</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_label_text</span><span class="p">(</span><span class="n">ylab</span><span class="p">)</span>
             <span class="c1"># same y-axes</span>
-            <span class="n">ylim</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
-            <span class="n">ylim2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes2</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ylim</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="n">ylim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ylim2</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="n">ylim2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes2</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">same_y</span> <span class="ow">and</span> <span class="p">(</span><span class="n">y2</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
-                <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">minmax_ylim</span><span class="p">(</span><span class="n">ylim</span><span class="p">,</span> <span class="n">ylim2</span><span class="p">)</span>
+                <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">_minmax_ylim</span><span class="p">(</span><span class="n">ylim</span><span class="p">,</span> <span class="n">ylim2</span><span class="p">)</span>
                 <span class="k">if</span> <span class="p">(</span><span class="n">ymin</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ymax</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
                     <span class="n">ylim</span>  <span class="o">=</span> <span class="p">[</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">]</span>
                     <span class="n">ylim2</span> <span class="o">=</span> <span class="p">[</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">]</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ylim</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">axes2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ylim2</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ylim</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">axes2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ylim2</span><span class="p">)</span>
             <span class="c1"># invert y-axis</span>
             <span class="k">if</span> <span class="n">inv_y</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ylim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">ylim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">ylim</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
                     <span class="n">ylim</span> <span class="o">=</span> <span class="n">ylim</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ylim</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ylim</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">ylim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">ylim</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
                     <span class="n">ylim</span> <span class="o">=</span> <span class="n">ylim</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ylim</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ylim</span><span class="p">)</span>
             <span class="c1"># invert x-axis</span>
             <span class="n">inv_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inv_x</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-            <span class="n">xlim</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">()</span>
+            <span class="n">xlim</span> <span class="o">=</span> <span class="n">parse_entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xlim</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">xlim</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="n">xlim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">inv_x</span> <span class="ow">and</span> <span class="p">(</span><span class="n">xlim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">xlim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">xlim</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
                     <span class="n">xlim</span> <span class="o">=</span> <span class="n">xlim</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xlim</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xlim</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">xlim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">xlim</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
                     <span class="n">xlim</span> <span class="o">=</span> <span class="n">xlim</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xlim</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xlim</span><span class="p">)</span>
             <span class="c1"># redraw</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>
@@ -1434,6 +1483,8 @@ document.write(`
             <span class="c1"># rowy2</span>
             <span class="n">inv_y2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inv_y2</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
             <span class="n">same_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">same_y</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+            <span class="n">ylim</span> <span class="o">=</span> <span class="n">parse_entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ylim</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+            <span class="n">ylim2</span> <span class="o">=</span> <span class="n">parse_entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y2lim</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
             <span class="c1"># rowy2opt</span>
             <span class="n">ls</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ls2</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
             <span class="n">lw</span>  <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lw2</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
@@ -1492,36 +1543,40 @@ document.write(`
                     <span class="bp">self</span><span class="o">.</span><span class="n">axes2</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="n">ic</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">axes2</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_label_text</span><span class="p">(</span><span class="n">ylab</span><span class="p">)</span>
             <span class="c1"># same y-axes</span>
-            <span class="n">ylim</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
-            <span class="n">ylim2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes2</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ylim</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="n">ylim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ylim2</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="n">ylim2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes2</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">same_y</span> <span class="ow">and</span> <span class="p">(</span><span class="n">y2</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
-                <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">minmax_ylim</span><span class="p">(</span><span class="n">ylim</span><span class="p">,</span> <span class="n">ylim2</span><span class="p">)</span>
+                <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">_minmax_ylim</span><span class="p">(</span><span class="n">ylim</span><span class="p">,</span> <span class="n">ylim2</span><span class="p">)</span>
                 <span class="k">if</span> <span class="p">(</span><span class="n">ymin</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ymax</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
                     <span class="n">ylim</span>  <span class="o">=</span> <span class="p">[</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">]</span>
                     <span class="n">ylim2</span> <span class="o">=</span> <span class="p">[</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">]</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ylim</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">axes2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ylim2</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ylim</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">axes2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ylim2</span><span class="p">)</span>
             <span class="c1"># invert y-axis</span>
             <span class="n">ylim</span> <span class="o">=</span> <span class="n">ylim2</span>
             <span class="k">if</span> <span class="n">inv_y2</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ylim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">ylim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">ylim</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
                     <span class="n">ylim</span> <span class="o">=</span> <span class="n">ylim</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">axes2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ylim</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">axes2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ylim</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">ylim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">ylim</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
                     <span class="n">ylim</span> <span class="o">=</span> <span class="n">ylim</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">axes2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ylim</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">axes2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ylim</span><span class="p">)</span>
             <span class="c1"># invert x-axis</span>
             <span class="n">inv_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inv_x</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-            <span class="n">xlim</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">()</span>
+            <span class="n">xlim</span> <span class="o">=</span> <span class="n">parse_entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xlim</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">xlim</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="n">xlim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">inv_x</span> <span class="ow">and</span> <span class="p">(</span><span class="n">xlim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">xlim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">xlim</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
                     <span class="n">xlim</span> <span class="o">=</span> <span class="n">xlim</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xlim</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xlim</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">xlim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">xlim</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
                     <span class="n">xlim</span> <span class="o">=</span> <span class="n">xlim</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xlim</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xlim</span><span class="p">)</span>
             <span class="c1"># redraw</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>

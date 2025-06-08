@@ -1,6 +1,10 @@
 Changelog
 ---------
 
+v6.2 (??? 2025)
+   - Bugfix for setting axes limits.
+   - Add xlim, ylim, and y2lim options.
+
 v6.1 (Mar 2025)
    - Windows installer.
    - Correct logic to check for new file.

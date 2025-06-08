@@ -27,6 +27,7 @@ The following functions are provided:
    get_standard_name
    get_units
    list_intersection
+   parse_entry
    selvar
    set_axis_label
    set_miss
@@ -66,6 +67,7 @@ History
    * Added xzip_dim_name_length, get_standard_name, get_units,
      Feb 2025, Matthias Cuntz
    * Allow xarray in selvar, Feb 2025, Matthias Cuntz
+   * Add parse_entry from dfvutils, Jun 2025, Matthias Cuntz
 
 """
 import tkinter as tk
@@ -73,6 +75,7 @@ try:
     from customtkinter import CTkToplevel as Toplevel
 except ModuleNotFoundError:
     from tkinter import Toplevel
+from math import isfinite
 import numpy as np
 import matplotlib.dates as mpld
 import cartopy.crs as ccrs
@@ -88,7 +91,8 @@ __all__ = ['DIMMETHODS',
            'add_cyclic', 'has_cyclic', 'clone_ncvmain',
            'format_coord_contour', 'format_coord_map', 'format_coord_scatter',
            'get_slice', 'get_standard_name', 'get_units',
-           'list_intersection', 'selvar', 'set_axis_label', 'set_miss',
+           'list_intersection', 'parse_entry',
+           'selvar', 'set_axis_label', 'set_miss',
            'spinbox_values', 'vardim2var',
            'xzip_dim_name_length', 'zip_dim_name_length']
 
@@ -829,6 +833,70 @@ def list_intersection(lst1, lst2):
         return list(set(lst1).intersection(lst2))
     else:
         return [ ll for ll in lst1 if ll in lst2 ]
+
+
+def parse_entry(text):
+    """
+    Convert text string to correct data type
+
+    Parse an entry field to None, bool, int, float, list, dict
+
+    Parameters
+    ----------
+    text : str
+        String from entry field
+
+    Returns
+    -------
+    None, bool, int, float, list, dict
+
+    Examples
+    --------
+    >>> parse_entry('7')
+    7
+    >>> parse_entry('7,3')
+    [7, 3]
+
+    """
+    if text == 'None':
+        # None
+        tt = None
+    elif text == 'True':
+        # bool True
+        tt = True
+    elif text == 'False':
+        # bool False
+        tt = False
+    elif ':' in text:
+        # dict or str
+        try:
+            tt = eval(f'{{{text}}}')
+        except SyntaxError:
+            tt = text
+    elif ',' in text:
+        # list or str
+        try:
+            tt = eval(f'[{text}]')
+        except SyntaxError:
+            tt = text
+    else:
+        try:
+            # int
+            tt = int(text)
+        except ValueError:
+            try:
+                # float
+                tt = float(text)
+            except ValueError:
+                # str
+                tt = text
+            try:
+                if not isfinite(tt):
+                    # keep NaN and Inf string
+                    tt = text
+            except TypeError:
+                pass
+    return tt
 
 
 def selvar(self, var):

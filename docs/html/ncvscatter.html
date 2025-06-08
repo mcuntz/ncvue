@@ -444,7 +444,6 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvscatter.ncvScatter.location"><code class="docutils literal notranslate"><span class="pre">ncvScatter.location()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvscatter.ncvScatter.lower"><code class="docutils literal notranslate"><span class="pre">ncvScatter.lower()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvscatter.ncvScatter.mainloop"><code class="docutils literal notranslate"><span class="pre">ncvScatter.mainloop()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvscatter.ncvScatter.minmax_ylim"><code class="docutils literal notranslate"><span class="pre">ncvScatter.minmax_ylim()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvscatter.ncvScatter.nametowidget"><code class="docutils literal notranslate"><span class="pre">ncvScatter.nametowidget()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvscatter.ncvScatter.newnetcdf"><code class="docutils literal notranslate"><span class="pre">ncvScatter.newnetcdf()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvscatter.ncvScatter.newxarray"><code class="docutils literal notranslate"><span class="pre">ncvScatter.newxarray()</span></code></a></li>
@@ -611,6 +610,8 @@ canvas, May 2021, Matthias Cuntz</p></li>
 <li><p>Use add_combobox instead of Combobox directly, Feb 2025, Matthias Cuntz</p></li>
 <li><p>Add previous and next for right-hand-side axis, Feb 2025, Matthias Cuntz</p></li>
 <li><p>Include xarray to read input files, Feb 2025, Matthias Cuntz</p></li>
+<li><p>Add xlim, ylim, and y2lim options, Jun 2025, Matthias Cuntz</p></li>
+<li><p>Bugfix for setting axes limits, Jun 2025, Matthias Cuntz</p></li>
 </ul>
 </dd>
 </dl>
@@ -825,337 +826,334 @@ all axes, resetting zoom, etc.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.mainloop" title="ncvue.ncvscatter.ncvScatter.mainloop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mainloop</span></code></a>([n])</p></td>
 <td><p>Call the mainloop of Tk.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.minmax_ylim" title="ncvue.ncvscatter.ncvScatter.minmax_ylim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">minmax_ylim</span></code></a>(ylim, ylim2)</p></td>
-<td><p>Get minimum of first elements of lists <cite>ylim</cite> and <cite>ylim2</cite> and maximum of second element of the two lists.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.nametowidget" title="ncvue.ncvscatter.ncvScatter.nametowidget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nametowidget</span></code></a>(name)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.nametowidget" title="ncvue.ncvscatter.ncvScatter.nametowidget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nametowidget</span></code></a>(name)</p></td>
 <td><p>Return the Tkinter instance of a widget identified by its Tcl name NAME.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.newnetcdf" title="ncvue.ncvscatter.ncvScatter.newnetcdf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">newnetcdf</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.newnetcdf" title="ncvue.ncvscatter.ncvScatter.newnetcdf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">newnetcdf</span></code></a>()</p></td>
 <td><p>Open a new netcdf file and connect it to top.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.newxarray" title="ncvue.ncvscatter.ncvScatter.newxarray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">newxarray</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.newxarray" title="ncvue.ncvscatter.ncvScatter.newxarray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">newxarray</span></code></a>()</p></td>
 <td><p>Open a new netcdf file and connect it to top.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.next_y" title="ncvue.ncvscatter.ncvScatter.next_y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">next_y</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.next_y" title="ncvue.ncvscatter.ncvScatter.next_y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">next_y</span></code></a>()</p></td>
 <td><p>Command called if next button for the left-hand-side y-variable was pressed.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.next_y2" title="ncvue.ncvscatter.ncvScatter.next_y2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">next_y2</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.next_y2" title="ncvue.ncvscatter.ncvScatter.next_y2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">next_y2</span></code></a>()</p></td>
 <td><p>Command called if next button for the right-hand-side y-variable was pressed.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.option_add" title="ncvue.ncvscatter.ncvScatter.option_add"><code class="xref py py-obj docutils literal notranslate"><span class="pre">option_add</span></code></a>(pattern, value[, priority])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.option_add" title="ncvue.ncvscatter.ncvScatter.option_add"><code class="xref py py-obj docutils literal notranslate"><span class="pre">option_add</span></code></a>(pattern, value[, priority])</p></td>
 <td><p>Set a VALUE (second parameter) for an option PATTERN (first parameter).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.option_clear" title="ncvue.ncvscatter.ncvScatter.option_clear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">option_clear</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.option_clear" title="ncvue.ncvscatter.ncvScatter.option_clear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">option_clear</span></code></a>()</p></td>
 <td><p>Clear the option database.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.option_get" title="ncvue.ncvscatter.ncvScatter.option_get"><code class="xref py py-obj docutils literal notranslate"><span class="pre">option_get</span></code></a>(name, className)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.option_get" title="ncvue.ncvscatter.ncvScatter.option_get"><code class="xref py py-obj docutils literal notranslate"><span class="pre">option_get</span></code></a>(name, className)</p></td>
 <td><p>Return the value for an option NAME for this widget with CLASSNAME.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.option_readfile" title="ncvue.ncvscatter.ncvScatter.option_readfile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">option_readfile</span></code></a>(fileName[, priority])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.option_readfile" title="ncvue.ncvscatter.ncvScatter.option_readfile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">option_readfile</span></code></a>(fileName[, priority])</p></td>
 <td><p>Read file FILENAME into the option database.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.pack" title="ncvue.ncvscatter.ncvScatter.pack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack</span></code></a>(**kwargs)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.pack" title="ncvue.ncvscatter.ncvScatter.pack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack</span></code></a>(**kwargs)</p></td>
 <td><p>Pack a widget in the parent widget.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.pack_configure" title="ncvue.ncvscatter.ncvScatter.pack_configure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack_configure</span></code></a>([cnf])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.pack_configure" title="ncvue.ncvscatter.ncvScatter.pack_configure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack_configure</span></code></a>([cnf])</p></td>
 <td><p>Pack a widget in the parent widget. Use as options: after=widget - pack it after you have packed widget anchor=NSEW (or subset) - position widget according to                           given direction before=widget - pack it before you will pack widget expand=bool - expand widget if parent size grows fill=NONE or X or Y or BOTH - fill widget if widget grows in=master - use master to contain this widget in_=master - see 'in' option description ipadx=amount - add internal padding in x direction ipady=amount - add internal padding in y direction padx=amount - add padding in x direction pady=amount - add padding in y direction side=TOP or BOTTOM or LEFT or RIGHT -  where to add this widget.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.pack_forget" title="ncvue.ncvscatter.ncvScatter.pack_forget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack_forget</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.pack_forget" title="ncvue.ncvscatter.ncvScatter.pack_forget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack_forget</span></code></a>()</p></td>
 <td><p>Unmap this widget and do not use it for the packing order.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.pack_info" title="ncvue.ncvscatter.ncvScatter.pack_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack_info</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.pack_info" title="ncvue.ncvscatter.ncvScatter.pack_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack_info</span></code></a>()</p></td>
 <td><p>Return information about the packing options for this widget.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.pack_propagate" title="ncvue.ncvscatter.ncvScatter.pack_propagate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack_propagate</span></code></a>([flag])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.pack_propagate" title="ncvue.ncvscatter.ncvScatter.pack_propagate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack_propagate</span></code></a>([flag])</p></td>
 <td><p>Set or get the status for propagation of geometry information.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.pack_slaves" title="ncvue.ncvscatter.ncvScatter.pack_slaves"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack_slaves</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.pack_slaves" title="ncvue.ncvscatter.ncvScatter.pack_slaves"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack_slaves</span></code></a>()</p></td>
 <td><p>Return a list of all slaves of this widget in its packing order.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.place" title="ncvue.ncvscatter.ncvScatter.place"><code class="xref py py-obj docutils literal notranslate"><span class="pre">place</span></code></a>(**kwargs)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.place" title="ncvue.ncvscatter.ncvScatter.place"><code class="xref py py-obj docutils literal notranslate"><span class="pre">place</span></code></a>(**kwargs)</p></td>
 <td><p>Place a widget in the parent widget.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.place_configure" title="ncvue.ncvscatter.ncvScatter.place_configure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">place_configure</span></code></a>([cnf])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.place_configure" title="ncvue.ncvscatter.ncvScatter.place_configure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">place_configure</span></code></a>([cnf])</p></td>
 <td><p>Place a widget in the parent widget. Use as options: in=master - master relative to which the widget is placed in_=master - see 'in' option description x=amount - locate anchor of this widget at position x of master y=amount - locate anchor of this widget at position y of master relx=amount - locate anchor of this widget between 0.0 and 1.0               relative to width of master (1.0 is right edge) rely=amount - locate anchor of this widget between 0.0 and 1.0               relative to height of master (1.0 is bottom edge) anchor=NSEW (or subset) - position anchor according to given direction width=amount - width of this widget in pixel height=amount - height of this widget in pixel relwidth=amount - width of this widget between 0.0 and 1.0                   relative to width of master (1.0 is the same width                   as the master) relheight=amount - height of this widget between 0.0 and 1.0                    relative to height of master (1.0 is the same                    height as the master) bordermode=&quot;inside&quot; or &quot;outside&quot; - whether to take border width of                                    master widget into account.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.place_forget" title="ncvue.ncvscatter.ncvScatter.place_forget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">place_forget</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.place_forget" title="ncvue.ncvscatter.ncvScatter.place_forget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">place_forget</span></code></a>()</p></td>
 <td><p>Unmap this widget.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.place_info" title="ncvue.ncvscatter.ncvScatter.place_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">place_info</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.place_info" title="ncvue.ncvscatter.ncvScatter.place_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">place_info</span></code></a>()</p></td>
 <td><p>Return information about the placing options for this widget.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.place_slaves" title="ncvue.ncvscatter.ncvScatter.place_slaves"><code class="xref py py-obj docutils literal notranslate"><span class="pre">place_slaves</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.place_slaves" title="ncvue.ncvscatter.ncvScatter.place_slaves"><code class="xref py py-obj docutils literal notranslate"><span class="pre">place_slaves</span></code></a>()</p></td>
 <td><p>Return a list of all slaves of this widget in its packing order.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.prev_y" title="ncvue.ncvscatter.ncvScatter.prev_y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prev_y</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.prev_y" title="ncvue.ncvscatter.ncvScatter.prev_y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prev_y</span></code></a>()</p></td>
 <td><p>Command called if previous button for the left-hand-side y-variable was pressed.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.prev_y2" title="ncvue.ncvscatter.ncvScatter.prev_y2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prev_y2</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.prev_y2" title="ncvue.ncvscatter.ncvScatter.prev_y2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prev_y2</span></code></a>()</p></td>
 <td><p>Command called if previous button for the right-hand-side y-variable was pressed.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.propagate" title="ncvue.ncvscatter.ncvScatter.propagate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">propagate</span></code></a>([flag])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.propagate" title="ncvue.ncvscatter.ncvScatter.propagate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">propagate</span></code></a>([flag])</p></td>
 <td><p>Set or get the status for propagation of geometry information.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.quit" title="ncvue.ncvscatter.ncvScatter.quit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">quit</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.quit" title="ncvue.ncvscatter.ncvScatter.quit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">quit</span></code></a>()</p></td>
 <td><p>Quit the Tcl interpreter.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.redraw" title="ncvue.ncvscatter.ncvScatter.redraw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">redraw</span></code></a>([event])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.redraw" title="ncvue.ncvscatter.ncvScatter.redraw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">redraw</span></code></a>([event])</p></td>
 <td><p>Redraw the left-hand-side and right-hand-side y-axis.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.redraw_y" title="ncvue.ncvscatter.ncvScatter.redraw_y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">redraw_y</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.redraw_y" title="ncvue.ncvscatter.ncvScatter.redraw_y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">redraw_y</span></code></a>()</p></td>
 <td><p>Redraw the left-hand-side y-axis.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.redraw_y2" title="ncvue.ncvscatter.ncvScatter.redraw_y2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">redraw_y2</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.redraw_y2" title="ncvue.ncvscatter.ncvScatter.redraw_y2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">redraw_y2</span></code></a>()</p></td>
 <td><p>Redraw the right-hand-side y-axis.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.register" title="ncvue.ncvscatter.ncvScatter.register"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register</span></code></a>(func[, subst, needcleanup])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.register" title="ncvue.ncvscatter.ncvScatter.register"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register</span></code></a>(func[, subst, needcleanup])</p></td>
 <td><p>Return a newly created Tcl function.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.reinit" title="ncvue.ncvscatter.ncvScatter.reinit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reinit</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.reinit" title="ncvue.ncvscatter.ncvScatter.reinit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reinit</span></code></a>()</p></td>
 <td><p>Reinitialise the panel from top.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.rowconfigure" title="ncvue.ncvscatter.ncvScatter.rowconfigure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rowconfigure</span></code></a>(index[, cnf])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.rowconfigure" title="ncvue.ncvscatter.ncvScatter.rowconfigure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rowconfigure</span></code></a>(index[, cnf])</p></td>
 <td><p>Configure row INDEX of a grid.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.selected_x" title="ncvue.ncvscatter.ncvScatter.selected_x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selected_x</span></code></a>(event)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.selected_x" title="ncvue.ncvscatter.ncvScatter.selected_x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selected_x</span></code></a>(event)</p></td>
 <td><p>Command called if x-variable was selected with combobox.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.selected_y" title="ncvue.ncvscatter.ncvScatter.selected_y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selected_y</span></code></a>(event)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.selected_y" title="ncvue.ncvscatter.ncvScatter.selected_y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selected_y</span></code></a>(event)</p></td>
 <td><p>Command called if left-hand-side y-variable was selected with combobox.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.selected_y2" title="ncvue.ncvscatter.ncvScatter.selected_y2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selected_y2</span></code></a>(event)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.selected_y2" title="ncvue.ncvscatter.ncvScatter.selected_y2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selected_y2</span></code></a>(event)</p></td>
 <td><p>Command called if right-hand-side y-variable was selected with combobox.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.selection_clear" title="ncvue.ncvscatter.ncvScatter.selection_clear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selection_clear</span></code></a>(**kw)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.selection_clear" title="ncvue.ncvscatter.ncvScatter.selection_clear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selection_clear</span></code></a>(**kw)</p></td>
 <td><p>Clear the current X selection.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.selection_get" title="ncvue.ncvscatter.ncvScatter.selection_get"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selection_get</span></code></a>(**kw)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.selection_get" title="ncvue.ncvscatter.ncvScatter.selection_get"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selection_get</span></code></a>(**kw)</p></td>
 <td><p>Return the contents of the current X selection.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.selection_handle" title="ncvue.ncvscatter.ncvScatter.selection_handle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selection_handle</span></code></a>(command, **kw)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.selection_handle" title="ncvue.ncvscatter.ncvScatter.selection_handle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selection_handle</span></code></a>(command, **kw)</p></td>
 <td><p>Specify a function COMMAND to call if the X selection owned by this widget is queried by another application.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.selection_own" title="ncvue.ncvscatter.ncvScatter.selection_own"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selection_own</span></code></a>(**kw)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.selection_own" title="ncvue.ncvscatter.ncvScatter.selection_own"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selection_own</span></code></a>(**kw)</p></td>
 <td><p>Become owner of X selection.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.selection_own_get" title="ncvue.ncvscatter.ncvScatter.selection_own_get"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selection_own_get</span></code></a>(**kw)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.selection_own_get" title="ncvue.ncvscatter.ncvScatter.selection_own_get"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selection_own_get</span></code></a>(**kw)</p></td>
 <td><p>Return owner of X selection.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.send" title="ncvue.ncvscatter.ncvScatter.send"><code class="xref py py-obj docutils literal notranslate"><span class="pre">send</span></code></a>(interp, cmd, *args)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.send" title="ncvue.ncvscatter.ncvScatter.send"><code class="xref py py-obj docutils literal notranslate"><span class="pre">send</span></code></a>(interp, cmd, *args)</p></td>
 <td><p>Send Tcl command CMD to different interpreter INTERP to be executed.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.setvar" title="ncvue.ncvscatter.ncvScatter.setvar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setvar</span></code></a>([name, value])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.setvar" title="ncvue.ncvscatter.ncvScatter.setvar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setvar</span></code></a>([name, value])</p></td>
 <td><p>Set Tcl variable NAME to VALUE.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.size" title="ncvue.ncvscatter.ncvScatter.size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">size</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.size" title="ncvue.ncvscatter.ncvScatter.size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">size</span></code></a>()</p></td>
 <td><p>Return a tuple of the number of column and rows in the grid.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.slaves" title="ncvue.ncvscatter.ncvScatter.slaves"><code class="xref py py-obj docutils literal notranslate"><span class="pre">slaves</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.slaves" title="ncvue.ncvscatter.ncvScatter.slaves"><code class="xref py py-obj docutils literal notranslate"><span class="pre">slaves</span></code></a>()</p></td>
 <td><p>Return a list of all slaves of this widget in its packing order.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.spinned_x" title="ncvue.ncvscatter.ncvScatter.spinned_x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spinned_x</span></code></a>([event])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.spinned_x" title="ncvue.ncvscatter.ncvScatter.spinned_x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spinned_x</span></code></a>([event])</p></td>
 <td><p>Command called if spinbox of x-dimensions was changed.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.spinned_y" title="ncvue.ncvscatter.ncvScatter.spinned_y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spinned_y</span></code></a>([event])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.spinned_y" title="ncvue.ncvscatter.ncvScatter.spinned_y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spinned_y</span></code></a>([event])</p></td>
 <td><p>Command called if spinbox of any dimension of left-hand-side y-variable was changed.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.spinned_y2" title="ncvue.ncvscatter.ncvScatter.spinned_y2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spinned_y2</span></code></a>([event])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.spinned_y2" title="ncvue.ncvscatter.ncvScatter.spinned_y2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spinned_y2</span></code></a>([event])</p></td>
 <td><p>Command called if spinbox of any dimension of right-hand-side y-variable was changed.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.tk_bisque" title="ncvue.ncvscatter.ncvScatter.tk_bisque"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tk_bisque</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.tk_bisque" title="ncvue.ncvscatter.ncvScatter.tk_bisque"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tk_bisque</span></code></a>()</p></td>
 <td><p>Change the color scheme to light brown as used in Tk 3.6 and before.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.tk_focusFollowsMouse" title="ncvue.ncvscatter.ncvScatter.tk_focusFollowsMouse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tk_focusFollowsMouse</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.tk_focusFollowsMouse" title="ncvue.ncvscatter.ncvScatter.tk_focusFollowsMouse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tk_focusFollowsMouse</span></code></a>()</p></td>
 <td><p>The widget under mouse will get automatically focus.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.tk_focusNext" title="ncvue.ncvscatter.ncvScatter.tk_focusNext"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tk_focusNext</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.tk_focusNext" title="ncvue.ncvscatter.ncvScatter.tk_focusNext"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tk_focusNext</span></code></a>()</p></td>
 <td><p>Return the next widget in the focus order which follows widget which has currently the focus.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.tk_focusPrev" title="ncvue.ncvscatter.ncvScatter.tk_focusPrev"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tk_focusPrev</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.tk_focusPrev" title="ncvue.ncvscatter.ncvScatter.tk_focusPrev"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tk_focusPrev</span></code></a>()</p></td>
 <td><p>Return previous widget in the focus order.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.tk_setPalette" title="ncvue.ncvscatter.ncvScatter.tk_setPalette"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tk_setPalette</span></code></a>(*args, **kw)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.tk_setPalette" title="ncvue.ncvscatter.ncvScatter.tk_setPalette"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tk_setPalette</span></code></a>(*args, **kw)</p></td>
 <td><p>Set a new color scheme for all widget elements.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.tk_strictMotif" title="ncvue.ncvscatter.ncvScatter.tk_strictMotif"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tk_strictMotif</span></code></a>([boolean])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.tk_strictMotif" title="ncvue.ncvscatter.ncvScatter.tk_strictMotif"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tk_strictMotif</span></code></a>([boolean])</p></td>
 <td><p>Set Tcl internal variable, whether the look and feel should adhere to Motif.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.tkraise" title="ncvue.ncvscatter.ncvScatter.tkraise"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tkraise</span></code></a>([aboveThis])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.tkraise" title="ncvue.ncvscatter.ncvScatter.tkraise"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tkraise</span></code></a>([aboveThis])</p></td>
 <td><p>Raise this widget in the stacking order.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.unbind" title="ncvue.ncvscatter.ncvScatter.unbind"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unbind</span></code></a>([sequence, funcid])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.unbind" title="ncvue.ncvscatter.ncvScatter.unbind"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unbind</span></code></a>([sequence, funcid])</p></td>
 <td><p>called on the tkinter.Canvas</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.unbind_all" title="ncvue.ncvscatter.ncvScatter.unbind_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unbind_all</span></code></a>(sequence)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.unbind_all" title="ncvue.ncvscatter.ncvScatter.unbind_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unbind_all</span></code></a>(sequence)</p></td>
 <td><p>Unbind for all widgets for event SEQUENCE all functions.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.unbind_class" title="ncvue.ncvscatter.ncvScatter.unbind_class"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unbind_class</span></code></a>(className, sequence)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.unbind_class" title="ncvue.ncvscatter.ncvScatter.unbind_class"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unbind_class</span></code></a>(className, sequence)</p></td>
 <td><p>Unbind for all widgets with bindtag CLASSNAME for event SEQUENCE all functions.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.update" title="ncvue.ncvscatter.ncvScatter.update"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.update" title="ncvue.ncvscatter.ncvScatter.update"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update</span></code></a>()</p></td>
 <td><p>Enter event loop until all pending events have been processed by Tcl.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.update_idletasks" title="ncvue.ncvscatter.ncvScatter.update_idletasks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_idletasks</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.update_idletasks" title="ncvue.ncvscatter.ncvScatter.update_idletasks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_idletasks</span></code></a>()</p></td>
 <td><p>Enter event loop until all idle callbacks have been called.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.wait_variable" title="ncvue.ncvscatter.ncvScatter.wait_variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wait_variable</span></code></a>([name])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.wait_variable" title="ncvue.ncvscatter.ncvScatter.wait_variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wait_variable</span></code></a>([name])</p></td>
 <td><p>Wait until the variable is modified.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.wait_visibility" title="ncvue.ncvscatter.ncvScatter.wait_visibility"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wait_visibility</span></code></a>([window])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.wait_visibility" title="ncvue.ncvscatter.ncvScatter.wait_visibility"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wait_visibility</span></code></a>([window])</p></td>
 <td><p>Wait until the visibility of a WIDGET changes (e.g. it appears).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.wait_window" title="ncvue.ncvscatter.ncvScatter.wait_window"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wait_window</span></code></a>([window])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.wait_window" title="ncvue.ncvscatter.ncvScatter.wait_window"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wait_window</span></code></a>([window])</p></td>
 <td><p>Wait until a WIDGET is destroyed.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.waitvar" title="ncvue.ncvscatter.ncvScatter.waitvar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">waitvar</span></code></a>([name])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.waitvar" title="ncvue.ncvscatter.ncvScatter.waitvar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">waitvar</span></code></a>([name])</p></td>
 <td><p>Wait until the variable is modified.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_atom" title="ncvue.ncvscatter.ncvScatter.winfo_atom"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_atom</span></code></a>(name[, displayof])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_atom" title="ncvue.ncvscatter.ncvScatter.winfo_atom"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_atom</span></code></a>(name[, displayof])</p></td>
 <td><p>Return integer which represents atom NAME.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_atomname" title="ncvue.ncvscatter.ncvScatter.winfo_atomname"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_atomname</span></code></a>(id[, displayof])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_atomname" title="ncvue.ncvscatter.ncvScatter.winfo_atomname"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_atomname</span></code></a>(id[, displayof])</p></td>
 <td><p>Return name of atom with identifier ID.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_cells" title="ncvue.ncvscatter.ncvScatter.winfo_cells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_cells</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_cells" title="ncvue.ncvscatter.ncvScatter.winfo_cells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_cells</span></code></a>()</p></td>
 <td><p>Return number of cells in the colormap for this widget.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_children" title="ncvue.ncvscatter.ncvScatter.winfo_children"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_children</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_children" title="ncvue.ncvscatter.ncvScatter.winfo_children"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_children</span></code></a>()</p></td>
 <td><p>winfo_children of CTkFrame without self.canvas widget, because it's not a child but part of the CTkFrame itself</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_class" title="ncvue.ncvscatter.ncvScatter.winfo_class"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_class</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_class" title="ncvue.ncvscatter.ncvScatter.winfo_class"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_class</span></code></a>()</p></td>
 <td><p>Return window class name of this widget.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_colormapfull" title="ncvue.ncvscatter.ncvScatter.winfo_colormapfull"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_colormapfull</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_colormapfull" title="ncvue.ncvscatter.ncvScatter.winfo_colormapfull"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_colormapfull</span></code></a>()</p></td>
 <td><p>Return True if at the last color request the colormap was full.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_containing" title="ncvue.ncvscatter.ncvScatter.winfo_containing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_containing</span></code></a>(rootX, rootY[, displayof])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_containing" title="ncvue.ncvscatter.ncvScatter.winfo_containing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_containing</span></code></a>(rootX, rootY[, displayof])</p></td>
 <td><p>Return the widget which is at the root coordinates ROOTX, ROOTY.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_depth" title="ncvue.ncvscatter.ncvScatter.winfo_depth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_depth</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_depth" title="ncvue.ncvscatter.ncvScatter.winfo_depth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_depth</span></code></a>()</p></td>
 <td><p>Return the number of bits per pixel.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_exists" title="ncvue.ncvscatter.ncvScatter.winfo_exists"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_exists</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_exists" title="ncvue.ncvscatter.ncvScatter.winfo_exists"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_exists</span></code></a>()</p></td>
 <td><p>Return true if this widget exists.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_fpixels" title="ncvue.ncvscatter.ncvScatter.winfo_fpixels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_fpixels</span></code></a>(number)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_fpixels" title="ncvue.ncvscatter.ncvScatter.winfo_fpixels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_fpixels</span></code></a>(number)</p></td>
 <td><p>Return the number of pixels for the given distance NUMBER (e.g. &quot;3c&quot;) as float.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_geometry" title="ncvue.ncvscatter.ncvScatter.winfo_geometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_geometry</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_geometry" title="ncvue.ncvscatter.ncvScatter.winfo_geometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_geometry</span></code></a>()</p></td>
 <td><p>Return geometry string for this widget in the form &quot;widthxheight+X+Y&quot;.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_height" title="ncvue.ncvscatter.ncvScatter.winfo_height"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_height</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_height" title="ncvue.ncvscatter.ncvScatter.winfo_height"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_height</span></code></a>()</p></td>
 <td><p>Return height of this widget.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_id" title="ncvue.ncvscatter.ncvScatter.winfo_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_id</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_id" title="ncvue.ncvscatter.ncvScatter.winfo_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_id</span></code></a>()</p></td>
 <td><p>Return identifier ID for this widget.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_interps" title="ncvue.ncvscatter.ncvScatter.winfo_interps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_interps</span></code></a>([displayof])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_interps" title="ncvue.ncvscatter.ncvScatter.winfo_interps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_interps</span></code></a>([displayof])</p></td>
 <td><p>Return the name of all Tcl interpreters for this display.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_ismapped" title="ncvue.ncvscatter.ncvScatter.winfo_ismapped"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_ismapped</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_ismapped" title="ncvue.ncvscatter.ncvScatter.winfo_ismapped"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_ismapped</span></code></a>()</p></td>
 <td><p>Return true if this widget is mapped.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_manager" title="ncvue.ncvscatter.ncvScatter.winfo_manager"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_manager</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_manager" title="ncvue.ncvscatter.ncvScatter.winfo_manager"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_manager</span></code></a>()</p></td>
 <td><p>Return the window manager name for this widget.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_name" title="ncvue.ncvscatter.ncvScatter.winfo_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_name</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_name" title="ncvue.ncvscatter.ncvScatter.winfo_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_name</span></code></a>()</p></td>
 <td><p>Return the name of this widget.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_parent" title="ncvue.ncvscatter.ncvScatter.winfo_parent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_parent</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_parent" title="ncvue.ncvscatter.ncvScatter.winfo_parent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_parent</span></code></a>()</p></td>
 <td><p>Return the name of the parent of this widget.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_pathname" title="ncvue.ncvscatter.ncvScatter.winfo_pathname"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_pathname</span></code></a>(id[, displayof])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_pathname" title="ncvue.ncvscatter.ncvScatter.winfo_pathname"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_pathname</span></code></a>(id[, displayof])</p></td>
 <td><p>Return the pathname of the widget given by ID.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_pixels" title="ncvue.ncvscatter.ncvScatter.winfo_pixels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_pixels</span></code></a>(number)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_pixels" title="ncvue.ncvscatter.ncvScatter.winfo_pixels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_pixels</span></code></a>(number)</p></td>
 <td><p>Rounded integer value of winfo_fpixels.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_pointerx" title="ncvue.ncvscatter.ncvScatter.winfo_pointerx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_pointerx</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_pointerx" title="ncvue.ncvscatter.ncvScatter.winfo_pointerx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_pointerx</span></code></a>()</p></td>
 <td><p>Return the x coordinate of the pointer on the root window.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_pointerxy" title="ncvue.ncvscatter.ncvScatter.winfo_pointerxy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_pointerxy</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_pointerxy" title="ncvue.ncvscatter.ncvScatter.winfo_pointerxy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_pointerxy</span></code></a>()</p></td>
 <td><p>Return a tuple of x and y coordinates of the pointer on the root window.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_pointery" title="ncvue.ncvscatter.ncvScatter.winfo_pointery"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_pointery</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_pointery" title="ncvue.ncvscatter.ncvScatter.winfo_pointery"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_pointery</span></code></a>()</p></td>
 <td><p>Return the y coordinate of the pointer on the root window.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_reqheight" title="ncvue.ncvscatter.ncvScatter.winfo_reqheight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_reqheight</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_reqheight" title="ncvue.ncvscatter.ncvScatter.winfo_reqheight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_reqheight</span></code></a>()</p></td>
 <td><p>Return requested height of this widget.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_reqwidth" title="ncvue.ncvscatter.ncvScatter.winfo_reqwidth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_reqwidth</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_reqwidth" title="ncvue.ncvscatter.ncvScatter.winfo_reqwidth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_reqwidth</span></code></a>()</p></td>
 <td><p>Return requested width of this widget.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_rgb" title="ncvue.ncvscatter.ncvScatter.winfo_rgb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_rgb</span></code></a>(color)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_rgb" title="ncvue.ncvscatter.ncvScatter.winfo_rgb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_rgb</span></code></a>(color)</p></td>
 <td><p>Return a tuple of integer RGB values in range(65536) for color in this widget.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_rootx" title="ncvue.ncvscatter.ncvScatter.winfo_rootx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_rootx</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_rootx" title="ncvue.ncvscatter.ncvScatter.winfo_rootx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_rootx</span></code></a>()</p></td>
 <td><p>Return x coordinate of upper left corner of this widget on the root window.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_rooty" title="ncvue.ncvscatter.ncvScatter.winfo_rooty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_rooty</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_rooty" title="ncvue.ncvscatter.ncvScatter.winfo_rooty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_rooty</span></code></a>()</p></td>
 <td><p>Return y coordinate of upper left corner of this widget on the root window.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_screen" title="ncvue.ncvscatter.ncvScatter.winfo_screen"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_screen</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_screen" title="ncvue.ncvscatter.ncvScatter.winfo_screen"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_screen</span></code></a>()</p></td>
 <td><p>Return the screen name of this widget.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_screencells" title="ncvue.ncvscatter.ncvScatter.winfo_screencells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_screencells</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_screencells" title="ncvue.ncvscatter.ncvScatter.winfo_screencells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_screencells</span></code></a>()</p></td>
 <td><p>Return the number of the cells in the colormap of the screen of this widget.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_screendepth" title="ncvue.ncvscatter.ncvScatter.winfo_screendepth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_screendepth</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_screendepth" title="ncvue.ncvscatter.ncvScatter.winfo_screendepth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_screendepth</span></code></a>()</p></td>
 <td><p>Return the number of bits per pixel of the root window of the screen of this widget.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_screenheight" title="ncvue.ncvscatter.ncvScatter.winfo_screenheight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_screenheight</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_screenheight" title="ncvue.ncvscatter.ncvScatter.winfo_screenheight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_screenheight</span></code></a>()</p></td>
 <td><p>Return the number of pixels of the height of the screen of this widget in pixel.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_screenmmheight" title="ncvue.ncvscatter.ncvScatter.winfo_screenmmheight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_screenmmheight</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_screenmmheight" title="ncvue.ncvscatter.ncvScatter.winfo_screenmmheight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_screenmmheight</span></code></a>()</p></td>
 <td><p>Return the number of pixels of the height of the screen of this widget in mm.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_screenmmwidth" title="ncvue.ncvscatter.ncvScatter.winfo_screenmmwidth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_screenmmwidth</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_screenmmwidth" title="ncvue.ncvscatter.ncvScatter.winfo_screenmmwidth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_screenmmwidth</span></code></a>()</p></td>
 <td><p>Return the number of pixels of the width of the screen of this widget in mm.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_screenvisual" title="ncvue.ncvscatter.ncvScatter.winfo_screenvisual"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_screenvisual</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_screenvisual" title="ncvue.ncvscatter.ncvScatter.winfo_screenvisual"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_screenvisual</span></code></a>()</p></td>
 <td><p>Return one of the strings directcolor, grayscale, pseudocolor, staticcolor, staticgray, or truecolor for the default colormodel of this screen.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_screenwidth" title="ncvue.ncvscatter.ncvScatter.winfo_screenwidth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_screenwidth</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_screenwidth" title="ncvue.ncvscatter.ncvScatter.winfo_screenwidth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_screenwidth</span></code></a>()</p></td>
 <td><p>Return the number of pixels of the width of the screen of this widget in pixel.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_server" title="ncvue.ncvscatter.ncvScatter.winfo_server"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_server</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_server" title="ncvue.ncvscatter.ncvScatter.winfo_server"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_server</span></code></a>()</p></td>
 <td><p>Return information of the X-Server of the screen of this widget in the form &quot;XmajorRminor vendor vendorVersion&quot;.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_toplevel" title="ncvue.ncvscatter.ncvScatter.winfo_toplevel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_toplevel</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_toplevel" title="ncvue.ncvscatter.ncvScatter.winfo_toplevel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_toplevel</span></code></a>()</p></td>
 <td><p>Return the toplevel widget of this widget.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_viewable" title="ncvue.ncvscatter.ncvScatter.winfo_viewable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_viewable</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_viewable" title="ncvue.ncvscatter.ncvScatter.winfo_viewable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_viewable</span></code></a>()</p></td>
 <td><p>Return true if the widget and all its higher ancestors are mapped.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_visual" title="ncvue.ncvscatter.ncvScatter.winfo_visual"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_visual</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_visual" title="ncvue.ncvscatter.ncvScatter.winfo_visual"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_visual</span></code></a>()</p></td>
 <td><p>Return one of the strings directcolor, grayscale, pseudocolor, staticcolor, staticgray, or truecolor for the colormodel of this widget.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_visualid" title="ncvue.ncvscatter.ncvScatter.winfo_visualid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_visualid</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_visualid" title="ncvue.ncvscatter.ncvScatter.winfo_visualid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_visualid</span></code></a>()</p></td>
 <td><p>Return the X identifier for the visual for this widget.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_visualsavailable" title="ncvue.ncvscatter.ncvScatter.winfo_visualsavailable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_visualsavailable</span></code></a>([includeids])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_visualsavailable" title="ncvue.ncvscatter.ncvScatter.winfo_visualsavailable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_visualsavailable</span></code></a>([includeids])</p></td>
 <td><p>Return a list of all visuals available for the screen of this widget.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_vrootheight" title="ncvue.ncvscatter.ncvScatter.winfo_vrootheight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_vrootheight</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_vrootheight" title="ncvue.ncvscatter.ncvScatter.winfo_vrootheight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_vrootheight</span></code></a>()</p></td>
 <td><p>Return the height of the virtual root window associated with this widget in pixels.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_vrootwidth" title="ncvue.ncvscatter.ncvScatter.winfo_vrootwidth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_vrootwidth</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_vrootwidth" title="ncvue.ncvscatter.ncvScatter.winfo_vrootwidth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_vrootwidth</span></code></a>()</p></td>
 <td><p>Return the width of the virtual root window associated with this widget in pixel.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_vrootx" title="ncvue.ncvscatter.ncvScatter.winfo_vrootx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_vrootx</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_vrootx" title="ncvue.ncvscatter.ncvScatter.winfo_vrootx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_vrootx</span></code></a>()</p></td>
 <td><p>Return the x offset of the virtual root relative to the root window of the screen of this widget.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_vrooty" title="ncvue.ncvscatter.ncvScatter.winfo_vrooty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_vrooty</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_vrooty" title="ncvue.ncvscatter.ncvScatter.winfo_vrooty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_vrooty</span></code></a>()</p></td>
 <td><p>Return the y offset of the virtual root relative to the root window of the screen of this widget.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_width" title="ncvue.ncvscatter.ncvScatter.winfo_width"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_width</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_width" title="ncvue.ncvscatter.ncvScatter.winfo_width"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_width</span></code></a>()</p></td>
 <td><p>Return the width of this widget.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_x" title="ncvue.ncvscatter.ncvScatter.winfo_x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_x</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_x" title="ncvue.ncvscatter.ncvScatter.winfo_x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_x</span></code></a>()</p></td>
 <td><p>Return the x coordinate of the upper left corner of this widget in the parent.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_y" title="ncvue.ncvscatter.ncvScatter.winfo_y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_y</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscatter.ncvScatter.winfo_y" title="ncvue.ncvscatter.ncvScatter.winfo_y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">winfo_y</span></code></a>()</p></td>
 <td><p>Return the y coordinate of the upper left corner of this widget in the parent.</p></td>
 </tr>
 </tbody>
@@ -1707,14 +1705,6 @@ widget is located.</p>
 <dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.mainloop">
 <span class="sig-name descname"><span class="pre">mainloop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.mainloop" title="Link to this definition">#</a></dt>
 <dd><p>Call the mainloop of Tk.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="ncvue.ncvscatter.ncvScatter.minmax_ylim">
-<span class="sig-name descname"><span class="pre">minmax_ylim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ylim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylim2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscatter.html#ncvScatter.minmax_ylim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscatter.ncvScatter.minmax_ylim" title="Link to this definition">#</a></dt>
-<dd><p>Get minimum of first elements of lists <cite>ylim</cite> and <cite>ylim2</cite> and
-maximum of second element of the two lists.</p>
-<p>Returns minimum, maximum.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -2699,7 +2689,6 @@ in the parent.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvscatter.ncvScatter.location"><code class="docutils literal notranslate"><span class="pre">ncvScatter.location()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvscatter.ncvScatter.lower"><code class="docutils literal notranslate"><span class="pre">ncvScatter.lower()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvscatter.ncvScatter.mainloop"><code class="docutils literal notranslate"><span class="pre">ncvScatter.mainloop()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvscatter.ncvScatter.minmax_ylim"><code class="docutils literal notranslate"><span class="pre">ncvScatter.minmax_ylim()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvscatter.ncvScatter.nametowidget"><code class="docutils literal notranslate"><span class="pre">ncvScatter.nametowidget()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvscatter.ncvScatter.newnetcdf"><code class="docutils literal notranslate"><span class="pre">ncvScatter.newnetcdf()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvscatter.ncvScatter.newxarray"><code class="docutils literal notranslate"><span class="pre">ncvScatter.newxarray()</span></code></a></li>

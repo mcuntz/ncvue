@@ -36,6 +36,8 @@ History
    * Use add_combobox instead of Combobox directly, Feb 2025, Matthias Cuntz
    * Add previous and next for right-hand-side axis, Feb 2025, Matthias Cuntz
    * Include xarray to read input files, Feb 2025, Matthias Cuntz
+   * Add xlim, ylim, and y2lim options, Jun 2025, Matthias Cuntz
+   * Bugfix for setting axes limits, Jun 2025, Matthias Cuntz
 
 """
 import tkinter as tk
@@ -53,7 +55,7 @@ try:
 except ModuleNotFoundError:
     ihavex = False
 from .ncvutils import clone_ncvmain, format_coord_scatter, selvar
-from .ncvutils import set_axis_label, vardim2var
+from .ncvutils import set_axis_label, vardim2var, parse_entry
 from .ncvmethods import analyse_netcdf, get_slice_miss
 from .ncvmethods import set_dim_x, set_dim_y, set_dim_y2
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry
@@ -71,6 +73,31 @@ except OSError:
 
 
 __all__ = ['ncvScatter']
+
+
+def _minmax_ylim(self, ylim, ylim2):
+    """
+    Get minimum of first elements of lists `ylim` and `ylim2` and
+    maximum of second element of the two lists.
+
+    Returns minimum, maximum.
+
+    """
+    if (ylim[0] is not None) and (ylim2[0] is not None):
+        ymin = min(ylim[0], ylim2[0])
+    else:
+        if (ylim[0] is not None):
+            ymin = ylim[0]
+        else:
+            ymin = ylim2[0]
+    if (ylim[1] is not None) and (ylim2[1] is not None):
+        ymax = max(ylim[1], ylim2[1])
+    else:
+        if (ylim[1] is not None):
+            ymax = ylim[1]
+        else:
+            ymax = ylim2[1]
+    return ymin, ymax
 
 
 class ncvScatter(Frame):
@@ -155,8 +182,9 @@ class ncvScatter(Frame):
             ewsmall = 20
             ewmed = 45
             ewbig = 70
+            ew2big = 100
             # pad between label and entry
-            padx = 5
+            padx = 3
             # width of animation and variables buttons
             bwidth = 35
             # width of projections menu
@@ -168,6 +196,7 @@ class ncvScatter(Frame):
             ewsmall = 3
             ewmed = 4
             ewbig = 7
+            ew2big = 10
             # pad between label and entry (not used)
             padx = 5
             # width of animation and variables buttons
@@ -209,7 +238,7 @@ class ncvScatter(Frame):
         self.toolbar.update()
         self.toolbar.pack(side=tk.TOP, fill=tk.X)
 
-        # 1. row : x- and lhs y-axis selection
+        # 1. row: x- and lhs y-axis selection
         self.rowxy = Frame(self)
         self.rowxy.pack(side=tk.TOP, fill=tk.X)
         # block with x and its dimensions
@@ -252,6 +281,7 @@ class ncvScatter(Frame):
 
         # space between x and y blocks
         spacex = add_label(self.rowxy, text=' ' * 2)
+
         # block with y and its dimensions
         self.blocky = Frame(self.rowxy)
         self.blocky.pack(side=tk.LEFT)
@@ -269,7 +299,7 @@ class ncvScatter(Frame):
         self.bnext_y, self.bnext_ytip = add_button(
             self.rowy, text='>', command=self.next_y, width=bwidth,
             tooltip='Next variable')
-        self.yframe, self.yylbl, self.y, self.ytip = add_combobox(
+        self.yframe, self.ylbl, self.y, self.ytip = add_combobox(
             self.rowy, label='', values=columns, command=self.selected_y,
             width=combowidth, padx=0,
             tooltip='Choose variable of y-axis')
@@ -348,7 +378,22 @@ class ncvScatter(Frame):
             command=self.entered_y, tooltip='Marker edge width')
         self.mewframe.pack(side=tk.LEFT)
 
-        # space
+        # x- and y-limit
+        self.rowxlim = Frame(self)
+        self.rowxlim.pack(side=tk.TOP, fill=tk.X)
+        self.xlimframe, self.xlimlbl, self.xlim, self.xlimtip = add_entry(
+            self.rowxlim, label="xlim", text='None', width=ew2big,
+            command=self.entered_y, padx=padx,
+            tooltip="xmin, xmax\nSet to None for free scaling.")
+        self.xlimframe.pack(side=tk.LEFT)
+        space3 = add_label(self.rowxlim, text=' ' * 3)
+        self.ylimframe, self.ylimlbl, self.ylim, self.ylimtip = add_entry(
+            self.rowxlim, label="ylim", text='None', width=ew2big,
+            command=self.entered_y, padx=padx,
+            tooltip="ymin, ymax\nSet to None for free scaling.")
+        self.ylimframe.pack(side=tk.LEFT)
+
+        # empty row
         self.rowspace = Frame(self)
         self.rowspace.pack(side=tk.TOP, fill=tk.X)
         rowspace = add_label(self.rowspace, text=' ')
@@ -448,9 +493,22 @@ class ncvScatter(Frame):
             self.rowy2opt, label='mew', text='1', width=ewsmall, padx=padx,
             command=self.entered_y2, tooltip='Marker edge width')
         self.mew2frame.pack(side=tk.LEFT)
+        
         # Quit button
+        self.rowquit = Frame(self)
+        self.rowquit.pack(side=tk.TOP, fill=tk.X)
+
+        # block with y2lim
+        self.blocky2lim = Frame(self.rowquit)
+        self.blocky2lim.pack(side=tk.LEFT)
+        self.y2limframe, self.y2limlbl, self.y2lim, self.y2limtip = add_entry(
+            self.blocky2lim, label="y2lim", text='None', width=ew2big,
+            command=self.entered_y2, padx=padx,
+            tooltip="y2min, y2max\nSet to None for free scaling.")
+        self.y2limframe.pack(side=tk.LEFT)
+
         self.bquit, self.bquittip = add_button(
-            self.rowy2opt, text='Quit', command=self.master.top.destroy,
+            self.rowquit, text='Quit', command=self.master.top.destroy,
             nopack=True, tooltip='Quit ncvue')
         self.bquit.pack(side=tk.RIGHT)
 
@@ -497,6 +555,8 @@ class ncvScatter(Frame):
         Redraws left-hand-side and right-hand-side y-axes.
 
         """
+        self.ylim.set('None')
+        self.y2lim.set('None')
         self.redraw_y()
         self.redraw_y2()
 
@@ -537,6 +597,7 @@ class ncvScatter(Frame):
         if idx < len(cols):
             self.y.set(cols[idx])
             set_dim_y(self)
+            self.ylim.set('None')
             self.redraw()
 
     def next_y2(self):
@@ -558,6 +619,7 @@ class ncvScatter(Frame):
         if idx < len(cols):
             self.y2.set(cols[idx])
             set_dim_y2(self)
+            self.y2lim.set('None')
             self.redraw()
 
     # def onpick(self, event):
@@ -589,6 +651,7 @@ class ncvScatter(Frame):
         if idx > 0:
             self.y.set(cols[idx])
             set_dim_y(self)
+            self.ylim.set('None')
             self.redraw()
 
     def prev_y2(self):
@@ -610,6 +673,7 @@ class ncvScatter(Frame):
         if idx > 0:
             self.y2.set(cols[idx])
             set_dim_y2(self)
+            self.y2lim.set('None')
             self.redraw()
 
     def newnetcdf(self):
@@ -721,6 +785,7 @@ class ncvScatter(Frame):
 
         """
         set_dim_x(self)
+        self.xlim.set('None')
         self.redraw()
 
     def selected_y(self, event):
@@ -734,6 +799,7 @@ class ncvScatter(Frame):
 
         """
         set_dim_y(self)
+        self.ylim.set('None')
         self.redraw()
 
     def selected_y2(self, event):
@@ -747,6 +813,7 @@ class ncvScatter(Frame):
 
         """
         set_dim_y2(self)
+        self.y2lim.set('None')
         self.redraw()
 
     def spinned_x(self, event=None):
@@ -787,30 +854,6 @@ class ncvScatter(Frame):
     #
     # Methods
     #
-
-    def minmax_ylim(self, ylim, ylim2):
-        """
-        Get minimum of first elements of lists `ylim` and `ylim2` and
-        maximum of second element of the two lists.
-
-        Returns minimum, maximum.
-
-        """
-        if (ylim[0] is not None) and (ylim2[0] is not None):
-            ymin = min(ylim[0], ylim2[0])
-        else:
-            if (ylim[0] is not None):
-                ymin = ylim[0]
-            else:
-                ymin = ylim2[0]
-        if (ylim[1] is not None) and (ylim2[1] is not None):
-            ymax = max(ylim[1], ylim2[1])
-        else:
-            if (ylim[1] is not None):
-                ymax = ylim[1]
-            else:
-                ymax = ylim2[1]
-        return ymin, ymax
 
     def reinit(self):
         """
@@ -910,16 +953,19 @@ class ncvScatter(Frame):
         else:
             self.x['values'] = columns
         self.x.set(columns[0])
+        self.xlim.set('None')
         if ihavectk:
             self.y.configure(values=columns)
         else:
             self.y['values'] = columns
         self.y.set(columns[0])
+        self.ylim.set('None')
         if ihavectk:
             self.y2.configure(values=columns)
         else:
             self.y2['values'] = columns
         self.y2.set(columns[0])
+        self.y2lim.set('None')
 
     #
     # Plot
@@ -939,6 +985,8 @@ class ncvScatter(Frame):
         y = self.y.get()
         if y != '':
             inv_y = self.inv_y.get()
+            ylim = parse_entry(self.ylim.get())
+            ylim2 = parse_entry(self.y2lim.get())
             # rowxyopt
             ls  = self.ls.get()
             lw  = float(self.lw.get())
@@ -1001,35 +1049,39 @@ class ncvScatter(Frame):
                     self.axes.yaxis.label.set_color(ic)
             self.axes.yaxis.set_label_text(ylab)
             # same y-axes
-            ylim  = self.axes.get_ylim()
-            ylim2 = self.axes2.get_ylim()
+            if not isinstance(ylim, list):
+                ylim = self.axes.get_ylim()
+            if not isinstance(ylim2, list):
+                ylim2 = self.axes2.get_ylim()
             if same_y and (y2 != ''):
-                ymin, ymax = self.minmax_ylim(ylim, ylim2)
+                ymin, ymax = _minmax_ylim(ylim, ylim2)
                 if (ymin is not None) and (ymax is not None):
                     ylim  = [ymin, ymax]
                     ylim2 = [ymin, ymax]
-                    self.axes.set_ylim(ylim)
-                    self.axes2.set_ylim(ylim2)
+                self.axes.set_ylim(ylim)
+                self.axes2.set_ylim(ylim2)
             # invert y-axis
             if inv_y and (ylim[0] is not None):
                 if ylim[0] < ylim[1]:
                     ylim = ylim[::-1]
-                    self.axes.set_ylim(ylim)
+                self.axes.set_ylim(ylim)
             else:
                 if ylim[1] < ylim[0]:
                     ylim = ylim[::-1]
-                    self.axes.set_ylim(ylim)
+                self.axes.set_ylim(ylim)
             # invert x-axis
             inv_x = self.inv_x.get()
-            xlim  = self.axes.get_xlim()
+            xlim = parse_entry(self.xlim.get())
+            if not isinstance(xlim, list):
+                xlim = self.axes.get_xlim()
             if inv_x and (xlim[0] is not None):
                 if xlim[0] < xlim[1]:
                     xlim = xlim[::-1]
-                    self.axes.set_xlim(xlim)
+                self.axes.set_xlim(xlim)
             else:
                 if xlim[1] < xlim[0]:
                     xlim = xlim[::-1]
-                    self.axes.set_xlim(xlim)
+                self.axes.set_xlim(xlim)
             # redraw
             self.canvas.draw()
             self.toolbar.update()
@@ -1052,6 +1104,8 @@ class ncvScatter(Frame):
             # rowy2
             inv_y2 = self.inv_y2.get()
             same_y = self.same_y.get()
+            ylim = parse_entry(self.ylim.get())
+            ylim2 = parse_entry(self.y2lim.get())
             # rowy2opt
             ls  = self.ls2.get()
             lw  = float(self.lw2.get())
@@ -1110,36 +1164,40 @@ class ncvScatter(Frame):
                     self.axes2.yaxis.label.set_color(ic)
             self.axes2.yaxis.set_label_text(ylab)
             # same y-axes
-            ylim  = self.axes.get_ylim()
-            ylim2 = self.axes2.get_ylim()
+            if not isinstance(ylim, list):
+                ylim = self.axes.get_ylim()
+            if not isinstance(ylim2, list):
+                ylim2 = self.axes2.get_ylim()
             if same_y and (y2 != ''):
-                ymin, ymax = self.minmax_ylim(ylim, ylim2)
+                ymin, ymax = _minmax_ylim(ylim, ylim2)
                 if (ymin is not None) and (ymax is not None):
                     ylim  = [ymin, ymax]
                     ylim2 = [ymin, ymax]
-                    self.axes.set_ylim(ylim)
-                    self.axes2.set_ylim(ylim2)
+                self.axes.set_ylim(ylim)
+                self.axes2.set_ylim(ylim2)
             # invert y-axis
             ylim = ylim2
             if inv_y2 and (ylim[0] is not None):
                 if ylim[0] < ylim[1]:
                     ylim = ylim[::-1]
-                    self.axes2.set_ylim(ylim)
+                self.axes2.set_ylim(ylim)
             else:
                 if ylim[1] < ylim[0]:
                     ylim = ylim[::-1]
-                    self.axes2.set_ylim(ylim)
+                self.axes2.set_ylim(ylim)
             # invert x-axis
             inv_x = self.inv_x.get()
-            xlim  = self.axes.get_xlim()
+            xlim = parse_entry(self.xlim.get())
+            if not isinstance(xlim, list):
+                xlim = self.axes.get_xlim()
             if inv_x and (xlim[0] is not None):
                 if xlim[0] < xlim[1]:
                     xlim = xlim[::-1]
-                    self.axes.set_xlim(xlim)
+                self.axes.set_xlim(xlim)
             else:
                 if xlim[1] < xlim[0]:
                     xlim = xlim[::-1]
-                    self.axes.set_xlim(xlim)
+                self.axes.set_xlim(xlim)
             # redraw
             self.canvas.draw()
             self.toolbar.update()

@@ -386,6 +386,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.get_units"><code class="docutils literal notranslate"><span class="pre">get_units()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.has_cyclic"><code class="docutils literal notranslate"><span class="pre">has_cyclic()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.list_intersection"><code class="docutils literal notranslate"><span class="pre">list_intersection()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.parse_entry"><code class="docutils literal notranslate"><span class="pre">parse_entry()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.selvar"><code class="docutils literal notranslate"><span class="pre">selvar()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.set_axis_label"><code class="docutils literal notranslate"><span class="pre">set_axis_label()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.set_miss"><code class="docutils literal notranslate"><span class="pre">set_miss()</span></code></a></li>
@@ -454,25 +455,28 @@ France.</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvutils.list_intersection" title="ncvue.ncvutils.list_intersection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list_intersection</span></code></a>(lst1, lst2)</p></td>
 <td><p>Intersection of two lists.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvutils.selvar" title="ncvue.ncvutils.selvar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selvar</span></code></a>(self, var)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvutils.parse_entry" title="ncvue.ncvutils.parse_entry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_entry</span></code></a>(text)</p></td>
+<td><p>Convert text string to correct data type</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvutils.selvar" title="ncvue.ncvutils.selvar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selvar</span></code></a>(self, var)</p></td>
 <td><p>Extract variable from correct file.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvutils.set_axis_label" title="ncvue.ncvutils.set_axis_label"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_axis_label</span></code></a>(ncvar)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvutils.set_axis_label" title="ncvue.ncvutils.set_axis_label"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_axis_label</span></code></a>(ncvar)</p></td>
 <td><p>Set label plotting axis from name and unit of given variable <cite>ncvar</cite>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvutils.set_miss" title="ncvue.ncvutils.set_miss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_miss</span></code></a>(miss, x)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvutils.set_miss" title="ncvue.ncvutils.set_miss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_miss</span></code></a>(miss, x)</p></td>
 <td><p>Set <cite>x</cite> to NaN or NaT for all values in miss.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvutils.spinbox_values" title="ncvue.ncvutils.spinbox_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spinbox_values</span></code></a>(ndim)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvutils.spinbox_values" title="ncvue.ncvutils.spinbox_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spinbox_values</span></code></a>(ndim)</p></td>
 <td><p>Tuple for Spinbox values with 'all' before range(<cite>ndim</cite>) and 'mean', 'std', etc.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvutils.vardim2var" title="ncvue.ncvutils.vardim2var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vardim2var</span></code></a>(vardim[, groups])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvutils.vardim2var" title="ncvue.ncvutils.vardim2var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vardim2var</span></code></a>(vardim[, groups])</p></td>
 <td><p>Extract group index and variable name from 'group/variable (dim1=ndim1,)'.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvutils.xzip_dim_name_length" title="ncvue.ncvutils.xzip_dim_name_length"><code class="xref py py-obj docutils literal notranslate"><span class="pre">xzip_dim_name_length</span></code></a>(ncvar)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvutils.xzip_dim_name_length" title="ncvue.ncvutils.xzip_dim_name_length"><code class="xref py py-obj docutils literal notranslate"><span class="pre">xzip_dim_name_length</span></code></a>(ncvar)</p></td>
 <td><p>Combines dimension names and length of xarray variable in list of strings.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvutils.zip_dim_name_length" title="ncvue.ncvutils.zip_dim_name_length"><code class="xref py py-obj docutils literal notranslate"><span class="pre">zip_dim_name_length</span></code></a>(ncvar)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvutils.zip_dim_name_length" title="ncvue.ncvutils.zip_dim_name_length"><code class="xref py py-obj docutils literal notranslate"><span class="pre">zip_dim_name_length</span></code></a>(ncvar)</p></td>
 <td><p>Combines dimension names and length of netcdf variable in list of strings.</p></td>
 </tr>
 </tbody>
@@ -510,6 +514,7 @@ Jan 2025, Matthias Cuntz</p></li>
 <li><p>Added xzip_dim_name_length, get_standard_name, get_units,
 Feb 2025, Matthias Cuntz</p></li>
 <li><p>Allow xarray in selvar, Feb 2025, Matthias Cuntz</p></li>
+<li><p>Add parse_entry from dfvutils, Jun 2025, Matthias Cuntz</p></li>
 </ul>
 </dd>
 </dl>
@@ -921,6 +926,28 @@ intersection for longer lists.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="ncvue.ncvutils.parse_entry">
+<span class="sig-name descname"><span class="pre">parse_entry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#parse_entry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.parse_entry" title="Link to this definition">#</a></dt>
+<dd><p>Convert text string to correct data type</p>
+<p>Parse an entry field to None, bool, int, float, list, dict</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – String from entry field</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None, <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)">int</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)">float</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)">list</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)">dict</a></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">parse_entry</span><span class="p">(</span><span class="s1">&#39;7&#39;</span><span class="p">)</span>
+<span class="go">7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parse_entry</span><span class="p">(</span><span class="s1">&#39;7,3&#39;</span><span class="p">)</span>
+<span class="go">[7, 3]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="ncvue.ncvutils.selvar">
 <span class="sig-name descname"><span class="pre">selvar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvutils.html#selvar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvutils.selvar" title="Link to this definition">#</a></dt>
 <dd><p>Extract variable from correct file.</p>
@@ -1045,7 +1072,7 @@ or with group ‘file1/latitude (lat=32,lon=64)’</p>
 <dd><p>Combines dimension names and length of xarray variable in list of strings.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>ncvar</strong> (<em>xarray.DataArray</em>) – xarray variable</p>
+<dd class="field-odd"><p><strong>ncvar</strong> (<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.4.1.dev0)"><em>xarray.DataArray</em></a>) – xarray variable</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>List of dimension name and length in the form ‘dim=len’.</p>
@@ -1162,6 +1189,7 @@ var - variance</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.get_units"><code class="docutils literal notranslate"><span class="pre">get_units()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.has_cyclic"><code class="docutils literal notranslate"><span class="pre">has_cyclic()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.list_intersection"><code class="docutils literal notranslate"><span class="pre">list_intersection()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.parse_entry"><code class="docutils literal notranslate"><span class="pre">parse_entry()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.selvar"><code class="docutils literal notranslate"><span class="pre">selvar()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.set_axis_label"><code class="docutils literal notranslate"><span class="pre">set_axis_label()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvutils.set_miss"><code class="docutils literal notranslate"><span class="pre">set_miss()</span></code></a></li>
