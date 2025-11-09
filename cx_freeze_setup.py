@@ -3,33 +3,38 @@ r'''
 Make stand-alone version of ncvue with cx_Freeze.
 
 On macOS, use minimal virtual environment
-   if [[ "$(uname -m)" == "arm64" ]] ; then
-       export OPENBLAS="$(brew --prefix openblas)"
-       export HDF5_DIR="$(brew --prefix hdf5)"
-       export GEOS_DIR="$(brew --prefix geos)"
-       export GEOS_CONFIG="$(brew --prefix geos)/bin/geos-config"
-   fi
-   pyenv virtualenv 3.12.8 ncvue-install
-   pyenv local ncvue-install
-   # or:
-   # pyenv virtualenv 3.12.8 ncvue-install-ctk
-   # pyenv local ncvue-install-ctk
-   pyenv rehash
-   # requirements.txt includes dask and xarray
-   python -m pip install -r requirements.txt
-   # if ncvue-install-ctk
-   # python -m pip install customtkinter
-   python -m pip install -ve ./
-   python -m pip install cx_freeze
+    if [[ "$(uname -m)" == "arm64" ]] ; then
+        export OPENBLAS="$(brew --prefix openblas)"
+        export HDF5_DIR="$(brew --prefix hdf5)"
+        export GEOS_DIR="$(brew --prefix geos)"
+        export GEOS_CONFIG="$(brew --prefix geos)/bin/geos-config"
+    fi
+    pyenv virtualenv 3.12.8 ncvue-install
+    pyenv local ncvue-install
+    # or:
+    # pyenv virtualenv 3.12.8 ncvue-install-ctk
+    # pyenv local ncvue-install-ctk
+    pyenv rehash
+    # requirements.txt includes dask and xarray
+    python -m pip install -r requirements.txt
+    # if ncvue-install-ctk
+    # python -m pip install customtkinter
+    python -m pip install -ve ./
+    python -m pip install cx_freeze
+    python cx_freeze_setup.py bdist_dmg
 
-On Windows, use conda-forge for everything because more up-to-date
-    # Do not use mkl for smaller executable with PyInstaller/cx_Freeze
-    conda create -n ncvue-install-ctk python=3.12
-    conda activate ncvue-install-ctk
-    conda install -c conda-forge nomkl cartopy
-    conda install -c conda-forge scipy cython pykdtree cftime netcdf4 dask xarray
-    python -m pip install customtkinter
-    conda install -c conda-forge cx_Freeze
+On Windows, does not work with numpy from conda: executable launches
+from the command line but nothing happens when double-clicked.
+Mixing pip and conda failed as well because matplotlib-base asks for
+a specific numpy version, etc. -> use only pip install
+    mamba create -n ncvue-install
+    conda deactivate
+    conda activate ncvue-install
+    cd J:\prog\ncvue
+    mamba install -y python=3.12
+    python -m pip install numpy scipy cftime netcdf4 cython pyshp six shapely matplotlib pykdtree cartopy dask xarray cx_freeze customtkinter
+    python -m pip install -ve .
+    python cx_freeze_setup.py bdist_msi
     
 Have to install ncvue, e.g. in ncvue directory
     python -m pip install -ve .
@@ -43,6 +48,11 @@ macOS app
     python cx_freeze_setup.py bdist_mac
 macOS dmg
     python cx_freeze_setup.py bdist_dmg
+    cd build
+    xcrun notarytool submit ncvue-6.2.intel.dmg --keychain-profile "notarytool-password"
+    xcrun notarytool log 6d0cb58d-867d-4f91-a3e6-98c27c58f3e9 --keychain-profile "notarytool-password" developer_log.json
+    xcrun stapler staple ncvue-6.2.intel.dmg
+    scp ncvue-6.2.intel.dmg macu.de@ssh.strato.de:extra/
 Windows installer
     python cx_freeze_setup.py bdist_msi
 

@@ -86,30 +86,16 @@ Sometimes `tkinter` is not enabled in the system's Python version. One
 has to do, for example, ``sudo apt install python3-tk`` on Linux or
 ``brew install python3 python-tk`` on macOS with Homebrew_.
 
-We also provide standalone applications for Windows and macOS that
+We also provide standalone applications for macOS and Windows that
 come with everything needed to run ``ncvue`` including Python:
 
-  - `ncvue 6.1.dev4 Windows`_
-  - `ncvue 6.0 CTk Intel`_ and `ncvue 6.0 CTk ARM`_ for Intel and ARM
-    processors, resp., for macOS 15 [Sequoia] using CustomTkinter_
-  - `ncvue 6.0 Intel`_ and `ncvue 6.0 ARM`_ for Intel and ARM
-    processors, resp., for macOS 15 [Sequoia] in Aqua look
+  - macOS: `ncvue 6.2 Intel`_ and `ncvue 6.0 ARM`_ for Intel and ARM
+    processors, resp., for macOS 15+ [Sequoia]
+  - Windows: `ncvue 6.2`_
 
-Older versions are:
-
-  - `ncvue 5.1 CTk Intel`_ and `ncvue 5.1 CTk ARM`_ for Intel and ARM
-    processors, resp., for macOS 14 and 15 [Sonoma, Sequoia] using
-    CustomTkinter_
-  - `ncvue 5.1 Intel`_ and `ncvue 5.1 ARM`_ for Intel and ARM
-    processors, resp., for macOS 14 and 15 [Sonoma, Sequoia] in Aqua
-    look
-  - `ncvue 4.0`_ for macOS 10.x with Intel processor
-
-`ncvue 4.0` should work from macOS 10.13 (High Sierra) onward on Intel
-processors. `ncvue > 5.0` is either for Intel processors or for Apple
-Silicon (ARM) chips. It comes in the standard Aqua look or uses the
-CustomTkinter_ UI-library. The apps > v5.0 are notarized by Apple and
-might take a short while on first opening.
+`ncvue > 5.0` is either for Intel processors or for Apple Silicon
+(ARM) chips. The apps > v5.0 are notarized by Apple and might take a
+short while on first opening.
 
 
 Quick usage guide
@@ -325,7 +311,6 @@ Different netCDF test files were provided by `Juliane Mai`_.
 .. _CustomTkinter: https://customtkinter.tomschimansky.com/
 .. _cx_Freeze: https://cx-freeze.readthedocs.io/en/latest/
 .. _Marcelo Duarte: https://github.com/marcelotduarte
-.. _Windows executable: https://www.macu.de/extra/ncvue-3.7-amd64.msi
 .. _Homebrew: https://brew.sh
 .. _LICENSE: https://github.com/mcuntz/ncvue/blob/main/LICENSE
 .. _matplotlib: https://matplotlib.org/
@@ -333,16 +318,9 @@ Different netCDF test files were provided by `Juliane Mai`_.
 .. _Sebastian Müller: https://github.com/MuellerSeb
 .. _dask: https://docs.dask.org/
 .. _ncview: http://meteora.ucsd.edu/~pierce/ncview_home_page.html
-.. _ncvue 4.0: https://www.macu.de/extra/ncvue-4.0.dmg
-.. _ncvue 5.1 Intel: https://www.macu.de/extra/ncvue-5.1.aqua.intel.dmg
-.. _ncvue 5.1 ARM: https://www.macu.de/extra/ncvue-5.1.aqua.arm64.dmg
-.. _ncvue 5.1 CTk Intel: https://www.macu.de/extra/ncvue-5.1.ctkinter.intel.dmg
-.. _ncvue 5.1 CTk ARM: https://www.macu.de/extra/ncvue-5.1.ctkinter.arm64.dmg
-.. _ncvue 6.0 Intel: https://www.macu.de/extra/ncvue-6.0.aqua.intel.dmg
-.. _ncvue 6.0 ARM: https://www.macu.de/extra/ncvue-6.0.aqua.arm64.dmg
-.. _ncvue 6.0 CTk Intel: https://www.macu.de/extra/ncvue-6.0.ctk.intel.dmg
-.. _ncvue 6.0 CTk ARM: https://www.macu.de/extra/ncvue-6.0.ctk.arm64.dmg
-.. _ncvue 6.1.dev4 Windows: https://www.macu.de/extra/ncvue-6.1.dev4-win64.msi
+.. _ncvue 6.0 ARM: https://www.macu.de/extra/ncvue-6.0.ctk.arm64.dmg
+.. _ncvue 6.2 Intel: https://www.macu.de/extra/ncvue-6.2.intel.dmg
+.. _ncvue 6.2: https://www.macu.de/extra/ncvue-6.2-win64.msi
 .. _panoply: https://www.giss.nasa.gov/tools/panoply/
 .. _rdbende: https://github.com/rdbende
 .. _template: https://github.com/MuellerSeb/template
