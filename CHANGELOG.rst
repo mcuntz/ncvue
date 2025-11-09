@@ -1,7 +1,8 @@
 Changelog
 ---------
 
-v6.2 (??? 2025)
+v6.2 (Nov 2025)
+   - Use screen size to determine window sizes.
    - Bugfix for setting axes limits.
    - Add xlim, ylim, and y2lim options.
 

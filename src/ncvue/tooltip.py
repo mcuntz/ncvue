@@ -5,7 +5,7 @@ This includes:
  * an abstract base-class for different kinds of tooltips
  * a simple text-only Tooltip class
 
-This is a copy (2023-07-17) of python3.11/idlelib/tooltip.py
+This is a copy (2025-02-23) of lib/python3.13/idlelib/tooltip.py
 because IDLE is not installed on all systems by default.
 Commented tests using idlelib.idle_test.htest.
 
@@ -150,7 +150,8 @@ class OnHoverTooltipBase(TooltipBase):
 
 class Hovertip(OnHoverTooltipBase):
     "A tooltip that pops up when a mouse hovers over an anchor widget."
-    def __init__(self, anchor_widget, text, hover_delay=1000):
+    def __init__(self, anchor_widget, text, hover_delay=1000,
+                 foreground="#000000", background="#ffffe0"):
         """Create a text tooltip with a mouse hover delay.
 
         anchor_widget: the widget next to which the tooltip will be shown
@@ -162,10 +163,13 @@ class Hovertip(OnHoverTooltipBase):
         """
         super().__init__(anchor_widget, hover_delay=hover_delay)
         self.text = text
+        self.foreground = foreground
+        self.background = background
 
     def showcontents(self):
         label = Label(self.tipwindow, text=self.text, justify=LEFT,
-                      background="#ffffe0", relief=SOLID, borderwidth=1)
+                       relief=SOLID,  borderwidth=1,
+                       foreground=self.foreground, background=self.background)
         label.pack()
 
 

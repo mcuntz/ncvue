@@ -68,6 +68,7 @@ History
      Feb 2025, Matthias Cuntz
    * Allow xarray in selvar, Feb 2025, Matthias Cuntz
    * Add parse_entry from dfvutils, Jun 2025, Matthias Cuntz
+   * Use ncvScreen for window sizes, Nov 2025, Matthias Cuntz
 
 """
 import tkinter as tk
@@ -84,6 +85,7 @@ try:
     ihavex = True
 except ModuleNotFoundError:
     ihavex = False
+from .ncvscreen import ncvScreen
 import ncvue
 
 
@@ -458,9 +460,11 @@ def clone_ncvmain(widget):
     root = Toplevel()
     root.name = 'ncvClone'
     root.title("Secondary ncvue window")
-    root.geometry('1000x800+150+100')
+    # root.geometry('1000x800+150+100')
 
     root.top = widget.top
+    screen = ncvScreen(root.top)
+    root.geometry(screen.secondwin)
 
     # https://stackoverflow.com/questions/46505982/is-there-a-way-to-clone-a-tkinter-widget
     cls = widget.__class__

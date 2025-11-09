@@ -37,6 +37,7 @@ History
    * Use CustomTkinter if installed, Nov 2024, Matthias Cuntz
    * Use own ncvue-blue theme for customtkinter, Dec 2024, Matthias Cuntz
    * Include xarray to read input files, Feb 2025, Matthias Cuntz
+   * Use ncvScreen for window sizes, Nov 2025, Matthias Cuntz
 
 """
 import os
@@ -62,6 +63,7 @@ from matplotlib import pyplot as plt
 import netCDF4 as nc
 import numpy as np
 from .ncvmethods import analyse_netcdf
+from .ncvscreen import ncvScreen
 from .ncvmain import ncvMain
 
 
@@ -98,6 +100,7 @@ def ncvue(ncfile=[], miss=np.nan, usex=False):
                          os.path.abspath(os.path.dirname(__file__)))
 
     top = Tk()
+    screen = ncvScreen(top)
     top.withdraw()
     # top.option_add("*Font", "Helvetica 10")
 
@@ -191,7 +194,10 @@ def ncvue(ncfile=[], miss=np.nan, usex=False):
         root.title("ncvue " + ncfile[0])
     else:
         root.title("ncvue")
-    root.geometry('1000x800+100+100')
+    root.geometry(screen.stdwin)
+    # To make sure that it appears before any other window
+    # https://github.com/TomSchimansky/CustomTkinter/issues/1517
+    root.update()
 
     # Connect netcdf file and extracted information to top
     top.os     = ios     # operating system

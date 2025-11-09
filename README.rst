@@ -80,6 +80,7 @@ or:
 .. code-block:: bash
 
    conda install -c conda-forge dask xarray
+   python -m pip install customtkinter
 
 Sometimes `tkinter` is not enabled in the system's Python version. One
 has to do, for example, ``sudo apt install python3-tk`` on Linux or
@@ -123,7 +124,7 @@ Quick usage guide
    ncvue netcdf_file1.nc netcdf_file2.nc
 
 A new netCDF file can be opened from within ``ncvue`` using the
-buttons `Open File`. or `Open xarray`.
+buttons `Open File` or `Open xarray`.
 
 One can also use xarray_ to open the netCDF file(s) using the command
 line option `-x` or the button `Open xarray`:
@@ -133,9 +134,9 @@ line option `-x` or the button `Open xarray`:
    ncvue -x netcdf_file.nc
    ncvue -x netcdf_file1.nc netcdf_file2.nc
 
-``ncvue`` either analyses the netCDF file looking for unlimited
-dimensions, longitude, latitude, and treats datetime variables, or
-lets xarray_ do the job. The real difference between using or not
+``ncvue`` either analyses the netCDF file itself looking for unlimited
+dimensions, longitude, latitude, and treats datetime variables; or it
+let's xarray_ do the job. The real difference between using or not
 using xarray_ is in case of several input files: the files will be
 opened as a single dataset with `xarray.open_mfdataset`_ if xarray_ is
 used. The files will be combined by xarray's coordinates. This

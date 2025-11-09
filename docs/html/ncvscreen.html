@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Authors &#8212; ncvue</title>
+    <title>ncvue.ncvscreen &#8212; ncvue</title>
   
   
   
@@ -44,10 +44,11 @@
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'authors';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ncvscreen';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Changelog" href="changelog.html" />
+    <link rel="next" title="ncvue.ncvue" href="ncvue.html" />
+    <link rel="prev" title="ncvue.ncvscatter" href="ncvscatter.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="6.2.dev2" />
@@ -139,20 +140,20 @@
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="readme.html">ncvue - A GUI to view netCDF files</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="package.html">API</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="package.html">API</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="ncvcontour.html">ncvue.ncvcontour</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvmain.html">ncvue.ncvmain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvmap.html">ncvue.ncvmap</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvmethods.html">ncvue.ncvmethods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvscatter.html">ncvue.ncvscatter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ncvscreen.html">ncvue.ncvscreen</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">ncvue.ncvscreen</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvue.html">ncvue.ncvue</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvutils.html">ncvue.ncvutils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncvwidgets.html">ncvue.ncvwidgets</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
 </ul>
 
     </div>
@@ -229,7 +230,7 @@
       
       
       
-      <li><a href="https://github.com/mcuntz/ncvue/edit/main/docs/authors.rst" target="_blank"
+      <li><a href="https://github.com/mcuntz/ncvue/edit/main/docs/ncvscreen.rst" target="_blank"
    class="btn btn-sm btn-source-edit-button dropdown-item"
    title="Suggest edit"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -246,7 +247,7 @@
       
       
       
-      <li><a href="https://github.com/mcuntz/ncvue/issues/new?title=Issue%20on%20page%20%2Fauthors.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/mcuntz/ncvue/issues/new?title=Issue%20on%20page%20%2Fncvscreen.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -276,7 +277,7 @@
       
       
       
-      <li><a href="_sources/authors.rst" target="_blank"
+      <li><a href="_sources/ncvscreen.rst" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -339,7 +340,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -350,11 +353,24 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Authors</h1>
+    <h1>ncvue.ncvscreen</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvscreen.ncvScreen"><code class="docutils literal notranslate"><span class="pre">ncvScreen</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvscreen.ncvScreen.scale"><code class="docutils literal notranslate"><span class="pre">ncvScreen.scale()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvscreen.ncvScreen.secondary_window_size"><code class="docutils literal notranslate"><span class="pre">ncvScreen.secondary_window_size()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvscreen.ncvScreen.standard_window_size"><code class="docutils literal notranslate"><span class="pre">ncvScreen.standard_window_size()</span></code></a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -364,18 +380,75 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <dl class="simple" id="authors">
-<dt>ncvue: A minimal GUI for a quick view of netcdf files.</dt><dd><p>Aiming to be a drop-in replacement for ncview and panoply.</p>
+  <section id="module-ncvue.ncvscreen">
+<span id="ncvue-ncvscreen"></span><h1>ncvue.ncvscreen<a class="headerlink" href="#module-ncvue.ncvscreen" title="Link to this heading">#</a></h1>
+<p>ncvscreen class for screen size and resolution</p>
+<p>This module was written by Matthias Cuntz while at Institut National de
+Recherche pour l’Agriculture, l’Alimentation et l’Environnement (INRAE), Nancy,
+France.</p>
+<dl class="field-list simple">
+<dt class="field-odd">copyright<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Copyright 2025- Matthias Cuntz - mc (at) macu (dot) de</p>
+</dd>
+<dt class="field-even">license<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License, see LICENSE for details.</p>
 </dd>
 </dl>
-<p>Created Nov 2020-Jan 2021 by Matthias Cuntz.</p>
-<p>It is distributed under the MIT License (see LICENSE file).</p>
-<p>Copyright (c) 2020-2025 Matthias Cuntz</p>
-<section id="id1">
-<h1>Authors<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/mcuntz">Matthias Cuntz</a>, E-mail: mc (at) macu (dot) de</p></li>
+<p>The following classes are provided:</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscreen.ncvScreen" title="ncvue.ncvscreen.ncvScreen"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ncvScreen</span></code></a>(top, **kwargs)</p></td>
+<td><p>Set window sizes and resolution</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="simple">
+<dt>History</dt><dd><ul class="simple">
+<li><p>Written Nov 2025 by Matthias Cuntz (mc (at) macu (dot) de)</p></li>
 </ul>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="ncvue.ncvscreen.ncvScreen">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ncvScreen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">top</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscreen.html#ncvScreen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscreen.ncvScreen" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Set window sizes and resolution</p>
+<p class="rubric">Methods</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscreen.ncvScreen.scale" title="ncvue.ncvscreen.ncvScreen.scale"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scale</span></code></a>(x)</p></td>
+<td><p>Scales <em>x</em> by current dpi over dpi of development screen</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#ncvue.ncvscreen.ncvScreen.secondary_window_size" title="ncvue.ncvscreen.ncvScreen.secondary_window_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">secondary_window_size</span></code></a>()</p></td>
+<td><p>Set xsize, ysize, xoffset, yoffset of secondary window</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvscreen.ncvScreen.standard_window_size" title="ncvue.ncvscreen.ncvScreen.standard_window_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">standard_window_size</span></code></a>()</p></td>
+<td><p>Set xsize, ysize, xoffset, yoffset of standard window</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="ncvue.ncvscreen.ncvScreen.scale">
+<span class="sig-name descname"><span class="pre">scale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscreen.html#ncvScreen.scale"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscreen.ncvScreen.scale" title="Link to this definition">#</a></dt>
+<dd><p>Scales <em>x</em> by current dpi over dpi of development screen</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ncvue.ncvscreen.ncvScreen.secondary_window_size">
+<span class="sig-name descname"><span class="pre">secondary_window_size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscreen.html#ncvScreen.secondary_window_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscreen.ncvScreen.secondary_window_size" title="Link to this definition">#</a></dt>
+<dd><p>Set xsize, ysize, xoffset, yoffset of secondary window</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ncvue.ncvscreen.ncvScreen.standard_window_size">
+<span class="sig-name descname"><span class="pre">standard_window_size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ncvue/ncvscreen.html#ncvScreen.standard_window_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ncvue.ncvscreen.ncvScreen.standard_window_size" title="Link to this definition">#</a></dt>
+<dd><p>Set xsize, ysize, xoffset, yoffset of standard window</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 
@@ -390,13 +463,22 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="changelog.html"
+       href="ncvscatter.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Changelog</p>
+        <p class="prev-next-title">ncvue.ncvscatter</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="ncvue.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">ncvue.ncvue</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -404,6 +486,27 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvscreen.ncvScreen"><code class="docutils literal notranslate"><span class="pre">ncvScreen</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvscreen.ncvScreen.scale"><code class="docutils literal notranslate"><span class="pre">ncvScreen.scale()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvscreen.ncvScreen.secondary_window_size"><code class="docutils literal notranslate"><span class="pre">ncvScreen.secondary_window_size()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ncvue.ncvscreen.ncvScreen.standard_window_size"><code class="docutils literal notranslate"><span class="pre">ncvScreen.standard_window_size()</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

@@ -19,6 +19,7 @@ Subpackages
    ncvmap
    ncvmethods
    ncvscatter
+   ncvscreen
    ncvue
    ncvutils
    ncvwidgets
@@ -69,6 +70,7 @@ History
    * v5.1 make notarized standalone versions, Dec 2024, Matthias Cuntz
    * v6.0 Include xarray to read input files, Mar 2025, Matthias Cuntz
    * v6.1 macOS and Windows installers, Mar 2025, Matthias Cuntz
+   * v6.2 Use screen size to determine window sizes, Nov 2025, Matthias Cuntz
 
 """
 # helper functions
@@ -83,6 +85,8 @@ from .ncvutils import get_standard_name, get_units
 from .ncvutils import list_intersection, selvar, set_axis_label, set_miss
 from .ncvutils import spinbox_values, vardim2var
 from .ncvutils import xzip_dim_name_length, zip_dim_name_length
+# general helper function
+from .ncvscreen import ncvScreen
 #
 # common methods of all panels
 from .ncvmethods import analyse_netcdf, get_miss, get_slice_miss
@@ -112,29 +116,30 @@ try:
     from ._version import __version__
 except ImportError:  # pragma: nocover
     # package is not installed
-    __version__ = "0.0.0.dev0"
-__author__  = "Matthias Cuntz"
+    __version__ = '0.0.0.dev0'
+__author__  = 'Matthias Cuntz'
 
 
 __all__ = ['TooltipBase', 'OnHoverTooltipBase', 'Hovertip',
-           "DIMMETHODS",
-           "add_cyclic", "has_cyclic", "clone_ncvmain",
-           "format_coord_contour", "format_coord_map",
-           "format_coord_scatter", "get_slice",
-           "get_standard_name", "get_units",
-           "list_intersection", "selvar", "set_axis_label", "set_miss",
-           "spinbox_values", "vardim2var",
-           "xzip_dim_name_length", "zip_dim_name_length",
-           "analyse_netcdf", "get_miss", "get_slice_miss",
-           "set_dim_lat", "set_dim_lon", "set_dim_var",
-           "set_dim_x", "set_dim_y", "set_dim_y2", "set_dim_z",
-           "Tooltip",
-           "add_button", "add_checkbutton", "add_combobox", "add_entry",
-           "add_imagemenu", "add_label", "add_menu", "add_scale",
-           "add_spinbox", "add_tooltip",
-           "ncvScatter",
-           "ncvContour",
-           "ncvMap",
-           "ncvMain",
-           "ncvue",
+           'DIMMETHODS',
+           'add_cyclic', 'has_cyclic', 'clone_ncvmain',
+           'format_coord_contour', 'format_coord_map',
+           'format_coord_scatter', 'get_slice',
+           'get_standard_name', 'get_units',
+           'list_intersection', 'selvar', 'set_axis_label', 'set_miss',
+           'spinbox_values', 'vardim2var',
+           'xzip_dim_name_length', 'zip_dim_name_length',
+           'ncvScreen',
+           'analyse_netcdf', 'get_miss', 'get_slice_miss',
+           'set_dim_lat', 'set_dim_lon', 'set_dim_var',
+           'set_dim_x', 'set_dim_y', 'set_dim_y2', 'set_dim_z',
+           'Tooltip',
+           'add_button', 'add_checkbutton', 'add_combobox', 'add_entry',
+           'add_imagemenu', 'add_label', 'add_menu', 'add_scale',
+           'add_spinbox', 'add_tooltip',
+           'ncvScatter',
+           'ncvContour',
+           'ncvMap',
+           'ncvMain',
+           'ncvue',
            ]
