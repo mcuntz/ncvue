@@ -1,7 +1,7 @@
 Changelog
 ---------
 
-v6.3 (??? 2025)
+v6.3 (Nov 2025)
    - Deduce datetime in xlim and ylim in Scatter panel.
 
 v6.2 (Nov 2025)
