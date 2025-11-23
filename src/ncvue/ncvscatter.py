@@ -38,6 +38,7 @@ History
    * Include xarray to read input files, Feb 2025, Matthias Cuntz
    * Add xlim, ylim, and y2lim options, Jun 2025, Matthias Cuntz
    * Bugfix for setting axes limits, Jun 2025, Matthias Cuntz
+   * Tooltip for xlim and ylim includes datetime, Nov 2025, Matthias Cuntz
 
 """
 import tkinter as tk
@@ -175,6 +176,10 @@ class ncvScatter(Frame):
                  '+ (plus), x (x), X (x (filled)),\n'
                  'D (diamond), d (thin_diamond),\n'
                  '| (vline), _ (hline), or None')
+        # xlim, ylim tooltip
+        ltstr = ("min, max\n"
+                 "Set to None for free scaling.\n"
+                 "Datetime must be in iso8601 format, e.g. 2025-11-23")
         if ihavectk:
             # width of combo boxes in px
             combowidth = 288
@@ -383,14 +388,12 @@ class ncvScatter(Frame):
         self.rowxlim.pack(side=tk.TOP, fill=tk.X)
         self.xlimframe, self.xlimlbl, self.xlim, self.xlimtip = add_entry(
             self.rowxlim, label="xlim", text='None', width=ew2big,
-            command=self.entered_y, padx=padx,
-            tooltip="xmin, xmax\nSet to None for free scaling.")
+            command=self.entered_y, padx=padx, tooltip=ltstr)
         self.xlimframe.pack(side=tk.LEFT)
         space3 = add_label(self.rowxlim, text=' ' * 3)
         self.ylimframe, self.ylimlbl, self.ylim, self.ylimtip = add_entry(
             self.rowxlim, label="ylim", text='None', width=ew2big,
-            command=self.entered_y, padx=padx,
-            tooltip="ymin, ymax\nSet to None for free scaling.")
+            command=self.entered_y, padx=padx, tooltip=ltstr)
         self.ylimframe.pack(side=tk.LEFT)
 
         # empty row
@@ -503,8 +506,7 @@ class ncvScatter(Frame):
         self.blocky2lim.pack(side=tk.LEFT)
         self.y2limframe, self.y2limlbl, self.y2lim, self.y2limtip = add_entry(
             self.blocky2lim, label="y2lim", text='None', width=ew2big,
-            command=self.entered_y2, padx=padx,
-            tooltip="y2min, y2max\nSet to None for free scaling.")
+            command=self.entered_y2, padx=padx, tooltip=ltstr)
         self.y2limframe.pack(side=tk.LEFT)
 
         self.bquit, self.bquittip = add_button(

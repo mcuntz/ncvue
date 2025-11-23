@@ -1,6 +1,9 @@
 Changelog
 ---------
 
+v6.3 (??? 2025)
+   - Deduce datetime in xlim and ylim in Scatter panel.
+
 v6.2 (Nov 2025)
    - Use screen size to determine window sizes.
    - Bugfix for setting axes limits.

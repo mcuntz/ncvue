@@ -69,6 +69,8 @@ History
    * Allow xarray in selvar, Feb 2025, Matthias Cuntz
    * Add parse_entry from dfvutils, Jun 2025, Matthias Cuntz
    * Use ncvScreen for window sizes, Nov 2025, Matthias Cuntz
+   * Copy parse_entry from dfvutils again, deducing datetime string,
+     Nov 2025, Matthias Cuntz
 
 """
 import tkinter as tk
@@ -843,7 +845,7 @@ def parse_entry(text):
     """
     Convert text string to correct data type
 
-    Parse an entry field to None, bool, int, float, list, dict
+    Parse an entry field to None, bool, int, float, datetime, list, dict
 
     Parameters
     ----------
@@ -852,7 +854,7 @@ def parse_entry(text):
 
     Returns
     -------
-    None, bool, int, float, list, dict
+    None, bool, int, float, datetime, list, dict
 
     Examples
     --------
@@ -862,7 +864,16 @@ def parse_entry(text):
     [7, 3]
 
     """
-    if text == 'None':
+    if ',' in text:
+        # # list or str
+        # try:
+        #     tt = eval(f'[{text}]')
+        # except SyntaxError:
+        #     tt = text
+        # parse each element
+        stext = text.split(',')
+        tt = [ parse_entry(ss) for ss in stext ]
+    elif text == 'None':
         # None
         tt = None
     elif text == 'True':
@@ -872,18 +883,25 @@ def parse_entry(text):
         # bool False
         tt = False
     elif ':' in text:
-        # dict or str
+        # dict, datetime, or str
         try:
             tt = eval(f'{{{text}}}')
         except SyntaxError:
-            tt = text
-    elif ',' in text:
-        # list or str
+            try:
+                tt = np.datetime64(text)
+            except ValueError:
+                tt = text
+    elif text.count('-') == 2:
+        # datetime or str
         try:
-            tt = eval(f'[{text}]')
-        except SyntaxError:
+            tt = np.datetime64(text)
+        except ValueError:
             tt = text
     else:
+        tt = text
+
+    # if above gave str, check for scalars
+    if tt == text:
         try:
             # int
             tt = int(text)
