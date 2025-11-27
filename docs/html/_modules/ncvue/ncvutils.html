@@ -373,6 +373,7 @@
 <span class="sd">   * Use ncvScreen for window sizes, Nov 2025, Matthias Cuntz</span>
 <span class="sd">   * Copy parse_entry from dfvutils again, deducing datetime string,</span>
 <span class="sd">     Nov 2025, Matthias Cuntz</span>
+<span class="sd">   * Use set_window_geometry from dfvScreen, Nov 2025, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">tkinter</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tk</span>
@@ -775,8 +776,8 @@
     <span class="c1"># root.geometry(&#39;1000x800+150+100&#39;)</span>
 
     <span class="n">root</span><span class="o">.</span><span class="n">top</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="n">top</span>
-    <span class="n">screen</span> <span class="o">=</span> <span class="n">ncvScreen</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
-    <span class="n">root</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="n">screen</span><span class="o">.</span><span class="n">secondwin</span><span class="p">)</span>
+    <span class="n">sc</span> <span class="o">=</span> <span class="n">ncvScreen</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
+    <span class="n">sc</span><span class="o">.</span><span class="n">set_window_geometry</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">sc</span><span class="o">.</span><span class="n">secondary_window_size</span><span class="p">())</span>
 
     <span class="c1"># https://stackoverflow.com/questions/46505982/is-there-a-way-to-clone-a-tkinter-widget</span>
     <span class="bp">cls</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="vm">__class__</span>

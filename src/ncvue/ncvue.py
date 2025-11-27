@@ -38,6 +38,7 @@ History
    * Use own ncvue-blue theme for customtkinter, Dec 2024, Matthias Cuntz
    * Include xarray to read input files, Feb 2025, Matthias Cuntz
    * Use ncvScreen for window sizes, Nov 2025, Matthias Cuntz
+   * Use set_window_geometry from dfvScreen, Nov 2025, Matthias Cuntz
 
 """
 import os
@@ -100,7 +101,7 @@ def ncvue(ncfile=[], miss=np.nan, usex=False):
                          os.path.abspath(os.path.dirname(__file__)))
 
     top = Tk()
-    screen = ncvScreen(top)
+    sc = ncvScreen(top)
     top.withdraw()
     # top.option_add("*Font", "Helvetica 10")
 
@@ -194,7 +195,7 @@ def ncvue(ncfile=[], miss=np.nan, usex=False):
         root.title("ncvue " + ncfile[0])
     else:
         root.title("ncvue")
-    root.geometry(screen.stdwin)
+    sc.set_window_geometry(root, sc.standard_window_size())
     # To make sure that it appears before any other window
     # https://github.com/TomSchimansky/CustomTkinter/issues/1517
     root.update()

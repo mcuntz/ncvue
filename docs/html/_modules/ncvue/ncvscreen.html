@@ -320,9 +320,13 @@
 
 <span class="sd">History</span>
 <span class="sd">   * Written Nov 2025 by Matthias Cuntz (mc (at) macu (dot) de)</span>
+<span class="sd">   * Add get/set_window_geometry from idle, Nov 2025, Matthias Cuntz</span>
+<span class="sd">   * Get size from fullscreen window to deal with multiple monitors,</span>
+<span class="sd">     Nov 2025, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">platform</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">import</span><span class="w"> </span><span class="nn">customtkinter</span>
     <span class="n">ihavectk</span> <span class="o">=</span> <span class="kc">True</span>
@@ -346,18 +350,27 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ihavectk</span> <span class="o">=</span> <span class="n">ihavectk</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">os</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span>  <span class="c1"># Windows, Darwin, Linux</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">winfo_screenwidth</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">winfo_screenheight</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dpi</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">winfo_fpixels</span><span class="p">(</span><span class="s1">&#39;1i&#39;</span><span class="p">)</span>
+        <span class="c1"># Get the monitor&#39;s size</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">os</span> <span class="o">==</span> <span class="s1">&#39;Darwin&#39;</span><span class="p">:</span>
+            <span class="c1"># total width of all monitors if not on macOS</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">winfo_screenwidth</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">winfo_screenheight</span><span class="p">()</span>  <span class="c1"># includes title bar</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># ${HOMEBREW_CELLAR}/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/idlelib/zoomheight.py</span>
+            <span class="n">wm_state</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">wm_state</span><span class="p">()</span>
+            <span class="n">top</span><span class="o">.</span><span class="n">wm_state</span><span class="p">(</span><span class="s1">&#39;zoomed&#39;</span><span class="p">)</span>  <span class="c1"># make fullscreen</span>
+            <span class="c1"># size of window is now size of current monitor w/o titlebar</span>
+            <span class="c1"># self.height = top.winfo_height()  # excludes title bar</span>
+            <span class="c1"># self.width = top.winfo_width()    # width of current monitor</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_window_geometry</span><span class="p">(</span><span class="n">top</span><span class="p">)</span>
+            <span class="c1"># print(&#39;winfo&#39;, self.width, self.height,</span>
+            <span class="c1">#       top.winfo_screenwidth(), top.winfo_screenheight())</span>
+            <span class="n">top</span><span class="o">.</span><span class="n">wm_state</span><span class="p">(</span><span class="n">wm_state</span><span class="p">)</span>
+            <span class="n">top</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
 
         <span class="c1"># result of top.winfo_fpixels(&#39;1i&#39;) on development screen</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dpi_default</span> <span class="o">=</span> <span class="mf">72.</span>
-
-        <span class="n">xsize</span><span class="p">,</span> <span class="n">ysize</span><span class="p">,</span> <span class="n">xoffset</span><span class="p">,</span> <span class="n">yoffset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">standard_window_size</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">stdwin</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">xsize</span><span class="si">}</span><span class="s1">x</span><span class="si">{</span><span class="n">ysize</span><span class="si">}</span><span class="s1">+</span><span class="si">{</span><span class="n">xoffset</span><span class="si">}</span><span class="s1">+</span><span class="si">{</span><span class="n">yoffset</span><span class="si">}</span><span class="s1">&#39;</span>
-
-        <span class="n">xsize2</span><span class="p">,</span> <span class="n">ysize2</span><span class="p">,</span> <span class="n">xoffset2</span><span class="p">,</span> <span class="n">yoffset2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">secondary_window_size</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">secondwin</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">xsize2</span><span class="si">}</span><span class="s1">x</span><span class="si">{</span><span class="n">ysize2</span><span class="si">}</span><span class="s1">+</span><span class="si">{</span><span class="n">xoffset2</span><span class="si">}</span><span class="s1">+</span><span class="si">{</span><span class="n">yoffset2</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dpi</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">winfo_fpixels</span><span class="p">(</span><span class="s1">&#39;1i&#39;</span><span class="p">)</span>
 
     <span class="c1">#</span>
     <span class="c1"># DPI scaling</span>
@@ -370,6 +383,24 @@
 
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">dpi</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">dpi_default</span></div>
+
+
+    <span class="c1">#</span>
+    <span class="c1"># Window size getter and setter (from idle)</span>
+    <span class="c1">#</span>
+<div class="viewcode-block" id="ncvScreen.get_window_geometry">
+<a class="viewcode-back" href="../../ncvscreen.html#ncvue.ncvscreen.ncvScreen.get_window_geometry">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_window_geometry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">top</span><span class="p">):</span>
+        <span class="n">geom</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">wm_geometry</span><span class="p">()</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(\d+)x(\d+)\+(-?\d+)\+(-?\d+)&quot;</span><span class="p">,</span> <span class="n">geom</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">groups</span><span class="p">()))</span></div>
+
+
+
+<div class="viewcode-block" id="ncvScreen.set_window_geometry">
+<a class="viewcode-back" href="../../ncvscreen.html#ncvue.ncvscreen.ncvScreen.set_window_geometry">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_window_geometry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">geometry</span><span class="p">):</span>
+        <span class="n">top</span><span class="o">.</span><span class="n">wm_geometry</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:d}</span><span class="s2">x</span><span class="si">{:d}</span><span class="s2">+</span><span class="si">{:d}</span><span class="s2">+</span><span class="si">{:d}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">geometry</span><span class="p">))</span></div>
 
 
     <span class="c1">#</span>

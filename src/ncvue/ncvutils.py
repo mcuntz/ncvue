@@ -71,6 +71,7 @@ History
    * Use ncvScreen for window sizes, Nov 2025, Matthias Cuntz
    * Copy parse_entry from dfvutils again, deducing datetime string,
      Nov 2025, Matthias Cuntz
+   * Use set_window_geometry from dfvScreen, Nov 2025, Matthias Cuntz
 
 """
 import tkinter as tk
@@ -465,8 +466,8 @@ def clone_ncvmain(widget):
     # root.geometry('1000x800+150+100')
 
     root.top = widget.top
-    screen = ncvScreen(root.top)
-    root.geometry(screen.secondwin)
+    sc = ncvScreen(root.top)
+    sc.set_window_geometry(root, sc.secondary_window_size())
 
     # https://stackoverflow.com/questions/46505982/is-there-a-way-to-clone-a-tkinter-widget
     cls = widget.__class__

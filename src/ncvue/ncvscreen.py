@@ -18,9 +18,13 @@ The following classes are provided:
 
 History
    * Written Nov 2025 by Matthias Cuntz (mc (at) macu (dot) de)
+   * Add get/set_window_geometry from idle, Nov 2025, Matthias Cuntz
+   * Get size from fullscreen window to deal with multiple monitors,
+     Nov 2025, Matthias Cuntz
 
 """
 import platform
+import re
 try:
     import customtkinter
     ihavectk = True
@@ -42,18 +46,27 @@ class ncvScreen(object):
         self.ihavectk = ihavectk
         self.os = platform.system()  # Windows, Darwin, Linux
 
-        self.width = top.winfo_screenwidth()
-        self.height = top.winfo_screenheight()
-        self.dpi = top.winfo_fpixels('1i')
+        # Get the monitor's size
+        if self.os == 'Darwin':
+            # total width of all monitors if not on macOS
+            self.width = top.winfo_screenwidth()
+            self.height = top.winfo_screenheight()  # includes title bar
+        else:
+            # ${HOMEBREW_CELLAR}/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/idlelib/zoomheight.py
+            wm_state = top.wm_state()
+            top.wm_state('zoomed')  # make fullscreen
+            # size of window is now size of current monitor w/o titlebar
+            # self.height = top.winfo_height()  # excludes title bar
+            # self.width = top.winfo_width()    # width of current monitor
+            self.width, self.height, x, y = self.get_window_geometry(top)
+            # print('winfo', self.width, self.height,
+            #       top.winfo_screenwidth(), top.winfo_screenheight())
+            top.wm_state(wm_state)
+            top.update()
 
         # result of top.winfo_fpixels('1i') on development screen
         self.dpi_default = 72.
-
-        xsize, ysize, xoffset, yoffset = self.standard_window_size()
-        self.stdwin = f'{xsize}x{ysize}+{xoffset}+{yoffset}'
-
-        xsize2, ysize2, xoffset2, yoffset2 = self.secondary_window_size()
-        self.secondwin = f'{xsize2}x{ysize2}+{xoffset2}+{yoffset2}'
+        self.dpi = top.winfo_fpixels('1i')
 
     #
     # DPI scaling
@@ -64,6 +77,18 @@ class ncvScreen(object):
 
         '''
         return x * self.dpi / self.dpi_default
+
+    #
+    # Window size getter and setter (from idle)
+    #
+    def get_window_geometry(self, top):
+        geom = top.wm_geometry()
+        m = re.match(r"(\d+)x(\d+)\+(-?\d+)\+(-?\d+)", geom)
+        return tuple(map(int, m.groups()))
+
+
+    def set_window_geometry(self, top, geometry):
+        top.wm_geometry("{:d}x{:d}+{:d}+{:d}".format(*geometry))
 
     #
     # Window sizes

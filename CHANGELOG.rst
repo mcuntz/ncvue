@@ -1,6 +1,9 @@
 Changelog
 ---------
 
+v6.4 (??? 2025)
+   - Get size from fullscreen window to deal with multiple monitors.
+
 v6.3 (Nov 2025)
    - Deduce datetime in xlim and ylim in Scatter panel.
 

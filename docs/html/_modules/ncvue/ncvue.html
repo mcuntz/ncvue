@@ -340,6 +340,7 @@
 <span class="sd">   * Use own ncvue-blue theme for customtkinter, Dec 2024, Matthias Cuntz</span>
 <span class="sd">   * Include xarray to read input files, Feb 2025, Matthias Cuntz</span>
 <span class="sd">   * Use ncvScreen for window sizes, Nov 2025, Matthias Cuntz</span>
+<span class="sd">   * Use set_window_geometry from dfvScreen, Nov 2025, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
@@ -404,7 +405,7 @@
                          <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)))</span>
 
     <span class="n">top</span> <span class="o">=</span> <span class="n">Tk</span><span class="p">()</span>
-    <span class="n">screen</span> <span class="o">=</span> <span class="n">ncvScreen</span><span class="p">(</span><span class="n">top</span><span class="p">)</span>
+    <span class="n">sc</span> <span class="o">=</span> <span class="n">ncvScreen</span><span class="p">(</span><span class="n">top</span><span class="p">)</span>
     <span class="n">top</span><span class="o">.</span><span class="n">withdraw</span><span class="p">()</span>
     <span class="c1"># top.option_add(&quot;*Font&quot;, &quot;Helvetica 10&quot;)</span>
 
@@ -498,7 +499,7 @@
         <span class="n">root</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;ncvue &quot;</span> <span class="o">+</span> <span class="n">ncfile</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">root</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;ncvue&quot;</span><span class="p">)</span>
-    <span class="n">root</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="n">screen</span><span class="o">.</span><span class="n">stdwin</span><span class="p">)</span>
+    <span class="n">sc</span><span class="o">.</span><span class="n">set_window_geometry</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">sc</span><span class="o">.</span><span class="n">standard_window_size</span><span class="p">())</span>
     <span class="c1"># To make sure that it appears before any other window</span>
     <span class="c1"># https://github.com/TomSchimansky/CustomTkinter/issues/1517</span>
     <span class="n">root</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
