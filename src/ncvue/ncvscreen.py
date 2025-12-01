@@ -47,7 +47,8 @@ class ncvScreen(object):
         self.os = platform.system()  # Windows, Darwin, Linux
 
         # Get the monitor's size
-        if (self.os == 'Darwin') or (self.os == 'Windows'):
+        # if (self.os == 'Darwin') or (self.os == 'Windows'):
+        if self.os == 'Darwin':
             # total width of all monitors if not on macOS
             self.width = top.winfo_screenwidth()
             self.height = top.winfo_screenheight()  # includes title bar
@@ -67,8 +68,6 @@ class ncvScreen(object):
         # result of top.winfo_fpixels('1i') on development screen
         self.dpi_default = 72.
         self.dpi = top.winfo_fpixels('1i')
-        
-        print(self.standard_window_size(), self.dpi)
 
     #
     # DPI scaling
@@ -104,6 +103,7 @@ class ncvScreen(object):
             ysize = self.height
         else:
             ysize = max(4 * self.height // 5, 800)
+        yoffset = 0
 
         if self.width < 1000:
             xsize = self.width
@@ -113,7 +113,6 @@ class ncvScreen(object):
             xoffset = self.width // 5
             if ((xsize + xoffset) > self.width) or (xsize == 1000):
                 xoffset = (self.width - xsize) // 2
-        yoffset = 0
 
         #ysize = 1200
         #xsize = int(1.5 * ysize)

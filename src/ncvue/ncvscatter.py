@@ -39,6 +39,8 @@ History
    * Add xlim, ylim, and y2lim options, Jun 2025, Matthias Cuntz
    * Bugfix for setting axes limits, Jun 2025, Matthias Cuntz
    * Tooltip for xlim and ylim includes datetime, Nov 2025, Matthias Cuntz
+   * Draw canvas as last element so that UI controls are displayed
+     as long as possible, Dec 2025, Matthias Cuntz
 
 """
 import tkinter as tk
@@ -214,7 +216,6 @@ class ncvScatter(Frame):
 
         # new window
         self.rowwin = Frame(self)
-        self.rowwin.pack(side=tk.TOP, fill=tk.X)
         self.newfile, self.newfiletip = add_button(
             self.rowwin, text='Open File', command=self.newnetcdf,
             tooltip='Open a new netcdf file')
@@ -230,8 +231,7 @@ class ncvScatter(Frame):
 
         # plotting canvas
         self.rowcanvas = Frame(self)
-        self.rowcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
-        self.figure = Figure(facecolor='white', figsize=(1, 1), dpi=sc.dpi_default)
+        self.figure = Figure(facecolor='white', figsize=(1, 1))  # , dpi=sc.dpi_default)
         self.axes   = self.figure.add_subplot(111)
         self.axes2  = self.axes.twinx()
         self.axes2.yaxis.set_label_position('right')
@@ -249,7 +249,6 @@ class ncvScatter(Frame):
 
         # 1. row: x- and lhs y-axis selection
         self.rowxy = Frame(self)
-        self.rowxy.pack(side=tk.TOP, fill=tk.X)
         # block with x and its dimensions
         self.blockx = Frame(self.rowxy)
         self.blockx.pack(side=tk.LEFT)
@@ -348,7 +347,6 @@ class ncvScatter(Frame):
         # 2. row
         # options for lhs y-axis
         self.rowxyopt = Frame(self)
-        self.rowxyopt.pack(side=tk.TOP, fill=tk.X)
         self.lsframe, self.lslbl, self.ls, self.lstip = add_entry(
             self.rowxyopt, label='ls', text='-', width=ewmed,
             command=self.entered_y, padx=padx,
@@ -389,7 +387,6 @@ class ncvScatter(Frame):
 
         # x- and y-limit
         self.rowxlim = Frame(self)
-        self.rowxlim.pack(side=tk.TOP, fill=tk.X)
         self.xlimframe, self.xlimlbl, self.xlim, self.xlimtip = add_entry(
             self.rowxlim, label="xlim", text='None', width=ew2big,
             command=self.entered_y, padx=padx, tooltip=ltstr)
@@ -402,13 +399,11 @@ class ncvScatter(Frame):
 
         # empty row
         self.rowspace = Frame(self)
-        self.rowspace.pack(side=tk.TOP, fill=tk.X)
         rowspace = add_label(self.rowspace, text=' ')
 
         # 3. row
         # rhs y-axis 2 selection
         self.rowyy2 = Frame(self)
-        self.rowyy2.pack(side=tk.TOP, fill=tk.X)
         self.blocky2 = Frame(self.rowyy2)
         self.blocky2.pack(side=tk.LEFT)
         self.rowy2 = Frame(self.blocky2)
@@ -464,7 +459,6 @@ class ncvScatter(Frame):
         # 4. row
         # options for rhs y-axis 2
         self.rowy2opt = Frame(self)
-        self.rowy2opt.pack(side=tk.TOP, fill=tk.X)
         self.ls2frame, self.ls2lbl, self.ls2, self.ls2tip = add_entry(
             self.rowy2opt, label='ls', text='-', width=ewmed,
             command=self.entered_y2, padx=padx,
@@ -503,7 +497,6 @@ class ncvScatter(Frame):
         
         # Quit button
         self.rowquit = Frame(self)
-        self.rowquit.pack(side=tk.TOP, fill=tk.X)
 
         # block with y2lim
         self.blocky2lim = Frame(self.rowquit)
@@ -517,6 +510,21 @@ class ncvScatter(Frame):
             self.rowquit, text='Quit', command=self.master.top.destroy,
             nopack=True, tooltip='Quit ncvue')
         self.bquit.pack(side=tk.RIGHT)
+
+        # From matplotlib example 'embedding_in_tk_sgskip.py'
+        # Packing order is important. Widgets are processed sequentially and if there
+        # is no space left, because the window is too small, they are not displayed.
+        # The canvas is rather flexible in its size, so we pack it last which makes
+        # sure the UI controls are displayed as long as possible.
+        self.rowquit.pack(side=tk.BOTTOM, fill=tk.X)
+        self.rowy2opt.pack(side=tk.BOTTOM, fill=tk.X)
+        self.rowyy2.pack(side=tk.BOTTOM, fill=tk.X)
+        self.rowspace.pack(side=tk.BOTTOM, fill=tk.X)
+        self.rowxlim.pack(side=tk.BOTTOM, fill=tk.X)
+        self.rowxyopt.pack(side=tk.BOTTOM, fill=tk.X)
+        self.rowxy.pack(side=tk.BOTTOM, fill=tk.X)
+        self.rowwin.pack(side=tk.TOP, fill=tk.X)
+        self.rowcanvas.pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
 
     #
     # Event bindings

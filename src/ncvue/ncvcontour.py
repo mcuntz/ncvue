@@ -35,6 +35,8 @@ History
    * Use add_button, add_label widgets, Feb 2025, Matthias Cuntz
    * Use add_combobox instead of Combobox directly, Feb 2025, Matthias Cuntz
    * Include xarray to read input files, Feb 2025, Matthias Cuntz
+   * Draw canvas as last element so that UI controls are displayed
+     as long as possible, Dec 2025, Matthias Cuntz
 
 """
 import os
@@ -157,7 +159,6 @@ class ncvContour(Frame):
 
         # new window
         self.rowwin = Frame(self)
-        self.rowwin.pack(side=tk.TOP, fill=tk.X)
         self.newfile, self.newfiletip = add_button(
             self.rowwin, text='Open File', command=self.newnetcdf,
             tooltip='Open a new netcdf file')
@@ -172,19 +173,20 @@ class ncvContour(Frame):
         self.newwin.pack(side=tk.RIGHT)
 
         # plotting canvas
+        self.rowcanvas = Frame(self)
         self.figure = Figure(facecolor='white', figsize=(1, 1))
         self.axes   = self.figure.add_subplot(111)
         self.axes2  = self.axes.twinx()
         self.axes2.yaxis.set_label_position('right')
         self.axes2.yaxis.tick_right()
-        self.canvas = FigureCanvasTkAgg(self.figure, master=self)
+        self.canvas = FigureCanvasTkAgg(self.figure, master=self.rowcanvas)
         self.canvas.draw()
         self.tkcanvas = self.canvas.get_tk_widget()
         self.tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
         # matplotlib toolbar
         # toolbar uses pack internally -> put into frame
-        self.toolbar = NavigationToolbar2Tk(self.canvas, self,
+        self.toolbar = NavigationToolbar2Tk(self.canvas, self.rowcanvas,
                                             pack_toolbar=True)
         self.toolbar.update()
         self.toolbar.pack(side=tk.TOP, fill=tk.X)
@@ -192,7 +194,6 @@ class ncvContour(Frame):
         # 1. row
         # z-axis selection
         self.rowzz = Frame(self)
-        self.rowzz.pack(side=tk.TOP, fill=tk.X)
         self.blockz = Frame(self.rowzz)
         self.blockz.pack(side=tk.LEFT)
         self.rowz = Frame(self.blockz)
@@ -253,7 +254,6 @@ class ncvContour(Frame):
         # 2. row
         # x-axis selection
         self.rowxy = Frame(self)
-        self.rowxy.pack(side=tk.TOP, fill=tk.X)
         self.blockx = Frame(self.rowxy)
         self.blockx.pack(side=tk.LEFT)
         self.rowx = Frame(self.blockx)
@@ -327,7 +327,6 @@ class ncvContour(Frame):
         # 3. row
         # options
         self.rowcmap = Frame(self)
-        self.rowcmap.pack(side=tk.TOP, fill=tk.X)
         self.cmapframe, self.cmaplbl, self.cmap, self.cmaptip = add_imagemenu(
             self.rowcmap, label='cmap', values=self.cmaps,
             images=self.imaps, command=self.selected_cmap,
@@ -356,6 +355,14 @@ class ncvContour(Frame):
             self.rowcmap, text='Quit', command=self.master.top.destroy,
             nopack=True, tooltip='Quit ncvue')
         self.bquit.pack(side=tk.RIGHT)
+
+        # The canvas is rather flexible in its size, so we pack it last which makes
+        # sure the UI controls are displayed as long as possible.
+        self.rowcmap.pack(side=tk.BOTTOM, fill=tk.X)
+        self.rowxy.pack(side=tk.BOTTOM, fill=tk.X)
+        self.rowzz.pack(side=tk.BOTTOM, fill=tk.X)
+        self.rowwin.pack(side=tk.TOP, fill=tk.X)
+        self.rowcanvas.pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
 
     #
     # Bindings

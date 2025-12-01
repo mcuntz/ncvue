@@ -45,6 +45,8 @@ History
    * Use add_combobox instead of Combobox directly, Feb 2025, Matthias Cuntz
    * Remove delay, Feb 2025, Matthias Cuntz
    * Include xarray to read input files, Feb 2025, Matthias Cuntz
+   * Draw canvas as last element so that UI controls are displayed
+     as long as possible, Dec 2025, Matthias Cuntz
 
 """
 import os
@@ -198,7 +200,6 @@ class ncvMap(Frame):
 
         # open file and new window buttons
         self.rowwin = Frame(self)
-        self.rowwin.pack(side=tk.TOP, fill=tk.X)
         self.newfile, self.newfiletip = add_button(
             self.rowwin, text='Open File', command=self.newnetcdf,
             tooltip='Open new netcdf file(s)')
@@ -216,22 +217,22 @@ class ncvMap(Frame):
         self.newwin.pack(side=tk.RIGHT)
 
         # plotting canvas
+        self.rowcanvas = Frame(self)
         self.figure = Figure(facecolor='white', figsize=(1, 1))
         self.axes = self.figure.add_subplot(
             111, projection=ccrs.PlateCarree())
-        self.canvas = FigureCanvasTkAgg(self.figure, master=self)
+        self.canvas = FigureCanvasTkAgg(self.figure, master=self.rowcanvas)
         self.canvas.draw()
         self.canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
         # matplotlib toolbar
-        self.toolbar = NavigationToolbar2Tk(self.canvas, self)
+        self.toolbar = NavigationToolbar2Tk(self.canvas, self.rowcanvas)
         self.toolbar.update()
         self.toolbar.pack(side=tk.TOP, fill=tk.X)
 
         # 1. row
         # controls
         self.rowt = Frame(self)
-        self.rowt.pack(side=tk.TOP, fill=tk.X)
         ntime = 1
         self.tstepframe, self.tsteplbl, self.tstepval, self.tstep, self.tsteptip = (
             add_scale(self.rowt, label='step', ini=0, from_=0, to=ntime,
@@ -274,7 +275,6 @@ class ncvMap(Frame):
         # 2. row
         # variable-axis selection
         self.rowvv = Frame(self)
-        self.rowvv.pack(side=tk.TOP, fill=tk.X)
 
         self.blockv = Frame(self.rowvv)
         self.blockv.pack(side=tk.LEFT)
@@ -345,7 +345,6 @@ class ncvMap(Frame):
         # 3. row
         # lon-axis selection
         self.rowll = Frame(self)
-        self.rowll.pack(side=tk.TOP, fill=tk.X)
 
         self.blocklon = Frame(self.rowll)
         self.blocklon.pack(side=tk.LEFT)
@@ -432,7 +431,6 @@ class ncvMap(Frame):
         # 4. row
         # options
         self.rowcmap = Frame(self)
-        self.rowcmap.pack(side=tk.TOP, fill=tk.X)
         self.cmapframe, self.cmaplbl, self.cmap, self.cmaptip = add_imagemenu(
             self.rowcmap, label='cmap', values=self.cmaps,
             images=self.imaps, command=self.selected_cmap,
@@ -485,7 +483,6 @@ class ncvMap(Frame):
         # 7. row
         # projections
         self.rowproj = Frame(self)
-        self.rowproj.pack(side=tk.TOP, fill=tk.X)
         self.projframe, self.projlbl, self.proj, self.projtip = add_menu(
             self.rowproj, label='projection', values=self.projs,
             command=self.selected_proj, width=mwidth,
@@ -506,6 +503,16 @@ class ncvMap(Frame):
             self.rowproj, text='Quit', command=self.master.top.destroy,
             nopack=True, tooltip='Quit ncvue')
         self.bquit.pack(side=tk.RIGHT)
+
+        # The canvas is rather flexible in its size, so we pack it last which makes
+        # sure the UI controls are displayed as long as possible.
+        self.rowproj.pack(side=tk.BOTTOM, fill=tk.X)
+        self.rowcmap.pack(side=tk.BOTTOM, fill=tk.X)
+        self.rowll.pack(side=tk.BOTTOM, fill=tk.X)
+        self.rowvv.pack(side=tk.BOTTOM, fill=tk.X)
+        self.rowt.pack(side=tk.BOTTOM, fill=tk.X)
+        self.rowwin.pack(side=tk.TOP, fill=tk.X)
+        self.rowcanvas.pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
 
         # set lat/lon
         if self.usex:
