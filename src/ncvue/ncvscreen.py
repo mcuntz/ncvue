@@ -114,8 +114,8 @@ class ncvScreen(object):
             if ((xsize + xoffset) > self.width) or (xsize == 1000):
                 xoffset = (self.width - xsize) // 2
 
-        #ysize = 1200
-        #xsize = int(1.5 * ysize)
+        # ysize = 1200
+        # xsize = int(1.5 * ysize)
         return xsize, ysize, xoffset, yoffset
 
     def secondary_window_size(self):

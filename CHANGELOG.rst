@@ -1,7 +1,7 @@
 Changelog
 ---------
 
-v6.4 (??? 2025)
+v6.4 (Dec 2025)
    - Draw canvas as last element so that UI controls are displayed as
      long as possible.
    - Get size from fullscreen window to deal with multiple monitors.
