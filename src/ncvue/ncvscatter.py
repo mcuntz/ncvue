@@ -61,6 +61,7 @@ from .ncvmethods import analyse_netcdf, get_slice_miss
 from .ncvmethods import set_dim_x, set_dim_y, set_dim_y2
 from .ncvwidgets import add_checkbutton, add_combobox, add_entry
 from .ncvwidgets import add_spinbox, add_label, add_button
+from .ncvscreen import ncvScreen
 # import matplotlib
 # matplotlib.use('TkAgg')
 from matplotlib import pyplot as plt
@@ -180,6 +181,8 @@ class ncvScatter(Frame):
         ltstr = ("min, max\n"
                  "Set to None for free scaling.\n"
                  "Datetime must be in iso8601 format, e.g. 2025-11-23")
+        # high-resolution screens
+        sc = ncvScreen(self.top)
         if ihavectk:
             # width of combo boxes in px
             combowidth = 288
@@ -226,19 +229,20 @@ class ncvScatter(Frame):
         self.newwin.pack(side=tk.RIGHT)
 
         # plotting canvas
-        self.figure = Figure(facecolor='white', figsize=(1, 1))
+        self.rowcanvas = Frame(self)
+        self.rowcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+        self.figure = Figure(facecolor='white', figsize=(1, 1), dpi=sc.dpi_default)
         self.axes   = self.figure.add_subplot(111)
         self.axes2  = self.axes.twinx()
         self.axes2.yaxis.set_label_position('right')
         self.axes2.yaxis.tick_right()
-        self.canvas = FigureCanvasTkAgg(self.figure, master=self)
+        self.canvas = FigureCanvasTkAgg(self.figure, master=self.rowcanvas)
         self.canvas.draw()
         self.tkcanvas = self.canvas.get_tk_widget()
-        self.tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
-
+        self.tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
         # matplotlib toolbar
         # toolbar uses pack internally -> put into frame
-        self.toolbar = NavigationToolbar2Tk(self.canvas, self,
+        self.toolbar = NavigationToolbar2Tk(self.canvas, self.rowcanvas,
                                             pack_toolbar=True)
         self.toolbar.update()
         self.toolbar.pack(side=tk.TOP, fill=tk.X)
