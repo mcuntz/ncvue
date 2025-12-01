@@ -89,9 +89,9 @@ has to do, for example, ``sudo apt install python3-tk`` on Linux or
 We also provide standalone applications for macOS and Windows that
 come with everything needed to run ``ncvue`` including Python:
 
-  - macOS: `ncvue 6.3 Intel`_ and `ncvue 6.3 ARM`_ for Intel and ARM
+  - macOS: `ncvue 6.4 Intel`_ and `ncvue 6.4 ARM`_ for Intel and ARM
     processors, resp., for macOS 15+ [Sequoia]
-  - Windows: `ncvue 6.3`_
+  - Windows: `ncvue 6.4`_
 
 `ncvue > 5.0` is either for Intel processors or for Apple Silicon
 (ARM) chips. The apps > v5.0 are notarized by Apple and might take a
@@ -318,9 +318,9 @@ Different netCDF test files were provided by `Juliane Mai`_.
 .. _Sebastian Müller: https://github.com/MuellerSeb
 .. _dask: https://docs.dask.org/
 .. _ncview: http://meteora.ucsd.edu/~pierce/ncview_home_page.html
-.. _ncvue 6.3 ARM: https://www.macu.de/extra/ncvue-6.3.arm64.dmg
-.. _ncvue 6.3 Intel: https://www.macu.de/extra/ncvue-6.3.intel.dmg
-.. _ncvue 6.3: https://www.macu.de/extra/ncvue-6.3-win64.msi
+.. _ncvue 6.4 ARM: https://www.macu.de/extra/ncvue-6.4-arm64.dmg
+.. _ncvue 6.4 Intel: https://www.macu.de/extra/ncvue-6.4-intel.dmg
+.. _ncvue 6.4: https://www.macu.de/extra/ncvue-6.3-win64.msi
 .. _panoply: https://www.giss.nasa.gov/tools/panoply/
 .. _rdbende: https://github.com/rdbende
 .. _template: https://github.com/MuellerSeb/template
