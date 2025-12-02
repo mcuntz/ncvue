@@ -60,8 +60,8 @@ class ncvScreen(object):
             # self.height = top.winfo_height()  # excludes title bar
             # self.width = top.winfo_width()    # width of current monitor
             self.width, self.height, x, y = self.get_window_geometry(top)
-            print('winfo', self.width, self.height,
-                  top.winfo_screenwidth(), top.winfo_screenheight())
+            # print('winfo', self.width, self.height,
+            #       top.winfo_screenwidth(), top.winfo_screenheight())
             top.wm_state(wm_state)
             top.update()
 

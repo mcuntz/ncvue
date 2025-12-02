@@ -56,7 +56,7 @@ macOS dmg
 Windows installer
     python cx_freeze_setup.py bdist_msi
     cd dist
-    scp ncvue-6.4-win64.msi macu.de@ssh.strato.de:fr-hes/
+    scp ncvue-6.4-win64.msi macu.de@ssh.strato.de:extra/
 
 '''
 import os
