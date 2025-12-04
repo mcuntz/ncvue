@@ -320,7 +320,7 @@ Different netCDF test files were provided by `Juliane Mai`_.
 .. _ncview: http://meteora.ucsd.edu/~pierce/ncview_home_page.html
 .. _ncvue 6.4 ARM: https://www.macu.de/extra/ncvue-6.4-arm64.dmg
 .. _ncvue 6.4 Intel: https://www.macu.de/extra/ncvue-6.4-intel.dmg
-.. _ncvue 6.4: https://www.macu.de/extra/ncvue-6.3-win64.msi
+.. _ncvue 6.4: https://www.macu.de/extra/ncvue-6.4-win64.msi
 .. _panoply: https://www.giss.nasa.gov/tools/panoply/
 .. _rdbende: https://github.com/rdbende
 .. _template: https://github.com/MuellerSeb/template
