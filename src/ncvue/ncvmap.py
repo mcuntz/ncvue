@@ -185,10 +185,10 @@ class ncvMap(Frame):
         else:
             # width of combo boxes in characters
             combowidth = 32
-            smallcombowidth = 5
+            smallcombowidth = 8
             # widths of entry widgets in characters
             ewsmall = 3
-            ewmed = 4
+            ewmed = 5
             ewbig = 7
             ewvbig = 11
             # pad between label and entry (not used)

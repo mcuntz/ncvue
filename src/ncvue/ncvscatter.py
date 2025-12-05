@@ -204,7 +204,7 @@ class ncvScatter(Frame):
             combowidth = 28
             # widths of entry widgets in characters
             ewsmall = 3
-            ewmed = 4
+            ewmed = 5
             ewbig = 7
             ew2big = 10
             # pad between label and entry (not used)

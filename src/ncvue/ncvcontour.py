@@ -150,6 +150,7 @@ class ncvContour(Frame):
             ewsmall = 3
             ewmed = 4
             ewbig = 7
+            ewvbig = 11
             # pad between label and entry (not used)
             padx = 5
             # width of animation and variables buttons
@@ -221,12 +222,12 @@ class ncvContour(Frame):
         self.trans_zframe.pack(side=tk.LEFT)
         spacez = add_label(self.rowz, text=' ')
         self.zminframe, self.zminlbl, self.zmin, self.zmintip = add_entry(
-            self.rowz, label='zmin', text='None', width=ewbig, padx=padx,
+            self.rowz, label='zmin', text='None', width=ewvbig, padx=padx,
             command=self.entered_z,
             tooltip='Minimal display value. Free scaling if "None".')
         self.zminframe.pack(side=tk.LEFT)
         self.zmaxframe, self.zmaxlbl, self.zmax, self.zmaxtip = add_entry(
-            self.rowz, label='zmax', text='None', width=ewbig, padx=padx,
+            self.rowz, label='zmax', text='None', width=ewvbig, padx=padx,
             command=self.entered_z,
             tooltip='Maximal display value. Free scaling if "None".')
         self.zmaxframe.pack(side=tk.LEFT)

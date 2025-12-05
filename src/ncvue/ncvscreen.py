@@ -25,6 +25,7 @@ History
 """
 import platform
 import re
+import tkinter
 try:
     import customtkinter
     ihavectk = True
@@ -52,18 +53,29 @@ class ncvScreen(object):
             # total width of all monitors if not on macOS
             self.width = top.winfo_screenwidth()
             self.height = top.winfo_screenheight()  # includes title bar
-        else:
-            # ${HOMEBREW_CELLAR}/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/idlelib/zoomheight.py
+        elif self.os == 'Windows':
             wm_state = top.wm_state()
             top.wm_state('zoomed')  # make fullscreen
-            # size of window is now size of current monitor w/o titlebar
-            # self.height = top.winfo_height()  # excludes title bar
-            # self.width = top.winfo_width()    # width of current monitor
             self.width, self.height, x, y = self.get_window_geometry(top)
-            # print('winfo', self.width, self.height,
-            #       top.winfo_screenwidth(), top.winfo_screenheight())
             top.wm_state(wm_state)
             top.update()
+        else:
+            wm_state = top.wm_state()
+            try:
+                top.wm_state('zoomed')  # make fullscreen
+                self.width, self.height, x, y = self.get_window_geometry(top)
+            except tkinter.TclError:
+                self.width = min(top.winfo_screenwidth(), 1618)
+                self.height = min(top.winfo_screenheight(), 1000)
+                # if ihavectk:
+                #     top.wm_attributes('-fullscreen', True)
+                #     self.width, self.height, x, y = self.get_window_geometry(top)
+                # else:
+                #     self.width, self.height = top.maxsize()
+            top.wm_state(wm_state)
+            top.update()
+        # print('winfo', self.width, self.height,
+        #       top.winfo_screenwidth(), top.winfo_screenheight())
 
         # result of top.winfo_fpixels('1i') on development screen
         self.dpi_default = 72.
