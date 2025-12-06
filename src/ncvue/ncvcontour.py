@@ -137,6 +137,7 @@ class ncvContour(Frame):
             ewsmall = 20
             ewmed = 45
             ewbig = 70
+            ewvbig = 117
             # pad between label and entry
             padx = 5
             # width of animation and variables buttons
