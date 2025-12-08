@@ -1,7 +1,7 @@
 Changelog
 ---------
 
-v6.5 (??? 202?)
+v6.4.1 (Dec 2025)
   - Finetuned size without CustomTkinter.
   - Set window size on Linux systems that do not support
     state('zoomed') on tkinter windows.

@@ -31,7 +31,7 @@
 <link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=48fd97d2" />
   
   <!-- So that users can add custom icons -->
@@ -410,7 +410,7 @@ France.</p>
 </dd>
 </dl>
 <p>The following functions are provided:</p>
-<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ncvue.ncvutils.DIMMETHODS" title="ncvue.ncvutils.DIMMETHODS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DIMMETHODS</span></code></a></p></td>
 <td><p>Arithmetic methods implemented on dimensions.</p></td>
@@ -564,7 +564,7 @@ the right-most dimension.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic_data</span> <span class="o">=</span> <span class="n">add_cyclic</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_data</span><span class="p">)</span>  
 <span class="go">[[0. 1. 2. 3. 4. 5. 0.]</span>
 <span class="go"> [0. 1. 2. 3. 4. 5. 0.]</span>
 <span class="go"> [0. 1. 2. 3. 4. 5. 0.]</span>
@@ -575,7 +575,7 @@ the right-most dimension.</p>
 <p>Adding a cyclic point to a data array and an associated x-coordinate.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lons</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic_data</span><span class="p">,</span> <span class="n">cyclic_lons</span> <span class="o">=</span> <span class="n">add_cyclic</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">lons</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_data</span><span class="p">)</span>  
 <span class="go">[[0. 1. 2. 3. 4. 5. 0.]</span>
 <span class="go"> [0. 1. 2. 3. 4. 5. 0.]</span>
 <span class="go"> [0. 1. 2. 3. 4. 5. 0.]</span>
@@ -591,7 +591,7 @@ x-coordinate.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">180</span><span class="o">/</span><span class="mi">5</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lon2d</span><span class="p">,</span> <span class="n">lat2d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">lons</span><span class="p">,</span> <span class="n">lats</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic_data</span><span class="p">,</span> <span class="n">cyclic_lon2d</span> <span class="o">=</span> <span class="n">add_cyclic</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">lon2d</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_data</span><span class="p">)</span>  
 <span class="go">[[0. 1. 2. 3. 4. 5. 0.]</span>
 <span class="go"> [0. 1. 2. 3. 4. 5. 0.]</span>
 <span class="go"> [0. 1. 2. 3. 4. 5. 0.]</span>
@@ -612,7 +612,7 @@ x- and y-coordinates.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lon2d</span><span class="p">,</span> <span class="n">lat2d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">lons</span><span class="p">,</span> <span class="n">lats</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic_data</span><span class="p">,</span> <span class="n">cyclic_lon2d</span><span class="p">,</span> <span class="n">cyclic_lat2d</span> <span class="o">=</span> <span class="n">add_cyclic</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">lon2d</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">lat2d</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_data</span><span class="p">)</span>  
 <span class="go">[[0. 1. 2. 3. 4. 5. 0.]</span>
 <span class="go"> [0. 1. 2. 3. 4. 5. 0.]</span>
 <span class="go"> [0. 1. 2. 3. 4. 5. 0.]</span>
@@ -638,7 +638,7 @@ x- and y-coordinates.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lon2d</span><span class="p">,</span> <span class="n">lat2d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">lons</span><span class="p">,</span> <span class="n">lats</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic_data</span><span class="p">,</span> <span class="n">cyclic_lon2d</span><span class="p">,</span> <span class="n">cyclic_lat2d</span> <span class="o">=</span> <span class="n">add_cyclic</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">lon2d</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">lat2d</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_data</span><span class="p">)</span>  
 <span class="go">[[0. 1. 2. 3. 4. 5.]</span>
 <span class="go"> [0. 1. 2. 3. 4. 5.]</span>
 <span class="go"> [0. 1. 2. 3. 4. 5.]</span>
@@ -1063,7 +1063,7 @@ or with group ‘file1/latitude (lat=32,lon=64)’</p>
 <dd><p>Combines dimension names and length of xarray variable in list of strings.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>ncvar</strong> (<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.11.1)"><em>xarray.DataArray</em></a>) – xarray variable</p>
+<dd class="field-odd"><p><strong>ncvar</strong> (<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.12.0)"><em>xarray.DataArray</em></a>) – xarray variable</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>List of dimension name and length in the form ‘dim=len’.</p>
