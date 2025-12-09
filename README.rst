@@ -89,7 +89,7 @@ has to do, for example, ``sudo apt install python3-tk`` on Linux or
 We also provide standalone applications for macOS and Windows that
 come with everything needed to run ``ncvue`` including Python:
 
-  - macOS: `ncvue 6.4 Intel`_ and `ncvue 6.4 ARM`_ for Intel and ARM
+  - macOS: `ncvue 6.4.1 Intel`_ and `ncvue 6.4 ARM`_ for Intel and ARM
     processors, resp., for macOS 15+ [Sequoia]
   - Windows: `ncvue 6.4`_
 
@@ -319,7 +319,7 @@ Different netCDF test files were provided by `Juliane Mai`_.
 .. _dask: https://docs.dask.org/
 .. _ncview: http://meteora.ucsd.edu/~pierce/ncview_home_page.html
 .. _ncvue 6.4 ARM: https://www.macu.de/extra/ncvue-6.4-arm64.dmg
-.. _ncvue 6.4 Intel: https://www.macu.de/extra/ncvue-6.4-intel.dmg
+.. _ncvue 6.4.1 Intel: https://www.macu.de/extra/ncvue-6.4.1-intel.dmg
 .. _ncvue 6.4: https://www.macu.de/extra/ncvue-6.4-win64.msi
 .. _panoply: https://www.giss.nasa.gov/tools/panoply/
 .. _rdbende: https://github.com/rdbende
