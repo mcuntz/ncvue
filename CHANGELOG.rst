@@ -1,6 +1,9 @@
 Changelog
 ---------
 
+v6.5 (??? 202?)
+  - Update toplevel during zoom for Windows azure.
+
 v6.4.1 (Dec 2025)
   - Finetuned size without CustomTkinter.
   - Set window size on Linux systems that do not support

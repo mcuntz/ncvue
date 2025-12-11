@@ -90,12 +90,27 @@ We also provide standalone applications for macOS and Windows that
 come with everything needed to run ``ncvue`` including Python:
 
   - macOS: `ncvue 6.4.1 Intel`_ and `ncvue 6.4.1 ARM`_ for Intel and ARM
-    processors, resp., for macOS 15+ [Sequoia]
-  - Windows: `ncvue 6.4.1`_
+    processors, resp., for macOS 15+ [Sequoia and newer]. The same
+    packages without CustomTkinter_ are `ncvue 6.4.1 Intel aqua`_ and
+    `ncvue 6.4.1 ARM aqua`_ for Intel and ARM processors,
+    respectively.
+  - Windows: `ncvue 6.4.1`_, packaged on Windows 10. The same
+    package without CustomTkinter_ is `ncvue 6.4.1 azure`_
 
 `ncvue > 5.0` is either for Intel processors or for Apple Silicon
 (ARM) chips. The apps > v5.0 are notarized by Apple and might take a
 short while on first opening.
+
+Some people have problems with CustomTkinter's dropdown menus that do
+not use scrollbars, e.g. for selecting variables. In this case,
+uninstall CustomTkinter:
+
+.. code-block:: bash
+
+   python -m pip uninstall customtkinter
+
+or download the standalone package without it. This is less beautiful
+but uses scrollbars with menus and might work better on your setup.
 
 
 Quick usage guide
@@ -319,8 +334,11 @@ Different netCDF test files were provided by `Juliane Mai`_.
 .. _dask: https://docs.dask.org/
 .. _ncview: http://meteora.ucsd.edu/~pierce/ncview_home_page.html
 .. _ncvue 6.4.1 ARM: https://www.macu.de/extra/ncvue-6.4.1-arm64.dmg
+.. _ncvue 6.4.1 ARM aqua: https://www.macu.de/extra/ncvue-6.4.1-arm64-aqua.dmg
 .. _ncvue 6.4.1 Intel: https://www.macu.de/extra/ncvue-6.4.1-intel.dmg
+.. _ncvue 6.4.1 Intel aqua: https://www.macu.de/extra/ncvue-6.4.1-intel-aqua.dmg
 .. _ncvue 6.4.1: https://www.macu.de/extra/ncvue-6.4.1-win64.msi
+.. _ncvue 6.4.1 azure: https://www.macu.de/extra/ncvue-6.4.1-win64-azure.msi
 .. _panoply: https://www.giss.nasa.gov/tools/panoply/
 .. _rdbende: https://github.com/rdbende
 .. _template: https://github.com/MuellerSeb/template

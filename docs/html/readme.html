@@ -449,13 +449,25 @@ come with everything needed to run <code class="docutils literal notranslate"><s
 <blockquote>
 <div><ul class="simple">
 <li><p>macOS: <a class="reference external" href="https://www.macu.de/extra/ncvue-6.4.1-intel.dmg">ncvue 6.4.1 Intel</a> and <a class="reference external" href="https://www.macu.de/extra/ncvue-6.4.1-arm64.dmg">ncvue 6.4.1 ARM</a> for Intel and ARM
-processors, resp., for macOS 15+ [Sequoia]</p></li>
-<li><p>Windows: <a class="reference external" href="https://www.macu.de/extra/ncvue-6.4.1-win64.msi">ncvue 6.4.1</a></p></li>
+processors, resp., for macOS 15+ [Sequoia and newer]. The same
+packages without <a class="reference external" href="https://customtkinter.tomschimansky.com/">CustomTkinter</a> are <a class="reference external" href="https://www.macu.de/extra/ncvue-6.4.1-intel-aqua.dmg">ncvue 6.4.1 Intel aqua</a> and
+<a class="reference external" href="https://www.macu.de/extra/ncvue-6.4.1-arm64-aqua.dmg">ncvue 6.4.1 ARM aqua</a> for Intel and ARM processors,
+respectively.</p></li>
+<li><p>Windows: <a class="reference external" href="https://www.macu.de/extra/ncvue-6.4.1-win64.msi">ncvue 6.4.1</a>, packaged on Windows 10. The same
+package without <a class="reference external" href="https://customtkinter.tomschimansky.com/">CustomTkinter</a> is <a class="reference external" href="https://www.macu.de/extra/ncvue-6.4.1-win64-azure.msi">ncvue 6.4.1 azure</a></p></li>
 </ul>
 </div></blockquote>
 <p><cite>ncvue &gt; 5.0</cite> is either for Intel processors or for Apple Silicon
 (ARM) chips. The apps &gt; v5.0 are notarized by Apple and might take a
 short while on first opening.</p>
+<p>Some people have problems with CustomTkinter’s dropdown menus that do
+not use scrollbars, e.g. for selecting variables. In this case,
+uninstall CustomTkinter:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>uninstall<span class="w"> </span>customtkinter
+</pre></div>
+</div>
+<p>or download the standalone package without it. This is less beautiful
+but uses scrollbars with menus and might work better on your setup.</p>
 </section>
 <section id="quick-usage-guide">
 <h2>Quick usage guide<a class="headerlink" href="#quick-usage-guide" title="Link to this heading">#</a></h2>
