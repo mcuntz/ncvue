@@ -234,6 +234,7 @@ class ncvMap(Frame):
         # controls
         self.rowt = Frame(self)
         ntime = 1
+        print('ntime', ntime)
         self.tstepframe, self.tsteplbl, self.tstepval, self.tstep, self.tsteptip = (
             add_scale(self.rowt, label='step', ini=0, from_=0, to=ntime,
                       length=100, orient=tk.HORIZONTAL, command=self.tstep_t,

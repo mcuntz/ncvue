@@ -2,6 +2,7 @@ Changelog
 ---------
 
 v6.5 (??? 202?)
+  - Updated Github actions.
   - Update toplevel during zoom for Windows azure.
 
 v6.4.1 (Dec 2025)
