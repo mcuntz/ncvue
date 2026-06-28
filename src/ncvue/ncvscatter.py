@@ -41,6 +41,8 @@ History
    * Tooltip for xlim and ylim includes datetime, Nov 2025, Matthias Cuntz
    * Draw canvas as last element so that UI controls are displayed
      as long as possible, Dec 2025, Matthias Cuntz
+   * Remove self from definition of _minmax_ylim, Jun 2026, Matthias Cuntz
+
 
 """
 import tkinter as tk
@@ -79,7 +81,7 @@ except OSError:
 __all__ = ['ncvScatter']
 
 
-def _minmax_ylim(self, ylim, ylim2):
+def _minmax_ylim(ylim, ylim2):
     """
     Get minimum of first elements of lists `ylim` and `ylim2` and
     maximum of second element of the two lists.

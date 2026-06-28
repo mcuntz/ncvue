@@ -332,7 +332,7 @@ Different netCDF test files were provided by `Juliane Mai`_.
 .. _Juliane Mai: https://github.com/julemai
 .. _Sebastian Müller: https://github.com/MuellerSeb
 .. _dask: https://docs.dask.org/
-.. _ncview: http://meteora.ucsd.edu/~pierce/ncview_home_page.html
+.. _ncview: https://cirrus.ucsd.edu/ncview/
 .. _ncvue 6.4.1 ARM: https://www.macu.de/extra/ncvue-6.4.1-arm64.dmg
 .. _ncvue 6.4.1 ARM aqua: https://www.macu.de/extra/ncvue-6.4.1-arm64-aqua.dmg
 .. _ncvue 6.4.1 Intel: https://www.macu.de/extra/ncvue-6.4.1-intel.dmg

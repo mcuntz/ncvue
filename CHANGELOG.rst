@@ -2,13 +2,14 @@ Changelog
 ---------
 
 v6.5 (??? 202?)
+  - Bugfix: remove `self` from internal routine in `ncvscatter`.
   - Updated Github actions.
   - Update toplevel during zoom for Windows azure.
 
 v6.4.1 (Dec 2025)
   - Finetuned size without CustomTkinter.
   - Set window size on Linux systems that do not support
-    state('zoomed') on tkinter windows.
+    state ('zoomed') on tkinter windows.
 
 v6.4 (Dec 2025)
    - Draw canvas as last element so that UI controls are displayed as
