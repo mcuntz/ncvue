@@ -2,6 +2,7 @@ Changelog
 ---------
 
 v6.5 (??? 202?)
+  - Provide only colormaps for which a png file exists.
   - Bugfix: remove `self` from internal routine in `ncvscatter`.
   - Updated Github actions.
   - Update toplevel during zoom for Windows azure.

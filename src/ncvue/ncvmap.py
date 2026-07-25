@@ -47,6 +47,7 @@ History
    * Include xarray to read input files, Feb 2025, Matthias Cuntz
    * Draw canvas as last element so that UI controls are displayed
      as long as possible, Dec 2025, Matthias Cuntz
+   * Only colormaps where png exists, Jul 2026, Matthias Cuntz
 
 """
 import os
@@ -141,12 +142,14 @@ class ncvMap(Frame):
         columns = [''] + self.cols
 
         allcmaps = plt.colormaps()
-        self.cmaps  = [ i for i in allcmaps if not i.endswith('_r') ]
+        self.cmaps = [ i for i in allcmaps if not i.endswith('_r') ]
         self.cmaps.sort()
         bundle_dir = getattr(sys, '_MEIPASS',
                              os.path.abspath(os.path.dirname(__file__)))
-        self.imaps  = [ tk.PhotoImage(file=f'{bundle_dir}/images/{i}.png')
-                        for i in self.cmaps ]
+        self.cmaps = [ i for i in self.cmaps
+                       if os.path.exists(f'{bundle_dir}/images/{i}.png') ]
+        self.imaps = [ tk.PhotoImage(file=f'{bundle_dir}/images/{i}.png')
+                       for i in self.cmaps ]
 
         # only projections with keyword: central_longitude
         self.projs = ['AlbersEqualArea', 'AzimuthalEquidistant', 'EckertI',
