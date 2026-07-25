@@ -71,6 +71,10 @@ History
    * v6.0 Include xarray to read input files, Mar 2025, Matthias Cuntz
    * v6.1 macOS and Windows installers, Mar 2025, Matthias Cuntz
    * v6.2 Use screen size to determine window sizes, Nov 2025, Matthias Cuntz
+   * v6.3 Deduce datetime in xlim and ylim, Nov 2025, Matthias Cuntz
+   * v6.4 Canvas as last element, Dec 2025, Matthias Cuntz
+   * v6.5 Provide only colormaps for which png files exist,
+     Jul 2026, Matthias Cuntz
 
 """
 # helper functions

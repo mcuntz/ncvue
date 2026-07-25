@@ -1,7 +1,7 @@
 Changelog
 ---------
 
-v6.5 (??? 202?)
+v6.5 (Jul 2026)
   - Provide only colormaps for which a png file exists.
   - Bugfix: remove `self` from internal routine in `ncvscatter`.
   - Updated Github actions.
