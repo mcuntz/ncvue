@@ -75,6 +75,7 @@ History
    * v6.4 Canvas as last element, Dec 2025, Matthias Cuntz
    * v6.5 Provide only colormaps for which png files exist,
      Jul 2026, Matthias Cuntz
+   * v6.6 Plot single >= 2D variable at start, Jul 2026, Matthias Cuntz
 
 """
 # helper functions

@@ -9,11 +9,11 @@ On macOS, use minimal virtual environment
         export GEOS_DIR="$(brew --prefix geos)"
         export GEOS_CONFIG="$(brew --prefix geos)/bin/geos-config"
     fi
-    pyenv virtualenv 3.12.8 ncvue-install
+    pyenv virtualenv 3.14.3 ncvue-install
     pyenv local ncvue-install
     # or:
-    # pyenv virtualenv 3.12.8 ncvue-install-ctk
-    # pyenv local ncvue-install-ctk
+    # pyenv virtualenv 3.14.3 ncvue-install
+    # pyenv local ncvue-install
     pyenv rehash
     # requirements.txt includes dask and xarray
     python -m pip install -r requirements.txt
@@ -49,10 +49,11 @@ macOS app
 macOS dmg
     python cx_freeze_setup.py bdist_dmg
     cd build
-    xcrun notarytool submit ncvue-6.4-intel.dmg --keychain-profile "notarytool-password"
+    xcrun notarytool submit ncvue-6.5-arm64.dmg --keychain-profile "notarytool-password"
     xcrun notarytool log 6d0cb58d-867d-4f91-a3e6-98c27c58f3e9 --keychain-profile "notarytool-password" developer_log.json
-    xcrun stapler staple ncvue-6.4-intel.dmg
-    scp ncvue-6.4-intel.dmg macu.de@ssh.strato.de:extra/
+    head developer_log.json
+    xcrun stapler staple ncvue-6.5-arm64.dmg
+    scp ncvue-6.5-arm64.dmg macu.de@ssh.strato.de:extra/
 Windows installer
     python cx_freeze_setup.py bdist_msi
     cd dist
@@ -153,6 +154,7 @@ bdist_mac_options = {
     # Check ID (Team ID is in parenthesis)
     #     security find-identity -p codesigning -v
     'codesign_identity': 'MATTHIAS OSKAR CUNTZ (R5T7LWQ224)',
+    # 'codesign_identity': 'MATTHIAS OSKAR CUNTZ (ZM7934X7KV)',  # cwmini
     'codesign_options': 'runtime',  # Ensure codesign uses 'hardened runtime'
     'codesign_verify': True,  # Get more verbose logging for codesign
     'spctl_assess': False,  # rejects codesign because not notarized yet

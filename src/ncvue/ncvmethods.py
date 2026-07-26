@@ -70,6 +70,7 @@ History
    * Use new get_standard_name and get_units from ncvutils,
      Feb 2025, Matthias Cuntz
    * Add analyse_netcdf_xarray, Feb 2025, Matthias Cuntz
+   * Determine if single >= 2D variable in file, Jul 2026, Matthias Cuntz
 
 """
 import tkinter as tk
@@ -111,7 +112,7 @@ def analyse_netcdf(self):
     Set variables:
         self.dunlim,
         self.time, self.tname, self.tvar, self.dtime,
-        self.cols,
+        self.cols, self.firstvar,
         self.latvar, self.lonvar, self.latdim, self.londim
 
     Examples
@@ -140,7 +141,7 @@ def analyse_netcdf_ncvue(self):
     Set variables:
         self.dunlim,
         self.time, self.tname, self.tvar, self.dtime,
-        self.cols,
+        self.cols, self.firstvar,
         self.latvar, self.lonvar, self.latdim, self.londim
 
     Examples
@@ -456,6 +457,35 @@ def analyse_netcdf_ncvue(self):
             idim = tuple(zip_dim_name_length(ivar))
             self.lonvar[ig] = self.lonvar[ig] + ' ' + str(idim)
 
+    # set firstvar if only one variable >= 2D
+    self.firstvar = ''
+    if ngroups <= 1:
+        ig = 0
+        avars = self.cols.copy()
+        cvars = self.cols.copy()
+        if self.time[ig] is not None:
+            avars = avars[1:]
+            cvars = cvars[1:]
+        for vv in cvars:
+            if self.latvar[ig] == vv:
+                avars.remove(vv)
+            elif self.lonvar[ig] == vv:
+                avars.remove(vv)
+            else:
+                ig, ivar = vardim2var(vv)
+                if ivar == self.tvar[ig]:
+                    avars.remove(vv)
+                else:
+                    fvar = fi.variables[ivar]
+                    if self.dunlim[ig] in fvar.dimensions:
+                        nmin = 3
+                    else:
+                        nmin = 2
+                    if fvar.ndim < nmin:
+                        avars.remove(vv)
+        if len(avars) == 1:
+            self.firstvar = avars[0]
+
 
 def analyse_netcdf_xarray(self):
     """
@@ -472,7 +502,7 @@ def analyse_netcdf_xarray(self):
     Set variables:
         self.dunlim,
         self.time, self.tname, self.tvar, self.dtime,
-        self.cols,
+        self.cols, self.firstvar,
         self.latvar, self.lonvar, self.latdim, self.londim
 
     Examples
@@ -480,8 +510,6 @@ def analyse_netcdf_xarray(self):
     >>> analyse_netcdf_xarray(self)
 
     """
-    import xarray as xr
-
     #
     # search time
     self.dunlim = None
@@ -553,6 +581,35 @@ def analyse_netcdf_xarray(self):
     if self.lonvar:
         idim = tuple(xzip_dim_name_length(self.fi[self.lonvar]))
         self.lonvar = self.lonvar + ' ' + str(idim)
+
+    #
+    # set firstvar if only one variable >= 2D
+    self.firstvar = ''
+    ig = 0
+    avars = self.cols.copy()
+    cvars = self.cols.copy()
+    if self.time is not None:
+        avars = avars[1:]
+        cvars = cvars[1:]
+    for vv in cvars:
+        if self.latvar == vv:
+            avars.remove(vv)
+        elif self.lonvar == vv:
+            avars.remove(vv)
+        else:
+            ig, ivar = vardim2var(vv)
+            if (self.dtime is not None) and (ivar == self.dtime.name):
+                avars.remove(vv)
+            else:
+                fvar = self.fi.variables[ivar]
+                if self.dunlim in fvar.dims:
+                    nmin = 3
+                else:
+                    nmin = 2
+                if fvar.ndim < nmin:
+                    avars.remove(vv)
+    if len(avars) == 1:
+        self.firstvar = avars[0]
 
 
 #

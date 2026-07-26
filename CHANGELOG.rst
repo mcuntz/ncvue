@@ -1,6 +1,9 @@
 Changelog
 ---------
 
+v6.6 (Jul 2026)
+  - Plot variable at start up if only one >= 2D variable in file.
+
 v6.5 (Jul 2026)
   - Provide only colormaps for which a png file exists.
   - Bugfix: remove `self` from internal routine in `ncvscatter`.

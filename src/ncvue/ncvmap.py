@@ -48,6 +48,7 @@ History
    * Draw canvas as last element so that UI controls are displayed
      as long as possible, Dec 2025, Matthias Cuntz
    * Only colormaps where png exists, Jul 2026, Matthias Cuntz
+   * Plot single >= 2D variable at start, Jul 2026, Matthias Cuntz
 
 """
 import os
@@ -133,6 +134,7 @@ class ncvMap(Frame):
         self.londim = self.top.londim
         self.maxdim = self.top.maxdim
         self.cols   = self.top.cols
+        self.firstvar = self.top.firstvar
 
         # unlimited dimension control
         self.iunlim = -1  # index of dunlim in dimensions of current var
@@ -577,6 +579,11 @@ class ncvMap(Frame):
             self.figure, self.update, init_func=self.redraw,
             interval=1, repeat=irepeat, save_count=maxtime)
 
+        # show single variable
+        if self.firstvar:
+            self.selected_v('None', set_v=self.firstvar)
+
+
     #
     # Bindings
     #
@@ -675,6 +682,7 @@ class ncvMap(Frame):
             self.top.londim = []  # name of longitude dimension
             self.top.maxdim = 0   # maximum num of dims of all variables
             self.top.cols   = []  # variable list
+            self.top.firstvar = ''  # single 2D variable
             # open new netcdf file
             ianalyse = True
             for ii, nn in enumerate(ncfile):
@@ -732,6 +740,7 @@ class ncvMap(Frame):
             self.top.londim = []  # name of longitude dimension
             self.top.maxdim = 0   # maximum num of dims of all variables
             self.top.cols   = []  # variable list
+            self.top.firstvar = ''  # single 2D variable
             # open new netcdf file
             if len(ncfile) > 1:
                 self.top.fi = xr.open_mfdataset(ncfile)
@@ -957,7 +966,7 @@ class ncvMap(Frame):
             self.proj['text'] = value
         self.redraw()
 
-    def selected_v(self, event):
+    def selected_v(self, event, set_v=''):
         """
         Command called if plotting variable was selected with combobox.
 
@@ -966,6 +975,8 @@ class ncvMap(Frame):
         Resets `vmin`/`vmax` and variable-dimensions. Redraws plot.
 
         """
+        if set_v:
+            v = self.v.set(set_v)
         v = self.v.get()
         self.set_unlim(v)
         if ihavectk:
@@ -1097,6 +1108,7 @@ class ncvMap(Frame):
         self.londim = self.top.londim
         self.maxdim = self.top.maxdim
         self.cols   = self.top.cols
+        self.firstvar = self.top.firstvar
         self.iunlim = -1
         self.nunlim = 0
         # reset dimensions

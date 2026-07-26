@@ -223,6 +223,7 @@ def ncvue(ncfile=[], miss=np.nan, usex=False):
     top.maxdim = 1       # maximum number of dimensions of all variables
                          # > 0 so that dimension spinboxes present
     top.cols   = []      # variable list
+    top.firstvar = ''    # single 2D variable
 
     if len(ncfile) > 0:
         if top.usex:

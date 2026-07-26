@@ -154,6 +154,7 @@ class ncvScatter(Frame):
         self.londim = self.top.londim
         self.maxdim = self.top.maxdim
         self.cols   = self.top.cols
+        self.firstvar = self.top.firstvar
 
         # selections and options
         columns = [''] + self.cols
@@ -724,6 +725,7 @@ class ncvScatter(Frame):
             self.top.londim = []  # name of longitude dimension
             self.top.maxdim = 0   # maximum num of dims of all variables
             self.top.cols   = []  # variable list
+            self.top.firstvar = ''  # single 2D variable
             # open new netcdf file
             ianalyse = True
             for ii, nn in enumerate(ncfile):
@@ -781,6 +783,7 @@ class ncvScatter(Frame):
             self.top.londim = []  # name of longitude dimension
             self.top.maxdim = 0   # maximum num of dims of all variables
             self.top.cols   = []  # variable list
+            self.top.firstvar = ''  # single 2D variable
             # open new netcdf file
             if len(ncfile) > 1:
                 self.top.fi = xr.open_mfdataset(ncfile)
@@ -892,6 +895,7 @@ class ncvScatter(Frame):
         self.londim = self.top.londim
         self.maxdim = self.top.maxdim
         self.cols   = self.top.cols
+        self.firstvar = self.top.firstvar
         # reset dimensions
         for ll in self.xdlbl:
             ll.destroy()
